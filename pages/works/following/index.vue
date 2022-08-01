@@ -1,0 +1,255 @@
+<template>
+  <Layout 
+    :with-footer="true" 
+    :hide-side="true"
+    :no-right-side="true"
+  >
+    <div id="lists">
+      <!-- Top navigations -->
+      <div class="navigations">
+        <div class="title">
+          {{ $t('following') }}
+        </div>
+
+        <!-- Options -->
+        <div class="buttons">
+          <!-- Filter explicit content -->
+          <div 
+            v-if="$auth.loggedIn && $auth.user.user_settings.show_explicit" 
+            class="filter-buttons"
+          >
+            <p 
+              class="rounded-l-md button-item" 
+              :class="[explicitMode === undefined ? 'button' : 'theme-color']"
+              @click="changeExplicitMode(undefined)"
+            >
+              {{ $t('default') }}
+            </p>
+
+            <p 
+              class="button-item" 
+              :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
+              @click="changeExplicitMode('safe')"
+            >
+              {{ $t('safe') }}
+            </p>
+            
+            <p 
+              class="rounded-r-md button-item" 
+              :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
+              @click="changeExplicitMode('explicit')"
+            >
+              {{ $t('explicit') }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- On loading, empty or error occured -->
+      <ErrorMessages
+        :loading="loading"
+        :empty="isEmpty"
+        :error="isError"
+        :fetch="fetchTop"
+      />
+
+      <!-- List area -->
+      <div v-show="!loading">
+        <WorkList 
+          v-show="!isEmpty"
+          :section-class="'work-grid'"
+          :works="works"
+          :view="view"
+        />
+      </div>
+
+      <!-- Paging control -->
+      <div v-if="!loading && !isEmpty && !isError" class="flex float-right flex-row">
+        <button 
+          v-show="config.pagination.enablePrev"
+          class="primary-button"
+          :class="{ 'mr-2': config.pagination.enableNext }"
+          @click="movePage('prev')"
+        >
+          <Icon :name="'chevron-back-outline'" />
+          {{ $t('pagination.previous') }}
+        </button>
+        <button 
+          v-show="config.pagination.enableNext"
+          class="primary-button"
+          @click="movePage('next')"
+        >
+          {{ $t('pagination.next') }}
+          <Icon 
+            :name="'chevron-forward-outline'" 
+            class="ml-2"
+            style="margin-right: 0 !important" 
+          />
+        </button>
+      </div>
+
+      <!-- Modal view (artwork detail) -->
+      <div 
+        id="recent-modal"
+        class="modal work-view" 
+      >
+        <ModalView 
+          v-show="!loading"
+          ref="recentModalViewRef"
+          section="recent"
+        />
+      </div>
+    </div>
+  </Layout>
+</template>
+
+<script setup>
+// import { onClickOutside } from '@vueuse/core'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
+import Layout from '~/components/layouts/Layout.vue'
+import WorkList from '~/components/artworks/WorkList.vue'
+import ModalView from '~/components/artworks/views/ModalView.vue'
+import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+
+// composables
+import useApiFetch from '~/composables/useApiFetch'
+import useModal from '~/composables/useModal'
+import useArtwork from '~/composables/useArtwork'
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
+
+const { app, redirect, $auth } = useContext()
+
+/** Before mount, fetch first rows */
+onBeforeMount(() => {
+  if (!$auth.loggedIn) {
+    redirect(app.localePath('/'))
+  }
+
+  fetchTop()
+})
+
+// Change epxlicit mode for authenticated user and user who activate explicit content
+const explicitMode = ref(undefined)
+const changeExplicitMode = async (mode) => {
+  explicitMode.value = mode
+  pagination.page = 0
+
+  await fetchTop()
+}
+
+/** Fetch first row */
+const works = ref([])
+const config = ref({
+  pagination: {
+    enablePrev: true,
+    enableNext: true
+  }
+})
+const fetchTop = async () => {
+  const data = await fetch()
+
+  const dataWorks = data.works
+  const dataPagination = data.pagination
+
+  // handle empty data
+  if (!dataWorks.length && dataPagination.record_total === 0) {
+    showEmpty()
+  } else {
+    works.value = dataWorks
+  
+    if (dataPagination.next_previous.next_page === null) {
+      config.value.pagination.enableNext = false
+    } else {
+      config.value.pagination.enableNext = true
+    }
+
+    if (dataPagination.next_previous.prev_page === null) {
+      config.value.pagination.enablePrev = false
+    } else {
+      config.value.pagination.enablePrev = true
+    }
+  }
+}
+
+/** Fetch */
+const loading = ref(true)
+const pagination = reactive({
+  perPage: 18,
+  page: ref(0)
+})
+const fetch = async () => {
+  if (pagination.page === 0) {
+    loading.value = true
+  }
+
+  const [data, error] = await artworkApi.getFollowing({
+    pagination: {
+      perPage: pagination.perPage,
+      page: pagination.page
+    },
+    explicitMode: explicitMode.value
+  })
+
+  if (error) {
+    showError()
+  } else {
+    reset()
+    return data
+  }
+}
+
+// Control pagination and fetch
+const movePage = async (mode) => {
+  if (mode === 'prev') {
+    pagination.page -= 1
+  } else {
+    pagination.page += 1
+  }
+
+  await fetchTop()
+}
+
+/** Show empty if there's no artwork to show */
+const isEmpty = ref(false)
+const showEmpty = () => {
+  isEmpty.value = true
+}
+
+/** Show error message when error occured while trying to fetch artworks */
+const isError = ref(false)
+const showError = () => {
+  loading.value = false
+  isError.value = true
+  hideButton()
+}
+
+/** Reset refs */
+const reset = () => {
+  loading.value = false
+  isEmpty.value = false
+  isError.value = false
+}
+
+/** Artwork viewer, open a modal */
+const recentModalViewRef = ref(null)
+const view = (workId, keepArtistPageNumber = false) => {
+  recentModalViewRef.value.view(workId, keepArtistPageNumber)
+
+  useModal().openModal('recent-modal')
+}
+
+// const closeModal = (modalId) => {
+//   useModal().closeModal(modalId)
+// }
+// onClickOutside(recentModalViewRef, () => closeModal('recent-modal'))
+</script>
+
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+@import '~/assets/css/artworks/list.scss';
+</style>

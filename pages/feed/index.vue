@@ -1,0 +1,652 @@
+<template>
+  <Layout 
+    :with-footer="true"
+    :hide-side="isMobile()"
+  >
+    <SplashAlert 
+      v-show="copied"
+      id="copy-alert"
+      :text="'Link copied'"
+      :icon="'copy-outline'"
+    />
+
+    <div class="mx-auto w-full">
+      <div class="grid grid-cols-1 gap-2 mx-auto md:gap-4 xl:w-10/12">
+        <div v-for="feed in feeds" :key="feed.id+feed.type" class="lg:mx-6">
+          <div class="flex flex-row rounded-lg theme-color">
+            <!-- Images -->
+            <div class="w-full">
+              <div v-if="feed.users" class="p-4 user-info">
+                <nuxt-link :to="localePath('/profile/u/'+feed.users.username)">
+                  <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
+                </nuxt-link>
+                <div class="name">
+                  <nuxt-link 
+                    :to="localePath('/profile/u/'+feed.users.username)" 
+                    class="fullname"
+                  >
+                    {{ feed.users.name }}
+                  </nuxt-link>
+                  <br>
+                  <nuxt-link 
+                    :to="localePath('/profile/u/'+feed.users.username)" 
+                    class="username hover:underline"
+                  >
+                    @{{ feed.users.username }}
+                  </nuxt-link>
+                  
+                  <span class="mx-1">·</span>
+                  
+                  <span class="text-xxs">
+                    {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Image view on Desktop -->
+              <div v-if="feed.type === 'artworks' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
+                <ImageList 
+                  class="p-2"
+                  :work="feed"
+                />
+              </div>
+              
+              <!-- Image view on mobile or smaller device -->
+              <nuxt-link v-if="feed.type === 'artworks' && isMobile()" :to="localePath('/work/'+feed.id)" class="cursor-pointer">
+                <ImageList 
+                  class="p-2"
+                  :work="feed"
+                />
+              </nuxt-link>
+
+              <!-- information -->
+              <div v-if="feed.type === 'artworks'" class="px-4 mt-6">
+                <span class="text-xs font-semibold">{{ feed.title }}</span>
+                <p v-show="feed.description" class="mt-2">
+                  <span :id="'feed-description-'+feed.id">
+                    {{ feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description }}
+                  </span>
+                  <a 
+                    v-if="feed.description.length > 300" 
+                    :id="'feed-read-more-'+feed.id" 
+                    class="href" 
+                    @click.prevent="readMore(feed.description, feed.id, 'feed-read-more-', 'feed-description-')"
+                  >
+                    {{ $t('readMore') }}
+                  </a>
+                </p>
+              </div>
+
+              <!-- text feed -->
+              <div v-if="feed.type === 'feeds'" class="px-4 mt-4">
+                <p v-show="feed.text" class="mt-2">
+                  {{ feed.text }}
+                </p>
+              </div>
+
+              <!-- Intereaction area -->
+              <div class="float-right m-6 interactions">
+                <!-- Reactions -->
+                <div v-if="$auth.loggedIn" class="reactions">
+                  <!-- Like -->
+                  <span 
+                    class="leading-8" 
+                    @click="
+                      feed.type === 'artworks' ?
+                        likedIds.includes('a-'+feed.id) ? unlike('a-'+feed.id, feed.type) : like('a-'+feed.id, feed.type) : 
+                        likedIds.includes('f-'+feed.id) ? unlike('f-'+feed.id, feed.type) : like('f-'+feed.id, feed.type)
+                    "
+                  >
+                    <Icon 
+                      v-show="feed.type === 'artworks' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
+                      :id="'feed-like-button-'+feed.type+'-'+feed.id"
+                      :name="'heart'" 
+                      class="mr-1 text-red-500 hover:text-red-500"
+                    />
+                    <Icon
+                      v-show="feed.type === 'artworks' ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
+                      :name="'heart-outline'" 
+                      class="mr-1 icon-color hover:text-red-500"
+                    />
+                    {{ thousand(feed._count.likes) }}
+                  </span>
+
+                  <!-- Comment -->
+                  <span 
+                    class="leading-8"
+                    @click.prevent="feed.type === 'artworks' ? view(feed.id) : viewFeed(feed.id)"
+                  >
+                    <Icon 
+                      :name="'chatbubble-outline'" 
+                      class="mr-1 icon-color hover:text-blue-500"
+                    />
+                    {{ thousand(feed._count.comments) }}
+                  </span>
+
+                  <!-- Save -->
+                  <span v-if="feed.type === 'artworks'" class="leading-8" @click="showCollectionSelectionModal(feed.id)">
+                    <Icon 
+                      v-show="savedIds.includes(feed.id)"
+                      :id="'save-to-collection-button-'+feed.id"
+                      :name="'bookmark'" 
+                      class="text-blue-500 hover:text-blue-500"
+                    />
+                    <Icon 
+                      v-show="!savedIds.includes(feed.id)"
+                      :name="'bookmark-outline'" 
+                      class="icon-color hover:text-blue-500"
+                    />
+                  </span>
+
+                  <!-- ellipsis other interaction -->
+                  <div class="option dropdown">
+                    <button 
+                      type="button" 
+                      aria-haspopup="true" 
+                      aria-expanded="true" 
+                      aria-controls="option-dropdown-items"
+                    >
+                      <span>
+                        <Icon
+                          :name="'ellipsis-vertical-outline'" 
+                          class="align-middle icon icon-color"
+                        />
+                      </span>
+                    </button>
+                    
+                    <div class="option-dropdown dropdown-menu">
+                      <div 
+                        id="option-dropdown-items" 
+                        class="w-52 toggler"
+                        aria-labelledby="option-dropdown-buttons" 
+                        role="menu"
+                      >
+                        <div class="menu-wrapper">
+                          <nuxt-link 
+                            :to="feed.type === 'artworks' ? localePath('/work/'+feed.id) : localePath('/feed/'+feed.id)"
+                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
+                          >
+                            <Icon :name="'enter-outline'" class="mr-2 text-base" /> {{ $t('open') }}
+                          </nuxt-link>
+                          <nuxt-link 
+                            :to="feed.type === 'artworks' ? localePath('/work/'+feed.id) : localePath('/feed/'+feed.id)"
+                            target="_blank" 
+                            class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
+                          >
+                            <Icon :name="'open-outline'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                          </nuxt-link>
+
+                          <div class="custom-divider" />
+                          
+                          <nuxt-link 
+                            :to="'#'" 
+                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
+                            @click.prevent 
+                          >
+                            <Icon :name="'flag-outline'" class="mr-2 text-base" /> {{ $t('report') }}
+                          </nuxt-link>
+                          <a
+                            class="flex py-2 px-3 w-full leading-4 rounded-md transition-all duration-150 cursor-pointer hover:button-color parent-icon hover:text-white"
+                            @click="copyLink(feed.type === 'artworks' ? localePath('/work/'+feed.id) : localePath('/feed/'+feed.id))" 
+                          >
+                            <Icon :name="'link-outline'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <InfiniteLoading 
+          class="mt-6"
+          @infinite="fetch"
+        >
+          <div slot="no-results">
+            {{ $t('feeds.nothingToShow') }}
+          </div>
+
+          <div slot="no-more">
+            {{ $t('youHaveReachedTheEnd') }}
+            <br>
+            {{ $t('feeds.followMorePeople') }}
+          </div>
+        </InfiniteLoading>
+
+        <!-- Artwork Modal View -->
+        <div 
+          :id="'chronological-modal'"
+          class="modal work-view" 
+        >
+          <ModalView 
+            ref="chronologicalModalViewRef"
+            :section="'chronological'"
+          />
+        </div>
+
+        <!-- Feed Modal View -->
+        <div 
+          :id="'chronological-feed-modal'"
+          class="modal work-view" 
+        >
+          <FeedModalView
+            ref="chronologicalFeedModalViewRef"
+            :section="'chronological-feed'"
+          />
+        </div>
+
+        <!-- add or remove from selected collection(s) -->
+        <ManageSave 
+          id="collection-selection-modal"
+          ref="collectionSelectionModalRef"
+          :work-id="collectionWorkId"
+          class="modal"
+          @save="save"
+        />
+      </div>
+    </div>
+
+    <template #right-side>
+      <FeedSide />
+    </template>
+  </Layout>
+</template>
+
+<script setup>
+import { 
+  // onClickOutside,
+  useClipboard
+} from '@vueuse/core'
+import InfiniteLoading from 'vue-infinite-loading'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
+import Layout from '~/components/layouts/Layout.vue'
+import ModalView from '~/components/artworks/views/ModalView.vue'
+import FeedModalView from '~/components/feeds/FeedModalView.vue'
+import ImageList from '~/components/feeds/ImageList.vue'
+import FeedSide from '~/components/layouts/right-sides/FeedSide.vue'
+import ManageSave from '~/components/artworks/ManageSave.vue'
+
+// composables
+import useApiFetch from '~/composables/useApiFetch'
+import useArtwork from '~/composables/useArtwork'
+import useFeed from '~/composables/useFeed'
+import useReadMore from '~/composables/useReadMore'
+import useModal from '~/composables/useModal'
+import useImage from '~/composables/useImage'
+import useSplash from '~/composables/useSplash'
+import SplashAlert from '~/components/globals/SplashAlert.vue'
+import useBounceAnimation from '~/composables/useBounceAnimation'
+
+defineProps({
+  changeMode: {
+    type: Function,
+    default: () => {}
+  }
+})
+
+// composables
+const { generateArtworkThumb } = useImage()
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
+const feedApi = useFeed(oApiConfiguration, fetchOptions())
+
+const { app, redirect, env, $auth, route } = useContext()
+
+watch(() => route.value.query, () => {
+  // close modal on changing route or going back to previous page
+  closeArtworkModals()
+
+  // close collection selection modal
+  useModal().closeModal('collection-selection-modal')
+})
+
+onMounted(() => {
+  if (!$auth.loggedIn) {
+    redirect(app.localePath('/explore'))
+  }
+  
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeArtworkModals()
+    }
+  })
+})
+
+const closeArtworkModals = () => {
+  useModal().closeModal('chronological-modal')
+  useModal().closeModal('chronological-feed-modal')
+}
+
+const options = ref({
+  explicitMode: undefined,
+  pagination: {
+    page: 0,
+    perPage: 10
+  }
+})
+
+/** Fetch / inifinite load */
+const feeds = ref([])
+const fetch = async ($state) => {
+  const [data, error] = await feedApi.getChronologicalFeeds({
+    explicitMode: options.value.explicitMode,
+    pagination: {
+      page: options.value.pagination.page,
+      perPage: options.value.pagination.perPage
+    }
+  })
+
+  if (error) {
+    // todo: handle error
+  }
+
+  if (data.feeds.length) {
+    options.value.pagination.page += 1
+
+    data.feeds.forEach((feed) => {
+      if (feed.liked) {
+        if (feed.type === 'artworks') {
+          likedIds.value.push('a-' + feed.id)
+        } else {
+          likedIds.value.push('f-' + feed.id)
+        }
+      }
+
+      if (feed.saved) {
+        savedIds.value.push(feed.id)
+      }
+
+      feed.images = []
+      if (feed.type === 'artworks') {
+        feed.artwork_assets.forEach(async (image, index) => {
+          if (index <= 3) {
+            const imageUrl = await generateArtworkThumb(image.bucket, image.filename, 'feed')
+            feed.images.push(imageUrl)
+          }
+        })
+      }
+
+      feeds.value.push(feed)
+    })
+
+    $state.loaded()
+  } else {
+    $state.complete()
+  }
+}
+
+/** Modal view */
+const chronologicalModalViewRef = ref(null)
+const view = (workId) => {
+  chronologicalModalViewRef.value.view(workId)
+
+  useModal().openModal('chronological-modal')
+}
+
+const chronologicalFeedModalViewRef = ref(null)
+const viewFeed = (workId) => {
+  chronologicalFeedModalViewRef.value.view(workId)
+
+  useModal().openModal('chronological-feed-modal')
+}
+
+const readMore = (description, workId, selectorElId, descriptionElid) => {
+  useReadMore().readMore(description, workId, selectorElId, descriptionElid)
+}
+
+const copied = ref(false)
+let splashInterval
+const copyLink = (link) => {
+  const source = ref(env.APP_URL + link)
+  const { copy } = useClipboard({ source })
+  copy()
+
+  // show splash notification
+  useSplash().splash(splashInterval, copied, 'copy-alert')
+}
+
+// save function
+const savedIds = ref([])
+
+// like function
+const likedIds = ref([])
+const like = async (id, type) => {
+  const likedFeedId = parseInt(id.split('-')[1])
+  let success = false
+
+  if (type === 'artworks') {
+    const [likeSuccess, error] = await artworkApi.like({
+      workId: likedFeedId
+    })
+
+    success = likeSuccess
+  } else if (type === 'feeds') {
+    const [likeSuccess, error] = await feedApi.like({
+      feedId: likedFeedId
+    })
+
+    success = likeSuccess
+  }
+  
+  if (success) {
+    likedIds.value.push(id)
+    
+    // animate
+    const likeButton = document.getElementById(`feed-like-button-${type}-${likedFeedId}`)
+    likeButton.classList.add('animate-bounce')
+    setInterval(() => {
+      likeButton.classList.remove('animate-bounce')
+    }, 2500)
+  } else {
+    // todo: handle error
+  }
+}
+
+const unlike = async (id, type) => {
+  const unlikedFeedId = parseInt(id.split('-')[1])
+  let success = false
+
+  if (type === 'artworks') {
+    const [unlikeSuccess, error] = await artworkApi.unlike({
+      workId: unlikedFeedId
+    })
+
+    success = unlikeSuccess
+  } else if (type === 'feeds') {
+    const [unlikeSuccess, error] = await feedApi.unlike({
+      feedId: unlikedFeedId
+    })
+
+    success = unlikeSuccess
+  }
+  
+  if (success) {
+    const indexOfIdToRemove = likedIds.value.indexOf(id)
+    likedIds.value.splice(indexOfIdToRemove, 1)
+  } else {
+    // todo: handle error
+  }
+}
+
+/** 
+ * ====================================================================================================================
+ * COLLECTIONS
+ * ====================================================================================================================
+*/
+/**
+ * Show collection selection modal
+ * When triggering this action it will automatically fetch where the item were saved, and
+ * automatically select the selected collections.
+ */
+const collectionSelectionModalRef = ref(null)
+const collectionWorkId = ref(0)
+const showCollectionSelectionModal = (workId) => {
+  collectionWorkId.value = workId
+
+  useModal().openModal('collection-selection-modal')
+  collectionSelectionModalRef.value.fetchCurrentSaved()
+}
+
+/**
+ * This method will be triggered via event handling called `@save` on component `ManageSave` 
+ * once the user selects a collection and clicks the save button, and it will automatically close 
+ * the modal and update the collection selection.
+ */
+const save = (unsaved) => {
+  if (unsaved) {
+    const indexOfIdToRemove = savedIds.value.indexOf(collectionWorkId.value)
+    savedIds.value.splice(indexOfIdToRemove, 1)
+  } else {
+    savedIds.value.push(collectionWorkId.value)
+  }
+
+  // animate
+  useBounceAnimation().animate('save-to-collection-button-' + collectionWorkId.value)
+}
+</script>
+
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
+.user-info {
+  @apply flex flex-row;
+
+  .avatar {
+    @apply mr-3 w-10 h-10 rounded-md;
+  }
+
+  .name {
+    .fullname {
+      @apply text-tiny font-bold;
+    }
+    .username {
+      @apply text-xs;
+    }
+  }
+}
+
+.interactions {
+  @apply flex flex-row justify-between mb-6;
+
+  .reaction-counters {
+    .counter {
+      @apply mr-3 whitespace-nowrap;
+
+      ion-icon {
+        @apply mr-1 text-lg text-gray-400 align-middle transition-all hover:text-gray-400;
+      }
+
+      span {
+        @apply align-middle;
+      }
+    }
+  }
+
+  .reactions {
+    span {
+      @apply ml-3 whitespace-nowrap;
+
+      ion-icon {
+        @apply ml-1 text-xl align-middle transition-all cursor-pointer;
+      }
+    }
+  }
+}
+
+.info {
+  @apply mb-4;
+  
+  .creator-publish {
+    @apply flex flex-row justify-between mb-2 align-middle;
+  }
+}
+.comments {
+  @apply mt-4;
+
+  .comment-box {
+    @apply mb-6;
+
+    textarea {
+      @apply mt-0 mb-0 w-full form-input input;
+    }
+
+    button {
+      @apply w-full font-bold primary-button;
+    }
+  }
+
+  .comment-content {
+    .comment-order {
+      @apply flex justify-end mb-4 w-full;
+
+      button {
+        @apply py-2 px-3 underline rounded-sm cursor-pointer;
+      }
+    }
+
+    .comment-item {
+      @apply mb-4;
+
+      .comment-time {
+        @apply italic;
+        color: var(--link);
+      }
+
+      .reactions {
+        @apply flex justify-end;
+
+        .reaction {
+          @apply ml-3 whitespace-nowrap;
+
+          .icon {
+            @apply mr-1 align-middle transition-all cursor-pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+.option {
+  @apply inline relative z-10 justify-end;
+
+  .thumbnail {
+    @apply transition-all cursor-pointer icon-color focus:outline-none;
+
+    img {
+      @apply object-cover w-9 h-9 rounded-md shadow-lg;
+    }
+  }
+
+  .option-dropdown {
+    @apply flex invisible z-20 flex-col opacity-0 transition-all duration-300 transform origin-top-right scale-95;
+
+    .toggler {
+      @apply absolute right-0 z-20 mt-2 rounded-md shadow-lg origin-top-right outline-none theme-color;
+
+      .menu-wrapper {
+        @apply p-1 rounded-md theme-color;
+
+        .menu {
+          @apply flex z-50 flex-row py-3 px-4 mx-auto w-full capitalize rounded-md cursor-pointer;
+
+          ion-icon {
+            @apply mr-2;
+          }
+
+          &:hover {
+            @apply text-white;
+            background: var(--button);
+            border-color: var(--button);
+          }
+        }
+      }
+    }
+  }
+}
+</style>

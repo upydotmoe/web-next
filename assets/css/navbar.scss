@@ -1,0 +1,137 @@
+@import '~/assets/css/tailwind.scss';
+
+#nav {
+  @apply flex flex-row justify-between items-center py-4 px-4 mx-auto mt-0 w-full rounded-none border-none 2xl:w-8/12;
+  // 2xl:w-7/12
+
+  .link {
+    @apply relative justify-center items-center py-2 mr-6 align-middle transition duration-300 transform cursor-pointer hover:font-semibold;
+  }
+  .link.nuxt-link-active {
+    @apply font-semibold transform-none;
+  }
+
+  .mobile-toggler {
+    @apply flex flex-row-reverse justify-center items-center mr-4 text-2xl md:hidden;
+  }
+
+  .menus {
+    @apply hidden flex-1 justify-start md:flex;
+
+    .logo {
+      @apply hidden mr-8 w-10 rounded-sm md:flex;
+    }
+  }
+
+  .right-menus {
+    @apply flex flex-row flex-1 justify-end;
+
+    .nav-icon-group {
+      @apply flex flex-row ml-2;
+
+      .nav-icon {
+        @apply inline justify-center items-center p-2 ml-2 h-9 text-lg cursor-pointer hover:rounded-md hover:theme-color-secondary;
+
+        ion-icon {
+          @apply text-xl;
+        }
+
+        #language-group {
+          @apply absolute z-50 py-2 w-48 rounded-md shadow-md dark:border-transparent theme-color;
+
+          .item {
+            @apply flex z-50 flex-row py-2 px-2 w-full text-xs rounded-md cursor-pointer mb-1;
+
+            &:hover {      
+              @apply text-white;
+              background: var(--button);
+              border-color: var(--button);
+            }
+
+            .country-flag {
+              @apply inline-block pr-16 align-middle;
+            }
+          }
+        }
+      }
+
+      .nav-icon:hover > ion-icon {
+        color: var(--icon-color);
+      }
+    }
+  }
+
+  .search {
+    @apply flex-1 justify-center mx-0 w-full h-10 rounded cursor-pointer md:mx-2 md:w-11/12 lg:w-1/3 theme-color-secondary hidden-md-flex;
+
+    input {
+      @apply flex-grow px-4 rounded focus:outline-none theme-color-secondary;
+    }
+
+    .search-button {
+      @apply flex relative justify-center items-center w-10 h-10 rounded-full;
+
+      ion-icon {
+        @apply text-base;
+      }
+    }
+  }
+
+  .nav-icon-group-mobile {
+    @apply flex flex-row md:hidden;
+
+    .nav-icon {
+      @apply flex justify-center items-center ml-4 text-lg cursor-pointer;
+    }
+  }
+}
+
+.profile {
+  @apply inline relative z-20 justify-end;
+
+  .thumbnail {
+    @apply transition-all cursor-pointer icon-color focus:outline-none;
+
+    img {
+      @apply object-cover w-9 h-9 rounded-md shadow-lg;
+    }
+  }
+
+  .profile-dropdown {
+    @apply flex invisible z-20 flex-col opacity-0 transition-all duration-300 transform origin-top-right scale-95;
+
+    .toggler {
+      @apply absolute right-0 z-20 mt-2 rounded-md shadow-lg origin-top-right outline-none theme-color;
+
+      .mini-profile-info {
+        @apply z-50 py-6 px-4 mb-2 w-full text-center cursor-pointer;
+
+        img {
+          @apply object-cover mx-auto w-20 h-20 rounded-md shadow-lg;
+        }
+      }
+
+      .menu-wrapper {
+        @apply p-2 rounded-md theme-color;
+
+        .menu {
+          @apply flex z-50 flex-row py-3 px-4 mx-auto w-full capitalize rounded-md cursor-pointer;
+
+          ion-icon {
+            @apply mr-2;
+          }
+
+          &:hover {
+            @apply text-white;
+            background: var(--button);
+            border-color: var(--button);
+
+            ion-icon {
+              @apply text-white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,476 @@
+<template>
+  <Layout 
+    :with-footer="true" 
+    :hide-side="true"
+    :no-right-side="true"
+  >
+    <div id="lists">
+      <!-- Top navigations -->
+      <div class="navigations">
+        <div class="title">
+          {{ $t('browse') }}
+        </div>
+
+        <!-- Options -->
+        <!-- Filter popularity range by Daily/Weekly/Monthly or All-time -->
+        <div class="buttons">
+          <!-- Filter by tags -->
+          <div class="filter-buttons">
+            <button 
+              class="px-3 rounded-md button-item"
+              :class="filterTagsCount ? 'button' : 'theme-color'"
+              @click="openTagsFilterSelection" 
+            >
+              {{ filterTagsCount }} {{ $t('tagsApplied') }}
+            </button>
+          </div>
+
+          <!-- Following only -->
+          <div v-show="$auth.loggedIn" class="filter-buttons">
+            <button 
+              class="px-3 rounded-md button-item"
+              :class="followingOnly ? 'button' : 'theme-color'"
+              @click="toggleFollowingOnlyFilter()" 
+            >
+              <Icon v-show="followingOnly" :name="'people-outline'" class="text-white" />
+              <Icon v-show="!followingOnly" :name="'people-outline'" /> 
+              
+              {{ $t('following') }}
+            </button>
+          </div>
+
+          <!-- Toggle list by latest or popularity -->
+          <div class="filter-buttons">
+            <p 
+              class="rounded-l-md button-item"
+              :class="[listMode === 'recent' ? 'button' : 'theme-color']"
+              @click="changeListMode('recent')"
+            >
+              {{ $t('artworks.recent') }}
+            </p>
+            <p 
+              class="rounded-r-md button-item"
+              :class="[listMode === 'popularity' ? 'button' : 'theme-color']"
+              @click="changeListMode('popularity')"
+            >
+              {{ $t('artworks.mostPopular') }}
+            </p>
+          </div>
+
+          <!-- Filter explicit content -->
+          <div 
+            v-if="$auth.loggedIn && $auth.user.user_settings.show_explicit" 
+            class="filter-buttons"
+          >
+            <p 
+              class="rounded-l-md button-item" 
+              :class="[explicitMode === undefined ? 'button' : 'theme-color']"
+              @click="changeExplicitMode(undefined)"
+            >
+              {{ $t('default') }}
+            </p>
+
+            <p 
+              class="button-item" 
+              :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
+              @click="changeExplicitMode('safe')"
+            >
+              {{ $t('safe') }}
+            </p>
+            
+            <p 
+              class="rounded-r-md button-item" 
+              :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
+              @click="changeExplicitMode('explicit')"
+            >
+              {{ $t('explicit') }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="navigations md:-mt-4">
+        <div class="hidden md:flex" />
+        <div class="buttons">
+          <div v-show="listMode === 'popularity'" class="filter-buttons">
+            <p 
+              class="rounded-l-md button-item"
+              :class="[popularityRange === 'daily' ? 'button' : 'theme-color']"
+              @click="changePopularityRange('daily')"
+            >
+              {{ $t('daily') }}
+            </p>
+            <p 
+              class="button-item" 
+              :class="[popularityRange === 'weekly' ? 'button' : 'theme-color']"
+              @click="changePopularityRange('weekly')"
+            >
+              {{ $t('weekly') }}
+            </p>
+            <p 
+              class="button-item" 
+              :class="[popularityRange === 'monthly' ? 'button' : 'theme-color']"
+              @click="changePopularityRange('monthly')"
+            >
+              {{ $t('monthly') }}
+            </p>
+            <p 
+              class="rounded-r-md button-item" 
+              :class="[popularityRange === 'all' ? 'button' : 'theme-color']"
+              @click="changePopularityRange('all')"
+            >
+              {{ $t('allTime') }}
+            </p>
+          </div>
+
+          <div v-show="listMode === 'popularity'" class="filter-buttons">
+            <div class="inline-block w-full group md:w-40">
+              <button class="flex items-center py-2 w-full rounded-md outline-none md:w-40 theme-color hover:button" @click="togglePopularOrderStatus()">
+                <span class="flex-1 pr-1">{{ sortBy === 'none' ? $t('default') : sortByTitle }}</span>
+                <span>
+                  <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </span>
+              </button>
+              <ul id="popular-order-options" class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-40 theme-color group-hover:scale-100">
+                <li class="py-2 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li>
+                <li class="py-2 cursor-pointer hover:button" :class="{ 'button': sortBy === 'views' }" @click="changeSort('views', $t('mostViewed'))">{{ $t('mostViewed') }}</li>
+                <li class="py-2 cursor-pointer hover:button" :class="{ 'button': sortBy === 'likes' }" @click="changeSort('likes', $t('mostLiked'))">{{ $t('mostLiked') }}</li>
+                <li class="py-2 rounded-b-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'comments' }" @click="changeSort('comments', $t('mostCommented'))">{{ $t('mostCommented') }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- On loading, empty or error occured -->
+      <ErrorMessages
+        :loading="loading"
+        :empty="isEmpty"
+        :error="isError"
+        :fetch="fetchTop"
+      />
+
+      <!-- List area -->
+      <div v-show="!loading">
+        <WorkList 
+          v-show="!isEmpty"
+          :section-class="'work-grid'"
+          :works="works"
+          :view="view"
+        />
+      </div>
+
+      <!-- Paging control -->
+      <div v-if="!loading && !isEmpty && !isError" class="flex float-right flex-row">
+        <button 
+          v-show="config.pagination.enablePrev"
+          class="primary-button"
+          :class="{ 'mr-2': config.pagination.enableNext }"
+          @click="movePage('prev')"
+        >
+          <Icon :name="'chevron-back-outline'" />
+          {{ $t('pagination.previous') }}
+        </button>
+        <button 
+          v-show="config.pagination.enableNext"
+          class="primary-button"
+          @click="movePage('next')"
+        >
+          {{ $t('pagination.next') }}
+          <Icon 
+            :name="'chevron-forward-outline'" 
+            class="ml-2"
+            style="margin-right: 0 !important" 
+          />
+        </button>
+      </div>
+
+      <!-- Modal view (artwork detail) -->
+      <div 
+        id="browse-modal"
+        class="modal work-view" 
+      >
+        <ModalView 
+          v-show="!loading"
+          ref="popularModalViewRef"
+          section="browse"
+        />
+      </div>
+
+      <!-- Tag filter selection modal -->
+      <TagFilterSelection 
+        v-if="!loading"
+        id="tag-filter-selection-modal"
+        ref="tagFilterSelectionModalRef"
+        class="modal"
+        @apply="applyTagFilter"
+      />
+    </div>
+  </Layout>
+</template>
+
+<script setup>
+// components
+import Icon from '~/components/globals/Icon.vue'
+import Layout from '~/components/layouts/Layout.vue'
+import WorkList from '~/components/artworks/WorkList.vue'
+import ModalView from '~/components/artworks/views/ModalView.vue'
+import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
+
+// composables
+import useApiFetch from '~/composables/useApiFetch'
+import useModal from '~/composables/useModal'
+import useArtwork from '~/composables/useArtwork'
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
+
+const { route } = useContext()
+const { tags } = route.value.query
+
+watch(() => route.value.query, () => {
+  // close modal on changing route or going back to previous page
+  closeArtworkModals()
+})
+
+/** Before mount, fetch first rows */
+onBeforeMount(() => {
+  fetchTop()
+
+  if (tags) {
+    applyTagOnMount()
+  }
+})
+
+const closeArtworkModals = () => {
+  useModal().closeModal('browse-modal')
+}
+
+const popularOrderStatus = ref(false)
+const togglePopularOrderStatus = () => {
+  popularOrderStatus.value = !popularOrderStatus.value
+}
+
+const unfoldPopularOrderOption = () => {
+  const popularOrderOptions = document.getElementById('popular-order-options')
+  popularOrderOptions.classList.add('scale-0')
+}
+
+// change list mode by latest uploaded works or popularity
+const listMode = ref('recent')
+const changeListMode = async (mode) => {
+  listMode.value = mode
+  await fetchTop()
+}
+
+// Change epxlicit mode for authenticated user and user who activate explicit content
+const explicitMode = ref(undefined)
+const changeExplicitMode = async (mode) => {
+  explicitMode.value = mode
+  pagination.page = 0
+
+  await fetchTop()
+}
+
+// Change popularity range (default, daily, weekly, monthly)
+const popularityRange = ref('daily')
+const changePopularityRange = async (mode) => {
+  popularityRange.value = mode
+  pagination.page = 0
+
+  await fetchTop()
+}
+
+// Show works by followed users only
+const followingOnly = ref(false)
+const toggleFollowingOnlyFilter = async () => {
+  followingOnly.value = !followingOnly.value
+  pagination.page = 0
+
+  await fetchTop()
+}
+
+/**
+ * FILTER BY TAGS ===========================================================================================================================
+ */
+const applyTagOnMount = async () => {
+  const [tagData, error] = await artworkApi.getTagKeys(tags)
+
+  if (error) {
+    // todo: handle error
+  } else {
+    const tagWithKeys = []
+    tagData.tags.forEach((tag) => {
+      tagWithKeys.push({
+        key: tag.id,
+        value: tag.tag
+      })
+    })
+
+    filterTagsWithKeys.value = tagWithKeys
+    await applyTagFilter(tagWithKeys, tags)
+  }
+}
+
+const tagFilterSelectionModalRef = ref(null)
+const openTagsFilterSelection = () => {
+  useModal().openModal('tag-filter-selection-modal')
+  tagFilterSelectionModalRef.value.init(filterTagsWithKeys.value)
+}
+
+const filterTags = ref('')
+const filterTagsWithKeys = ref()
+const filterTagsCount = ref(0)
+const applyTagFilter = async (selectedTagsWithKeys, selectedTagsJoined) => {
+  filterTagsWithKeys.value = selectedTagsWithKeys
+  filterTags.value = selectedTagsJoined
+  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
+  pagination.page = 0
+
+  await fetchTop()
+}
+
+/** Fetch first row */
+const works = ref([])
+const config = ref({
+  pagination: {
+    enablePrev: true,
+    enableNext: true
+  }
+})
+const fetchTop = async () => {
+  const data = await fetch()
+
+  const dataWorks = data.works
+  const dataPagination = data.pagination
+
+  // handle empty data
+  if (!dataWorks.length && dataPagination.record_total === 0) {
+    showEmpty()
+  } else {
+    works.value = dataWorks
+  
+    if (dataPagination.next_previous.next_page === null) {
+      config.value.pagination.enableNext = false
+    } else {
+      config.value.pagination.enableNext = true
+    }
+
+    if (dataPagination.next_previous.prev_page === null) {
+      config.value.pagination.enablePrev = false
+    } else {
+      config.value.pagination.enablePrev = true
+    }
+  }
+}
+
+/** Fetch */
+const loading = ref(true)
+const pagination = reactive({
+  perPage: 18,
+  page: ref(0)
+})
+const fetch = async () => {
+  if (pagination.page === 0) {
+    loading.value = true
+    isEmpty.value = false
+  }
+
+  let [data, error] = []
+
+  if (listMode.value === 'recent') {
+    [data, error] = await artworkApi.getLatest({
+      pagination: {
+        perPage: pagination.perPage,
+        page: pagination.page
+      },
+      explicitMode: explicitMode.value,
+      tags: filterTags.value,
+      followingOnly: followingOnly.value
+    })
+  } else {
+    [data, error] = await artworkApi.getMostPopular({
+      pagination: {
+        perPage: pagination.perPage,
+        page: pagination.page
+      },
+      range: popularityRange.value,
+      rangeMode: sortBy.value,
+      explicitMode: explicitMode.value,
+      tags: filterTags.value,
+      followingOnly: followingOnly.value
+    })
+  }
+
+  if (error) {
+    showError()
+  } else {
+    reset()
+    return data
+  }
+}
+
+// Control pagination and fetch
+const movePage = async (mode) => {
+  if (mode === 'prev') {
+    pagination.page -= 1
+  } else {
+    pagination.page += 1
+  }
+
+  await fetchTop()
+}
+
+/** Show empty if there's no artwork to show */
+const isEmpty = ref(false)
+const showEmpty = () => {
+  isEmpty.value = true
+}
+
+/** Show error message when error occured while trying to fetch artworks */
+const isError = ref(false)
+const showError = () => {
+  loading.value = false
+  isError.value = true
+}
+
+/** Reset refs */
+const reset = () => {
+  loading.value = false
+  isEmpty.value = false
+  isError.value = false
+}
+
+/** Artwork viewer, open a modal */
+const popularModalViewRef = ref(null)
+const view = (workId, keepArtistPageNumber = false) => {
+  popularModalViewRef.value.view(workId, keepArtistPageNumber)
+
+  useModal().openModal('browse-modal')
+}
+
+const sortBy = ref('none')
+const sortByTitle = ref('')
+const changeSort = async (key, text) => {
+  sortBy.value = key
+  sortByTitle.value = text
+
+  unfoldPopularOrderOption()
+
+  await fetchTop()
+}
+
+// const closeModal = (modalId) => {
+//   useModal().closeModal(modalId)
+// }
+// onClickOutside(popularModalViewRef, () => closeModal('browse-modal'))
+</script>
+
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+@import '~/assets/css/artworks/list.scss';
+</style>

@@ -1,0 +1,9 @@
+@import '~/assets/css/tailwind.scss';
+
+.auth-form {
+  @apply w-full;
+
+  input {
+    @apply form-input theme-color-secondary;
+  }
+}

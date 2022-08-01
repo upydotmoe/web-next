@@ -1,0 +1,13 @@
+@import '~/assets/css/tailwind.scss';
+
+.layout {
+  @apply pb-4 w-full text-xs;
+
+  .layout-container {
+    @apply z-0 mx-auto w-full align-middle 2xl:w-9/12;
+
+    .content {
+      @apply flex flex-row justify-between py-0 px-4 space-x-0 w-full border-none md:rounded-t-md;
+    }
+  }
+}

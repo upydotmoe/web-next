@@ -1,0 +1,22 @@
+<template>
+  <List 
+    :section="'following'"
+    :title="$t('following')"
+    :pagination-prop="{
+      perPage: pagination.perPage,
+      maxLoadMore: pagination.maxLoadMore
+    }"
+    :discover-route="'/works/following'"
+    :custom-empty-message="$t('explores.noFollowing')"
+  />
+</template>
+
+<script setup>
+// components
+import List from '~/components/artworks/index/components/List.vue'
+
+const pagination = {
+  perPage: 12,
+  maxLoadMore: 4
+}
+</script>

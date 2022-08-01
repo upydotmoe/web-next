@@ -1,0 +1,44 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "@iconify/json": "^2.1.84",
+    "@intlify/nuxt3": "^0.2.3",
+    "@nuxtjs/google-fonts": "^3.0.0-0",
+    "@nuxtjs/tailwindcss": "^5.3.1",
+    "@unocss/nuxt": "^0.44.7",
+    "@unocss/preset-icons": "^0.44.7",
+    "nuxt": "3.0.0-rc.6",
+    "sass": "^1.54.0",
+    "tailwindcss-dark-mode": "^1.1.7"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.6.7",
+    "@heroicons/vue": "^1.0.6",
+    "@james090500/vue-tagsinput": "https://github.com/james090500/vue-tagsinput",
+    "@nuxtjs/color-mode": "^3.1.4",
+    "@pinia/nuxt": "^0.3.1",
+    "@types/isomorphic-fetch": "^0.0.36",
+    "@vueuse/nuxt": "^9.0.0",
+    "@websanova/vue-auth": "^4.1.13",
+    "axios": "^0.27.2",
+    "filepond": "latest",
+    "filepond-plugin-file-validate-type": "latest",
+    "filepond-plugin-image-preview": "latest",
+    "isomorphic-fetch": "^3.0.0",
+    "moment": "latest",
+    "number-shortener": "^1.0.1",
+    "pinia-plugin-persistedstate": "^1.6.3",
+    "url": "^0.11.0",
+    "v-viewer": "^3.0.10",
+    "vue-debounce": "latest",
+    "vue-filepond": "latest",
+    "vue-infinite-loading": "latest",
+    "vue-lazyload": "latest"
+  }
+}

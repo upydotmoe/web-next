@@ -1,0 +1,11 @@
+@import '~/assets/css/tailwind.scss';
+
+.bottom-navigation {
+  @apply flex fixed bottom-0 z-50 justify-between px-10 pt-4 pb-2 w-full text-white sm:hidden theme-colored;
+
+  a {
+    ion-icon {
+      @apply text-lg font-medium;
+    }
+  }
+}

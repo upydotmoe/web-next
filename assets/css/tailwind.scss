@@ -1,0 +1,561 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  * {
+    font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .quicksand {
+    font-family: 'Quicksand', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+
+  .nunito {
+    font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  body {
+    @apply p-0 m-0 h-screen antialiased;
+    background: var(--bg);
+    color: var(--theme-text-color)
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-button {
+    @apply w-0 h-0;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-none;
+    background: var(--button);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    // @apply bg-white;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    // @apply bg-black;
+  }
+  ::-webkit-scrollbar-track {
+    @apply rounded-full border-none;
+    background: var(--theme-color-secondary);
+  }
+  ::-webkit-scrollbar-track:hover {
+    background: var(--theme-color-secondary);
+  }
+  ::-webkit-scrollbar-track:active {
+    // @apply bg-gray-700;
+  }
+  ::-webkit-scrollbar-corner {
+    @apply bg-transparent;
+  }
+
+  .flatpickr-current-month {
+    font-size: 8px !important;
+  }
+}
+
+@layer components {
+  .theme-color-bg {
+    background: var(--theme-color-bg);
+  }
+  .theme-color {
+    background: var(--theme-color);
+    color: var(--theme-text-color);
+  }
+  .text-color {
+    color: var(--theme-text-color);
+  }
+  .theme-color-secondary {
+    background: var(--theme-color-secondary);
+    color: var(--theme-text-color);
+  }
+  .border-color-primary {
+    border-color: var(--button);
+  }
+  .border-color-secondary {
+    border-color: var(--theme-color-secondary);
+  }
+
+  .text-color-dimmed {
+    color: var(--text-color-dimmed);
+  }
+  .text-color-secondary {
+    color: var(--theme-text-color-secondary);
+  }
+
+  .theme-colored {
+    background: var(--button);
+  }
+  .text-colored {
+    color: var(--button);
+  }
+
+  .text-color-reverse {
+    color: var(--theme-text-color-reverse);
+  }
+
+  .bg-danger {
+    background: var(--danger-color);
+    color: var(--theme-text-color);
+  }
+
+  .modal-color {
+    background: var(--modal-color);
+    color: var(--theme-text-color);
+  }
+
+  .button-color {
+    background: var(--button);
+  }
+  .button-color:hover {
+    background: var(--button-hover);
+  }
+  .button-color-secondary {
+    background: var(--button-secondary);
+  }
+
+  .button-text-color {
+    color: var(--button-text);
+  }
+  .button {
+    background: var(--button);
+    border-color: var(--button-border);
+    color: var(--button-text);
+  }
+  .button-hover {
+    background: var(--button-hover);
+    border-color: var(--button-border-hover);
+    color: var(--button-text);
+  }
+
+  .button-light {
+    background: var(--button-light);
+    border-color: var(--button-light-border);
+  }
+  .button-light:hover {
+    background: var(--button-hover);
+  }
+
+  .icon {
+    @apply text-base;
+  }
+  .icon-color {
+    color: var(--icon);
+  }
+  .icon-color:hover {
+    color: var(--icon-hover);
+  }
+  .icon-color-active {
+    color: var(--icon-hover);
+    border-color: var(--button);
+  }
+
+  .link-color {
+    color: var(--link);
+  }
+  .link-color:hover {
+    color: var(--link-hover);
+  }
+
+  .section-title {
+    @apply text-base font-bold;
+  }
+
+  .border-light {
+    border-color: var(--border-light);
+  }
+
+  .b-button {
+    @apply flex flex-row justify-center py-2 px-3 rounded shadow-none transition-all duration-200 ease-in-out cursor-pointer parent-icon hover:shadow-md;
+  }
+
+  .primary-button {
+    @apply b-button button hover:button-hover;
+
+    ion-icon {
+      @apply mr-2 text-white;
+    }
+  }
+
+  .primary-button-border-only {
+    @apply flex flex-row justify-center py-2 px-3 rounded border-2 shadow-none transition-all duration-200 ease-in-out cursor-pointer theme-color-secondary parent-icon hover:shadow-md;
+    border-color: var(--button-border);
+    
+    ion-icon {
+      @apply mr-2 text-color;
+    }
+  }
+
+  .cancel-button {
+    @apply py-2 px-3 rounded cursor-pointer theme-color-secondary;
+  }
+
+  .danger-button-color {
+    @apply text-white bg-red-500 hover:bg-red-600;
+
+    ion-icon {
+      @apply text-white;
+    }
+  }
+
+  .danger-button {
+    @apply b-button theme-color-secondary danger-button-color hover:text-white parent-icon;
+
+    ion-icon {
+      @apply mr-2 text-white;
+    }
+  }
+
+  .light-button {
+    @apply b-button button-light hover:theme-colored;
+
+    ion-icon {
+      @apply mr-2;
+    }
+  }
+
+  .secondary-button {
+    @apply b-button theme-color-secondary hover:theme-colored;
+
+    ion-icon {
+      @apply mr-2;
+    }
+  }
+
+  .disabled-button {
+    @apply text-white cursor-not-allowed pointer-events-none b-button;
+    background-color: var(--button-disabled);
+    border: var(--button-disabled);
+
+    ion-icon {
+      @apply mr-2 text-white;
+    }
+  }
+
+  .reset-form-button {
+    @apply secondary-button;
+
+    ion-icon {
+      @apply mr-2;
+    }
+  }
+
+  .action-button {
+    @apply flex flex-row parent-icon hover:text-white;
+  }
+
+  .icon-button {
+    @apply p-2 ml-2 leading-3 rounded-md cursor-pointer theme-color-secondary hover:button hover:rounded-md;
+  }
+  .icon-button:hover ion-icon {
+    @apply text-white;
+  }
+
+  .icon-button-primary-color {
+    @apply p-2 ml-2 leading-3 rounded-md cursor-pointer button hover:rounded-md;
+
+    ion-icon {
+      @apply text-white;
+    }
+  }
+
+  .category-button {
+    @apply py-2 px-3 m-0 w-full font-medium text-center transition-all duration-200 cursor-pointer button-light md:w-auto;
+  }
+  .category-button:hover {
+    @apply shadow-md button-hover;
+  }
+  
+  .category-button-secondary {
+    @apply flex flex-row py-2 px-4 mr-2 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white;
+  
+    &:hover span {
+      @apply theme-color;
+    }
+  }
+
+  .input-border {
+    @apply border border-gray-200 dark:border-transparent;
+  }
+
+  .input {
+    // @apply border;
+    background: var(--input-bg);
+    // border-color: var(--input-border);
+  }
+  .input-error {
+    @apply px-3 pt-5 pb-2 mb-2 -mt-5 w-full text-white bg-red-500 rounded-b border-none;
+  }
+
+  .textarea {
+    background: var(--theme-color-secondary) !important;
+  }
+
+  .form-input {
+    @apply p-3 mb-2 w-full rounded focus:outline-none;
+  }
+
+  .border-b-red {
+    border-bottom: red !important;
+  }
+
+  .login-button {
+    @apply py-3 mt-4 w-full;
+  }
+
+  .custom-divider {
+    @apply my-2 w-full border-b;
+    border-color: var(--border-bold);
+  }
+
+  .dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    transform: translate(0) scale(1);
+    visibility: visible;
+  }
+
+  .animated {
+    -webkit-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  .animated.faster {
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
+  }
+
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+
+  // modal
+  .modal {
+    @apply hidden overflow-hidden overscroll-none fixed inset-0 z-40 flex-row justify-center items-center p-2 w-full h-full md:p-6;
+    background: rgba(0, 0, 0, .8);
+  }
+  .modal.animated {
+    -webkit-animation-duration: 500ms;
+    animation-duration: 500ms;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  .modal.animated.faster {
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
+  }
+  .modal.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .modal.fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+    
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+
+  .profile-img-name {
+    @apply cursor-pointer;
+
+    img {
+      @apply inline object-cover mr-1 w-6 h-6 rounded-full shadow-lg;
+    }
+
+    span {
+      @apply font-semibold;
+    }
+  }
+  
+  .default-heading-text-size {
+    @apply text-base;
+  }
+
+  .default-icon-size {
+    @apply text-lg;
+  }
+
+  .href {
+    color: var(--read-more-color);
+    @apply cursor-pointer;
+  }
+
+  .href:hover {
+    @apply font-bold text-blue-500 underline;
+  }
+  
+  .parent-icon:hover ion-icon {
+    @apply md:text-white;
+  }
+  .parent-delete-icon:hover ion-icon {
+    @apply text-red-500;
+  }
+
+  .border-color {
+    border-color: var(--border-light);
+  }
+
+  .unclickable {
+    pointer-events: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+  .unselectable {
+    user-drag: none;
+    -webkit-user-drag: none;
+  }
+
+  .text-success {
+    @apply italic font-bold text-green-500;
+  }
+  .alert-success {
+    @apply py-2 px-3 mb-2 text-center text-white bg-green-500 rounded-md shadow-sm;
+  }
+
+  .alert-danger {
+    @apply py-2 px-3 mb-2 text-center text-white bg-red-500 rounded-md shadow-sm;
+  }
+
+  .text-failure {
+    @apply italic font-bold text-red-500;
+  }
+
+  .content-v-img {
+    @apply pointer-events-none;
+    pointer-events: none;
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+  // vue tags-input custom
+  .tags-input {
+    @apply form-input input;
+
+    span {
+      @apply py-2 px-1 my-1 mr-2;  
+
+      span {
+        @apply mr-4;
+      }
+    }
+  }
+
+  .badge {
+    @apply py-1 px-2 w-auto text-xs rounded-md;
+  }
+
+  .tags-input-badge-pill {
+    @apply my-1 rounded;
+
+    span {
+      @apply p-2;
+    }
+  }
+
+  .tags-input-wrapper-default, .tags-input {
+    @apply border border-gray-300;
+  }
+
+  .profile-category-button {
+    @apply flex flex-row py-2 px-4 mr-2 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white;
+  
+    &:hover span {
+      @apply theme-color;
+    }
+  }
+
+  .modal-layer {
+    @apply p-4 rounded theme-color;
+
+    .title {
+      @apply text-base font-bold;
+    }
+  }
+
+  .counter-badge {
+    @apply p-1 font-bold text-white rounded-md button-color;
+  }
+
+  .avatar {
+    @apply object-cover rounded-md;
+    aspect-ratio: 1/1;
+  }
+
+  .basic-card {
+    @apply p-4 w-full rounded-md theme-color;
+  }
+
+  .hidden-md-flex {
+    @apply hidden md:flex;
+  }
+
+  .flex-md-hidden {
+    @apply flex md:hidden;
+  }
+
+  .hidden-lg-flex {
+    @apply hidden lg:flex;
+  }
+}
+
+@layer utilities {}
