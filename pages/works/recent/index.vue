@@ -113,7 +113,7 @@
 
       <!-- Tag filter selection modal -->
       <TagFilterSelection 
-        v-if="!loading"
+        v-show="!loading"
         id="tag-filter-selection-modal"
         ref="tagFilterSelectionModalRef"
         class="modal"
@@ -167,23 +167,31 @@ const changeExplicitMode = async (mode) => {
  */
 const tagFilterSelectionModalRef = ref(null)
 const openTagsFilterSelection = () => {
+  tagFilterSelectionModalRef.value.init(toRaw(previousSelectedTags.value))
   useModal().openModal('tag-filter-selection-modal')
-  tagFilterSelectionModalRef.value.init(filterTagsWithKeys.value)
 }
 
 const filterTags = ref('')
-const filterTagsWithKeys = ref()
+const previousSelectedTags = ref()
 const filterTagsCount = ref(0)
-const applyTagFilter = async (selectedTagsWithKeys, selectedTagsJoined) => {
-  filterTagsWithKeys.value = selectedTagsWithKeys
+const applyTagFilter = (selectedTags, selectedTagsJoined) => {
+  previousSelectedTags.value = selectedTags
+
   filterTags.value = selectedTagsJoined
+  
   filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
+  
   pagination.page = 0
 
-  await fetchTop()
+  useModal().closeModal('tag-filter-selection-modal')
+  // await fetchTop()
 }
 
 /** Fetch first row */
+watch (async () => previousSelectedTags.value, _ => {
+  fetchTop()
+})
+
 const works = ref([])
 const config = ref({
   pagination: {

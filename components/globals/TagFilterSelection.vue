@@ -8,20 +8,18 @@
 
         <div class="input-block">
           <tags-input 
-            v-model:value="tags"
+            v-model="tags"
             :placeholder="$t('tags')"
             :typeahead="true"
             :limit="10"
             :hide-input-on-limit="true"
-            :only-existing-tags="true"
             :typeahead-style="'dropdown'"
-            :typeahead-activation-threshold="1"
+            :typeahead-activation-threshold="3"
             :typeahead-show-on-focus="true"
             :typeahead-hide-discard="true"
             :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
             :add-tags-on-comma="true"
           />
-          {{ tags }}
         </div>
         
         <div class="flex float-right flex-row gap-2 mt-4">
@@ -52,27 +50,25 @@ const apiUrl = rConfig.public.apiUrl
 const tags = ref([])
 
 const init = (previousSelectedTags) => {
-  tags.value = []
-  if (previousSelectedTags) {
-    previousSelectedTags.forEach((tag) => {
-      tags.value.push({
-        key: tag.key,
-        value: tag.value
-      })
-    })
-  }
+  tags.value = previousSelectedTags
 }
 
+const selectedTags = ref([])
 const applyTags = () => {
-  const selectedTags = []
-  tags.value.forEach((tag) => {
-    selectedTags.push(tag.value)
+  selectedTags.value = tags.value
+  tags.value = []
+
+  const tagsString = []
+  toRaw(selectedTags.value).forEach(tag => {
+    tagsString.push(tag.value)
   })
-  emit('apply', tags.value, selectedTags.join(','))
+
+  emit('apply', toRaw(selectedTags.value), tagsString.join(','))
 }
 
 const clearSelectedTags = () => {
   tags.value = []
+  init([])
 }
 /**
  * @tags
