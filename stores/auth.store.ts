@@ -1,58 +1,71 @@
 import { defineStore } from "pinia"
 
 export default defineStore('auth', () => {
-  const loggedIn = ref(false)
-  const user = ref({
-    id: 1,
-    username: "admin",
-    pen_name: "admin",
-    name: "Super Admin",
-    location: "Indonesia",
-    avatar_driver: "backblaze",
-    avatar_bucket: null,
-    avatar_b2_file_id: null,
-    avatar_filename: null,
-    email_verified: 1,
-    is_moderator: 0,
-    is_admin: 1,
-    bio: "I'm the super admin.",
-    gender: "m",
-    email: "ahmad.uji1902@gmail.com",
-    cover_driver: "backblaze",
-    cover_bucket: null,
-    cover_b2_file_id: null,
-    cover_filename: null,
-    created_at: "2022-07-26T06:25:44.000Z",
-    user_socials: {
-      user_id: 1,
-      facebook: null,
-      instagram: null,
-      patreon: null,
-      twitter: null,
-      youtube: null,
-      twitch: null,
-      discord: null
-    },
-    user_settings: {
-      user_id: 1,
-      language: "en-US",
-      dark_mode: 0,
-      show_explicit: 0
-    }
-  })
+  const { oApiConfiguration, fetchOptions } = useApiFetch()
+  const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-  const login = async () => {
-    loggedIn.value = true
+  const loggedIn = ref(false)
+  const a4ht0jen = ref(null)
+  const r43f0rt3jen = ref(null)
+  const user = ref({})
+
+  /**
+   * Record authorization data such as auth token and refresh auth token once user successfully authenticated.
+   * @param authorizationData 
+   */
+  const saveAuthorizationData = (authorizationData: {
+    token: string,
+    refresh_token: string
+  }) => {
+    if (authorizationData && authorizationData.token && authorizationData.refresh_token) {
+      a4ht0jen.value = authorizationData.token
+      r43f0rt3jen.value = authorizationData.refresh_token
+
+      getAuthenticatedUserInfo()
+
+      console.log('auth store: Auth data saved!', {
+        a4ht0jen: a4ht0jen.value,
+        r43f0rt3jen: r43f0rt3jen.value
+      })
+    }
   }
 
+  /**
+   * Get authenticated user info
+   * @returns void
+   */
+  const getAuthenticatedUserInfo = async () => {
+    try {
+      const [success, data, error] = await authApi.getAuthenticatedUserData()
+
+      if (success) {
+        user.value = data
+      } else {
+        await logout()
+      }
+    } catch (error) {
+      await logout()
+    }
+  }
+
+  /**
+   * Revoke user authentication
+   * @returns void
+   */
   const logout = async () => {
     loggedIn.value = false
+    a4ht0jen.value = null
+    r43f0rt3jen.value = null
+    user.value = {}
   }
 
   return {
     loggedIn,
+    a4ht0jen,
+    r43f0rt3jen,
     user,
-    login,
+    getAuthenticatedUserInfo,
+    saveAuthorizationData,
     logout
   }
 }, {

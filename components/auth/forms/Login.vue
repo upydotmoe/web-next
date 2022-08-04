@@ -1,5 +1,10 @@
 <template>
   <form id="login" class="auth-form" @submit.prevent="login('login')">
+    <!-- login error message, show this alert when error occured while authenticating user -->
+    <div v-if="loginErr" class="login-error-message">
+      {{ loginErrMessage }}
+    </div>
+
     <!-- email or username -->
     <n-validate 
       for="emailUsername" 
@@ -22,7 +27,7 @@
         v-model="inputs.password"
         type="password"
         autocomplete="off"
-        rules="required"
+        rules="required|min:6|containSymbol|containNumber"
         :placeholder="$t('logins.form.password')"
       >
     </n-validate>
@@ -41,6 +46,7 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 
 // stores
@@ -49,6 +55,9 @@ import useAuthStore from '@/stores/auth.store'
 
 const authFormStore = useAuthFormStore()
 const auth = useAuthStore()
+
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 const { $router } = useNuxtApp()
 const { t } = useI18n()
@@ -77,9 +86,28 @@ const inputs = ref({
  * Authenticate user input and redirect to dashboard if success
  */
 const login = async () => {
+  // clear previous error message
+  authFormStore.resetErr()
+  loginErrMessage.value = ''
 
   // validate input
   validate()
+
+  // const [success, error] = await authApi.authenticate({
+  //   emailUsername: inputs.value.emailUsername,
+  //   password: inputs.value.password
+  // })
+
+  // if (success) {
+  //   $router.push('/feed')
+  // } else {
+  //   triggerLoginError(error.message)
+  // }
+
+  auth.saveAuthorizationData({
+    token: 'tokennya',
+    refresh_token: 'refreshnya'
+  })
 
   // try {
   //   // await auth.loginWith('local', { data: formData })

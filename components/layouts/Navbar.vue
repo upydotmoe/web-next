@@ -17,7 +17,7 @@
         :to="auth.loggedIn ? '/feed' : '/explore'" 
         class="w-8 h-8 rounded-md flex-md-hidden"
       >
-        <img src="/logo/logo.png" class="logo">
+        <img src="/static/logo/logo.png" class="logo">
       </nuxt-link>
 
       <!-- left menus -->
@@ -80,7 +80,7 @@
                 role="menu"
               >
                 <div v-for="locale in availableLanguages" @click="switchLocale(locale.iso)">
-                  <div class="item" :class="{ 'button-color text-white': (selectedLocale == locale.iso) }">
+                  <div class="item" :class="selectedLocale == locale.iso ? 'button-color text-white' : 'theme-color-secondary'">
                     <Icon :name="locale.icon" :with-padding="true" /> {{ locale.name }}
                   </div>
                 </div>

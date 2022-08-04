@@ -59,7 +59,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -98,10 +98,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           params.followingOnly,
           fetchOptions
         )
-
-      return [data, null]   
+      
+      // console.log('data:', data)
+      return [data.data, null]   
     } catch (error) {
-      console.log('API error:', error)
       return [null, error]
     }
   }
@@ -134,7 +134,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -168,7 +168,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -190,7 +190,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -204,7 +204,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -217,7 +217,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     try {
       const { data } = await new ArtworkCRUDApi(oApiConfiguration).view(id, fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -338,7 +338,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
       
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -466,7 +466,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data!.replies, data!.pagination, null]
+      return [data.data!.replies, data!.pagination, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -573,7 +573,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new ArtworksApi(oApiConfiguration)
         .checkArtworkAvailability(fetchOptions)
 
-      return [data.count && typeof data?.count !== 'undefined' ? data.count : 0, null]
+      return [data.data.count && typeof data?.count !== 'undefined' ? data.count : 0, null]
     } catch (error) {
       return [null, error]
     }

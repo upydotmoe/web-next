@@ -1,9 +1,8 @@
 import { Configuration } from '~/api/openapi/configuration'
-import authStore from '@/stores/auth.store'
+import useAuthStore from '@/stores/auth.store'
 
 export default function () {
-  const auth = authStore()
-  const authToken = null 
+  const auth = useAuthStore()
 
   /** OAPI Configuration */
   const oApiConfiguration = new Configuration({})
@@ -24,7 +23,7 @@ export default function () {
       options = {
         ...options,
         headers: {
-          Authorization: authToken
+          Authorization: auth.a4ht0jen
         }
       }
     }
@@ -32,8 +31,21 @@ export default function () {
     return options
   }
 
+  /**
+   * Get ReadableStream error body, because fetch API returns Response object with error body 
+   * and we can't use it directly so we need to await that until its process finished so we can consume the error,
+   * and we need to convert it to JSON first by using .json() method.
+   * @param error - fetch Error object (Response ReadableStream)
+   * 
+   * @returns - Return error body as JSON object.
+   */
+  const consumeReadableStreamError = async (error) => {
+    return await error.json()
+  }
+
   return {
     fetchOptions,
-    oApiConfiguration
+    oApiConfiguration,
+    consumeReadableStreamError
   }
 }

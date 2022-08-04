@@ -534,6 +534,12 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@nor1c/vue-tagsinput@https://github.com/nor1c/vue-tagsinput":
+  version "3.0.1"
+  resolved "https://github.com/nor1c/vue-tagsinput#c5f88e36694fafec7c161f48e3f0761c47f1493e"
+  dependencies:
+    vue latest
+
 "@nuxt/devalue@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@nuxt/devalue/-/devalue-2.0.0.tgz#c7bd7e9a516514e612d5d2e511ffc399e0eac322"
@@ -5853,7 +5859,7 @@ vue-router@^4.1.2:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
-vue@^3.2.37:
+vue@^3.2.37, vue@latest:
   version "3.2.37"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.37.tgz#da220ccb618d78579d25b06c7c21498ca4e5452e"
   integrity sha512-bOKEZxrm8Eh+fveCqS1/NkG/n6aMidsI6hahas7pa0w/l7jkbssJVsRhVDs07IdDq7h9KHswZOgItnwJAgtVtQ==

@@ -3,6 +3,10 @@
 .auth-form {
   @apply w-full;
 
+  .login-error-message {
+    @apply w-full bg-red-500 rounded-md text-white p-2 mb-2;
+  }
+
   input {
     @apply form-input theme-color-secondary;
   }

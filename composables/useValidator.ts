@@ -1,6 +1,6 @@
 export default function () {
   /**
-   * Validate user input before submitting form data. This hook is used to validate user input before submitting form data.
+   * This hook is used to validate user input before submitting form data.
    * @param form - The form to validate.
    * @param t - The translation function, from 'vue-i18n.useI18n.t', because we cannot use $t directly in non-setup components, 
    *            so we need to pass it from the component to here.
@@ -23,9 +23,13 @@ export default function () {
 
     const formInputs = form.getElementsByTagName('n-validate')
 
+    /**
+     * Loop through all inputs in the form and validate them.
+     * If there is an error, add an error message to the input.
+     */
     for (let i = 0; i < formInputs.length; i++) {
       const nValidate = document.getElementsByTagName('n-validate')[i]
-
+      
       const fieldName = nValidate.getAttribute('for')
       
       const input = nValidate.getElementsByTagName('input')[0]
@@ -41,7 +45,7 @@ export default function () {
             addAlert(fieldName, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.required', { fieldName: nValidate.getAttribute('name') })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
-            return
+            break
           }
         }
 
@@ -53,7 +57,7 @@ export default function () {
             addAlert(fieldName, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.email')}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
-            return
+            break
           }
         }
 
@@ -65,7 +69,7 @@ export default function () {
             addAlert(fieldName, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.min', { fieldName: nValidate.getAttribute('name'), min: rules[iRules].split(':')[1] })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
-            return
+            break
           }
         }
 
@@ -77,7 +81,31 @@ export default function () {
             addAlert(fieldName, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.max', { fieldName: nValidate.getAttribute('name'), min: rules[iRules].split(':')[1] })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
-            return
+            break
+          }
+        }
+
+        // rule config for 'containSymbol'
+        if (rules[iRules] === 'containSymbol') {
+          const passContainSymbol = validateContainSymbol(input.value)
+
+          if (!passContainSymbol) {
+            addAlert(fieldName, rules[iRules])
+            const alertEl = `<div class='input-error'>${t('validation.containSymbol', { fieldName: nValidate.getAttribute('name') })}</div>`
+            nValidate.insertAdjacentHTML('beforeend', alertEl)
+            break
+          }
+        }
+
+        // rule config for 'containNumber'
+        if (rules[iRules] === 'containNumber') {
+          const passContainNumber = validateContainNumber(input.value)
+
+          if (!passContainNumber) {
+            addAlert(fieldName, rules[iRules])
+            const alertEl = `<div class='input-error'>${t('validation.containNumber', { fieldName: nValidate.getAttribute('name') })}</div>`
+            nValidate.insertAdjacentHTML('beforeend', alertEl)
+            break
           }
         }
       }
@@ -85,14 +113,14 @@ export default function () {
   }
 
   /**
-   * Validate rule 'required'
+   * Validate rule for 'required'
    * @param value - input value
    * @returns - true if value is not empty, false if value is empty
    */
   const validateRequired = (value) => value ? true : false
 
   /**
-   * Validate rule 'email'
+   * Validate rule for 'email'
    * @param value - input value (string, in email format)
    * @returns - true if email format is valid, false if not
    */
@@ -109,7 +137,7 @@ export default function () {
   }
 
   /**
-   * Validate rule 'min:', value of input field (min:[number])
+   * Validate rule for 'min:', value of input field (min:[number])
    * @param value - input value
    * @param min - min value of input field (number)
    * @returns - true if value is greater than min value
@@ -117,12 +145,32 @@ export default function () {
   const validateMin = (value, min) => value.length >= min ? true : false
 
   /**
-   * Validate rule 'max:', value of input field (max:[number])
+   * Validate rule for 'max:', value of input field (max:[number])
    * @param value - input value
    * @param max - max value of input field (number)
    * @returns - true if value is less than max value
    */
   const validateMax = (value, max) => value.length <= max ? true : false
+
+  /**
+   * Validate rule for 'containSymbol', value of input must contain a symbol character
+   * @param value - input value
+   * @returns - true if value contains a symbol character, false if not
+   */
+  const validateContainSymbol = (value) => {
+    const symbolRegEx = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
+    return symbolRegEx.test(value)
+  }
+
+  /**
+   * Validate rule for 'containNumber', value of input must contain numeric character
+   * @param value - input value
+   * @returns - true if value contains numeric character, false if not
+   */
+  const validateContainNumber = (value) => {
+    const numberRegEx = /\d/
+    return numberRegEx.test(value)
+  }
 
   return {
     validate

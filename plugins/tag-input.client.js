@@ -1,5 +1,5 @@
-import VTagsInput from '@james090500/vue-tagsinput'
+import { TagsInput } from '@nor1c/vue-tagsinput'
 
 export default defineNuxtPlugin(nuxtApp => {
-  nuxtApp.vueApp.component('tags-input', VTagsInput)
+  nuxtApp.vueApp.component('tags-input', TagsInput)
 })

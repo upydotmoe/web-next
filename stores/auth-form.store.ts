@@ -14,18 +14,18 @@ export default defineStore('auth-form', () => {
   const showRecoveryLinkSentDialog = ref(false)
 
   // show/hide
-  const toggleLoginRegister = (state) => {
+  const toggleLoginRegister = () => {
     showRegistration.value = !showRegistration.value
     showLogin.value = !showLogin.value
   }
   const toggleRegistrationForm = (state, value) => {
     showRegistration.value = value
   }
-  const toggleAccountRecovery = (state) => {
+  const toggleAccountRecovery = () => {
     showLogin.value = !showLogin.value
     showAccountRecovery.value = !showAccountRecovery.value
   }
-  const reset = (state) => {
+  const reset = () => {
     showLogin.value = true
     showRegistration.value = false
     showAccountRecovery.value = false
@@ -37,13 +37,13 @@ export default defineStore('auth-form', () => {
   }
 
   // errors
-  const triggerLoginErr = (state) => {
+  const triggerLoginErr = () => {
     loginErr.value = true
   }
-  const triggerRegisterAlert = (state) => {
+  const triggerRegisterAlert = () => {
     registerAlert.value = true
   }
-  const resetErr = (state) => {
+  const resetErr = () => {
     loginErr.value = false
     registerAlert.value = false
     accountRecoveryErr.value = false
@@ -59,7 +59,7 @@ export default defineStore('auth-form', () => {
   const toggleAccountRecoveryForm = (state, value) => {
     showAccountRecovery.value = value
   }
-  const triggerAccountRecoveryAlert = (state) => {
+  const triggerAccountRecoveryAlert = () => {
     accountRecoveryErr.value = true
   }
   const toggleShowRecoveryLinkSentDialog = (state, value) => {
