@@ -1,50 +1,41 @@
 import { defineStore } from "pinia"
 
 export default defineStore('auth', () => {
+  const { $router } = useNuxtApp()
+
   const { oApiConfiguration, fetchOptions } = useApiFetch()
   const authApi = useAuth(oApiConfiguration, fetchOptions())
 
+  /**
+   * Store states
+   */
   const loggedIn = ref(false)
   const a4ht0jen = ref(null)
   const r43f0rt3jen = ref(null)
   const user = ref({})
 
   /**
-   * Record authorization data such as auth token and refresh auth token once user successfully authenticated.
-   * @param authorizationData 
+   * @methods
    */
-  const saveAuthorizationData = (authorizationData: {
+  /**
+   * Record authorization data such as auth token and refresh auth token once user successfully authenticated.
+   * And then fetch user data and save it to auth user store.
+   * @param authorizationData token - Authentication token retrieved from authentication process
+   * @param authorizationData refresh_token - Refresh token retrieved from authentication process
+   * 
+   * @returns - void
+   */
+  const saveAuthorizationData = async (authorizationData: {
     token: string,
     refresh_token: string
-  }) => {
+  }): Promise<void> => {
     if (authorizationData && authorizationData.token && authorizationData.refresh_token) {
       a4ht0jen.value = authorizationData.token
       r43f0rt3jen.value = authorizationData.refresh_token
+      loggedIn.value = true
 
-      getAuthenticatedUserInfo()
-
-      console.log('auth store: Auth data saved!', {
-        a4ht0jen: a4ht0jen.value,
-        r43f0rt3jen: r43f0rt3jen.value
-      })
-    }
-  }
-
-  /**
-   * Get authenticated user info
-   * @returns void
-   */
-  const getAuthenticatedUserInfo = async () => {
-    try {
-      const [success, data, error] = await authApi.getAuthenticatedUserData()
-
-      if (success) {
-        user.value = data
-      } else {
-        await logout()
-      }
-    } catch (error) {
-      await logout()
+      // fetch logged in user data after authentication is successful and save to auth user store
+      await authApi.getAuthenticatedUserData()
     }
   }
 
@@ -52,19 +43,27 @@ export default defineStore('auth', () => {
    * Revoke user authentication
    * @returns void
    */
-  const logout = async () => {
+  const logout = (): void => {
     loggedIn.value = false
     a4ht0jen.value = null
     r43f0rt3jen.value = null
     user.value = {}
+
+    // redirect to explore page 
+    $router.push('/explore')
   }
+  /**
+   * @methods
+   */
 
   return {
+    // states
     loggedIn,
     a4ht0jen,
     r43f0rt3jen,
     user,
-    getAuthenticatedUserInfo,
+
+    // methods
     saveAuthorizationData,
     logout
   }

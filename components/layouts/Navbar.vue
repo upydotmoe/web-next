@@ -223,7 +223,7 @@
 
                   <div class="custom-divider" />
 
-                  <div class="menu parent-icon" @click="userLogout">
+                  <div class="menu parent-icon" @click="userLogout()">
                     <Icon :name="'i-ion-log-out-outline'" />
                     {{ $t('logout') }}
                   </div>

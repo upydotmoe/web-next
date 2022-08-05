@@ -23,11 +23,11 @@ export default function () {
       options = {
         ...options,
         headers: {
-          Authorization: auth.a4ht0jen
+          Authorization: 'Bearer ' + auth.a4ht0jen
         }
       }
     }
-
+    
     return options
   }
 

@@ -12,17 +12,25 @@ initApp()
 
 const auth = authStore()
 
-onBeforeMount(() => {
-  if (auth.loggedIn) {
-    refreshUserData()
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const authApi = useAuth(oApiConfiguration, fetchOptions())
+
+onBeforeMount(async () => {
+  const tokenValid = await authApi.checkTokenValidity()
+
+  if (tokenValid && auth.loggedIn) {
+    await refreshUserData()
+  } else {
+    auth.logout()
   }
 })
 
 /**
  * @auth
  */
-const refreshUserData = () => {
-  auth.getAuthenticatedUserInfo()
+
+const refreshUserData = async () => {
+  await authApi.getAuthenticatedUserData()
 }
 /**
  * @auth

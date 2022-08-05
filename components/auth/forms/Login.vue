@@ -90,36 +90,28 @@ const login = async () => {
   authFormStore.resetErr()
   loginErrMessage.value = ''
 
-  // validate input
-  validate()
+  // validate input before going to the next step
+  validateForm()
 
-  // const [success, error] = await authApi.authenticate({
-  //   emailUsername: inputs.value.emailUsername,
-  //   password: inputs.value.password
-  // })
-
-  // if (success) {
-  //   $router.push('/feed')
-  // } else {
-  //   triggerLoginError(error.message)
-  // }
-
-  auth.saveAuthorizationData({
-    token: 'tokennya',
-    refresh_token: 'refreshnya'
+  // proceed to validate user login information
+  const [success, error] = await authApi.authenticate({
+    emailUsername: inputs.value.emailUsername,
+    password: inputs.value.password
   })
 
-  // try {
-  //   // await auth.loginWith('local', { data: formData })
-  //   useModal().closeModal('auth-modal')
-  //   $router.push('/feed')
-  // } catch (error) {
-  //   const errorResponse = error.response
-  //   triggerLoginError(errorResponse.data.message)
-  // }
+  if (success) {
+    useModal().closeModal('auth-modal')
+
+    $router.push('/feed')
+  } else {
+    triggerLoginError(error.message)
+  }
 }
 
-const validate = () => {
+/**
+ * Validate form input before proceeding to the next step
+ */
+const validateForm = () => {
   const loginEl = document.getElementById('login')
   useValidator().validate(loginEl, t)
 }
