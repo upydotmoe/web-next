@@ -27,7 +27,8 @@ export default defineStore('auth', () => {
    */
   const saveAuthorizationData = async (authorizationData: {
     token: string,
-    refresh_token: string
+    refresh_token: string,
+    tokenRefreshed?: boolean
   }): Promise<void> => {
     if (authorizationData && authorizationData.token && authorizationData.refresh_token) {
       a4ht0jen.value = authorizationData.token
@@ -35,7 +36,9 @@ export default defineStore('auth', () => {
       loggedIn.value = true
 
       // fetch logged in user data after authentication is successful and save to auth user store
-      await authApi.getAuthenticatedUserData()
+      await authApi.getAuthenticatedUserData({
+        tokenRefreshed: authorizationData.tokenRefreshed
+      })
     }
   }
 

@@ -16,12 +16,14 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 onBeforeMount(async () => {
-  const tokenValid = await authApi.checkTokenValidity()
+  if (auth.loggedIn) {
+    const tokenValid = await authApi.checkTokenValidity()
 
-  if (tokenValid && auth.loggedIn) {
-    await refreshUserData()
-  } else {
-    auth.logout()
+    if (tokenValid) {
+      await refreshUserData()
+    } else {
+      auth.logout()
+    }
   }
 })
 
