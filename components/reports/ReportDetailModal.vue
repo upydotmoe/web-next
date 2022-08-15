@@ -45,7 +45,12 @@
               <label>{{ $t('reports.reportedPost') }}</label>
               <div>
                 <span v-show="reportDetail.is_removed" class="italic">{{ $t('reports.postRemoved') }}</span>
-                <a v-show="!reportDetail.is_removed" :href="localePath((reportDetail.type === 'artwork' ? '/work/' : '/feed/') + reportDetail.post_id)" target="blank" class="href">
+                <a 
+                  v-show="!reportDetail.is_removed" 
+                  :href="(reportDetail.type === 'artwork' ? '/work/' : '/feed/') + reportDetail.post_id" 
+                  target="blank" 
+                  class="href"
+                >
                   {{ $t('reports.viewPost') }}
                 </a>
               </div>
@@ -60,12 +65,12 @@
           </section>
 
           <div 
-            v-show="(($auth.user.is_admin || $auth.user.is_moderator) && reportDetail.status === 'pending') || reportDetail.status === 'closed'" 
+            v-show="((auth.user.is_admin || auth.user.is_moderator) && reportDetail.status === 'pending') || reportDetail.status === 'closed'" 
             class="my-4 custom-divider"
           />
 
           <!-- response form (only show to admin and moderator) -->
-          <section v-show="($auth.user.is_admin || $auth.user.is_moderator) && reportDetail.status === 'pending'">
+          <section v-show="(auth.user.is_admin || auth.user.is_moderator) && reportDetail.status === 'pending'">
             <div class="flex flex-row gap-2 justify-between">
               <span 
                 class="flex flex-row justify-center p-2 w-full rounded-md border-2 border-green-500 cursor-pointer" 
@@ -136,19 +141,21 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import CloseModalButton from '~/components/globals/CloseModalButton.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useReport from '~/composables/useReport'
-import useModal from '~/composables/useModal'
+// stores
+const auth = useAuthStore()
 
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['refresh'])
+const emits = defineEmits (['refresh'])
 
 /**
  * @detail
@@ -195,6 +202,13 @@ const submitDecision = async () => {
 /**
  * @decisionForm
  */
+
+/**
+ * @expose
+ */
+defineExpose ({
+  view
+})
 </script>
 
 <style lang="scss" scoped>

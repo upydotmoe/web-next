@@ -8,7 +8,7 @@
         </div>
         <nuxt-link :to="discoverRoute" class="flex flex-row justify-between title md:hidden">
           {{ title }}
-          <Icon :name="'enter-outline'" class="text-xl text-colored" />
+          <Icon :name="'i-fluent-arrow-enter-20-filled'" class="text-xl text-colored" />
         </nuxt-link>
 
         <div class="buttons">
@@ -81,7 +81,7 @@
             :to="'/works/' + section"
             class="flex-row justify-center primary-button md:mt-4"
           >
-            <Icon :name="'enter-outline'" class="mr-1 text-white hover:text-white" />
+            <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
             {{ $t('seeMore') }}
           </nuxt-link>
         </div>

@@ -14,12 +14,10 @@
 
 <script setup>
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
 import useCollection from '~/composables/users/useCollection'
 
-const emit = defineEmits('created')
-const props = defineProps({
+const emits = defineEmits ('created')
+const props = defineProps ({
   category: {
     type: String,
     default: 'artwork'
@@ -59,7 +57,7 @@ const save = async () => {
 
     if (created) {
       useModal().closeModal(props.modalId)
-      emit('created', newCollectionData)
+      emits('created', newCollectionData)
     }
   } catch (error) {
     // todo: handle error

@@ -69,13 +69,10 @@ import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useAlbum from '~/composables/users/useAlbum'
-import useModal from '~/composables/useModal'
-import useSplash from '~/composables/useSplash'
 
-const emit = defineEmits(['onAlbumEmpty', 'feedManageList'])
-const props = defineProps({
+const emits = defineEmits (['onAlbumEmpty', 'feedManageList'])
+const props = defineProps ({
   id: {
     type: Number,
     default: 0
@@ -91,7 +88,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const album = useAlbum(oApiConfiguration, fetchOptions())
 
 const albumId = ref(props.id)
-watch(() => props.id, (newId, _) => {
+watch (() => props.id, (newId, _) => {
   albumId.value = newId
 })
 
@@ -150,10 +147,10 @@ const fetchItems = async () => {
       albumData.value.list.push(item.artworks)
     })
 
-    emit('onAlbumEmpty', false)
+    emits('onAlbumEmpty', false)
   } else {
     albumData.value.empty = true
-    emit('onAlbumEmpty', true)
+    emits('onAlbumEmpty', true)
   }
 }
 
@@ -168,7 +165,7 @@ const selectedItems = ref([])
 const feedManageList = (workList) => {
   selectedItems.value = workList
 
-  emit('feedManageList', workList)
+  emits('feedManageList', workList)
 }
 
 const isItemsRemoved = ref(false)

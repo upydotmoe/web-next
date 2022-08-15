@@ -5,16 +5,16 @@
     <div class="flex px-2 md:px-4 mx-auto md:mt-4 w-full 2xl:w-8/12">
       <div v-if="!hideSide" class="hidden lg:w-1/5 md:block md:mr-6">
         <!-- <div class="sticky top-36">
-          <nuxt-link v-if="$auth.loggedIn" :to="localePath('/feed')" class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
+          <nuxt-link v-if="auth.loggedIn" :to="'/feed'" class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
             <Icon :name="'home-outline'" class="text-lg hover:text-white" />
             <span class="hidden ml-3 lg:block">{{ $t('feed') }}</span>
           </nuxt-link>
-          <nuxt-link :to="localePath('/explore')" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
+          <nuxt-link :to="'/explore'" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
             <Icon :name="'planet-outline'" class="text-lg hover:text-white" />
             <span class="hidden ml-3 lg:block">{{ $t('explore') }}</span>
           </nuxt-link>
           <div 
-            v-if="$auth.loggedIn" 
+            v-if="auth.loggedIn" 
             class="flex flex-row py-3 px-4 mt-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
             @click="random()" 
           >
@@ -22,22 +22,22 @@
             <span class="hidden ml-3 lg:block">{{ $t('random') }}</span>
           </div>
           <div class="custom-divider" />
-          <nuxt-link :to="localePath('/comics')" class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
+          <nuxt-link :to="'/comics'" class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
             <Icon :name="'book-outline'" class="text-lg hover:text-white" />
             <span class="hidden ml-3 lg:block">{{ $t('comics.comics') }}</span>
           </nuxt-link>
-          <nuxt-link :to="localePath('/tutorials')" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
+          <nuxt-link :to="'/tutorials'" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
             <Icon :name="'pencil-outline'" class="text-lg hover:text-white" />
             <span class="hidden ml-3 lg:block">{{ $t('tutorials.tutorials') }}</span>
           </nuxt-link>
           <div class="custom-divider" />
-          <nuxt-link :to="localePath('/saved')" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
-            <Icon :name="'bookmark-outline'" class="text-lg hover:text-white" />
+          <nuxt-link :to="'/saved'" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
+            <Icon :name="'i-majesticons-bookmark-line'" class="text-lg hover:text-white" />
             <span class="hidden ml-3 lg:block">{{ $t('saved') }}</span>
           </nuxt-link>
           <div class="custom-divider" />
-          <nuxt-link :to="localePath('/communities')" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
-            <Icon :name="'people-outline'" class="text-lg hover:text-white" />
+          <nuxt-link :to="'/communities'" class="flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
+            <Icon :name="'i-fluent-people-checkmark-24-regular'" class="text-lg hover:text-white" />
             <span class="hidden ml-3 lg:block">{{ $t('communities') }}</span>
           </nuxt-link>
         </div> -->
@@ -71,7 +71,7 @@
 </template>
 
 <script setup>
-defineProps({
+defineProps ({
   withFooter: {
     type: Boolean,
     default: false
@@ -105,7 +105,7 @@ defineProps({
 .left-menu-link.nuxt-link-active {
   @apply button;
 
-  ion-icon {
+  .icon {
     @apply text-white;
   }
 }

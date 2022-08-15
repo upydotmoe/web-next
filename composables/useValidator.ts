@@ -28,7 +28,7 @@ export default function () {
      * If there is an error, add an error message to the input.
      */
     for (let i = 0; i < formInputs.length; i++) {
-      const nValidate = document.getElementsByTagName('n-validate')[i]
+      const nValidate = form.getElementsByTagName('n-validate')[i]
       
       const fieldName = nValidate.getAttribute('for')
       

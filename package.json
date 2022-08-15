@@ -9,6 +9,7 @@
   "devDependencies": {
     "@iconify/json": "^2.1.84",
     "@intlify/nuxt3": "^0.2.3",
+    "@nuxt/image-edge": "^1.0.0-27657146.da85542",
     "@nuxtjs/google-fonts": "^3.0.0-0",
     "@nuxtjs/tailwindcss": "^5.3.1",
     "@unocss/nuxt": "^0.44.7",
@@ -24,6 +25,7 @@
     "@nor1c/vue-tagsinput": "https://github.com/nor1c/vue-tagsinput",
     "@nuxtjs/color-mode": "^3.1.4",
     "@pinia/nuxt": "^0.3.1",
+    "@ts-pro/vue-eternal-loading": "^1.2.0",
     "@types/isomorphic-fetch": "^0.0.36",
     "@vueuse/nuxt": "^9.0.0",
     "@websanova/vue-auth": "^4.1.13",
@@ -39,7 +41,6 @@
     "v-viewer": "^3.0.10",
     "vue-debounce": "latest",
     "vue-filepond": "latest",
-    "vue-infinite-loading": "latest",
     "vue-lazyload": "latest"
   }
 }

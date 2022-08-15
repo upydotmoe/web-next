@@ -12,8 +12,8 @@
           :class="{ 'button-color text-white': config.currentState === 'profile' }"
           @click="changeCurrentState('profile')"
         >
-          <Icon v-show="config.currentState === 'profile'" :name="'person-outline'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'profile'" :name="'person-outline'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon v-show="config.currentState === 'profile'" :name="'i-fluent-person-32-regular'" class="text-lg text-white lg:mr-2 hover:text-white" />
+          <Icon v-show="config.currentState !== 'profile'" :name="'i-fluent-person-32-regular'" class="text-lg lg:mr-2 hover:text-white" />
 
           <span class="hidden-lg-flex">Profile</span>
         </div>
@@ -23,8 +23,8 @@
           :class="{ 'button-color text-white': config.currentState === 'social' }"
           @click="changeCurrentState('social')"
         >
-          <Icon v-show="config.currentState === 'social'" :name="'people-outline'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'social'" :name="'people-outline'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon v-show="config.currentState === 'social'" :name="'i-ion-share-social-outline'" class="text-lg text-white lg:mr-2 hover:text-white" />
+          <Icon v-show="config.currentState !== 'social'" :name="'i-ion-share-social-outline'" class="text-lg lg:mr-2 hover:text-white" />
 
           <span class="hidden-lg-flex">Social</span>
         </div>
@@ -34,8 +34,8 @@
           :class="{ 'button-color text-white': config.currentState === 'settings' }"
           @click="changeCurrentState('settings')"
         >
-          <Icon v-show="config.currentState === 'settings'" :name="'settings-outline'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'settings'" :name="'settings-outline'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon v-show="config.currentState === 'settings'" :name="'i-ph-gear-six'" class="text-lg text-white lg:mr-2 hover:text-white" />
+          <Icon v-show="config.currentState !== 'settings'" :name="'i-ph-gear-six'" class="text-lg lg:mr-2 hover:text-white" />
 
           <span class="hidden-lg-flex">Settings</span>
         </div>

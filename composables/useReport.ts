@@ -43,7 +43,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.reports, data?.pagination, null]
+      return [data.data.reports, data.data.pagination, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -67,7 +67,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.report, null]
+      return [data.data.report, null]
     } catch (error) {
       return [null, error]
     }
@@ -92,7 +92,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     description: string
   }) => {
     try {
-      const { success, data } = await new ReportsApi(oApiConfiguration)
+      const { data } = await new ReportsApi(oApiConfiguration)
         .createNewReport(
           {  
             type: params.type,
@@ -103,7 +103,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data?.report, null]
+      return [data.success, data.data.report, null]
     } catch (error) {
       return [false, null, error]
     }
@@ -126,7 +126,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     responseDescription: string
   }) => {
     try {
-      const { success } = await new ReportsApi(oApiConfiguration)
+      const { data } = await new ReportsApi(oApiConfiguration)
         .reviewReport(
           {
             report_id: params.reportId,
@@ -136,7 +136,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [false, error]
     }
@@ -163,7 +163,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.report, null]
+      return [data.data.report, null]
     } catch (error) {
       return [null, error]
     }

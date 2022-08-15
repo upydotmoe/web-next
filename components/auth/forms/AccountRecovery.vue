@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-defineProps({
+defineProps ({
   directMode: {
     type: Boolean,
     default: false
@@ -83,7 +83,7 @@ const resend = () => {
   _showResendInfo()
 }
 
-watch(showForm, () => {
+watch (showForm, () => {
   resetForm()
   showResendInfo.value = false
   Object.assign(alert, { ...initAlert })

@@ -6,22 +6,28 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
 
+// stores
+const auth = useAuthStore()
+
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $auth, redirect } = useContext()
+const { $router } = useNuxtApp()
 
-onBeforeMount(() => {
-  if (!$auth.loggedIn) {
-    redirect('/')
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    $router.push('/')
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetchUserInfo()
 })
 
@@ -30,8 +36,8 @@ const inputData = ref({
   showExplicit: false
 })
 const fetchUserInfo = async () => {
-  if ($auth.loggedIn) {
-    const [data, error] = await userApi.getInfo($auth.user.id)
+  if (auth.loggedIn) {
+    const [data, error] = await userApi.getInfo(auth.user.id)
 
     if (error) {
       // todo: handle error
@@ -56,7 +62,7 @@ const update = async () => {
   saving.value.settings.loading = true
   
   const [success, error] = await userApi.updateSettings({
-    userId: $auth.user.id,
+    userId: auth.user.id,
     showExplicit: inputData.value.showExplicit
   })
 

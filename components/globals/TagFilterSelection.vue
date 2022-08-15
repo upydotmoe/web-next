@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['apply'])
+const emits = defineEmits (['apply'])
 
 const rConfig = useRuntimeConfig()
 const apiUrl = rConfig.public.apiUrl
@@ -63,7 +63,7 @@ const applyTags = () => {
     tagsString.push(tag.value)
   })
 
-  emit('apply', toRaw(selectedTags.value), tagsString.join(','))
+  emits('apply', toRaw(selectedTags.value), tagsString.join(','))
 }
 
 const clearSelectedTags = () => {

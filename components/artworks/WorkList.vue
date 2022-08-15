@@ -49,9 +49,9 @@ import { useMediaQuery } from '@vueuse/core'
 // stores
 import authStore from '@/stores/auth.store'
 
-const emit = defineEmits('feedManageList')
+const emits = defineEmits ('feedManageList')
 
-const props = defineProps({
+const props = defineProps ({
   works: {
     type: Array,
     default: () => []
@@ -95,10 +95,10 @@ const addToManageList = (workId) => {
     manageList.value.push(workId)
   }
 
-  emit('feedManageList', manageList.value)
+  emits('feedManageList', manageList.value)
 }
 
-watch(() => props.manageMode, (currentState) => {
+watch (() => props.manageMode, (currentState) => {
   if (currentState === false) {
     manageList.value = []
   }

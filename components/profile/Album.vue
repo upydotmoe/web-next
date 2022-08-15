@@ -28,9 +28,9 @@
           </div> -->
         </div>
 
-        <div v-if="$auth.loggedIn && $auth.user.id === userId">
+        <div v-if="auth.loggedIn && auth.user.id === userId">
           <div class="icon-button" @click="openModal('album-form-modal')">
-            <Icon :name="'add-outline'" />
+            <Icon :name="'i-ion-add-outline'" />
           </div>
         </div>
       </div>
@@ -43,16 +43,16 @@
             class="ml-0 icon-button" 
             @click="back()"
           >
-            <Icon :name="'arrow-back-outline'" />
+            <Icon :name="'i-ic-baseline-keyboard-arrow-left'" />
           </div>
         </div>
 
         <!-- right side -->
         <div class="flex flex-row">
           <!-- manage items -->
-          <div v-show="$auth.loggedIn && ($auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
+          <div v-show="auth.loggedIn && (auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
             <button class="action-button secondary-button" @click="config.manageMode = !config.manageMode">
-              <Icon :name="config.manageMode ? 'close-outline' : 'checkbox-outline'" />
+              <Icon :name="config.manageMode ? 'i-ion-close-outline' : 'i-material-symbols-library-add-check-outline-rounded'" />
               {{ config.manageMode ? $t('quit') : $t('manage') }}
             </button>
             <button 
@@ -61,17 +61,17 @@
               :class="selectedItems.length > 0 ? 'danger-button' : 'disabled-button cursor-not-allowed'"
               @click="selectedItems.length > 0 ? openModal('item-deletion-confirm-modal') : null"
             >
-              <Icon :name="'trash-outline'" />
+              <Icon :name="'i-akar-icons-trash-bin'" />
               {{ $t('albums.removeSelected') }}
             </button>
           </div>
 
-          <div v-show="$auth.loggedIn && ($auth.user.id === userId) && !config.manageMode" class="flex flex-row gap-2">
+          <div v-show="auth.loggedIn && (auth.user.id === userId) && !config.manageMode" class="flex flex-row gap-2">
             <button class="icon-button" @click="editAlbum()">
-              <Icon :name="'settings-outline'" />
+              <Icon :name="'i-ph-gear-six'" />
             </button>
             <button class="danger-button-color b-button" @click="openModal('album-deletion-confirm-modal')">
-              <Icon :name="'trash-bin-outline'" />
+              <Icon :name="'i-akar-icons-trash-bin'" />
             </button>
           </div>
         </div>
@@ -99,7 +99,7 @@
         />
         
         <div class="flex flex-row pb-1 mt-4 font-bold">
-          <Icon v-if="!album.is_public" :name="'lock-closed'" class="mr-2 cursor-default" />
+          <Icon v-if="!album.is_public" :name="'i-radix-icons-lock-closed'" class="mr-2 cursor-default" />
           <span class="text-xs font-normal">{{ album.name }}</span>
         </div>
       </div>
@@ -173,6 +173,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import AlbumFormModal from '~/components/albums/AlbumFormModal.vue'
@@ -184,25 +187,25 @@ import ArtworkThumbnail from '~/components/albums/thumbnails/ArtworkThumbnail.vu
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useAlbum from '~/composables/users/useAlbum'
-import useSplash from '~/composables/useSplash'
-import useModal from '~/composables/useModal'
 
-const props = defineProps({
+// stores
+const auth = useAuthStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const album = useAlbum(oApiConfiguration, fetchOptions())
+
+const props = defineProps ({
   userId: {
     type: Number,
     default: 0
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetch()
 })
-
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const album = useAlbum(oApiConfiguration, fetchOptions())
 
 const loading = ref(false)
 const activeCategory = ref('artwork')

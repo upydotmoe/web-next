@@ -139,7 +139,7 @@ import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-defineProps({
+defineProps ({
   browseMode: {
     type: Boolean,
     default: false
@@ -149,7 +149,7 @@ defineProps({
 const auth = authStore()
 
 /** Before mount, fetch first rows */
-onBeforeMount(() => {
+onBeforeMount (() => {
   fetchTop()
 })
 

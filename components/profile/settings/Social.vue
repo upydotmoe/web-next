@@ -6,25 +6,27 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
 
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $auth, redirect } = useContext()
+const { $router } = useNuxtApp()
 
-onBeforeMount(() => {
-  if (!$auth.loggedIn) {
-    redirect('/')
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    $router.push('/')
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetchUserInfo()
 })
 
@@ -37,8 +39,8 @@ const inputData = ref({
   youtube: ''
 })
 const fetchUserInfo = async () => {
-  if ($auth.loggedIn) {
-    const [data, error] = await userApi.getInfo($auth.user.id)
+  if (auth.loggedIn) {
+    const [data, error] = await userApi.getInfo(auth.user.id)
 
     if (error) {
       // todo: handle error
@@ -67,7 +69,7 @@ const update = async () => {
   saving.value.socials.loading = true
   
   const [success, error] = await userApi.updateSocials({
-    userId: $auth.user.id,
+    userId: auth.user.id,
     facebook: inputData.value.facebook,
     twitter: inputData.value.twitter,
     instagram: inputData.value.instagram,

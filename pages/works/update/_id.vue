@@ -47,18 +47,14 @@
 import Layout from '~/components/layouts/Layout.vue'
 import UpdateForm from '~/components/artworks/forms/UpdateForm'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useArtwork from '~/composables/useArtwork'
-
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const { route } = useContext()
+const { $router } = useNuxtApp()
 
-const { id } = route.value.params
+const { id } = $router.currentRoute.value.params.path
 
-onMounted(() => {
+onMounted (() => {
   fetchWorkInfo()
 })
 

@@ -8,7 +8,7 @@ export default function (oApiConfiguration: Configuration, fetchOptions: any) {
     const { data } = await new SettingsApi(oApiConfiguration)
       .getSetting(key)
 
-    return data?.value
+    return data.data.value
   }
 
   return {

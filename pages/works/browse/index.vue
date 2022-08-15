@@ -26,14 +26,14 @@
           </div>
 
           <!-- Following only -->
-          <div v-show="$auth.loggedIn" class="filter-buttons">
+          <div v-show="auth.loggedIn" class="filter-buttons">
             <button 
               class="px-3 rounded-md button-item"
               :class="followingOnly ? 'button' : 'theme-color'"
               @click="toggleFollowingOnlyFilter()" 
             >
-              <Icon v-show="followingOnly" :name="'people-outline'" class="text-white" />
-              <Icon v-show="!followingOnly" :name="'people-outline'" /> 
+              <Icon v-show="followingOnly" :name="'i-fluent-people-checkmark-24-regular'" class="text-white" />
+              <Icon v-show="!followingOnly" :name="'i-fluent-people-checkmark-24-regular'" /> 
               
               {{ $t('following') }}
             </button>
@@ -59,7 +59,7 @@
 
           <!-- Filter explicit content -->
           <div 
-            v-if="$auth.loggedIn && $auth.user.user_settings.show_explicit" 
+            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
             class="filter-buttons"
           >
             <p 
@@ -170,7 +170,7 @@
           :class="{ 'mr-2': config.pagination.enableNext }"
           @click="movePage('prev')"
         >
-          <Icon :name="'chevron-back-outline'" />
+          <Icon :name="'i-ion-chevron-back-outline'" />
           {{ $t('pagination.previous') }}
         </button>
         <button 
@@ -180,7 +180,7 @@
         >
           {{ $t('pagination.next') }}
           <Icon 
-            :name="'chevron-forward-outline'" 
+            :name="'i-ion-chevron-forward-outline'" 
             class="ml-2"
             style="margin-right: 0 !important" 
           />
@@ -212,6 +212,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Layout from '~/components/layouts/Layout.vue'
@@ -220,25 +223,23 @@ import ModalView from '~/components/artworks/views/ModalView.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
-import useArtwork from '~/composables/useArtwork'
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const { route } = useContext()
-const { tags } = route.value.query
+const { $router } = useNuxtApp()
+const { tags } = $router.currentRoute.value.query
 
-watch(() => route.value.query, () => {
+watch (() => $router.currentRoute.value.query, () => {
   // close modal on changing route or going back to previous page
   closeArtworkModals()
 })
 
 /** Before mount, fetch first rows */
-onBeforeMount(() => {
+onMounted (() => {
   fetchTop()
 
   if (tags) {

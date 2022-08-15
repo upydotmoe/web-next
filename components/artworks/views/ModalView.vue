@@ -7,7 +7,7 @@
     <div class="left-side" :class="{ 'overflow-y-scroll mr-6': isModal }">
       <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
         <div class="flex flex-row justify-center mb-2">
-          <Icon :name="'alert-outline'" />
+          <Icon :name="'i-ion-alert-outline'" />
           <div>You are currently viewing the preview mode, this work isn't published yet.</div>
         </div>
         <div class="font-bold cursor-pointer">
@@ -109,13 +109,13 @@
           <span @click="liked ? unlike() : like()">
             <Icon 
               v-show="liked"
-              id="likeButton"
-              :name="'heart'" 
+              id="like-button"
+              :name="'i-ion-heart'" 
               class="text-red-500 hover:text-red-500"
             />
             <Icon 
               v-show="!liked"
-              :name="'heart-outline'" 
+              :name="'i-ion-heart-outline'" 
               class="hover:text-red-500"
             />
           </span>
@@ -128,12 +128,12 @@
             <Icon 
               v-show="saved"
               id="save-to-collection-button"
-              :name="'bookmark'" 
+              :name="'i-majesticons-bookmark'" 
               class="text-blue-500 hover:text-blue-500"
             />
             <Icon 
               v-show="!saved"
-              :name="'bookmark-outline'" 
+              :name="'i-majesticons-bookmark-line'" 
               class="hover:text-blue-500"
             />
           </span>
@@ -146,12 +146,12 @@
             <Icon 
               v-show="inAlbum"
               id="save-to-album-button"
-              :name="'folder-open'" 
+              :name="'i-ion-folder-open'" 
               class="text-green-500 hover:text-green-500"
             />
             <Icon 
               v-show="!inAlbum"
-              :name="'folder-open-outline'" 
+              :name="'i-bx-photo-album'" 
               class="hover:text-blue-500"
             />
           </span>
@@ -166,7 +166,7 @@
             >
               <span>
                 <Icon
-                  :name="'ellipsis-vertical-outline'" 
+                  :name="'i-ion-ellipsis-vertical-outline'" 
                   class="align-middle icon icon-color"
                 />
               </span>
@@ -184,7 +184,7 @@
                   :to="'/work/'+artworkDetail.id" 
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                 >
-                  <Icon :name="'enter-outline'" class="mr-2 text-base" /> {{ $t('open') }}
+                  <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
                 </nuxt-link>
                 <nuxt-link 
                   v-if="isModal" 
@@ -192,7 +192,7 @@
                   target="_blank" 
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                 >
-                  <Icon :name="'open-outline'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                  <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
                 </nuxt-link>
                 
                 <div v-if="isModal" class="custom-divider" />
@@ -204,13 +204,14 @@
                   :class="{ 'rounded-t-md': !isModal }"
                   @click="showReportModal()"
                 >
-                  <Icon :name="'flag-outline'" class="mr-2 text-base" /> {{ $t('report') }}
+                  <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
                 </div>
+
                 <div
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
                   @click="copyLink('/work/'+artworkDetail.id)" 
                 >
-                  <Icon :name="'link-outline'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
+                  <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
                 </div>
 
                 <div v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" class="custom-divider" />
@@ -220,7 +221,7 @@
                   :to="'/works/update/'+artworkDetail.id"
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                 >
-                  <Icon :name="'settings-outline'" class="mr-2 text-base" /> {{ $t('update') }}
+                  <Icon :name="'i-ion-settings-outline'" class="mr-2 text-base" /> {{ $t('update') }}
                 </nuxt-link>
                 <!-- <div
                   v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
@@ -228,7 +229,7 @@
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
                   @click="unpublish()"
                 >
-                  <Icon :name="'eye-off-outline'" class="mr-2 text-base" /> {{ $t('unpublish') }}
+                  <Icon :name="'i-ion-eye-off-outline'" class="mr-2 text-base" /> {{ $t('unpublish') }}
                 </div> -->
                 <div 
                   v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" 
@@ -236,7 +237,7 @@
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
                   @click="openModal('work-deletion-confirm-modal')"
                 >
-                  <Icon :name="'trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                  <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
                 </div>
               </div>
             </div>
@@ -315,7 +316,7 @@
               <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
                 <Icon 
                   v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
-                  :name="'prism'" 
+                  :name="'i-ion-prism'" 
                   class="text-xl transition-all duration-100 rotate-90 cursor-pointer text-colored"
                 />
                 <Spinner v-show="submitCommentLoading" />
@@ -366,12 +367,12 @@
                   </div>
                   <div v-if="auth.loggedIn" class="flex flex-row">
                     <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
-                      <Icon v-show="!likedComments.includes(comment.id)" :name="'heart-outline'" class="text-gray-500 hover:text-red-500" />
-                      <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'heart'" class="text-red-500 hover:text-red-500" />
+                      <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
+                      <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
                       {{ shortNumber(comment._count.artwork_comment_has_likes) }}
                     </span>
                     <span class="reaction" @click="showReplyInput(comment.id)">
-                      <Icon :name="'arrow-undo-outline'" class="text-gray-500 hover:text-blue-500" />
+                      <Icon :name="'i-quill-reply'" class="text-gray-500 hover:text-blue-500" />
                     </span>
 
                     <!-- Other comment interaction buttons -->
@@ -385,7 +386,7 @@
                       >
                         <span>
                           <Icon
-                            :name="'ellipsis-vertical-outline'" 
+                            :name="'i-ion-ellipsis-vertical-outline'" 
                             class="align-middle icon icon-color"
                           />
                         </span>
@@ -402,14 +403,14 @@
                             class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                             @click.prevent 
                           >
-                            <Icon :name="'person-outline'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
+                            <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
                           </nuxt-link>
                           <div
                             v-if="auth.loggedIn && auth.user.id === comment.users.id"
                             class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                             @click="deleteComment(comment.id)"
                           >
-                            <Icon :name="'trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                            <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
                           </div>
                           <nuxt-link 
                             v-if="auth.loggedIn && auth.user.id !== comment.users.id"
@@ -417,7 +418,7 @@
                             class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                             @click.prevent 
                           >
-                            <Icon :name="'flag-outline'" class="mr-2 text-base" /> {{ $t('report') }}
+                            <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
                           </nuxt-link>
                         </div>
                       </div>
@@ -455,7 +456,7 @@
                     <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitReply(comment.id)">
                       <Icon 
                         v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
-                        :name="'prism'" 
+                        :name="'i-ion-prism'" 
                         class="text-xl transition-all duration-100 rotate-90 cursor-pointer text-colored"
                       />
                       <Spinner v-show="submitReplyLoading" />
@@ -509,8 +510,8 @@
                     <span />
                     <div class="flex flex-row">
                       <span class="reaction" @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
-                        <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'heart'" class="text-red-500 hover:text-red-500" />
-                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'heart-outline'" class="text-gray-500 hover:text-red-500" />
+                        <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
+                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
                         {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
                       </span>
                       
@@ -524,7 +525,7 @@
                         >
                           <span>
                             <Icon
-                              :name="'ellipsis-vertical-outline'" 
+                              :name="'i-ion-ellipsis-vertical-outline'" 
                               class="align-middle icon icon-color"
                             />
                           </span>
@@ -541,14 +542,14 @@
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
-                              <Icon :name="'person-outline'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
+                              <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
                             </nuxt-link>
                             <div
                               v-if="auth.loggedIn && auth.user.id === reply.users.id"
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click="deleteReply(comment.id, reply.id)"
                             >
-                              <Icon :name="'trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                              <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
                             </div>
                             <nuxt-link 
                               v-if="auth.loggedIn && auth.user.id !== reply.users.id"
@@ -556,7 +557,7 @@
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
-                              <Icon :name="'flag-outline'" class="mr-2 text-base" /> {{ $t('report') }}
+                              <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
                             </nuxt-link>
                           </div>
                         </div>
@@ -579,7 +580,7 @@
         <div
           v-if="artworkDetail._count"
           v-show="artworkDetail._count.artwork_comments > 3 && showLoadOlderComments"
-          class="primary-button"
+          class="text-center capitalize href"
           @click.prevent="loadMoreComments(artworkDetail.id)"
         >
           {{ $t('comments.loadOlder') }}
@@ -597,14 +598,14 @@
     </div>
 
     <!-- add or remove from selected collection(s) -->
-    <!-- <ManageSave 
+    <ManageSave 
       v-if="!loading"
       id="collection-selection-modal"
       ref="collectionSelectionModalRef"
       :work-id="artworkDetail.id"
       class="modal"
       @save="save"
-    /> -->
+    />
 
     <!-- add or remove from selected album(s) -->
     <!-- <ManageAlbum
@@ -627,21 +628,21 @@
     />
 
     <!-- Report modal -->
-    <!-- <ReportModal 
+    <ReportModal 
       id="report-modal"
       ref="reportModalRef"
       class="modal"
       :type="'artwork'"
       :post-id="artworkDetail.id"
       :report-status="reportStatus"
-    /> -->
+    />
     
     <!-- Link copied notification -->
     <SplashAlert 
       v-show="copied"
       id="copy-alert"
-      :text="'Link copied'"
-      :icon="'copy-outline'"
+      :text="$t('linkCopied')"
+      :icon="'i-bi-check-all'"
     />
   </div>
 </template>
@@ -651,19 +652,22 @@ import 'viewerjs/dist/viewer.css'
 
 import { useClipboard } from '@vueuse/core'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import ModalViewInfo from './ModalViewInfo.vue'
 import ArtistWorks from '~/components/artworks/views/ArtistWorks.vue'
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
-// import ManageSave from '~/components/artworks/ManageSave.vue'
+import ManageSave from '~/components/artworks/ManageSave.vue'
 // import ManageAlbum from '~/components/albums/ManageAlbum'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
-// import ReportModal from '~/components/reports/ReportModal.vue'
+import ReportModal from '~/components/reports/ReportModal.vue'
 
 // stores
-import authStore from '@/stores/auth.store'
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -671,7 +675,10 @@ const { applyExplicitFilter, removeExplicitFilter, generateSemiCompressedArtwork
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const props = defineProps({
+/**
+ * @props
+ */
+const props = defineProps ({
   id: {
     type: String,
     default: ''
@@ -682,10 +689,13 @@ const props = defineProps({
   }
 })
 
-const auth = authStore()
-const { $router, env } = useNuxtApp()
+const runtimeConfig = useRuntimeConfig()
+const { $router } = useNuxtApp()
 
-watch(() => $router.query, () => {
+/**
+ * @watchers
+ */
+watch (() => $router.query, () => {
   // close modal on changing route or going back to previous page
   closeArtworkModals()
 
@@ -699,7 +709,7 @@ watch(() => $router.query, () => {
   useModal().closeModal('report-modal')
 })
 
-onMounted(() => {
+onMounted (() => {
   if (props.id !== '') {
     view(props.id)
   }
@@ -824,10 +834,10 @@ const like = async () => {
     liked.value = true
 
     // animate
-    const likeButton = document.getElementById('likeButton')
-    likeButton.classList.add('animate-bounce')
+    const artworkLikeButtonEl = document.getElementById('like-button')
+    artworkLikeButtonEl.classList.add('animate-bounce')
     setInterval(() => {
-      likeButton.classList.remove('animate-bounce')
+      artworkLikeButtonEl.classList.remove('animate-bounce')
     }, 2500)
   } else {
     // todo: handle error
@@ -970,10 +980,10 @@ const likeComment = async (commentId) => {
     likedComments.value.push(commentId)
 
     // animate
-    const likeButton = document.getElementById(`comment-like-button-${commentId}`)
-    likeButton.classList.add('animate-bounce')
+    const commentLikeButtonEl = document.getElementById(`comment-like-button-${commentId}`)
+    commentLikeButtonEl.classList.add('animate-bounce')
     setInterval(() => {
-      likeButton.classList.remove('animate-bounce')
+      commentLikeButtonEl.classList.remove('animate-bounce')
     }, 2500)
   } else {
     // todo: handle error
@@ -1144,10 +1154,10 @@ const likeReply = async (replyId) => {
     likedReplies.value.push(replyId)
     
     // animate
-    const likeButton = document.getElementById(`reply-like-button-${replyId}`)
-    likeButton.classList.add('animate-bounce')
+    const replyCommentLikeButtonEl = document.getElementById(`reply-like-button-${replyId}`)
+    replyCommentLikeButtonEl.classList.add('animate-bounce')
     setInterval(() => {
-      likeButton.classList.remove('animate-bounce')
+      replyCommentLikeButtonEl.classList.remove('animate-bounce')
     }, 2500)
   } else {
     // todo: handle error
@@ -1266,7 +1276,7 @@ const addedToAlbum = (unsaved) => {
 const copied = ref(false)
 let splashInterval
 const copyLink = (link) => {
-  const source = ref(env.APP_URL + link)
+  const source = ref(runtimeConfig.public.appUrl + link)
   const { copy } = useClipboard({ source })
   copy()
 

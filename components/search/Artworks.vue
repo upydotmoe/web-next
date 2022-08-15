@@ -9,14 +9,14 @@
       <!-- Filter popularity range by Daily/Weekly/Monthly or All-time -->
       <div class="buttons">
         <!-- Following only -->
-        <div v-show="$auth.loggedIn" class="filter-buttons">
+        <div v-show="auth.loggedIn" class="filter-buttons">
           <button 
             class="px-3 rounded-md button-item"
             :class="followingOnly ? 'button' : 'theme-color'"
             @click="toggleFollowingOnlyFilter()" 
           >
-            <Icon v-show="followingOnly" :name="'people-outline'" class="text-white" />
-            <Icon v-show="!followingOnly" :name="'people-outline'" /> 
+            <Icon v-show="followingOnly" :name="'i-fluent-people-checkmark-24-regular'" class="text-white" />
+            <Icon v-show="!followingOnly" :name="'i-fluent-people-checkmark-24-regular'" /> 
             
             {{ $t('following') }}
           </button>
@@ -42,7 +42,7 @@
 
         <!-- Filter explicit content -->
         <div 
-          v-if="$auth.loggedIn && $auth.user.user_settings.show_explicit" 
+          v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
           class="filter-buttons"
         >
           <p 
@@ -192,21 +192,16 @@ import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
-import useArtwork from '~/composables/useArtwork'
-
-// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const { route } = useContext()
-const { q } = route.value.query
+const { $router } = useNuxtApp()
+const { q } = $router.currentRoute.value.params.path
 
-const emit = defineEmits(['countUsers'])
+const emits = defineEmits (['countUsers'])
 
 // watch for search query/keyword change
-watch(() => route.value.query, (newVal, oldVal) => {
+watch (() => $router.currentRoute.value.params.path, (newVal, oldVal) => {
   if (newVal.q !== oldVal.q) {
     keyword.value = newVal.q
     fetchTop()
@@ -215,7 +210,7 @@ watch(() => route.value.query, (newVal, oldVal) => {
 
 /** Before mount, fetch first row */
 const keyword = ref(q)
-onBeforeMount(() => {
+onBeforeMount (() => {
   fetchTop()
 })
 
@@ -286,7 +281,7 @@ const fetchTop = async () => {
     }
 
     // counter
-    emit('countArtworks', dataPagination.record_total)
+    emits('countArtworks', dataPagination.record_total)
   }
 }
 

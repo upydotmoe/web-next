@@ -70,7 +70,7 @@
 import useReadMore from '~/composables/useReadMore'
 import Icon from '~/components/globals/Icon.vue'
 
-defineProps({
+defineProps ({
   section: {
     type: String,
     default: ''

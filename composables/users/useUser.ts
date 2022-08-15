@@ -11,13 +11,13 @@ import {
 export default function (oApiConfiguration: any, fetchOptions: any) {
   const checkUsernameAvailability = async (username: string) => {
     try {
-      const { success } = await new AuthServiceRegistrationApi(oApiConfiguration)
+      const { data } = await new AuthServiceRegistrationApi(oApiConfiguration)
         .checkUsername({
           username
         })
 
-      if (success) {
-        return [success, null]
+      if (data.success) {
+        return [data.success, null]
       } else {
         return [null, 'Username is already taken']
       }
@@ -28,11 +28,11 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const checkPenNameAvailability = async (penName: string) => {
     try {
-      const { success } = await new UserApi(oApiConfiguration)
+      const { data } = await new UserApi(oApiConfiguration)
         .penNameCheck(penName, fetchOptions)
 
-      if (success) {
-        return [success, null]
+      if (data.success) {
+        return [data.success, null]
       } else {
         return [null, 'Pen name is already taken']
       }
@@ -46,7 +46,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new UserApi(oApiConfiguration)
         .getUserInfoById(userId.toString(), fetchOptions)
       
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -68,7 +68,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
           
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -82,7 +82,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -96,7 +96,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -110,7 +110,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
         .countFollowers(userId)
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -121,7 +121,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
         .countFollowings(userId)
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -132,7 +132,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
         .isFollowing(userIdToCheck, fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -140,10 +140,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const follow = async (userToFollow: number) => {
     try {
-      const { success } = await new UserFollowingFollowersApi(oApiConfiguration)
+      const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
         .followUser(userToFollow, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -151,10 +151,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const unfollow = async (userToUnfollow: number) => {
     try {
-      const { success } = await new UserFollowingFollowersApi(oApiConfiguration)
+      const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
         .unfollowUser(userToUnfollow, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -176,7 +176,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -198,7 +198,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -216,7 +216,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     penName: string
   }) => {
     try {
-      const { success } = await new UserUpdateUserInfoApi(oApiConfiguration)
+      const { data } = await new UserUpdateUserInfoApi(oApiConfiguration)
         .updateUserInfo({
           id: params.userId,
           name: params.name,
@@ -227,7 +227,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           pen_name: params.penName
         }, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -242,7 +242,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     youtube: string
   }) => {
     try {
-      const { success } = await new UserUpdateUserInfoApi(oApiConfiguration)
+      const { data } = await new UserUpdateUserInfoApi(oApiConfiguration)
         .updateUserSocial({
           id: params.userId,
           facebook: params.facebook,
@@ -252,7 +252,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           youtube: params.youtube
         }, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -263,14 +263,14 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     showExplicit: boolean
   }) => {
     try {
-      const { success } = await new UserUpdateUserInfoApi(oApiConfiguration)
+      const { data } = await new UserUpdateUserInfoApi(oApiConfiguration)
         .updateUserPreference({
           id: params.userId,
           // @ts-ignore: Swagger convert any underscores to camelCase style
           show_explicit: params.showExplicit ? 1 : 0
         }, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -278,13 +278,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const changeUsername = async (username: string) => {
     try {
-      const { success } = await new UserUpdateUserInfoApi(oApiConfiguration)
+      const { data } = await new UserUpdateUserInfoApi(oApiConfiguration)
         .changeUsername({
           // @ts-ignore: Swagger convert any underscores to camelCase style
           new_username: username
         }, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -292,10 +292,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const updateAvatar = async (avatar: Blob) => {
     try {
-      const { success } = await new UserChangeUserMediaApi(oApiConfiguration)
-        .updateAvatar(avatar, fetchOptions)
+      const { data } = await new UserChangeUserMediaApi(oApiConfiguration)
+        .updateAvatarForm(avatar, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }

@@ -23,11 +23,6 @@ import authStore from '@/stores/auth.store'
 import Spinner from '~/components/globals/Spinner.vue'
 import Icon from '~/components/globals/Icon.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useSetting from '~/composables/useSetting'
-import useDate from '~/composables/useDate'
-
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview
@@ -48,11 +43,11 @@ export default {
     // composables
     const { oApiConfiguration, fetchOptions } = useApiFetch()
 
-    watch(() => $router.query, () => {
+    watch (() => $router.query, () => {
       resetForm()
     })
 
-    onMounted(() => {
+    onMounted (() => {
       if (!auth.loggedIn) {
         $router.push('/')
       }
@@ -159,7 +154,7 @@ export default {
 
             uploadSuccess.value = true
             setTimeout(() => {
-              redirect(app.localePath(`/work/${workId}`))
+              $router.push(`/work/${workId}`)
             }, 1000)
           } else {
             showError()

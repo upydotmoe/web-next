@@ -47,7 +47,7 @@ const initialValue = {
 const formData = reactive({ ...initialValue })
 
 // reset inputted data everytime user switched to login form
-watch(showForm, () => {
+watch (showForm, () => {
   resetForm()
 })
 const resetForm = () => {

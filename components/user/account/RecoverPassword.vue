@@ -24,16 +24,13 @@ import {
   UserForgotPasswordApi
 } from '~/api/openapi/api'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-
-const { route, redirect, app } = useContext()
-const { iv, content } = route.value.params
+const { $router } = useNuxtApp()
+const { iv, content } = $router.currentRoute.value.params.path
 
 // composables
 const { oApiConfiguration } = useApiFetch()
 
-onMounted(() => {
+onMounted (() => {
   checkTokenValidity()
 })
 
@@ -43,10 +40,10 @@ const checkTokenValidity = async () => {
       .checkResetPasswordTokenValidity(iv, content)
 
     if (!data.valid) {
-      redirect(app.localePath('/'))
+      $router.push('/')
     }
   } catch (error) {
-    redirect(app.localePath('/'))
+    $router.push('/')
   }
 }
 

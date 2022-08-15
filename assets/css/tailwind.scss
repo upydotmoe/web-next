@@ -185,7 +185,7 @@
   .primary-button {
     @apply b-button button hover:button-hover;
 
-    ion-icon {
+    .icon {
       @apply mr-2 text-white;
     }
   }
@@ -194,7 +194,7 @@
     @apply flex flex-row justify-center py-2 px-3 rounded border-2 shadow-none transition-all duration-200 ease-in-out cursor-pointer theme-color-secondary parent-icon hover:shadow-md;
     border-color: var(--button-border);
     
-    ion-icon {
+    .icon {
       @apply mr-2 text-color;
     }
   }
@@ -206,7 +206,7 @@
   .danger-button-color {
     @apply text-white bg-red-500 hover:bg-red-600;
 
-    ion-icon {
+    .icon {
       @apply text-white;
     }
   }
@@ -214,7 +214,7 @@
   .danger-button {
     @apply b-button theme-color-secondary danger-button-color hover:text-white parent-icon;
 
-    ion-icon {
+    .icon {
       @apply mr-2 text-white;
     }
   }
@@ -222,7 +222,7 @@
   .light-button {
     @apply b-button button-light hover:theme-colored;
 
-    ion-icon {
+    .icon {
       @apply mr-2;
     }
   }
@@ -230,7 +230,7 @@
   .secondary-button {
     @apply b-button theme-color-secondary hover:theme-colored;
 
-    ion-icon {
+    .icon {
       @apply mr-2;
     }
   }
@@ -240,7 +240,7 @@
     background-color: var(--button-disabled);
     border: var(--button-disabled);
 
-    ion-icon {
+    .icon {
       @apply mr-2 text-white;
     }
   }
@@ -248,7 +248,7 @@
   .reset-form-button {
     @apply secondary-button;
 
-    ion-icon {
+    .icon {
       @apply mr-2;
     }
   }
@@ -260,14 +260,14 @@
   .icon-button {
     @apply p-2 ml-2 leading-3 rounded-md cursor-pointer theme-color-secondary hover:button hover:rounded-md;
   }
-  .icon-button:hover ion-icon {
+  .icon-button:hover .icon {
     @apply text-white;
   }
 
   .icon-button-primary-color {
     @apply p-2 ml-2 leading-3 rounded-md cursor-pointer button hover:rounded-md;
 
-    ion-icon {
+    .icon {
       @apply text-white;
     }
   }
@@ -437,10 +437,10 @@
     @apply font-bold text-blue-500 underline;
   }
   
-  .parent-icon:hover ion-icon {
+  .parent-icon:hover .icon {
     @apply md:text-white;
   }
-  .parent-delete-icon:hover ion-icon {
+  .parent-delete-icon:hover .icon {
     @apply text-red-500;
   }
 

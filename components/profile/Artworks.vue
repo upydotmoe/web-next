@@ -44,25 +44,17 @@
 </template>
 
 <script setup>
-// API
-import {
-  ArtworkListApi
-} from '~/api/openapi/api'
-
 // components
 import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
-
-// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emit = defineEmits(['feedSelectedItems', 'onEmpty'])
-const props = defineProps({
+const emits = defineEmits (['feedSelectedItems', 'onEmpty'])
+const props = defineProps ({
   userId: {
     type: Number,
     default: 0
@@ -76,22 +68,21 @@ const props = defineProps({
 const section = 'profile'
 const loading = ref(false)
 
-onBeforeMount(() => {
+onBeforeMount (() => {
   fetchTop()
 })
 
 const fetchTop = async () => {
-  const data = await fetch()
-  
-  const dataWorks = data.works
-  const dataPagination = data.pagination
+  const [dataWorks, dataPagination] = await fetch()
 
+  // assign data to works ref
   works.value = dataWorks
   
+  // read pagination status
   if (dataPagination.record_total <= pagination.value.perPage) {
     hideLoadMoreButton()
   }
-
+  
   if (dataPagination.record_total === 0) {
     showEmpty()
   }
@@ -107,30 +98,29 @@ const fetch = async () => {
     loading.value = true
   }
 
-  try {
-    const { data } = await new ArtworkListApi(oApiConfiguration)
-      .getUserArtworks(
-        props.userId,
-        pagination.value.perPage,
-        pagination.value.page,
-        fetchOptions()
-      )
-    
+  const [works, workPagination, error] = await artworkApi.getUserArtworks({
+    userId: props.userId,
+    pagination: {
+      page: pagination.value.page,
+      perPage: pagination.value.perPage
+    }
+  })
+
+  if (error) {
+    showError()
+  } else {
     // pagination
-    const dataPagination = data.pagination
-    if (dataPagination.record_total <= pagination.value.perPage) {
+    if (workPagination.record_total <= pagination.value.perPage) {
       hideLoadMoreButton()
     }
-    if (dataPagination.record_total === 0) {
+    if (workPagination.record_total === 0) {
       showEmpty()
     }
 
     pagination.value.page += 1
     reset()
 
-    return data
-  } catch (error) {
-    showError()
+    return [works, workPagination]
   }
 }
 
@@ -152,14 +142,11 @@ const loadMoreOptions = ref({
 })
 const loadMore = async () => {
   loadMoreOptions.value.delay = true
-  const data = await fetch()
+  const [dataWorks, workPagination] = await fetch()
 
-  const dataWorks = data.works
-  const dataPagination = data.pagination
-
-  dataWorks.forEach((work) => {
-    works.value.push(work)
-  })
+  for (let workIdx = 0; workIdx < dataWorks.length; workIdx++) {
+    works.value.push(dataWorks[workIdx])
+  }
 
   loadMoreOptions.value.delay = false
 
@@ -178,7 +165,7 @@ const isEmpty = ref(false)
 const showEmpty = () => {
   isEmpty.value = true
   hideLoadMoreButton()
-  emit('onEmpty')
+  emits('onEmpty')
 }
 
 /** Show error message when error occured while trying to fetch artworks */
@@ -198,7 +185,7 @@ const view = (workId, keepArtistPageNumber = false) => {
 
 /** Listen to manage item changes */
 const feedManageList = (selectedItems) => {
-  emit('feedSelectedItems', selectedItems)
+  emits('feedSelectedItems', selectedItems)
 }
 
 // const closeModal = () => {

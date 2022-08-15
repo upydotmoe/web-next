@@ -15,7 +15,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   ) => {
     try {
-      const { success, data } = await new AlbumsApi(oApiConfiguration)
+      const { data } = await new AlbumsApi(oApiConfiguration)
         .createAlbum(
           {
             name: inputData.title,
@@ -26,7 +26,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data, null]
+      return [data.success, data.data, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -37,7 +37,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const data = await new AlbumsApi(oApiConfiguration)
         .getAlbumById(albumId, fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -51,7 +51,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -65,7 +65,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -87,15 +87,15 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      const albums: any = data?.albums
-      const pagination: any = data?.pagination
+      const albums: any = data.data.albums
+      const pagination: any = data.data.pagination
 
       let showLoadMore: boolean = true
       if (pagination.current_page === pagination.total_page) {
         showLoadMore = false
       }
 
-      return [albums, showLoadMore, null]
+      return [data.data.albums, showLoadMore, null]
     } catch (error) {
       return [null, false, error]
     }
@@ -117,14 +117,14 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      const pagination: any = data?.pagination
+      const pagination: any = data.data.pagination
       
       let showLoadMore: boolean = true
       if (pagination.current_page === pagination.total_page) {
         showLoadMore = false
       }
 
-      return [data?.works, showLoadMore, null]
+      return [data.data.works, showLoadMore, null]
     } catch (error) {
       return [null, false, error]
     }
@@ -135,13 +135,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       data.is_public = data.isPublic
       delete data.isPublic
 
-      const { success } = await new AlbumsApi(oApiConfiguration)
+      const { data } = await new AlbumsApi(oApiConfiguration)
         .updateAlbum(
           data,
           fetchOptions
         )
     
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -152,7 +152,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new AlbumsApi(oApiConfiguration)
         .getCurrentAlbumSaveInfo(type, workId, fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -176,13 +176,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const removeItems = async (albumId: number, workList: number[]) => {
     try {
-      const { success } = await new AlbumsApi(oApiConfiguration)
+      const { data } = await new AlbumsApi(oApiConfiguration)
         .removeWorkFromAlbum({
           album_id: albumId,
           work_ids: workList
         }, fetchOptions)
       
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -190,10 +190,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const deleteAlbum = async (albumId: number) => {
     try {
-      const { success } = await new AlbumsApi(oApiConfiguration)
+      const { data } = await new AlbumsApi(oApiConfiguration)
         .deleteAlbum(albumId, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }

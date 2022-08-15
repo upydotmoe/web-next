@@ -29,7 +29,7 @@
 <script setup>
 import Spinner from '~/components/globals/Spinner.vue'
 
-defineProps({
+defineProps ({
   loading: {
     type: Boolean,
     default: false

@@ -32,7 +32,7 @@
       .nav-icon {
         @apply inline justify-center items-center p-2 ml-2 h-9 text-lg cursor-pointer hover:rounded-md hover:theme-color-secondary;
 
-        ion-icon {
+        .icon {
           @apply text-xl;
         }
 
@@ -55,7 +55,7 @@
         }
       }
 
-      .nav-icon:hover > ion-icon {
+      .nav-icon:hover > .icon {
         color: var(--icon-color);
       }
     }
@@ -71,7 +71,7 @@
     .search-button {
       @apply flex relative justify-center items-center w-10 h-10 rounded-full;
 
-      ion-icon {
+      .icon {
         @apply text-base;
       }
     }
@@ -117,7 +117,7 @@
         .menu {
           @apply flex z-50 flex-row py-3 px-4 mx-auto w-full capitalize rounded-md cursor-pointer;
 
-          ion-icon {
+          .icon {
             @apply mr-2;
           }
 
@@ -126,7 +126,7 @@
             background: var(--button);
             border-color: var(--button);
 
-            ion-icon {
+            .icon {
               @apply text-white;
             }
           }

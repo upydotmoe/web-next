@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-defineProps({
+defineProps ({
   name: {
     type: String,
     default: ''

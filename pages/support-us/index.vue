@@ -27,7 +27,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
           <!-- support the team -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'people-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-fluent-people-checkmark-24-regular'" class="mx-auto text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Support the team</span>
               <div class="mt-1">

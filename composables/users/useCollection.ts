@@ -15,7 +15,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   ) => {
     try {
-      const { success, data } = await new CollectionsApi(oApiConfiguration)
+      const { data } = await new CollectionsApi(oApiConfiguration)
         .create(
           {
             name: inputData.title,
@@ -26,7 +26,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data, null]
+      return [data.success, data.data, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -37,7 +37,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const data = await new CollectionsApi(oApiConfiguration)
         .detail(collectionId, fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -69,8 +69,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      const collections: any = data?.collections
-      const pagination: any = data?.pagination
+      const collections: any = data.data.collections
+      const pagination: any = data.data.pagination
 
       let showLoadMore: boolean = true
       if (pagination.current_page === pagination.total_page) {
@@ -104,14 +104,14 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      const pagination: any = data?.pagination
+      const pagination: any = data.data.pagination
       
       let showLoadMore: boolean = true
       if (pagination.current_page === pagination.total_page) {
         showLoadMore = false
       }
 
-      return [data?.items, showLoadMore, null]
+      return [data.data.items, showLoadMore, null]
     } catch (error) {
       return [null, false, error]
     }
@@ -123,13 +123,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       data.is_public = data.isPublic
       delete data.isPublic
 
-      const { success } = await new CollectionsApi(oApiConfiguration)
+      const { data } = await new CollectionsApi(oApiConfiguration)
         .updateCollection(
           data,
           fetchOptions
         )
     
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -140,7 +140,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new CollectionsApi(oApiConfiguration)
         .getCurrentSaveInfo(type, workId, fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -154,8 +154,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     try {
       await new CollectionsApi(oApiConfiguration)
         .addItemToCollection(
-          params.collectionId,
           params.type,
+          params.collectionId,
           {
             id: params.workId
           },
@@ -174,17 +174,17 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     workId: number
   }) => {
     try {
-      const { success } = await new CollectionsApi(oApiConfiguration)
+      const { data } = await new CollectionsApi(oApiConfiguration)
         .removeItemFromCollection(
-          params.collectionId,
           params.type,
+          params.collectionId,
           {
             id: params.workId
           },
           fetchOptions
         )
       
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -192,10 +192,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const deleteCollection = async (collectionId: number) => {
     try {
-      const { success } = await new CollectionsApi(oApiConfiguration)
+      const { data } = await new CollectionsApi(oApiConfiguration)
         .collectionsIdDelete(collectionId, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -214,7 +214,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }
@@ -233,7 +233,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data?.total, null]
+      return [data.data.total, null]
     } catch (error) {
       return [null, error]
     }

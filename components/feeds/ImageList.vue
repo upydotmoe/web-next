@@ -1,9 +1,13 @@
 <template>
   <div>
     <!-- 1 images -->
-    <div :images="[artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')]">
+    <div
+      v-if="work.artwork_assets.length === 1"
+      :images="[
+        artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')
+      ]"
+    >
       <img 
-        v-if="work.artwork_assets.length === 1"
         v-lazy="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')"
         :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')"
         class="object-contain w-full rounded"
@@ -111,8 +115,11 @@
 </template>
 
 <script setup>
-defineProps({
-  work: Object
+defineProps ({
+  work: {
+    type: Object,
+    default: () => {}
+  }
 })
 
 const imGridClass = {

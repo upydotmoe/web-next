@@ -6,7 +6,7 @@
 
       <div class="mt-2">
         <!-- show current avatar when user doesn't pick new avatar file yet -->
-        <img v-show="!previewNewAvatar" :src="avatarCoverUrl($auth.user.avatar_bucket, $auth.user.avatar_filename)" class="avatar" @error="imageLoadError">
+        <img v-show="!previewNewAvatar" :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" class="avatar" @error="imageLoadError">
 
         <!-- display selected file everytime the user selected new file -->
         <img v-show="previewNewAvatar" :src="previewNewAvatar" class="avatar" :class="avatarFileTooLargeAlert || updateAvatarError ? 'border-2 border-red-400' : 'border-none'">
@@ -65,7 +65,7 @@
       <div class="mt-2">
         <img 
           v-show="!previewNewCover"
-          :src="avatarCoverUrl($auth.user.cover_bucket, $auth.user.cover_filename)" 
+          :src="avatarCoverUrl(auth.user.cover_bucket, auth.user.cover_filename)" 
           class="object-cover object-top w-full h-28 rounded-md md:h-48 lg:h-64 xl:h-72 unselectable"
           @error="imageLoadError"
         >
@@ -141,26 +141,31 @@
 import axios from 'axios'
 import { debounce } from 'vue-debounce'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Spinner from '~/components/globals/Spinner.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
 
+// stores
+const auth = useAuthStore()
+
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $auth, redirect } = useContext()
-const authToken = $auth.strategy.token.get()
+const { $router } = useNuxtApp()
 
-onBeforeMount(() => {
-  if (!$auth.loggedIn) {
-    redirect('/')
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    $router.push('/')
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetchUserInfo()
 })
 
@@ -178,8 +183,8 @@ const current = ref({
   penName: ''
 })
 const fetchUserInfo = async () => {
-  if ($auth.loggedIn) {
-    const [data, error] = await userApi.getInfo($auth.user.id)
+  if (auth.loggedIn) {
+    const [data, error] = await userApi.getInfo(auth.user.id)
 
     if (error) {
       // todo: handle error
@@ -236,7 +241,7 @@ const checkPenNameAvailability = async () => {
       } else {
         const [result, error] = await userApi.checkPenNameAvailability(inputData.value.penName)
 
-        if (!result && error && $auth.user.pen_name !== inputData.value.penName) {
+        if (!result && error && auth.user.pen_name !== inputData.value.penName) {
           penNameUsedAlert.value = true
           saving.value.basic.buttonDisabled = true
           saving.value.basic.checkingValidity = false
@@ -258,7 +263,7 @@ const update = async () => {
     saving.value.basic.loading = true
   
     const [success, error] = await userApi.updateInfo({
-      userId: $auth.user.id,
+      userId: auth.user.id,
       name: inputData.value.name,
       gender: inputData.value.gender,
       bio: inputData.value.bio,
@@ -379,7 +384,7 @@ const updateAvatar = async () => {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: authToken
+            Authorization: auth.a4ht0jen
           }
         }
       )
@@ -445,7 +450,7 @@ const updateCover = async () => {
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: authToken
+            Authorization: auth.a4ht0jen
           }
         }
       )

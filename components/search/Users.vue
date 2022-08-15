@@ -62,20 +62,19 @@ import UserList from '~/components/users/UserList.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { route } = useContext()
-const { q } = route.value.query
+const { $router } = useNuxtApp()
+const { q } = $router.currentRoute.value.params.path
 
-const emit = defineEmits(['countUsers'])
+const emits = defineEmits (['countUsers'])
 
 // watch for search query/keyword change
-watch(() => route.value.query, (newVal, oldVal) => {
+watch (() => $router.currentRoute.value.params.path, (newVal, oldVal) => {
   if (newVal.q !== oldVal.q) {
     keyword.value = newVal.q
     fetchTop()
@@ -84,7 +83,7 @@ watch(() => route.value.query, (newVal, oldVal) => {
 
 /** Before mount, fetch first row */
 const keyword = ref(q)
-onBeforeMount(() => {
+onBeforeMount (() => {
   fetchTop()
 })
 
@@ -121,7 +120,7 @@ const fetchTop = async () => {
     }
 
     // counter
-    emit('countUsers', dataPagination.record_total)
+    emits('countUsers', dataPagination.record_total)
   }
 }
 

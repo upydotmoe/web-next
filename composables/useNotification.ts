@@ -29,7 +29,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
       
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -40,13 +40,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     workId: number
   }) => {
     try {
-      const { success } = await new NotificationsArtworksLikesApi(oApiConfiguration)
+      const { data } = await new NotificationsArtworksLikesApi(oApiConfiguration)
         .markArtworkLikeNotificationAsRead(
           params.workId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -54,10 +54,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const markAllArtworkLikeAsRead = async () => {
     try {
-      const { success } = await new NotificationsArtworksLikesApi(oApiConfiguration)
+      const { data } = await new NotificationsArtworksLikesApi(oApiConfiguration)
         .readAllArtworkLikeNotifications(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -65,10 +65,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const clearArtworkLikeNotifs = async () => {
     try {
-      const { success } = await new NotificationsArtworksLikesApi(oApiConfiguration)
+      const { data } = await new NotificationsArtworksLikesApi(oApiConfiguration)
         .clearAllArtworkLikeNotifications(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -92,7 +92,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -114,7 +114,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -124,13 +124,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     commentId: number
   }) => {
     try {
-      const { success } = await new NotificationsArtworksCommentsApi(oApiConfiguration)
+      const { data } = await new NotificationsArtworksCommentsApi(oApiConfiguration)
         .markArtworkCommentLikeNotificationAsRead(
           params.commentId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -152,7 +152,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -162,13 +162,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     commentId: number
   }) => {
     try {
-      const { success } = await new NotificationsArtworksCommentsApi(oApiConfiguration)
+      const { data } = await new NotificationsArtworksCommentsApi(oApiConfiguration)
         .markArtworkCommentReplyNotificationAsRead(
           params.commentId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -190,7 +190,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -201,14 +201,14 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     commentId: number
   }) => {
     try {
-      const { success } = await new NotificationsArtworksCommentsApi(oApiConfiguration, fetchOptions)
+      const { data } = await new NotificationsArtworksCommentsApi(oApiConfiguration, fetchOptions)
         .markArtworkCommentNotificationAsRead(
           params.workId,
           params.commentId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -216,10 +216,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const markAllCommentAndReplyNotificationAsRead = async () => {
     try {
-      const { success } = await new NotificationsArtworksCommentsApi(oApiConfiguration, fetchOptions)
+      const { data } = await new NotificationsArtworksCommentsApi(oApiConfiguration, fetchOptions)
         .readAllArtworkCommentAndReplyNotifications(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -227,10 +227,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const clearAllCommentAndReplyNotifications = async () => {
     try {
-      const { success } = await new NotificationsArtworksCommentsApi(oApiConfiguration, fetchOptions)
+      const { data } = await new NotificationsArtworksCommentsApi(oApiConfiguration, fetchOptions)
         .clearAllArtworkCommentAndReplyNotifications(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -253,7 +253,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -263,13 +263,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     followerId: number
   }) => {
     try {
-      const { success } = await new NotificationsUsersApi(oApiConfiguration)
+      const { data } = await new NotificationsUsersApi(oApiConfiguration)
         .markUserFollowNotificationAsRead(
           params.followerId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -277,12 +277,12 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const markAllUserFollowAsRead = async () => {
     try {
-      const { success } = await new NotificationsUsersApi(oApiConfiguration)
+      const { data } = await new NotificationsUsersApi(oApiConfiguration)
         .markAllUserFollowNotificationAsRead(
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -290,12 +290,12 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const clearUserFollowNotifications = async () => {
     try {
-      const { success } = await new NotificationsUsersApi(oApiConfiguration)
+      const { data } = await new NotificationsUsersApi(oApiConfiguration)
         .clearUserFollowNotifications(
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -311,7 +311,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersApi(oApiConfiguration)
         .getMarkers(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -319,10 +319,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const clearNotificationCounter = async () => {
     try {
-      const { success } = await new NotificationsMarkersApi(oApiConfiguration)
+      const { data } = await new NotificationsMarkersApi(oApiConfiguration)
         .clearMarkers(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -333,7 +333,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersArtworksApi(oApiConfiguration)
         .getArtworkLikeMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -344,7 +344,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersArtworksApi(oApiConfiguration)
         .getArtworkCommentMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -355,7 +355,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersArtworksApi(oApiConfiguration)
         .getArtworkCommentLikedMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -366,7 +366,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersArtworksApi(oApiConfiguration)
         .getArtworkCommentRepliesMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -377,7 +377,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersArtworksApi(oApiConfiguration)
         .getArtworkCommentReplyLikesMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -388,7 +388,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersArtworksApi(oApiConfiguration)
         .getArtworkCommentsAndRepliesMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -399,7 +399,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersUsersApi(oApiConfiguration)
         .getUserFollowMarker(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -421,7 +421,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -432,14 +432,14 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     feedId: number
   }) => {
     try {
-      const { success } = await new NotificationsFeedsApi(oApiConfiguration)
+      const { data } = await new NotificationsFeedsApi(oApiConfiguration)
         .markFeedNotificationAsRead(
           params.type,
           params.feedId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -447,10 +447,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const markAllFeedNotificationAsRead = async () => {
     try {
-      const { success } = await new NotificationsFeedsApi(oApiConfiguration)
+      const { data } = await new NotificationsFeedsApi(oApiConfiguration)
         .markAllFeedNotificationsAsRead(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -458,10 +458,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const clearAllFeedNotifications = async () => {
     try {
-      const { success } = await new NotificationsFeedsApi(oApiConfiguration)
+      const { data } = await new NotificationsFeedsApi(oApiConfiguration)
         .clearAllFeedNotifications(fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -472,7 +472,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new NotificationsMarkersFeedsApi(oApiConfiguration)
         .countFeedNotifications(fetchOptions)
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }

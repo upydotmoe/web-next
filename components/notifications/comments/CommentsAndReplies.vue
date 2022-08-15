@@ -23,7 +23,7 @@
         :class="activeSection == 'comments' ? 'button-color text-white' : 'button-color-secondary'"
         @click="activeSection = 'comments'"
       >
-        <Icon v-show="activeSection != 'comments'" :name="'chatbubble-outline'" class="mr-1 w-4 h-4" />
+        <Icon v-show="activeSection != 'comments'" :name="'i-mdi-comment-multiple-outline'" class="mr-1 w-4 h-4" />
         <Icon v-show="activeSection == 'comments'" :name="'chatbubble'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
         
         <span>Comments</span>
@@ -78,12 +78,7 @@
 import Comments from './Comments.vue'
 import CommentLikes from './CommentLikes.vue'
 import CommentReplies from './CommentReplies.vue'
-
 import Icon from '~/components/globals/Icon.vue'
-
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useNotification from '~/composables/useNotification'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -91,7 +86,7 @@ const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
 const activeSection = ref('all')
 
-onMounted(() => {
+onMounted (() => {
   setTimeout(() => {
     activeSection.value = 'comments'
   }, 500)
@@ -128,7 +123,7 @@ const clearNotifs = async () => {
 .section-button {
   @apply flex flex-row p-2 w-full hover:button-color justify-center hover:text-white;
 
-  &:hover ion-icon {
+  &:hover .icon {
     @apply text-white;
   }
 }

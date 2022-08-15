@@ -23,7 +23,7 @@ export default {
     const { route, $axios } = useContext()
     const ctxRoot = context.root
 
-    onMounted(() => {
+    onMounted (() => {
       verifyAccount()
     })
 

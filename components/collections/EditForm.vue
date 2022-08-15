@@ -15,13 +15,11 @@
 
 <script setup>
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
 import useCollection from '~/composables/users/useCollection'
 
-const emit = defineEmits('updated')
+const emits = defineEmits ('updated')
 
-const props = defineProps({
+const props = defineProps ({
   collectionId: {
     type: Number,
     default: 0
@@ -77,7 +75,7 @@ const save = async () => {
       // todo: handle error
     } else {
       useModal().closeModal(props.modalId)
-      emit('updated', inputData.value)
+      emits('updated', inputData.value)
 
       reset()
     }

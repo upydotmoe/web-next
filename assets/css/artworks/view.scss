@@ -32,7 +32,7 @@
         .counter {
           @apply mr-3 whitespace-nowrap;
 
-          ion-icon {
+          .icon {
             @apply mr-1 text-lg text-gray-400 align-middle transition-all hover:text-gray-400;
           }
 
@@ -46,7 +46,7 @@
         span {
           @apply ml-2 whitespace-nowrap;
 
-          ion-icon {
+          .icon {
             @apply ml-1 text-xl align-middle transition-all cursor-pointer;
           }
         }
@@ -91,7 +91,7 @@
             .reaction {
               @apply flex ml-3 leading-5;
 
-              ion-icon {
+              .icon {
                 @apply mr-1 text-xl cursor-pointer;
               }
             }
@@ -108,7 +108,7 @@
   .heading {
     @apply flex justify-between font-bold text-tiny default-heading-text-size;
 
-    ion-icon {
+    .icon {
       @apply font-bold cursor-pointer default-icon-size;
     }
   }
@@ -143,7 +143,7 @@
       @apply p-0 mr-1 cursor-pointer;
     }
 
-    ion-icon {
+    .icon {
       @apply text-lg md:text-2xl;
 
       &:hover {
@@ -191,7 +191,7 @@
     .suggest {
       @apply py-1 px-3 mr-1 rounded transition-all duration-150 theme-color;
 
-      ion-icon {
+      .icon {
         @apply text-black align-middle;
       }
 

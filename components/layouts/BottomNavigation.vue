@@ -1,26 +1,22 @@
 <template>
   <div class="bottom-navigation">
-    <nuxt-link :to="localePath('/explore')">
+    <nuxt-link :to="'/explore'">
       <ion-icon name="home-outline'" />
     </nuxt-link>
-    <nuxt-link :to="localePath('/feed')">
+    <nuxt-link :to="'/feed'">
       <ion-icon name="reader-outline'" />
     </nuxt-link>
-    <nuxt-link :to="localePath('/shuffle')">
+    <nuxt-link :to="'/shuffle'">
       <ion-icon name="shuffle-outline'" />
     </nuxt-link>
-    <nuxt-link :to="localePath('/profile')">
+    <nuxt-link :to="'/profile'">
       <ion-icon name="person-outline'" />
     </nuxt-link>
   </div>
 </template>
 
-<script>
-export default {
-  setup () {
-
-  }
-}
+<script setup>
+// 
 </script>
 
 <style lang="scss">

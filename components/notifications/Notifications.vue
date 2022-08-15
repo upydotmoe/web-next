@@ -29,8 +29,8 @@
           @click.prevent="currentSection = 'comments'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'comments'" :name="'chatbubble-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'comments'" :name="'chatbubble-outline'" class="md:mr-2" />
+            <Icon v-show="currentSection === 'comments'" :name="'i-mdi-comment-multiple-outline'" class="text-white md:mr-2" />
+            <Icon v-show="currentSection !== 'comments'" :name="'i-mdi-comment-multiple-outline'" class="md:mr-2" />
 
             <div class="hidden-md-flex">{{ $t('notifications.comments') }}</div>
           </div>
@@ -49,8 +49,8 @@
           @click.prevent="currentSection = 'follows'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'follows'" :name="'person-add-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'follows'" :name="'person-add-outline'" class="md:mr-2" />
+            <Icon v-show="currentSection === 'follows'" :name="'i-fluent-person-32-regular-add-outline'" class="text-white md:mr-2" />
+            <Icon v-show="currentSection !== 'follows'" :name="'i-fluent-person-32-regular-add-outline'" class="md:mr-2" />
 
             <div class="hidden-md-flex">{{ $t('notifications.follows') }}</div>
           </div>
@@ -101,6 +101,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Likes from './Likes.vue'
 import CommentsAndReplies from './comments/CommentsAndReplies.vue'
@@ -108,19 +111,19 @@ import Follows from './Follows.vue'
 import Feeds from './Feeds.vue'
 import Icon from '~/components/globals/Icon.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useNotification from '~/composables/useNotification'
+// stores
+const auth = useAuthStore()
 
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
-const { $auth, redirect, app } = useContext()
+const { $router } = useNuxtApp()
 
 const currentSection = ref('all')
 onMounted(async () => {
-  if (!$auth.loggedIn) {
-    redirect(app.localePath('/'))
+  if (!auth.loggedIn) {
+    $router.push('/')
   }
 
   setTimeout(() => {

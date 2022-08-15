@@ -15,7 +15,7 @@ const auth = authStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-onBeforeMount(async () => {
+onBeforeMount (async () => {
   if (auth.loggedIn) {
     const tokenValid = await authApi.checkTokenValidity()
 

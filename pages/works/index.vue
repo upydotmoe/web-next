@@ -10,7 +10,7 @@
 <script setup>
 import ModalView from '~/components/artworks/views/ModalView.vue'
 
-const { route } = useContext()
+const { $router } = useNuxtApp()
 
-const { id } = route.value.params
+const { id } = $router.currentRoute.value.params.path
 </script>

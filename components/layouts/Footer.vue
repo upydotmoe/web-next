@@ -1,13 +1,13 @@
 <template>
   <footer v-show="withFooter" class="hidden p-3 mt-10 text-center md:block theme-text-color leading-8">
     <!-- <span class="mx-3 hover:underline">
-      <nuxt-link :to="localePath('/terms')">{{ $t('terms') }}</nuxt-link>
+      <nuxt-link :to="'/terms'">{{ $t('terms') }}</nuxt-link>
     </span>
     <span class="mx-3 hover:underline">
-      <nuxt-link :to="localePath('/privacy')">{{ $t('privacy') }}</nuxt-link>
+      <nuxt-link :to="'/privacy'">{{ $t('privacy') }}</nuxt-link>
     </span>
     <span class="mx-3 hover:underline">
-      <nuxt-link :to="localePath('/docs')">{{ $t('docs') }}</nuxt-link>
+      <nuxt-link :to="'/docs'">{{ $t('docs') }}</nuxt-link>
     </span> -->
     <br>
     <span class="mx-3 hover:underline">
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-defineProps({
+defineProps ({
   withFooter: {
     type: Boolean,
     default: false

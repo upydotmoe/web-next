@@ -77,7 +77,7 @@
 
           <!-- Filter explicit content -->
           <div 
-            v-if="$auth.loggedIn && $auth.user.user_settings.show_explicit" 
+            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
             class="filter-buttons"
           >
             <p 
@@ -186,16 +186,11 @@ import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
-import useArtwork from '~/composables/useArtwork'
-
-// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 /** Before mount, fetch first rows */
-onBeforeMount(() => {
+onBeforeMount (() => {
   fetchTop()
 })
 

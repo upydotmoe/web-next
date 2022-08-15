@@ -3,7 +3,7 @@
     <nuxt-link
       v-for="(user, index) in compUsers"
       :key="user.id"
-      :to="localePath('/profile/u/' + user.username)"
+      :to="'/profile/u/' + user.username"
       class="flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
       :style="user.cover_bucket && user.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(user.cover_bucket, user.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
     >
@@ -18,13 +18,13 @@
 
           <div class="flex flex-row w-full">
             <!-- user follow status, not appeared if the user is current login user -->
-            <div v-if="$auth.loggedIn && user.id !== $auth.user.id" class="flex flex-row">
+            <div v-if="auth.loggedIn && user.id !== auth.user.id" class="flex flex-row">
               <div 
                 v-show="!user.is_following"
                 class="flex flex-row"
                 @click.prevent="followUser(index, user.id)"
               >
-                <Icon :name="'person-add'" class="text-gray-300 hover:text-white" />
+                <Icon :name="'i-fluent-person-32-regular-add'" class="text-gray-300 hover:text-white" />
               </div>
               
               <div 
@@ -34,8 +34,8 @@
                 @mouseout="showUnfollow = 0"
                 @click.prevent="unfollowUser(index, user.id)"
               >
-                <Icon v-show="showUnfollow !== user.id" :name="'person'" class="text-green-400" />
-                <Icon v-show="showUnfollow && showUnfollow === user.id" :name="'person-remove'" class="text-red-400 hover:text-red-400" />
+                <Icon v-show="showUnfollow !== user.id" :name="'i-fluent-person-32-regular'" class="text-green-400" />
+                <Icon v-show="showUnfollow && showUnfollow === user.id" :name="'i-fluent-person-32-regular-remove'" class="text-red-400 hover:text-red-400" />
               </div>
             </div>
           </div>
@@ -53,14 +53,13 @@ import abstractImgUrl from '~/static/bg-abstract.png'
 import Icon from '~/components/globals/Icon.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const props = defineProps({
+const props = defineProps ({
   users: {
     type: Array,
     default: () => {}
@@ -69,10 +68,10 @@ const props = defineProps({
 
 const compUsers = computed(() => props.users)
 
-const { redirect, app } = useContext()
+const { $router } = useNuxtApp()
 
 const viewProfile = async (username) => {
-  redirect(app.localePath('/profile/u/' + username))
+  $router.push('/profile/u/' + username)
 }
 
 const showUnfollow = ref(0)

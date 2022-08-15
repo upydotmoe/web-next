@@ -31,7 +31,7 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const auth = authStore()
 
-onMounted(() => {
+onMounted (() => {
   if (auth.loggedIn) {
     getFollowedUsers()
   }

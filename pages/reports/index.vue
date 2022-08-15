@@ -5,7 +5,7 @@
   >
     <div class="reports">
       <div class="reports__title">        
-        {{ $auth.user.is_admin || $auth.user.is_moderator ? $t('reports.reports') : $t('reports.yourReports') }}
+        {{ auth.user.is_admin || auth.user.is_moderator ? $t('reports.reports') : $t('reports.yourReports') }}
       </div>
 
       <!-- filter -->
@@ -24,7 +24,7 @@
                 <tr>
                   <th><div class="rounded-l-md">{{ $t('reports.reportId') }}</div></th>
                   <th><div>{{ $t('reports.reportDate') }}</div></th>
-                  <th v-show="$auth.user.is_moderator && $auth.user.is_admin">
+                  <th v-show="auth.user.is_moderator && auth.user.is_admin">
                     <div>{{ $t('reports.user') }}</div>
                   </th>
                   <th><div>{{ $t('reports.post') }}</div></th>
@@ -46,9 +46,9 @@
                   <td>
                     <div>{{ formatDate(report.created_at) }}</div>
                   </td>
-                  <td v-show="$auth.user.is_moderator && $auth.user.is_admin">
+                  <td v-show="auth.user.is_moderator && auth.user.is_admin">
                     <div>
-                      <a :href="localePath('/profile/u/'+report.user_reported.username)" target="blank" class="font-bold href">
+                      <a :href="'/profile/u/'+report.user_reported.username" target="blank" class="font-bold href">
                         {{ report.user_reported.username }}
                       </a>
                     </div>
@@ -56,7 +56,7 @@
                   <td>
                     <div>
                       <span v-show="report.is_removed" class="italic">{{ $t('reports.postRemoved') }}</span>
-                      <a v-show="!report.is_removed" :href="localePath((report.type === 'artwork' ? '/work/' : '/feed/') + report.post_id)" target="blank" class="href">
+                      <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/work/' : '/feed/') + report.post_id" target="blank" class="href">
                         {{ $t('reports.viewPost') }}
                       </a>
                     </div>
@@ -96,7 +96,7 @@
             <div>
               <label>{{ $t('reports.user') }}</label>
               <div>
-                <a :href="localePath('/profile/u/'+report.user_reported.username)" target="blank" class="font-bold href">
+                <a :href="'/profile/u/'+report.user_reported.username" target="blank" class="font-bold href">
                   {{ report.user_reported.username }}
                 </a>
               </div>
@@ -138,7 +138,7 @@
               <label>&nbsp;</label>
               <div>
                 <span v-show="report.is_removed">{{ $t('reports.postRemoved') }}</span>
-                <a v-show="!report.is_removed" :href="localePath((report.type === 'artwork' ? '/work/' : '/feed/') + report.post_id)" target="blank" class="mr-2 underline href">
+                <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/work/' : '/feed/') + report.post_id" target="blank" class="mr-2 underline href">
                   {{ $t('reports.viewReportedPost') }}
                 </a>
                 <div class="underline href" @click="viewReportDetail(report.id)">
@@ -187,24 +187,26 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import ReportDetailModal from '~/components/reports/ReportDetailModal.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useReport from '~/composables/useReport'
-import useModal from '~/composables/useModal'
+// stores
+const auth = useAuthStore()
 
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const { $auth, app, redirect } = useContext()
+const { $router } = useNuxtApp()
 
 onMounted(async () => {
-  if (!$auth.loggedIn) {
-    redirect(app.localePath('/'))
+  if (!auth.loggedIn) {
+    $router.push('/')
   } else {
     await fetch()
   }
@@ -226,8 +228,8 @@ const filters = ref({
   filterDateFrom: undefined,
   filterDateTo: undefined,
   userId: computed(() => {
-    if ($auth.loggedIn && !$auth.user.is_admin && !$auth.user.is_moderator) {
-      return $auth.user.id
+    if (auth.loggedIn && !auth.user.is_admin && !auth.user.is_moderator) {
+      return auth.user.id
     } else {
       return undefined
     }

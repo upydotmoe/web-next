@@ -11,19 +11,16 @@ import {
   UserApi
 } from '~/api/openapi/api'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-
 // components
 import Profile from '~/components/profile/Profile.vue'
 
-const { route } = useContext()
+const { $router } = useNuxtApp()
 
-onBeforeMount(() => {
+onBeforeMount (() => {
   getUserId()
 })
 
-const { username } = route.value.params
+const { username } = $router.currentRoute.value.params.path
 
 const userId = ref(0)
 const getUserId = async () => {

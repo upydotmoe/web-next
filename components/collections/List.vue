@@ -69,13 +69,10 @@ import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useCollection from '~/composables/users/useCollection'
-import useModal from '~/composables/useModal'
-import useSplash from '~/composables/useSplash'
 
-const emit = defineEmits(['onCollectionEmpty', 'feedManageList'])
-const props = defineProps({
+const emits = defineEmits (['onCollectionEmpty', 'feedManageList'])
+const props = defineProps ({
   id: {
     type: Number,
     default: 0
@@ -95,7 +92,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
 const collectionId = ref(props.id)
-watch(() => props.id, (newId, _) => {
+watch (() => props.id, (newId, _) => {
   collectionId.value = newId
 })
 
@@ -154,10 +151,10 @@ const fetchItems = async () => {
       collectionData.value.list.push(item.artworks)
     })
 
-    emit('onCollectionEmpty', false)
+    emits('onCollectionEmpty', false)
   } else {
     collectionData.value.empty = true
-    emit('onCollectionEmpty', true)
+    emits('onCollectionEmpty', true)
   }
 }
 
@@ -172,7 +169,7 @@ const selectedItems = ref([])
 const feedManageList = (workList) => {
   selectedItems.value = workList
 
-  emit('feedManageList', workList)
+  emits('feedManageList', workList)
 }
 
 const isItemsRemoved = ref(false)
@@ -191,7 +188,7 @@ const removeItem = async () => {
     reset()
     await fetch()
     
-    emit('feedManageList', [])
+    emits('feedManageList', [])
   }
 }
 

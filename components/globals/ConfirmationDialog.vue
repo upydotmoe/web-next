@@ -16,8 +16,8 @@
 </template>
 
 <script setup>
-const emit = defineEmits('onAccept')
-const props = defineProps({
+const emits = defineEmits ('onAccept')
+const props = defineProps ({
   modalId: {
     type: String,
     default: 'confirmation-dialog-modal'
@@ -34,7 +34,7 @@ const props = defineProps({
 
 const close = (accept) => {
   if (accept) {
-    emit('onAccept', true)
+    emits('onAccept', true)
   }
 
   useModal().closeModal(props.modalId)

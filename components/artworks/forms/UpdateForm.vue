@@ -3,7 +3,7 @@
     <div class="mb-4 text-base font-bold">
       {{ $t('artworks.update.form.title') }} 
       <span class="text-xs italic font-bold href">
-        <nuxt-link :to="localePath('/work/'+id)">
+        <nuxt-link :to="'/work/'+id">
           (ID: {{ id }})
         </nuxt-link>
       </span>
@@ -98,23 +98,22 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store';
+
 // components
 import Spinner from '~/components/globals/Spinner.vue'
 import Icon from '~/components/globals/Icon.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useArtwork from '~/composables/useArtwork'
-import authStore from '@/stores/auth.store';
 
-const props = defineProps({
+const props = defineProps ({
   id: {
     type: String,
     default: ''
   }
 })
 
-const auth = authStore()
+const auth = useAuthStore()
 const { $router } = useNuxtApp()
 
 // composables
@@ -123,7 +122,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const apiUrl = process.env.API_URL
 
-onMounted(() => {
+onMounted (() => {
   if (!auth.loggedIn) {
     $router.push('/')
   }

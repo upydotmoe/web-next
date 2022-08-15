@@ -13,7 +13,7 @@
 import Layout from '~/components/layouts/Layout.vue'
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 
-const { route } = useContext()
+const { $router } = useNuxtApp()
 
-const { id } = route.value.params
+const { id } = $router.currentRoute.value.params
 </script>

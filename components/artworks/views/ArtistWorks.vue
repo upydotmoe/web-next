@@ -9,7 +9,7 @@
       </span>
 
       <nuxt-link :to="'/profile/u/'+artworkDetail.users.username" target="_blank" class="flex flex-row cursor-pointer">
-        <Icon :name="'open-outline'" />
+        <Icon :name="'i-ci-external-link'" />
       </nuxt-link>
     </div>
 
@@ -45,14 +45,10 @@
 import WorkList from '~/components/artworks/WorkList.vue'
 import Icon from '~/components/globals/Icon.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import {
-  ArtworkListApi
-} from '~/api/openapi/api'
-
-// props
-const props = defineProps({
+/**
+ * @props
+ */
+const props = defineProps ({
   artworkDetail: {
     type: Object,
     default () {
@@ -79,11 +75,12 @@ const detail = props.artworkDetail
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 // 
 const currentViewUserId = ref(null)
 
-onMounted(() => {
+onMounted (() => {
   if (!props.keepArtistPageNumber) {
     pagination.page = -1
   }
@@ -115,33 +112,30 @@ const nextPrevByArtist = async (userId, mode) => {
     pagination.page += 1
   }
 
-  try {
-    const { data } = await new ArtworkListApi(oApiConfiguration)
-      .getUserArtworks(
-        userId,
-        pagination.perPage,
-        pagination.page,
-        fetchOptions()
-      )
+  const [works, workPagination, error] = await artworkApi.getUserArtworks({
+    userId,
+    pagination: {
+      page: pagination.page,
+      perPage: pagination.perPage
+    }
+  })
 
-    const works = data.works
-    const paginations = data.pagination
-
-    if (paginations.next_previous.prev_page === null || paginations.next_previous.prev_page === undefined) {
+  if (error) {
+    showError()
+  } else {
+    if (workPagination.next_previous.prev_page === null || workPagination.next_previous.prev_page === undefined) {
       pagination.options.disableArtistPrevButton = true
     } else {
       pagination.options.disableArtistPrevButton = false
     }
 
-    if (paginations.next_previous.next_page === null || paginations.next_previous.next_page === undefined) {
+    if (workPagination.next_previous.next_page === null || workPagination.next_previous.next_page === undefined) {
       pagination.options.disableArtistNextButton = true
     } else {
       pagination.options.disableArtistNextButton = false
     }
     
     worksByArtist.value = works
-  } catch (error) {
-    showError()
   }
 
   pagination.options.nextPrevLoading = false

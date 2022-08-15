@@ -12,11 +12,11 @@
         @error="imageLoadError"
       >
       <nuxt-link
-        v-if="$auth.loggedIn && $auth.user.id === userInfo.id"
-        :to="localePath('/profile/setting')"
+        v-if="auth.loggedIn && auth.user.id === userInfo.id"
+        :to="'/profile/setting'"
         class="float-right absolute right-4 mt-2 shadow-md icon-button-primary-color flex-md-hidden"
       >
-        <Icon :name="'settings-outline'" />
+        <Icon :name="'i-ph-gear-six'" />
       </nuxt-link>
     </div>
     
@@ -38,12 +38,12 @@
               class="mt-2 primary-button"
               :class="{ 'hover:danger-button': isFollowing }"
               @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
-              @mouseover="unfollowHoverLeave('person-remove-outline', $t('unfollow'))"
+              @mouseover="unfollowHoverLeave('i-fluent-person-32-regular-remove-outline', $t('unfollow'))"
               @mouseleave="unfollowHoverLeave('checkmark-done-outline', $t('following'))"
             >
               <!-- if not following -->
               <div v-show="!isFollowing" class="flex flex-row">
-                <Icon :name="'person-add-outline'" />
+                <Icon :name="'i-fluent-person-32-regular-add-outline'" />
                 {{ $t('follow') }}
               </div>
 
@@ -60,11 +60,11 @@
             <!-- followers and followings -->
             <div class="flex-row justify-center mt-2 hidden-md-flex">
               <div class="mr-4 cursor-pointer" @click="currentState = 'followerList'">
-                <b>{{ counter.followers }}</b> 
+                <b>{{ counter.followers }}</b>&nbsp;
                 <i>{{ $t('followers').toLowerCase() }}</i>
               </div>
               <div class="cursor-pointer" @click="currentState = 'followingList'">
-                <b>{{ counter.followings }}</b> 
+                <b>{{ counter.followings }}</b>&nbsp;
                 <i>{{ $t('following').toLowerCase() }}</i>
               </div>
             </div>
@@ -78,24 +78,24 @@
               <!-- user info such as name, pen name, etc. -->
               <div class="w-9/12">
                 <div>
-                  <span class="text-base font-semibold">{{ userInfo.name }}</span>
+                  <span class="text-base font-semibold">{{ userInfo.name }}</span>&nbsp;
                   <span class="mr-2 italic">{{ userInfo.username }}</span>
                 </div>
 
                 <div class="flex flex-row mt-2">
                   <div class="mr-1">
                     <span class="flex flex-row">
-                      <Icon :name="'pencil-outline'" class="mr-1 text-base font-bold" /> 
+                      <Icon :name="'i-ion-pencil-outline'" class="mr-1 text-base font-bold" /> 
                       {{ userInfo.pen_name && userInfo.pen_name !== '' ? userInfo.pen_name : '-' }}
                     </span>
                   </div>
 
                   <div class="mr-1">
                     <span v-if="userInfo.gender === 'm'" class="flex flex-row">
-                      <Icon :name="'male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/his
+                      <Icon :name="'i-ion-male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/his
                     </span>
                     <span v-if="userInfo.gender === 'f'" class="flex flex-row">
-                      <Icon :name="'female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
+                      <Icon :name="'i-ion-female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
                     </span>
                   </div>
                 </div>
@@ -104,12 +104,12 @@
               <div class="float-right w-3/12 text-right">
                 <!-- setting/update profile button -->
                 <nuxt-link 
-                  v-if="$auth.loggedIn && $auth.user.id === userInfo.id"
-                  :to="localePath('/profile/setting')" 
+                  v-if="auth.loggedIn && auth.user.id === userInfo.id"
+                  :to="'/profile/setting'" 
                   class="float-right -mt-20 shadow-md"
                 >
                   <button class="flex flex-row primary-button">
-                    <Icon :name="'settings-outline'" class="mr-2" />
+                    <Icon :name="'i-ph-gear-six'" class="mr-2" />
                     <span class="leading-4">{{ $t('profile.setting') }}</span>
                   </button>
                 </nuxt-link>
@@ -122,7 +122,7 @@
                     target="blank" 
                     class="ml-3 cursor-pointer"
                   >
-                    <Icon :name="'logo-facebook'" class="text-xl" />
+                    <Icon :name="'i-ion-logo-facebook'" class="text-xl" />
                   </a>
                   
                   <a 
@@ -131,7 +131,7 @@
                     target="blank" 
                     class="ml-3 cursor-pointer"
                   >
-                    <Icon :name="'logo-instagram'" class="text-xl" />
+                    <Icon :name="'i-ion-logo-instagram'" class="text-xl" />
                   </a>
 
                   <a 
@@ -140,7 +140,7 @@
                     target="blank" 
                     class="ml-3 cursor-pointer"
                   >
-                    <Icon :name="'logo-twitter'" class="text-xl" />
+                    <Icon :name="'i-ion-logo-twitter'" class="text-xl" />
                   </a>
                   
                   <a 
@@ -149,7 +149,7 @@
                     target="blank" 
                     class="ml-3 cursor-pointer"
                   >
-                    <Icon :name="'logo-youtube'" class="text-xl" />
+                    <Icon :name="'i-ion-logo-youtube'" class="text-xl" />
                   </a>
                   
                   <a 
@@ -202,16 +202,16 @@
 
         <div class="flex flex-row justify-center mt-4">
           <span v-if="userInfo.pen_name" class="flex flex-row mr-1">
-            <Icon :name="'pencil-outline'" class="mr-1 text-base font-bold" /> 
+            <Icon :name="'i-ion-pencil-outline'" class="mr-1 text-base font-bold" /> 
             {{ userInfo.pen_name && userInfo.pen_name !== '' ? userInfo.pen_name : '-' }}
           </span>
 
           <div class="mr-1">
             <span v-if="userInfo.gender === 'm'" class="flex flex-row">
-              <Icon :name="'male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/his
+              <Icon :name="'i-ion-male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/his
             </span>
             <span v-if="userInfo.gender === 'f'" class="flex flex-row">
-              <Icon :name="'female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
+              <Icon :name="'i-ion-female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
             </span>
           </div>
         </div>
@@ -238,7 +238,7 @@
             target="blank" 
             class="ml-3 cursor-pointer"
           >
-            <Icon :name="'logo-facebook'" class="text-xl" />
+            <Icon :name="'i-ion-logo-facebook'" class="text-xl" />
           </a>
           
           <a 
@@ -247,7 +247,7 @@
             target="blank" 
             class="ml-3 cursor-pointer"
           >
-            <Icon :name="'logo-instagram'" class="text-xl" />
+            <Icon :name="'i-ion-logo-instagram'" class="text-xl" />
           </a>
 
           <a 
@@ -256,7 +256,7 @@
             target="blank" 
             class="ml-3 cursor-pointer"
           >
-            <Icon :name="'logo-twitter'" class="text-xl" />
+            <Icon :name="'i-ion-logo-twitter'" class="text-xl" />
           </a>
           
           <a 
@@ -265,7 +265,7 @@
             target="blank" 
             class="ml-3 cursor-pointer"
           >
-            <Icon :name="'logo-youtube'" class="text-xl" />
+            <Icon :name="'i-ion-logo-youtube'" class="text-xl" />
           </a>
           
           <a 
@@ -274,18 +274,18 @@
             target="blank" 
             class="ml-3 cursor-pointer"
           >
-            <Icon :name="'heart'" class="text-xl" />
+            <Icon :name="'i-ion-heart'" class="text-xl" />
           </a>
         </div>
 
         <!-- follow & unfollow -->
         <div class="flex flex-row justify-center mt-6 w-full">
           <div class="mr-4 cursor-pointer" @click="currentState = 'followerList'">
-            <b>{{ counter.followers }}</b> 
+            <b>{{ counter.followers }}</b>&nbsp;
             <i>{{ $t('followers') }}</i>
           </div>
           <div class="cursor-pointer" @click="currentState = 'followingList'">
-            <b>{{ counter.followings }}</b> 
+            <b>{{ counter.followings }}</b>&nbsp;
             <i>{{ $t('following') }}</i>
           </div>
         </div>
@@ -298,7 +298,7 @@
         >
           <!-- if not following -->
           <div v-show="!isFollowing" class="flex flex-row">
-            <Icon :name="'person-add-outline'" />
+            <Icon :name="'i-fluent-person-32-regular-add-outline'" />
             {{ $t('follow') }}
           </div>
 
@@ -322,8 +322,8 @@
             @click="changeCurrentState('dashboard')"
           >
             <div>
-              <Icon v-show="currentState == 'dashboard'" :name="'home-outline'" class="text-white" />
-              <Icon v-show="currentState != 'dashboard'" :name="'home-outline'" class="hover:text-white" />
+              <Icon v-show="currentState == 'dashboard'" :name="'i-ion-home-outline'" class="text-white" />
+              <Icon v-show="currentState != 'dashboard'" :name="'i-ion-home-outline'" class="hover:text-white" />
             </div>
             <span>{{ $t('dashboard') }}</span>
           </div>
@@ -333,8 +333,8 @@
             @click="changeCurrentState('albums')"
           >
             <div>
-              <Icon v-show="currentState == 'albums'" :name="'folder-outline'" class="text-white" />
-              <Icon v-show="currentState != 'albums'" :name="'folder-outline'" class="hover:text-white" />
+              <Icon v-show="currentState == 'albums'" :name="'i-ion-folder-outline'" class="text-white" />
+              <Icon v-show="currentState != 'albums'" :name="'i-ion-folder-outline'" class="hover:text-white" />
             </div>
             <span>{{ $t('albums.album') }}</span>
           </div>
@@ -344,8 +344,8 @@
             @click="changeCurrentState('collections')"
           >
             <div>
-              <Icon v-show="currentState == 'collections'" :name="'bookmark-outline'" class="text-white" />
-              <Icon v-show="currentState != 'collections'" :name="'bookmark-outline'" class="hover:text-white" />
+              <Icon v-show="currentState == 'collections'" :name="'i-majesticons-bookmark-line'" class="text-white" />
+              <Icon v-show="currentState != 'collections'" :name="'i-majesticons-bookmark-line'" class="hover:text-white" />
             </div>
             <span>{{ $t('collections.collection') }}</span>
           </div>
@@ -360,8 +360,8 @@
               @click="changeCurrentState('dashboard')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'dashboard'" :name="'home-outline'" class="text-white" />
-                <Icon v-show="currentState !== 'dashboard'" :name="'home-outline'" />
+                <Icon v-show="currentState === 'dashboard'" :name="'i-humbleicons-dashboard'" class="text-white" />
+                <Icon v-show="currentState !== 'dashboard'" :name="'i-humbleicons-dashboard'" />
                 <label class="hidden-lg-flex">
                   {{ $t('dashboard') }}
                 </label>
@@ -375,8 +375,8 @@
               @click="changeCurrentState('albums')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'albums'" :name="'folder-outline'" class="text-white" />
-                <Icon v-show="currentState !== 'albums'" :name="'folder-outline'" />
+                <Icon v-show="currentState === 'albums'" :name="'i-bx-photo-album'" class="text-white" />
+                <Icon v-show="currentState !== 'albums'" :name="'i-bx-photo-album'" />
                 <label class="hidden-lg-flex">
                   {{ $t('albums.album') }}
                 </label>
@@ -390,8 +390,8 @@
               @click="changeCurrentState('collections')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'collections'" :name="'bookmark-outline'" class="text-white" />
-                <Icon v-show="currentState !== 'collections'" :name="'bookmark-outline'" />
+                <Icon v-show="currentState === 'collections'" :name="'i-majesticons-bookmark-line'" class="text-white" />
+                <Icon v-show="currentState !== 'collections'" :name="'i-majesticons-bookmark-line'" />
                 <label class="hidden-lg-flex">
                   {{ $t('collections.collection') }}
                 </label>
@@ -451,16 +451,16 @@
 
               <!-- manage mode: action button -->
               <div 
-                v-show="$auth.loggedIn && ($auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
+                v-show="auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
                 class="flex flex-row gap-2 justify-between w-full md:justify-end"
               >
                 <button class="w-full action-button secondary-button md:w-auto" @click="config.manageMode = !config.manageMode">
-                  <Icon :name="config.manageMode ? 'close-outline' : 'checkbox-outline'" />
+                  <Icon :name="config.manageMode ? 'i-ion-close-outline' : 'i-material-symbols-library-add-check-outline-rounded'" />
                   {{ config.manageMode ? $t('quit') : $t('manage') }}
                 </button>
 
                 <button v-show="config.manageMode" class="w-full primary-button md:w-auto" @click="openAlbumSelectionModal()">
-                  <Icon :name="'add-outline'" />
+                  <Icon :name="'i-ion-add-outline'" />
                   {{ $t('albums.addToAlbum') }}
                 </button>
               </div>
@@ -545,6 +545,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
@@ -558,16 +561,23 @@ import FollowerList from '~/components/profile/FollowerList.vue'
 import FollowingList from '~/components/profile/FollowingList.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
 import useAlbum from '~/composables/users/useAlbum'
 import useCollection from '~/composables/users/useCollection'
-import useSplash from '~/composables/useSplash'
-import useModal from '~/composables/useModal'
-import useReadMore from '~/composables/useReadMore'
 
-// props
-const props = defineProps({
+// stores
+const auth = useAuthStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const userApi = useUser(oApiConfiguration, fetchOptions())
+const album = useAlbum(oApiConfiguration, fetchOptions())
+const collectionApi = useCollection(oApiConfiguration, fetchOptions())
+
+/**
+ * @props
+ */
+const props = defineProps ({
   id: {
     type: Number,
     default: 0
@@ -578,21 +588,14 @@ const props = defineProps({
   }
 })
 
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const userApi = useUser(oApiConfiguration, fetchOptions())
-const album = useAlbum(oApiConfiguration, fetchOptions())
-const collectionApi = useCollection(oApiConfiguration, fetchOptions())
-
-const { $auth, route, redirect, app } = useContext()
-const auth = $auth
-const { o } = route.value.query
+const { $router } = useNuxtApp()
+const { o } = $router.currentRoute.value.query
 
 const loading = ref(false)
 const currentState = o != null ? ref(o) : ref('dashboard')
 const activeDashboard = ref('artwork')
 const userId = computed(() => {
-  return props.userLogon && $auth.loggedIn ? $auth.user.id : props.id
+  return props.userLogon && auth.loggedIn ? auth.user.id : props.id
 })
 const config = ref({
   manageMode: false,
@@ -607,7 +610,7 @@ const changeCurrentState = (state) => {
   currentState.value = state
   config.value.manageMode = false
   if (o != null) {
-    redirect(app.localePath('/profile'))
+    $router.push('/profile')
   }
 }
 
@@ -629,7 +632,7 @@ const fetchUserInfo = async () => {
     userInfo.value = userData
 
     // is user followed or not
-    if ($auth.loggedIn && ($auth.user.id !== userId.value)) {
+    if (auth.loggedIn && (auth.user.id !== userId.value)) {
       const [isUserFollowing] = await userApi.isFollowing(userId.value)
       isFollowing.value = isUserFollowing.is_following
     }
@@ -751,7 +754,7 @@ const readMore = (bio, userId, selectorElId, bioElId) => {
       @apply hidden lg:block cursor-pointer;
     }
 
-    ion-icon {
+    .icon {
       @apply mr-3 text-lg hover:text-white;
     }
   }
@@ -760,7 +763,7 @@ const readMore = (bio, userId, selectorElId, bioElId) => {
 .profile-navigation__mobile {
   @apply flex flex-col py-2 px-3 w-full text-center rounded md:hidden hover:button hover:text-white;
 
-  ion-icon {
+  .icon {
     @apply mb-1 mt-1 w-full text-lg text-center hover:text-white;
   }
 }

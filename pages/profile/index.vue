@@ -5,14 +5,20 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Profile from '~/components/profile/Profile.vue'
 
-const { $auth, redirect, app } = useContext()
+// stores
+const auth = useAuthStore()
 
-onBeforeMount(() => {
-  if (!$auth.loggedIn) {
-    redirect(app.localePath('/'))
+const { $router } = useNuxtApp()
+
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    $router.push('/')
   }
 })
 </script>

@@ -112,7 +112,7 @@
                 aria-expanded="true" 
                 aria-controls="notification-group"
               >
-                <Icon :name="'i-ion-notifications-outline'" />
+                <Icon :name="'i-ri-notification-3-line'" />
                 <span
                   v-show="notificationTotal > 0"
                   class="inline-flex absolute top-0 right-0 justify-center items-center p-1 -mt-1 font-bold text-white bg-red-400 rounded-full text-xxs"
@@ -138,7 +138,7 @@
           <div v-if="auth.loggedIn" class="flex-md-hidden">
             <div class="nav-icon">
               <nuxt-link :to="'/notifications'">
-                <Icon :name="'i-ion-notifications-outline'" />
+                <Icon :name="'i-ri-notification-3-line'" />
               </nuxt-link>
             </div>
           </div>
@@ -180,19 +180,19 @@
 
                   <nuxt-link :to="'/profile'">
                     <div class="menu parent-icon">
-                      <Icon :name="'i-ion-person'" />
+                      <Icon :name="'i-fluent-person-32-regular'" />
                       {{ $t('profile.profile') }}
                     </div>
                   </nuxt-link>
                   <a :href="'/profile?o=albums'">
                     <div class="menu parent-icon">
-                      <Icon :name="'i-ion-folder-open-outline'" />
+                      <Icon :name="'i-bx-photo-album'" />
                       {{ $t('albums.album') }}
                     </div>
                   </a>
                   <a :href="'/profile?o=collections'">
                     <div class="menu parent-icon">
-                      <Icon :name="'i-ion-bookmark-outline'" />
+                      <Icon :name="'i-majesticons-bookmark-line'" />
                       {{ $t('collections.collection') }}
                     </div>
                   </a>
@@ -201,7 +201,7 @@
 
                   <nuxt-link :to="'/reports'">
                     <div class="menu parent-icon">
-                      <Icon :name="'i-ion-flag-outline'" />
+                      <Icon :name="'i-akar-icons-flag'" />
                       {{ auth.user.is_admin || auth.user.is_moderator ? $t('reports.reports') : $t('reports.yourReports') }}
                     </div>
                   </nuxt-link>
@@ -210,7 +210,7 @@
 
                   <nuxt-link :to="'/premium'">
                     <div class="menu parent-icon">
-                      <Icon :name="'i-ion-star-outline'" />
+                      <Icon :name="'i-fluent-star-emphasis-24-regular'" />
                       {{ $t('pro') }}
                     </div>
                   </nuxt-link>
@@ -224,7 +224,7 @@
                   <div class="custom-divider" />
 
                   <div class="menu parent-icon" @click="userLogout()">
-                    <Icon :name="'i-ion-log-out-outline'" />
+                    <Icon :name="'i-majesticons-logout-line'" />
                     {{ $t('logout') }}
                   </div>
                 </div>

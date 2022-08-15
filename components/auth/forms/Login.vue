@@ -1,5 +1,9 @@
 <template>
-  <form id="login" class="auth-form" @submit.prevent="login('login')">
+  <form
+    id="login"
+    class="auth-form"
+    @submit.prevent="login('login')"
+  >
     <!-- login error message, show this alert when error occured while authenticating user -->
     <div v-if="loginErr" class="login-error-message">
       {{ loginErrMessage }}

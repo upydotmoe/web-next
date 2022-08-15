@@ -8,7 +8,7 @@
         <!-- close modal button -->
         <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
           <div class="modal-close" @click="close()">
-            <Icon :name="'close'" class="text-2xl" />
+            <Icon :name="'i-ion-close'" class="text-2xl" />
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
         <!-- if post already reported -->
         <div v-show="reportStatus.id">
           {{ $t('reports.alreadyReportedDescription') }}
-          <nuxt-link class="underline href" :to="localePath('/reports')">{{ $t('reports.reportStatus') }}</nuxt-link>
+          <nuxt-link class="underline href" :to="'/reports'">{{ $t('reports.reportStatus') }}</nuxt-link>
         </div>
       </div>
     </div>
@@ -93,16 +93,14 @@
 // components
 import Icon from '~/components/globals/Icon.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useReport from '~/composables/useReport'
-import useModal from '~/composables/useModal'
-
-// composable use
+// composable
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const props = defineProps({
+/**
+ * @props
+ */
+const props = defineProps ({
   type: {
     type: String,
     default: ''
@@ -240,7 +238,7 @@ const reset = () => {
     span {
       @apply pt-2 pb-1 px-3 cursor-pointer rounded-md mb-2 flex flex-row w-full align-middle;
 
-      ion-icon {
+      .icon {
         @apply mr-2;
       }
 

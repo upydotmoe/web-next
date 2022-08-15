@@ -10,7 +10,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     whoCanReply: 'public' | 'followers'
   }) => {
     try {
-      const { success, data } = await new FeedsApi(oApiConfiguration)
+      const { data } = await new FeedsApi(oApiConfiguration)
         .createFeed(
           {
             text: params.content,
@@ -20,7 +20,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data, null]
+      return [data.success, data.data, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -36,7 +36,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -58,7 +58,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -80,7 +80,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, null]
+      return [data.data, null]
     } catch (error) {
       return [null, error]
     }
@@ -90,13 +90,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     feedId: number
   }) => {
     try {
-      const { success } = await new FeedsApi(oApiConfiguration)
+      const { data } = await new FeedsApi(oApiConfiguration)
         .likeFeed(
           params.feedId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -106,13 +106,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     feedId: number
   }) => {
     try {
-      const { success } = await new FeedsApi(oApiConfiguration)
+      const { data } = await new FeedsApi(oApiConfiguration)
         .unlikeFeed(
           params.feedId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -135,7 +135,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data, error]
+      return [data.data, error]
     } catch (error) {
       return [null, error]
     }
@@ -146,7 +146,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     comment: string
   }) => {
     try {
-      const { success, data } = await new FeedsApi(oApiConfiguration)
+      const { data } = await new FeedsApi(oApiConfiguration)
         .commentFeed(
           {
             feed_id: params.feedId,
@@ -155,7 +155,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data, null]
+      return [data.success, data.data, null]
     } catch (error) {
       return [null, null, error]
     }

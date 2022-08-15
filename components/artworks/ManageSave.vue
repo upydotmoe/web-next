@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div class="hidden" @click="fetchCurrentSaved()" />
-
     <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
       <div>
         <div class="flex flex-row justify-between w-full">
@@ -87,41 +85,53 @@
 </template>
 
 <script setup>
-// stores
-
 // API
 import {
   CollectionsApi
 } from '~/api/openapi/api'
+
+// stores
+import useAuthStore from '@/stores/auth.store'
 
 // components
 import Icon from '~/components/globals/Icon.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
 import useCollection from '~/composables/users/useCollection'
 
-const emit = defineEmits(['save'])
-const props = defineProps({
+/**
+ * @stores
+ */
+const auth = useAuthStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const collectionApi = useCollection(oApiConfiguration, fetchOptions())
+
+/**
+ * @emits
+ */
+const emits = defineEmits (['save'])
+
+/**
+ * @props
+ */
+const props = defineProps ({
   workId: {
     type: Number,
     default: 0
   }
 })
 
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const collectionApi = useCollection(oApiConfiguration, fetchOptions())
-
-const auth = authStore
-
-onMounted(() => {
+onMounted (() => {
   fetchCollection()
   fetchCurrentSaved()
 })
 
+/**
+ * @methods
+ */
 const config = ref({
   pagination: {
     page: 0,
@@ -176,23 +186,21 @@ const fetchCurrentSaved = async () => {
   selectedCollections.value = []
   unselectedCollections.value = []
 
-  try {
-    await setTimeout(async () => {
-      const { data } = await new CollectionsApi(oApiConfiguration)
-        .getCurrentSaveInfo(
-          'artwork',
-          props.workId,
-          fetchOptions()
-        )
-      
+  await setTimeout(async () => {
+    const [data, error] = await collectionApi.getCurrentSaveInfo(
+      'artwork',
+      props.workId
+    )
+
+    if (error) {
+      isError.value = true
+    } else {
       for (const collection of data) {
         selectedCollections.value.push(collection.collection_id)
         currentSaved.value.push(collection.collection_id)
       }
-    }, 500)
-  } catch (error) {
-    isError.value = true
-  }
+    }
+  }, 300)
 }
 
 /** LOAD MORE FUNCTION */
@@ -253,7 +261,7 @@ const save = async () => {
 
     await fetchCurrentSaved()
     useModal().closeModal('collection-selection-modal')
-    emit('save', unsaved)
+    emits('save', unsaved)
   } catch (error) {
     // todo: handle error when failed to save
   }
@@ -307,6 +315,13 @@ const cancel = () => {
   useModal().closeModal('collection-selection-modal')
   clear()
 }
+
+/**
+ * @expose
+ */
+defineExpose ({
+  fetchCurrentSaved
+})
 </script>
 
 <style lang="scss" scoped>

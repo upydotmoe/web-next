@@ -46,14 +46,10 @@
 import Spinner from '~/components/globals/Spinner.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
-import useFeed from '~/composables/useFeed'
-
-// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 
-const { redirect, app } = useContext()
+const { $router } = useNuxtApp()
 
 const feedInput = ref('')
 
@@ -73,7 +69,7 @@ const postFeed = async () => {
     
     const feedId = data.id
     setTimeout(() => {
-      redirect(app.localePath(`/feed/${feedId}`))
+      $router.push(`/feed/${feedId}`)
     }, 1000)
   } else {
     isError.value = true

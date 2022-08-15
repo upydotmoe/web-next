@@ -173,6 +173,31 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       return [null, error]
     }
   }
+
+  /**
+   * List artwork by user ID
+   */
+  const getUserArtworks = async (params: {
+    userId: number,
+    pagination: {
+      page: number,
+      perPage: number
+    }
+  }) => {
+    try {
+      const { data } = await new ArtworkListApi(oApiConfiguration, fetchOptions)
+        .getUserArtworks(
+          params.userId,
+          params.pagination.perPage,
+          params.pagination.page,
+          fetchOptions
+        )
+
+      return [data.data.works, data.data.pagination, null]
+    } catch (error) {
+      return [null, null, error]
+    }
+  }
   
   const getChronologicalFeeds = async (params: {
     explicitMode?: boolean,
@@ -235,7 +260,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const updateInfo = async (id: number, data: any, tags: string) => {
     try {
-      const { success } = await new ArtworkCRUDApi(oApiConfiguration)
+      const { data } = await new ArtworkCRUDApi(oApiConfiguration)
         .updateWork({
           id: Number(id),
           title: data.title,
@@ -244,7 +269,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           tags
         }, fetchOptions)
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -260,13 +285,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     workId: number[]
   }) => {
     try {
-      const { success } = await new ArtworkCRUDApi(oApiConfiguration)
+      const { data } = await new ArtworkCRUDApi(oApiConfiguration)
         .deleteWork(
           params.workId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -276,7 +301,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     workId: number
   }) => {
     try {
-      const { success } = await new ArtworkLikesApi(oApiConfiguration)
+      const { data } = await new ArtworkLikesApi(oApiConfiguration)
         .like(
           {
             id: params.workId
@@ -284,7 +309,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -294,7 +319,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     workId: number
   }) => {
     try {
-      const { success } = await new ArtworkLikesApi(oApiConfiguration)
+      const { data } = await new ArtworkLikesApi(oApiConfiguration)
         .unlike(
           {
             id: params.workId
@@ -302,7 +327,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -355,7 +380,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     comment: string
   }) => {
     try {
-      const { success, data } = await new ArtworkCommentsApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsApi(oApiConfiguration)
         .addComment(
           {
             work_id: params.workId,
@@ -364,7 +389,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data, null]
+      return [data.success, data.data, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -380,13 +405,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     commentId: number
   }) => {
     try {
-      const { success } = await new ArtworkCommentsApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsApi(oApiConfiguration)
         .removeComment(
           params.commentId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -402,13 +427,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     commentId: number
   }) => {
     try {
-      const { success } = await new ArtworkCommentsLikesApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsLikesApi(oApiConfiguration)
         .likeAComment(
           params.commentId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -424,13 +449,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     commentId: number
   }) => {
     try {
-      const { success } = await new ArtworkCommentsLikesApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsLikesApi(oApiConfiguration)
         .unlikeAComment(
           params.commentId,
           fetchOptions
         )
       
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -466,7 +491,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data.data!.replies, data!.pagination, null]
+      return [data.data.replies, data.data.pagination, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -484,7 +509,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     reply: string
   }) => {
     try {
-      const { success, data } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
         .reply(
           {
             comment_id: params.commentId,
@@ -493,7 +518,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [success, data, null]
+      return [data.success, data.data, null]
     } catch (error) {
       return [null, null, error]
     }
@@ -509,13 +534,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     replyId: number
   }) => {
     try {
-      const { success } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
         .removeReply(
           params.replyId,
           fetchOptions
         )
       
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -531,13 +556,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     replyId: number
   }) => {
     try {
-      const { success } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
         .likeReply(
           params.replyId,
           fetchOptions
         )
       
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -553,13 +578,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     replyId: number
   }) => {
     try {
-      const { success } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
+      const { data } = await new ArtworkCommentsRepliesApi(oApiConfiguration)
         .unlikeReply(
           params.replyId,
           fetchOptions
         )
 
-      return [success, null]
+      return [data.success, null]
     } catch (error) {
       return [null, error]
     }
@@ -584,6 +609,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     getLatest,
     getFollowing,
     getSearch,
+    getUserArtworks,
     getChronologicalFeeds,
     
     getWorkById,

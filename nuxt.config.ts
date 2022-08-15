@@ -14,6 +14,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL,
+      appUrl: process.env.APP_URL,
       activeCdn: process.env.ACTIVE_CDN,
       cloudflareUrl: process.env.CLOUDFLARE_CDN_URL,
       bunnyUrl: process.env.BUNNY_CDN_URL,
@@ -77,6 +78,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
+    '@nuxt/image-edge'
   ],
 
   plugins: [
@@ -149,7 +151,11 @@ export default defineNuxtConfig({
     ],
     safelist: [
       'i-twemoji-flag-us-outlying-islands',
-      'i-twemoji-flag-indonesia'
+      'i-twemoji-flag-indonesia',
+      'i-fluent-arrow-enter-20-filled',
+      'i-ci-external-link',
+      'i-akar-icons-flag',
+      'i-icon-park-outline-copy',
     ]
   },
 
@@ -164,4 +170,12 @@ export default defineNuxtConfig({
     classSuffix: '-mode',
     storageKey: 'nuxt-color-mode'
   },
+
+  // config for '@nuxt/image'
+  image: {
+    domains: [
+      'http://localhost:3000',
+      'https://upy.moe'
+    ]
+  }
 })

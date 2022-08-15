@@ -15,7 +15,7 @@
         <div class="buttons">
           <!-- Filter explicit content -->
           <div 
-            v-if="$auth.loggedIn && $auth.user.user_settings.show_explicit" 
+            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
             class="filter-buttons"
           >
             <p 
@@ -104,7 +104,8 @@
 </template>
 
 <script setup>
-// import { onClickOutside } from '@vueuse/core'
+// stores
+import useAuthStore from '@/stores/auth.store'
 
 // components
 import Icon from '~/components/globals/Icon.vue'
@@ -113,21 +114,19 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
-import useArtwork from '~/composables/useArtwork'
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const { app, redirect, $auth } = useContext()
+const { $router } = useNuxtApp()
 
 /** Before mount, fetch first rows */
-onBeforeMount(() => {
-  if (!$auth.loggedIn) {
-    redirect(app.localePath('/'))
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    $router.push('/')
   }
 
   fetchTop()

@@ -6,7 +6,7 @@
       <nuxt-link
         v-for="(following, index) in followingList"
         :key="following.id"
-        :to="localePath('/profile/u/' + following.username)"
+        :to="'/profile/u/' + following.username"
         class="flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
         :style="following.cover_bucket && following.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(following.cover_bucket, following.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
       >
@@ -21,13 +21,13 @@
 
             <div class="flex flex-row w-full">
               <!-- user follow status, not appeared if the user is current login user -->
-              <div v-if="$auth.loggedIn && following.id !== $auth.user.id" class="flex flex-row">
+              <div v-if="auth.loggedIn && following.id !== auth.user.id" class="flex flex-row">
                 <div 
                   v-show="!following.is_following"
                   class="flex flex-row"
                   @click.prevent="followUser(index, following.id)"
                 >
-                  <Icon :name="'person-add'" class="text-gray-300 hover:text-white" />
+                  <Icon :name="'i-fluent-person-32-regular-add'" class="text-gray-300 hover:text-white" />
                 </div>
                 
                 <div 
@@ -37,8 +37,8 @@
                   @mouseout="showUnfollow = 0"
                   @click.prevent="unfollowUser(index, following.id)"
                 >
-                  <Icon v-show="showUnfollow !== following.id" :name="'person'" class="text-green-400" />
-                  <Icon v-show="showUnfollow && showUnfollow === following.id" :name="'person-remove'" class="text-red-400 hover:text-red-400" />
+                  <Icon v-show="showUnfollow !== following.id" :name="'i-fluent-person-32-regular'" class="text-green-400" />
+                  <Icon v-show="showUnfollow && showUnfollow === following.id" :name="'i-fluent-person-32-regular-remove'" class="text-red-400 hover:text-red-400" />
                 </div>
               </div>
             </div>
@@ -65,26 +65,31 @@
 // assets
 import abstractImgUrl from '~/static/bg-abstract.png'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useUser from '~/composables/users/useUser'
+
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const props = defineProps({
+const props = defineProps ({
   userId: {
     type: Number,
     default: 0
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetch()
 })
 

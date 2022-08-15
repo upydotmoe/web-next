@@ -25,7 +25,14 @@
                 @click="selectUnselect(album.id)" 
               >
                 <span>{{ album.name }}</span>
-                <span class="ml-2 font-bold text-colored">{{ album._count.album_has_artworks }}</span>
+                <span
+                  :class="[
+                    'ml-2 font-bold',
+                    selectedAlbums.includes(album.id) ? 'text-white' : 'text-colored'
+                  ]"
+                >
+                  {{ album._count.album_has_artworks }}
+                </span>
               </div>
             </div>
             <div v-show="config.showLoadMore" class="mt-2 primary-button" @click="loadMore()">
@@ -59,9 +66,6 @@
 // stores
 import authStore from '@/stores/auth.store'
 
-import useApiFetch from '~/composables/useApiFetch'
-import useModal from '~/composables/useModal'
-
 // components
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import Icon from '~/components/globals/Icon.vue'
@@ -69,8 +73,8 @@ import Icon from '~/components/globals/Icon.vue'
 // composables
 import useAlbum from '~/composables/users/useAlbum'
 
-const emit = defineEmits(['addedToAlbum'])
-const props = defineProps({
+const emits = defineEmits (['addedToAlbum'])
+const props = defineProps ({
   modalId: {
     type: String,
     default: 'album-selection-modal'
@@ -85,7 +89,7 @@ const props = defineProps({
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetchAlbums()
   if (!props.workIds.length) {
     fetchCurrentSaved()
@@ -227,7 +231,7 @@ const save = async () => {
     
     clear()
     useModal().closeModal(props.modalId)
-    emit('addedToAlbum', props.workIds.length ? true : unsaved)
+    emits('addedToAlbum', props.workIds.length ? true : unsaved)
   } else {
     // todo: handle error
   }

@@ -68,20 +68,13 @@
 </template>
 
 <script setup>
-import InfiniteLoading from 'vue-infinite-loading'
-
-// components
-// 
-
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useNotification from '~/composables/useNotification'
+import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loading'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
-const { redirect, app } = useContext()
+const { $router } = useNuxtApp()
 
 const notifications = ref([])
 const options = ref({
@@ -128,7 +121,7 @@ const openNotification = async (notification, index) => {
     notifications.value[index].is_read = 1
   }
 
-  redirect(app.localePath('/feed/' + notification.id))
+  $router.push('/feed/' + notification.id)
 }
 
 const markAllAsRead = async () => {
@@ -142,7 +135,7 @@ const markAllAsRead = async () => {
 }
 
 const openUserProfile = (username) => {
-  redirect(app.localePath('/profile/u/' + username))
+  $router.push('/profile/u/' + username)
 }
 
 const clearNotifs = async () => {

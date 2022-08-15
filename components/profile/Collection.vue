@@ -28,7 +28,7 @@
           </div> -->
         </div>
 
-        <div v-if="$auth.loggedIn && $auth.user.id === userId">
+        <div v-if="auth.loggedIn && auth.user.id === userId">
           <div class="icon-button" @click="openModal('collection-form-modal')">
             <Icon :name="'add-outline'" />
           </div>
@@ -50,7 +50,7 @@
         <!-- right side -->
         <div class="flex flex-row">
           <!-- manage items -->
-          <div v-show="$auth.loggedIn && ($auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
+          <div v-show="auth.loggedIn && (auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
             <button class="action-button secondary-button" @click="config.manageMode = !config.manageMode">
               <Icon :name="config.manageMode ? 'close-outline' : 'checkbox-outline'" />
               {{ config.manageMode ? $t('quit') : $t('manage') }}
@@ -66,7 +66,7 @@
             </button>
           </div>
 
-          <div v-show="$auth.loggedIn && ($auth.user.id === userId) && !config.manageMode" class="flex flex-row gap-2">
+          <div v-show="auth.loggedIn && (auth.user.id === userId) && !config.manageMode" class="flex flex-row gap-2">
             <button class="icon-button" @click="editCollection()">
               <Icon :name="'settings-outline'" />
             </button>
@@ -185,19 +185,16 @@ import ArtworkThumbnail from '~/components/collections/thumbnails/ArtworkThumbna
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
-import useApiFetch from '~/composables/useApiFetch'
 import useCollection from '~/composables/users/useCollection'
-import useSplash from '~/composables/useSplash'
-import useModal from '~/composables/useModal'
 
-const props = defineProps({
+const props = defineProps ({
   userId: {
     type: Number,
     default: 0
   }
 })
 
-onMounted(() => {
+onMounted (() => {
   fetch()
 })
 

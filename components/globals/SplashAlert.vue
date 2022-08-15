@@ -13,7 +13,7 @@
 <script setup>
 import Icon from '~/components/globals/Icon.vue'
 
-defineProps({
+defineProps ({
   text: {
     type: String,
     default: ''
@@ -31,7 +31,7 @@ defineProps({
 .splash {
   @apply fixed bottom-0 left-1/2 z-50 p-4 align-middle rounded-md shadow-xl transform -translate-x-1/2 -translate-y-1/2 theme-colored text-white;
 
-  ion-icon {
+  .icon {
     @apply text-white;
   }
 }

@@ -1,23 +1,23 @@
 <template>
   <div>
     <div v-for="feed in feeds" :key="feed.id">
-      <div class="flex flex-row mb-3 rounded-lg theme-color-secondary">
+      <div class="flex flex-row mb-3 rounded-lg border-b-4 border-t-2 border-t-gray-100 border-gray-300 shadow-lg">
         <!-- Images -->
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">
-            <nuxt-link :to="localePath('/profile/u/'+feed.users.username)">
+            <nuxt-link :to="'/profile/u/'+feed.users.username">
               <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
             </nuxt-link>
             <div class="name">
               <nuxt-link 
-                :to="localePath('/profile/u/'+feed.users.username)" 
+                :to="'/profile/u/'+feed.users.username" 
                 class="fullname"
               >
                 {{ feed.users.name }}
               </nuxt-link>
               <br>
               <nuxt-link 
-                :to="localePath('/profile/u/'+feed.users.username)" 
+                :to="'/profile/u/'+feed.users.username" 
                 class="username hover:underline"
               >
                 @{{ feed.users.username }}
@@ -33,7 +33,7 @@
 
           <!-- text feed -->
           <div class="px-4 mt-6">
-            <p class="mt-2 text-tiny">
+            <p class="mt-2">
               {{ feed.text }}
             </p>
           </div>
@@ -41,7 +41,7 @@
           <!-- Intereaction area -->
           <div class="float-right m-6 interactions">
             <!-- Reactions -->
-            <div v-if="$auth.loggedIn" class="reactions">
+            <div v-if="auth.loggedIn" class="reactions">
               <!-- Like -->
               <span 
                 class="leading-8" 
@@ -50,12 +50,12 @@
                 <Icon 
                   v-show="likedIds.includes(feed.id)"
                   :id="'profileFeedLikeButton-'+feed.id"
-                  :name="'heart'" 
+                  :name="'i-ion-heart'" 
                   class="mr-1 text-red-500 hover:text-red-500"
                 />
                 <Icon
                   v-show="!likedIds.includes(feed.id)"
-                  :name="'heart-outline'" 
+                  :name="'i-ion-heart-outline'" 
                   class="mr-1 icon-color hover:text-red-500"
                 />
                 {{ thousand(feed._count.feed_likes) }}
@@ -67,7 +67,7 @@
                 @click.prevent="viewFeed(feed.id)"
               >
                 <Icon 
-                  :name="'chatbubble-outline'" 
+                  :name="'i-mdi-comment-multiple-outline'" 
                   class="mr-1 icon-color hover:text-blue-500"
                 />
                 {{ thousand(feed._count.feed_comments) }}
@@ -83,7 +83,7 @@
                 >
                   <span>
                     <Icon
-                      :name="'ellipsis-vertical-outline'" 
+                      :name="'i-uit-ellipsis-v'" 
                       class="align-middle icon icon-color"
                     />
                   </span>
@@ -98,17 +98,17 @@
                   >
                     <div class="menu-wrapper">
                       <nuxt-link 
-                        :to="localePath('/feed/'+feed.id)"
+                        :to="'/feed/'+feed.id"
                         class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                       >
-                        <Icon :name="'enter-outline'" class="mr-2 text-base" /> {{ $t('open') }}
+                        <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
                       </nuxt-link>
                       <nuxt-link 
-                        :to="localePath('/feed/'+feed.id)"
+                        :to="'/feed/'+feed.id"
                         target="_blank" 
                         class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                       >
-                        <Icon :name="'open-outline'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                        <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
                       </nuxt-link>
 
                       <div class="custom-divider" />
@@ -118,13 +118,13 @@
                         class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                         @click.prevent 
                       >
-                        <Icon :name="'flag-outline'" class="mr-2 text-base" /> {{ $t('report') }}
+                        <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
                       </nuxt-link>
                       <a
                         class="flex py-2 px-3 w-full leading-4 rounded-md transition-all duration-150 cursor-pointer hover:button-color parent-icon hover:text-white"
-                        @click="localePath('/feed/'+feed.id)" 
+                        @click="'/feed/'+feed.id" 
                       >
-                        <Icon :name="'link-outline'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
+                        <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
                       </a>
                     </div>
                   </div>
@@ -136,15 +136,24 @@
       </div>
     </div>
     
-    <InfiniteLoading @infinite="fetch">
-      <span slot="no-more">
-        {{ $t('youHaveReachedTheEnd') }}
-      </span>
-      <span slot="no-results">
-        <div class="mt-10">
+    <InfiniteLoading :load="fetch">
+      <template #loading>
+        <div class="mx-auto text-center">
+          <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+        </div>
+      </template>
+      
+      <template #no-more>
+        <div class="mx-auto text-center">
+          {{ $t('youHaveReachedTheEnd') }}
+        </div>
+      </template>
+      
+      <template #no-results>
+        <div class="mx-auto mt-10 text-center">
           <b>(ㆆ_ㆆ)</b> {{ $t('nothingToShow') }}
         </div>
-      </span>
+      </template>
     </InfiniteLoading>
     
     <!-- Feed Modal View -->
@@ -161,22 +170,23 @@
 </template>
 
 <script setup>
-import InfiniteLoading from 'vue-infinite-loading'
+import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loading'
+
+// stores
+import useAuthStore from '@/stores/auth.store'
 
 // components
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import Icon from '~/components/globals/Icon.vue'
 
-// composables
-import useApiFetch from '~/composables/useApiFetch'
-import useFeed from '~/composables/useFeed'
-import useModal from '~/composables/useModal'
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 
-const props = defineProps({
+const props = defineProps ({
   userId: {
     type: Number,
     default: 0
@@ -188,7 +198,7 @@ const pagination = ref({
   page: 0,
   perPage: 10
 })
-const fetch = async ($state) => {
+const fetch = async ({ loaded }) => {
   await setTimeout(async () => {
     const [data, error] = await feedApi.getFeedByUserId({
       userId: props.userId,
@@ -201,7 +211,6 @@ const fetch = async ($state) => {
     if (data.feeds.length) {
       pagination.value.page += 1
 
-
       data.feeds.forEach((feed) => {
         feeds.value.push(feed)
 
@@ -209,11 +218,9 @@ const fetch = async ($state) => {
           likedIds.value.push(feed.id)
         }
       })
-
-      $state.loaded()
-    } else {
-      $state.complete()
     }
+
+    loaded(feeds.value.length, pagination.value.perPage)
   }, 1000)
 }
 
@@ -289,7 +296,7 @@ const unlike = async (id) => {
     .counter {
       @apply mr-3 whitespace-nowrap;
 
-      ion-icon {
+      .icon {
         @apply mr-1 text-lg text-gray-400 align-middle transition-all hover:text-gray-400;
       }
 
@@ -303,7 +310,7 @@ const unlike = async (id) => {
     span {
       @apply ml-3 whitespace-nowrap;
 
-      ion-icon {
+      .icon {
         @apply ml-1 text-xl align-middle transition-all cursor-pointer;
       }
     }
@@ -330,7 +337,7 @@ const unlike = async (id) => {
     .suggest {
       @apply py-1 px-3 mr-1 text-xs text-black bg-gray-200 rounded-full transition-all ease-in delay-75;
 
-      ion-icon {
+      .icon {
         @apply text-black align-middle;
       }
 
@@ -419,7 +426,7 @@ const unlike = async (id) => {
         .menu {
           @apply flex z-50 flex-row py-3 px-4 mx-auto w-full capitalize rounded-md cursor-pointer;
 
-          ion-icon {
+          .icon {
             @apply mr-2;
           }
 

@@ -145,7 +145,7 @@
 // stores
 import authStore from '@/stores/auth.store'
 
-defineProps({
+defineProps ({
   album: {
     type: Object,
     default: () => {}
