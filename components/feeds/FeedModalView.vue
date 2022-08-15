@@ -226,7 +226,6 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
-import { comment } from 'postcss';
 
 /**
  * @stores

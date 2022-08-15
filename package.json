@@ -14,14 +14,13 @@
     "@nuxtjs/tailwindcss": "^5.3.1",
     "@unocss/nuxt": "^0.44.7",
     "@unocss/preset-icons": "^0.44.7",
-    "nuxt": "3.0.0-rc.6",
+    "nuxt": "^3.0.0-rc.8",
     "sass": "^1.54.0",
     "tailwindcss-dark-mode": "^1.1.7"
   },
   "dependencies": {
     "@headlessui/vue": "^1.6.7",
     "@heroicons/vue": "^1.0.6",
-    "@james090500/vue-tagsinput": "https://github.com/james090500/vue-tagsinput",
     "@nor1c/vue-tagsinput": "https://github.com/nor1c/vue-tagsinput",
     "@nuxtjs/color-mode": "^3.1.4",
     "@pinia/nuxt": "^0.3.1",
@@ -37,6 +36,7 @@
     "moment": "latest",
     "number-shortener": "^1.0.1",
     "pinia-plugin-persistedstate": "^1.6.3",
+    "postcss": "^8.4.16",
     "url": "^0.11.0",
     "v-viewer": "^3.0.10",
     "vue-debounce": "latest",
