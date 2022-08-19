@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center mb-6">
           <!-- back button -->
           <div v-if="!showLogin" @click="resetVisibility">
-            <NavIcon :name="'chevron-back-outline'" class="text-base icon-color cursor-pointer align-middle" />
+            <Icon :name="'i-ion-chevron-back-outline'" class="text-base icon-color cursor-pointer align-middle" />
           </div>
 
           <!-- title -->
@@ -47,7 +47,7 @@
         <div class="flex justify-center">
           <LoginForm />
           <RegistrationForm />
-          <!-- <AccountRecoveryForm /> -->
+          <AccountRecoveryForm />
         </div>
 
         <div v-if="showLogin" class="w-full text-center mt-4">
@@ -62,9 +62,9 @@
 // components
 import LoginForm from './Login.vue'
 import RegistrationForm from './Registration.vue'
-// import AccountRecoveryForm from './AccountRecovery.vue'
+import AccountRecoveryForm from './AccountRecovery.vue'
 
-import NavIcon from '~/components/NavbarIcon.vue'
+import Icon from '~/components/globals/Icon.vue'
 
 // stores
 import useAuthFormStore from '@/stores/auth-form.store'

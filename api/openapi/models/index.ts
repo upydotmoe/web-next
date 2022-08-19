@@ -80,7 +80,6 @@ export * from './inline-response20024';
 export * from './inline-response20024-data';
 export * from './inline-response20024-data-tags';
 export * from './inline-response20025';
-export * from './inline-response20025-data';
 export * from './inline-response20026';
 export * from './inline-response20026-data';
 export * from './inline-response20027';

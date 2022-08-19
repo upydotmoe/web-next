@@ -7,8 +7,8 @@ export default function useDevice () {
       windowWidth.value = window.innerWidth
     }
 
-    onMounted (() => window.addEventListener('resize', onWidthChange))
-    onUnmounted(() => window.removeEventListener('resize', onWidthChange))
+    // onMounted (() => window.addEventListener('resize', onWidthChange))
+    // onUnmounted(() => window.removeEventListener('resize', onWidthChange))
     
     const type = computed(() => {
       if (windowWidth.value < 550) {

@@ -18,12 +18,14 @@ export default defineStore('auth-form', () => {
     showRegistration.value = !showRegistration.value
     showLogin.value = !showLogin.value
   }
-  const toggleRegistrationForm = (state, value) => {
+  const toggleRegistrationForm = (value) => {
     showRegistration.value = value
   }
   const toggleAccountRecovery = () => {
     showLogin.value = !showLogin.value
     showAccountRecovery.value = !showAccountRecovery.value
+
+    console.log([showLogin.value, showAccountRecovery.value])
   }
   const reset = () => {
     showLogin.value = true
@@ -51,18 +53,18 @@ export default defineStore('auth-form', () => {
   }
 
   // registration
-  const toggleSuccessDialog = (state, value) => {
+  const toggleSuccessDialog = (value) => {
     showRegistrationSuccessDialog.value = value
   }
 
   // account recovery
-  const toggleAccountRecoveryForm = (state, value) => {
+  const toggleAccountRecoveryForm = (value) => {
     showAccountRecovery.value = value
   }
   const triggerAccountRecoveryAlert = () => {
     accountRecoveryErr.value = true
   }
-  const toggleShowRecoveryLinkSentDialog = (state, value) => {
+  const toggleShowRecoveryLinkSentDialog = (value) => {
     showRecoveryLinkSentDialog.value = value
   }
 

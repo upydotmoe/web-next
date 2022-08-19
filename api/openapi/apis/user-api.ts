@@ -286,7 +286,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<UserAllModel>>> {
+        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2003>>> {
             const localVarAxiosArgs = await UserApiAxiosParamCreator(configuration).getUserInfoByUsername(username, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -352,7 +352,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<AxiosResponse<UserAllModel>> {
+        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2003>> {
             return UserApiFp(configuration).getUserInfoByUsername(username, options).then((request) => request(axios, basePath));
         },
         /**
@@ -415,7 +415,7 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public async getUserInfoByUsername(username: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<UserAllModel>> {
+    public async getUserInfoByUsername(username: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2003>> {
         return UserApiFp(this.configuration).getUserInfoByUsername(username, options).then((request) => request(this.axios, this.basePath));
     }
     /**

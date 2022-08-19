@@ -51,21 +51,23 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
    * @param page 
    * @returns 
    */
-  const fetchCollections = async (
+  const fetchCollections = async (params: {
     userId: number,
     type: string,
-    page: number,
-    perPage: number,
-    name?: string
-  ) => {
+    name?: string,
+    pagination: {
+      page: number,
+      perPage: number,
+    }
+  }) => {
     try {
       const { data } = await new CollectionsApi(oApiConfiguration)
         .listUserCollections(
-          userId,
-          type,
-          perPage,
-          page,
-          name,
+          params.userId,
+          params.type,
+          params.pagination.page,
+          params.pagination.perPage,
+          params.name,
           fetchOptions
         )
 
@@ -118,14 +120,21 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }
 
   // todo
-  const update = async (data: any) => {
+  const update = async (inputData: {
+    id: number,
+    name: string,
+    description?: string,
+    isPublic: 0 | 1
+  }) => {
     try {
-      data.is_public = data.isPublic
-      delete data.isPublic
-
       const { data } = await new CollectionsApi(oApiConfiguration)
         .updateCollection(
-          data,
+          {
+            id: inputData.id,
+            name: inputData.name,
+            description: inputData.description,
+            is_public: inputData.isPublic
+          },
           fetchOptions
         )
     

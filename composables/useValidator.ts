@@ -1,13 +1,19 @@
 export default function () {
+  const clear = () => {
+    document.querySelectorAll('.input-error').forEach(el => el.remove())
+  }
+
   /**
    * This hook is used to validate user input before submitting form data.
    * @param form - The form to validate.
    * @param t - The translation function, from 'vue-i18n.useI18n.t', because we cannot use $t directly in non-setup components, 
    *            so we need to pass it from the component to here.
    */
-  const validate = (form, t) => {
+  const validate = (formId, t) => {
+    const form = document.getElementById(formId)
+
     // remove all current exisiting error message (.input-error class)
-    document.querySelectorAll('.input-error').forEach(el => el.remove())
+    clear()
 
     // rule alerts
     let ruleAlerts = []
@@ -34,7 +40,13 @@ export default function () {
       
       const input = nValidate.getElementsByTagName('input')[0]
 
-      const rules = input.getAttribute('rules').split('|')
+      const rulesAttribute = input.getAttribute('rules')
+
+      if (rulesAttribute === null) {
+        return
+      }
+
+      const rules = rulesAttribute.split('|')
 
       for (let iRules = 0; iRules < rules.length; iRules++) {
         // rule config for 'required'
@@ -110,6 +122,10 @@ export default function () {
         }
       }
     }
+
+    if (ruleAlerts.length) {
+      throw console.warn("Didn't pass validation check, please check your form again.")
+    }
   }
 
   /**
@@ -173,6 +189,7 @@ export default function () {
   }
 
   return {
-    validate
+    validate,
+    clear
   }
 }

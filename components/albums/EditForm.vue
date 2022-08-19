@@ -87,12 +87,6 @@ const { t } = useI18n()
 
 const loading = ref(true)
 
-const inputData = ref({
-  id: 0,
-  name: '',
-  description: '',
-  isPublic: false
-})
 const fetch = async (albumId) => {
   if (albumId) {
     reset()
@@ -112,29 +106,31 @@ const fetch = async (albumId) => {
 }
 
 const formId = 'update-album-form'
+const inputData = ref({
+  id: 0,
+  name: '',
+  description: '',
+  isPublic: false
+})
 const save = async () => {
   // validate input before going to the next step
-  validateForm()
+  useValidator().validate(formId, t)
 
-  try {
-    // transform isPublic from boolean to 0 1
-    inputData.value.isPublic = inputData.value.isPublic ? 1 : 0
+  const [success, error] = await albumApi.update({
+    id: inputData.value.id,
+    name: inputData.value.name,
+    description: inputData.value.description,
+    isPublic: inputData.value.isPublic ? 1 : 0
+  })
 
-    const [success, error] = await albumApi.update(inputData.value)
+  if (error) {
+    // todo: handle error
+  } else {
+    useModal().closeModal(props.modalId)
+    emits('updated', inputData.value)
 
-    if (success) {
-      useModal().closeModal(props.modalId)
-      emits('updated', inputData.value)
-
-      reset()
-    }
-  } catch (error) {
-    // 
+    reset()
   }
-}
-const validateForm = () => {
-  const formEl = document.getElementById(formId)
-  useValidator().validate(formEl, t)
 }
 
 const reset = () => {

@@ -39,7 +39,7 @@
               :class="{ 'hover:danger-button': isFollowing }"
               @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
               @mouseover="unfollowHoverLeave('i-fluent-person-32-regular-remove-outline', $t('unfollow'))"
-              @mouseleave="unfollowHoverLeave('checkmark-done-outline', $t('following'))"
+              @mouseleave="unfollowHoverLeave('i-ion-checkmark-done-outline', $t('following'))"
             >
               <!-- if not following -->
               <div v-show="!isFollowing" class="flex flex-row">
@@ -703,7 +703,7 @@ const addedToAlbum = () => {
 const isFollowing = ref(false)
 
 const unfollowText = ref(null)
-const unfollowIcon = ref('checkmark-done-outline')
+const unfollowIcon = ref('i-ion-checkmark-done-outline')
 const unfollowHoverLeave = (iconName, text) => {
   unfollowIcon.value = iconName
   unfollowText.value = text

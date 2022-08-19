@@ -5,9 +5,9 @@
         <span class="title">{{ $t('albums.create.form.title') }}</span>
 
         <form 
-          id="create-album-form"
+          :id="formId"
           class="mt-2"
-          @submit.prevent="save('create-album-form')"
+          @submit.prevent="save(formId)"
         >
           <!-- title input -->
           <n-validate 
@@ -80,10 +80,11 @@ const props = defineProps ({
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
-const album = useAlbum(oApiConfiguration, fetchOptions())
+const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
+const formId = 'create-album-form'
 const inputData = ref({
   title: '',
   description: '',
@@ -94,7 +95,7 @@ const inputData = ref({
 /** Save new album */
 const save = async () => {
   // validate input before going to the next step
-  validateForm()
+  useValidator().validate(formId, t)
 
   try {
     let created = false
@@ -102,7 +103,7 @@ const save = async () => {
 
     // call API to create new album
     if (props.category) {
-      const [success, data, error] = await album.createAlbum(props.category, inputData.value)
+      const [success, data, error] = await albumApi.createAlbum(props.category, inputData.value)
 
       created = success
       newAlbumData = data
@@ -115,10 +116,6 @@ const save = async () => {
   } catch (error) {
     // 
   }
-}
-const validateForm = () => {
-  const formEl = document.getElementById('create-album-form')
-  useValidator().validate(formEl, t)
 }
 </script>
 

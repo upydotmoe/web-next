@@ -1,10 +1,36 @@
 <template>
   <div v-show="showForm || directMode" class="w-full">
     <div v-show="!showRecoveryLinkSentDialog" class="text-base mb-2">
-      {{ $t('accountRecovery.form.recoverYourPassword') }}
+    {{ $t('accountRecovery.form.recoverYourPassword') }}
     </div>
 
-    <!-- VV -->
+    <form
+      :id="formId"
+      @submit.prevent="proceed(formId)"
+    >
+      <n-validate
+        for="email"
+        :name="$t('accountRecovery.form.email')"
+      >
+        <input 
+          v-model="inputData.email" 
+          type="email" 
+          rules="required|email"
+          :class="[
+            'form-input',
+            { 'theme-color-secondary': !directMode }
+          ]"
+          :placeholder="$t('accountRecovery.form.email')"
+        >
+      </n-validate>
+
+      <button
+        type="submit"
+        class="float-right primary-button mt-2"
+      >
+        {{ $t('next') }}
+      </button>
+    </form>
 
     <div v-show="showRecoveryLinkSentDialog" class="w-full text-center">
       <div class="mb-4">
@@ -23,6 +49,18 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+
+// stores
+import useAuthFormStore from '@/stores/auth-form.store'
+
+// stores
+const authForm = useAuthFormStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const authApi = useAuth(oApiConfiguration, fetchOptions())
+
 defineProps ({
   directMode: {
     type: Boolean,
@@ -30,10 +68,9 @@ defineProps ({
   }
 })
 
-const store = useStore()
-const { $axios } = useContext()
+const { t } = useI18n()
 
-const showForm = computed(() => store.state.authForm.showAccountRecovery)
+const showForm = computed(() => authForm.showAccountRecovery)
 
 const initAlert = {
   show: false,
@@ -41,33 +78,32 @@ const initAlert = {
 }
 const alert = reactive({ ...initAlert })
 
-const showRecoveryLinkSentDialog = computed(() => store.state.authForm.showRecoveryLinkSentDialog)
+const showRecoveryLinkSentDialog = computed(() => authForm.showRecoveryLinkSentDialog)
 const showResendInfo = ref(false)
 
+const formId = 'account-recovery-form'
 const initialValue = {
   email: ''
 }
 const inputData = reactive({ ...initialValue })
 const cachedEmail = ref('')
 const proceed = async () => {
+  useValidator().validate(formId, t)
+
   cachedEmail.value = inputData.email
 
-  try {
-    const response = await $axios.post('user/password/forgot', { email: cachedEmail.value })
+  const [success, error] = await authApi.recoverAccount(cachedEmail.value)
 
-    if (response.status === 200) {
-      setTimeout(async () => {
-        await store.commit('authForm/toggleShowRecoveryLinkSentDialog', true)
-      }, 1500)
-    } else {
-      triggerErrorMessage(response.data.message)
-    }
-  } catch (error) {
-    triggerErrorMessage(error.response.data.message)
+  if (error) {
+    triggerErrorMessage(response.data.message)
+  } else {
+    setTimeout(async () => {
+      authForm.toggleShowRecoveryLinkSentDialog(true)
+    }, 1500)
   }
 }
 const triggerErrorMessage = async (message) => {
-  await store.commit('authForm/triggerAccountRecoveryAlert')
+  authForm.triggerAccountRecoveryAlert()
   alert.show = true
   alert.message = message
 }

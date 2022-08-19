@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="feed in feeds" :key="feed.id">
-      <div class="flex flex-row mb-3 rounded-lg border-b-4 border-t-2 border-t-gray-100 border-gray-300 shadow-lg">
+      <div class="flex flex-row mb-3 rounded-lg border-t-2 border-t-gray-100 border-gray-300 shadow-lg">
         <!-- Images -->
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">

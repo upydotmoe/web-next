@@ -30,7 +30,7 @@
 
         <div v-if="auth.loggedIn && auth.user.id === userId">
           <div class="icon-button" @click="openModal('collection-form-modal')">
-            <Icon :name="'add-outline'" />
+            <Icon :name="'i-ion-add-outline'" />
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
             class="ml-0 icon-button" 
             @click="back()"
           >
-            <Icon :name="'arrow-back-outline'" />
+            <Icon :name="'i-ic-baseline-keyboard-arrow-left'" />
           </div>
         </div>
 
@@ -52,7 +52,7 @@
           <!-- manage items -->
           <div v-show="auth.loggedIn && (auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
             <button class="action-button secondary-button" @click="config.manageMode = !config.manageMode">
-              <Icon :name="config.manageMode ? 'close-outline' : 'checkbox-outline'" />
+              <Icon :name="config.manageMode ? 'i-ion-close-outline' : 'i-material-symbols-library-add-check-outline-rounded'" />
               {{ config.manageMode ? $t('quit') : $t('manage') }}
             </button>
             <button 
@@ -61,17 +61,17 @@
               :class="selectedItems.length > 0 ? 'danger-button' : 'disabled-button cursor-not-allowed'"
               @click="selectedItems.length > 0 ? openModal('item-deletion-confirm-modal') : null"
             >
-              <Icon :name="'trash-outline'" />
+              <Icon :name="'i-akar-icons-trash-bin'" />
               {{ $t('collections.removeSelected') }}
             </button>
           </div>
 
           <div v-show="auth.loggedIn && (auth.user.id === userId) && !config.manageMode" class="flex flex-row gap-2">
             <button class="icon-button" @click="editCollection()">
-              <Icon :name="'settings-outline'" />
+              <Icon :name="'i-ph-gear-six'" />
             </button>
             <button class="danger-button-color b-button" @click="openModal('collection-deletion-confirm-modal')">
-              <Icon :name="'trash-bin-outline'" />
+              <Icon :name="'i-akar-icons-trash-bin'" />
             </button>
           </div>
         </div>
@@ -99,7 +99,7 @@
         />
         
         <div class="flex flex-row pb-1 mt-4 font-bold">
-          <Icon v-if="!collection.is_public" :name="'lock-closed'" class="mr-2 cursor-default" />
+          <Icon v-if="!collection.is_public" :name="'i-radix-icons-lock-closed'" class="mr-2 cursor-default" />
           <span class="text-xs font-normal">{{ collection.name }}</span>
         </div>
       </div>
@@ -174,6 +174,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import CollectionFormModal from '~/components/collections/CollectionFormModal.vue'
@@ -186,6 +189,8 @@ import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'
+
+const auth = useAuthStore()
 
 const props = defineProps ({
   userId: {
@@ -223,12 +228,14 @@ const counter = ref({
 const fetch = async () => {
   loading.value = true
 
-  const [data, showLoadMore, error] = await collectionApi.fetchCollections(
-    props.userId, 
-    activeType.value,
-    config.value.pagination.page === 0 ? config.value.pagination.firstLoad : config.value.pagination.perPage, 
-    config.value.pagination.page
-  )
+  const [data, showLoadMore, error] = await collectionApi.fetchCollections({
+    userId: props.userId, 
+    type: activeType.value,
+    pagination: {
+      page: config.value.pagination.page,
+      perPage: config.value.pagination.page === 0 ? config.value.pagination.firstLoad : config.value.pagination.perPage
+    }
+  })
 
   if (error) {
     showError()
@@ -241,7 +248,7 @@ const fetch = async () => {
       collections.value.push(collection)
     })
 
-    config.value.pagination.page += 1
+    config.value.pagination.page += (config.value.pagination.firstLoad / config.value.pagination.perPage)
     config.value.showLoadMore = showLoadMore
 
     // count artwork collections
@@ -313,7 +320,7 @@ const updated = (updatedData) => {
     if (collection.id === updatedData.id) {
       collection.name = updatedData.name
       collection.description = updatedData.description
-      collection.is_public = updatedData.is_public
+      collection.is_public = updatedData.isPublic
     }
   })
 }

@@ -11,57 +11,41 @@
   </Layout>
 </template>
 
-<script>
+<script setup>
+import { useI18n } from 'vue-i18n'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 
-export default {
-  components: {
-    Layout
-  },
-  setup (_, context) {
-    const { route, $axios } = useContext()
-    const ctxRoot = context.root
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-    onMounted (() => {
-      verifyAccount()
-    })
+const { $router } = useNuxtApp()
+const { t } = useI18n()
 
-    const status = ref(0)
-    const message = ref('')
+onMounted (() => {
+  verifyAccount()
+})
 
-    const verifyAccount = async () => {
-      const { iv, content } = route.value.params
+const message = ref('')
 
-      try {
-        const response = await $axios.get(`/auth/registration/verify/email/${iv}/${content}`)
+const verifyAccount = async () => {
+  const { iv, content } = $router.currentRoute.value.params
+  
+  const [success, error] = await authApi.verifyEmailAddress({
+    iv,
+    content
+  })
 
-        status.value = response.status
-        if (response.status === 200) {
-          message.value = ctxRoot.$t('registration.form.registered.accountSuccessfullyVerified')
-        } else if (response.status === 409) {
-          message.value = ctxRoot.$t('registration.form.registered.accountAlreadyVerified')
-        } else {
-          message.value = response.message
-        }
-      } catch (error) {
-        if (error.message === 'Request failed with status code 409') {
-          status.value = 409
-          message.value = ctxRoot.$t('registration.form.registered.accountAlreadyVerified')
-        } else {
-          status.value = 500
-          message.value = ctxRoot.$t('errors.somethingWentWrong')
-        }
-      }
+  if (error) {
+    if (error.message === 'Request failed with status code 409') {
+      message.value = t('registration.form.registered.accountAlreadyVerified')
+    } else {
+      message.value = t('errors.somethingWentWrong')
     }
-
-    return {
-      status,
-      message
-    }
+  } else {
+    message.value = t('registration.form.registered.accountSuccessfullyVerified')
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -4,11 +4,22 @@
 
 <script setup>
 import { initApp } from './utils/init-app'
+import { useI18n } from 'vue-i18n'
 
 // stores
 import authStore from '@/stores/auth.store'
 
 initApp()
+const { t } = useI18n()
+
+/**
+ * @meta
+ */
+useHead ({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - ` + t('meta.title.app') : t('meta.title.app')
+  }
+})
 
 const auth = authStore()
 

@@ -1,8 +1,9 @@
 <template>
   <form
-    id="login"
+    v-show="showForm"
+    :id="formId"
     class="auth-form"
-    @submit.prevent="login('login')"
+    @submit.prevent="login(formId)"
   >
     <!-- login error message, show this alert when error occured while authenticating user -->
     <div v-if="loginErr" class="login-error-message">
@@ -17,7 +18,7 @@
       <input 
         v-model="inputs.emailUsername"
         type="text"
-        rules="required|email"
+        rules="required"
         :placeholder="$t('logins.form.email_username')"
       >
     </n-validate>
@@ -50,15 +51,12 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 
 // stores
 import useAuthFormStore from '@/stores/auth-form.store'
-import useAuthStore from '@/stores/auth.store'
 
-const authFormStore = useAuthFormStore()
-const auth = useAuthStore()
+const authForm = useAuthFormStore()
 
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
@@ -70,10 +68,10 @@ const { t } = useI18n()
  * @visiblity
  * Visiblity function to show and hide the login form or switching to other form like Registration form or Account Recovery form.
  */
-const showForm = computed(() => authFormStore.showLogin)
-const showRegistrationForm = computed(() => authFormStore.showRegistration)
-
-const toggleAccountRecoveryForm = async () => await authFormStore.toggleAccountRecovery()
+const toggleAccountRecoveryForm = async () => {
+  await authForm.toggleAccountRecovery()
+  useValidator().clear()
+}
 /**
  * @visibility
  */
@@ -81,6 +79,7 @@ const toggleAccountRecoveryForm = async () => await authFormStore.toggleAccountR
 /**
  * @form
  */
+const formId = 'login-form'
 const inputs = ref({
   emailUsername: '',
   password: ''
@@ -91,11 +90,11 @@ const inputs = ref({
  */
 const login = async () => {
   // clear previous error message
-  authFormStore.resetErr()
+  authForm.resetErr()
   loginErrMessage.value = ''
 
   // validate input before going to the next step
-  validateForm()
+  useValidator().validate(formId, t)
 
   // proceed to validate user login information
   const [success, error] = await authApi.authenticate({
@@ -113,23 +112,16 @@ const login = async () => {
 }
 
 /**
- * Validate form input before proceeding to the next step
- */
-const validateForm = () => {
-  const loginEl = document.getElementById('login')
-  useValidator().validate(loginEl, t)
-}
-/**
  * @login
  */
 
 /**
  * @errorHandling
  */
-const loginErr = computed(() => authFormStore.loginErr)
+const loginErr = computed(() => authForm.loginErr)
 const loginErrMessage = ref('')
 const triggerLoginError = async (message) => {
-  await authFormStore.triggerLoginErr()
+  await authForm.triggerLoginErr()
   loginErrMessage.value = message
 }
 /**
@@ -139,7 +131,8 @@ const triggerLoginError = async (message) => {
 /**
  * Watch for form show/hide changes, if it's switched then reset the form value
  */
-watch (showForm, () => {
+const showForm = computed(() => authForm.showLogin)
+watch (() => authForm.showLogin, () => {
   resetForm()
 })
 
@@ -147,8 +140,8 @@ watch (showForm, () => {
  * Reset login form inputs
  */
 const resetForm = () => {
-  // inputs.value.emailUsername = ''
-  // inputs.value.password = ''
+  inputs.value.emailUsername = ''
+  inputs.value.password = ''
 }
 </script>
 

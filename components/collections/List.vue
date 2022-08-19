@@ -4,18 +4,18 @@
     <div class="hidden" @click="removeItem()" />
     
     <div class="p-4 mb-4 w-full rounded-md theme-color-secondary">
-      <div class="text-base font-bold mb-2">{{ collectionData.info.name }}</div>
-      <div class="mb-2">{{ collectionData.info.description }}</div>
-      <div><b>{{ $t('private') }}:</b> <span class="italic">{{ collectionData.info.is_public ? $t('no') : $t('yes') }}</span></div>
-      <div><b>{{ $t('createdAt') }}</b> {{ formatDate(collectionData.info.created_at) }}</div>
+      <div class="text-base font-bold mb-2">{{ collection.info.name }}</div>
+      <div class="mb-2">{{ collection.info.description }}</div>
+      <div><b>{{ $t('private') }}:</b> <span class="italic">{{ collection.info.is_public ? $t('no') : $t('yes') }}</span></div>
+      <div><b>{{ $t('createdAt') }}</b> {{ formatDate(collection.info.created_at) }}</div>
     </div>
 
     <div v-show="!loading">
       <keep-alive>
         <WorkList
-          v-show="!collectionData.empty"
+          v-show="!collection.empty"
           :section-class="'work-grid'"
-          :works="collectionData.list"
+          :works="collection.list"
           :view="view"
           :manage-mode="manageMode"
           @feedManageList="feedManageList"
@@ -23,7 +23,7 @@
       </keep-alive>
 
       <div 
-        v-show="collectionData.loadMore" 
+        v-show="collection.loadMore" 
         class="primary-button"
         @click="fetchItems()"
       >
@@ -33,7 +33,7 @@
 
     <ErrorMessages 
       :loading="loading"
-      :empty="collectionData.empty"
+      :empty="collection.empty"
       :error="false"
       :fetch="fetch"
     />
@@ -101,7 +101,7 @@ onMounted(async () => {
 })
 
 const loading = ref(false)
-const collectionData = ref({
+const collection = ref({
   id: 0,
   info: {},
   loadMore: true,
@@ -124,44 +124,44 @@ const fetch = async () => {
 
 const fetchInfo = async () => {
   const [info, error] = await collectionApi.getInfo(collectionId.value)
-  collectionData.value.info = info.data
+  collection.value.info = info.data
 }
 
 const fetchItems = async () => {
   const [list, showLoadMoreCollectionItems, error] = await collectionApi.listCollectionItems({
     collectionId: collectionId.value,
     pagination: {
-      page: collectionData.value.pagination.page,
-      perPage: collectionData.value.pagination.page === 0 ? collectionData.value.pagination.firstLoad : collectionData.value.pagination.perPage
+      page: collection.value.pagination.page,
+      perPage: collection.value.pagination.page === 0 ? collection.value.pagination.firstLoad : collection.value.pagination.perPage
     }
   })
 
   if (showLoadMoreCollectionItems) {
-    if (collectionData.value.pagination.page === 0) {
-      collectionData.value.pagination.page = (collectionData.value.pagination.firstLoad / collectionData.value.pagination.perPage)
+    if (collection.value.pagination.page === 0) {
+      collection.value.pagination.page = (collection.value.pagination.firstLoad / collection.value.pagination.perPage)
     } else {
-      collectionData.value.pagination.page += collectionData.value.pagination.page !== 0 ? 1 : 2
+      collection.value.pagination.page += collection.value.pagination.page !== 0 ? 1 : 2
     }
   } else {
-    collectionData.value.loadMore = false
+    collection.value.loadMore = false
   }
 
   if (list !== null && list.length) {
     list.forEach((item) => {
-      collectionData.value.list.push(item.artworks)
+      collection.value.list.push(item.artworks)
     })
 
     emits('onCollectionEmpty', false)
   } else {
-    collectionData.value.empty = true
+    collection.value.empty = true
     emits('onCollectionEmpty', true)
   }
 }
 
 const reset = () => {
-  collectionData.value.loadMore = true
-  collectionData.value.pagination.page = 0
-  collectionData.value.list = []
+  collection.value.loadMore = true
+  collection.value.pagination.page = 0
+  collection.value.list = []
 }
 
 /** Listen to manage list changes */
@@ -199,6 +199,13 @@ const view = (workId, keepArtistPageNumber = false) => {
   collectionModalViewRef.value.view(workId, keepArtistPageNumber)
   useModal().openModal(modalName.value + '-modal')
 }
+
+/**
+ * @expose
+ */
+defineExpose ({
+  fetchInfo
+})
 </script>
 
 <style lang="scss" scoped>

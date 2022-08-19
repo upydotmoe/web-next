@@ -1,4 +1,13 @@
 {
+  "meta": {
+    "title": {
+      "app": "Upy (Community Platform for Artists)",
+      "feed": "Feed",
+      "profile": {
+        "settings": "Profile Settings"
+      }
+    }
+  },
   "all": "All",
   "comics": {
     "comic": "Comic",
@@ -376,7 +385,9 @@
   "validation": {
     "required": "{fieldName} required",
     "email": "Invalid email format",
-    "min": "{filedName} must be at least {min} characters",
-    "max": "{filedName} must be at most {max} characters"
+    "min": "{fieldName} must be at least {min} characters",
+    "max": "{fieldName} must be at most {max} characters",
+    "containSymbol": "{fieldName} must contain at least one symbol",
+    "containNumber": "{fieldName} must contain at least one numeric character"
   }
 }

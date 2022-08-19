@@ -11,7 +11,7 @@
     />
 
     <div class="mx-auto w-full">
-      <div class="grid grid-cols-1 gap-2 mx-auto xl:w-10/12">
+      <div class="grid grid-cols-1 gap-2 mx-auto xl:w-11/12">
         <div v-for="feed in feeds" :key="feed.id+feed.type" class="lg:mx-6">
           <div class="flex flex-row rounded-lg theme-color">
             <!-- Images -->
@@ -277,6 +277,13 @@ import ImageList from '~/components/feeds/ImageList.vue'
 import FeedSide from '~/components/layouts/right-sides/FeedSide.vue'
 import ManageSave from '~/components/artworks/ManageSave.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
+
+/**
+ * @meta
+ */
+useHead ({
+  title: useI18n().tl('meta.title.feed')
+})
 
 /**
  * @props

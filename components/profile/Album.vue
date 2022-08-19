@@ -194,7 +194,7 @@ const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
-const album = useAlbum(oApiConfiguration, fetchOptions())
+const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
 const props = defineProps ({
   userId: {
@@ -228,7 +228,7 @@ const counter = ref({
 const fetch = async () => {
   loading.value = true
 
-  const [data, showLoadMore, error] = await album.fetchAlbums(
+  const [data, showLoadMore, error] = await albumApi.fetchAlbums(
     props.userId, 
     activeCategory.value,
     config.value.pagination.page === 0 ? config.value.pagination.firstLoad : config.value.pagination.perPage, 
@@ -247,11 +247,11 @@ const fetch = async () => {
       albums.value.push(album)
     })
 
-    config.value.pagination.page += 1
+    config.value.pagination.page += (config.value.pagination.firstLoad / config.value.pagination.perPage)
     config.value.showLoadMore = showLoadMore
 
     // count artwork albums
-    const [artworkAlbumTotal] = await album.countArtworkAlbums(props.userId)
+    const [artworkAlbumTotal] = await albumApi.countArtworkAlbums(props.userId)
     counter.value.artwork = artworkAlbumTotal
   }
 
@@ -311,7 +311,7 @@ const updated = (updatedData) => {
     if (album.id === updatedData.id) {
       album.name = updatedData.name
       album.description = updatedData.description
-      album.is_public = updatedData.is_public
+      album.is_public = updatedData.isPublic
     }
   })
 }
@@ -329,7 +329,7 @@ const feedManageList = (selectedList) => {
 // on delete confirmation dialog accepted, process to delete the album
 const deleteAlbum = async () => {
   if (selectedAlbum.value !== 0) {
-    const [success, error] = await album.deleteAlbum(selectedAlbum.value)
+    const [success, error] = await albumApi.deleteAlbum(selectedAlbum.value)
     
     if (success) {
       selectedAlbum.value = 0

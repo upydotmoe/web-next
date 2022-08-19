@@ -128,18 +128,174 @@
     <div class="mb-4 custom-divider" />
 
     <!-- Part 1: Update profile basic information -->
-    <!-- VV -->
+    <form
+      :id="basicInformationFormId"
+      class="mb-4"
+      @submit.prevent="update(basicInformationFormId)"
+    >
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.name') }}</label>
+        <div class="field">
+          <input 
+            v-model="inputData.name"
+            type="text" 
+            class="form-input input"
+            :class="[{ 'pointer-events-none cursor-not-allowed': saving.basic.loading }]"
+          >
+        </div>
+      </n-validate>
+
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.penName') }}</label>
+        <div class="field">
+          <input 
+            v-model="inputData.penName"
+            type="text" 
+            maxlength="12"
+            class="form-input input"
+            :class="{ 'pointer-events-none cursor-not-allowed': saving.username.loading }"
+            @input="checkPenNameAvailability()"
+            @keydown.space.prevent
+          >
+          <div v-show="penNameUsedAlert" class="input-error">
+            {{ $t('profile.forms.update.penNameTaken') }}
+          </div>
+        </div>
+      </n-validate>
+
+      <div class="mb-2 input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.gender') }}</label>
+        <div class="field">
+          <div class="flex flex-row p-1 w-full rounded-md cursor-pointer md:w-min theme-color">
+            <div 
+              class="flex flex-row justify-center py-2 px-3 w-full rounded-md parent-icon"
+              :class="{ 'button-color text-white': inputData.gender === 'm' }"
+              @click="inputData.gender = 'm'"
+            >
+              {{ $t('male') }}
+            </div>
+            <div 
+              class="flex flex-row justify-center py-2 px-3 w-full rounded-md parent-icon"
+              :class="{ 'button-color text-white': inputData.gender === 'f' }"
+              @click="inputData.gender = 'f'"
+            >
+              {{ $t('female') }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.bio') }}</label>
+        <div class="field">
+          <textarea 
+            v-model="inputData.bio" 
+            class="mb-1 form-input input"
+            :class="{ 'pointer-events-none cursor-not-allowed': saving.basic.loading }"
+            rows="8"
+            cols="0"
+            data-gramm="false"
+          />
+        </div>
+      </n-validate>
+
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.location') }}</label>
+        <div class="field">
+          <input 
+            v-model="inputData.location"
+            type="text" 
+            class="form-input input"
+            :class="{ 'pointer-events-none cursor-not-allowed': saving.basic.loading }"
+          >
+        </div>
+      </n-validate>
+
+      <!-- submit button -->
+      <div class="flex flex-row justify-between w-full">
+        <div>
+          <span 
+            v-show="saving.basic.loading || saving.basic.success" 
+            class="flex flex-row text-success"
+          >
+            <Spinner v-show="saving.basic.loading" class="mr-2" />
+            {{ saving.basic.loading ? $t('updating') : $t('updated') }}
+          </span>
+        </div>
+        <button 
+          type="submit"
+          :class="[
+            'flex flex-row w-full md:w-auto',
+            saving.basic.buttonDisabled ? 'disabled-button' : 'primary-button'
+          ]"
+        >
+          <Spinner v-show="saving.basic.loading" class="mr-2" />
+          {{ saving.basic.loading ? $t('updating') : $t('update') }}
+        </button>
+      </div>
+    </form>
       
     <div class="mb-4 custom-divider" />
 
     <!-- Part 2: Update profile username -->
-    <!-- VV -->
+    <form 
+      :id="changeUsernameFormId"
+      @submit.prevent="changeUsername(changeUsernameFormId)"
+    >
+      <n-validate
+        for="=username"
+        class="input-block"
+        :name="$t('profile.forms.update.username')"
+      >
+        <label class="font-semibold">{{ $t('profile.forms.update.username') }}</label>
+        <div class="field">
+          <input 
+            v-model="inputData.username"
+            type="text" 
+            maxlength="12"
+            :class="[
+              'form-input input',
+              { 'pointer-events-none cursor-not-allowed': saving.username.loading }
+            ]"
+            rules="required|min:5"
+            @input="checkUsernameAvailability()"
+            @keydown.space.prevent
+          >
+          <!-- <div v-show="usernameUsedAlert" class="pt-4 input-error">
+            {{ $t('profile.forms.update.usernameTaken') }}
+          </div> -->
+        </div>
+      </n-validate>
+
+      <!-- submit button -->
+      <div class="flex flex-row justify-between w-full" :class="{ 'cursor-not-allowed': usernameUsedAlert }">
+        <div>
+          <span v-show="saving.username.loading || saving.username.success" class="text-success">
+            {{ saving.username.loading ? $t('profile.forms.update.changingYourUsername') : $t('profile.forms.update.usernameChanged') }}
+          </span>
+        </div>
+        
+        <button 
+          type="submit"
+          :class="[
+            'w-full md:w-auto',
+            saving.username.buttonDisabled ? 'disabled-button' : 'primary-button'
+          ]"
+        >
+          <Spinner v-show="saving.username.loading || saving.username.checkingValidity" class="mr-2" />
+          
+          <span v-show="!saving.username.checkingValidity">{{ saving.username.loading ? $t('profile.forms.update.changingYourUsername') : $t('profile.forms.update.changeUsername') }}</span>
+          <span v-show="saving.username.checkingValidity">Checking..</span>
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script setup>
 import axios from 'axios'
 import { debounce } from 'vue-debounce'
+import { useI18n } from 'vue-i18n'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -151,6 +307,7 @@ import Spinner from '~/components/globals/Spinner.vue'
 import useUser from '~/composables/users/useUser'
 
 // stores
+const runtimeConfig = useRuntimeConfig()
 const auth = useAuthStore()
 
 // composables
@@ -158,6 +315,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const { $router } = useNuxtApp()
+const { t } = useI18n()
 
 onBeforeMount (() => {
   if (!auth.loggedIn) {
@@ -258,7 +416,10 @@ const checkPenNameAvailability = async () => {
 }
 
 /** Save changes */
+const basicInformationFormId = 'basic-information-form'
 const update = async () => {
+  useValidator().validate(basicInformationFormId, t)
+
   if (!penNameUsedAlert.value) {
     saving.value.basic.loading = true
   
@@ -321,7 +482,10 @@ const checkUsernameAvailability = async () => {
   }
 }
 
+const changeUsernameFormId = 'change-username-form'
 const changeUsername = async () => {
+  const v = useValidator().validate(changeUsernameFormId, t)
+
   if (!usernameUsedAlert.value) {
     saving.value.username.loading = true
     
@@ -379,12 +543,12 @@ const updateAvatar = async () => {
 
     try {
       const response = await axios.post(
-        process.env.API_URL + '/user/update/avatar',
+        runtimeConfig.public.apiUrl + '/user/update/avatar',
         avatarFormData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: auth.a4ht0jen
+            Authorization: `Bearer ${auth.a4ht0jen}`
           }
         }
       )
@@ -445,12 +609,12 @@ const updateCover = async () => {
 
     try {
       const response = await axios.post(
-        process.env.API_URL + '/user/update/cover',
+        runtimeConfig.public.apiUrl + '/user/update/cover',
         coverFormData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: auth.a4ht0jen
+            Authorization: `Bearer ${auth.a4ht0jen}`
           }
         }
       )
@@ -478,9 +642,10 @@ const updateCover = async () => {
 
 form {
   .input-block {
+    @apply mb-2;
 
     .field {
-      @apply mt-2 pb-2;
+      @apply mt-2;
     }
   }
 }

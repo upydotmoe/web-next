@@ -39,8 +39,8 @@ export default function () {
    * 
    * @returns - Return error body as JSON object.
    */
-  const consumeReadableStreamError = async (error) => {
-    return await error.json()
+  const consumeReadableStreamError = (error) => {
+    return error.response.data.message
   }
 
   return {

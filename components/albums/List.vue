@@ -187,6 +187,14 @@ const view = (workId, keepArtistPageNumber = false) => {
   albumModalViewRef.value.view(workId, keepArtistPageNumber)
   useModal().openModal(modalName.value + '-modal')
 }
+
+/**
+ * @expose
+ */
+defineExpose ({
+  fetchInfo,
+  removeItems
+})
 </script>
 
 <style lang="scss" scoped>

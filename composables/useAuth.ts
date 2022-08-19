@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { AuthServiceAuthenticationApi, UserApi } from "~/api/openapi/api"
+import { AuthServiceAuthenticationApi, AuthServiceRegistrationApi, UserApi, UserForgotPasswordApi } from "~/api/openapi/api"
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -34,7 +34,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       
       return [data.success, null]
     } catch (error) {
-      return [null, error.response.data]
+      const err = useApiFetch().consumeReadableStreamError(error)
+      console.log(err)
+      return [false, useApiFetch().consumeReadableStreamError(error)]
     }
   }
   
@@ -137,10 +139,109 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  /**
+   * Register new user account
+   * @params 
+   * 
+   * @returns - 
+   */
+  const registerNewAccount = async (params: {
+    email: string,
+    password: string,
+    gender?: 'm' | 'f',
+    name?: string,
+    username: string
+  }) => {
+    try {
+      const { data } = await new AuthServiceRegistrationApi(oApiConfiguration)
+        .register(
+          {
+            email: params.email,
+            password: params.password,
+            gender: params.gender,
+            name: params.name,
+            username: params.username
+          }
+        )
+
+      return [data.success, null]
+    } catch (error) {
+      return [false, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
+  /**
+   * Resend email verification link to user's email
+   * @param email - Email of user.
+   * 
+   * @returns - Return success if email verification link is sent successfully. Otherwise, return error.
+   */
+  const resendVerificationLink = async (email: string) => {
+    try {
+      const { data } = await new AuthServiceRegistrationApi(oApiConfiguration)
+        .resendVerificationMail(
+          {
+            email
+          }
+        )
+
+      return [data.success, null]
+    } catch (error) {
+      return [false, error]
+    }
+  }
+
+  /**
+   * Verify registration email with verification token
+   */
+  const verifyEmailAddress = async (tokens: {
+    iv: string,
+    content: string
+  }) => {
+    try {
+      const { data } = await new AuthServiceRegistrationApi(oApiConfiguration)
+        .verifyEmail(
+          tokens.iv,
+          tokens.content
+        )
+
+      return [data.success, null]
+    } catch (error) {
+      return [false, error]
+    }
+  }
+
+  /**
+   * Send instruction email for recovering an account.
+   * @params email - Email of account to recover.
+   * 
+   * @returns - void
+   */
+  const recoverAccount = async (email: string) => {
+    try {
+      const { data } = await new UserForgotPasswordApi(oApiConfiguration)
+        .sendResetPasswordInstruction(
+          {
+            email
+          }
+        )
+
+      return [data.success, null]
+    } catch (error) {
+      return [false, error]
+    }
+  }
+
   return {
     authenticate,
     checkTokenValidity,
     getAuthenticatedUserData,
-    refreshAuthToken
+    refreshAuthToken,
+    
+    registerNewAccount,
+    resendVerificationLink,
+    verifyEmailAddress,
+
+    recoverAccount
   }
 }

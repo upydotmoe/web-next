@@ -61,10 +61,6 @@
   ::-webkit-scrollbar-corner {
     @apply bg-transparent;
   }
-
-  .flatpickr-current-month {
-    font-size: 8px !important;
-  }
 }
 
 @layer components {
@@ -295,6 +291,9 @@
     // @apply border;
     background: var(--input-bg);
     // border-color: var(--input-border);
+  }
+  .input-bg {
+    background: var(--input-bg);
   }
   .input-error {
     @apply px-3 pt-5 pb-2 mb-2 -mt-5 w-full text-white bg-red-500 rounded-b border-none;
@@ -555,6 +554,10 @@
 
   .hidden-lg-flex {
     @apply hidden lg:flex;
+  }
+
+  .flatpickr-current-month {
+    font-size: 8px !important;
   }
 }
 

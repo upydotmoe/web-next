@@ -52,6 +52,20 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const getInfoByUsername = async (username: string) => {
+    try {
+      const { data } = await new UserApi(oApiConfiguration)
+        .getUserInfoByUsername(
+          username,
+          fetchOptions
+        )
+
+      return [data.data, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   const searchUsers = async (params: {
     keyword: string,
     pagination: {
@@ -305,6 +319,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     checkUsernameAvailability,
     checkPenNameAvailability,
     getInfo,
+    getInfoByUsername,
     searchUsers,
 
     updateInfo,

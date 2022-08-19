@@ -67,6 +67,13 @@ import Information from '~/components/profile/settings/Information.vue'
 import Social from '~/components/profile/settings/Social.vue'
 import Settings from '~/components/profile/settings/Settings.vue'
 
+/**
+ * @meta
+ */
+useHead ({
+  title: useI18n().tl('meta.title.profile.settings')
+})
+
 const config = ref({
   currentState: 'profile'
 })

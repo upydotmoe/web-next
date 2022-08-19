@@ -87,7 +87,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      const albums: any = data.data.albums
       const pagination: any = data.data.pagination
 
       let showLoadMore: boolean = true
@@ -130,14 +129,21 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
-  const update = async (data: any) => {
+  const update = async (inputData: {
+    id: number,
+    name: string,
+    description?: string,
+    isPublic: 0 | 1
+  }) => {
     try {
-      data.is_public = data.isPublic
-      delete data.isPublic
-
       const { data } = await new AlbumsApi(oApiConfiguration)
         .updateAlbum(
-          data,
+          {
+            id: inputData.id,
+            name: inputData.name,
+            description: inputData.description,
+            is_public: inputData.isPublic
+          },
           fetchOptions
         )
     

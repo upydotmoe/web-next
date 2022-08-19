@@ -1,4 +1,7 @@
 import { defineNuxtConfig } from 'nuxt'
+import { resolve } from 'path'
+import { createCommonJS } from 'mlly'
+const { __dirname } = createCommonJS(import.meta.url)
 import presetIcons from '@unocss/preset-icons'
 
 export default defineNuxtConfig({
@@ -13,6 +16,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      dev: process.env.NODE_ENV === 'development' ? true : false,
       apiUrl: process.env.API_URL,
       appUrl: process.env.APP_URL,
       activeCdn: process.env.ACTIVE_CDN,
@@ -20,16 +24,13 @@ export default defineNuxtConfig({
       bunnyUrl: process.env.BUNNY_CDN_URL,
       staticallyCdn: process.env.STATICALLY_CDN_URL
     },
-    app: {
-
-    }
+    app: {}
   },
   server: {
     host: process.env.HOST,
     port: process.env.PORT
   },
   head: {
-    title: process.env.APP_NAME + ' - Community platform for artists',
     htmlAttrs: {
       lang: 'en-US'
     },
@@ -69,6 +70,24 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
     '~/assets/css/vue-tagsinput/style.css'
   ],
+
+  // extend routes
+  hooks: {
+    'pages:extend' (routes) {
+      routes.push(
+        {
+          name: 'verify-email-account',
+          path: '/user/registration/verify/email/:iv/:content',
+          file: resolve(__dirname, 'components/user/account/AccountVerification.vue')
+        },
+        {
+          name: 'recover-user-password',
+          path: '/user/password/recover/:iv/:content',
+          file: resolve(__dirname, 'components/user/account/RecoverPassword.vue')
+        }
+      )
+    }
+  },
 
   modules: [
     '@nuxtjs/tailwindcss',

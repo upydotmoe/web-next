@@ -1,4 +1,10 @@
 {
+  "meta": {
+    "title": {
+      "app": "Upy (Platform Komunitas untuk para Artist)",
+      "feed": "Umpan"
+    }
+  },
   "all": "Semua",
   "comics": {
     "comic": "Komik",
@@ -369,7 +375,9 @@
   "validation": {
     "required": "{fieldName} wajib diisi",
     "email": "Format email tidak valid",
-    "min": "{filedName} minimal {min} karakter",
-    "max": "{filedName} maksimal {max} karakter"
+    "min": "{fieldName} minimal {min} karakter",
+    "max": "{fieldName} maksimal {max} karakter",
+    "containSymbol": "{fieldName} wajib mengandung minimal satu karakter simbol",
+    "containNumber": "{fieldName} wajib mengandung minimal satu karakter numerik"
   }
 }
