@@ -1,11 +1,175 @@
 <template>
   <div>
-   <!-- VV -->
+    <!-- messages -->
+    <div v-if="uploadError" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
+      {{ uploadErrorMessage }}
+    </div>
+
+    <!-- form title -->
+    <div class="mb-4 text-base font-medium">
+      {{ $t('artworks.add.form.title') }}
+    </div>
+    
+    <!-- success message -->
+    <div v-show="uploadSuccess" class="alert-success">
+      {{ $t('artworks.add.form.uploadSuccess') }}
+      <span class="italic">{{ $t('artworks.add.form.successRedirect') }}</span>
+    </div>
+
+    <!-- loading status -->
+    <div v-show="uploading" class="flex flex-row p-2 mb-2 text-white rounded-md button-color">
+      <Spinner class="mr-1" />
+      {{ $t('artworks.add.form.uploading') }}
+    </div>
+
+    <!-- error message -->
+    <div v-show="isError" class="alert-danger">
+      {{ $t('artworks.add.form.uploadFailure') }}
+    </div>
+
+    <!-- form -->
+    <form
+      :id="formId"
+      enctype="multipart/form-data"
+      @submit.prevent="storeArtwork(formId)"
+    >
+      <!-- title -->
+      <n-validate 
+        for="title"
+        :name="$t('title')" 
+        class="mb-2 input-block"
+      >
+        <input 
+          v-model="inputData.title"
+          type="text"
+          :class="[
+            'form-input input',
+            { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
+          ]"
+          :placeholder="$t('title')"
+        >
+      </n-validate>
+
+      <!-- description -->
+      <textarea
+        v-model="inputData.description"
+        class="form-input input"
+        :class="[{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }]"
+        rows="5" 
+        cols="0"
+        :placeholder="$t('description')"
+        data-gramm="false"
+      />
+
+      <div class="input-block">
+        <div v-show="alert.showFileTooBig" class="p-2 mb-2 text-xs text-white bg-red-400 rounded-md shadow-md">
+          {{ $t('artworks.add.form.fileTooBig') }} {{ maxFileSize }}MB.
+        </div>
+        <client-only>
+          <file-pond
+            ref="pond"
+            name="files[]"
+            :label-idle="labelIdleText"
+            accepted-file-types="image/jpeg, image/png"
+            allow-multiple="true"
+            allow-drop="true"
+            allow-reorder="true"
+            allow-process="true"
+            credits="false"
+            :max-files="maxFileCount"
+            instant-upload="false"
+            class="bg-transparent rounded-sm"
+            :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
+            @updatefiles="handleFilePondUpdateFile"
+          />
+        </client-only>
+      </div>
+
+      <div class="input-block">
+        <tags-input 
+          v-model="tags"
+          :placeholder="$t('tags')"
+          :typeahead="true"
+          :typeahead-style="'dropdown'"
+          :typeahead-activation-threshold="2"
+          :typeahead-show-on-focus="true"
+          :typeahead-hide-discard="true"
+          :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
+          :add-tags-on-comma="true"
+          :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
+        />
+      </div>
+
+      <div class="input-block">
+        <div class="mb-3">
+          <label :for="!inputData.isExplicit ? 'checked' : 'unchecked'" class="inline-flex items-center mt-2">
+            <span class="relative cursor-pointer" @click="inputData.isExplicit = !inputData.isExplicit">
+              <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
+              <span v-if="!inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline">
+                <input id="unchecked" type="checkbox" class="absolute w-0 h-0 opacity-0">
+              </span>
+              
+              <span v-if="inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out transform translate-x-full focus-within:shadow-outline button-color">
+                <input id="checked" type="checkbox" class="absolute w-0 h-0 opacity-0">
+              </span>
+            </span>
+            <span class="ml-2">{{ $t('explicitContent') }}</span>
+          </label>
+
+          <div v-show="inputData.isExplicit" class="flex flex-row p-2 mt-2 text-white bg-red-400 rounded">
+            <Icon :name="'alert-outline'" class="mr-1 text-white" /> 
+            <span>{{ $t('artworks.add.form.prohibitChildExplicitContent') }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-block">
+        <client-only>
+          <div
+            x-data
+            x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
+            x-ref="datetimewidget"
+            class="mb-2 flatpickr"
+          >
+            <div class="flex align-middle align-content-center">
+              <input
+                id="datetime"
+                v-model="inputData.publishDate"
+                x-ref="datetime"
+                type="text"
+                data-input
+                :placeholder="$t('artworks.add.form.publishDate')"
+                class="form-input input"
+                :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
+              >
+            </div>
+          </div>
+        </client-only>
+      </div>
+
+      <div class="flex flex-row justify-between md:justify-end">
+        <button class="mr-2 w-full reset-form-button md:w-auto" type="reset" @click="resetForm()">Reset</button>
+        <button
+          type="submit"
+          :class="[
+            'float-right w-full md:w-auto',
+            { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }, 
+            artworkFiles.length > 0 ? 'primary-button' : 'disabled-button'
+          ]"
+        >
+          <div class="flex flex-row">
+            <Spinner v-if="uploading" class="mr-2" />
+            {{ !uploading ? $t('artworks.add.form.post').toUpperCase() : $t('artworks.add.form.uploadingButton') }}
+          </div>
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios'
+import { useI18n } from 'vue-i18n'
 
 import vueFilePond from 'vue-filepond'
 
@@ -28,176 +192,145 @@ const FilePond = vueFilePond(
   FilePondPluginImagePreview
 )
 
-export default {
-  components: {
-    FilePond,
-    Spinner,
-    Icon
-  },
-  setup () {
-    const auth = authStore()
-    const { $router } = useNuxtApp()
-    const authToken = auth.strategy.token.get()
-    const apiUrl = process.env.API_URL
+const runtimeConfig = useRuntimeConfig()
+const { t } = useI18n()
+const auth = authStore()
+const { $router } = useNuxtApp()
+const apiUrl = runtimeConfig.public.apiUrl
 
-    // composables
-    const { oApiConfiguration, fetchOptions } = useApiFetch()
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
 
-    watch (() => $router.query, () => {
-      resetForm()
-    })
+watch (() => $router.query, () => {
+  resetForm()
+})
 
-    onMounted (() => {
-      if (!auth.loggedIn) {
-        $router.push('/')
-      }
+onMounted (() => {
+  if (!auth.loggedIn) {
+    $router.push('/')
+  }
 
-      fetchSetting()
-    })
+  fetchSetting()
+})
 
-    const resetForm = () => {
-      artworkFiles.value = []
-      tags.value = []
-      inputData.value.isExplicit = false
+const resetForm = () => {
+  artworkFiles.value = []
+  tags.value = []
+  inputData.value.isExplicit = false
+}
+
+// Fetch setting relate to artwork upload
+const setting = useSetting(oApiConfiguration, fetchOptions())
+const fetchSetting = async () => {
+  const settingMaxFileCount = await setting.getSetting('artwork_max_uploads')
+  maxFileCount.value = settingMaxFileCount
+
+  const settingMaxFileSize = await setting.getSetting('artwork_max_file_size')
+  maxFileSize.value = settingMaxFileSize
+
+  labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'
+}
+
+// 
+const labelIdleText = ref('')
+const artworkFiles = ref([])
+
+const handleFilePondUpdateFile = (files) => {
+  artworkFiles.value = files.map(files => files.file)
+}
+
+const formId = 'artwork-form'
+const inputData = ref({
+  title: '',
+  description: '',
+  tags: '',
+  isExplicit: false,
+  publishDate: null
+})
+const tags = ref([])
+
+const alert = ref({
+  showFileTooBig: false
+})
+
+const maxFileSize = ref(5)
+const maxFileCount = ref(1)
+const uploading = ref(false)
+const uploadSuccess = ref(false)
+const uploadError = ref(false)
+const uploadErrorMessage = ref('')
+const storeArtwork = async () => {
+  useValidator().validate(formId, t)
+
+  alert.value.showFileTooBig = false
+
+  // collect picked tags and convert to acceptable API format
+  const tagValues = []
+  tags.value.forEach((tag) => {
+    tagValues.push(tag.value)
+  })
+
+  // 
+  const formData = new FormData()
+  formData.append('title', inputData.value.title)
+  formData.append('description', inputData.value.description)
+  formData.append('tags', tagValues.toString())
+  formData.append('is_explicit', inputData.value.isExplicit ? 1 : 0)
+  formData.append('scheduled_post', 
+    !['', null].includes(inputData.value.publishDate) ?? useDate().formatDateToApi(inputData.value.publishDate) !== 'Invalid Date' ? useDate().formatDateToApi(inputData.value.publishDate) : null
+  )
+
+  // check if size is exceeded max file size restriction
+  for (let i = 0; i < artworkFiles.value.length; i++) {
+    if (artworkFiles.value[i].size > (maxFileSize.value * 1000000)) {
+      alert.value.showFileTooBig = true
     }
 
-    // Fetch setting relate to artwork upload
-    const setting = useSetting(oApiConfiguration, fetchOptions())
-    const fetchSetting = async () => {
-      const settingMaxFileCount = await setting.getSetting('artwork_max_uploads')
-      maxFileCount.value = settingMaxFileCount
+    if (!alert.value.showFileTooBig) {
+      const file = artworkFiles.value[i]
+      formData.append('files[]', file)
 
-      const settingMaxFileSize = await setting.getSetting('artwork_max_file_size')
-      maxFileSize.value = settingMaxFileSize
-
-      labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'
-    }
-
-    // 
-    const labelIdleText = ref('')
-    const artworkFiles = ref([])
-
-    const handleFilePondUpdateFile = (files) => {
-      artworkFiles.value = files.map(files => files.file)
-    }
-
-    const inputData = ref({
-      title: '',
-      description: '',
-      tags: '',
-      isExplicit: false,
-      publishDate: null
-    })
-    const tags = ref([])
-
-    const alert = ref({
-      showFileTooBig: false
-    })
-
-    const maxFileSize = ref(5)
-    const maxFileCount = ref(1)
-    const uploading = ref(false)
-    const uploadSuccess = ref(false)
-    const uploadError = ref(false)
-    const uploadErrorMessage = ref('')
-    const storeArtwork = async () => {
-      alert.value.showFileTooBig = false
-
-      // collect picked tags and convert to acceptable API format
-      const tagValues = []
-      tags.value.forEach((tag) => {
-        tagValues.push(tag.value)
-      })
-
-      // 
-      const formData = new FormData()
-      formData.append('title', inputData.value.title)
-      formData.append('description', inputData.value.description)
-      formData.append('tags', tagValues.toString())
-      formData.append('is_explicit', inputData.value.isExplicit ? 1 : 0)
-      formData.append('scheduled_post', 
-        !['', null].includes(inputData.value.publishDate) ?? useDate().formatDateToApi(inputData.value.publishDate) !== 'Invalid Date' ? useDate().formatDateToApi(inputData.value.publishDate) : null
-      )
-
-      // check if size is exceeded max file size restriction
-      for (let i = 0; i < artworkFiles.value.length; i++) {
-        if (artworkFiles.value[i].size > (maxFileSize.value * 1000000)) {
-          alert.value.showFileTooBig = true
-        }
-
-        if (!alert.value.showFileTooBig) {
-          const file = artworkFiles.value[i]
-          formData.append('files[]', file)
-
-          // collect file orders, count start from 1
-          formData.append('file_order[]', i)
-        }
-      }
-
-      if (!alert.value.showFileTooBig) {
-        // proceed to send data to API
-        uploading.value = true
-        uploadSuccess.value = false
-
-        await axios.post(
-          process.env.API_URL + '/artworks/post',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: authToken
-            }
-          }
-        ).then(({ data }) => {
-          if (data.success) {
-            const workId = data.data.id
-
-            uploadSuccess.value = true
-            setTimeout(() => {
-              $router.push(`/work/${workId}`)
-            }, 1000)
-          } else {
-            showError()
-          }
-        }).catch((_) => {
-          showError()
-        })
-      }
-
-      uploading.value = false
-    }
-
-    const isError = ref(false)
-    const showError = () => {
-      isError.value = true
-    }
-
-    return {
-      resetForm,
-      
-      apiUrl,
-      
-      handleFilePondUpdateFile,
-      labelIdleText,
-      maxFileCount,
-
-      inputData,
-      tags,
-      alert,
-      
-      artworkFiles,
-
-      maxFileSize,
-      uploading,
-      uploadSuccess,
-      uploadError,
-      uploadErrorMessage,
-
-      storeArtwork,
-
-      isError
+      // collect file orders, count start from 1
+      formData.append('file_order[]', i)
     }
   }
+
+  if (!alert.value.showFileTooBig) {
+    // proceed to send data to API
+    uploading.value = true
+    uploadSuccess.value = false
+
+    await axios.post(
+      apiUrl + '/artworks/post',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${auth.a4ht0jen}`
+        }
+      }
+    ).then(({ data }) => {
+      if (data.success) {
+        const workId = data.data.id
+
+        uploadSuccess.value = true
+        setTimeout(() => {
+          $router.push(`/work/${workId}`)
+        }, 1000)
+      } else {
+        showError()
+      }
+    }).catch((_) => {
+      showError()
+    })
+  }
+
+  uploading.value = false
+}
+
+const isError = ref(false)
+const showError = () => {
+  isError.value = true
 }
 </script>
 

@@ -115,7 +115,7 @@
                 <Icon :name="'i-ri-notification-3-line'" />
                 <span
                   v-show="notificationTotal > 0"
-                  class="inline-flex absolute top-0 right-0 justify-center items-center p-1 -mt-1 font-bold text-white bg-red-400 rounded-full text-xxs"
+                  class="inline-flex absolute top-0 right-0 justify-center items-center py-1 -mt-1 w-6 font-bold text-white bg-red-400 rounded-md text-xxs"
                   :class="[notificationTotal < 10 ? 'mr-1' : '-mr-1']"
                 >
                   {{ notificationTotal > 99 ? '99+' : notificationTotal }}
@@ -128,7 +128,7 @@
                   class="toggler"
                   style="width: 500px;"
                 >
-                  <!-- <Notifications /> -->
+                  <Notifications />
                 </div>
               </div>
             </div>
@@ -253,7 +253,7 @@
 import MiniNavbar from '~/components/layouts/MiniNavbar.vue'
 import Icon from '~/components/globals/Icon.vue'
 import LoginModal from '~/components/auth/forms/Modal.vue'
-// import Notifications from '~/components/notifications/Notifications.vue'
+import Notifications from '~/components/notifications/Notifications.vue'
 
 // stores
 import authStore from '@/stores/auth.store'
@@ -268,11 +268,16 @@ const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
 // store use
 const auth = authStore()
-const { $router } = useNuxtApp()
+const router = useRouter()
+const route = useRoute()
 
 onMounted(async () => {
   if (auth.loggedIn) {
     await countNotifications()
+  }
+
+  if (route.query && route.query.q) {
+    searchKeyword.value = route.query.q
   }
 })
 
@@ -286,7 +291,14 @@ const userLogout = async () => await auth.logout()
  */
 const searchKeyword = ref('')
 const search = () => {
-  $router.push('/search?q=' + searchKeyword.value)
+  router.push({
+    path: '/search',
+    query: {
+      q: searchKeyword.value
+    },
+    replace: true,
+    force: true
+  })
 }
 /**
  * @search
@@ -325,7 +337,6 @@ const clearNotificationCounter = async () => {
 const localeStore = useLocaleStore()
 const selectedLocale = computed (() => localeStore.locale)
 const switchLocale = (localePrefix) => {
-  console.log(localePrefix)
   localeStore.changeLocale(localePrefix)
 }
 /**

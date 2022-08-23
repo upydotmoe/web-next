@@ -35,7 +35,7 @@
         :class="[config.pagination.enablePrev ? 'primary-button' : 'disabled-button']"
         @click="config.pagination.enablePrev ? movePage('prev') : null"
       >
-        <Icon :name="'chevron-back-outline'" />
+        <Icon :name="'i-ion-chevron-back-outline'" />
         {{ $t('pagination.previous') }}
       </button>
       
@@ -46,7 +46,7 @@
       >
         {{ $t('pagination.next') }}
         <Icon 
-          :name="'chevron-forward-outline'" 
+          :name="'i-ion-chevron-forward-outline'" 
           class="ml-2"
           style="margin-right: 0 !important" 
         />
@@ -68,15 +68,15 @@ import useUser from '~/composables/users/useUser'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
-const { q } = $router.currentRoute.value.params.path
+const route = useRoute()
+const { q } = route.query
 
 const emits = defineEmits (['countUsers'])
 
 // watch for search query/keyword change
-watch (() => $router.currentRoute.value.params.path, (newVal, oldVal) => {
-  if (newVal.q !== oldVal.q) {
-    keyword.value = newVal.q
+watch (() => route.query.q, (newKeyword, oldKeyword) => {
+  if (newKeyword !== oldKeyword) {
+    keyword.value = newKeyword
     fetchTop()
   }
 })
@@ -167,6 +167,8 @@ const movePage = async (mode) => {
 const isEmpty = ref(false)
 const showEmpty = () => {
   isEmpty.value = true
+
+  emits('countUsers', 0)
 }
 
 /** Show error message when error occured while trying to fetch artworks */

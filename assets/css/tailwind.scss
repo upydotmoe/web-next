@@ -61,6 +61,10 @@
   ::-webkit-scrollbar-corner {
     @apply bg-transparent;
   }
+
+  .flatpickr-current-month {
+    font-size: 8px !important;
+  }
 }
 
 @layer components {
@@ -554,10 +558,6 @@
 
   .hidden-lg-flex {
     @apply hidden lg:flex;
-  }
-
-  .flatpickr-current-month {
-    font-size: 8px !important;
   }
 }
 

@@ -20,7 +20,7 @@
       <div 
         v-for="(notification, index) in notifications"
         :key="notification.id"
-        class="flex flex-row gap-2 p-2 mr-2 text-left rounded-md fit- hover:shadow-md hover:button-color hover:text-white"
+        class="flex flex-row gap-2 p-2 mr-2 text-left rounded-md cursor-pointer fit- hover:shadow-md hover:button-color hover:text-white"
         :class="{ 'theme-color-secondary': !notification.is_read }"
         @click="openNotification(notification, index)"
       >
@@ -53,15 +53,24 @@
         </div>
       </div>
 
-      <InfiniteLoading @infinite="fetch">
-        <span slot="no-more">
-          {{ $t('youHaveReachedTheEnd') }}
-        </span>
-        <span slot="no-results">
-          <div class="mt-10">
+      <InfiniteLoading :load="fetch">
+        <template #loading>
+          <div class="mx-auto text-center">
+            <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+          </div>
+        </template>
+
+        <template #no-results>
+          <div class="mx-auto text-center">
             <b>(ㆆ_ㆆ)</b> {{ $t('nothingToShow') }}
           </div>
-        </span>
+        </template>
+
+        <template #no-more>
+          <div class="mx-auto text-center">
+            {{ $t('youHaveReachedTheEnd') }}
+          </div>
+        </template>
       </InfiniteLoading>
     </div>
   </div>
@@ -69,6 +78,9 @@
 
 <script setup>
 import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loading'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -84,30 +96,24 @@ const options = ref({
     perPage: 10
   }
 })
-const fetch = async ($state) => {
-  try {
-    const [data, error] = await notificationApi.getFeedNotifications({
-      showLimit: options.value.showLimit,
-      pagination: {
-        page: options.value.pagination.page,
-        perPage: options.value.pagination.perPage
-      }
-    })
-
-    if (data.notifications.length) {
-      options.value.pagination.page += 1
-
-      data.notifications.forEach((notification) => {
-        notifications.value.push(notification)
-      })
-
-      $state.loaded()
-    } else {
-      $state.complete()
+const fetch = async ({ loaded }) => {
+  const [data, error] = await notificationApi.getFeedNotifications({
+    showLimit: options.value.showLimit,
+    pagination: {
+      page: options.value.pagination.page,
+      perPage: options.value.pagination.perPage
     }
-  } catch (error) {
-    // todo: handle error
+  })
+
+  if (data.notifications.length) {
+    options.value.pagination.page += 1
+
+    data.notifications.forEach((notification) => {
+      notifications.value.push(notification)
+    })
   }
+
+  loaded(data.notifications.length, options.value.pagination.perPage)
 }
 
 const openNotification = async (notification, index) => {

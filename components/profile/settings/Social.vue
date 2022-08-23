@@ -217,6 +217,10 @@ form {
       .icon {
         @apply ml-3 h-10 relative text-lg text-color-secondary -mb-2 rounded-l-md;
       }
+
+      input {
+        @apply -mb-0;
+      }
     }
   }
 }

@@ -7,7 +7,7 @@
 
       <!-- Options -->
       <!-- Filter popularity range by Daily/Weekly/Monthly or All-time -->
-      <div class="buttons">
+      <div class="buttons" v-show="!isEmpty">
         <!-- Following only -->
         <div v-show="auth.loggedIn" class="filter-buttons">
           <button 
@@ -152,7 +152,7 @@
         :class="[config.pagination.enablePrev ? 'primary-button' : 'disabled-button']"
         @click="config.pagination.enablePrev ? movePage('prev') : null"
       >
-        <Icon :name="'chevron-back-outline'" />
+        <Icon :name="'i-ion-chevron-back-outline'" />
         {{ $t('pagination.previous') }}
       </button>
       
@@ -163,7 +163,7 @@
       >
         {{ $t('pagination.next') }}
         <Icon 
-          :name="'chevron-forward-outline'" 
+          :name="'i-ion-chevron-forward-outline'" 
           class="ml-2"
           style="margin-right: 0 !important" 
         />
@@ -185,6 +185,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
@@ -195,15 +198,20 @@ import ModalView from '~/components/artworks/views/ModalView.vue'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
-const { q } = $router.currentRoute.value.params.path
+// stores
+const auth = useAuthStore()
 
-const emits = defineEmits (['countUsers'])
+const route = useRoute()
+const { q } = route.query
+
+const emits = defineEmits ([
+  'countArtworks'
+])
 
 // watch for search query/keyword change
-watch (() => $router.currentRoute.value.params.path, (newVal, oldVal) => {
-  if (newVal.q !== oldVal.q) {
-    keyword.value = newVal.q
+watch (() => route.query.q, (newKeyword, oldKeyword) => {
+  if (newKeyword !== oldKeyword) {
+    keyword.value = newKeyword
     fetchTop()
   }
 })
@@ -292,6 +300,8 @@ const pagination = ref({
   page: ref(0)
 })
 const fetch = async () => {
+  console.log('search keyword:', keyword.value)
+
   if (pagination.value.page === 0) {
     loading.value = true
     isEmpty.value = false
@@ -333,6 +343,8 @@ const movePage = async (mode) => {
 const isEmpty = ref(false)
 const showEmpty = () => {
   isEmpty.value = true
+
+  emits('countArtworks', 0)
 }
 
 /** Show error message when error occured while trying to fetch artworks */

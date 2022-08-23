@@ -38,7 +38,7 @@
 
           <!-- server -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'server-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-server-outline'" class="mx-auto text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Server and other bills</span>
               <div class="mt-1">
@@ -49,7 +49,7 @@
 
           <!-- no ads -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'sad-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-sad-outline'" class="mx-auto text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Stay Ad-free</span>
               <div class="mt-1">
@@ -71,7 +71,7 @@
 
           <!-- make the platform better -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'hand-right-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-hand-right-outline'" class="mx-auto text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Make the platform even better</span>
               <div class="mt-1">

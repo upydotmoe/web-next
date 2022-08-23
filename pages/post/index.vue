@@ -12,8 +12,8 @@
           :class="[mode === 'feed' ? 'button' : 'theme-color']"
           @click="mode = 'feed'" 
         >
-          <Icon v-show="mode != 'feed'" :name="'text-outline'" class="mr-3 text-2xl" />
-          <Icon v-show="mode == 'feed'" :name="'text-outline'" class="mr-3 text-2xl text-white" />
+          <Icon v-show="mode != 'feed'" :name="'i-ion-text-outline'" class="mr-3 text-2xl" />
+          <Icon v-show="mode == 'feed'" :name="'i-ion-text-outline'" class="mr-3 text-2xl text-white" />
           <span class="text-sm leading-6">{{ $t('feed') }}</span>
         </div>
         <div 
@@ -21,8 +21,8 @@
           :class="[mode === 'artwork' ? 'button' : 'theme-color']"
           @click="mode = 'artwork'" 
         >
-          <Icon v-show="mode != 'artwork'" :name="'images-outline'" class="mr-3 text-2xl" />
-          <Icon v-show="mode == 'artwork'" :name="'images-outline'" class="mr-3 text-2xl text-white" />
+          <Icon v-show="mode != 'artwork'" :name="'i-ion-images-outline'" class="mr-3 text-2xl" />
+          <Icon v-show="mode == 'artwork'" :name="'i-ion-images-outline'" class="mr-3 text-2xl text-white" />
           <span class="text-sm leading-6">{{ $t('artworks.artwork') }}</span>
         </div>
         <!-- <div 
@@ -52,33 +52,14 @@
   </Layout>
 </template>
 
-<script>
+<script setup>
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
 import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
 import FeedForm from '~/components/feeds/forms/FeedForm.vue'
 
-export default {
-  components: {
-    Layout,
-    Icon,
-    ArtworkForm,
-    FeedForm
-  },
-  setup () {
-    const mode = ref('artwork')
-
-    // feed
-    const feedInput = ref('')
-
-    return {
-      mode,
-      
-      feedInput
-    }
-  }
-}
+const mode = ref('artwork')
 </script>
 
 <style lang="scss" scoped>

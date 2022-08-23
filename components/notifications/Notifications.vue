@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-row justify-between w-full md:p-2">
+    <div class="flex flex-row justify-between w-full cursor-default md:p-2">
       <!-- notification content -->
       <div class="flex flex-col md:mr-2 md:w-2/6">
         <button
@@ -9,8 +9,8 @@
           @click.prevent="currentSection = 'likes'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'likes'" :name="'heart-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'likes'" :name="'heart-outline'" class="md:mr-2" />
+            <Icon v-show="currentSection === 'likes'" :name="'i-ion-heart-outline'" class="text-white md:mr-2" />
+            <Icon v-show="currentSection !== 'likes'" :name="'i-ion-heart-outline'" class="md:mr-2" />
 
             <div class="hidden-md-flex">{{ $t('notifications.likes') }}</div>
           </div>
@@ -49,8 +49,8 @@
           @click.prevent="currentSection = 'follows'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'follows'" :name="'i-fluent-person-32-regular-add-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'follows'" :name="'i-fluent-person-32-regular-add-outline'" class="md:mr-2" />
+            <Icon v-show="currentSection === 'follows'" :name="'i-fluent-people-checkmark-24-regular'" class="text-white md:mr-2" />
+            <Icon v-show="currentSection !== 'follows'" :name="'i-fluent-people-checkmark-24-regular'" class="md:mr-2" />
 
             <div class="hidden-md-flex">{{ $t('notifications.follows') }}</div>
           </div>
@@ -70,8 +70,8 @@
           @click.prevent="currentSection = 'feeds'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'feeds'" :name="'newspaper-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'feeds'" :name="'newspaper-outline'" class="md:mr-2" />
+            <Icon v-show="currentSection === 'feeds'" :name="'i-ion-newspaper-outline'" class="text-white md:mr-2" />
+            <Icon v-show="currentSection !== 'feeds'" :name="'i-ion-newspaper-outline'" class="md:mr-2" />
 
             <div class="hidden-md-flex">{{ $t('notifications.feeds') }}</div>
           </div>

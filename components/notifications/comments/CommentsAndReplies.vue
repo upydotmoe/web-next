@@ -24,7 +24,7 @@
         @click="activeSection = 'comments'"
       >
         <Icon v-show="activeSection != 'comments'" :name="'i-mdi-comment-multiple-outline'" class="mr-1 w-4 h-4" />
-        <Icon v-show="activeSection == 'comments'" :name="'chatbubble'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
+        <Icon v-show="activeSection == 'comments'" :name="'i-mdi-comment-multiple-outline'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
         
         <span>Comments</span>
       </button>
@@ -33,8 +33,8 @@
         :class="activeSection == 'likes' ? 'button-color text-white' : 'button-color-secondary'"
         @click="activeSection = 'likes'"
       >
-        <Icon v-show="activeSection != 'likes'" :name="'heart-outline'" class="mr-1 w-4 h-4" />
-        <Icon v-show="activeSection == 'likes'" :name="'heart'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
+        <Icon v-show="activeSection != 'likes'" :name="'i-ion-heart-outline'" class="mr-1 w-4 h-4" />
+        <Icon v-show="activeSection == 'likes'" :name="'i-ion-heart'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
         
         <span>Likes</span>
       </button>
@@ -43,8 +43,8 @@
         :class="activeSection == 'replies' ? 'button-color text-white' : 'button-color-secondary'"
         @click="activeSection = 'replies'"
       >
-        <Icon v-show="activeSection != 'replies'" :name="'arrow-undo-outline'" class="mr-1 w-4 h-4" />
-        <Icon v-show="activeSection == 'replies'" :name="'arrow-undo'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
+        <Icon v-show="activeSection != 'replies'" :name="'i-ion-arrow-undo-outline'" class="mr-1 w-4 h-4" />
+        <Icon v-show="activeSection == 'replies'" :name="'i-ion-arrow-undo'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
         
         <span>Replies</span>
       </button>

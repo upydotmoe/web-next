@@ -49,11 +49,17 @@
 // assets
 import abstractImgUrl from '~/static/bg-abstract.png'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
+
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -69,10 +75,6 @@ const props = defineProps ({
 const compUsers = computed(() => props.users)
 
 const { $router } = useNuxtApp()
-
-const viewProfile = async (username) => {
-  $router.push('/profile/u/' + username)
-}
 
 const showUnfollow = ref(0)
 
