@@ -4,10 +4,11 @@
       name,
       'transition-all focus:outline-none icon',
       iconColor,
-      { 'mr-2': withPadding }
+      { 'mr-2': withPadding },
+      textSize
     ]"
     aria-hidden="true"
-    title=""
+    :title="textSize"
   />
 </template>
 
@@ -24,6 +25,10 @@ defineProps ({
   withPadding: {
     type: Boolean,
     default: false
+  },
+  textSize: {
+    type: String,
+    default: 'text-lg'
   }
 })
 </script>

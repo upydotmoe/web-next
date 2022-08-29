@@ -10,9 +10,6 @@
       @blur="languageSelection = false"
     >
       <!-- mobile navigation bars -->
-      <!-- <div class="mobile-toggler nav-icon-group">
-        <Icon :name="'reorder-four'" class="nav-icon" />
-      </div> -->
       <nuxt-link
         :to="auth.loggedIn ? '/feed' : '/explore'" 
         class="w-8 h-8 rounded-md flex-md-hidden"
@@ -75,7 +72,7 @@
             <div class="profile-dropdown dropdown-menu">
               <div 
                 id="language-group"
-                class="p-1 w-52 toggler"
+                class="px-2 w-52 toggler"
                 aria-labelledby="language-selection-buttons" 
                 role="menu"
               >
@@ -95,10 +92,6 @@
               </div>
             </div>
           </div>
-
-          <!-- <div v-if="auth.loggedIn" class="nav-icon">
-            <Icon :name="'chatbox-outline'" />
-          </div> -->
 
           <!-- notification icon: show in desktop -->
           <div class="hidden-md-flex">

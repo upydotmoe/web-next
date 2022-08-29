@@ -47,7 +47,7 @@
                 <span v-show="reportDetail.is_removed" class="italic">{{ $t('reports.postRemoved') }}</span>
                 <a 
                   v-show="!reportDetail.is_removed" 
-                  :href="(reportDetail.type === 'artwork' ? '/work/' : '/feed/') + reportDetail.post_id" 
+                  :href="(reportDetail.type === 'artwork' ? '/a/' : '/feed/') + reportDetail.post_id" 
                   target="blank" 
                   class="href"
                 >
@@ -77,7 +77,7 @@
                 :class="{ 'bg-green-500 text-white': decisionInputs.response === false }"
                 @click="decisionInputs.response = false"
               >
-                <Icon v-show="decisionInputs.response === false" :name="'checkmark-outline'" class="mr-2 text-white" />
+                <Icon v-show="decisionInputs.response === false" :name="'i-ion-checkmark-outline'" class="mr-2 text-white" />
                 {{ $t('reports.decisions.remove') }}
               </span>
               <span 
@@ -85,7 +85,7 @@
                 :class="{ 'bg-red-500 text-white': decisionInputs.response === true }"
                 @click="decisionInputs.response = true"
               >
-                <Icon v-show="decisionInputs.response === true" :name="'checkmark-outline'" class="mr-2 text-white" />
+                <Icon v-show="decisionInputs.response === true" :name="'i-ion-checkmark-outline'" class="mr-2 text-white" />
                 {{ $t('reports.decisions.doNotRemove') }}
               </span>
             </div>

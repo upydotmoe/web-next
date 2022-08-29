@@ -3,7 +3,7 @@
     <div class="mb-4 text-base font-bold">
       {{ $t('artworks.update.form.title') }} 
       <span class="text-xs italic font-bold href">
-        <nuxt-link :to="'/work/'+id">
+        <nuxt-link :to="'/a/'+id">
           (ID: {{ id }})
         </nuxt-link>
       </span>

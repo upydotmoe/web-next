@@ -71,7 +71,7 @@
           :class="{ 'mr-2': config.pagination.enableNext }"
           @click="movePage('prev')"
         >
-          <Icon :name="'chevron-back-outline'" />
+          <Icon :name="'i-ion-chevron-back-outline'" />
           {{ $t('pagination.previous') }}
         </button>
         <button 
@@ -81,7 +81,7 @@
         >
           {{ $t('pagination.next') }}
           <Icon 
-            :name="'chevron-forward-outline'" 
+            :name="'i-ion-chevron-forward-outline'" 
             class="ml-2"
             style="margin-right: 0 !important" 
           />

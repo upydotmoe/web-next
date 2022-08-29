@@ -60,7 +60,7 @@
 
           <!-- open-source -->
           <!-- <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'people-circle-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-people-circle-outline'" class="mx-auto text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Become open-source</span>
               <div class="mt-1">

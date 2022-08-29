@@ -106,7 +106,8 @@ export default defineNuxtConfig({
     '~/plugins/v-img.js',
     '~/plugins/auth-modal.client.js',
     '~/plugins/work-modal.client.js',
-    '~/plugins/image-viewer.client.js'
+    '~/plugins/image-viewer.client.js',
+    '~/plugins/auto-animate.js'
   ],
 
   build: {

@@ -362,7 +362,7 @@ export default {
     replies: {
       reply: 'Reply',
       replies: 'Replies',
-      loadMore: 'Load more replies',
+      loadMore: 'Load older replies',
       write: 'Write your reply'
     }
   },

@@ -22,6 +22,7 @@
       :works="worksByArtist"
       :view="view"
       :is-href="isHref"
+      :is-mini-list="true"
     />
 
     <!-- Pagination controller -->
@@ -29,12 +30,12 @@
       <span 
         @click="pagination.options.disableArtistPrevButton ? null : nextPrevByArtist(artworkDetail.users.id, 'prev')"
       >
-        <Icon :name="'chevron-back'" />
+        <Icon :name="'i-ion-chevron-back'" />
       </span>
       <span 
         @click="pagination.options.disableArtistNextButton ? null : nextPrevByArtist(artworkDetail.users.id, 'next')"
       >
-        <Icon :name="'chevron-forward'" />
+        <Icon :name="'i-ion-chevron-forward'" />
       </span>
     </div>
   </div>

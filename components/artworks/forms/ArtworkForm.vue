@@ -315,7 +315,7 @@ const storeArtwork = async () => {
 
         uploadSuccess.value = true
         setTimeout(() => {
-          $router.push(`/work/${workId}`)
+          $router.push('/a/'+workId)
         }, 1000)
       } else {
         showError()

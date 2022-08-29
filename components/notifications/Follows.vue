@@ -56,9 +56,7 @@
         </template>
 
         <template #no-more>
-          <div class="mx-auto text-center">
-            {{ $t('youHaveReachedTheEnd') }}
-          </div>
+          <p></p>
         </template>
       </InfiniteLoading>
     </div>

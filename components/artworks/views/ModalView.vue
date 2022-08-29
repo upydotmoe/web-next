@@ -47,16 +47,19 @@
       <div class="image-list">
         <!-- explicit content alert -->
         <viewer :images="images" class="overflow-hidden rounded-md">
-          <img 
-            v-for="src in images" 
-            :key="src" 
-            v-lazy="src"
-            :src="src" 
-            class="overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable"
-            :class="[{ 'blur-lg unclickable': showExplicitAlert }, showExplicitAlert ? 'brightness-50' : 'brightness-100']"
-            loading="lazy"
-            @error="imageLoadError"
-          />
+          <a href="/">
+            <img 
+              @click.prevent="null"
+              v-for="src in images" 
+              :key="src" 
+              v-lazy="src"
+              :src="src" 
+              class="overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable"
+              :class="[{ 'blur-lg unclickable': showExplicitAlert }, showExplicitAlert ? 'brightness-50' : 'brightness-100']"
+              loading="lazy"
+              @error="imageLoadError"
+            />
+          </a>
         </viewer>
       </div>
 
@@ -171,7 +174,7 @@
                 />
               </span>
             </button>
-            <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 dropdown-menu">
+            <div class="invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 dropdown-menu">
               <div 
                 id="headlessui-menu-items-feed-more-options"
                 class="absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right outline-none theme-color"
@@ -181,14 +184,14 @@
                 <!-- Open / Open in New Tab (Only show in modal view) -->
                 <nuxt-link 
                   v-if="isModal" 
-                  :to="'/work/'+artworkDetail.id" 
+                  :to="'/a/'+artworkDetail.id" 
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                 >
                   <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
                 </nuxt-link>
                 <nuxt-link 
                   v-if="isModal" 
-                  :to="'/work/'+artworkDetail.id" 
+                  :to="'/a/'+artworkDetail.id" 
                   target="_blank" 
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                 >
@@ -209,7 +212,7 @@
 
                 <div
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
-                  @click="copyLink('/work/'+artworkDetail.id)" 
+                  @click="copyLink('/a/'+artworkDetail.id)" 
                 >
                   <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
                 </div>
@@ -233,7 +236,7 @@
                 </div> -->
                 <div 
                   v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" 
-                  :to="'/work/'+artworkDetail.id" 
+                  :to="'/a/'+artworkDetail.id" 
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
                   @click="openModal('work-deletion-confirm-modal')"
                 >
@@ -256,15 +259,17 @@
       />
 
       <!-- Other artworks by user that currently viewing (show only on desktop) -->
-      <ArtistWorks
-        v-if="!loading"
-        class="mb-6 hidden-md-flex"
-        :artwork-detail="artworkDetail"
-        :view="view"
-        :is-href="!isModal"
-        :keep-artist-page-number="keepArtistPageNumber"
-        :pagination-per-page="isModal ? 4 : 4"
-      />
+      <keep-alive>
+        <ArtistWorks
+          v-if="!loading"
+          class="mb-6 hidden-md-flex"
+          :artwork-detail="artworkDetail"
+          :view="view"
+          :is-href="!isModal"
+          :keep-artist-page-number="true"
+          :pagination-per-page="isModal ? 4 : 4"
+        />
+      </keep-alive>
     </div>
 
     <!-- Right side: artwork information, comment section -->
@@ -286,7 +291,7 @@
         :artwork-detail="artworkDetail"
         :view="view"
         :is-href="!isModal"
-        :keep-artist-page-number="keepArtistPageNumber"
+        :keep-artist-page-number="true"
         :pagination-per-page="isModal ? 4 : 4"
       />
 
@@ -332,6 +337,7 @@
         <!-- comment list -->
         <div class="comment-content">
           <div 
+            v-auto-animate
             v-for="comment in comments" 
             :key="comment.id" 
             class="flex flex-row w-full comment-item"
@@ -355,7 +361,10 @@
                 <div>
                   {{ comment.comment }}
                 </div>
+
+                <!-- comment reactions -->
                 <div class="mt-4 reactions">
+                  <!-- left side: X replies -->
                   <div 
                     class="cursor-pointer hover:underline"
                     @click="activeReplyTray == comment.id ? hideReplies(comment.id) : showReplies(comment.id)"
@@ -365,12 +374,17 @@
                       {{ comment._count.artwork_comment_has_replies > 1 ? $t('comments.replies.replies').toLowerCase() : $t('comments.replies.reply').toLowerCase() }} 
                     </span>
                   </div>
+
+                  <!-- right side: interaction buttons -->
                   <div v-if="auth.loggedIn" class="flex flex-row">
+                    <!-- like a comment button -->
                     <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
                       <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
                       <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
                       {{ shortNumber(comment._count.artwork_comment_has_likes) }}
                     </span>
+
+                    <!-- reply a comment button -->
                     <span class="reaction" @click="showReplyInput(comment.id)">
                       <Icon :name="'i-quill-reply'" class="text-gray-500 hover:text-blue-500" />
                     </span>
@@ -391,35 +405,42 @@
                           />
                         </span>
                       </button>
+
+                      <!-- ellipsis element -->
                       <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
                         <div 
-                          id="headlessui-menu-items-feed-more-options" 
-                          class="absolute right-0 z-50 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
-                          aria-labelledby="headlessui-menu-button-1" 
+                          id="headlessui-menu-items-feed-more-options"
+                          class="absolute right-0 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
+                          aria-labelledby="headlessui-menu-button-1"
                           role="menu"
                         >
+                          <!-- view profile -->
                           <nuxt-link 
                             :to="'/profile/u/'+comment.users.username" 
-                            class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                             @click.prevent 
                           >
                             <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
                           </nuxt-link>
+
+                          <!-- delete comment -->
                           <div
                             v-if="auth.loggedIn && auth.user.id === comment.users.id"
-                            class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                             @click="deleteComment(comment.id)"
                           >
                             <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
                           </div>
-                          <nuxt-link 
+
+                          <!-- report -->
+                          <!-- <nuxt-link 
                             v-if="auth.loggedIn && auth.user.id !== comment.users.id"
                             :to="'#'" 
                             class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                             @click.prevent 
                           >
                             <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                          </nuxt-link>
+                          </nuxt-link> -->
                         </div>
                       </div>
                     </div>
@@ -537,6 +558,7 @@
                             aria-labelledby="headlessui-menu-button-1" 
                             role="menu"
                           >
+                            <!-- view profile -->
                             <nuxt-link 
                               :to="'/profile/u/'+reply.users.id" 
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
@@ -544,6 +566,8 @@
                             >
                               <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
                             </nuxt-link>
+
+                            <!-- delete reply -->
                             <div
                               v-if="auth.loggedIn && auth.user.id === reply.users.id"
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
@@ -551,14 +575,16 @@
                             >
                               <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
                             </div>
-                            <nuxt-link 
+
+                            <!-- report -->
+                            <!-- <nuxt-link 
                               v-if="auth.loggedIn && auth.user.id !== reply.users.id"
                               :to="'#'" 
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
                               <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                            </nuxt-link>
+                            </nuxt-link> -->
                           </div>
                         </div>
                       </div>
@@ -567,7 +593,7 @@
                 </div>
                 <div 
                   v-if="commentReplies[comment.id] && showLoadMoreReplies" 
-                  class="text-center transition ease-in-out delay-75 cursor-pointer hover:font-semibold hover:underline text-color-secondary"
+                  class="mb-1 text-center transition ease-in-out delay-75 cursor-pointer hover:font-semibold hover:underline text-color-secondary href"
                   @click="loadMoreReplies(comment.id)"
                 >
                   {{ $t('comments.replies.loadMore') }}
@@ -691,6 +717,7 @@ const props = defineProps ({
 
 const runtimeConfig = useRuntimeConfig()
 const { $router } = useNuxtApp()
+const router = useRouter()
 
 /**
  * @watchers
@@ -742,7 +769,6 @@ const increaseView = async (workId) => {
 const previewMode = ref(false)
 
 const loading = ref(true)
-const keepArtistPageNumber = ref(false)
 
 const artworkDetail = ref({})
 const images = ref([])
@@ -750,10 +776,9 @@ const liked = ref(false)
 const saved = ref(false)
 const inAlbum = ref(false)
 
-const view = async (selectedWorkId, keepArtistPageNumberParam = false) => {
+const view = async (selectedWorkId) => {
   comments.value = []
   commentReplies.value = []
-  keepArtistPageNumber.value = keepArtistPageNumberParam
   
   loading.value = true
 
@@ -1071,6 +1096,8 @@ const hideReplies = (commentId) => {
   const commentReplyEl = document.getElementById(`comment-replies-${commentId}`)
   commentReplyEl.classList.remove('flex')
   commentReplyEl.classList.add('hidden')
+
+  activeReplyTray.value = 0
 }
 
 const loadMoreReplies = async (commentId) => {
@@ -1300,13 +1327,4 @@ defineExpose({
 
 <style lang="scss" scoped>
 @import "~/assets/css/artworks/view.scss";
-
-.mini-profile-info {
-  @apply w-full px-4 py-6 mb-2 border-b cursor-pointer z-50;
-}
-
-// emojis
-.emoji-invoker { transition: all 0.2s }
-.emoji-invoker:hover { transform: scale(2.1) }
-.emojis:after { content: ""; flex: auto }
 </style>

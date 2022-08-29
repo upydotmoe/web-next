@@ -1,4 +1,6 @@
 :root {
+  --loading-indicator-color: #a091ff;
+
   --wave-primary: #002B34;
   --wave-secondary: #002B34;
 
@@ -32,6 +34,7 @@
 
   --border-light: #f2f2f2;
   --border-bold: #dedede;
+  --border-colored: #cac2ff;
 
   --button-light: #ffffff;
   --button-light-border: #dddddd;
@@ -43,6 +46,8 @@
 }
 
 .dark-mode {
+  --loading-indicator-color: #72a8ff;
+
   --wave-primary: rgb(36, 48, 68);
   --wave-secondary: #27213c;
 
@@ -76,6 +81,7 @@
 
   --border-light: #4f4f4f;
   --border-bold: #434343;
+  --border-colored: #8e9fba;
 
   --button-light: #383838;
   --button-light-border: #383838;

@@ -25,37 +25,52 @@
 
 <script setup>
 // stores
-import authStore from '@/stores/auth.store';
+import useAuthStore from '@/stores/auth.store'
 
-// composables use
+// stores
+const auth = useAuthStore()
+
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const miscApi = useMisc(oApiConfiguration, fetchOptions())
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const auth = authStore()
-const { $router } = useNuxtApp()
+const router = useRouter()
 
 onMounted(async () => {
   await countAvailableArtwork()
 })
 
+/**
+ * Check if there is artwork that can be displayed to the currently visiting user.
+ * 
+ * This needs to be done because there are some explicit artworks, 
+ * and they cannot be displayed to visitor/guest or users who don't enable explicit mode.
+ */
 const artworkAvailabity = ref(0)
 const countAvailableArtwork = async () => {
   const [artworkCount, error] = await artworkApi.checkArtworkAvailability()
 
-  artworkAvailabity.value = artworkCount
+  if (error) {
+    artworkAvailabity.value = 0
+  } else {
+    artworkAvailabity.value = artworkCount
+  }
 }
 
-/**
- * Get random artworks (a feature that shuffle random artworks and throw user to that random artwork page)
- */
 const random = async () => {
+  // get random artwork ID
   const [randomWorkId, error] = await miscApi.getRandomArtwork()
 
   if (error) {
     // todo: handle error
   } else {
-    $router.push('/work/' + randomWorkId)
+    // navigate user to randomly selected artwork ID
+    router.push({
+      path: '/a/'+randomWorkId,
+      replace: true,
+      force: true
+    })
   }
 }
 </script>

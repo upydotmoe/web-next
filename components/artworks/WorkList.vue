@@ -3,40 +3,52 @@
     <span 
       v-for="work in works" 
       :key="work.id" 
-      class="work-thumbnail" 
-      :class="[ work._count.artwork_assets > 1 ? 'work-multiple' : '', { 'p-2 bg-yellow-300 rounded-md': manageList.includes(work.id) } ]"
+      :class="[
+        'work-thumbnail',
+        work._count.artwork_assets > 1 ? 'work-multiple' : '',
+        { 'p-2 bg-yellow-300 rounded-md': manageList.includes(work.id) },
+        { '-translate-y-2 shadow-xl': currentWorkId == work.id }
+      ]"
     >
+      {{ currentWorkId }}{{ work.id }}
       <!-- Desktop -->
-      <a v-if="!isMobile() && !isHref" :href="'/work/'+work.id" @click.prevent="manageMode ? addToManageList(work.id) : view(work.id, true)">
+      <a
+        v-if="!isMobile() && !isHref && !isMiniList"
+        :href="'/a/'+work.id"
+        @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
+      >
         <div class="relative text-center">
           <p v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)">{{ work._count.artwork_assets }}</p>
           <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
           
-          <div class="overflow-hidden rounded-md" :class="{ 'animate-wigglefast': manageMode }">
+          <a :href="'/a/'+work.id" class="overflow-hidden rounded-md" :class="{ 'animate-wigglefast': manageMode }">
             <img 
               class="object-cover w-full h-full unselectable"
               :class="{ 'blur-sm brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
               :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
               @error="imageLoadError"
             >
-          </div>
+          </a>
         </div>
       </a>
       
       <!-- Mobile or smaller device -->
-      <a v-else @click="manageMode ? addToManageList(work.id) : open(work.id)">
+      <a
+        v-else
+        @click="manageMode ? addToManageList(work.id) : open(work.id)"
+      >
         <div class="relative text-center">
           <p v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)">{{ work._count.artwork_assets }}</p>
           <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
           
-          <div class="overflow-hidden rounded-md" :class="{ 'animate-wigglefast': manageMode }">
+          <a :href="'/a/'+work.id" @click.prevent="void" class="overflow-hidden rounded-md" :class="{ 'animate-wigglefast': manageMode }">
             <img 
               class="object-cover w-full h-full unselectable"
               :class="{ 'blur-sm brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
               :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
               @error="imageLoadError"
             >
-          </div>
+          </a>
         </div>
       </a>
     </span>
@@ -71,19 +83,27 @@ const props = defineProps ({
   manageMode: {
     type: Boolean,
     default: false
+  },
+  isMiniList: {
+    type: Boolean,
+    default: false
   }
 })
 
 const auth = authStore()
-const { $router } = useNuxtApp()
+const route = useRoute()
 
+const currentWorkId = ref(route.path.split('/')[2])
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const open = (workId) => {
-  if (isLargeScreen.value) {
-    props.view(workId, true)
-  } else {
-    $router.push('/work/' + workId)
-  }
+  currentWorkId.value = workId
+  props.view(workId)
+  // if (isLargeScreen.value && !props.isMiniList) {
+  // } else {
+  //   router.replace({
+  //     path: '/a/'+workId
+  //   })
+  // }
 }
 
 const manageList = ref([])

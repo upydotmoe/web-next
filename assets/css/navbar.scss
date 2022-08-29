@@ -33,14 +33,14 @@
         @apply inline justify-center items-center p-2 ml-2 h-9 text-lg cursor-pointer hover:rounded-md hover:theme-color-secondary;
 
         .icon {
-          @apply text-xl;
+          // @apply text-xl;
         }
 
         #language-group {
           @apply absolute z-50 py-2 w-48 rounded-md shadow-md dark:border-transparent theme-color;
 
           .item {
-            @apply flex z-50 flex-row py-2 px-2 w-full text-xs rounded-md cursor-pointer mb-1;
+            @apply flex z-50 flex-row py-2 px-2 mb-1 w-full text-xs rounded-md cursor-pointer;
 
             &:hover {      
               @apply text-white;
@@ -101,7 +101,7 @@
     @apply flex invisible z-20 flex-col opacity-0 transition-all duration-300 transform origin-top-right scale-95;
 
     .toggler {
-      @apply absolute right-0 z-20 mt-2 rounded-md shadow-lg origin-top-right outline-none theme-color;
+      @apply absolute right-0 z-20 mt-2 rounded-md border shadow-lg origin-top-right outline-none theme-color border-color-primary;
 
       .mini-profile-info {
         @apply z-50 py-6 px-4 mb-2 w-full text-center cursor-pointer;

@@ -8,7 +8,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new ArtworkRandomApi(oApiConfiguration)
         .getRandomArtwork(fetchOptions)
 
-      return [data?.id, null]
+      return [data.data.id, null]
     } catch (error) {
       return [null, error]
     }

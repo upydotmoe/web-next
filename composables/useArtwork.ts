@@ -598,7 +598,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new ArtworksApi(oApiConfiguration)
         .checkArtworkAvailability(fetchOptions)
 
-      return [data.data.count && typeof data?.count !== 'undefined' ? data.count : 0, null]
+      return [data.data.count && typeof data.data.count !== 'undefined' ? data.data.count : 0, null]
     } catch (error) {
       return [null, error]
     }

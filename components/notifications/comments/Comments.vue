@@ -50,9 +50,7 @@
           </template>
 
           <template #no-more>
-            <div class="mx-auto text-center">
-              {{ $t('youHaveReachedTheEnd') }}
-            </div>
+            <p></p>
           </template>
         </InfiniteLoading>
       </client-only>
@@ -120,7 +118,7 @@ const openNotification = async (notification, index) => {
     notifications.value[index].is_read = 1
   }
 
-  $router.push('/work/' + notification.work_id)
+  $router.push('/a/'+notification.work_id)
 }
 
 const openUserProfile = (username) => {

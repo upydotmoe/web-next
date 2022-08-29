@@ -2,7 +2,8 @@
   <div>
     <div class="flex flex-row justify-between w-full cursor-default md:p-2">
       <!-- notification content -->
-      <div class="flex flex-col md:mr-2 md:w-2/6">
+      <div class="flex flex-col md:mr-2 md:w-6/12">
+        <!-- artwork likes -->
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'likes' }" 
@@ -23,6 +24,8 @@
             {{ artworkLikeNotiNotificationTotal > 99 ? '99+' : artworkLikeNotiNotificationTotal }}
           </div>
         </button>
+
+        <!-- comments and replies -->
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'comments' }" 
@@ -43,6 +46,8 @@
             {{ artworkCommentsNotificationTotal > 99 ? '99+' : artworkCommentsNotificationTotal }}
           </div>
         </button>
+
+        <!-- user follows -->
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'follows' }" 
@@ -64,6 +69,7 @@
           </div>
         </button>
       
+        <!-- feeds -->
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'feeds' }" 

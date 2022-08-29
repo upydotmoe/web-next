@@ -12,7 +12,7 @@
 }
 
 .work-container {
-  @apply flex overscroll-none z-30 flex-col justify-between h-full text-left rounded-md lg:flex-row;
+  @apply flex overscroll-none flex-col justify-between h-full text-left rounded-md lg:flex-row;
 
   .left-side {
     @apply overflow-hidden overscroll-none w-full md:overflow-y-auto lg:pr-6;
@@ -69,6 +69,8 @@
       }
 
       .comment-content {
+        @apply z-0;
+
         .comment-order {
           @apply flex justify-end mb-4 w-full;
 
@@ -78,7 +80,7 @@
         }
 
         .comment-item {
-          @apply mb-2;
+          @apply mb-2 hover:z-10;
 
           .comment-time {
             @apply italic text-xxs;
@@ -86,7 +88,7 @@
           }
 
           .reactions {
-            @apply flex flex-row justify-between w-full;
+            @apply flex z-50 flex-row justify-between w-full;
 
             .reaction {
               @apply flex ml-3 leading-5;

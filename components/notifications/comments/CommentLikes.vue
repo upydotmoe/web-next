@@ -30,9 +30,9 @@
             </span>{{ (index+1) != notification.user_liked.length ? ', ' : '' }}
           </span>
 
-          {{ notification.rest_total_replied > 0 ? 'and' : '' }}
-          <span :class="{ 'font-bold': notification.rest_total_replied > 0 }">
-            {{ notification.rest_total_replied > 0 ? notification.rest_total_replied+' others' : '' }}
+          {{ notification.rest_total_liked > 0 ? 'and' : '' }}
+          <span :class="{ 'font-bold': notification.rest_total_liked > 0 }">
+            {{ notification.rest_total_liked > 0 ? notification.rest_total_liked+' others' : '' }}
           </span> liked your comment
         </div>
       </div>
@@ -51,9 +51,7 @@
         </template>
 
         <template #no-more>
-          <div class="mx-auto text-center">
-            {{ $t('youHaveReachedTheEnd') }}
-          </div>
+          <p></p>
         </template>
       </InfiniteLoading>
     </div>
@@ -120,7 +118,7 @@ const openNotification = async (notification, index) => {
     notifications.value[index].is_read = 1
   }
 
-  $router.push('/work/' + notification.artworks.id)
+  $router.push('/a/'+notification.artworks.id)
 }
 
 const openUserProfile = (username) => {

@@ -147,12 +147,14 @@ const fetchCollection = async (isLoadMore = false) => {
     config.value.loading = true
   }
 
-  const [data, showLoadMore, error] = await collectionApi.fetchCollections(
-    auth.user.id,
-    'artwork',
-    config.value.pagination.perPage,
-    config.value.pagination.page
-  )
+  const [data, showLoadMore, error] = await collectionApi.fetchCollections({
+    userId: auth.user.id,
+    type: 'artwork',
+    pagination: {
+      page: config.value.pagination.page,
+      perPage: config.value.pagination.perPage
+    }
+  })
   
   config.value.loading = false
 

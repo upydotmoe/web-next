@@ -359,8 +359,8 @@
     "replies": {
       "reply": "Balas",
       "replies": "Balasan",
-      "loadMore": "Muat lebih lama",
-      "write": "Tulis balasanmu disini"
+      "loadMore": "Muat balasan sebelumnya",
+      "write": "Balas"
     }
   },
   "errors": {

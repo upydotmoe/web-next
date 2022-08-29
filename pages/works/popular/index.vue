@@ -133,7 +133,7 @@
           :class="{ 'mr-2': config.pagination.enableNext }"
           @click="movePage('prev')"
         >
-          <Icon :name="'chevron-back-outline'" />
+          <Icon :name="'i-ion-chevron-back-outline'" />
           {{ $t('pagination.previous') }}
         </button>
         <button 
@@ -143,7 +143,7 @@
         >
           {{ $t('pagination.next') }}
           <Icon 
-            :name="'chevron-forward-outline'" 
+            :name="'i-ion-chevron-forward-outline'" 
             class="ml-2"
             style="margin-right: 0 !important" 
           />
@@ -177,6 +177,9 @@
 <script setup>
 // import { onClickOutside } from '@vueuse/core'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Layout from '~/components/layouts/Layout.vue'
@@ -184,6 +187,9 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
+
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -270,7 +276,7 @@ const fetchTop = async () => {
 /** Fetch */
 const loading = ref(true)
 const pagination = reactive({
-  perPage: 18,
+  perPage: 24,
   page: ref(0)
 })
 const fetch = async () => {

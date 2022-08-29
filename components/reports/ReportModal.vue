@@ -26,8 +26,8 @@
               @click="toggleSelectedReason(reason)"
             >
               <div>
-                <Icon v-show="!input.selectedReasons.includes(reason)" :name="'square-outline'" class="text-color-secondary" />
-                <Icon v-show="input.selectedReasons.includes(reason)" :name="'checkbox-outline'" class="text-green-300" />
+                <Icon v-show="!input.selectedReasons.includes(reason)" :name="'i-ion-square-outline'" class="text-color-secondary" />
+                <Icon v-show="input.selectedReasons.includes(reason)" :name="'i-ion-checkbox-outline'" class="text-green-300" />
               </div>
 
               <div class="reason" :class="[input.selectedReasons.includes(reason) ? 'text-white' : 'text-color-secondary']">

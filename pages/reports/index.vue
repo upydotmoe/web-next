@@ -56,7 +56,7 @@
                   <td>
                     <div>
                       <span v-show="report.is_removed" class="italic">{{ $t('reports.postRemoved') }}</span>
-                      <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/work/' : '/feed/') + report.post_id" target="blank" class="href">
+                      <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/a/' : '/feed/') + report.post_id" target="blank" class="href">
                         {{ $t('reports.viewPost') }}
                       </a>
                     </div>
@@ -138,7 +138,7 @@
               <label>&nbsp;</label>
               <div>
                 <span v-show="report.is_removed">{{ $t('reports.postRemoved') }}</span>
-                <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/work/' : '/feed/') + report.post_id" target="blank" class="mr-2 underline href">
+                <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/a/' : '/feed/') + report.post_id" target="blank" class="mr-2 underline href">
                   {{ $t('reports.viewReportedPost') }}
                 </a>
                 <div class="underline href" @click="viewReportDetail(report.id)">

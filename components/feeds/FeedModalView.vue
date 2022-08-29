@@ -118,6 +118,7 @@
         :class="[{ 'h-screen max-h-96 pr-3 overflow-x-hidden overflow-y-scroll': isModal }, { 'mb-20': !isModal }]"
       >
         <div 
+          v-auto-animate
           v-for="comment in comments" 
           :key="comment.id" 
           class="flex flex-row w-full comment-item"
