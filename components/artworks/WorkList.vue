@@ -6,11 +6,9 @@
       :class="[
         'work-thumbnail',
         work._count.artwork_assets > 1 ? 'work-multiple' : '',
-        { 'p-2 bg-yellow-300 rounded-md': manageList.includes(work.id) },
-        { '-translate-y-2 shadow-xl': currentWorkId == work.id }
+        { 'p-2 bg-yellow-300 rounded-md': manageList.includes(work.id) || currentWorkId == work.id }
       ]"
     >
-      {{ currentWorkId }}{{ work.id }}
       <!-- Desktop -->
       <a
         v-if="!isMobile() && !isHref && !isMiniList"
@@ -87,13 +85,17 @@ const props = defineProps ({
   isMiniList: {
     type: Boolean,
     default: false
+  },
+  currentWorkId: {
+    type: Number,
+    default: 0
   }
 })
 
 const auth = authStore()
-const route = useRoute()
 
-const currentWorkId = ref(route.path.split('/')[2])
+const currentWorkId = ref(props.currentWorkId)
+console.log(currentWorkId)
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const open = (workId) => {
   currentWorkId.value = workId

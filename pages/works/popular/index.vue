@@ -126,7 +126,7 @@
       </div>
 
       <!-- Paging control -->
-      <div v-if="!loading && !isEmpty && !isError" class="flex float-right flex-row">
+      <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
         <button 
           v-show="config.pagination.enablePrev"
           class="primary-button"

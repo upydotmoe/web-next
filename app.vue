@@ -1,6 +1,7 @@
 <template>
   <NuxtLoadingIndicator
     class="loading-indicator-color"
+    color="loading-indicator-color"
     height="5"
     throttle="0"
   />

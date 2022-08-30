@@ -29,18 +29,22 @@ export default function () {
     }
   }
 
-  const generateSemiCompressedArtworkUrl = (bucketName: string, fileName: string, viewMode: 'cloudflare' | 'bunny') => {
+  const generateSemiCompressedArtworkUrl = (bucketName: string, fileName: string, viewMode: boolean) => {
     let format = ''
-    if (config.public.activeCdn === 'cloudflare') {
-      if (viewMode) {
-        format = '/f=auto,q=50'
-      }
 
-      return `${config.public.staticallyCdn}/${config.public.cloudflareUrl}${format}/file/${bucketName}/${fileName}`
+    if (config.public.activeCdn === 'cloudflare') {
+      // no longer using statically, use bunnyCDN instead
+      
+      // // statically
+      // if (viewMode) {
+      //   format = '/f=auto,w=500&q=75'
+      // }
+
+      // return `${config.public.staticallyCdn}/${config.public.cloudflareUrl}${format}/file/${bucketName}/${fileName}`
     } else {
       // bunny
       if (viewMode) {
-        format = '?quality=50'
+        format = '?width=500&quality=75'
       }
 
       return `https://${config.public.bunnyUrl}/${bucketName}/${fileName}${format}`

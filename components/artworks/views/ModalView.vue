@@ -45,21 +45,31 @@
 
       <!-- Image list -->
       <div class="image-list">
-        <!-- explicit content alert -->
-        <viewer :images="images" class="overflow-hidden rounded-md">
-          <a href="/">
+        <viewer 
+          :options="{
+            url: 'data-source'
+          }"
+          :images="images"
+          class="overflow-hidden rounded-md"
+        >
+          <template 
+            @click.prevent="null"
+            v-for="(src, index) in images"
+            :key="src.thumbnail"
+          >
             <img 
-              @click.prevent="null"
-              v-for="src in images" 
-              :key="src" 
-              v-lazy="src"
-              :src="src" 
-              class="overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable"
-              :class="[{ 'blur-lg unclickable': showExplicitAlert }, showExplicitAlert ? 'brightness-50' : 'brightness-100']"
               loading="lazy"
+              v-lazy="src.thumbnail"
+              :src="src.thumbnail"
+              :data-source="src.source"
+              :class="[
+                'overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable',
+                { 'blur-lg unclickable': showExplicitAlert }, 
+                showExplicitAlert ? 'brightness-50' : 'brightness-100'
+              ]"
               @error="imageLoadError"
             />
-          </a>
+          </template>
         </viewer>
       </div>
 
@@ -771,10 +781,14 @@ const previewMode = ref(false)
 const loading = ref(true)
 
 const artworkDetail = ref({})
-const images = ref([])
 const liked = ref(false)
 const saved = ref(false)
 const inAlbum = ref(false)
+
+const images = ref([])
+const vViewerOptions = {
+  url: 'data-src'
+}
 
 const view = async (selectedWorkId) => {
   comments.value = []
@@ -792,7 +806,10 @@ const view = async (selectedWorkId) => {
 
     images.value = []
     data.artwork_assets.forEach((asset) => {                                                    
-      images.value.push(generateSemiCompressedArtworkUrl(asset.bucket, asset.filename, true))
+      images.value.push({
+        thumbnail: generateSemiCompressedArtworkUrl(asset.bucket, asset.filename, true),
+        source: generateSemiCompressedArtworkUrl(asset.bucket, asset.filename, false)
+      })
     })
     
     if ((!auth.loggedIn && data.is_explicit) || (data.is_explicit && !auth.user.user_settings.show_explicit)) {

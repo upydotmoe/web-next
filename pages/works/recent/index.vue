@@ -75,7 +75,7 @@
       </div>
 
       <!-- Paging control -->
-      <div v-if="!loading && !isEmpty && !isError" class="flex float-right flex-row">
+      <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
         <button 
           v-show="config.pagination.enablePrev"
           class="primary-button"
@@ -228,7 +228,7 @@ const fetchTop = async () => {
 /** Fetch */
 const loading = ref(true)
 const pagination = reactive({
-  perPage: 18,
+  perPage: 36,
   page: ref(0)
 })
 const fetch = async () => {

@@ -1,27 +1,32 @@
 <template>
   <section class="flex-col info">
     <div v-if="artworkDetail.users" class="user-info">
-      <div class="flex flex-row">
+      <div class="flex flex-row w-full">
         <nuxt-link :to="'/profile/u/'+artworkDetail.users.username">
           <img class="avatar" :src="avatarCoverUrl(artworkDetail.users.avatar_bucket, artworkDetail.users.avatar_filename)" @error="imageLoadError">
         </nuxt-link>
-        <div class="name">
-          <nuxt-link :to="'/profile/u/'+artworkDetail.users.username" class="fullname">
-            {{ artworkDetail.users.name }}
-          </nuxt-link>
-          <br>
+        <div class="w-full name">
+          <div class="flex flex-row justify-between">
+            <nuxt-link :to="'/profile/u/'+artworkDetail.users.username" class="fullname">
+              {{ artworkDetail.users.name }}
+            </nuxt-link>
+
+            <!-- close modal button -->
+            <div
+              v-show="isModal"
+              class="p-1 font-bold rounded-md border-2 cursor-pointer hover:shadow-md border-color-primary"
+              style="font-size: 10px;"
+              @click="closeModal(section + '-modal')"
+            >
+              ESC
+            </div>
+          </div>
+          
           <nuxt-link :to="'/profile/u/'+artworkDetail.users.username" class="username">
             @{{ artworkDetail.users.username }}
           </nuxt-link>
         </div>
       </div>
-
-      <Icon 
-        v-show="isModal" 
-        :name="'i-ion-close'" 
-        class="text-2xl cursor-pointer"
-        @click="closeModal(section + '-modal')"
-      />
     </div>
 
     <div class="mb-2 text-base font-bold">

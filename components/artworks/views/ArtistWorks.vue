@@ -23,6 +23,7 @@
       :view="view"
       :is-href="isHref"
       :is-mini-list="true"
+      :current-work-id="artworkDetail.id"
     />
 
     <!-- Pagination controller -->

@@ -597,6 +597,10 @@
   .hidden-lg-flex {
     @apply hidden lg:flex;
   }
+
+  .art-list-view-paging-control {
+    @apply flex flex-row gap-2 justify-between mt-4 w-full md:justify-end md:w-auto;
+  }
 }
 
 @layer utilities {}

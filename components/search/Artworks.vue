@@ -146,7 +146,7 @@
     </div>
 
     <!-- Paging control -->
-    <div v-if="!loading && !isEmpty && !isError" class="flex flex-row gap-2 justify-between w-full md:justify-end md:w-auto">
+    <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
       <button 
         class="w-full md:w-auto"
         :class="[config.pagination.enablePrev ? 'primary-button' : 'disabled-button']"
