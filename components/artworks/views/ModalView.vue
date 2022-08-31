@@ -637,6 +637,7 @@
     <ManageSave 
       v-if="!loading"
       id="collection-selection-modal"
+      :modal-id="'collection-selection-modal'"
       ref="collectionSelectionModalRef"
       :work-id="artworkDetail.id"
       class="modal"
@@ -644,7 +645,7 @@
     />
 
     <!-- add or remove from selected album(s) -->
-    <!-- <ManageAlbum
+    <ManageAlbum
       v-if="!loading && (auth.loggedIn && artworkDetail.users && auth.user.id == artworkDetail.users.id)"
       id="album-selection-modal"
       ref="albumSelectionModalRef"
@@ -652,7 +653,7 @@
       :work-id="artworkDetail.id"
       class="modal"
       @addedToAlbum="addedToAlbum"
-    /> -->
+    />
 
     <!-- Work deletion confirmation dialog -->
     <ConfirmationDialog
@@ -697,7 +698,7 @@ import ArtistWorks from '~/components/artworks/views/ArtistWorks.vue'
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
 import ManageSave from '~/components/artworks/ManageSave.vue'
-// import ManageAlbum from '~/components/albums/ManageAlbum'
+import ManageAlbum from '~/components/albums/ManageAlbum'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 import ReportModal from '~/components/reports/ReportModal.vue'
@@ -752,7 +753,17 @@ onMounted (() => {
   }
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    const collectionSelectorModalEl = document.getElementById('collection-selection-modal')
+    const albumSelectorModalEl = document.getElementById('album-selection-modal')
+    const reportModalEl = document.getElementById('report-modal')
+    const viewerModalEl = document.querySelectorAll('.viewer-in')
+
+    if (e.key === 'Escape' 
+        && (!collectionSelectorModalEl || collectionSelectorModalEl.style.display != 'flex')
+        && (!albumSelectorModalEl || albumSelectorModalEl.style.display != 'flex')
+        && (!reportModalEl || reportModalEl.style.display != 'flex')
+        && !viewerModalEl.length
+    ) {
       closeArtworkModals()
     }
   })

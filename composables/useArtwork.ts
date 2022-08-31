@@ -98,8 +98,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           params.followingOnly,
           fetchOptions
         )
-      
-      // console.log('data:', data)
+        
       return [data.data, null]   
     } catch (error) {
       return [null, error]

@@ -109,15 +109,12 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
-/**
- * @emits
- */
 const emits = defineEmits (['save'])
-
-/**
- * @props
- */
 const props = defineProps ({
+  modalId: {
+    type: String,
+    default: 'collection-selection-modal'
+  },
   workId: {
     type: Number,
     default: 0
@@ -262,7 +259,7 @@ const save = async () => {
     }
 
     await fetchCurrentSaved()
-    useModal().closeModal('collection-selection-modal')
+    useModal().closeModal(props.modalId)
     emits('save', unsaved)
   } catch (error) {
     // todo: handle error when failed to save
@@ -314,7 +311,7 @@ const clear = () => {
 }
 
 const cancel = () => {
-  useModal().closeModal('collection-selection-modal')
+  useModal().closeModal(props.modalId)
   clear()
 }
 

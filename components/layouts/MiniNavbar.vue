@@ -89,7 +89,7 @@ const random = async () => {
     }
   }
 
-  a.nuxt-link-active {
+  a.router-link-active {
     @apply text-gray-800 bg-gray-100 rounded;
   }
 }

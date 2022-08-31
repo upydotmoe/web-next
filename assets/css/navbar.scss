@@ -7,7 +7,7 @@
   .link {
     @apply relative justify-center items-center py-2 mr-6 align-middle transition duration-300 transform cursor-pointer hover:font-semibold;
   }
-  .link.nuxt-link-active {
+  .link.router-link-active {
     @apply font-semibold transform-none;
   }
 

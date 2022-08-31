@@ -102,7 +102,7 @@ defineProps ({
 // @import '~/assets/css/wavy-bg.scss';
 @import '~/assets/css/layout.scss';
 
-.left-menu-link.nuxt-link-active {
+.left-menu-link.router-link-active {
   @apply button;
 
   .icon {

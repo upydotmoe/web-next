@@ -34,8 +34,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       
       return [data.success, null]
     } catch (error) {
-      const err = useApiFetch().consumeReadableStreamError(error)
-      console.log(err)
       return [false, useApiFetch().consumeReadableStreamError(error)]
     }
   }

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="hidden" @click="fetchCurrentSaved()" />
-    <div class="hidden" @click="fetchAlbums()" />
-
     <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
       <div>
         <div class="flex flex-row justify-between w-full">
@@ -245,6 +242,11 @@ const cancel = () => {
   useModal().closeModal(props.modalId)
   clear()
 }
+
+defineExpose ({
+  fetchCurrentSaved,
+  fetchAlbums
+})
 </script>
 
 <style lang="scss" scoped>

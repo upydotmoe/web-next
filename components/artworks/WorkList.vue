@@ -60,7 +60,6 @@ import { useMediaQuery } from '@vueuse/core'
 import authStore from '@/stores/auth.store'
 
 const emits = defineEmits ('feedManageList')
-
 const props = defineProps ({
   works: {
     type: Array,
@@ -92,14 +91,18 @@ const props = defineProps ({
   }
 })
 
+watch (() => props.currentWorkId, (newWorkId) => {
+  currentWorkId.value = newWorkId
+})
+
 const auth = authStore()
 
 const currentWorkId = ref(props.currentWorkId)
-console.log(currentWorkId)
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const open = (workId) => {
   currentWorkId.value = workId
   props.view(workId)
+
   // if (isLargeScreen.value && !props.isMiniList) {
   // } else {
   //   router.replace({

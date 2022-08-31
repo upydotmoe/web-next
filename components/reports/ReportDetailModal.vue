@@ -74,19 +74,19 @@
             <div class="flex flex-row gap-2 justify-between">
               <span 
                 class="flex flex-row justify-center p-2 w-full rounded-md border-2 border-green-500 cursor-pointer" 
-                :class="{ 'bg-green-500 text-white': decisionInputs.response === false }"
-                @click="decisionInputs.response = false"
+                :class="{ 'bg-green-500 text-white': decisionInputs.response === 0 }"
+                @click="decisionInputs.response = 0"
               >
-                <Icon v-show="decisionInputs.response === false" :name="'i-ion-checkmark-outline'" class="mr-2 text-white" />
-                {{ $t('reports.decisions.remove') }}
+                <Icon v-show="decisionInputs.response === 0" :name="'i-ion-checkmark-outline'" class="mr-2 font-bold text-white" />
+                {{ $t('reports.decisions.doNotRemove') }}
               </span>
               <span 
                 class="flex flex-row justify-center p-2 w-full rounded-md border-2 border-red-500 cursor-pointer" 
-                :class="{ 'bg-red-500 text-white': decisionInputs.response === true }"
-                @click="decisionInputs.response = true"
+                :class="{ 'bg-red-500 text-white': decisionInputs.response === 1 }"
+                @click="decisionInputs.response = 1"
               >
-                <Icon v-show="decisionInputs.response === true" :name="'i-ion-checkmark-outline'" class="mr-2 text-white" />
-                {{ $t('reports.decisions.doNotRemove') }}
+                <Icon v-show="decisionInputs.response === 1" :name="'i-ion-checkmark-outline'" class="mr-2 font-bold text-white" />
+                {{ $t('reports.decisions.remove') }}
               </span>
             </div>
 
@@ -180,7 +180,7 @@ const view = async (reportId) => {
  * @decisionForm
  */
 const decisionInputs = ref({
-  response: false,
+  response: 0,
   description: ''
 })
 

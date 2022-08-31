@@ -175,13 +175,16 @@
 
                             <div class="custom-divider" />
                             
-                            <nuxt-link 
+                            <!-- report -->
+                            <!-- <nuxt-link 
                               :to="'#'" 
                               class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
                               <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                            </nuxt-link>
+                            </nuxt-link> -->
+
+                            <!-- copy sharable link -->
                             <a
                               class="flex py-2 px-3 w-full leading-4 rounded-md transition-all duration-150 cursor-pointer hover:button-color parent-icon hover:text-white"
                               @click="copyLink(feed.type === 'artworks' ? '/a/'+feed.id : '/feed/'+feed.id)" 
@@ -247,7 +250,8 @@
 
           <!-- add or remove from selected collection(s) -->
           <ManageSave 
-            id="collection-selection-modal"
+            id="feed-collection-selection-modal"
+            :modal-id="'feed-collection-selection-modal'"
             ref="collectionSelectionModalRef"
             :work-id="collectionWorkId"
             class="modal"
@@ -335,7 +339,7 @@ watch (() => $router.currentRoute.value.params.path, () => {
   closeArtworkModals()
 
   // close collection selection modal
-  useModal().closeModal('collection-selection-modal')
+  useModal().closeModal('feed-collection-selection-modal')
 })
 
 /**
@@ -515,7 +519,7 @@ const collectionWorkId = ref(0)
 const showCollectionSelectionModal = (workId) => {
   collectionWorkId.value = workId
 
-  useModal().openModal('collection-selection-modal')
+  useModal().openModal('feed-collection-selection-modal')
   collectionSelectionModalRef.value.fetchCurrentSaved()
 }
 

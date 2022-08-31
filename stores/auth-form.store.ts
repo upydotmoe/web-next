@@ -24,8 +24,6 @@ export default defineStore('auth-form', () => {
   const toggleAccountRecovery = () => {
     showLogin.value = !showLogin.value
     showAccountRecovery.value = !showAccountRecovery.value
-
-    console.log([showLogin.value, showAccountRecovery.value])
   }
   const reset = () => {
     showLogin.value = true

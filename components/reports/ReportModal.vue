@@ -69,11 +69,11 @@
           </div>
           <div class="mt-2">
             <div>
-              <i>Your report ID:</i> 
+              <i>Your report ID:</i>&nbsp;
               <b>#{{ reportedData.id }}</b>
             </div>
             <div>
-              <i>Report date:</i> 
+              <i>Report date:</i>&nbsp;
               <b>{{ formatDate(reportedData.created_at) }}</b>
             </div>
           </div>

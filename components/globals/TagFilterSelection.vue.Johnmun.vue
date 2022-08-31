@@ -98,7 +98,6 @@ const init = (previousSelectedTags) => {
   if (previousSelectedTags) {
     previousSelectedTags.forEach((tag) => {
       // tags.value = tag.text
-      console.log(tag.text);
     })
   }
 }
@@ -106,7 +105,6 @@ const init = (previousSelectedTags) => {
 const updateTags = (newTags) => {
   availableTags.value = []
   tags.value = newTags
-  console.log('new selected tag:', newTags);
 }
 
 const applyTags = () => {

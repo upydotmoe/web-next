@@ -300,8 +300,6 @@ const pagination = ref({
   page: ref(0)
 })
 const fetch = async () => {
-  console.log('search keyword:', keyword.value)
-
   if (pagination.value.page === 0) {
     loading.value = true
     isEmpty.value = false
