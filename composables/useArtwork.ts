@@ -59,8 +59,11 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
+      console.log(data)
+
       return [data.data, null]
     } catch (error) {
+      console.log(error)
       return [null, error]
     }
   }

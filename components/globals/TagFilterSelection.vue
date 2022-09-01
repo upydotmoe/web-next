@@ -26,9 +26,9 @@
           <button class="cancel-button" @click="closeModal('tag-filter-selection-modal')">
             {{ $t('cancel') }}
           </button>
-          <button class="cancel-button" @click="clearSelectedTags()">
+          <!-- <button class="cancel-button" @click="clearSelectedTags()">
             {{ $t('clear') }}
-          </button>
+          </button> -->
           <button class="primary-button" @click="applyTags()">
             {{ $t('apply') }}
           </button>
@@ -67,7 +67,6 @@ const applyTags = () => {
 }
 
 const clearSelectedTags = () => {
-  tags.value = []
   init([])
 }
 /**

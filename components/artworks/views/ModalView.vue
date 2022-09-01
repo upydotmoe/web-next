@@ -353,21 +353,27 @@
             class="flex flex-row w-full comment-item"
           >
             <nuxt-link class="mr-2" :to="'/profile/u/'+comment.users.username">
-              <img class="w-10 h-10 avatar" :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)" @error="imageLoadError">
+              <img
+                class="w-10 h-10 avatar"
+                :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
+                @error="imageLoadError"
+              >
             </nuxt-link>
             <div class="w-full">
               <div 
-                class="p-4 w-full rounded-md"
+                class="p-3 w-full rounded-md"
                 :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
               >
+                <!-- profile info -->
                 <div class="flex justify-between">
-                  <nuxt-link :to="'/profile/u/'+comment.users.username" class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold">
+                  <nuxt-link :to="'/profile/u/'+comment.users.username" class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer">
                     {{ comment.users.name }}
                   </nuxt-link>
                   <div class="comment-time">
                     {{ formatDate(comment.created_at, true) }}
                   </div>
                 </div>
+                
                 <div>
                   {{ comment.comment }}
                 </div>

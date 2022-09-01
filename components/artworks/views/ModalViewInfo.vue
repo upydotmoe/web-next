@@ -58,9 +58,9 @@
         :key="tag.artwork_tags.id" 
         class="tag"
       >
-        <a :href="'/works/browse?tags='+tag.artwork_tags.tag">
+        <nuxt-link :to="'/works/browse?tags='+tag.artwork_tags.tag">
           #{{ tag.artwork_tags.tag }}
-        </a>
+        </nuxt-link>
       </span>
       
       <!-- <span class="suggest">

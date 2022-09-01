@@ -174,17 +174,15 @@ const openTagsFilterSelection = () => {
 const filterTags = ref('')
 const previousSelectedTags = ref()
 const filterTagsCount = ref(0)
-const applyTagFilter = (selectedTags, selectedTagsJoined) => {
+const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
   previousSelectedTags.value = selectedTags
-
   filterTags.value = selectedTagsJoined
-  
-  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
-  
+  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0  
   pagination.page = 0
 
+  // close tag selection modal and refetch the list
   useModal().closeModal('tag-filter-selection-modal')
-  // await fetchTop()
+  await fetchTop()
 }
 
 /** Fetch first row */
