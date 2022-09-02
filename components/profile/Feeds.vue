@@ -111,21 +111,24 @@
                         <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
                       </nuxt-link>
 
-                      <div class="custom-divider" />
+                      <!-- <div class="custom-divider" /> -->
                       
-                      <nuxt-link 
+                      <!-- report feed post -->
+                      <!-- <nuxt-link 
                         :to="'#'" 
                         class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                         @click.prevent 
                       >
                         <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                      </nuxt-link>
-                      <a
+                      </nuxt-link> -->
+
+                      <!-- copy sharable link -->
+                      <!-- <a
                         class="flex py-2 px-3 w-full leading-4 rounded-md transition-all duration-150 cursor-pointer hover:button-color parent-icon hover:text-white"
                         @click="'/feed/'+feed.id" 
                       >
                         <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
-                      </a>
+                      </a> -->
                     </div>
                   </div>
                 </div>

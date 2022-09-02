@@ -7,7 +7,7 @@
 
       <!-- Options -->
       <!-- Filter popularity range by Daily/Weekly/Monthly or All-time -->
-      <div class="buttons" v-show="!isEmpty">
+      <div class="buttons">
         <!-- Following only -->
         <div v-show="auth.loggedIn" class="filter-buttons">
           <button 

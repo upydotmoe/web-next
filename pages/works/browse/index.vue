@@ -201,7 +201,7 @@
 
       <!-- Tag filter selection modal -->
       <TagFilterSelection 
-        v-if="!loading"
+        v-show="!loading"
         id="tag-filter-selection-modal"
         ref="tagFilterSelectionModalRef"
         class="modal"
@@ -319,21 +319,28 @@ const applyTagOnMount = async () => {
 
 const tagFilterSelectionModalRef = ref(null)
 const openTagsFilterSelection = () => {
+  tagFilterSelectionModalRef.value.init(toRaw(previousSelectedTags.value))
   useModal().openModal('tag-filter-selection-modal')
-  tagFilterSelectionModalRef.value.init(filterTagsWithKeys.value)
 }
 
 const filterTags = ref('')
-const filterTagsWithKeys = ref()
+const previousSelectedTags = ref()
 const filterTagsCount = ref(0)
-const applyTagFilter = async (selectedTagsWithKeys, selectedTagsJoined) => {
-  filterTagsWithKeys.value = selectedTagsWithKeys
+const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
+  previousSelectedTags.value = selectedTags
   filterTags.value = selectedTagsJoined
-  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
+  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0  
   pagination.page = 0
 
+  // close tag selection modal and refetch the list
+  useModal().closeModal('tag-filter-selection-modal')
   await fetchTop()
 }
+
+/** Fetch first row */
+watch (async () => previousSelectedTags.value, _ => {
+  fetchTop()
+})
 
 /** Fetch first row */
 const works = ref([])

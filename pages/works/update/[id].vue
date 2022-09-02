@@ -52,7 +52,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const { $router } = useNuxtApp()
 
-const { id } = $router.currentRoute.value.params.path
+const { id } = $router.currentRoute.value.params
 
 onMounted (() => {
   fetchWorkInfo()

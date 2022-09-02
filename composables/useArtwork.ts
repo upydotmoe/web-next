@@ -262,6 +262,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const updateInfo = async (id: number, data: any, tags: string) => {
     try {
+      console.log([id, data, tags])
       const { data } = await new ArtworkCRUDApi(oApiConfiguration)
         .updateWork({
           id: Number(id),
@@ -270,6 +271,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           is_explicit: data.isExplicit ? 1 : 0,
           tags
         }, fetchOptions)
+      
+      console.log('update API result:', data);
 
       return [data.success, null]
     } catch (error) {

@@ -120,7 +120,8 @@ const { $router } = useNuxtApp()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const apiUrl = process.env.API_URL
+const runtimeConfig = useRuntimeConfig()
+const apiUrl = runtimeConfig.public.apiUrl
 
 onMounted (() => {
   if (!auth.loggedIn) {
@@ -182,7 +183,11 @@ const update = async () => {
       tagValues.push(tag.value)
     })
 
+    console.log([props.id, inputData.value.title, tagValues.toString])
+
     const [success, error] = await artworkApi.updateInfo(props.id, inputData.value, tagValues.toString())
+
+    // console.log('result:', [success, error]);
 
     if (error) {
       isError.value = true
