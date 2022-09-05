@@ -183,18 +183,20 @@ const update = async () => {
       tagValues.push(tag.value)
     })
 
-    console.log([props.id, inputData.value.title, tagValues.toString])
-
-    const [success, error] = await artworkApi.updateInfo(props.id, inputData.value, tagValues.toString())
-
-    // console.log('result:', [success, error]);
+    const [success, error] = await artworkApi.updateInfo({
+      id: props.id,
+      title: inputData.value.title,
+      description: inputData.value.description,
+      isExplicit: inputData.value.isExplicit,
+      tags: tagValues.toString()
+    })
 
     if (error) {
       isError.value = true
     } else {
       updated.value = true
       setTimeout(() => {
-        $router.push(`/work/${props.id}`)
+        $router.push(`/a/${props.id}`)
       }, 1000)
     }
   } catch (error) {

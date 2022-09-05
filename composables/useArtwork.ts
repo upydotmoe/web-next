@@ -59,11 +59,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      console.log(data)
-
       return [data.data, null]
     } catch (error) {
-      console.log(error)
       return [null, error]
     }
   }
@@ -260,19 +257,22 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     await new ArtworkViewsApi(oApiConfiguration).addViewCount(workId)
   }
 
-  const updateInfo = async (id: number, data: any, tags: string) => {
+  const updateInfo = async (params: {
+    id: number,
+    title: string,
+    description?: string,
+    isExplicit: boolean,
+    tags?: string
+  }) => {
     try {
-      console.log([id, data, tags])
       const { data } = await new ArtworkCRUDApi(oApiConfiguration)
         .updateWork({
-          id: Number(id),
-          title: data.title,
-          description: data.description,
-          is_explicit: data.isExplicit ? 1 : 0,
-          tags
+          id: Number(params.id),
+          title: params.title,
+          description: params.description,
+          is_explicit: params.isExplicit ? 1 : 0,
+          tags: params.tags
         }, fetchOptions)
-      
-      console.log('update API result:', data);
 
       return [data.success, null]
     } catch (error) {

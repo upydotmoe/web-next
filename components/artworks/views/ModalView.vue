@@ -80,6 +80,8 @@
       >
         <!-- Counter -->
         <div class="reaction-counters">
+          <span class="py-1 px-2 mr-2 font-bold rounded-md bg-tag text-xxs">E</span>
+
           <!-- Total of views -->
           <span
             v-show="artworkDetail.views > 0" 

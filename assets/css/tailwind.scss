@@ -111,6 +111,11 @@
     color: var(--theme-text-color-reverse);
   }
 
+  .bg-tag {
+    @apply text-color;
+    background: var(--bg-tag);
+  }
+
   .bg-danger {
     background: var(--danger-color);
     color: var(--theme-text-color);
