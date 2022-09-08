@@ -14,7 +14,7 @@
     "@nuxtjs/tailwindcss": "^5.3.1",
     "@unocss/nuxt": "^0.44.7",
     "@unocss/preset-icons": "^0.44.7",
-    "nuxt": "^3.0.0-rc.8",
+    "nuxt": "^3.0.0-rc.9",
     "sass": "^1.54.0",
     "tailwindcss-dark-mode": "^1.1.7"
   },
