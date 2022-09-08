@@ -58,7 +58,7 @@
         :key="tag.artwork_tags.id" 
         class="tag"
       >
-        <nuxt-link :to="'/works/browse?tags='+tag.artwork_tags.tag">
+        <nuxt-link :to="'/works/browse?tags='+tag.artwork_tags.tag.replaceAll(' ', '+')">
           #{{ tag.artwork_tags.tag }}
         </nuxt-link>
       </span>

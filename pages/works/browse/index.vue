@@ -300,6 +300,7 @@ const toggleFollowingOnlyFilter = async () => {
  */
 const applyTagOnMount = async () => {
   const [tagData, error] = await artworkApi.getTagKeys(tags)
+  console.log('tag data:', tagData)
 
   if (error) {
     // todo: handle error
@@ -312,7 +313,7 @@ const applyTagOnMount = async () => {
       })
     })
 
-    filterTagsWithKeys.value = tagWithKeys
+    previousSelectedTags.value = tagWithKeys
     await applyTagFilter(tagWithKeys, tags)
   }
 }

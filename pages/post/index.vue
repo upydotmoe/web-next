@@ -12,8 +12,8 @@
           :class="[mode === 'feed' ? 'button' : 'theme-color']"
           @click="mode = 'feed'" 
         >
-          <Icon v-show="mode != 'feed'" :name="'i-ion-text-outline'" class="mr-3 text-2xl" />
-          <Icon v-show="mode == 'feed'" :name="'i-ion-text-outline'" class="mr-3 text-2xl text-white" />
+          <Icon v-show="mode != 'feed'" :name="'i-ion-text-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl" />
+          <Icon v-show="mode == 'feed'" :name="'i-ion-text-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl text-white" />
           <span class="text-sm leading-6">{{ $t('feed') }}</span>
         </div>
         <div 
@@ -21,8 +21,8 @@
           :class="[mode === 'artwork' ? 'button' : 'theme-color']"
           @click="mode = 'artwork'" 
         >
-          <Icon v-show="mode != 'artwork'" :name="'i-ion-images-outline'" class="mr-3 text-2xl" />
-          <Icon v-show="mode == 'artwork'" :name="'i-ion-images-outline'" class="mr-3 text-2xl text-white" />
+          <Icon v-show="mode != 'artwork'" :name="'i-ion-images-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl" />
+          <Icon v-show="mode == 'artwork'" :name="'i-ion-images-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl text-white" />
           <span class="text-sm leading-6">{{ $t('artworks.artwork') }}</span>
         </div>
         <!-- <div 

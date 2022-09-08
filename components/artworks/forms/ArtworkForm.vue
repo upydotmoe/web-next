@@ -124,7 +124,7 @@
       </div>
 
       <div class="input-block">
-        <client-only>
+        <ClientOnly>
           <div
             x-data
             x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
@@ -144,7 +144,7 @@
               >
             </div>
           </div>
-        </client-only>
+        </ClientOnly>
       </div>
 
       <div class="flex flex-row justify-between md:justify-end">
@@ -170,6 +170,7 @@
 <script setup>
 import axios from 'axios'
 import { useI18n } from 'vue-i18n'
+import flatpickr from 'flatpickr'
 
 import vueFilePond from 'vue-filepond'
 
@@ -211,6 +212,8 @@ onMounted (() => {
   }
 
   fetchSetting()
+
+  flatpickr('.flatpickr')
 })
 
 const resetForm = () => {

@@ -33,6 +33,7 @@
     "filepond": "latest",
     "filepond-plugin-file-validate-type": "latest",
     "filepond-plugin-image-preview": "latest",
+    "flatpickr": "^4.6.13",
     "isomorphic-fetch": "^3.0.0",
     "moment": "latest",
     "number-shortener": "^1.0.1",
