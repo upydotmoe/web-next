@@ -1,10 +1,10 @@
 <template>
-  <NuxtLoadingIndicator
+  <!-- <NuxtLoadingIndicator
     class="loading-indicator-color"
     color="loading-indicator-color"
     height="8"
     throttle="0"
-  />
+  /> -->
   <NuxtPage />
 </template>
 
@@ -13,7 +13,7 @@ import { initApp } from './utils/init-app'
 import { useI18n } from 'vue-i18n'
 
 // stores
-import authStore from '@/stores/auth.store'
+import useAuthStore from '@/stores/auth.store'
 
 definePageMeta ({
   keepAlive: {
@@ -36,31 +36,22 @@ useHead ({
   }
 })
 
-const auth = authStore()
+// stores
+const auth = useAuthStore()
 
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-onBeforeMount (async () => {
+onMounted (async () => {
   if (auth.loggedIn) {
     const tokenValid = await authApi.checkTokenValidity()
 
     if (tokenValid) {
-      await refreshUserData()
+      await authApi.getAuthenticatedUserData()
     } else {
       auth.logout()
     }
   }
 })
-
-/**
- * @auth
- */
-
-const refreshUserData = async () => {
-  await authApi.getAuthenticatedUserData()
-}
-/**
- * @auth
- */
 </script>

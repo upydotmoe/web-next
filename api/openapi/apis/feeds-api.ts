@@ -347,16 +347,16 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLatestFeeds: async (page: number, perPage: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFollowingFeed: async (page: number, perPage: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'page' is not null or undefined
             if (page === null || page === undefined) {
-                throw new RequiredError('page','Required parameter page was null or undefined when calling getLatestFeeds.');
+                throw new RequiredError('page','Required parameter page was null or undefined when calling getFollowingFeed.');
             }
             // verify required parameter 'perPage' is not null or undefined
             if (perPage === null || perPage === undefined) {
-                throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getLatestFeeds.');
+                throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getFollowingFeed.');
             }
-            const localVarPath = `/feeds/latest`;
+            const localVarPath = `/feeds/following`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -368,8 +368,6 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
-
-            // authentication none required
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -403,16 +401,16 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLatestFeeds_1: async (page: number, perPage: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLatestFeeds: async (page: number, perPage: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'page' is not null or undefined
             if (page === null || page === undefined) {
-                throw new RequiredError('page','Required parameter page was null or undefined when calling getLatestFeeds_1.');
+                throw new RequiredError('page','Required parameter page was null or undefined when calling getLatestFeeds.');
             }
             // verify required parameter 'perPage' is not null or undefined
             if (perPage === null || perPage === undefined) {
-                throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getLatestFeeds_1.');
+                throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getLatestFeeds.');
             }
-            const localVarPath = `/feeds/following`;
+            const localVarPath = `/feeds/latest`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -424,6 +422,8 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
+
+            // authentication none required
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -764,8 +764,8 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
-            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getLatestFeeds(page, perPage, options);
+        async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
+            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFollowingFeed(page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -779,8 +779,8 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestFeeds_1(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
-            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getLatestFeeds_1(page, perPage, options);
+        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
+            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getLatestFeeds(page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -938,8 +938,8 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
-            return FeedsApiFp(configuration).getLatestFeeds(page, perPage, options).then((request) => request(axios, basePath));
+        async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
+            return FeedsApiFp(configuration).getFollowingFeed(page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -949,8 +949,8 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestFeeds_1(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
-            return FeedsApiFp(configuration).getLatestFeeds_1(page, perPage, options).then((request) => request(axios, basePath));
+        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
+            return FeedsApiFp(configuration).getLatestFeeds(page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1092,8 +1092,8 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
-        return FeedsApiFp(this.configuration).getLatestFeeds(page, perPage, options).then((request) => request(this.axios, this.basePath));
+    public async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
+        return FeedsApiFp(this.configuration).getFollowingFeed(page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -1104,8 +1104,8 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getLatestFeeds_1(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
-        return FeedsApiFp(this.configuration).getLatestFeeds_1(page, perPage, options).then((request) => request(this.axios, this.basePath));
+    public async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
+        return FeedsApiFp(this.configuration).getLatestFeeds(page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

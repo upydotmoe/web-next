@@ -29,7 +29,7 @@ export default {
     },
 
     applyExplicitFilter (auth, isExplicit) {
-      return (!auth.loggedIn && isExplicit) || (auth.loggedIn && !auth.user.user_settings.show_explicit && isExplicit)
+      return (!auth.loggedIn && isExplicit) || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit && isExplicit)
     },
 
     unfixedNavbarRoutes () {

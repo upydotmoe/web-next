@@ -13,27 +13,27 @@
 
         <div class="buttons">
           <div 
-            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
+            v-if="auth.loggedIn && auth.user.user_settings && auth.user.user_settings.show_explicit"
             class="filter-buttons"
           >
             <p 
-              class="rounded-l-md button-item" 
+              class="rounded-l-md button-item"
               :class="[explicitMode === undefined ? 'button' : 'theme-color']"
               @click="changeExplicitMode(undefined)"
             >
               {{ $t('default') }}
             </p>
 
-            <p 
-              class="button-item" 
+            <p
+              class="button-item"
               :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('safe')"
             >
               {{ $t('safe') }}
             </p>
             
-            <p 
-              class="rounded-r-md button-item" 
+            <p
+              class="rounded-r-md button-item"
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >

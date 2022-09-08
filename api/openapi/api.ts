@@ -33,6 +33,7 @@ export * from './apis/notifications-markers-artworks-api';
 export * from './apis/notifications-markers-feeds-api';
 export * from './apis/notifications-markers-users-api';
 export * from './apis/notifications-users-api';
+export * from './apis/pro-api';
 export * from './apis/reports-api';
 export * from './apis/search-api';
 export * from './apis/settings-api';

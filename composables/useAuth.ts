@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { AuthServiceAuthenticationApi, AuthServiceRegistrationApi, UserApi, UserForgotPasswordApi } from "~/api/openapi/api"
+import { AuthServiceAuthenticationApi, AuthServiceRegistrationApi, ProApi, UserApi, UserForgotPasswordApi } from "~/api/openapi/api"
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -46,7 +46,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
    */
   const checkTokenValidity = async (): Promise<boolean> => {
     if (auth.a4ht0jen === '' && auth.r43f0rt3jen === '') {
-      console.error('auth token is not found!')
       return false
     } else {
       try {
@@ -130,6 +129,13 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         // save user data to auth user store
         auth.user = data.data
 
+        // refresh pro subscription status
+        const proData = await new ProApi(oApiConfiguration)
+          .getProStatus(fetchOptions)
+        
+        auth.i502p00r0 = proData.data.data.is_pro
+
+        // 
         if (typeof params.tokenRefreshed !== 'undefined' && params.tokenRefreshed) {
           console.error('Session refreshed, please refresh the page!')
         }

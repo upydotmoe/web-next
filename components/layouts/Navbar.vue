@@ -201,7 +201,7 @@
 
                   <div class="custom-divider" />
 
-                  <nuxt-link :to="'/premium'">
+                  <nuxt-link :to="'/pro'">
                     <div class="menu parent-icon">
                       <Icon :name="'i-fluent-star-emphasis-24-regular'" />
                       {{ $t('pro') }}

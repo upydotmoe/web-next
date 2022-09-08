@@ -11,7 +11,6 @@ import {
   ArtworkViewsApi,
   SearchApi
 } from '~/api/openapi/api'
-import { Configuration } from '~/api/openapi'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   /**

@@ -5,6 +5,7 @@ export default defineStore('auth', () => {
 
   const { oApiConfiguration, fetchOptions } = useApiFetch()
   const authApi = useAuth(oApiConfiguration, fetchOptions())
+  const proApi = usePro(oApiConfiguration, fetchOptions())
 
   /**
    * Store states
@@ -13,6 +14,7 @@ export default defineStore('auth', () => {
   const a4ht0jen = ref(null)
   const r43f0rt3jen = ref(null)
   const user = ref({})
+  const i502p00r0 = ref(false)
 
   /**
    * @methods
@@ -35,7 +37,7 @@ export default defineStore('auth', () => {
       r43f0rt3jen.value = authorizationData.refresh_token
       loggedIn.value = true
 
-      // fetch logged in user data after authentication is successful and save to auth user store
+      // fetch user data after authentication is successful and save to auth store
       await authApi.getAuthenticatedUserData({
         tokenRefreshed: authorizationData.tokenRefreshed
       })
@@ -64,6 +66,7 @@ export default defineStore('auth', () => {
     loggedIn,
     a4ht0jen,
     r43f0rt3jen,
+    i502p00r0,
     user,
 
     // methods
