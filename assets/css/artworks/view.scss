@@ -64,7 +64,7 @@
         @apply mb-2;
 
         textarea {
-          @apply w-full form-input;
+          @apply w-full border-none appearance-none form-input focus:outline-none focus:appearance-none focus:border-none;
         }
       }
 

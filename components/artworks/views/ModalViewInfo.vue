@@ -58,7 +58,7 @@
         :key="tag.artwork_tags.id" 
         class="tag"
       >
-        <nuxt-link :to="'/works/browse?tags='+tag.artwork_tags.tag.replaceAll(' ', '+')">
+        <nuxt-link :to="'/works/browse?tags=' + tag.artwork_tags.tag.replaceAll(' ', '+')">
           #{{ tag.artwork_tags.tag }}
         </nuxt-link>
       </span>
@@ -97,6 +97,9 @@ defineProps ({
     default: false
   }
 })
+
+const route = useRoute()
+const router = useRouter()
 
 /** Read more description */
 const readMore = (description, workId, selectorElId, descriptionElId) => {

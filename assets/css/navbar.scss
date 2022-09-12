@@ -62,10 +62,10 @@
   }
 
   .search {
-    @apply flex-1 justify-center mx-0 w-full h-10 rounded cursor-pointer md:mx-2 md:w-11/12 lg:w-1/3 theme-color-secondary hidden-md-flex;
+    @apply flex-1 justify-center mx-0 w-full h-10 text-xs rounded cursor-pointer md:mx-2 md:w-11/12 lg:w-1/3 theme-color-secondary hidden-md-flex;
 
     input {
-      @apply flex-grow px-4 rounded focus:outline-none theme-color-secondary;
+      @apply flex-grow px-4 text-xs rounded border-none focus:outline-none theme-color-secondary;
     }
 
     .search-button {

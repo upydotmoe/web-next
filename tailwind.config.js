@@ -1,6 +1,9 @@
 module.exports = {
   mode: 'jit',
   darkMode: 'class', // or 'media' or 'class'
+  content: [
+    './node_modules/flowbite/**/*.js'
+  ],
   theme: {
     darkSelector: '.dark-mode',
     extend: {
@@ -45,6 +48,7 @@ module.exports = {
     }
   },
   plugins: [
-    require('tailwindcss-dark-mode')()
+    require('tailwindcss-dark-mode')(),
+    require('flowbite/plugin')
   ]
 }

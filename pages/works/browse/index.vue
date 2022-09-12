@@ -230,6 +230,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
+const route = useRoute()
 const { $router } = useNuxtApp()
 const { tags } = $router.currentRoute.value.query
 
@@ -238,13 +239,21 @@ watch (() => $router.currentRoute.value.query, () => {
   closeArtworkModals()
 })
 
+watch (() => route.query.tags, newTag => {
+  if (newTag) {
+    applyTagOnMount(newTag)
+  }
+  
+  fetchTop()
+})
+
 /** Before mount, fetch first rows */
 onMounted (() => {
-  fetchTop()
-
   if (tags) {
     applyTagOnMount()
   }
+  
+  fetchTop()
 })
 
 const closeArtworkModals = () => {
@@ -298,9 +307,10 @@ const toggleFollowingOnlyFilter = async () => {
 /**
  * FILTER BY TAGS ===========================================================================================================================
  */
-const applyTagOnMount = async () => {
-  const [tagData, error] = await artworkApi.getTagKeys(tags)
-  console.log('tag data:', tagData)
+const applyTagOnMount = async (routeTag) => {
+  const tagKeyword = tags ?? routeTag
+
+  const [tagData, error] = await artworkApi.getTagKeys(tagKeyword)
 
   if (error) {
     // todo: handle error
@@ -314,7 +324,7 @@ const applyTagOnMount = async () => {
     })
 
     previousSelectedTags.value = tagWithKeys
-    await applyTagFilter(tagWithKeys, tags)
+    await applyTagFilter(tagWithKeys, tagKeyword)
   }
 }
 
@@ -384,6 +394,10 @@ const pagination = reactive({
   page: ref(0)
 })
 const fetch = async () => {
+  if (!route.query.tags && !tags) {
+    filterTags.value = ''
+  }
+
   if (pagination.page === 0) {
     loading.value = true
     isEmpty.value = false
