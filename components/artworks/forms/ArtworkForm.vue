@@ -123,7 +123,7 @@
         </div>
       </div>
 
-      <div class="input-block">
+      <div class="flex flex-row gap-2 input-block">
         <!-- <ClientOnly>
           <div
             x-data
@@ -145,21 +145,22 @@
             </div>
           </div>
         </ClientOnly> -->
-        <div class="relative">
-          <div class="flex absolute inset-y-0 left-0 items-center pl-2 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+        <div class="relative w-full">
+          <div class="flex absolute left-1 top-3.5 items-center pl-2 pointer-events-none">
+            <!-- <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg> -->
+            <Icon :name="'i-bi-calendar3-event'" />
           </div>
           <input 
-            datepicker 
-            datepicker-autohide
-            datepicker-title="Select Publish Date"
             id="publishDate" 
-            type="text" 
-            class="sm:text-sm rounded-lg block w-full pl-10 p-2.5 form-input input" 
-            placeholder="Publish Date"
+            type="text"
+            class="block pl-10 w-full form-input input"
+            :placeholder="$t('artworks.add.form.publishDate')"
             autocomplete="off"
           >
         </div>
+        
+        <!-- publish time -->
+        <input v-model="inputData.publishTime" type="time" class="form-input input">
       </div>
 
       <div class="flex flex-row justify-between md:justify-end">
@@ -187,6 +188,7 @@ import axios from 'axios'
 import { useI18n } from 'vue-i18n'
 import 'flowbite'
 import Datepicker from '@themesberg/tailwind-datepicker/Datepicker'
+import moment from 'moment'
 
 import vueFilePond from 'vue-filepond'
 
@@ -229,16 +231,14 @@ onMounted (() => {
 
   fetchSetting()
 
+  const today = moment().add(1, 'day').format('DD/MM/yyyy')
+
   const datepickerEl = document.getElementById('publishDate')
   new Datepicker(datepickerEl, {
     autohide: true,
-    clearBtn: true,
-    todayBtn: true,
-    todayBtnMode: 1,
     todayHighlight: true,
     format: 'dd/mm/yyyy',
-    minDate: new Date(),
-    title: 'Select Publish Date'
+    minDate: today
   })
 })
 
@@ -274,8 +274,10 @@ const inputData = ref({
   description: '',
   tags: '',
   isExplicit: false,
-  publishDate: null
+  publishDate: null,
+  publishTime: null
 })
+
 const tags = ref([])
 
 const alert = ref({
@@ -293,6 +295,22 @@ const storeArtwork = async () => {
 
   alert.value.showFileTooBig = false
 
+  // change publish date format
+  const publishDateEl = document.getElementById('publishDate')
+  let publishDate = null
+  if (publishDateEl.value) {
+    const newDateSplitted = publishDateEl.value.split('/')
+    const formattedPublishDate = `${newDateSplitted[2]}-${newDateSplitted[1]}-${newDateSplitted[0]}`
+    
+    // publish time
+    let publishTime = '00:00:00'
+    if (inputData.value.publishTime) {
+      publishTime = `${inputData.value.publishTime}:00`
+    }
+
+    publishDate = `${formattedPublishDate} ${publishTime}`
+  }
+
   // collect picked tags and convert to acceptable API format
   const tagValues = []
   tags.value.forEach((tag) => {
@@ -306,7 +324,7 @@ const storeArtwork = async () => {
   formData.append('tags', tagValues.toString())
   formData.append('is_explicit', inputData.value.isExplicit ? 1 : 0)
   formData.append('scheduled_post', 
-    !['', null].includes(inputData.value.publishDate) ?? useDate().formatDateToApi(inputData.value.publishDate) !== 'Invalid Date' ? useDate().formatDateToApi(inputData.value.publishDate) : null
+    !['', null].includes(publishDate) ?? useDate().formatDateToApi(publishDate) !== 'Invalid Date' ? useDate().formatDateToApi(publishDate) : null
   )
 
   // check if size is exceeded max file size restriction

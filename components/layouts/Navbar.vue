@@ -37,9 +37,9 @@
         <!-- desktop nav icons -->
         <div class="nav-icon-group">
           <div v-if="auth.loggedIn" class="nav-icon">
-            <nuxt-link :to="'/post'">
+            <a href="/post">
               <Icon :name="'i-ion-add'" />
-            </nuxt-link>
+            </a>
           </div>
 
           <div class="flex-md-hidden">

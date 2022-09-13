@@ -613,6 +613,39 @@
   .art-list-view-paging-control {
     @apply flex flex-row gap-2 justify-between mt-4 w-full md:justify-end md:w-auto;
   }
+  
+  .datepicker-title {
+    color: var(--button);
+  }
+
+  .datepicker-controls {
+    button {
+      @apply text-xs rounded-md;
+    }
+
+    .today-btn {
+      background: var(--button);
+    }
+  }
+
+  .datepicker-grid {
+    .datepicker-cell {
+      @apply font-normal;
+    }
+
+    .disabled {
+      @apply text-gray-300;
+    }
+
+    .focused {
+      @apply text-white hover:bg-gray-500;
+      background: var(--button);
+    }
+
+    .next {
+      @apply text-gray-600;
+    }
+  }
 }
 
 @layer utilities {}

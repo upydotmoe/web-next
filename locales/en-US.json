@@ -39,7 +39,7 @@
         "prohibitChildExplicitContent": "Anything related to child abuse or child pornography is not allowed to be uploaded here, We will impose severe sanctions on violators of this rule.",
         "uploadingButton": "Uploading",
         "post": "Post",
-        "publishDate": "Publish date (leave it blank if you want to publish it immediately)"
+        "publishDate": "Planned publish date"
       }
     },
     "update": {

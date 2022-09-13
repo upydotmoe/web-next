@@ -31,37 +31,21 @@
                     <br>
                     <nuxt-link 
                       :to="'/profile/u/'+feed.users.username" 
-                      class="username hover:underline"
+                      class="hover:underline text-xxs"
                     >
                       @{{ feed.users.username }}
                     </nuxt-link>
                     
                     <span class="mx-1">·</span>
                     
-                    <span class="text-xxs">
+                    <nuxt-link :to="(feed.type === 'artworks' ? '/a/' : '/feed/') + feed.id" class="text-xxs">
                       {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
-                    </span>
+                    </nuxt-link>
                   </div>
                 </div>
 
-                <!-- Image view on Desktop -->
-                <div v-if="feed.type === 'artworks' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
-                  <ImageList 
-                    class="p-2"
-                    :work="feed"
-                  />
-                </div>
-                
-                <!-- Image view on mobile or smaller device -->
-                <nuxt-link v-if="feed.type === 'artworks' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
-                  <ImageList 
-                    class="p-2"
-                    :work="feed"
-                  />
-                </nuxt-link>
-
                 <!-- information -->
-                <div v-if="feed.type === 'artworks'" class="px-4 mt-6">
+                <div v-if="feed.type === 'artworks'" class="px-4">
                   <span class="text-xs font-semibold">{{ feed.title }}</span>
                   <p v-show="feed.description" class="mt-2">
                     <span :id="'feed-description-'+feed.id">
@@ -77,6 +61,22 @@
                     </a>
                   </p>
                 </div>
+
+                <!-- Image view on Desktop -->
+                <div v-if="feed.type === 'artworks' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
+                  <ImageList 
+                    class="p-4"
+                    :work="feed"
+                  />
+                </div>
+                
+                <!-- Image view on mobile or smaller device -->
+                <nuxt-link v-if="feed.type === 'artworks' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
+                  <ImageList 
+                    class="p-2"
+                    :work="feed"
+                  />
+                </nuxt-link>
 
                 <!-- text feed -->
                 <div v-if="feed.type === 'feeds'" class="px-4 mt-4">
@@ -554,9 +554,6 @@ const save = (unsaved) => {
   .name {
     .fullname {
       @apply text-tiny font-bold;
-    }
-    .username {
-      @apply text-xs;
     }
   }
 }
