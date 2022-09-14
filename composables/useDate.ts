@@ -16,7 +16,7 @@ export default function useDate () {
   }
 
   const currentUtcTime = (): string => {
-    return moment(new Date().toISOString()).format('Y-MM-DD HH:mm:ss')
+    return moment().utc().format('Y-MM-DD HH:mm:ss')
   }
 
   const formatApiToWeb = (date: string): string => {

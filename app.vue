@@ -1,10 +1,11 @@
 <template>
-  <!-- <NuxtLoadingIndicator
+  <NuxtLoadingIndicator
     class="loading-indicator-color"
     color="loading-indicator-color"
     height="8"
     throttle="0"
-  /> -->
+  />
+
   <NuxtPage />
 </template>
 
@@ -16,12 +17,7 @@ import { useI18n } from 'vue-i18n'
 import useAuthStore from '@/stores/auth.store'
 
 definePageMeta ({
-  keepAlive: {
-    exclude: [
-      'post',
-      'pages/post'
-    ]
-  }
+  keepalive: true
 })
 
 initApp()

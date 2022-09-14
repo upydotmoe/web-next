@@ -15,7 +15,7 @@
 import List from '~/components/artworks/index/components/List.vue'
 
 const pagination = {
-  perPage: 24,
+  perPage: 18,
   maxLoadMore: 4
 }
 </script>

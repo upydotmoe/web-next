@@ -82,13 +82,13 @@
                   </div>
                 </div>
                 
-                <div class="custom-divider" /> 
+                <!-- <div class="custom-divider" /> 
 
                 <nuxt-link :to="'/'" class="rounded-md">
                   <div class="px-2 item">
                     <span class="mx-auto">{{ $t('language.request') }}</span>
                   </div>
-                </nuxt-link>
+                </nuxt-link> -->
               </div>
             </div>
           </div>
