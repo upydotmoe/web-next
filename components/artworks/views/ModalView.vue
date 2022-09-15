@@ -705,6 +705,9 @@ import { useClipboard } from '@vueuse/core'
 // stores
 import useAuthStore from '@/stores/auth.store'
 
+// composables
+import useImage from '~/composables/useImage'
+
 // components
 import ModalViewInfo from './ModalViewInfo.vue'
 import ArtistWorks from '~/components/artworks/views/ArtistWorks.vue'
@@ -849,8 +852,6 @@ const view = async (selectedWorkId) => {
 
     // get publish status, if it's not published yet, redirect non-authorized user to homepage, otherwise show the artwork
     const isPublished = useDate().formatApiToWeb(data.scheduled_post) < useDate().currentUtcTime()
-    console.log(useDate().currentUtcTime())
-    console.log('is published:', isPublished)
     if (!isPublished) {
       if (auth.user.id !== data.users.id) {
         $router.push('/')

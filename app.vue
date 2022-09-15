@@ -17,7 +17,12 @@ import { useI18n } from 'vue-i18n'
 import useAuthStore from '@/stores/auth.store'
 
 definePageMeta ({
-  keepalive: true
+  keepalive: {
+    exclude: [
+      'post',
+      'pages/post'
+    ]
+  }
 })
 
 initApp()

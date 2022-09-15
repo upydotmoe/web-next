@@ -274,6 +274,9 @@ import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loadin
 // stores
 import useAuthStore from '@/stores/auth.store'
 
+// composables
+import useImage from '~/composables/useImage'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Layout from '~/components/layouts/Layout.vue'
