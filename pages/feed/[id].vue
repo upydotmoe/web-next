@@ -13,6 +13,10 @@
 import Layout from '~/components/layouts/Layout.vue'
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 
+definePageMeta ({
+  keepalive: true
+})
+
 const { $router } = useNuxtApp()
 
 const { id } = $router.currentRoute.value.params

@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <div class="navigations md:-mt-4">
+      <div class="navigations">
         <div class="hidden md:flex" />
         <div class="buttons">
           <div v-show="listMode === 'popularity'" class="filter-buttons">
@@ -153,7 +153,7 @@
       />
 
       <!-- List area -->
-      <div v-show="!loading">
+      <div v-show="!loading" class="mt-4">
         <WorkList 
           v-show="!isEmpty"
           :section-class="'work-grid'"

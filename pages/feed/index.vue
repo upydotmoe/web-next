@@ -12,12 +12,12 @@
       />
 
       <div class="mx-auto w-full">
-        <div class="grid grid-cols-1 gap-2 mx-auto xl:w-11/12">
+        <div class="grid grid-cols-1 gap-1 md:gap-2 mx-auto xl:w-11/12">
           <div v-for="feed in feeds" :key="feed.id+feed.type" class="lg:mx-6">
-            <div class="flex flex-row rounded-lg theme-color">
+            <div class="flex flex-row theme-color">
               <!-- Images -->
               <div class="w-full">
-                <div v-if="feed.users" class="p-4 user-info">
+                <div v-if="feed.users" class="p-2 md:p-4 user-info">
                   <nuxt-link :to="'/profile/u/'+feed.users.username">
                     <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
                   </nuxt-link>
@@ -45,7 +45,7 @@
                 </div>
 
                 <!-- information -->
-                <div v-if="feed.type === 'artworks'" class="px-4">
+                <div v-if="feed.type === 'artworks'" class="px-2 md:px-4">
                   <span class="text-xs font-semibold">{{ feed.title }}</span>
                   <p v-show="feed.description" class="mt-2">
                     <span :id="'feed-description-'+feed.id">
@@ -64,22 +64,16 @@
 
                 <!-- Image view on Desktop -->
                 <div v-if="feed.type === 'artworks' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
-                  <ImageList 
-                    class="p-4"
-                    :work="feed"
-                  />
+                  <ImageList class="p-4" :work="feed" />
                 </div>
                 
                 <!-- Image view on mobile or smaller device -->
                 <nuxt-link v-if="feed.type === 'artworks' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
-                  <ImageList 
-                    class="p-2"
-                    :work="feed"
-                  />
+                  <ImageList class="p-2" :work="feed" />
                 </nuxt-link>
 
                 <!-- text feed -->
-                <div v-if="feed.type === 'feeds'" class="px-4 mt-4">
+                <div v-if="feed.type === 'feeds'" class="px-2 md:px-4 mt-4">
                   <p v-show="feed.text" class="mt-2">
                     {{ feed.text }}
                   </p>
@@ -290,6 +284,10 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 /**
  * @meta
  */
+definePageMeta ({
+  keepalive: true
+})
+
 useHead ({
   title: useI18n().tl('meta.title.feed')
 })

@@ -45,7 +45,7 @@
           <div class="flex-md-hidden">
             <div class="nav-icon">
               <nuxt-link :to="'/search?q='">
-                <Icon :name="'i-ion-add'" />
+                <Icon :name="'i-ion-search'" />
               </nuxt-link>
             </div>
           </div>

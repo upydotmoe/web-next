@@ -6,7 +6,9 @@
     throttle="0"
   />
 
-  <NuxtPage />
+  <KeepAlive>
+    <NuxtPage />
+  </KeepAlive>
 </template>
 
 <script setup>
@@ -17,12 +19,7 @@ import { useI18n } from 'vue-i18n'
 import useAuthStore from '@/stores/auth.store'
 
 definePageMeta ({
-  keepalive: {
-    exclude: [
-      'post',
-      'pages/post'
-    ]
-  }
+  keepalive: true
 })
 
 initApp()

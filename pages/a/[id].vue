@@ -15,6 +15,10 @@
 import Layout from '~/components/layouts/Layout.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 
+definePageMeta ({
+  keepalive: true
+})
+
 const { $router } = useNuxtApp()
 
 const { id } = $router.currentRoute.value.params

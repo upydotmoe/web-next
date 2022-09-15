@@ -25,6 +25,10 @@ import useUser from '~~/composables/users/useUser'
 // stores
 import authStore from '@/stores/auth.store'
 
+definePageMeta ({
+  keepalive: true
+})
+
 // composables use
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
@@ -35,6 +39,25 @@ onMounted (() => {
   if (auth.loggedIn) {
     getFollowedUsers()
   }
+})
+
+const route = useRoute()
+watch (() => route.query, _ => {
+  setTimeout(() => {
+    // close all artwork modal
+    useModal().closeModal('recent-modal')
+    useModal().closeModal('popular-modal')
+    useModal().closeModal('following-modal')
+
+    // close collection selection modal
+    useModal().closeModal('collection-selection-modal')
+
+    // close album selection modal
+    useModal().closeModal('album-selection-modal')
+
+    // close report modal
+    useModal().closeModal('report-modal')
+  }, 50);
 })
 
 const isFollowingSomeone = ref(false)

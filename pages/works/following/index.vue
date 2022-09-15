@@ -114,6 +114,10 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
+definePageMeta ({
+  keepalive: true
+})
+
 // stores
 const auth = useAuthStore()
 

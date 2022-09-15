@@ -729,6 +729,13 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
 /**
+ * @meta
+ */
+definePageMeta ({
+  keepalive: true
+})
+
+/**
  * @props
  */
 const props = defineProps ({
@@ -744,12 +751,12 @@ const props = defineProps ({
 
 const runtimeConfig = useRuntimeConfig()
 const { $router } = useNuxtApp()
-const router = useRouter()
+const route = useRoute()
 
 /**
  * @watchers
  */
-watch (() => $router.query, () => {
+watch (() => route.query, () => {
   // close modal on changing route or going back to previous page
   closeArtworkModals()
 

@@ -2,7 +2,12 @@
   <div class="layout">
     <LayoutsNavbar />
 
-    <div class="flex px-2 md:px-4 mx-auto md:mt-4 w-full 2xl:w-8/12">
+    <div
+      :class="[
+        'flex mx-auto w-full md:px-4 md:mt-4 2xl:w-8/12',
+        { 'p-2': route.name != 'feed' }
+      ]"
+    >
       <div v-if="!hideSide" class="hidden lg:w-1/5 md:block md:mr-6">
         <!-- <div class="sticky top-36">
           <nuxt-link v-if="auth.loggedIn" :to="'/feed'" class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white">
@@ -93,6 +98,8 @@ defineProps ({
     default: false
   }
 })
+
+const route = useRoute()
 
 // todo: future feature, custom color theme configured by user
 // document.documentElement.style.setProperty('--button', '#FF0000')
