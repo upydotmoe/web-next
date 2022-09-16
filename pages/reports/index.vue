@@ -66,7 +66,12 @@
                   </td>
                   <td class="font-bold uppercase">
                     <div>
-                      <span :class="report.status === 'pending' ? 'text-yellow-500' : 'text-red-500'">{{ report.status }}</span>
+                      <span :class="[
+                        'text-white uppercase badge text-xxs',
+                        report.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
+                      ]">
+                        {{ report.status }}
+                      </span>
                     </div>
                   </td>
                   <td>
@@ -74,7 +79,13 @@
                       class="font-bold uppercase"
                     >
                       <span v-show="report.status === 'pending'">-</span>
-                      <span v-show="report.status === 'closed'" :class="report.response ? 'text-green-500' : 'text-red-500'">
+                      <span 
+                        v-show="report.status === 'closed'" 
+                        :class="[
+                          'text-white uppercase badge text-xxs',
+                          report.response ? 'bg-green-500' : 'bg-red-500'
+                        ]"
+                      >
                         {{ report.response ? 'Removed' : 'Not removed' }}
                       </span>
                     </div>
@@ -119,7 +130,12 @@
             <div>
               <label>{{ $t('reports.status') }}</label>
               <div class="font-bold uppercase">
-                <div :class="report.status === 'pending' ? 'text-yellow-500' : 'text-red-500'">
+                <div 
+                  :class="[
+                    'text-white uppercase badge text-xxs',
+                    report.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
+                  ]"
+                >
                   {{ report.status }}
                 </div>
               </div>
@@ -128,7 +144,10 @@
             <div>
               <label>{{ $t('reports.decision') }}</label>
               <div class="font-bold uppercase">
-                <span :class="report.response ? 'text-green-500' : 'text-red-500'">
+                <span :class="[
+                  'text-white uppercase badge text-xxs',
+                  report.response ? 'bg-green-500' : 'bg-red-500'
+                ]">
                   {{ report.response ? 'Removed' : 'Not removed' }}
                 </span>
               </div>
@@ -137,7 +156,7 @@
             <div>
               <label>&nbsp;</label>
               <div>
-                <span v-show="report.is_removed">{{ $t('reports.postRemoved') }}</span>
+                <span v-show="report.is_removed" class="mr-2 italic">{{ $t('reports.postRemoved') }}</span>
                 <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/a/' : '/feed/') + report.post_id" target="blank" class="mr-2 underline href">
                   {{ $t('reports.viewReportedPost') }}
                 </a>

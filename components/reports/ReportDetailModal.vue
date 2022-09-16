@@ -62,6 +62,15 @@
                 {{ reportDetail.description }}
               </div>
             </div>
+            
+            <div>
+              <label>{{ $t('reports.selectedReasons') }}</label>
+              <div class="tags">
+                <span v-for="reason in selectedReasons" class="tag">
+                  {{ $t('reports.reasons.' + reason) }}
+                </span>
+              </div>
+            </div>
           </section>
 
           <div 
@@ -161,6 +170,7 @@ const emits = defineEmits (['refresh'])
  * @detail
  */
 const reportDetail = ref({})
+const selectedReasons = ref([])
 const view = async (reportId) => {
   const [report, error] = await reportApi.getReportById({
     reportId
@@ -170,6 +180,7 @@ const view = async (reportId) => {
     // todo: handle error
   } else {
     reportDetail.value = report
+    selectedReasons.value = report.reasons.split(',')
   }
 }
 /**
@@ -219,7 +230,7 @@ defineExpose ({
     @apply mb-4;
 
     span {
-      @apply text-white uppercase badge;
+      @apply text-white uppercase badge text-xxs;
     }
   }
 
@@ -233,6 +244,14 @@ defineExpose ({
         }
       }
     }
+  }
+}
+
+.tags {
+  @apply flex flex-wrap mb-4;
+
+  .tag {
+    @apply py-1 mr-1 mt-1 rounded badge button-color text-white text-xxs;
   }
 }
 </style>

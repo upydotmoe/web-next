@@ -128,6 +128,7 @@
     "alreadyReportedDescription": "Kamu telah melaporkan konten ini, lihat status laporanmu disini:",
     "reportStatus": "Status Laporan",
     "selectReasons": "Pilih satu atau beberapa alasan",
+    "selectedReasons": "Alasan yang dipilih",
     "describeReason": "Jelaskan mengapa kamu memutuskan untuk melaporkan konten ini",
     "describeText": "Jelaskan alasanmu melaporkan konten ini",
     "reasons": {

@@ -138,6 +138,7 @@
     "alreadyReportedDescription": "You are already reported this post, see your report status here:",
     "reportStatus": "Report Status",
     "selectReasons": "Select one or multiple reasons",
+    "selectedReasons": "Selected reasons",
     "describeReason": "Describe why you decided to report this content",
     "describeText": "Describe your reason for reporting this content",
     "reasons": {

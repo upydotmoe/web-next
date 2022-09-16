@@ -70,6 +70,11 @@ import Users from '~/components/search/Users.vue'
 
 const activeSection = ref('artworks')
 const router = useRouter()
+const route = useRoute()
+
+onMounted (() => {
+  searchKeyword.value = route.query.q
+})
 
 const artworkFound = ref(0)
 const countArtworks = (foundRows) => {
@@ -88,6 +93,11 @@ const countUsers = (foundRows) => {
  * SEARCH
  */
 const searchKeyword = ref('')
+
+watch (() => route.query, ({ q }) => {
+  searchKeyword.value = q
+})
+
 const search = () => {
   router.push({
     path: '/search',

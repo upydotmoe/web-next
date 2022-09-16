@@ -32,18 +32,20 @@
           >
 
           <!-- follow & unfollow -->
-          <div class="mt-4">
+          <div class="mt-2">
             <div 
               v-if="auth.loggedIn && userInfo.id !== auth.user.id"
-              class="mt-2 primary-button"
-              :class="{ 'hover:danger-button': isFollowing }"
+              :class="[
+                'mt-2 primary-button rounded-b-none hover:rounded-b-none',
+                { 'hover:danger-button': isFollowing }
+              ]"
               @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
-              @mouseover="unfollowHoverLeave('i-fluent-person-32-regular-remove-outline', $t('unfollow'))"
-              @mouseleave="unfollowHoverLeave('i-ion-checkmark-done-outline', $t('following'))"
+              @mouseover="unfollowHoverLeave('i-ri-user-unfollow-fill', $t('unfollow'))"
+              @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('following'))"
             >
               <!-- if not following -->
               <div v-show="!isFollowing" class="flex flex-row">
-                <Icon :name="'i-fluent-person-32-regular-add-outline'" />
+                <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
                 {{ $t('follow') }}
               </div>
 
@@ -52,18 +54,23 @@
                 v-show="isFollowing" 
                 class="flex flex-row"
               >
-                <Icon :name="unfollowIcon" />
+                <Icon :name="unfollowIcon" :text-size="'text-base'" />
                 {{ unfollowText === null ? $t('following') : unfollowText }}
               </div>
             </div>
 
             <!-- followers and followings -->
-            <div class="flex-row justify-center mt-2 hidden-md-flex">
-              <div class="mr-4 cursor-pointer" @click="currentState = 'followerList'">
+            <div 
+              :class="[
+                'flex-row justify-center border hidden-md-flex',
+                userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-b-md'
+              ]"
+            >
+              <div class="py-2 w-1/2 text-center border-r cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
                 <b>{{ counter.followers }}</b>&nbsp;
                 <i>{{ $t('followers').toLowerCase() }}</i>
               </div>
-              <div class="cursor-pointer" @click="currentState = 'followingList'">
+              <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
                 <b>{{ counter.followings }}</b>&nbsp;
                 <i>{{ $t('following').toLowerCase() }}</i>
               </div>
@@ -216,7 +223,7 @@
           </div>
         </div>
 
-        <div v-if="userInfo.bio" class="mx-2 mt-4 text-justify">
+        <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
           <span :id="'mobile__user-bio-'+userInfo.id">
             {{ userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 150)}...` : userInfo.bio }}
           </span>
@@ -278,27 +285,19 @@
           </a>
         </div>
 
-        <!-- follow & unfollow -->
-        <div class="flex flex-row justify-center mt-6 w-full">
-          <div class="mr-4 cursor-pointer" @click="currentState = 'followerList'">
-            <b>{{ counter.followers }}</b>&nbsp;
-            <i>{{ $t('followers') }}</i>
-          </div>
-          <div class="cursor-pointer" @click="currentState = 'followingList'">
-            <b>{{ counter.followings }}</b>&nbsp;
-            <i>{{ $t('following') }}</i>
-          </div>
-        </div>
-
+        <!-- mobile: follow & unfollow -->
         <div 
           v-if="auth.loggedIn && userInfo.id !== auth.user.id"
-          class="mt-2 w-auto"
-          :class="isFollowing ? 'danger-button' : 'primary-button'"
+          :class="[
+            'mt-2 w-auto',
+            isFollowing ? 'danger-button' : 'primary-button',
+            userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-b-none'
+          ]"
           @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
         >
           <!-- if not following -->
           <div v-show="!isFollowing" class="flex flex-row">
-            <Icon :name="'i-fluent-person-32-regular-add-outline'" />
+            <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
             {{ $t('follow') }}
           </div>
 
@@ -307,9 +306,20 @@
             v-show="isFollowing" 
             class="flex flex-row"
           >
-            <Icon :name="unfollowIcon" />
+            <Icon :name="unfollowIcon" :text-size="'text-base'" />
             {{ unfollowText === null ? $t('following') : unfollowText }}
           </div>
+        </div>
+      </div>
+
+      <div class="flex flex-row justify-center w-full rounded-b-md border">
+        <div class="p-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
+          <b>{{ counter.followers }}</b>&nbsp;
+          <i>{{ $t('followers') }}</i>
+        </div>
+        <div class="p-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
+          <b>{{ counter.followings }}</b>&nbsp;
+          <i>{{ $t('following') }}</i>
         </div>
       </div>
 
@@ -703,7 +713,7 @@ const addedToAlbum = () => {
 const isFollowing = ref(false)
 
 const unfollowText = ref(null)
-const unfollowIcon = ref('i-ion-checkmark-done-outline')
+const unfollowIcon = ref('i-ri-user-follow-fill')
 const unfollowHoverLeave = (iconName, text) => {
   unfollowIcon.value = iconName
   unfollowText.value = text
