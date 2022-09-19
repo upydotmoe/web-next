@@ -1,7 +1,7 @@
 <template>
   <div 
     class="work-container work-view"
-    :class="!isModal ? 'w-full' : 'w-full md:w-9/12 lg:w-3/6 mx-auto p-6 theme-color'"
+    :class="!isModal ? 'w-full' : 'w-full md:w-9/12 lg:w-3/6 mx-auto md:p-6 p-4 theme-color'"
     style="height: fit-content !important"
   >
     <div class="hidden" @click="view()" />
@@ -9,15 +9,15 @@
     <div class="w-full">
       <div class="flex flex-row justify-between mb-2 w-full">
         <div v-if="feedDetail.users" class="user-info">
-          <nuxt-link :to="'/profile/u/'+feedDetail.users.username">
+          <nuxt-link :to="'/profile/'+feedDetail.users.username">
             <img class="avatar" :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)" @error="imageLoadError">
           </nuxt-link>
           <div class="name">
-            <nuxt-link :to="'/profile/u/'+feedDetail.users.username" class="fullname">
+            <nuxt-link :to="'/profile/'+feedDetail.users.username" class="fullname">
               {{ feedDetail.users.name }}
             </nuxt-link>
             <br>
-            <nuxt-link :to="'/profile/u/'+feedDetail.users.username" class="username">
+            <nuxt-link :to="'/profile/'+feedDetail.users.username" class="username">
               @{{ feedDetail.users.username }}
             </nuxt-link>
 
@@ -123,7 +123,7 @@
           :key="comment.id" 
           class="flex flex-row w-full comment-item"
         >
-          <nuxt-link class="mr-2" :to="'/profile/u/'+comment.users.username">
+          <nuxt-link class="mr-2" :to="'/profile/'+comment.users.username">
             <img class="w-10 h-10 avatar" :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)" @error="imageLoadError">
           </nuxt-link>
 
@@ -133,7 +133,7 @@
               :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
             >
               <div class="flex justify-between">
-                <nuxt-link :to="'/profile/u/'+comment.users.username" class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold">
+                <nuxt-link :to="'/profile/'+comment.users.username" class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold">
                   {{ comment.users.name }}
                 </nuxt-link>
                 <div class="comment-time">
@@ -167,7 +167,7 @@
                         role="menu"
                       >
                         <nuxt-link 
-                          :to="'/profile/u/'+comment.users.username" 
+                          :to="'/profile/'+comment.users.username" 
                           class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                           @click.prevent 
                         >

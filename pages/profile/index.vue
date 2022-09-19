@@ -16,9 +16,9 @@ const auth = useAuthStore()
 
 const { $router } = useNuxtApp()
 
-onBeforeMount (() => {
-  if (!auth.loggedIn) {
-    $router.push('/')
-  }
-})
+// onBeforeMount (() => {
+//   if (!auth.loggedIn) {
+//     $router.push('/')
+//   }
+// })
 </script>

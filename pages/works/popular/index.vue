@@ -116,7 +116,7 @@
       />
 
       <!-- List area -->
-      <div v-show="!loading">
+      <div v-show="!loading" class="mt-4">
         <WorkList 
           v-show="!isEmpty"
           :section-class="'work-grid'"

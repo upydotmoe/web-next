@@ -16,20 +16,19 @@
         @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
         class="w-full h-full theme-color-bg"
       >
-        <div class="relative text-center">
+        <div class="overflow-hidden relative text-center rounded-md">
           <p v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)">{{ work._count.artwork_assets }}</p>
           <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
           
           <a 
             :href="'/a/'+work.id"
             :class="[
-              'overflow-hidden',
               { 'animate-wigglefast': manageMode }
             ]"
           >
             <img 
-              class="object-cover w-full h-full rounded-lg unselectable"
-              :class="{ 'blur-sm brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
+              class="object-cover w-full h-full unselectable"
+              :class="{ 'blur-lg brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
               :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
               @error="imageLoadError"
             >
@@ -38,7 +37,7 @@
       </a>
       
       <!-- Mobile or smaller device -->
-      <a
+      <nuxt-link
         v-else
         @click="manageMode ? addToManageList(work.id) : open(work.id)"
       >
@@ -55,7 +54,7 @@
             >
           </a>
         </div>
-      </a>
+      </nuxt-link>
     </span>
   </section>
 </template>
@@ -65,6 +64,9 @@ import { useMediaQuery } from '@vueuse/core'
 
 // stores
 import authStore from '@/stores/auth.store'
+
+// stores
+const auth = authStore()
 
 const emits = defineEmits ('feedManageList')
 const props = defineProps ({
@@ -102,20 +104,19 @@ watch (() => props.currentWorkId, (newWorkId) => {
   currentWorkId.value = newWorkId
 })
 
-const auth = authStore()
+const router = useRouter()
 
 const currentWorkId = ref(props.currentWorkId)
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const open = (workId) => {
-  currentWorkId.value = workId
-  props.view(workId)
-
-  // if (isLargeScreen.value && !props.isMiniList) {
-  // } else {
-  //   router.replace({
-  //     path: '/a/'+workId
-  //   })
-  // }
+  if (isLargeScreen.value && !props.isMiniList) {
+    currentWorkId.value = workId
+    props.view(workId)
+  } else {
+    router.replace({
+      path: '/a/'+workId
+    })
+  }
 }
 
 const manageList = ref([])

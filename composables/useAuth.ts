@@ -26,6 +26,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           password: params.password
         })
 
+      console.clear()
+      console.log(data)
+
       /**
        * save authorization data such as auth token and refresh token 
        * to auth store once user successfully authenticated.
@@ -120,25 +123,29 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         }
       }
 
-      const { data } = await new UserApi(oApiConfiguration)
-        .getCurrentUserInfo(fetchOptions)
+      try {
+        const { data } = await new UserApi(oApiConfiguration)
+          .getCurrentUserInfo(fetchOptions)
 
-      if (!data.success) {
-        auth.logout()
-      } else {
-        // save user data to auth user store
-        auth.user = data.data
+        if (!data.success) {
+          auth.logout()
+        } else {
+          // save user data to auth user store
+          auth.user = data.data
 
-        // refresh pro subscription status
-        const proData = await new ProApi(oApiConfiguration)
-          .getProStatus(fetchOptions)
-        
-        auth.i502p00r0 = proData.data.data.is_pro
+          // refresh pro subscription status
+          const proData = await new ProApi(oApiConfiguration)
+            .getProStatus(fetchOptions)
+          
+          auth.i502p00r0 = proData.data.data.is_pro
 
-        // 
-        if (typeof params.tokenRefreshed !== 'undefined' && params.tokenRefreshed) {
-          console.error('Session refreshed, please refresh the page!')
+          // 
+          if (typeof params.tokenRefreshed !== 'undefined' && params.tokenRefreshed) {
+            console.error('Session refreshed, please refresh the page!')
+          }
         }
+      } catch (error) {
+        auth.logout()
       }
     }
   }

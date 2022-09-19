@@ -6,11 +6,6 @@
 </template>
 
 <script setup>
-// API
-import {
-  UserApi
-} from '~/api/openapi/api'
-
 // components
 import Profile from '~/components/profile/Profile.vue'
 
@@ -21,13 +16,13 @@ import useUser from '~/composables/users/useUser'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
+const route = useRoute()
 
 onBeforeMount (() => {
   getUserId()
 })
 
-const { username } = $router.currentRoute.value.params
+const { username } = route.params
 
 const userId = ref(0)
 const getUserId = async () => {

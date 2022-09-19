@@ -67,24 +67,24 @@
           v-show="!previewNewCover"
           :src="avatarCoverUrl(auth.user.cover_bucket, auth.user.cover_filename)" 
           class="object-cover object-top w-full h-28 rounded-md md:h-48 lg:h-64 xl:h-72 unselectable"
-          @error="imageLoadError"
+          @error="defaultCoverImage"
         >
         
         <!-- display selected file everytime the user selected new file -->
         <img 
-          v-show="previewNewCover" 
-          :src="previewNewCover" 
+          v-show="previewNewCover"
+          :src="previewNewCover"
           class="object-cover object-top w-full h-28 rounded-md md:h-48 lg:h-64 xl:h-72 unselectable"
           :class="coverFileTooLargeAlert || updateCoverError ? 'border-2 border-red-400' : 'border-none'"
         >
         
         <!-- cover file input -->
-        <input 
-          id="inputCoverFile" 
+        <input
+          id="inputCoverFile"
           ref="selectedNewCoverRef"
           type="file"
-          accept="image/png, image/gif, image/jpeg" 
-          class="hidden" 
+          accept="image/png, image/gif, image/jpeg"
+          class="hidden"
           @change="previewCover"
         >
         <button

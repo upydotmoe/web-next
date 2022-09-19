@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 
 export default defineStore('auth', () => {
-  const { $router } = useNuxtApp()
+  const router = useRouter()
 
   const { oApiConfiguration, fetchOptions } = useApiFetch()
   const authApi = useAuth(oApiConfiguration, fetchOptions())
@@ -52,10 +52,15 @@ export default defineStore('auth', () => {
     loggedIn.value = false
     a4ht0jen.value = null
     r43f0rt3jen.value = null
+    i502p00r0.value = false
     user.value = {}
 
     // redirect to explore page 
-    $router.push('/explore')
+    router.push({
+      path: '/explore',
+      replace: true,
+      force: true
+    })
   }
   /**
    * @methods

@@ -1,4 +1,5 @@
 import blankImage from '~/static/blank.png'
+import defaultCover from '~/static/bg-abstract.png'
 
 // composables
 import useImage from '~/composables/useImage'
@@ -23,6 +24,11 @@ export default {
     },
     imageLoadError (e) {
       e.target.src = blankImage
+      e.target.parentElement.href = 'javascript:void(0)'
+      e.target.classList.remove('hover:-translate-y-1')
+    },
+    defaultCoverImage (e) {
+      e.target.src = defaultCover
       e.target.parentElement.href = 'javascript:void(0)'
       e.target.classList.remove('hover:-translate-y-1')
     }

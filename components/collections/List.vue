@@ -204,7 +204,8 @@ const view = (workId, keepArtistPageNumber = false) => {
  * @expose
  */
 defineExpose ({
-  fetchInfo
+  fetchInfo,
+  removeItem
 })
 </script>
 

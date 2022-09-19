@@ -42,7 +42,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 onMounted (async () => {
-  if (auth.loggedIn) {
+  if (auth.loggedIn && auth.user.id) {
     const tokenValid = await authApi.checkTokenValidity()
 
     if (tokenValid) {
@@ -50,6 +50,8 @@ onMounted (async () => {
     } else {
       auth.logout()
     }
+  } else {
+    auth.logout()
   }
 })
 </script>

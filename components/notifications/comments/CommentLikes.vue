@@ -122,7 +122,7 @@ const openNotification = async (notification, index) => {
 }
 
 const openUserProfile = (username) => {
-  $router.push('/profile/u/' + username)
+  $router.push('/profile/' + username)
 }
 
 defineExpose ({

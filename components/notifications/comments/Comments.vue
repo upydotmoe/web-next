@@ -122,7 +122,7 @@ const openNotification = async (notification, index) => {
 }
 
 const openUserProfile = (username) => {
-  redirect('/profile/u/' + username)
+  redirect('/profile/' + username)
 }
 
 defineExpose ({

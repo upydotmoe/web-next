@@ -161,9 +161,8 @@ const imGridClass = {
     'col-start-2 row-start-1 col-span-1 row-span-2'
   ],
   3: [
-    'col-start-1 row-start-1 col-span-1 row-span-4',
-    'col-start-2 row-start-1 col-span-1 row-span-2',
-    'col-start-2 row-start-3 col-span-1 row-span-2'
+    'col-start-1 row-start-1 col-span-1 row-span-2',
+    'col-start-2 row-start-1 col-span-1 row-span-2'
   ]
 }
 </script>

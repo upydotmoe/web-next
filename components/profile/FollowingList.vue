@@ -6,7 +6,7 @@
       <nuxt-link
         v-for="(following, index) in followingList"
         :key="following.id"
-        :to="'/profile/u/' + following.username"
+        :to="'/profile/' + following.username"
         class="flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
         :style="following.cover_bucket && following.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(following.cover_bucket, following.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
       >

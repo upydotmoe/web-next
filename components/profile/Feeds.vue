@@ -5,19 +5,19 @@
         <!-- Images -->
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">
-            <nuxt-link :to="'/profile/u/'+feed.users.username">
+            <nuxt-link :to="'/profile/'+feed.users.username">
               <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
             </nuxt-link>
             <div class="name">
               <nuxt-link 
-                :to="'/profile/u/'+feed.users.username" 
+                :to="'/profile/'+feed.users.username" 
                 class="fullname"
               >
                 {{ feed.users.name }}
               </nuxt-link>
               <br>
               <nuxt-link 
-                :to="'/profile/u/'+feed.users.username" 
+                :to="'/profile/'+feed.users.username" 
                 class="username hover:underline"
               >
                 @{{ feed.users.username }}

@@ -9,7 +9,7 @@
       <img 
         :src="avatarCoverUrl(userInfo.cover_bucket, userInfo.cover_filename)" 
         class="object-cover object-top w-full h-32 rounded-t md:h-52 lg:h-72 xl:h-96 unselectable" 
-        @error="imageLoadError"
+        @error="defaultCoverImage"
       >
       <nuxt-link
         v-if="auth.loggedIn && auth.user.id === userInfo.id"
@@ -25,10 +25,10 @@
         <!-- for desktop: left side -->
         <div class="mr-6 w-1/5">
           <!-- avatar -->
-          <img 
-            :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)" 
-            class="hidden -mt-2 w-full md:-mt-16 avatar md:flex" 
-            @error="imageLoadError"
+          <img
+            :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)"
+            class="hidden -mt-2 w-full md:-mt-16 avatar md:flex"
+            @error="defaultCoverImage"
           >
 
           <!-- follow & unfollow -->
@@ -66,7 +66,7 @@
                 userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-b-md'
               ]"
             >
-              <div class="py-2 w-1/2 text-center border-r cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
+              <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
                 <b>{{ counter.followers }}</b>&nbsp;
                 <i>{{ $t('followers').toLowerCase() }}</i>
               </div>
@@ -115,7 +115,7 @@
                   :to="'/profile/setting'" 
                   class="float-right -mt-20 shadow-md"
                 >
-                  <button class="flex flex-row primary-button">
+                  <button class="flex flex-row primary-button shadow-md">
                     <Icon :name="'i-ph-gear-six'" class="mr-2" />
                     <span class="leading-4">{{ $t('profile.setting') }}</span>
                   </button>
@@ -285,13 +285,24 @@
           </a>
         </div>
 
+        <!-- mobile: following & followers count -->
+        <div class="flex flex-row justify-center w-full md:hidden">
+          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
+            <b>{{ counter.followers }}</b>&nbsp;
+            <i>{{ $t('followers') }}</i>
+          </div>
+          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
+            <b>{{ counter.followings }}</b>&nbsp;
+            <i>{{ $t('following') }}</i>
+          </div>
+        </div>
+
         <!-- mobile: follow & unfollow -->
         <div 
           v-if="auth.loggedIn && userInfo.id !== auth.user.id"
           :class="[
             'mt-2 w-auto',
-            isFollowing ? 'danger-button' : 'primary-button',
-            userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-b-none'
+            isFollowing ? 'danger-button' : 'primary-button'
           ]"
           @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
         >
@@ -312,18 +323,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row justify-center w-full rounded-b-md border">
-        <div class="p-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
-          <b>{{ counter.followers }}</b>&nbsp;
-          <i>{{ $t('followers') }}</i>
-        </div>
-        <div class="p-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
-          <b>{{ counter.followings }}</b>&nbsp;
-          <i>{{ $t('following') }}</i>
-        </div>
-      </div>
-
-      <div class="mt-8">
+      <div class="mt-2">
         <!-- mobile or smaller device navigation -->
         <div class="flex flex-row justify-center md:hidden">
           <div 
@@ -361,9 +361,9 @@
           </div>
         </div>
 
-        <div class="flex flex-row justify-between mt-8">
+        <div class="flex flex-row justify-between mt-2 md:mt-6">
           <!-- left side -->
-          <div class="hidden flex-col mr-6 lg:w-1/5 md:flex">
+          <div class="hidden flex-col lg:w-1/5 md:flex">
             <div 
               class="profile-navigation left-menu-link theme-color-secondary"
               :class="{ 'button-color text-white': currentState === 'dashboard' }"
@@ -411,7 +411,7 @@
           </div>
 
           <!-- right side -->
-          <div class="w-full">
+          <div class="ml-6 w-full">
             <!-- dashboard -->
             <div v-if="currentState === 'dashboard'">
               <!-- navigation buttons -->
@@ -598,8 +598,10 @@ const props = defineProps ({
   }
 })
 
-const { $router } = useNuxtApp()
-const { o } = $router.currentRoute.value.query
+const route = useRoute()
+const router = useRouter()
+
+const { o } = route.query
 
 const loading = ref(false)
 const currentState = o != null ? ref(o) : ref('dashboard')
@@ -620,7 +622,7 @@ const changeCurrentState = (state) => {
   currentState.value = state
   config.value.manageMode = false
   if (o != null) {
-    $router.push('/profile')
+    router.push('/profile')
   }
 }
 

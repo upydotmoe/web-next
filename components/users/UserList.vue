@@ -3,7 +3,7 @@
     <nuxt-link
       v-for="(user, index) in compUsers"
       :key="user.id"
-      :to="'/profile/u/' + user.username"
+      :to="'/profile/' + user.username"
       class="flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
       :style="user.cover_bucket && user.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(user.cover_bucket, user.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
     >

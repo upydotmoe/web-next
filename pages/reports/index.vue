@@ -48,7 +48,7 @@
                   </td>
                   <td v-show="auth.user.is_moderator && auth.user.is_admin">
                     <div>
-                      <a :href="'/profile/u/'+report.user_reported.username" target="blank" class="font-bold href">
+                      <a :href="'/profile/'+report.user_reported.username" target="blank" class="font-bold href">
                         {{ report.user_reported.username }}
                       </a>
                     </div>
@@ -107,7 +107,7 @@
             <div>
               <label>{{ $t('reports.user') }}</label>
               <div>
-                <a :href="'/profile/u/'+report.user_reported.username" target="blank" class="font-bold href">
+                <a :href="'/profile/'+report.user_reported.username" target="blank" class="font-bold href">
                   {{ report.user_reported.username }}
                 </a>
               </div>
