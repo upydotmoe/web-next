@@ -26,9 +26,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           password: params.password
         })
 
-      console.clear()
-      console.log(data)
-
       /**
        * save authorization data such as auth token and refresh token 
        * to auth store once user successfully authenticated.

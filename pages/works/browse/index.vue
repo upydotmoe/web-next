@@ -200,7 +200,7 @@
       </div>
 
       <!-- Tag filter selection modal -->
-      <TagFilterSelection 
+      <TagFilterSelection
         v-show="!loading"
         id="tag-filter-selection-modal"
         ref="tagFilterSelectionModalRef"
@@ -231,16 +231,16 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const route = useRoute()
-const { $router } = useNuxtApp()
-const { tags } = $router.currentRoute.value.query
+const { tags } = route.query
 
-watch (() => $router.currentRoute.value.query, () => {
+watch (() => route.query, () => {
   // close modal on changing route or going back to previous page
   closeArtworkModals()
 })
 
 watch (() => route.query.tags, newTag => {
   if (newTag) {
+    filterTags.value = newTag
     applyTagOnMount(newTag)
   }
   
@@ -308,7 +308,8 @@ const toggleFollowingOnlyFilter = async () => {
  * FILTER BY TAGS ===========================================================================================================================
  */
 const applyTagOnMount = async (routeTag) => {
-  const tagKeyword = tags ?? routeTag
+  const tagKeyword = routeTag ?? tags
+  console.log(tagKeyword)
 
   const [tagData, error] = await artworkApi.getTagKeys(tagKeyword)
 
@@ -340,7 +341,7 @@ const filterTagsCount = ref(0)
 const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
   previousSelectedTags.value = selectedTags
   filterTags.value = selectedTagsJoined
-  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0  
+  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
   pagination.page = 0
 
   // close tag selection modal and refetch the list

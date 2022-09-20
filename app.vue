@@ -42,6 +42,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 onMounted (async () => {
+  console.log('user ID:', auth.user.id)
   if (auth.loggedIn && auth.user.id) {
     const tokenValid = await authApi.checkTokenValidity()
 

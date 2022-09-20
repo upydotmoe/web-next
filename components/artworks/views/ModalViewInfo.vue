@@ -73,7 +73,6 @@
 <script setup>
 // composables
 import useReadMore from '~/composables/useReadMore'
-import Icon from '~/components/globals/Icon.vue'
 
 defineProps ({
   section: {
@@ -99,7 +98,6 @@ defineProps ({
 })
 
 const route = useRoute()
-const router = useRouter()
 
 /** Read more description */
 const readMore = (description, workId, selectorElId, descriptionElId) => {
