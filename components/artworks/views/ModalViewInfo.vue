@@ -7,24 +7,25 @@
         </nuxt-link>
         <div class="w-full name">
           <div class="flex flex-row justify-between">
-            <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="fullname">
-              {{ artworkDetail.users.name }}
-            </nuxt-link>
+            <div class="flex flex-col">
+              <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="fullname">
+                {{ artworkDetail.users.name }}
+              </nuxt-link>
+              <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="username">
+                @{{ artworkDetail.users.username }}
+              </nuxt-link>
+            </div>
 
             <!-- close modal button -->
             <div
               v-show="isModal"
-              class="p-1 font-bold rounded-md border-2 cursor-pointer hover:shadow-md border-color-primary"
+              class="p-1 h-7 font-bold rounded-md border-2 cursor-pointer hover:shadow-md border-color-primary"
               style="font-size: 10px;"
               @click="closeModal(section + '-modal')"
             >
               ESC
             </div>
           </div>
-          
-          <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="username">
-            @{{ artworkDetail.users.username }}
-          </nuxt-link>
         </div>
       </div>
     </div>

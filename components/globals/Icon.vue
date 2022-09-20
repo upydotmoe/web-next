@@ -8,7 +8,7 @@
       textSize
     ]"
     aria-hidden="true"
-    :title="textSize"
+    :title="''"
   />
 </template>
 

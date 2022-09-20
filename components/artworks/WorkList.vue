@@ -113,9 +113,14 @@ const open = (workId) => {
     currentWorkId.value = workId
     props.view(workId)
   } else {
-    router.replace({
-      path: '/a/'+workId
-    })
+    if (props.isMiniList) {
+      currentWorkId.value = workId
+      props.view(workId)
+    } else {
+      router.replace({
+        path: '/a/'+workId
+      })
+    }
   }
 }
 

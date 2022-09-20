@@ -176,6 +176,15 @@
             />
           </span>
 
+          <!-- share to feed -->
+          <span @click="showShareToFeedModal()">
+            <Icon 
+              v-show="!liked"
+              :name="'i-uil-share'" 
+              class="hover:text-blue-500"
+            />
+          </span>
+
           <!-- ellipsis other interaction -->
           <div class="inline-block relative z-30 dropdown">
             <button 
@@ -686,6 +695,14 @@
       :post-id="artworkDetail.id"
       :report-status="reportStatus"
     />
+
+    <!-- Share to Feed -->
+    <ShareArtworkToFeedModal
+      id="share-to-feed-modal"
+      ref="shareToFeedModalRef"
+      class="modal"
+      :post-id="artworkDetail.id"
+    />
     
     <!-- Link copied notification -->
     <SplashAlert 
@@ -718,6 +735,7 @@ import ManageAlbum from '~/components/albums/ManageAlbum'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 import ReportModal from '~/components/reports/ReportModal.vue'
+import ShareArtworkToFeedModal from '~~/components/feeds/ShareArtworkToFeedModal.vue'
 
 // stores
 const auth = useAuthStore()
@@ -1343,6 +1361,16 @@ const addedToAlbum = (unsaved) => {
 
   // animate
   useBounceAnimation().animate('save-to-album-button')
+}
+
+/**
+ * =
+ * SHARE TO FEED
+ * =
+ */
+const shareToFeedRef = ref(null)
+const showShareToFeedModal = () => {
+  useModal().openModal('share-to-feed-modal')
 }
 
 /**
