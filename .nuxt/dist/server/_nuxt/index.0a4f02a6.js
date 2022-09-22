@@ -1,2 +1,0 @@
-import{openBlock as t,createBlock as e,withCtx as o,createElementVNode as r}from"vue";import{L as i}from"./Layout.82674cce.js";import"../server.mjs";import"#internal/nitro";import"vue-router";import"./Icon.4480cdda.js";const a=r("div",{class:"text-xl italic text-center"}," Coming soon.. ",-1),d={__name:"index",setup(c){return(m,n)=>(t(),e(i,{"with-footer":!1},{default:o(()=>[a]),_:1}))}};export{d as default};
-//# sourceMappingURL=index.0a4f02a6.js.map
