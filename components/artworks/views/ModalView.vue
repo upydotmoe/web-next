@@ -1368,7 +1368,6 @@ const addedToAlbum = (unsaved) => {
  * SHARE TO FEED
  * =
  */
-const shareToFeedRef = ref(null)
 const showShareToFeedModal = () => {
   useModal().openModal('share-to-feed-modal')
 }

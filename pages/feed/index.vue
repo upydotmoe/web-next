@@ -24,7 +24,7 @@
                   <div class="name">
                     <nuxt-link 
                       :to="'/profile/'+feed.users.username" 
-                      class="fullname"
+                      class="fullname hover:href"
                     >
                       {{ feed.users.name }}
                     </nuxt-link>
@@ -38,14 +38,14 @@
                     
                     <span class="mx-1">·</span>
                     
-                    <nuxt-link :to="(feed.type === 'artworks' ? '/a/' : '/feed/') + feed.id" class="text-xxs">
+                    <nuxt-link :to="(feed.type === 'artwork' ? '/a/' : '/feed/') + feed.id" class="hover:underline text-xxs">
                       {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
                     </nuxt-link>
                   </div>
                 </div>
 
-                <!-- information -->
-                <div v-if="feed.type === 'artworks'" class="px-2 mt-2 md:px-4">
+                <!-- information for feed type artwork -->
+                <div v-if="feed.type === 'artwork'" class="px-2 mt-2 md:px-4">
                   <span class="text-xs font-semibold">{{ feed.title }}</span>
                   <p v-show="feed.description">
                     <span :id="'feed-description-'+feed.id">
@@ -63,20 +63,82 @@
                 </div>
 
                 <!-- Image view on Desktop -->
-                <div v-if="feed.type === 'artworks' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
+                <div v-if="feed.type === 'artwork' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
                   <ImageList class="p-2 md:p-4" :work="feed" />
                 </div>
                 
                 <!-- Image view on mobile or smaller device -->
-                <nuxt-link v-if="feed.type === 'artworks' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
+                <nuxt-link v-if="feed.type === 'artwork' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
                   <ImageList class="p-2" :work="feed" />
                 </nuxt-link>
 
-                <!-- text feed -->
-                <div v-if="feed.type === 'feeds'" class="px-2 mt-4 md:px-4">
+                <!-- feed type text post -->
+                <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
                   <p v-show="feed.text" class="mt-2">
                     {{ feed.text }}
                   </p>
+
+                  <!-- shared artwork post detail -->
+                  <div v-if="feed.artwork_share_info" class="my-2 w-full rounded-md theme-color-secondary">
+                    <!-- creator information -->
+                    <div v-if="feed.artwork_share_info.user" class="p-2 md:p-4 user-info">
+                      <nuxt-link :to="'/profile/'+feed.artwork_share_info.user.username">
+                        <img class="avatar" :src="avatarCoverUrl(feed.artwork_share_info.user.avatar_bucket, feed.artwork_share_info.user.avatar_filename)" @error="imageLoadError">
+                      </nuxt-link>
+                      <div class="name">
+                        <nuxt-link 
+                          :to="'/profile/'+feed.artwork_share_info.user.username" 
+                          class="fullname hover:href"
+                        >
+                          {{ feed.artwork_share_info.user.name }}
+                        </nuxt-link>
+                        <br>
+                        <nuxt-link 
+                          :to="'/profile/'+feed.artwork_share_info.user.username" 
+                          class="hover:underline text-xxs"
+                        >
+                          @{{ feed.artwork_share_info.user.username }}
+                        </nuxt-link>
+                        
+                        <span class="mx-1">·</span>
+                        
+                        <nuxt-link :to="'/a/' + feed.artwork_share_info.id" class="hover:underline text-xxs">
+                          {{ formatDate(feed.artwork_share_info.scheduled_post ? feed.artwork_share_info.scheduled_post : feed.artwork_share_info.created_at, true) }}
+                        </nuxt-link>
+                      </div>
+                    </div>
+
+                    <!-- title & description of shared artwork -->
+                    <div class="px-2 mt-2 md:px-4">
+                      <span class="text-xs font-semibold">{{ feed.artwork_share_info.title }}</span>
+                      <p v-show="feed.artwork_share_info.description">
+                        <span :id="'feed-description-'+feed.artwork_share_info.id">
+                          {{ feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description }}
+                        </span>
+                        <a 
+                          v-if="feed.artwork_share_info.description.length > 300" 
+                          :id="'feed-read-more-'+feed.artwork_share_info.id" 
+                          class="href" 
+                          @click.prevent="readMore(feed.artwork_share_info.description, feed.artwork_share_info.id, 'feed-read-more-', 'feed-description-')"
+                        >
+                          {{ $t('readMore') }}
+                        </a>
+                      </p>
+                    </div>
+
+                    <!-- the artwork(s) -->
+                    <div>
+                      <!-- Image view on mobile or smaller device -->
+                      <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artwork_share_info.id" class="cursor-pointer">
+                        <ImageList class="p-2" :work="feed" />
+                      </nuxt-link>
+
+                      <!-- Image view on Desktop -->
+                      <div v-if="!isMobile()" class="cursor-pointer" @click.prevent="view(feed.artwork_share_info.id)">
+                        <ImageList class="p-2 md:p-4" :work="feed" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Intereaction area -->
@@ -86,19 +148,19 @@
                     <!-- Like -->
                     <span
                       @click="
-                        feed.type === 'artworks' ?
+                        feed.type === 'artwork' ?
                           likedIds.includes('a-'+feed.id) ? unlike('a-'+feed.id, feed.type) : like('a-'+feed.id, feed.type) : 
                           likedIds.includes('f-'+feed.id) ? unlike('f-'+feed.id, feed.type) : like('f-'+feed.id, feed.type)
                       "
                     >
                       <Icon 
-                        v-show="feed.type === 'artworks' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
+                        v-show="feed.type === 'artwork' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
                         :id="'feed-like-button-'+feed.type+'-'+feed.id"
                         :name="'i-ion-heart'" 
                         class="mr-1 text-red-500 hover:text-red-500"
                       />
                       <Icon
-                        v-show="feed.type === 'artworks' ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
+                        v-show="feed.type === 'artwork' ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
                         :name="'i-ion-heart-outline'" 
                         class="mr-1 icon-color hover:text-red-500"
                       />
@@ -106,7 +168,7 @@
                     </span>
 
                     <!-- Comment -->
-                    <span @click.prevent="feed.type === 'artworks' ? view(feed.id) : viewFeed(feed.id)">
+                    <span @click.prevent="feed.type === 'artwork' ? view(feed.id) : viewFeed(feed.id)">
                       <Icon 
                         :name="'i-mdi-comment-multiple-outline'" 
                         class="mr-1 icon-color hover:text-blue-500"
@@ -115,7 +177,7 @@
                     </span>
 
                     <!-- Save -->
-                    <span v-if="feed.type === 'artworks'" @click="showCollectionSelectionModal(feed.id)">
+                    <span v-if="feed.type === 'artwork'" @click="showCollectionSelectionModal(feed.id)">
                       <Icon 
                         v-show="savedIds.includes(feed.id)"
                         :id="'save-to-collection-button-'+feed.id"
@@ -154,13 +216,13 @@
                         >
                           <div class="menu-wrapper">
                             <nuxt-link 
-                              :to="feed.type === 'artworks' ? '/a/'+feed.id : '/feed/'+feed.id"
+                              :to="feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id"
                               class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                             >
                               <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
                             </nuxt-link>
                             <nuxt-link 
-                              :to="feed.type === 'artworks' ? '/a/'+feed.id : '/feed/'+feed.id"
+                              :to="feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id"
                               target="_blank" 
                               class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                             >
@@ -181,7 +243,7 @@
                             <!-- copy sharable link -->
                             <a
                               class="flex py-2 px-3 w-full leading-4 rounded-md transition-all duration-150 cursor-pointer hover:button-color parent-icon hover:text-white"
-                              @click="copyLink(feed.type === 'artworks' ? '/a/'+feed.id : '/feed/'+feed.id)" 
+                              @click="copyLink(feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id)" 
                             >
                               <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
                             </a>
@@ -234,7 +296,7 @@
           <!-- Feed Modal View -->
           <div 
             :id="'chronological-feed-modal'"
-            class="modal work-view" 
+            class="modal work-view z-30"
           >
             <FeedModalView
               ref="chronologicalFeedModalViewRef"
@@ -376,7 +438,7 @@ const fetch = async ({ loaded }) => {
 
     // collect liked feed IDs
     if (feed.liked) {
-      if (feed.type === 'artworks') {
+      if (feed.type === 'artwork') {
         likedIds.value.push('a-' + feed.id)
       } else {
         likedIds.value.push('f-' + feed.id)
@@ -384,14 +446,15 @@ const fetch = async ({ loaded }) => {
     }
 
     feed.images = []
-    if (feed.type === 'artworks') {
+    if (feed.type === 'artwork' || (feed.type === 'feed' && feed.artwork_share_info != null)) {
       // collect to saved IDs
-      if (feed.saved) {
-        savedIds.value.push(feed.id)
+      if (feed.type === 'artwork') {
+        if (feed.saved) {
+          savedIds.value.push(feed.id)
+        }
       }
 
       // collect images and transform to readable url to render in image list
-
       for (let assetIdx = 0; assetIdx < feed.artwork_assets.length; assetIdx++) {
         if (assetIdx <= 3) {
           const imageUrl = await generateArtworkThumb(feed.artwork_assets[assetIdx].bucket, feed.artwork_assets[assetIdx].filename, 'feed')

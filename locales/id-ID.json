@@ -2,7 +2,10 @@
   "meta": {
     "title": {
       "app": "Upy (Platform Komunitas untuk para Artist)",
-      "feed": "Umpan"
+      "feed": "Umpan",
+      "profile": {
+        "settings": "Pengaturan Profil"
+      }
     }
   },
   "all": "Semua",
@@ -69,12 +72,24 @@
     "form": {
       "title": "Posting status",
       "posted": "Status update berhasil diposting!",
-      "posting": "Memposting statusmu",
+      "posting": "Memposting..",
+      "postingYourUpdate": "Memposting umpanmu",
       "postFailure": "Gagal memposting statusmu, harap coba lagi.",
       "successRedirect": "Berhasil memposting status update, mengalihkanmu ke halaman beranda.."
-    }
+    },
+    "share": {
+      "artwork": {
+        "title": "Bagikan ke umpanmu",
+        "success": "Berhasil membagikan ke umpanmu"
+      }
+    },
+    "nothingToShow": "Ikuti seseorang untuk mendapat update",
+    "followMorePeople": "Ikuti lebih banyak orang untuk mendapat update lainnya"
   },
   "explore": "Eksplorasi",
+  "explores": {
+    "noFollowing": "Ikuti seseorang untuk mendapat update"
+  },
   "random": "Acak",
   "communities": "Komunitas",
   "shuffle": "Acak",
@@ -117,6 +132,7 @@
   "explicitContentAlertForGuest": "Konten ini mengandung konten eksplisit, kami menerapkan filter ini karena kamu mengunjungi halaman ini sebagai tamu.",
   "apply": "Terapkan",
   "hide": "Sembunyikan",
+  "filters": "Saring",
   "readMore": "baca lebih banyak",
   "delete": "Hapus",
   "report": "Laporkan",
@@ -180,6 +196,7 @@
   "createdAt": "Dibuat pada",
   "no": "Tidak",
   "yes": "Ya",
+  "share": "Bagikan",
   "count": {
     "view": "dilihat",
     "views": "dilihat",

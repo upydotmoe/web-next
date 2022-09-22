@@ -13,9 +13,33 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new FeedsApi(oApiConfiguration)
         .createFeed(
           {
-            text: params.content,
+            text: params.text,
             visibility: params.visibility,
             who_can_reply: params.whoCanReply
+          },
+          fetchOptions
+        )
+
+      return [data.success, data.data, null]
+    } catch (error) {
+      return [null, null, error]
+    }
+  }
+
+  const shareArtworkToFeed = async (params: {
+    text: string,
+    visibility: 'public' | 'followers',
+    whoCanreply: 'public' | 'followers',
+    workId: number
+  }) => {
+    try {
+      const { data } = await new FeedsApi(oApiConfiguration)
+        .createFeed(
+          {
+            text: params.text,
+            visibility: params.visibility,
+            who_can_reply: params.whoCanReply,
+            work_id: params.workId
           },
           fetchOptions
         )
@@ -163,6 +187,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   return {
     postFeed,
+    shareArtworkToFeed,
 
     feedDetail,
     getChronologicalFeeds,

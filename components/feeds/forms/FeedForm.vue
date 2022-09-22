@@ -60,7 +60,7 @@ const postFeed = async () => {
   posting.value = true
 
   const [success, data, error] = await feedApi.postFeed({
-    content: feedInput.value
+    text: feedInput.value
   })
 
   if (success) {

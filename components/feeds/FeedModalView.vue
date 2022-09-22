@@ -1,12 +1,9 @@
 <template>
   <div 
-    class="work-container work-view"
-    :class="!isModal ? 'w-full' : 'w-full md:w-9/12 lg:w-3/6 mx-auto md:p-6 p-4 theme-color'"
-    style="height: fit-content !important"
+    class="work-container work-view z-40"
+    :class="!isModal ? 'w-full' : 'w-full md:w-9/12 lg:w-2/5 mx-auto md:p-6 p-4 theme-color'"
   >
-    <div class="hidden" @click="view()" />
-  
-    <div class="w-full">
+    <div class="w-full" :class="{ 'overflow-y-scroll pr-4': isModal }">
       <div class="flex flex-row justify-between mb-2 w-full">
         <div v-if="feedDetail.users" class="user-info">
           <nuxt-link :to="'/profile/'+feedDetail.users.username">
@@ -38,10 +35,72 @@
 
       <div 
         v-if="feedDetail.text"
-        class="mb-6"
+        class="mb-4"
         :class="feedDetail.text.length <= 300 ? 'text-lg' : ''"
       >
         {{ feedDetail.text }}
+      </div>
+
+      <!-- shared artwork post detail -->
+      <div v-if="feedDetail.artworks" class="mb-4 w-full rounded-md theme-color-secondary">
+        <!-- creator information -->
+        <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
+          <nuxt-link :to="'/profile/'+feedDetail.artworks.users.username">
+            <img class="avatar" :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)" @error="imageLoadError">
+          </nuxt-link>
+          <div class="name">
+            <nuxt-link 
+              :to="'/profile/'+feedDetail.artworks.users.username" 
+              class="fullname hover:href"
+            >
+              {{ feedDetail.artworks.users.name }}
+            </nuxt-link>
+            <br>
+            <nuxt-link 
+              :to="'/profile/'+feedDetail.artworks.users.username" 
+              class="hover:underline text-xxs"
+            >
+              @{{ feedDetail.artworks.users.username }}
+            </nuxt-link>
+            
+            <span class="mx-1">·</span>
+            
+            <nuxt-link :to="'/a/' + feedDetail.artworks.id" class="hover:underline text-xxs">
+              {{ formatDate(feedDetail.artworks.scheduled_post ? feedDetail.artworks.scheduled_post : feedDetail.artworks.created_at, true) }}
+            </nuxt-link>
+          </div>
+        </div>
+
+        <!-- title & description of shared artwork -->
+        <div class="px-2 mt-2 md:px-4">
+          <span class="text-xs font-semibold">{{ feedDetail.artworks.title }}</span>
+          <p v-show="feedDetail.artworks.description">
+            <span :id="'feed-description-'+feedDetail.artworks.id">
+              {{ feedDetail.artworks.description.length > 300 ? `${feedDetail.artworks.description.slice(0, 300)}...` : feedDetail.artworks.description }}
+            </span>
+            <a 
+              v-if="feedDetail.artworks.description.length > 300" 
+              :id="'feed-read-more-'+feedDetail.artworks.id" 
+              class="href" 
+              @click.prevent="readMore(feedDetail.artworks.description, feedDetail.artworks.id, 'feed-read-more-', 'feed-description-')"
+            >
+              {{ $t('readMore') }}
+            </a>
+          </p>
+        </div>
+
+        <!-- the artwork(s) -->
+        <div>
+          <!-- Image view on mobile or smaller device -->
+          <nuxt-link v-if="feedDetail.artworks && isMobile()" :to="'/a/'+feedDetail.id" class="cursor-pointer">
+            <ImageList class="p-2" :work="feedDetail.artworks" />
+          </nuxt-link>
+
+          <!-- Image view on Desktop -->
+          <div v-if="feedDetail.artworks && !isMobile()" class="cursor-pointer" @click.prevent="viewArtwork(feedDetail.artworks.id)">
+            <ImageList class="p-2 md:p-4" :work="feedDetail.artworks" />
+          </div>
+        </div>
       </div>
 
       <!-- reactions -->
@@ -115,7 +174,7 @@
       <!-- comments -->
       <div 
         class="comment-content"
-        :class="[{ 'h-screen max-h-96 pr-3 overflow-x-hidden overflow-y-scroll': isModal }, { 'mb-20': !isModal }]"
+        :class="[{ 'pr-3 overflow-x-hidden': isModal }, { 'mb-20': !isModal }]"
       >
         <div 
           v-auto-animate
@@ -145,7 +204,7 @@
                 {{ comment.comment }}
               </div>
 
-              <div v-if="auth.loggedIn" class="reactions hidden">
+              <div v-if="auth.loggedIn" class="hidden reactions">
                 <div class="flex flex-row">
                   <!-- <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
                     <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
@@ -215,6 +274,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Artwork Modal View -->
+    <div 
+      :id="'chronological-modal'"
+      class="modal work-view" 
+    >
+      <ModalView 
+        ref="sharedWorkModalViewRef"
+        :section="'chronological'"
+      />
+    </div>
   </div>
 </template>
 
@@ -224,9 +294,14 @@ import 'viewerjs/dist/viewer.css'
 // stores
 import useAuthStore from '@/stores/auth.store'
 
+// composables
+import useImage from '~/composables/useImage'
+
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
+import ImageList from './ImageList.vue'
+import ModalView from '~/components/artworks/views/ModalView.vue'
 
 /**
  * @stores
@@ -252,6 +327,7 @@ const { $router } = useNuxtApp()
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
+const { generateArtworkThumb } = useImage()
 
 onMounted (() => {
   if (props.id !== '') {
@@ -259,7 +335,12 @@ onMounted (() => {
   }
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    // get element of shared artwork modal view
+    const sharedWorkModal = document.getElementById('chronological-modal')
+
+    if (e.key === 'Escape'
+      && (!sharedWorkModal || sharedWorkModal.style.display != 'flex')
+    ) {
       useModal().closeModal(`${props.section}-modal`)
     }
   })
@@ -286,7 +367,18 @@ const view = async (selectedFeedId) => {
       id: selectedFeedId
     })
 
+    if (data.feed.artworks) {
+      data.feed.artworks.images = []
+      for (let assetIdx = 0; assetIdx < data.feed.artworks.artwork_assets.length; assetIdx++) {
+        if (assetIdx <= 3) {
+          const imageUrl = await generateArtworkThumb(data.feed.artworks.artwork_assets[assetIdx].bucket, data.feed.artworks.artwork_assets[assetIdx].filename, 'feed')
+          data.feed.artworks.images.push(imageUrl)
+        }
+      }
+    }
+
     feedDetail.value = data.feed
+
     liked.value = data.feed.liked
 
     await getComments(selectedFeedId)
@@ -295,6 +387,12 @@ const view = async (selectedFeedId) => {
   }
 
   loading.value = false
+}
+
+const sharedWorkModalViewRef = ref(null)
+const viewArtwork = async (workId) => {
+  sharedWorkModalViewRef.value.view(workId)
+  useModal().openModal('chronological-modal')
 }
 
 /** Likes */

@@ -77,6 +77,12 @@
       "postFailure": "Failed to post your update, please try again.",
       "successRedirect": "Successfully posted your update, redirecting you to the feed page.."
     },
+    "share": {
+      "artwork": {
+        "title": "Share to your feed",
+        "success": "Shared to your feed"
+      }
+    },
     "nothingToShow": "Follow someone to get updates",
     "followMorePeople": "Follow more people to get more updates"
   },
@@ -190,6 +196,7 @@
   "createdAt": "Created at",
   "no": "No",
   "yes": "Yes",
+  "share": "Share",
   "count": {
     "view": "view",
     "views": "views",

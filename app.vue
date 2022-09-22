@@ -6,9 +6,7 @@
     throttle="0"
   />
 
-  <KeepAlive>
-    <NuxtPage />
-  </KeepAlive>
+  <NuxtPage />
 </template>
 
 <script setup>
