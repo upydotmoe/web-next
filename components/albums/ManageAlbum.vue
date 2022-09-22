@@ -116,7 +116,7 @@ const config = ref({
   },
   showLoadMore: true
 })
-const loading = ref(false)
+const loading = ref(true)
 const isError = ref(false)
 const isEmpty = ref(false)
 const fetchAlbums = async () => {

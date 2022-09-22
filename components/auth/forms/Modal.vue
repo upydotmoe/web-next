@@ -24,7 +24,7 @@
 
           <!-- notification on account recovery link successfully sent -->
           <p v-show="showRecoveryLinkSentDialog" class="back-button">
-            {{ $t('forms.accountRecovery.recoveryLinkSent') }}
+            {{ $t('accountRecovery.form.recoveryLinkSent') }}
           </p>
 
           <!-- close button -->

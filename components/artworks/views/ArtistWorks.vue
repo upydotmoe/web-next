@@ -16,7 +16,7 @@
     <!-- User artwork's list -->
     <WorkList 
       v-show="!isError"
-      class="gap-3 md:gap-4"
+      class="gap-2 md:gap-4"
       :class="[ pagination.options.nextPrevLoading ? 'animate-pulse' : '', paginationPerPage === 6 ? 'grid-cols-6' : 'grid-cols-4' ]"
       :section-class="'works'"
       :works="worksByArtist"

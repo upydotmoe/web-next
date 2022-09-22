@@ -192,6 +192,13 @@
 
                   <div class="custom-divider" />
 
+                  <nuxt-link v-if="auth.loggedIn" :to="'/profile/setting'">
+                    <div class="menu parent-icon">
+                      <Icon :name="'i-ph-gear-six'" />
+                      {{ $t('settings') }}
+                    </div>
+                  </nuxt-link>
+
                   <nuxt-link :to="'/reports'">
                     <div class="menu parent-icon">
                       <Icon :name="'i-akar-icons-flag'" />

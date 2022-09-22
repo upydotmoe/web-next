@@ -81,6 +81,7 @@
         <!-- Counter -->
         <div class="reaction-counters">
           <span
+            v-if="artworkDetail.is_explicit"
             :class="[
               'py-1 px-2 mr-2 font-bold rounded-md text-xxs',
               isModal ? 'theme-color-secondary' : 'bg-tag'
@@ -843,6 +844,7 @@ const vViewerOptions = {
 }
 
 const view = async (selectedWorkId) => {
+  commentInput.value = ''
   comments.value = []
   commentReplies.value = []
   

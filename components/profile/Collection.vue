@@ -207,7 +207,7 @@ onMounted (() => {
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
-const loading = ref(false)
+const loading = ref(true)
 const activeType = ref('artwork')
 const selectedCollection = ref(0)
 

@@ -207,7 +207,7 @@ onMounted (() => {
   fetch()
 })
 
-const loading = ref(false)
+const loading = ref(true)
 const activeCategory = ref('artwork')
 const selectedAlbum = ref(0)
 

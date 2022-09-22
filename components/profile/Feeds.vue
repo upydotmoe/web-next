@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto w-full md:w-1/2">
+  <div class="mx-auto w-full md:w-2/3">
     <div v-for="feed in feeds" :key="feed.id">
-      <div class="flex flex-row mb-4 rounded-lg border-none theme-color-secondary shadow-none">
+      <div class="flex flex-row mb-2 rounded-lg border-none theme-color-secondary shadow-none">
         <!-- Images -->
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">
@@ -32,10 +32,72 @@
           </div>
 
           <!-- text feed -->
-          <div class="px-4 mt-6">
-            <p class="mt-2">
+          <div class="px-4">
+            <p>
               {{ feed.text }}
             </p>
+
+            <!-- shared artwork post detail -->
+            <div v-if="feed.artworks" class="my-2 w-full rounded-md theme-color-secondary">
+              <!-- creator information -->
+              <div v-if="feed.artworks.users" class="user-info">
+                <nuxt-link :to="'/profile/'+feed.artworks.users.username">
+                  <img class="avatar" :src="avatarCoverUrl(feed.artworks.users.avatar_bucket, feed.artworks.users.avatar_filename)" @error="imageLoadError">
+                </nuxt-link>
+                <div class="name">
+                  <nuxt-link 
+                    :to="'/profile/'+feed.artworks.users.username" 
+                    class="fullname hover:href"
+                  >
+                    {{ feed.artworks.users.name }}
+                  </nuxt-link>
+                  <br>
+                  <nuxt-link 
+                    :to="'/profile/'+feed.artworks.users.username" 
+                    class="hover:underline text-xxs"
+                  >
+                    @{{ feed.artworks.users.username }}
+                  </nuxt-link>
+                  
+                  <span class="mx-1">·</span>
+                  
+                  <nuxt-link :to="'/a/' + feed.artworks.id" class="hover:underline text-xxs">
+                    {{ formatDate(feed.artworks.scheduled_post ? feed.artworks.scheduled_post : feed.artworks.created_at, true) }}
+                  </nuxt-link>
+                </div>
+              </div>
+
+              <!-- title & description of shared artwork -->
+              <div class="px-2 mt-2 md:px-4">
+                <span class="text-xs font-semibold">{{ feed.artworks.title }}</span>
+                <p v-show="feed.artworks.description">
+                  <span :id="'feed-description-'+feed.artworks.id">
+                    {{ feed.artworks.description.length > 300 ? `${feed.artworks.description.slice(0, 300)}...` : feed.artworks.description }}
+                  </span>
+                  <a 
+                    v-if="feed.artworks.description.length > 300" 
+                    :id="'feed-read-more-'+feed.artworks.id" 
+                    class="href" 
+                    @click.prevent="readMore(feed.artworks.description, feed.artworks.id, 'feed-read-more-', 'feed-description-')"
+                  >
+                    {{ $t('readMore') }}
+                  </a>
+                </p>
+              </div>
+
+              <!-- the artwork(s) -->
+              <div>
+                <!-- Image view on mobile or smaller device -->
+                <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artworks.id" class="cursor-pointer">
+                  <ImageList :work="feed.artworks" />
+                </nuxt-link>
+
+                <!-- Image view on Desktop -->
+                <div v-if="!isMobile()" class="cursor-pointer" @click.prevent="view(feed.artworks.id)">
+                  <ImageList :work="feed.artworks" />
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Intereaction area -->
@@ -178,9 +240,13 @@ import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loadin
 // stores
 import useAuthStore from '@/stores/auth.store'
 
+// composables
+import useImage from '~/composables/useImage'
+
 // components
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import Icon from '~/components/globals/Icon.vue'
+import ImageList from '~/components/feeds/ImageList.vue'
 
 // stores
 const auth = useAuthStore()
@@ -188,6 +254,7 @@ const auth = useAuthStore()
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
+const { generateArtworkThumb } = useImage()
 
 const props = defineProps ({
   userId: {
@@ -214,13 +281,27 @@ const fetch = async ({ loaded }) => {
     if (data.feeds.length) {
       pagination.value.page += 1
 
-      data.feeds.forEach((feed) => {
-        feeds.value.push(feed)
-
+      for (let feedIdx = 0; feedIdx < data.feeds.length; feedIdx++) {
+        const feed = data.feeds[feedIdx]
+        
         if (feed.liked) {
           likedIds.value.push(feed.id)
         }
-      })
+
+        if (feed.artworks) {
+          // collect images and transform to readable url to render in image list
+          feed.artworks.images = []
+          for (let assetIdx = 0; assetIdx < feed.artworks.artwork_assets.length; assetIdx++) {
+            if (assetIdx <= 3) {
+              const imageUrl = await generateArtworkThumb(feed.artworks.artwork_assets[assetIdx].bucket, feed.artworks.artwork_assets[assetIdx].filename, 'feed')
+              feed.artworks.images.push(imageUrl)
+            }
+          }
+        }
+
+        // finally, push it to feeds array
+        feeds.value.push(feed)
+      }
     }
 
     loaded(feeds.value.length, pagination.value.perPage)

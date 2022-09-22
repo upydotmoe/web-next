@@ -94,7 +94,7 @@ onMounted (() => {
 })
 
 const followerList = ref([])
-const loading = ref(false)
+const loading = ref(true)
 const pagination = ref({
   page: 0,
   perPage: 12

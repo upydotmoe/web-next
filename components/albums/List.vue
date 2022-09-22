@@ -96,7 +96,7 @@ onMounted(async () => {
   await fetch()
 })
 
-const loading = ref(false)
+const loading = ref(true)
 const albumData = ref({
   id: 0,
   info: {},

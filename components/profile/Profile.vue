@@ -90,10 +90,10 @@
                 </div>
 
                 <div class="flex flex-row mt-2">
-                  <div class="mr-1">
+                  <div v-if="userInfo.pen_name && userInfo.pen_name !== ''" class="mr-1">
                     <span class="flex flex-row">
                       <Icon :name="'i-ion-pencil-outline'" class="mr-1 text-base font-bold" /> 
-                      {{ userInfo.pen_name && userInfo.pen_name !== '' ? userInfo.pen_name : '-' }}
+                      {{ userInfo.pen_name }}
                     </span>
                   </div>
 
@@ -603,7 +603,7 @@ const router = useRouter()
 
 const { o } = route.query
 
-const loading = ref(false)
+const loading = ref(true)
 const currentState = o != null ? ref(o) : ref('dashboard')
 const activeDashboard = ref('artwork')
 const userId = computed(() => {

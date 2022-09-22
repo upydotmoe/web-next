@@ -66,7 +66,7 @@ const props = defineProps ({
 })
 
 const section = 'profile'
-const loading = ref(false)
+const loading = ref(true)
 
 onBeforeMount (() => {
   fetchTop()
