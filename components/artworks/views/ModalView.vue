@@ -751,7 +751,7 @@ const reportApi = useReport(oApiConfiguration, fetchOptions())
  * @meta
  */
 definePageMeta ({
-  keepalive: true
+  // keepalive: true
 })
 
 /**

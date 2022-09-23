@@ -53,14 +53,14 @@
     </div>
 
     <!-- tags -->
-    <div v-if="artworkDetail.artwork_has_tags && artworkDetail.artwork_has_tags.length" class="tags">
+  <div v-if="artworkDetail.artwork_has_tags && artworkDetail.artwork_has_tags.length" class="tags">
       <span 
         v-for="tag in artworkDetail.artwork_has_tags" 
         :key="tag.artwork_tags.id" 
         class="tag"
       >
         <nuxt-link :to="'/works/browse?tags=' + tag.artwork_tags.tag.replaceAll(' ', '+')">
-          #{{ tag.artwork_tags.tag }}
+          {{ tag.artwork_tags.tag }}
         </nuxt-link>
       </span>
       

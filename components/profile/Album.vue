@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- top buttons -->
-    <div class="mb-4 w-full">
+    <div class="mb-2 w-full">
       <div v-if="!selectedAlbum" class="flex flex-row justify-between">
         <div class="flex flex-row">
           <div 

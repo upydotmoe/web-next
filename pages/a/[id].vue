@@ -15,8 +15,11 @@
 import Layout from '~/components/layouts/Layout.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 
+/**
+ * @meta
+ */
 definePageMeta ({
-  keepalive: true
+  // keepalive: true
 })
 
 const { $router } = useNuxtApp()

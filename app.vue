@@ -2,8 +2,7 @@
   <NuxtLoadingIndicator
     class="loading-indicator-color"
     color="loading-indicator-color"
-    height="8"
-    throttle="0"
+    :height="5"
   />
 
   <NuxtPage />
@@ -15,10 +14,6 @@ import { useI18n } from 'vue-i18n'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
-
-definePageMeta ({
-  keepalive: true
-})
 
 initApp()
 const { t } = useI18n()
@@ -40,7 +35,6 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 onMounted (async () => {
-  console.log('user ID:', auth.user.id)
   if (auth.loggedIn && auth.user.id) {
     const tokenValid = await authApi.checkTokenValidity()
 

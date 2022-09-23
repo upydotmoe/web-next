@@ -177,18 +177,18 @@
                       {{ $t('profile.profile') }}
                     </div>
                   </nuxt-link>
-                  <a :href="'/profile?o=albums'">
+                  <nuxt-link :to="'/profile?o=albums'">
                     <div class="menu parent-icon">
                       <Icon :name="'i-bx-photo-album'" />
                       {{ $t('albums.album') }}
                     </div>
-                  </a>
-                  <a :href="'/profile?o=collections'">
+                  </nuxt-link>
+                  <nuxt-link :to="'/profile?o=collections'">
                     <div class="menu parent-icon">
                       <Icon :name="'i-majesticons-bookmark-line'" />
                       {{ $t('collections.collection') }}
                     </div>
-                  </a>
+                  </nuxt-link>
 
                   <div class="custom-divider" />
 

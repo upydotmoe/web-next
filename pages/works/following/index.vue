@@ -114,8 +114,11 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
+/**
+ * @meta
+ */
 definePageMeta ({
-  keepalive: true
+  // keepalive: true
 })
 
 // stores

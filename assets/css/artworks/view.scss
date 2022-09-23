@@ -187,11 +187,11 @@
     @apply flex flex-wrap mb-4;
 
     .tag {
-      @apply py-1 mr-2 font-bold rounded transition-all duration-150;
+      @apply rounded transition-all duration-150 button-color text-white py-1 px-2;
     }
 
     .suggest {
-      @apply py-1 px-3 mr-1 rounded transition-all duration-150 theme-color;
+      @apply px-3 mr-1 rounded transition-all duration-150 theme-color;
 
       .icon {
         @apply text-black align-middle;
@@ -204,11 +204,6 @@
 
     span {
       @apply mr-1 mb-1 transition-all duration-100 cursor-pointer text-colored;
-
-      &:hover {
-        // @apply button-hover;
-        @apply text-blue-700
-      }
     }
   }
 }

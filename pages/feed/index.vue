@@ -74,7 +74,13 @@
 
                 <!-- feed type text post -->
                 <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
-                  <p v-show="feed.text" class="mt-2">
+                  <p
+                    v-show="feed.text"
+                    :class="[
+                      'mt-2',
+                      { 'mb-2': !feed.artwork_share_info }
+                    ]"
+                  >
                     {{ feed.text }}
                   </p>
 
@@ -257,30 +263,32 @@
             </div>
           </div>
           
-          <InfiniteLoading 
-            class="mt-6"
-            :load="fetch"
-          >
-            <template #loading>
-              <div class="mx-auto text-center">
-                <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
-              </div>
-            </template>
+          <client-only>
+            <InfiniteLoading 
+              class="mt-6"
+              :load="fetch"
+            >
+              <template #loading>
+                <div class="mx-auto text-center">
+                  <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+                </div>
+              </template>
 
-            <template #no-results>
-              <div class="mx-auto text-center">
-                {{ $t('feeds.nothingToShow') }}
-              </div>
-            </template>
+              <template #no-results>
+                <div class="mx-auto text-center">
+                  {{ $t('feeds.nothingToShow') }}
+                </div>
+              </template>
 
-            <template #no-more>
-              <div class="mx-auto text-center">
-                {{ $t('youHaveReachedTheEnd') }}
-                <br>
-                {{ $t('feeds.followMorePeople') }}
-              </div>
-            </template>
-          </InfiniteLoading>
+              <template #no-more>
+                <div class="mx-auto text-center">
+                  {{ $t('youHaveReachedTheEnd') }}
+                  <br>
+                  {{ $t('feeds.followMorePeople') }}
+                </div>
+              </template>
+            </InfiniteLoading>
+          </client-only>
 
           <!-- Artwork Modal View -->
           <div 
@@ -347,7 +355,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
  * @meta
  */
 definePageMeta ({
-  keepalive: true
+  // keepalive: true
 })
 
 useHead ({
@@ -386,13 +394,13 @@ const feedApi = useFeed(oApiConfiguration, fetchOptions())
 const runtimeConfig = useRuntimeConfig()
 const { $router } = useNuxtApp()
 
-// onMounted (() => {
-//   window.addEventListener('keydown', (e) => {
-//     if (e.key === 'Escape') {
-//       closeArtworkModals()
-//     }
-//   })
-// })
+onMounted (() => {
+  // window.addEventListener('keydown', (e) => {
+  //   if (e.key === 'Escape') {
+  //     closeArtworkModals()
+  //   }
+  // })
+})
 
 /**
  * @watchers

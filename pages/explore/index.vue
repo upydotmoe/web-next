@@ -25,8 +25,11 @@ import useUser from '~~/composables/users/useUser'
 // stores
 import authStore from '@/stores/auth.store'
 
+/**
+ * @meta
+ */
 definePageMeta ({
-  keepalive: true
+  // keepalive: true
 })
 
 // composables use

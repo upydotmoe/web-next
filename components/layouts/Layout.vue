@@ -4,7 +4,7 @@
 
     <div
       :class="[
-        'flex mx-auto w-full md:px-4 md:mt-4 2xl:w-8/12',
+        'flex mx-auto w-full md:px-4 2xl:w-8/12',
         { 'p-2': route.name != 'feed' }
       ]"
     >
@@ -49,7 +49,7 @@
       </div>
 
       <div 
-        class="mt-2 md:mt-4"
+        class="mt-2"
         :class="[
           hideSide || noRightSide ? 'w-full' : 'w-full lg:w-3/5',
           { 'h-screen': hScreen },

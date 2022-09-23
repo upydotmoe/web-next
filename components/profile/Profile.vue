@@ -115,7 +115,7 @@
                   :to="'/profile/setting'" 
                   class="float-right -mt-20 shadow-md"
                 >
-                  <button class="flex flex-row primary-button shadow-md">
+                  <button class="flex flex-row shadow-md primary-button">
                     <Icon :name="'i-ph-gear-six'" class="mr-2" />
                     <span class="leading-4">{{ $t('profile.setting') }}</span>
                   </button>
@@ -411,7 +411,7 @@
           </div>
 
           <!-- right side -->
-          <div class="ml-6 w-full">
+          <div class="w-full md:ml-6">
             <!-- dashboard -->
             <div v-if="currentState === 'dashboard'">
               <!-- navigation buttons -->
