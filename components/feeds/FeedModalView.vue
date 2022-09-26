@@ -230,7 +230,7 @@
                           class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                           @click.prevent 
                         >
-                          <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
+                          <Icon :name="'i-ri-user-follow-fill'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
                         </nuxt-link>
                         <div
                           v-if="auth.loggedIn && auth.user.id === comment.users.id"

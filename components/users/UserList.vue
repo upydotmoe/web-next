@@ -19,6 +19,7 @@
           <div class="flex flex-row w-full">
             <!-- user follow status, not appeared if the user is current login user -->
             <div v-if="auth.loggedIn && user.id !== auth.user.id" class="flex flex-row">
+              <!-- follow -->
               <div 
                 v-show="!user.is_following"
                 class="flex flex-row"
@@ -34,7 +35,10 @@
                 @mouseout="showUnfollow = 0"
                 @click.prevent="unfollowUser(index, user.id)"
               >
+                <!-- following -->
                 <Icon v-show="showUnfollow !== user.id" :name="'i-ri-user-follow-fill'" class="text-green-400" />
+
+                <!-- unfollow -->
                 <Icon v-show="showUnfollow && showUnfollow === user.id" :name="'i-ri-user-unfollow-fill'" class="text-red-400 hover:text-red-400" />
               </div>
             </div>

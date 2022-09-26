@@ -35,7 +35,8 @@
           </button>
           <button
             :class="[
-              feedInput !== '' ? 'primary-button' : 'disabled-button'
+              'primary-button'
+              // feedInput !== '' ? 'primary-button' : 'disabled-button'
             ]"
             @click="shareToFeed()"
           >

@@ -27,7 +27,7 @@
                   class="flex flex-row"
                   @click.prevent="followUser(index, follower.id)"
                 >
-                  <Icon :name="'i-fluent-person-32-regular-add'" class="text-gray-300 hover:text-white" />
+                  <Icon :name="'i-ri-user-add-fill'" class="text-gray-300 hover:text-white" />
                 </div>
                 
                 <div 
@@ -37,8 +37,8 @@
                   @mouseout="showUnfollow = 0"
                   @click.prevent="unfollowUser(index, follower.id)"
                 >
-                  <Icon v-show="showUnfollow !== follower.id" :name="'i-fluent-person-32-regular'" class="text-green-400" />
-                  <Icon v-show="showUnfollow && showUnfollow === follower.id" :name="'i-fluent-person-32-regular-remove'" class="text-red-400 hover:text-red-400" />
+                  <Icon v-show="showUnfollow !== follower.id" :name="'i-ri-user-follow-fill'" class="text-green-400" />
+                  <Icon v-show="showUnfollow && showUnfollow === follower.id" :name="'i-ri-user-unfollow-fill'" class="text-red-400 hover:text-red-400" />
                 </div>
               </div>
             </div>
