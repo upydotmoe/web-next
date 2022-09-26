@@ -201,22 +201,24 @@
       </div>
     </div>
     
-    <InfiniteLoading :load="fetch">
+    <InfiniteLoading
+      :load="fetch"
+    >
       <template #loading>
         <div class="mx-auto text-center">
           <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
         </div>
       </template>
       
-      <template #no-more>
-        <div class="mx-auto text-center">
-          {{ $t('youHaveReachedTheEnd') }}
-        </div>
-      </template>
-      
       <template #no-results>
         <div class="mx-auto mt-10 text-center">
           <b>(ㆆ_ㆆ)</b> {{ $t('nothingToShow') }}
+        </div>
+      </template>
+        
+      <template #no-more>
+        <div class="mx-auto text-center">
+          {{ $t('youHaveReachedTheEnd') }}
         </div>
       </template>
     </InfiniteLoading>
@@ -269,43 +271,43 @@ const pagination = ref({
   perPage: 10
 })
 const fetch = async ({ loaded }) => {
-  await setTimeout(async () => {
-    const [data, error] = await feedApi.getFeedByUserId({
-      userId: props.userId,
-      pagination: {
-        page: pagination.value.page,
-        perPage: pagination.value.perPage
-      }
-    })
+  const [data, error] = await feedApi.getFeedByUserId({
+    userId: props.userId,
+    pagination: {
+      page: pagination.value.page,
+      perPage: pagination.value.perPage
+    }
+  })
 
-    if (data.feeds.length) {
-      pagination.value.page += 1
+  if (error) {
+    // todo: handle error
+  }
 
-      for (let feedIdx = 0; feedIdx < data.feeds.length; feedIdx++) {
-        const feed = data.feeds[feedIdx]
-        
-        if (feed.liked) {
-          likedIds.value.push(feed.id)
+  pagination.value.page += 1
+
+  for (let feedIdx = 0; feedIdx < data.feeds.length; feedIdx++) {
+    const feed = data.feeds[feedIdx]
+    
+    if (feed.liked) {
+      likedIds.value.push(feed.id)
+    }
+
+    // collect images and transform to readable url to render in image list
+    if (feed.artworks) {
+      feed.artworks.images = []
+      for (let assetIdx = 0; assetIdx < feed.artworks.artwork_assets.length; assetIdx++) {
+        if (assetIdx <= 3) {
+          const imageUrl = await generateArtworkThumb(feed.artworks.artwork_assets[assetIdx].bucket, feed.artworks.artwork_assets[assetIdx].filename, 'feed')
+          feed.artworks.images.push(imageUrl)
         }
-
-        if (feed.artworks) {
-          // collect images and transform to readable url to render in image list
-          feed.artworks.images = []
-          for (let assetIdx = 0; assetIdx < feed.artworks.artwork_assets.length; assetIdx++) {
-            if (assetIdx <= 3) {
-              const imageUrl = await generateArtworkThumb(feed.artworks.artwork_assets[assetIdx].bucket, feed.artworks.artwork_assets[assetIdx].filename, 'feed')
-              feed.artworks.images.push(imageUrl)
-            }
-          }
-        }
-
-        // finally, push it to feeds array
-        feeds.value.push(feed)
       }
     }
 
-    loaded(feeds.value.length, pagination.value.perPage)
-  }, 1000)
+    // finally, push it to feeds array
+    feeds.value.push(feed)
+  }
+
+  loaded(data.feeds.length, pagination.value.perPage)
 }
 
 const chronologicalFeedModalViewRef = ref(null)
