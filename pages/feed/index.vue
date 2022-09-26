@@ -62,15 +62,21 @@
                   </p>
                 </div>
 
-                <!-- Image view on Desktop -->
-                <div v-if="feed.type === 'artwork' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
-                  <ImageList class="p-2 md:p-4" :work="feed" />
+                <!-- Image List -->
+                <div>
+                  <!-- images -->
+                  <div>
+                    <!-- desktop -->
+                    <div v-if="feed.type === 'artwork' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
+                      <ImageList class="p-2 md:p-4" :work="feed" />
+                    </div>
+                    
+                    <!-- mobile/smaller device -->
+                    <nuxt-link v-if="feed.type === 'artwork' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
+                      <ImageList class="p-2" :work="feed" />
+                    </nuxt-link>
+                  </div>
                 </div>
-                
-                <!-- Image view on mobile or smaller device -->
-                <nuxt-link v-if="feed.type === 'artwork' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
-                  <ImageList class="p-2" :work="feed" />
-                </nuxt-link>
 
                 <!-- feed type text post -->
                 <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
@@ -134,15 +140,36 @@
 
                     <!-- the artwork(s) -->
                     <div>
-                      <!-- Image view on mobile or smaller device -->
-                      <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artwork_share_info.id" class="cursor-pointer">
-                        <ImageList class="p-2" :work="feed" />
-                      </nuxt-link>
+                      <!-- desktop -->
+                      <div v-if="!isMobile()" class="p-2 cursor-pointer" @click.prevent="view(feed.artwork_share_info.id)">
+                        <div class="overflow-hidden relative p-2 rounded-md md:p-4">
+                          <ImageList
+                            :class="[
+                              { 'blur-3xl unclickable': feed.apply_explicit_filter },
+                              feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                            ]"
+                            :work="feed"
+                          />
 
-                      <!-- Image view on Desktop -->
-                      <div v-if="!isMobile()" class="cursor-pointer" @click.prevent="view(feed.artwork_share_info.id)">
-                        <ImageList class="p-2 md:p-4" :work="feed" />
+                          <!-- filter message -->
+                          <div v-if="feed.apply_explicit_filter" class="p-2 w-full mx-auto text-center rounded-md opacity-90 theme-color">
+                            <div>{{ $t('explicitContentAlert') }}</div>
+                            <button class="mx-auto mt-2 primary-button">Show me this content</button>
+                          </div>
+                        </div>
                       </div>
+
+                      <!-- mobile/smaller device -->
+                      <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artwork_share_info.id" class="cursor-pointer">
+                        <ImageList
+                          :class="[
+                            'p-2',
+                            { 'blur-sm unclickable': feed.apply_explicit_filter },
+                            feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                          ]"
+                          :work="feed"
+                        />
+                      </nuxt-link>
                     </div>
                   </div>
                 </div>
@@ -304,7 +331,7 @@
           <!-- Feed Modal View -->
           <div 
             :id="'chronological-feed-modal'"
-            class="modal work-view z-30"
+            class="z-30 modal work-view"
           >
             <FeedModalView
               ref="chronologicalFeedModalViewRef"
@@ -454,6 +481,7 @@ const fetch = async ({ loaded }) => {
     }
 
     feed.images = []
+    feed.apply_explicit_filter = false
     if (feed.type === 'artwork' || (feed.type === 'feed' && feed.artwork_share_info != null)) {
       // collect to saved IDs
       if (feed.type === 'artwork') {
@@ -468,6 +496,11 @@ const fetch = async ({ loaded }) => {
           const imageUrl = await generateArtworkThumb(feed.artwork_assets[assetIdx].bucket, feed.artwork_assets[assetIdx].filename, 'feed')
           feed.images.push(imageUrl)
         }
+      }
+
+      // apply explicit alert if user doesn't activated explicit content in user settings
+      if (feed.artwork_share_info != null && ((!auth.loggedIn && feed.artwork_share_info.is_explicit) || (feed.artwork_share_info.is_explicit && !auth.user.user_settings.show_explicit))) {
+        feed.apply_explicit_filter = true
       }
     }
 
