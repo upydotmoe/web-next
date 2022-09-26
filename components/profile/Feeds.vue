@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto w-full md:w-2/3">
     <div v-for="feed in feeds" :key="feed.id">
-      <div class="flex flex-row mb-2 rounded-lg border-none theme-color-secondary shadow-none">
+      <div class="flex flex-row mb-2 rounded-lg border-none shadow-none theme-color-secondary">
         <!-- Images -->
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">
@@ -32,15 +32,15 @@
           </div>
 
           <!-- text feed -->
-          <div class="px-4">
+          <div class="px-2 md:px-4">
             <p>
               {{ feed.text }}
             </p>
 
             <!-- shared artwork post detail -->
-            <div v-if="feed.artworks" class="my-2 w-full rounded-md theme-color-secondary">
+            <div v-if="feed.artworks" class="my-2 w-full rounded-md theme-color">
               <!-- creator information -->
-              <div v-if="feed.artworks.users" class="user-info">
+              <div v-if="feed.artworks.users" class="p-2 md:p-4 user-info">
                 <nuxt-link :to="'/profile/'+feed.artworks.users.username">
                   <img class="avatar" :src="avatarCoverUrl(feed.artworks.users.avatar_bucket, feed.artworks.users.avatar_filename)" @error="imageLoadError">
                 </nuxt-link>
@@ -89,19 +89,19 @@
               <div>
                 <!-- Image view on mobile or smaller device -->
                 <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artworks.id" class="cursor-pointer">
-                  <ImageList :work="feed.artworks" />
+                  <ImageList class="p-2" :work="feed.artworks" />
                 </nuxt-link>
 
                 <!-- Image view on Desktop -->
                 <div v-if="!isMobile()" class="cursor-pointer" @click.prevent="view(feed.artworks.id)">
-                  <ImageList :work="feed.artworks" />
+                  <ImageList class="p-2 md:p-4" :work="feed.artworks" />
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Intereaction area -->
-          <div class="float-right m-6 interactions">
+          <div class="float-right mx-4 mt-2 interactions">
             <!-- Reactions -->
             <div v-if="auth.loggedIn" class="reactions">
               <!-- Like -->
