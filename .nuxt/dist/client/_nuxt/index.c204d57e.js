@@ -1,1 +1,0 @@
-import{h as o,a as s,k as n,o as u,l as a}from"./entry.7318f8db.js";const _={__name:"index",setup(r){const t=o(),{$router:e}=s();return n(()=>{t.loggedIn?e.push("/feed"):e.push("/explore")}),(p,c)=>(u(),a("div",null,"\xA0"))}};export{_ as default};
