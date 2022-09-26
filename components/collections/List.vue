@@ -108,7 +108,7 @@ const collection = ref({
   pagination: {
     page: 0,
     perPage: 12,
-    firstLoad: 12
+    firstLoad: 24
   },
   list: [],
   empty: false
