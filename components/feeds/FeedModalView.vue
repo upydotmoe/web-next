@@ -42,7 +42,13 @@
       </div>
 
       <!-- shared artwork post detail -->
-      <div v-if="feedDetail.artworks" class="mb-4 w-full rounded-md theme-color-secondary">
+      <div
+        v-if="feedDetail.artworks"
+        :class="[
+          'mb-4 w-full rounded-md',
+          isModal ? 'theme-color-secondary' : 'theme-color'
+        ]"
+      >
         <!-- creator information -->
         <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
           <nuxt-link :to="'/profile/'+feedDetail.artworks.users.username">

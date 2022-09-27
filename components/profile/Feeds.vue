@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto w-full md:w-2/3">
-    <div v-for="feed in feeds" :key="feed.id">
+    <div v-for="(feed, feedIdx) in feeds" :key="feed.id">
       <div class="flex flex-row mb-2 rounded-lg border-none shadow-none theme-color-secondary">
         <!-- Images -->
         <div class="w-full">
@@ -85,17 +85,67 @@
                 </p>
               </div>
 
-              <!-- the artwork(s) -->
+              <!-- artwork images -->
               <div>
-                <!-- Image view on mobile or smaller device -->
-                <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artworks.id" class="cursor-pointer">
-                  <ImageList class="p-2" :work="feed.artworks" />
-                </nuxt-link>
+                <!-- desktop -->
+                <div
+                  v-if="!isMobile()"
+                  :class="[
+                    'p-2',
+                    { 'cursor-pointer': !feed.artworks.apply_explicit_filter }
+                  ]"
+                  @click.prevent="viewArtwork(feed.artworks.id, feed.artworks.apply_explicit_filter, feedIdx)"
+                >
+                  <div
+                    :class="[
+                      'overflow-hidden relative p-2 rounded-md',
+                      { 'md:mx-2': feed.artworks.apply_explicit_filter }
+                    ]"
+                  >
+                    <ImageList
+                      :class="[
+                        { 'blur-3xl unclickable': feed.artworks.apply_explicit_filter },
+                        feed.artworks.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                      ]"
+                      :work="feed.artworks"
+                    />
 
-                <!-- Image view on Desktop -->
-                <div v-if="!isMobile()" class="cursor-pointer" @click.prevent="view(feed.artworks.id)">
-                  <ImageList class="p-2 md:p-4" :work="feed.artworks" />
+                    <!-- filter message -->
+                    <div v-if="feed.artworks.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                      <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                      <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                    </div>
+                  </div>
                 </div>
+
+                <!-- mobile/smaller device -->
+                <nuxt-link
+                  v-if="isMobile()"
+                  :to="feed.artworks.apply_explicit_filter ? null : '/a/'+feed.artworks.id"
+                  @click.prevent="viewArtwork(feed.artworks.id, feed.artworks.apply_explicit_filter, feedIdx)"
+                  class="cursor-pointer"
+                >
+                  <div
+                    :class="[
+                      'overflow-hidden relative p-2 rounded-md',
+                      { 'm-2': feed.artworks.apply_explicit_filter }
+                    ]"
+                  >
+                    <ImageList
+                      :class="[
+                        { 'blur-3xl unclickable': feed.artworks.apply_explicit_filter },
+                        feed.artworks.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                      ]"
+                      :work="feed.artworks"
+                    />
+
+                    <!-- filter message -->
+                    <div v-if="feed.artworks.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                      <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                      <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                    </div>
+                  </div>
+                </nuxt-link>
               </div>
             </div>
           </div>
@@ -233,6 +283,17 @@
         :section="'chronological-feed'"
       />
     </div>
+
+    <!-- Artwork Modal View -->
+    <div 
+      :id="'artwork-modal'"
+      class="modal work-view" 
+    >
+      <ModalView 
+        ref="artworkModalViewRef"
+        :section="'artwork'"
+      />
+    </div>
   </div>
 </template>
 
@@ -247,6 +308,7 @@ import useImage from '~/composables/useImage'
 
 // components
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
+import ModalView from '~/components/artworks/views/ModalView.vue'
 import Icon from '~/components/globals/Icon.vue'
 import ImageList from '~/components/feeds/ImageList.vue'
 
@@ -295,11 +357,17 @@ const fetch = async ({ loaded }) => {
     // collect images and transform to readable url to render in image list
     if (feed.artworks) {
       feed.artworks.images = []
+      feed.artworks.apply_explicit_filter = false
       for (let assetIdx = 0; assetIdx < feed.artworks.artwork_assets.length; assetIdx++) {
         if (assetIdx <= 3) {
           const imageUrl = await generateArtworkThumb(feed.artworks.artwork_assets[assetIdx].bucket, feed.artworks.artwork_assets[assetIdx].filename, 'feed')
           feed.artworks.images.push(imageUrl)
         }
+      }
+
+      // apply explicit alert if user doesn't activated explicit content in user settings
+      if (feed.artworks != null && ((!auth.loggedIn && feed.artworks.is_explicit) || (feed.artworks.is_explicit && !auth.user.user_settings.show_explicit))) {
+        feed.artworks.apply_explicit_filter = true
       }
     }
 
@@ -315,6 +383,18 @@ const viewFeed = (feedId) => {
   chronologicalFeedModalViewRef.value.view(feedId)
 
   useModal().openModal('chronological-feed-modal')
+}
+
+const artworkModalViewRef = ref(null)
+const viewArtwork = (workId, isExplicitFilterApplied, feedIdx) => {
+  if (isExplicitFilterApplied) {
+    console.log('removing explicit filter..')
+    feeds.value[feedIdx].artworks.apply_explicit_filter = false
+  } else {
+    artworkModalViewRef.value.view(workId)
+
+    useModal().openModal('artwork-modal')
+  }
 }
 
 /**

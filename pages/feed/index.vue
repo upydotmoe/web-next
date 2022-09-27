@@ -13,7 +13,7 @@
 
       <div class="mx-auto w-full">
         <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-11/12">
-          <div v-for="feed in feeds" :key="feed.id+feed.type" class="rounded-md lg:mx-6">
+          <div v-for="(feed, feedIdx) in feeds" :key="feed.id+feed.type" class="rounded-md lg:mx-6">
             <div class="flex flex-row rounded-md theme-color">
               <!-- Images -->
               <div class="w-full">
@@ -138,11 +138,23 @@
                       </p>
                     </div>
 
-                    <!-- the artwork(s) -->
+                    <!-- artwork images -->
                     <div>
                       <!-- desktop -->
-                      <div v-if="!isMobile()" class="p-2 cursor-pointer" @click.prevent="view(feed.artwork_share_info.id)">
-                        <div class="overflow-hidden relative p-2 rounded-md md:p-4">
+                      <div
+                        v-if="!isMobile()"
+                        :class="[
+                          'p-2',
+                          { 'cursor-pointer': !feed.apply_explicit_filter }
+                        ]"
+                        @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                      >
+                        <div
+                          :class="[
+                            'overflow-hidden relative p-2 rounded-md',
+                            { 'md:mx-2': feed.apply_explicit_filter }
+                          ]"
+                        >
                           <ImageList
                             :class="[
                               { 'blur-3xl unclickable': feed.apply_explicit_filter },
@@ -152,23 +164,40 @@
                           />
 
                           <!-- filter message -->
-                          <div v-if="feed.apply_explicit_filter" class="p-2 w-full mx-auto text-center rounded-md opacity-90 theme-color">
-                            <div>{{ $t('explicitContentAlert') }}</div>
-                            <button class="mx-auto mt-2 primary-button">Show me this content</button>
+                          <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                            <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                            <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
                           </div>
                         </div>
                       </div>
 
                       <!-- mobile/smaller device -->
-                      <nuxt-link v-if="isMobile()" :to="'/a/'+feed.artwork_share_info.id" class="cursor-pointer">
-                        <ImageList
+                      <nuxt-link
+                        v-if="isMobile()"
+                        :to="feed.apply_explicit_filter ? null : '/a/'+feed.artwork_share_info.id"
+                        @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                        class="cursor-pointer"
+                      >
+                        <div
                           :class="[
-                            'p-2',
-                            { 'blur-sm unclickable': feed.apply_explicit_filter },
-                            feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                            'overflow-hidden relative p-2 rounded-md',
+                            { 'm-2': feed.apply_explicit_filter }
                           ]"
-                          :work="feed"
-                        />
+                        >
+                          <ImageList
+                            :class="[
+                              { 'blur-3xl unclickable': feed.apply_explicit_filter },
+                              feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                            ]"
+                            :work="feed"
+                          />
+
+                          <!-- filter message -->
+                          <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                            <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                            <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                          </div>
+                        </div>
                       </nuxt-link>
                     </div>
                   </div>
@@ -513,10 +542,14 @@ const fetch = async ({ loaded }) => {
 
 /** Modal view */
 const chronologicalModalViewRef = ref(null)
-const view = (workId) => {
-  chronologicalModalViewRef.value.view(workId)
+const view = (workId, isExplicitFilterApplied, feedIdx) => {
+  if (isExplicitFilterApplied) {
+    feeds.value[feedIdx].apply_explicit_filter = false
+  } else {
+    chronologicalModalViewRef.value.view(workId)
 
-  useModal().openModal('chronological-modal')
+    useModal().openModal('chronological-modal')
+  }
 }
 
 const chronologicalFeedModalViewRef = ref(null)

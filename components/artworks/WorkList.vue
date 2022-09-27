@@ -28,7 +28,7 @@
           >
             <img 
               class="object-cover w-full h-full unselectable"
-              :class="{ 'blur-lg brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
+              :class="{ 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
               :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
               @error="imageLoadError"
             >
@@ -41,7 +41,7 @@
         v-else
         @click="manageMode ? addToManageList(work.id) : open(work.id)"
       >
-        <div class="relative text-center overflow-hidden rounded-md">
+        <div class="overflow-hidden relative text-center rounded-md">
           <p v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)">{{ work._count.artwork_assets }}</p>
           <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
           
@@ -54,7 +54,7 @@
           >
             <img 
               class="object-cover w-full h-full unselectable"
-              :class="{ 'blur-sm brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
+              :class="{ 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
               :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
               @error="imageLoadError"
             >
