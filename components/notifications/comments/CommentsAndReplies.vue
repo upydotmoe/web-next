@@ -1,5 +1,10 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div 
+    :class="[
+      'flex flex-col w-full',
+      route.name == 'notifications' && !props.isNavbar ? (isMobile() ? 'max-h-screen' : 'h-full') : 'h-auto'
+    ]"
+  >
     <div class="mb-3 w-full text-right">
       <button
         class="py-1 px-2 mr-1 rounded theme-color-secondary hover:button-color hover:text-white" 
@@ -57,18 +62,21 @@
     <Comments 
       v-show="activeSection == 'comments' || activeSection == 'all'"
       ref="commentNotifsRef"
+      :is-navbar="props.isNavbar"
     />
 
     <!-- comment like notifications -->
     <CommentLikes
       v-show="activeSection == 'likes' || activeSection == 'all'"
       ref="commentLikeNotifsRef"
+      :is-navbar="props.isNavbar"
     />
 
     <!-- comment reply notifications -->
     <CommentReplies 
       v-show="activeSection == 'replies' || activeSection == 'all'"
       ref="commentRepliesRef"
+      :is-navbar="props.isNavbar"
     />
   </div>
 </template>
@@ -84,13 +92,22 @@ import Icon from '~/components/globals/Icon.vue'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
-const activeSection = ref('all')
+const props = defineProps ({
+  isNavbar: {
+    type: Boolean,
+    default: false
+  }
+})
 
 onMounted (() => {
   setTimeout(() => {
     activeSection.value = 'comments'
   }, 500)
 })
+
+const route = useRoute()
+
+const activeSection = ref('all')
 
 const commentNotifsRef = ref(null)
 const commentLikeNotifsRef = ref(null)

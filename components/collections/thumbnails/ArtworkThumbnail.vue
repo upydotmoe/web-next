@@ -85,7 +85,7 @@
         :key="index"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-tiny font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
@@ -109,7 +109,7 @@
         :key="index"
       >
         <div v-if="index < 3" class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-tiny font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
@@ -125,7 +125,7 @@
           v-else
           class="relative text-center"
         >
-          <span class="absolute top-1/2 left-1/2 z-10 text-3xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">+{{ collection._count.collection_has_artworks-4 }}</span>
+          <span class="absolute top-1/2 left-1/2 z-10 text-lg font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-xl lg:text-3xl">+{{ collection._count.collection_has_artworks-4 }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 

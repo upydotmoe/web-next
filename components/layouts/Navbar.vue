@@ -121,7 +121,7 @@
                   class="toggler"
                   style="width: 500px;"
                 >
-                  <Notifications />
+                  <Notifications :is-navbar="true" />
                 </div>
               </div>
             </div>

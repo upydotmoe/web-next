@@ -1,5 +1,10 @@
 <template>
-  <div class="flex flex-col w-full">
+  <div 
+    :class="[
+      'flex flex-col w-full',
+      route.name == 'notifications' && !props.isNavbar ? (isMobile() ? 'max-h-screen' : 'h-full') : 'h-auto'
+    ]"
+  >
     <div class="mb-3 w-full text-right">
       <button 
         class="py-1 px-2 mr-1 rounded theme-color-secondary hover:button-color hover:text-white" 
@@ -16,7 +21,12 @@
       </button>
     </div>
 
-    <div class="grid overflow-auto gap-2 max-h-96">
+    <div 
+      :class="[
+        'grid gap-2 overflow-auto',
+        route.name == 'notifications' && !props.isNavbar ? (isMobile() ? 'max-h-screen overflow-auto' : 'h-full') : 'max-h-96 overflow-auto'
+      ]"
+    >
       <div 
         v-for="(notification, index) in notifications"
         :key="notification.id"
@@ -84,6 +94,14 @@ import Icon from '~/components/globals/Icon.vue'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
+const props = defineProps ({
+  isNavbar: {
+    type: Boolean,
+    default: false
+  }
+})
+
+const route = useRoute()
 const { $router } = useNuxtApp()
 
 const notifications = ref([])

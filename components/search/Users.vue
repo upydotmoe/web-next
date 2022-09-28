@@ -127,7 +127,7 @@ const fetchTop = async () => {
 /** Fetch */
 const loading = ref(true)
 const pagination = ref({
-  perPage: 5,
+  perPage: 16,
   page: ref(0)
 })
 const fetch = async () => {

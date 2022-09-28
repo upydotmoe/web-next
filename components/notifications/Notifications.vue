@@ -95,9 +95,18 @@
       <!-- notification content -->
       <div class="w-full">
         <!-- artworks -->
-        <Likes v-show="currentSection == 'likes' || currentSection == 'all'" />
-        <CommentsAndReplies v-show="currentSection == 'comments' || currentSection == 'all'" />
-        <Follows v-show="currentSection == 'follows' || currentSection == 'all'" />
+        <Likes
+          v-show="currentSection == 'likes' || currentSection == 'all'" 
+          :is-navbar="props.isNavbar"
+        />
+        <CommentsAndReplies
+          v-show="currentSection == 'comments' || currentSection == 'all'"
+          :is-navbar="props.isNavbar"
+        />
+        <Follows
+          v-show="currentSection == 'follows' || currentSection == 'all'"
+          :is-navbar="props.isNavbar"
+        />
 
         <!-- feeds -->
         <Feeds v-show="currentSection == 'feeds' || currentSection == 'all'" />
@@ -123,6 +132,13 @@ const auth = useAuthStore()
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
+
+const props = defineProps ({
+  isNavbar: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const { $router } = useNuxtApp()
 

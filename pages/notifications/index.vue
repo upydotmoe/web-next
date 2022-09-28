@@ -2,9 +2,9 @@
   <Layout
     :with-footer="false"
     :hide-side="true"
-    class="theme-color"
+    class="theme-color h-full"
   >
-    <div class="h-screen">
+    <div class="h-full">
       <Notifications />
     </div>
   </Layout>
