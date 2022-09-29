@@ -115,7 +115,7 @@
 
             <div>
               <label>{{ $t('reports.description') }}</label>
-              <div>
+              <div class="text-right md:text-left">
                 {{ report.description }}
               </div>
             </div>
