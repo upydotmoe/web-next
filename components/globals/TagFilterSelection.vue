@@ -9,7 +9,7 @@
         <div class="input-block">
           <tags-input 
             v-model="tags"
-            :placeholder="$t('tags')"
+            :placeholder="$t('tagsInputPlaceholder')"
             :typeahead="true"
             :limit="10"
             :hide-input-on-limit="true"

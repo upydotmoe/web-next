@@ -88,7 +88,7 @@
       <div class="input-block">
         <tags-input 
           v-model="tags"
-          :placeholder="$t('tags')"
+          :placeholder="$t('tagsInputPlaceholder')"
           :typeahead="true"
           :typeahead-style="'dropdown'"
           :typeahead-activation-threshold="2"
@@ -96,7 +96,7 @@
           :typeahead-hide-discard="true"
           :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
           :add-tags-on-comma="true"
-          :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
+          :class="{ 'pointer-events-none cursor-not-allowed bg-white': uploading || uploadSuccess }"
         />
       </div>
 

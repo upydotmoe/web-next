@@ -228,6 +228,7 @@
   "title": "Judul",
   "description": "Deskripsi",
   "tags": "Tags",
+  "tagsInputPlaceholder": "Tags (Tekan enter atau koma untuk menambah tag baru)",
   "tagsApplied": "tag dipilih",
   "pickUpToTags": "Pilih hingga 10 tag",
   "update": "Update",

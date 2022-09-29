@@ -53,7 +53,7 @@
       <div class="input-block">
         <tags-input 
           v-model="tags"
-          :placeholder="$t('tags')"
+          :placeholder="$t('tagsInputPlaceholder')"
           :typeahead="true"
           :typeahead-style="'dropdown'"
           :typeahead-activation-threshold="2"

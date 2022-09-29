@@ -128,23 +128,24 @@
       <!-- Paging control -->
       <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
         <button 
-          v-show="config.pagination.enablePrev"
-          class="primary-button"
-          :class="{ 'mr-2': config.pagination.enableNext }"
+          :class="[
+            config.pagination.enablePrev ? 'primary-button' : 'disabled-button'
+          ]"
           @click="movePage('prev')"
         >
           <Icon :name="'i-ion-chevron-back-outline'" />
           {{ $t('pagination.previous') }}
         </button>
         <button 
-          v-show="config.pagination.enableNext"
-          class="primary-button"
+          :class="[
+            config.pagination.enableNext ? 'primary-button' : 'disabled-button'
+          ]"
           @click="movePage('next')"
         >
           {{ $t('pagination.next') }}
           <Icon 
             :name="'i-ion-chevron-forward-outline'" 
-            class="ml-2"
+            class="md:ml-2"
             style="margin-right: 0 !important" 
           />
         </button>
@@ -283,7 +284,7 @@ const fetchTop = async () => {
 /** Fetch */
 const loading = ref(true)
 const pagination = reactive({
-  perPage: 24,
+  perPage: 18,
   page: ref(0)
 })
 const fetch = async () => {

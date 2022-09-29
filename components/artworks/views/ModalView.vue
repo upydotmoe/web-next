@@ -180,7 +180,6 @@
           <!-- share to feed -->
           <span @click="showShareToFeedModal()">
             <Icon 
-              v-show="!liked"
               :name="'i-uil-share'" 
               class="hover:text-blue-500"
             />

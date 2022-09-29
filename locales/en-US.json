@@ -228,6 +228,7 @@
   "title": "Title",
   "description": "Description",
   "tags": "Tags",
+  "tagsInputPlaceholder": "Tags (Press enter or comma to add new tag)",
   "tagsApplied": "tags aplied",
   "pickUpToTags": "Pick up to 10 tags",
   "update": "Update",
