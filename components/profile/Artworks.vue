@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <ErrorMessages 
+    <LoadingEmptyErrorMessage 
       :loading="loading"
       :empty="isEmpty"
       :error="isError"
@@ -47,7 +47,7 @@
 // components
 import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()

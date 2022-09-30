@@ -185,7 +185,7 @@
         </div>
 
         <!-- On loading, empty or error occured -->
-        <ErrorMessages
+        <LoadingEmptyErrorMessage
           :loading="config.loading"
           :empty="isEmpty"
           :error="isError"
@@ -211,7 +211,7 @@ import useAuthStore from '@/stores/auth.store'
 
 // components
 import Layout from '~/components/layouts/Layout.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import ReportDetailModal from '~/components/reports/ReportDetailModal.vue'
 
 // stores

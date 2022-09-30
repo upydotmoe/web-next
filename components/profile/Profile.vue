@@ -475,7 +475,7 @@
                 </button>
               </div>
 
-              <ErrorMessages
+              <LoadingEmptyErrorMessage
                 :loading="loading"
               />
               
@@ -573,7 +573,7 @@ import Album from '~/components/profile/Album.vue'
 import Collection from '~/components/profile/Collection.vue'
 import FollowerList from '~/components/profile/FollowerList.vue'
 import FollowingList from '~/components/profile/FollowingList.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'

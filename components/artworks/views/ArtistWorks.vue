@@ -13,7 +13,7 @@
       </nuxt-link>
     </div>
     
-    <ErrorMessages 
+    <LoadingEmptyErrorMessage 
       :loading="loading"
       :error="isError"
       class="mt-2"
@@ -52,7 +52,7 @@
 // components
 import WorkList from '~/components/artworks/WorkList.vue'
 import Icon from '~/components/globals/Icon.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue';
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 /**
  * @props

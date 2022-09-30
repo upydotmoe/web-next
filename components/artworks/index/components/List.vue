@@ -49,7 +49,7 @@
       </div>
 
       <!-- On loading, empty or error occured -->
-      <ErrorMessages
+      <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
         :error="isError"
@@ -107,7 +107,7 @@
 import Icon from '~/components/globals/Icon.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // stores
 import authStore from '@/stores/auth.store'
@@ -117,7 +117,7 @@ export default {
     Icon,
     WorkList,
     ModalView,
-    ErrorMessages
+    LoadingEmptyErrorMessage
   },
   props: {
     title: {

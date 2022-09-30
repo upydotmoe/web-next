@@ -49,7 +49,7 @@
       </div>
 
       <!-- On loading, empty or error occured -->
-      <ErrorMessages
+      <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
         :error="isError"
@@ -64,7 +64,7 @@
 import authStore from '@/stores/auth.store'
 
 // components
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import Icon from '~/components/globals/Icon.vue'
 
 // composables
@@ -102,7 +102,7 @@ const album = useAlbum(oApiConfiguration, fetchOptions())
 const fetchTop = async () => {
   albums.value = []
   config.value.pagination.page = 0
-  resetErrorMessages()
+  resetLoadingEmptyErrorMessage()
 
   await fetchAlbums()
 }
@@ -120,7 +120,7 @@ const loading = ref(true)
 const isError = ref(false)
 const isEmpty = ref(false)
 const fetchAlbums = async () => {
-  resetErrorMessages()
+  resetLoadingEmptyErrorMessage()
   loading.value = true
 
   const [data, showLoadMore, error] = await album.fetchAlbums(
@@ -152,7 +152,7 @@ const fetchAlbums = async () => {
   loading.value = false
 }
 
-const resetErrorMessages = () => {
+const resetLoadingEmptyErrorMessage = () => {
   isEmpty.value = false
   isError.value = false
 }

@@ -13,7 +13,7 @@
     </div>
 
     <!-- On loading, empty or error occured -->
-    <ErrorMessages
+    <LoadingEmptyErrorMessage
       :loading="loading"
       :empty="isEmpty"
       :error="isError"
@@ -59,7 +59,7 @@
 // components
 import Icon from '~/components/globals/Icon.vue'
 import UserList from '~/components/users/UserList.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'

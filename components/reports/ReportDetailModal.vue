@@ -9,7 +9,7 @@
         <CloseModalButton @close="closeModal('report-detail-modal')" />
       </div>
 
-      <ErrorMessages 
+      <LoadingEmptyErrorMessage 
         :loading="loading"
         :error="isError"
       />
@@ -161,7 +161,7 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import CloseModalButton from '~/components/globals/CloseModalButton.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // stores
 const auth = useAuthStore()

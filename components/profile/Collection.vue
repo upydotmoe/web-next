@@ -109,7 +109,7 @@
       {{ $t('loadMore') }}
     </div>
 
-    <ErrorMessages 
+    <LoadingEmptyErrorMessage 
       :loading="loading"
       :empty="isEmpty"
       :error="isError"
@@ -185,7 +185,7 @@ import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 import EditForm from '~/components/collections/EditForm.vue'
 import ArtworkThumbnail from '~/components/collections/thumbnails/ArtworkThumbnail.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'

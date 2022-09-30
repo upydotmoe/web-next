@@ -108,7 +108,7 @@
       </div>
 
       <!-- On loading, empty or error occured -->
-      <ErrorMessages
+      <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
         :error="isError"
@@ -186,7 +186,7 @@ import Icon from '~/components/globals/Icon.vue'
 import Layout from '~/components/layouts/Layout.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
 
 // stores

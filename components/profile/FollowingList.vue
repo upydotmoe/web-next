@@ -56,7 +56,7 @@
     </div>
 
     <!-- On loading, empty or error occured -->
-    <ErrorMessages
+    <LoadingEmptyErrorMessage
       :loading="loading"
       :empty="isEmpty"
       :error="isError"
@@ -74,7 +74,7 @@ import useAuthStore from '@/stores/auth.store'
 
 // components
 import Icon from '~/components/globals/Icon.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
@@ -113,7 +113,7 @@ const isError = ref(false)
 const isEmpty = ref(false)
 const showLoadMore = ref(false)
 const fetch = async () => {
-  resetErrorMessages()
+  resetLoadingEmptyErrorMessage()
   loading.value = true
 
   const [data, error] = await userApi.getFollowingList({
@@ -146,7 +146,7 @@ const fetch = async () => {
   loading.value = false
 }
 
-const resetErrorMessages = () => {
+const resetLoadingEmptyErrorMessage = () => {
   isEmpty.value = false
   isError.value = false
 }

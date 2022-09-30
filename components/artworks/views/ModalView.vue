@@ -3,7 +3,7 @@
     v-show="loading"
     class="work-view mx-auto w-full md:w-1/2 align-middle"
   >
-    <ErrorMessages
+    <LoadingEmptyErrorMessage
       :loading="loading"
     />
   </div>
@@ -746,7 +746,7 @@ import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 import ReportModal from '~/components/reports/ReportModal.vue'
 import ShareArtworkToFeedModal from '~~/components/feeds/ShareArtworkToFeedModal.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // stores
 const auth = useAuthStore()

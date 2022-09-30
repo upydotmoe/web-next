@@ -74,7 +74,7 @@
       </div>
 
       <!-- On loading, empty or error occured -->
-      <ErrorMessages
+      <LoadingEmptyErrorMessage
         :loading="config.loading"
         :empty="isEmpty"
         :error="isError"
@@ -95,7 +95,7 @@ import useAuthStore from '@/stores/auth.store'
 
 // components
 import Icon from '~/components/globals/Icon.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'

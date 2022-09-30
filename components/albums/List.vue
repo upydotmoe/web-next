@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <ErrorMessages 
+    <LoadingEmptyErrorMessage 
       :loading="loading"
       :empty="albumData.empty"
       :error="false"
@@ -65,7 +65,7 @@
 // components
 import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
-import ErrorMessages from '~/components/globals/ErrorMessages.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // composables
