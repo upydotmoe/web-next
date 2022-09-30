@@ -12,10 +12,16 @@
         <Icon :name="'i-ci-external-link'" />
       </nuxt-link>
     </div>
+    
+    <ErrorMessages 
+      :loading="loading"
+      :error="isError"
+      class="mt-2"
+    />
 
     <!-- User artwork's list -->
     <WorkList 
-      v-show="!isError"
+      v-show="!loading && !isError"
       class="gap-2 md:gap-4"
       :class="[ pagination.options.nextPrevLoading ? 'animate-pulse' : '', paginationPerPage === 6 ? 'grid-cols-6' : 'grid-cols-4' ]"
       :section-class="'works'"
@@ -27,7 +33,7 @@
     />
 
     <!-- Pagination controller -->
-    <div v-if="artworkDetail.users" class="pagination-controller">
+    <div v-if="artworkDetail.users" v-show="!loading" class="pagination-controller">
       <span 
         @click="pagination.options.disableArtistPrevButton ? null : nextPrevByArtist(artworkDetail.users.id, 'prev')"
       >
@@ -46,6 +52,7 @@
 // components
 import WorkList from '~/components/artworks/WorkList.vue'
 import Icon from '~/components/globals/Icon.vue'
+import ErrorMessages from '~/components/globals/ErrorMessages.vue';
 
 /**
  * @props
@@ -90,6 +97,7 @@ onMounted (() => {
 })
 
 /** Get artist's works */
+const loading = ref(true)
 const worksByArtist = ref([])
 const pagination = reactive({
   page: 0,
@@ -101,6 +109,7 @@ const pagination = reactive({
   }
 })
 const nextPrevByArtist = async (userId, mode) => {
+  loading.value = true
   pagination.options.nextPrevLoading = true
 
   if (userId !== currentViewUserId.value) {
@@ -123,6 +132,7 @@ const nextPrevByArtist = async (userId, mode) => {
   })
 
   if (error) {
+    loading.value = false
     showError()
   } else {
     if (workPagination.next_previous.prev_page === null || workPagination.next_previous.prev_page === undefined) {
@@ -141,6 +151,7 @@ const nextPrevByArtist = async (userId, mode) => {
   }
 
   pagination.options.nextPrevLoading = false
+  loading.value = false
 }
 
 /** When error occured while trying to fetch user's artworks */
