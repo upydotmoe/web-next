@@ -538,10 +538,10 @@
 
   // vue tags-input custom
   .tags-input {
-    @apply form-input theme-color-secondary;
+    @apply form-input theme-color;
 
     .tags-input-badge-pill {
-      @apply my-1 bg-white rounded;
+      @apply my-1 rounded theme-color-secondary;
   
       span {
         @apply p-2;

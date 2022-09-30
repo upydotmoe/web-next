@@ -96,7 +96,7 @@
           :typeahead-hide-discard="true"
           :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
           :add-tags-on-comma="true"
-          :class="{ 'pointer-events-none cursor-not-allowed bg-white': uploading || uploadSuccess }"
+          :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
         />
       </div>
 
