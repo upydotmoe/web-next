@@ -9,7 +9,12 @@
         <CloseModalButton @close="closeModal('report-detail-modal')" />
       </div>
 
-      <div class="report_detail">
+      <ErrorMessages 
+        :loading="loading"
+        :error="isError"
+      />
+
+      <div v-show="!loading" class="report_detail">
         <div class="report_detail__badge">
           <span
             :class="reportDetail.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'"
@@ -156,6 +161,7 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import CloseModalButton from '~/components/globals/CloseModalButton.vue'
+import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // stores
 const auth = useAuthStore()
@@ -169,19 +175,27 @@ const emits = defineEmits (['refresh'])
 /**
  * @detail
  */
+const loading = ref(true)
+const isError = ref(false)
+
 const reportDetail = ref({})
 const selectedReasons = ref([])
 const view = async (reportId) => {
+  loading.value = true
+  isError.value = false
+
   const [report, error] = await reportApi.getReportById({
     reportId
   })
 
   if (error) {
-    // todo: handle error
+    isError.value = true
   } else {
     reportDetail.value = report
     selectedReasons.value = report.reasons.split(',')
   }
+
+  loading.value = false
 }
 /**
  * @detail
