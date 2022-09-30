@@ -461,7 +461,7 @@
 
               <!-- manage mode: action button -->
               <div 
-                v-show="auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
+                v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
                 class="flex flex-row gap-2 justify-between w-full md:justify-end"
               >
                 <button class="w-full action-button secondary-button md:w-auto" @click="config.manageMode = !config.manageMode">
@@ -474,6 +474,10 @@
                   {{ $t('albums.addToAlbum') }}
                 </button>
               </div>
+
+              <ErrorMessages
+                :loading="loading"
+              />
               
               <!-- manage mode message -->
               <div v-show="config.manageMode" class="p-2 mt-2 text-black bg-yellow-200 rounded-md">
@@ -569,6 +573,7 @@ import Album from '~/components/profile/Album.vue'
 import Collection from '~/components/profile/Collection.vue'
 import FollowerList from '~/components/profile/FollowerList.vue'
 import FollowingList from '~/components/profile/FollowingList.vue'
+import ErrorMessages from '~/components/globals/ErrorMessages.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
