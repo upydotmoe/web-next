@@ -215,7 +215,7 @@ form {
       @apply mt-2 mb-4 input-bg rounded-md;
 
       .icon {
-        @apply ml-3 h-10 relative text-lg text-color-secondary -mb-2 rounded-l-md;
+        @apply ml-3 h-12 relative text-lg text-color-secondary -mb-2 rounded-l-md;
       }
 
       input {
