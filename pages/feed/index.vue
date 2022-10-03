@@ -448,7 +448,16 @@ const feedApi = useFeed(oApiConfiguration, fetchOptions())
  * @nuxt
  */
 const runtimeConfig = useRuntimeConfig()
+const router = useRouter()
 const { $router } = useNuxtApp()
+
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    router.push({
+      path: '/explore'
+    })
+  }
+})
 
 onMounted (() => {
   // window.addEventListener('keydown', (e) => {

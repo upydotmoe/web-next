@@ -68,7 +68,7 @@
         "node_modules/@intlify/devtools-if/dist/devtools-if.esm-bundler"
       ],
       "vue-i18n": [
-        "node_modules/vue-i18n/dist/vue-i18n.esm-bundler"
+        "node_modules/vue-i18n/dist/vue-i18n.runtime.esm-bundler"
       ],
       "pinia": [
         "pinia/dist/pinia"

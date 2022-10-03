@@ -1,2 +1,0 @@
-import{openBlock as e,createBlock as t,withCtx as o,createElementVNode as r,createVNode as i}from"vue";import{L as s,N as a}from"./Layout.92203848.js";import"../server.mjs";import"#internal/nitro";import"vue-router";import"./Icon.ba72bd23.js";const c={class:"h-screen"},x={__name:"index",setup(m){return(n,p)=>(e(),t(s,{"with-footer":!1,"hide-side":!0,class:"theme-color"},{default:o(()=>[r("div",c,[i(a)])]),_:1}))}};export{x as default};
-//# sourceMappingURL=index.1c76cc0c.js.map
