@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     v-show="loading"
     class="work-view mx-auto w-full md:w-1/2 align-middle"
   >
@@ -8,7 +8,7 @@
     />
   </div>
 
-  <div 
+  <div
     v-show="!loading"
     class="work-container work-view"
     :class="!isModal ? 'w-full' : 'w-full 2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color'"

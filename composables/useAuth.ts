@@ -120,9 +120,11 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         }
       }
 
-      try {
+      // try {
         const { data } = await new UserApi(oApiConfiguration)
           .getCurrentUserInfo(fetchOptions)
+
+        console.log('user data:', data)
 
         if (!data.success) {
           auth.logout()
@@ -141,9 +143,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
             console.error('Session refreshed, please refresh the page!')
           }
         }
-      } catch (error) {
-        auth.logout()
-      }
+      // } catch (error) {
+      //   auth.logout()
+      // }
     }
   }
 

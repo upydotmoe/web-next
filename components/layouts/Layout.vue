@@ -51,7 +51,7 @@
       <div 
         class="mt-2"
         :class="[
-          hideSide || noRightSide ? 'w-full' : 'w-full lg:w-3/5',
+          hideSide || noRightSide ? 'w-full' : 'w-full lg:w-7/12',
           { 'h-screen': hScreen },
           // { 'md:mt-36': !unfixedNavbarRoutes().includes(currentRoute) }
         ]"

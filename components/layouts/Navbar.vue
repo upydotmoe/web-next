@@ -281,7 +281,12 @@ onMounted(async () => {
   }
 })
 
-const userLogout = async () => await auth.logout()
+const userLogout = async () => {
+  await auth.logout()
+
+  // redirect to explore page 
+  router.go('/')
+}
 
 /**
  * @search

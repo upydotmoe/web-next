@@ -54,13 +54,6 @@ export default defineStore('auth', () => {
     r43f0rt3jen.value = null
     i502p00r0.value = false
     user.value = {}
-
-    // redirect to explore page 
-    router.push({
-      path: '/explore',
-      replace: true,
-      force: true
-    })
   }
   /**
    * @methods
