@@ -1,7 +1,7 @@
 <template>
   <div
-    v-show="loading"
-    class="work-view mx-auto w-full md:w-1/2 align-middle"
+    v-show="loading && !isMobile() && isModal"
+    class="mx-auto w-full align-middle work-view md:w-1/2"
   >
     <LoadingEmptyErrorMessage
       :loading="loading"
@@ -85,7 +85,6 @@
 
       <!-- Intereaction area -->
       <div 
-        v-show="auth.loggedIn"
         class="interactions"
       >
         <!-- Counter -->
@@ -135,9 +134,12 @@
         </div>
 
         <!-- Reactions -->
-        <div v-if="auth.loggedIn && !previewMode" class="reactions">
+        <div v-if="!previewMode" class="reactions">
           <!-- Like -->
-          <span @click="liked ? unlike() : like()">
+          <span
+            v-if="auth.loggedIn"
+            @click="liked ? unlike() : like()"
+          >
             <Icon 
               v-show="liked"
               id="like-button"
@@ -188,7 +190,7 @@
           </span>
 
           <!-- share to feed -->
-          <span @click="showShareToFeedModal()">
+          <span v-if="auth.loggedIn" @click="showShareToFeedModal()">
             <Icon 
               :name="'i-uil-share'" 
               class="hover:text-blue-500"
@@ -765,6 +767,11 @@ definePageMeta ({
 })
 
 /**
+ * @emits
+ */
+const emits = defineEmits(['stopLoading'])
+
+/**
  * @props
  */
 const props = defineProps ({
@@ -912,6 +919,7 @@ const view = async (selectedWorkId) => {
   }
 
   loading.value = false
+  emits('stopLoading')
 }
 
 const reportStatus = ref({})

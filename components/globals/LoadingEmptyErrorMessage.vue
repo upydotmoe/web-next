@@ -1,7 +1,10 @@
 <template>
   <div 
     v-show="loading || empty || error"
-    class="p-4 text-center rounded-md message theme-color-secondary"
+    :class="[
+      'p-4 text-center rounded-md message',
+      isMobile() ? 'theme-color-secondary' : 'theme-color'
+    ]"
   >
     <!-- When loading is in progress -->
     <span v-show="loading" class="flex flex-row justify-center">
