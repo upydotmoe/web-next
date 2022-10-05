@@ -20,6 +20,7 @@
   "artworks": {
     "artwork": "Artwork",
     "artworks": "Artwork",
+    "notFound": "Artwork tidak ditemukan atau sudah terhapus",
     "recentArtworks": "Artwork terbaru",
     "recent": "Terbaru",
     "popularArtworks": "Populer",

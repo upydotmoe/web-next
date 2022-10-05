@@ -17,7 +17,7 @@
     <!-- If there is no artwork to show -->
     <span v-show="empty">
       <b>(ㆆ_ㆆ)</b> 
-      {{ $t('nothingToShow') }}
+      {{ props.emptyMessage ?? $t('nothingToShow') }}
     </span>
     
     <!-- When error occured -->
@@ -30,9 +30,10 @@
 </template>
 
 <script setup>
+// components
 import Spinner from '~/components/globals/Spinner.vue'
 
-defineProps ({
+const props = defineProps ({
   loading: {
     type: Boolean,
     default: false
@@ -44,6 +45,10 @@ defineProps ({
   empty: {
     type: Boolean,
     default: false
+  },
+  emptyMessage: {
+    type: String,
+    default: 'Nothing to show'
   },
   error: {
     type: Boolean,

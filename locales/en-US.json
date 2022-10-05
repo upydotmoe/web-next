@@ -20,6 +20,7 @@
   "artworks": {
     "artwork": "Artwork",
     "artworks": "Artworks",
+    "notFound": "Artwork not found or has been removed.",
     "recentArtworks": "Recent Artworks",
     "recent": "Recent",
     "popularArtworks": "Popular Artworks",

@@ -1,5 +1,6 @@
 <template>
-  <div
+  <div>
+    <div
     v-show="loading && !isMobile() && isModal"
     class="mx-auto w-full align-middle work-view md:w-1/2"
   >
@@ -724,6 +725,7 @@
       :icon="'i-bi-check-all'"
     />
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -769,7 +771,11 @@ definePageMeta ({
 /**
  * @emits
  */
-const emits = defineEmits(['stopLoading'])
+const emits = defineEmits([
+  'stopLoading',
+  'showEmpty',
+'showError'
+])
 
 /**
  * @props
@@ -871,7 +877,11 @@ const view = async (selectedWorkId) => {
   const [data, error] = await artworkApi.getWorkById(selectedWorkId)
 
   if (error) {
-    showError()
+    if (error == 'Work not found') {
+      emits('showEmpty')
+    } else {
+      emits('showError')
+    }
   } else {
     artworkDetail.value = data
 
@@ -1291,12 +1301,6 @@ const unlikeReply = async (replyId) => {
   } else {
     // todo: handle error
   }
-}
-
-/** Show error on fetch failure */
-const isError = ref(false)
-const showError = () => {
-  isError.value = true
 }
 
 /** Cancel publish or delete work */
