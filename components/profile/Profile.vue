@@ -173,9 +173,11 @@
 
             <div>
               <p v-if="userInfo.bio" class="mt-4">
-                <span :id="'user-bio-'+userInfo.id">
-                  {{ userInfo.bio.length > 300 ? `${userInfo.bio.slice(0, 300)}...` : userInfo.bio }}
-                </span>
+                <div
+                  :id="'user-bio-'+userInfo.id"
+                  v-html="userInfo.bio.length > 300 ? `${userInfo.bio.slice(0, 300)}...` : userInfo.bio"
+                />
+
                 <a 
                   v-if="userInfo.bio.length > 300" 
                   :id="'user-bio-read-more-'+userInfo.id" 
@@ -225,7 +227,7 @@
 
         <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
           <span :id="'mobile__user-bio-'+userInfo.id">
-            {{ userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 150)}...` : userInfo.bio }}
+            {{ userInfo.bio.length > 150 && sliceBio ? `${userInfo.bio.slice(0, 150)}...` : userInfo.bio }}
           </span>
           <a 
             v-if="userInfo.bio.length > 150"
@@ -748,7 +750,9 @@ const unfollow = async (userToUnfollow) => {
   }
 }
 
+const sliceBio = ref(true)
 const readMore = (bio, userId, selectorElId, bioElId) => {
+  sliceBio.value = false
   useReadMore().readMore(bio, userId, selectorElId, bioElId)
 }
 </script>

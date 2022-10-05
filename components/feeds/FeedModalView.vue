@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="work-container work-view z-40"
+    class="z-40 work-container work-view"
     :class="!isModal ? 'w-full' : 'w-full md:w-9/12 lg:w-2/5 mx-auto md:p-6 p-4 theme-color'"
   >
     <div class="w-full" :class="{ 'overflow-y-scroll pr-4': isModal }">
@@ -35,11 +35,10 @@
 
       <div 
         v-if="feedDetail.text"
+        v-html="feedDetail.text"
         class="mb-4"
         :class="feedDetail.text.length <= 300 ? 'text-lg' : ''"
-      >
-        {{ feedDetail.text }}
-      </div>
+      />
 
       <!-- shared artwork post detail -->
       <div

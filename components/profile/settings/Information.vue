@@ -355,7 +355,7 @@ const fetchUserInfo = async () => {
       inputData.value.penName = data.pen_name
       current.value.penName = data.pen_name
 
-      inputData.value.bio = data.bio
+      inputData.value.bio = data.bio.split('<br><br>').join(' \n').split('<br>').join('')
       inputData.value.gender = data.gender
       inputData.value.location = data.location
     }

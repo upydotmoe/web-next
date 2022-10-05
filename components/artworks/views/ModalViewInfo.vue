@@ -35,9 +35,10 @@
     </div>
 
     <div v-if="artworkDetail.description" class="mb-4">
-      <span :id="'mview-'+isDesktop+'-description-'+artworkDetail.id">
-        {{ artworkDetail.description.length > 300 ? `${artworkDetail.description.slice(0, 300)}...` : artworkDetail.description }}
-      </span>
+      <span
+        :id="'mview-'+isDesktop+'-description-'+artworkDetail.id"
+        v-html="artworkDetail.description.length > 300 ? `${artworkDetail.description.slice(0, 300)}...` : artworkDetail.description"
+      />
       <a 
         v-if="artworkDetail.description.length > 300" 
         :id="'mview-'+isDesktop+'-read-more-'+artworkDetail.id" 

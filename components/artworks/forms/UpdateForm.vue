@@ -142,7 +142,7 @@ const fetchWorkInfo = async () => {
     isErrorFetching.value = true
   } else {
     inputData.value.title = data.title
-    inputData.value.description = data.description
+    inputData.value.description = data.description.split('<br><br>').join(' \n').split('<br>').join('')
     data.artwork_has_tags.forEach((tag) => {
       tags.value.push({
         key: tag.artwork_tags.id,

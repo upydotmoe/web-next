@@ -48,9 +48,11 @@
                 <div v-if="feed.type === 'artwork'" class="px-2 mt-2 md:px-4">
                   <span class="text-xs font-semibold">{{ feed.title }}</span>
                   <p v-show="feed.description">
-                    <span :id="'feed-description-'+feed.id">
-                      {{ feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description }}
-                    </span>
+                    <span
+                      :id="'feed-description-'+feed.id"
+                      v-html="feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description"
+                    />
+
                     <a 
                       v-if="feed.description.length > 300" 
                       :id="'feed-read-more-'+feed.id" 
@@ -82,13 +84,12 @@
                 <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
                   <p
                     v-show="feed.text"
+                    v-html="feed.text"
                     :class="[
                       'mt-2',
                       { 'mb-2': !feed.artwork_share_info }
                     ]"
-                  >
-                    {{ feed.text }}
-                  </p>
+                  />
 
                   <!-- shared artwork post detail -->
                   <div v-if="feed.artwork_share_info" class="my-2 w-full rounded-md theme-color-secondary">
@@ -124,9 +125,11 @@
                     <div class="px-2 mt-2 md:px-4">
                       <span class="text-xs font-semibold">{{ feed.artwork_share_info.title }}</span>
                       <p v-show="feed.artwork_share_info.description">
-                        <span :id="'feed-description-'+feed.artwork_share_info.id">
-                          {{ feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description }}
-                        </span>
+                        <span
+                          :id="'feed-description-'+feed.artwork_share_info.id"
+                          v-html="feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description"
+                        />
+                        
                         <a 
                           v-if="feed.artwork_share_info.description.length > 300" 
                           :id="'feed-read-more-'+feed.artwork_share_info.id" 
