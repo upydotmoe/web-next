@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div
+  <div
     v-show="loading && !isMobile() && isModal"
     class="mx-auto w-full align-middle work-view md:w-1/2"
   >
@@ -724,7 +723,6 @@
       :text="$t('linkCopied')"
       :icon="'i-bi-check-all'"
     />
-  </div>
   </div>
 </template>
 

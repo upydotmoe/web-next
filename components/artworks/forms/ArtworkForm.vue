@@ -34,32 +34,50 @@
       @submit.prevent="storeArtwork(formId)"
     >
       <!-- title -->
-      <n-validate 
-        for="title"
-        :name="$t('title')" 
-        class="mb-2 input-block"
-      >
-        <input 
-          v-model="inputData.title"
-          type="text"
-          :class="[
-            'form-input input',
-            { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
-          ]"
-          :placeholder="$t('title')"
+      <div class="input-block">
+        <n-validate 
+          for="title"
+          :name="$t('title')" 
+          class="input-block"
         >
-      </n-validate>
+          <input 
+            v-model="inputData.title"
+            type="text"
+            :class="[
+              'form-input input',
+              { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
+            ]"
+            :placeholder="$t('title')"
+          >
+        </n-validate>
+      </div>
 
       <!-- description -->
-      <textarea
-        v-model="inputData.description"
-        class="form-input input"
-        :class="[{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }]"
-        rows="5" 
-        cols="0"
-        :placeholder="$t('description')"
-        data-gramm="false"
-      />
+      <div class="input-block -mt-2">
+        <VueEditor
+          v-model="inputData.description"
+          :editorToolbar="[
+            [{ 'size': ['normal', 'large'] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['link'],
+            [{ 'color': [] }, { 'background': [] }],
+            ['clean']
+          ]"
+          :class="[
+            { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
+          ]"
+          :placeholder="$t('description')"
+        />
+        <!-- <textarea
+          v-model="inputData.description"
+          class="form-input input"
+          :class="[{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }]"
+          rows="5" 
+          cols="0"
+          :placeholder="$t('description')"
+          data-gramm="false"
+        /> -->
+      </div>
 
       <div class="input-block">
         <div v-show="alert.showFileTooBig" class="p-2 mb-2 text-xs text-white bg-red-400 rounded-md shadow-md">
@@ -189,6 +207,9 @@ import { useI18n } from 'vue-i18n'
 import 'flowbite'
 import Datepicker from '@themesberg/tailwind-datepicker/Datepicker'
 import moment from 'moment'
+
+// vue3-editor
+import { VueEditor } from 'vue3-editor'
 
 import vueFilePond from 'vue-filepond'
 
@@ -386,7 +407,7 @@ const showError = () => {
 
 form {
   .input-block {
-    @apply mb-1;
+    @apply mb-4;
   }
 }
 </style>

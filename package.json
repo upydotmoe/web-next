@@ -45,6 +45,7 @@
     "v-viewer": "^3.0.10",
     "vue-debounce": "latest",
     "vue-filepond": "latest",
-    "vue-lazyload": "latest"
+    "vue-lazyload": "latest",
+    "vue3-editor": "^0.1.1"
   }
 }

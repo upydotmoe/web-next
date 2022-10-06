@@ -33,9 +33,19 @@
 
           <!-- text feed -->
           <div class="px-2 md:px-4">
-            <p>
-              {{ feed.text }}
-            </p>
+            <p
+              :id="'feed-text-'+feed.id"
+              v-html="feed.text.split('<br>').length > 3 && feed.text.length > 300 ? `${feed.text.slice(0, 300)}...` : feed.text"
+            />
+            
+            <a 
+              v-if="feed.text.split('<br>').length > 3 && feed.text.length > 300" 
+              :id="'feed-read-more-'+feed.id" 
+              class="href" 
+              @click.prevent="readMore(feed.text, feed.id, 'feed-read-more-', 'feed-text-')"
+            >
+              {{ $t('readMore') }}
+            </a>
 
             <!-- shared artwork post detail -->
             <div v-if="feed.artworks" class="my-2 w-full rounded-md theme-color">
@@ -74,6 +84,7 @@
                   <span :id="'feed-description-'+feed.artworks.id">
                     {{ feed.artworks.description.length > 300 ? `${feed.artworks.description.slice(0, 300)}...` : feed.artworks.description }}
                   </span>
+                  
                   <a 
                     v-if="feed.artworks.description.length > 300" 
                     :id="'feed-read-more-'+feed.artworks.id" 
@@ -432,6 +443,10 @@ const unlike = async (id) => {
   } else {
     // todo: handle error
   }
+}
+
+const readMore = (text, postId, selectorElId, textElid) => {
+  useReadMore().readMore(text, postId, selectorElId, textElid)
 }
 </script>
 

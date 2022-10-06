@@ -36,8 +36,7 @@
       <div 
         v-if="feedDetail.text"
         v-html="feedDetail.text"
-        class="mb-4"
-        :class="feedDetail.text.length <= 300 ? 'text-lg' : ''"
+        class="p-4 mb-4 rounded-md theme-color"
       />
 
       <!-- shared artwork post detail -->

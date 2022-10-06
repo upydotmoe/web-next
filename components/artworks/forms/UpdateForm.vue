@@ -38,8 +38,22 @@
         >
       </div>
 
-      <div class="input-block">
-        <textarea 
+      <div class="input-block -mt-2">
+        <VueEditor
+          v-model="inputData.description"
+          :editorToolbar="[
+            [{ 'size': ['normal', 'large'] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['link'],
+            [{ 'color': [] }, { 'background': [] }],
+            ['clean']
+          ]"
+          :class="[
+            { 'pointer-events-none cursor-not-allowed': saving || updated }
+          ]"
+          :placeholder="$t('description')"
+        />
+        <!-- <textarea 
           v-model="inputData.description" 
           class="form-input input" 
           :class="{ 'pointer-events-none cursor-not-allowed': saving || updated }"
@@ -47,7 +61,7 @@
           cols="0"
           :placeholder="$t('description')"
           data-gramm="false"
-        />
+        /> -->
       </div>
 
       <div class="input-block">
@@ -65,7 +79,7 @@
       </div>
 
       <div class="input-block">
-        <div class="mb-3">
+        <div class="mb-4">
           <label :for="!inputData.isExplicit ? 'checked' : 'unchecked'" class="inline-flex items-center mt-2">
             <span class="relative cursor-pointer" @click="inputData.isExplicit = !inputData.isExplicit">
               <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
@@ -98,6 +112,9 @@
 </template>
 
 <script setup>
+// vue3-editor
+import { VueEditor } from 'vue3-editor'
+
 // stores
 import useAuthStore from '@/stores/auth.store';
 
@@ -212,7 +229,7 @@ const update = async () => {
 
 form {
   .input-block {
-    @apply mb-1;
+    @apply mb-4;
   }
 }
 </style>

@@ -84,12 +84,22 @@
                 <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
                   <p
                     v-show="feed.text"
-                    v-html="feed.text"
+                    v-html="feed.text.split('<br>').length > 3 && feed.text.length > 300 ? `${feed.text.slice(0, 300)}...` : feed.text"
+                    :id="'feed-text-'+feed.id"
                     :class="[
                       'mt-2',
                       { 'mb-2': !feed.artwork_share_info }
                     ]"
                   />
+                  
+                  <a 
+                    v-if="feed.text.split('<br>').length > 3 && feed.text.length > 300" 
+                    :id="'feed-read-more-'+feed.id" 
+                    class="href" 
+                    @click.prevent="readMore(feed.text, feed.id, 'feed-read-more-', 'feed-text-')"
+                  >
+                    {{ $t('readMore') }}
+                  </a>
 
                   <!-- shared artwork post detail -->
                   <div v-if="feed.artwork_share_info" class="my-2 w-full rounded-md theme-color-secondary">

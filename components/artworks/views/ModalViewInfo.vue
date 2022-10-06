@@ -50,11 +50,16 @@
     </div>
 
     <div class="mb-4">
-      <span :class="{ 'font-bold italic text-red-400': previewMode }">{{ !previewMode ? $t('publishedOn') : $t('willBePublishedOn') }}</span> {{ formatDate(artworkDetail.scheduled_post) }}
+      <span :class="[
+        'italic text-color-secondary',
+        { 'font-bold text-red-400': previewMode }
+      ]">
+        {{ !previewMode ? $t('publishedOn') : $t('willBePublishedOn') }}
+      </span> {{ formatDate(artworkDetail.scheduled_post) }}
     </div>
 
     <!-- tags -->
-  <div v-if="artworkDetail.artwork_has_tags && artworkDetail.artwork_has_tags.length" class="tags">
+    <div v-if="artworkDetail.artwork_has_tags && artworkDetail.artwork_has_tags.length" class="tags">
       <span 
         v-for="tag in artworkDetail.artwork_has_tags" 
         :key="tag.artwork_tags.id" 

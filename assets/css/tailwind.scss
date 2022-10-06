@@ -62,12 +62,12 @@
     @apply bg-transparent;
   }
 
-  .flatpickr-current-month {
-    font-size: 8px !important;
-  }
-
   input {
     @apply text-xs focus:ring-transparent;
+  }
+
+  .flatpickr-current-month {
+    font-size: 8px !important;
   }
 }
 
@@ -653,6 +653,10 @@
     .next {
       @apply text-gray-600;
     }
+  }
+
+  span.ql-size-large {
+    @apply text-lg;
   }
 }
 

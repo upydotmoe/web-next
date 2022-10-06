@@ -14,10 +14,10 @@
         <label class="italic font-medium text-color-secondary">Title</label>
         <p>{{ currentInfo.title }}</p>
       </div>
-      <div class="mt-2">
+      <!-- <div class="mt-2">
         <label class="italic font-medium text-color-secondary">Description</label>
         <p v-html="currentInfo.description" class="text-justify" />
-      </div>
+      </div> -->
       <div class="mt-2">
         <label class="italic font-medium text-color-secondary">Explicit</label>
         <p>{{ currentInfo.is_explicit ? 'Yes' : 'No' }}</p>

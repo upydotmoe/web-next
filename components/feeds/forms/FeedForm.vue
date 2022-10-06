@@ -18,7 +18,20 @@
       {{ $t('feeds.form.postFailure') }}
     </div>
 
-    <textarea
+    <!-- feed text input -->
+    <VueEditor
+      v-model="feedInput"
+      :editorToolbar="[
+        [{ 'size': ['normal', 'large'] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        ['link'],
+        [{ 'color': [] }, { 'background': [] }],
+        ['clean']
+      ]"
+      :placeholder="$t('typeSomething')"
+    />
+
+    <!-- <textarea
       v-model="feedInput"
       class="input form-input"
       :placeholder="$t('typeSomething')"
@@ -26,7 +39,8 @@
       rows="5"
       data-gramm="false"
       maxlength="2000"
-    />
+    /> -->
+
     <div class="flex flex-row justify-between md:justify-end">
       <button class="mr-2 w-full reset-form-button md:w-auto" type="reset" @click="feedInput = ''">Reset</button>
       <button 
@@ -42,6 +56,9 @@
 </template>
 
 <script setup>
+// vue3-editor
+import { VueEditor } from 'vue3-editor'
+
 // components
 import Spinner from '~/components/globals/Spinner.vue'
 
@@ -52,7 +69,6 @@ const feedApi = useFeed(oApiConfiguration, fetchOptions())
 const { $router } = useNuxtApp()
 
 const feedInput = ref('')
-
 const posting = ref(false)
 const posted = ref(false)
 const isError = ref(false)

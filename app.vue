@@ -48,3 +48,87 @@ onMounted (async () => {
   }
 })
 </script>
+
+<style>
+.filepond--root, .filepond--hopper, .filepond--panel, .filepond--panel-root {
+  @apply input rounded-md;
+}
+
+.filepond--drop-label {
+  @apply text-color;
+}
+
+.ql-toolbar.ql-snow, .ql-container.ql-snow {
+  @apply border-0 border-none;
+}
+
+.ql-toolbar.ql-snow .ql-formats, .ql-snow .ql-picker {
+  @apply text-color;
+}
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+  @apply hover:theme-color-secondary;
+}
+
+.ql-picker-label::hover {
+  @apply theme-color-secondary;
+}
+
+.ql-snow .ql-picker {
+  @apply text-color;
+}
+
+.ql-snow .ql-stroke, .quillWrapper .ql-snow .ql-stroke {
+  stroke: var(--theme-text-color);
+}
+
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+  fill: var(--theme-text-color);
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  @apply theme-color;
+}
+
+..ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover {
+  @apply text-colored;
+}
+
+.ql-toolbar {
+  @apply input border-0 rounded-t-md rounded-b-none;
+}
+
+.ql-container {
+  @apply rounded-b-md rounded-t-none border-0 input;
+}
+
+.ql-editor {
+  /* @apply px-2; */
+}
+
+.ql-editor.ql-blank::before {
+  @apply text-color-dimmed;
+}
+
+.ql-size-large {
+  @apply text-lg;
+}
+
+.ql-editor {
+  @apply text-xs;
+}
+
+a {
+  @apply href;
+}
+
+ol {
+  @apply list-decimal;
+  padding: 1;
+}
+
+ul {
+  @apply list-disc;
+  padding: 1;
+}
+</style>
