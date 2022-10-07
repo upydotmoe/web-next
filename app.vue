@@ -51,11 +51,15 @@ onMounted (async () => {
 
 <style>
 .filepond--root, .filepond--hopper, .filepond--panel, .filepond--panel-root {
-  @apply input rounded-md;
+  @apply rounded-md;
 }
 
-.filepond--drop-label {
+/* .filepond--drop-label {
   @apply text-color;
+} */
+
+.quillWrapper, .filepond--panel .filepond--panel-root {
+  @apply theme-color rounded-md;
 }
 
 .ql-toolbar.ql-snow, .ql-container.ql-snow {
@@ -63,7 +67,7 @@ onMounted (async () => {
 }
 
 .ql-toolbar.ql-snow .ql-formats, .ql-snow .ql-picker {
-  @apply text-color;
+  @apply text-color-secondary;
 }
 
 .ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
@@ -95,11 +99,11 @@ onMounted (async () => {
 }
 
 .ql-toolbar {
-  @apply input border-0 rounded-t-md rounded-b-none;
+  @apply border-0 rounded-t-md rounded-b-none;
 }
 
 .ql-container {
-  @apply rounded-b-md rounded-t-none border-0 input;
+  @apply rounded-b-md rounded-t-none border-0;
 }
 
 .ql-editor {

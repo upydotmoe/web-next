@@ -1333,6 +1333,8 @@ const deleteWork = async (workId) => {
 const collectionSelectionModalRef = ref(null)
 const showCollectionSelectionModal = () => {
   useModal().openModal('collection-selection-modal')
+
+  collectionSelectionModalRef.value.fetchCollection()
   collectionSelectionModalRef.value.fetchCurrentSaved()
 }
 

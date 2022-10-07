@@ -28,6 +28,9 @@
         [{ 'color': [] }, { 'background': [] }],
         ['clean']
       ]"
+      :class="[
+        'mb-4'
+      ]"
       :placeholder="$t('typeSomething')"
     />
 

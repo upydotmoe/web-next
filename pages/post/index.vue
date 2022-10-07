@@ -60,6 +60,10 @@ import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
 import FeedForm from '~/components/feeds/forms/FeedForm.vue'
 
 const mode = ref('artwork')
+
+useHead ({
+  title: useI18n().tl('meta.title.post')
+})
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,13 @@
   "meta": {
     "title": {
       "app": "Upy (Community Platform for Artists)",
-      "feed": "Feed",
+      "post": "Post New Update",
+      "feed": {
+        "feed": "Feed"
+      },
+      "artwork": {
+        "artwork": "Artwork"
+      },
       "profile": {
         "settings": "Profile Settings"
       }
@@ -31,7 +37,7 @@
     "moreArtworkBy": "More by",
     "add": {
       "form": {
-        "title": "Post new artwork",
+        "title": "Post New Artwork",
         "uploadSuccess": "Successfully uploaded your artwork!",
         "uploadFailure": "Failed to upload your artwork, please try again.",
         "successRedirect": "Redirecting you to the work page..",
@@ -71,7 +77,7 @@
   "feed": "Feed",
   "feeds": {
     "form": {
-      "title": "Post feed update",
+      "title": "Post Feed Update",
       "posted": "Feed update successfully posted!",
       "posting": "Posting..",
       "postingYourUpdate": "Posting your update",

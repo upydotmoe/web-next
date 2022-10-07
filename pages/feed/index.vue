@@ -428,7 +428,7 @@ definePageMeta ({
 })
 
 useHead ({
-  title: useI18n().tl('meta.title.feed')
+  title: useI18n().tl('meta.title.feed.feed')
 })
 
 /**
@@ -605,13 +605,13 @@ const like = async (id, type) => {
   const likedFeedId = parseInt(id.split('-')[1])
   let success = false
 
-  if (type === 'artworks') {
+  if (type === 'artwork') {
     const [likeSuccess, error] = await artworkApi.like({
       workId: likedFeedId
     })
 
     success = likeSuccess
-  } else if (type === 'feeds') {
+  } else if (type === 'feed') {
     const [likeSuccess, error] = await feedApi.like({
       feedId: likedFeedId
     })
@@ -637,13 +637,13 @@ const unlike = async (id, type) => {
   const unlikedFeedId = parseInt(id.split('-')[1])
   let success = false
 
-  if (type === 'artworks') {
+  if (type === 'artwork') {
     const [unlikeSuccess, error] = await artworkApi.unlike({
       workId: unlikedFeedId
     })
 
     success = unlikeSuccess
-  } else if (type === 'feeds') {
+  } else if (type === 'feed') {
     const [unlikeSuccess, error] = await feedApi.unlike({
       feedId: unlikedFeedId
     })
@@ -680,6 +680,7 @@ const showCollectionSelectionModal = (workId) => {
   collectionWorkId.value = workId
 
   useModal().openModal('feed-collection-selection-modal')
+  collectionSelectionModalRef.value.fetchCollection()
   collectionSelectionModalRef.value.fetchCurrentSaved()
 }
 

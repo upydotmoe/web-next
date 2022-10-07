@@ -53,7 +53,7 @@
       </div>
 
       <!-- description -->
-      <div class="input-block -mt-2">
+      <div class="-mt-2 input-block">
         <VueEditor
           v-model="inputData.description"
           :editorToolbar="[
@@ -123,7 +123,7 @@
           <label :for="!inputData.isExplicit ? 'checked' : 'unchecked'" class="inline-flex items-center mt-2">
             <span class="relative cursor-pointer" @click="inputData.isExplicit = !inputData.isExplicit">
               <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
-              <span v-if="!inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline">
+              <span v-if="!inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out button-color focus-within:shadow-outline">
                 <input id="unchecked" type="checkbox" class="absolute w-0 h-0 opacity-0">
               </span>
               
@@ -141,7 +141,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row gap-2 input-block">
+      <div class="flex flex-row gap-x-2 input-block">
         <!-- <ClientOnly>
           <div
             x-data
@@ -227,6 +227,9 @@ import authStore from '@/stores/auth.store'
 import Spinner from '~/components/globals/Spinner.vue'
 import Icon from '~/components/globals/Icon.vue'
 
+/**
+ * Vue FilePond
+ */
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview

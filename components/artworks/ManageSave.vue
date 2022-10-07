@@ -140,6 +140,8 @@ const isError = ref(false)
 const isEmpty = ref(false)
 const collections = ref([])
 const fetchCollection = async (isLoadMore = false) => {
+  collections.value = []
+
   if (!isLoadMore) {
     config.value.loading = true
   }
@@ -319,6 +321,7 @@ const cancel = () => {
  * @expose
  */
 defineExpose ({
+  fetchCollection,
   fetchCurrentSaved
 })
 </script>
