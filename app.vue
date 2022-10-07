@@ -5,6 +5,14 @@
     :height="5"
   />
 
+  <a href="#" class="fixed right-4 bottom-4 p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color z-30">
+    <Icon
+      class="text-white hover:text-white"
+      :name="'i-material-symbols-keyboard-arrow-up-rounded'"
+      :text-size="'text-2xl'"
+    />
+  </a>
+
   <NuxtPage />
 </template>
 
@@ -14,6 +22,9 @@ import { useI18n } from 'vue-i18n'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
 
 initApp()
 const { t } = useI18n()

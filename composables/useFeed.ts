@@ -62,7 +62,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 

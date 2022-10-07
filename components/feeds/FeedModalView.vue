@@ -312,6 +312,11 @@ import ModalView from '~/components/artworks/views/ModalView.vue'
  */
 const auth = useAuthStore()
 
+const emits = defineEmits([
+  'showEmpty',
+  'showError'
+])
+
 /**
  * @props
  */
@@ -360,6 +365,8 @@ const liked = ref(false)
 
 const view = async (selectedFeedId) => {
   loading.value = true
+  empty.value = false
+  error.value = false
 
   // reset comment data and options
   comments.value = []
@@ -371,21 +378,29 @@ const view = async (selectedFeedId) => {
       id: selectedFeedId
     })
 
-    if (data.feed.artworks) {
-      data.feed.artworks.images = []
-      for (let assetIdx = 0; assetIdx < data.feed.artworks.artwork_assets.length; assetIdx++) {
-        if (assetIdx <= 3) {
-          const imageUrl = await generateArtworkThumb(data.feed.artworks.artwork_assets[assetIdx].bucket, data.feed.artworks.artwork_assets[assetIdx].filename, 'feed')
-          data.feed.artworks.images.push(imageUrl)
+    if (error) {
+      if (error == 'Post not found') {
+        emits('showEmpty')
+      } else {
+        emits('showError')
+      }
+    } else {
+      if (data.feed.artworks) {
+        data.feed.artworks.images = []
+        for (let assetIdx = 0; assetIdx < data.feed.artworks.artwork_assets.length; assetIdx++) {
+          if (assetIdx <= 3) {
+            const imageUrl = await generateArtworkThumb(data.feed.artworks.artwork_assets[assetIdx].bucket, data.feed.artworks.artwork_assets[assetIdx].filename, 'feed')
+            data.feed.artworks.images.push(imageUrl)
+          }
         }
       }
+
+      feedDetail.value = data.feed
+
+      liked.value = data.feed.liked
+
+      await getComments(selectedFeedId)
     }
-
-    feedDetail.value = data.feed
-
-    liked.value = data.feed.liked
-
-    await getComments(selectedFeedId)
   } catch (error) {
     showError()
   }
@@ -577,12 +592,6 @@ const unlikeComment = async (commentId) => {
   } catch (error) {
     // 
   }
-}
-
-/** Show error on fetch failure */
-const isError = ref(false)
-const showError = () => {
-  isError.value = true
 }
 
 /** Cancel publish or delete work */

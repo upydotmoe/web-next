@@ -3,8 +3,18 @@
     :class-prop="'work-view'"
     :hide-side="false"
   >
+    <LoadingEmptyErrorMessage
+      v-show="empty || error"
+      :empty="empty"
+      :emptyMessage="$t('artworks.notFound')"
+      :error="error"
+    />
+
     <FeedModalView
+      v-show="!empty && !error"
       :id="id"
+      @showEmpty="showEmpty"
+      @showError="showError"
     />
   </Layout>
 </template>
@@ -12,6 +22,7 @@
 <script setup>
 import Layout from '~/components/layouts/Layout.vue'
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 /**
  * @meta
@@ -23,4 +34,14 @@ definePageMeta ({
 const { $router } = useNuxtApp()
 
 const { id } = $router.currentRoute.value.params
+
+const error = ref(false)
+const showError = () => {
+  error.value = true
+}
+
+const empty = ref(false)
+const showEmpty = () => {
+  empty.value = true
+}
 </script>
