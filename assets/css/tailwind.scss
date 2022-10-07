@@ -66,6 +66,12 @@
     @apply text-xs focus:ring-transparent;
   }
 
+  p {
+    a {
+      @apply href;
+    }
+  }
+
   .flatpickr-current-month {
     font-size: 8px !important;
   }

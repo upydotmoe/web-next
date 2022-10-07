@@ -49,7 +49,7 @@ onMounted (async () => {
 })
 </script>
 
-<style>
+<style lang="scss">
 .filepond--root, .filepond--hopper, .filepond--panel, .filepond--panel-root {
   @apply rounded-md;
 }
@@ -94,7 +94,7 @@ onMounted (async () => {
   @apply theme-color;
 }
 
-..ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover {
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover {
   @apply text-colored;
 }
 
@@ -120,19 +120,5 @@ onMounted (async () => {
 
 .ql-editor {
   @apply text-xs;
-}
-
-a {
-  @apply href;
-}
-
-ol {
-  @apply list-decimal;
-  padding: 1;
-}
-
-ul {
-  @apply list-disc;
-  padding: 1;
 }
 </style>
