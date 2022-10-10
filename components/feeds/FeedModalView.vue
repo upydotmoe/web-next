@@ -365,8 +365,6 @@ const liked = ref(false)
 
 const view = async (selectedFeedId) => {
   loading.value = true
-  empty.value = false
-  error.value = false
 
   // reset comment data and options
   comments.value = []

@@ -76,6 +76,7 @@
   "home": "Home",
   "feed": "Feed",
   "feeds": {
+    "notFound": "Feed not found or has been removed",
     "form": {
       "title": "Post Feed Update",
       "posted": "Feed update successfully posted!",

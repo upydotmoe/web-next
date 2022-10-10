@@ -1,12 +1,14 @@
 <template>
   <Layout 
     :class-prop="'work-view'"
-    :hide-side="false"
+    :hide-side="!empty && !error ? false : true"
+    :no-right-side="!empty && !error ? false : true"
+    :with-footer="true"
   >
     <LoadingEmptyErrorMessage
       v-show="empty || error"
       :empty="empty"
-      :emptyMessage="$t('artworks.notFound')"
+      :emptyMessage="$t('feeds.notFound')"
       :error="error"
     />
 

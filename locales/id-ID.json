@@ -26,7 +26,7 @@
   "artworks": {
     "artwork": "Artwork",
     "artworks": "Artwork",
-    "notFound": "Artwork tidak ditemukan atau sudah terhapus",
+    "notFound": "Artwork tidak ditemukan atau sudah dihapus",
     "recentArtworks": "Artwork terbaru",
     "recent": "Terbaru",
     "popularArtworks": "Populer",
@@ -76,6 +76,7 @@
   "home": "Halaman utama",
   "feed": "Beranda",
   "feeds": {
+    "notFound": "Feed tidak ditemukan atau sudah dihapus",
     "form": {
       "title": "Posting status",
       "posted": "Status update berhasil diposting!",
