@@ -203,6 +203,7 @@
                   aria-haspopup="true" 
                   aria-expanded="true" 
                   aria-controls="option-dropdown-items"
+                  @click="feedEllipsisClicked(feed.id, feedIdx)"
                 >
                   <span>
                     <Icon
@@ -252,6 +253,17 @@
                       >
                         <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
                       </a> -->
+
+                      <div v-if="auth.loggedIn && feed.user_id && auth.user.id === feed.user_id" class="custom-divider" />
+
+                      <div 
+                        v-if="auth.loggedIn && feed.user_id && auth.user.id === feed.user_id" 
+                        :to="'/feed/'+feed.id" 
+                        class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
+                        @click="openModal('profile-feed-deletion-confirm-modal')"
+                      >
+                        <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -305,6 +317,15 @@
         :section="'artwork'"
       />
     </div>
+    
+    <!-- Feed deletion confirmation dialog -->
+    <ConfirmationDialog
+      id="profile-feed-deletion-confirm-modal"
+      :modal-id="'profile-feed-deletion-confirm-modal'"
+      :message="`${$t('alert.areYouSure')} ${$t('alert.youCannotUndoThisAction')}`"
+      class="modal"
+      @onAccept="removeFeed()"
+    />
   </div>
 </template>
 
@@ -322,6 +343,7 @@ import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import Icon from '~/components/globals/Icon.vue'
 import ImageList from '~/components/feeds/ImageList.vue'
+import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 
 // stores
 const auth = useAuthStore()
@@ -337,6 +359,15 @@ const props = defineProps ({
     default: 0
   }
 })
+
+const router = useRouter()
+
+const ellipsisFeedIdClicked = ref(0)
+const ellipsisFeedIdClickedIdx = ref(0)
+const feedEllipsisClicked = (feedId, feedIdx) => {
+  ellipsisFeedIdClicked.value = feedId
+  ellipsisFeedIdClickedIdx.value = feedIdx
+}
 
 const feeds = ref([])
 const pagination = ref({
@@ -447,6 +478,24 @@ const unlike = async (id) => {
 
 const readMore = (text, postId, selectorElId, textElid) => {
   useReadMore().readMore(text, postId, selectorElId, textElid)
+}
+
+/**
+ * Remove/delete feed
+ */
+const removeFeed = async () => {
+  const [success, error] = await feedApi.remove(ellipsisFeedIdClicked.value)
+
+  if (success) {
+    // setTimeout(() => {
+    //   router.push({
+    //     path: '/'
+    //   })
+    // }, 1000)
+    feeds.value.splice(ellipsisFeedIdClickedIdx.value, 1)
+  } else {
+    // todo: handle error
+  }
 }
 </script>
 

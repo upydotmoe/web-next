@@ -114,7 +114,7 @@
         </div>
         <div v-if="!feedDetail._count.feed_comments" />
 
-        <div v-if="auth.loggedIn">
+        <div v-if="auth.loggedIn" class="flex flex-row gap-x-2">
           <!-- Like -->
           <div class="flex flex-row" @click="liked ? unlike() : like()">
             <Icon 
@@ -130,6 +130,40 @@
             />
 
             <span>{{ thousand(feedDetail._count.feed_likes) }}</span>
+          </div>
+
+          <!-- ellipsis other interaction -->
+          <div class="inline-block relative z-30 dropdown">
+            <button 
+              type="button" 
+              aria-haspopup="true" 
+              aria-expanded="true" 
+              aria-controls="headlessui-menu-items-feed-more-options"
+            >
+              <span>
+                <Icon
+                  :name="'i-ion-ellipsis-vertical-outline'" 
+                  class="align-middle icon icon-color"
+                />
+              </span>
+            </button>
+            <div class="invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 dropdown-menu">
+              <div 
+                id="headlessui-menu-items-feed-more-options"
+                class="absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right outline-none theme-color"
+                aria-labelledby="headlessui-menu-button-1" 
+                role="menu"
+              >
+                <div 
+                  v-if="auth.loggedIn && feedDetail.user_id && auth.user.id === feedDetail.user_id" 
+                  :to="'/feed/'+feedDetail.id" 
+                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
+                  @click="openModal('feed-deletion-confirm-modal')"
+                >
+                  <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -289,6 +323,15 @@
         :section="'chronological'"
       />
     </div>
+
+    <!-- Feed deletion confirmation dialog -->
+    <ConfirmationDialog
+      id="feed-deletion-confirm-modal"
+      :modal-id="'feed-deletion-confirm-modal'"
+      :message="`${$t('alert.areYouSure')} ${$t('alert.youCannotUndoThisAction')}`"
+      class="modal"
+      @onAccept="removeFeed(feedDetail.id)"
+    />
   </div>
 </template>
 
@@ -306,6 +349,7 @@ import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
 import ImageList from './ImageList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
+import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 
 /**
  * @stores
@@ -331,6 +375,7 @@ const props = defineProps ({
   }
 })
 
+const router = useRouter()
 const { $router } = useNuxtApp()
 
 // composables
@@ -592,26 +637,20 @@ const unlikeComment = async (commentId) => {
   }
 }
 
-/** Cancel publish or delete work */
-const deleteConfirmationDialog = ref(false)
-const deleteSuccess = ref(false)
-const deleteWork = async (workId) => {
-  try {
-    // const { success } = await new ArtworkCRUDApi(oApiConfiguration)
-    //   .deleteWork(
-    //     [workId],
-    //     fetchOptions()
-    //   )
+/**
+ * Remove/delete feed
+ */
+const removeFeed = async (feedId) => {
+  const [success, error] = await feedApi.remove(feedId)
 
-    // if (success) {
-    //   deleteSuccess.value = true
-
-    //   setTimeout(() => {
-    //     $router.push('/')
-    //   }, 1500)
-    // }
-  } catch (error) {
-    // 
+  if (success) {
+    setTimeout(() => {
+      router.push({
+        path: '/'
+      })
+    }, 1000)
+  } else {
+    // todo: handle error
   }
 }
 

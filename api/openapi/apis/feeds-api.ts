@@ -26,6 +26,7 @@ import { InlineResponse20038 } from '../models';
 import { InlineResponse20039 } from '../models';
 import { InlineResponse2015 } from '../models';
 import { InlineResponse2016 } from '../models';
+import { SuccessMessageModel } from '../models';
 /**
  * FeedsApi - axios parameter creator
  * @export
@@ -108,6 +109,48 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Remove a feed
+         * @param {number} feedId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFeed: async (feedId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'feedId' is not null or undefined
+            if (feedId === null || feedId === undefined) {
+                throw new RequiredError('feedId','Required parameter feedId was null or undefined when calling deleteFeed.');
+            }
+            const localVarPath = `/feeds/{feedId}`
+                .replace(`{${"feedId"}}`, encodeURIComponent(String(feedId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -696,6 +739,20 @@ export const FeedsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Remove a feed
+         * @param {number} feedId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFeed(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).deleteFeed(feedId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Get feed detail by ID
          * @param {number} feedId 
          * @param {*} [options] Override http request option.
@@ -886,6 +943,16 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @summary Remove a feed
+         * @param {number} feedId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFeed(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+            return FeedsApiFp(configuration).deleteFeed(feedId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get feed detail by ID
          * @param {number} feedId 
          * @param {*} [options] Override http request option.
@@ -1032,6 +1099,17 @@ export class FeedsApi extends BaseAPI {
      */
     public async createFeed(body?: FeedsCreateBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2015>> {
         return FeedsApiFp(this.configuration).createFeed(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Remove a feed
+     * @param {number} feedId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FeedsApi
+     */
+    public async deleteFeed(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+        return FeedsApiFp(this.configuration).deleteFeed(feedId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

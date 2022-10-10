@@ -116,7 +116,7 @@ export const AlbumsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
-         * @summary Delete an album
+         * @summary Remove an album
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -496,7 +496,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Delete an album
+         * @summary Remove an album
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -629,7 +629,7 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
-         * @summary Delete an album
+         * @summary Remove an album
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -737,7 +737,7 @@ export class AlbumsApi extends BaseAPI {
     }
     /**
      * 
-     * @summary Delete an album
+     * @summary Remove an album
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

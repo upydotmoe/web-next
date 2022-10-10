@@ -185,6 +185,23 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  /**
+   * Remove/delete a feed
+   */
+  const remove = async (feedId: number) => {
+    try {
+      const { data } = await new FeedsApi(oApiConfiguration)
+        .deleteFeed(
+          feedId,
+          fetchOptions
+        )
+      
+      return [data.success, null]
+    } catch (error) {
+      return [false, error]
+    }
+  }
+
   return {
     postFeed,
     shareArtworkToFeed,
@@ -197,6 +214,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     unlike,
 
     fetchComments,
-    comment
+    comment,
+
+    remove
   }
 }

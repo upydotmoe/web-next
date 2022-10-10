@@ -5,13 +5,24 @@
     :height="5"
   />
 
-  <a href="#" class="fixed right-4 bottom-4 p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color z-30">
-    <Icon
-      class="text-white hover:text-white"
-      :name="'i-material-symbols-keyboard-arrow-up-rounded'"
-      :text-size="'text-2xl'"
-    />
-  </a>
+  <div class="fixed right-4 bottom-4 float-right">
+    <div class="flex flex-col gap-y-1">
+      <a :href="route.name === 'post' ? '#' : '/post'" class="z-30 p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color">
+        <Icon
+          class="text-white hover:text-white"
+          :name="'i-ion-add'"
+          :text-size="'text-2xl'"
+        />
+      </a>
+      <a href="#" class="z-30 p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color">
+        <Icon
+          class="text-white hover:text-white"
+          :name="'i-material-symbols-keyboard-arrow-up-rounded'"
+          :text-size="'text-2xl'"
+        />
+      </a>
+    </div>
+  </div>
 
   <NuxtPage />
 </template>
@@ -58,6 +69,8 @@ onMounted (async () => {
     auth.logout()
   }
 })
+
+const route = useRoute()
 </script>
 
 <style lang="scss">

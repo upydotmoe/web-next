@@ -28,7 +28,7 @@ export const ArtworkCRUDApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @summary Remove artwork
+         * @summary Remove an artwork
          * @param {Array<number>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -238,7 +238,7 @@ export const ArtworkCRUDApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Remove artwork
+         * @summary Remove an artwork
          * @param {Array<number>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -309,7 +309,7 @@ export const ArtworkCRUDApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @summary Remove artwork
+         * @summary Remove an artwork
          * @param {Array<number>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -365,7 +365,7 @@ export const ArtworkCRUDApiFactory = function (configuration?: Configuration, ba
 export class ArtworkCRUDApi extends BaseAPI {
     /**
      * 
-     * @summary Remove artwork
+     * @summary Remove an artwork
      * @param {Array<number>} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

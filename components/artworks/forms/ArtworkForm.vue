@@ -255,6 +255,9 @@ onMounted (() => {
 
   fetchSetting()
 
+  /**
+   * Init datepicker for artwork scheduled post purpose
+   */
   const today = moment().add(1, 'day').format('DD/MM/yyyy')
 
   const datepickerEl = document.getElementById('publishDate')
