@@ -60,6 +60,6 @@ export class Configuration {
     this.username = param.username
     this.password = param.password
     this.accessToken = param.accessToken
-    this.basePath = 'http://192.168.100.5:2021'
+    this.basePath = 'http://api.upy.moe'
   }
 }
