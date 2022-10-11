@@ -3,8 +3,9 @@
     :with-footer="true" 
     :hide-side="true"
     :no-right-side="true"
+    :fullscreen="true"
   >
-    <div class="flex flex-col mt-2">
+    <div class="flex flex-col mt-2 w-full">
       <Recent class="mb-10" />
       <Following v-if="auth.loggedIn && isFollowingSomeone" class="mb-10" />
       <Popular />

@@ -36,10 +36,12 @@
       <div class="mt-1 right-menus">
         <!-- desktop nav icons -->
         <div class="nav-icon-group">
-          <div v-if="auth.loggedIn" class="nav-icon">
-            <a href="/post">
-              <Icon :name="'i-ion-add'" />
-            </a>
+          <div class="hidden-md-flex">
+            <div v-if="auth.loggedIn" class="nav-icon">
+              <a href="/post">
+                <Icon :name="'i-ion-add'" />
+              </a>
+            </div>
           </div>
 
           <div class="flex-md-hidden">

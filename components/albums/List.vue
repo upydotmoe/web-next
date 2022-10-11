@@ -199,5 +199,5 @@ defineExpose ({
 
 <style lang="scss" scoped>
 @import '~/assets/css/tailwind.scss';
-@import '~/assets/css/artworks/list.scss';
+@import '~/assets/css/artworks/list-6.scss';
 </style>

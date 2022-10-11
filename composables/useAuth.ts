@@ -112,6 +112,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
        * Check if fetchOptions has property headers and headers.Authorization.
        */
       if ((typeof params.tokenRefreshed !== 'undefined' && params.tokenRefreshed) || (!fetchOptions.hasOwnProperty('headers') && !fetchOptions.hasOwnProperty('headers.Authorization') && auth.a4ht0jen !== '')) {
+        console.log('2. getting authenticated user data..')
         fetchOptions = {
           headers: {
             // we use 'Bearer' here because we use typescript-axios mode when generating code for API via Swagger Codegen.
@@ -121,13 +122,15 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       }
 
       // try {
+        console.log('3. calling getCurrentUserInfo endpoint')
+        console.log('> fetch options:', fetchOptions.headers)
         const { data } = await new UserApi(oApiConfiguration)
           .getCurrentUserInfo(fetchOptions)
 
-        console.log('user data:', data)
+        console.log('4. user data:', data)
 
         if (!data.success) {
-          auth.logout()
+          // auth.logout()
         } else {
           // save user data to auth user store
           auth.user = data.data

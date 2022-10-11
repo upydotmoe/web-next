@@ -5,16 +5,21 @@
     :height="5"
   />
 
-  <div class="fixed right-4 bottom-4 float-right">
-    <div class="flex flex-col gap-y-1">
-      <a :href="route.name === 'post' ? '#' : '/post'" class="z-30 p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color">
+  <!-- floating buttons -->
+  <div class="float-right fixed right-6 bottom-6 z-30">
+    <div class="flex flex-col gap-y-2">
+      <a
+        v-if="auth.loggedIn"
+        :href="route.name === 'post' ? '#' : '/post'"
+        class="p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color"
+      >
         <Icon
           class="text-white hover:text-white"
           :name="'i-ion-add'"
           :text-size="'text-2xl'"
         />
       </a>
-      <a href="#" class="z-30 p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color">
+      <a href="#" class="p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color">
         <Icon
           class="text-white hover:text-white"
           :name="'i-material-symbols-keyboard-arrow-up-rounded'"
@@ -56,7 +61,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-onMounted (async () => {
+onBeforeMount (async () => {
   if (auth.loggedIn && auth.user.id) {
     const tokenValid = await authApi.checkTokenValidity()
 

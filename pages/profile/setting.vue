@@ -6,7 +6,7 @@
   >
     <div class="flex flex-row w-full">
       <!-- tabs -->
-      <div class="mr-4 md:mr-6 lg:w-1/5">
+      <div class="mr-2 md:mr-4 lg:w-1/5">
         <div 
           class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
           :class="{ 'button-color text-white': config.currentState === 'profile' }"

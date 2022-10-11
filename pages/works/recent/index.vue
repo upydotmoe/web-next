@@ -3,6 +3,7 @@
     :with-footer="true" 
     :hide-side="true"
     :no-right-side="true"
+    :fullscreen="true"
   >
     <div id="lists">
       <!-- Top navigations -->
@@ -227,7 +228,7 @@ const fetchTop = async () => {
 /** Fetch */
 const loading = ref(true)
 const pagination = reactive({
-  perPage: 18,
+  perPage: 30,
   page: ref(0)
 })
 const fetch = async () => {

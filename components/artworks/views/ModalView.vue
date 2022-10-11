@@ -333,6 +333,8 @@
         :pagination-per-page="isModal ? 4 : 4"
       />
 
+      <div class="custom-divider" />
+
       <!-- comment section -->
       <section class="comments">
         <!-- comment text box -->

@@ -4,8 +4,9 @@
 
     <div
       :class="[
-        'flex mx-auto w-full md:px-4 2xl:w-8/12',
-        { 'p-2': route.name != 'feed' }
+        'flex mx-auto w-full md:px-4',
+        { 'p-2': route.name != 'feed' },
+        { '2xl:w-8/12': !fullscreen }
       ]"
     >
       <div v-if="!hideSide" class="hidden lg:w-1/5 md:block md:mr-6">
@@ -94,6 +95,10 @@ defineProps ({
     default: false
   },
   hScreen: {
+    type: Boolean,
+    default: false
+  },
+  fullscreen: {
     type: Boolean,
     default: false
   }

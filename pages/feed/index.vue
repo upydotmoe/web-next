@@ -12,7 +12,7 @@
       />
 
       <div class="mx-auto w-full">
-        <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-11/12">
+        <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-10/12">
           <div v-for="(feed, feedIdx) in feeds" :key="feed.id+feed.type" class="rounded-md lg:mx-6">
             <div class="flex flex-row rounded-md theme-color">
               <!-- Images -->

@@ -58,7 +58,7 @@
     @apply overscroll-none pb-10 mb-10 w-full lg:w-7/12 md:mb-0;
 
     .comments {
-      @apply overscroll-none mt-6 md:mr-2;
+      @apply overscroll-none mt-4;
 
       .comment-box {
         @apply mb-2;
@@ -184,10 +184,10 @@
     @apply flex flex-row justify-between mb-2 align-middle;
   }
   .tags {
-    @apply flex flex-wrap mb-4;
+    @apply flex flex-wrap;
 
     .tag {
-      @apply rounded transition-all duration-150 button-color text-white py-1 px-2;
+      @apply py-1 px-2 text-white rounded transition-all duration-150 button-color;
     }
 
     .suggest {
