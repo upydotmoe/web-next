@@ -749,7 +749,7 @@ import ManageAlbum from '~/components/albums/ManageAlbum'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 import ReportModal from '~/components/reports/ReportModal.vue'
-import ShareArtworkToFeedModal from '~~/components/feeds/ShareArtworkToFeedModal.vue'
+import ShareArtworkToFeedModal from '~/components/feeds/ShareArtworkToFeedModal.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // stores

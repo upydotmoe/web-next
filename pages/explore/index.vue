@@ -15,10 +15,10 @@
 
 <script setup>
 // components
-import Layout from '~~/components/layouts/Layout.vue'
-import Recent from '~~/components/artworks/index/Recent.vue'
-import Following from '~~/components/artworks/index/Following.vue'
-import Popular from '~~/components/artworks/index/Popular.vue'
+import Layout from '~/components/layouts/Layout.vue'
+import Recent from '~/components/artworks/index/Recent.vue'
+import Following from '~/components/artworks/index/Following.vue'
+import Popular from '~/components/artworks/index/Popular.vue'
 
 // composables
 import useUser from '~~/composables/users/useUser'

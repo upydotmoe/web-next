@@ -105,13 +105,17 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     if (auth.a4ht0jen === '' && auth.r43f0rt3jen === '') {
       auth.logout()
     } else {
+      console.log('refetching user data..')
       /**
        * We need to check fetchOptions value, because the first time user authenticating to the app,
        * useApiFetch() composition doesn't record Authorization token and throw empty header object.
        * 
        * Check if fetchOptions has property headers and headers.Authorization.
        */
-      if ((typeof params.tokenRefreshed !== 'undefined' && params.tokenRefreshed) || (!fetchOptions.hasOwnProperty('headers') && !fetchOptions.hasOwnProperty('headers.Authorization') && auth.a4ht0jen !== '')) {
+      if (
+        // (params.tokenRefreshed && params.tokenRefreshed !== undefined) || 
+        (!fetchOptions.hasOwnProperty('headers') && !fetchOptions.hasOwnProperty('headers.Authorization') && auth.a4ht0jen !== '')
+      ) {
         console.log('2. getting authenticated user data..')
         fetchOptions = {
           headers: {
@@ -141,10 +145,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           
           auth.i502p00r0 = proData.data.data.is_pro
 
-          // 
-          if (typeof params.tokenRefreshed !== 'undefined' && params.tokenRefreshed) {
-            console.error('Session refreshed, please refresh the page!')
-          }
+          // token refresh message
+          // if (params.tokenRefreshed && params.tokenRefreshed !== undefined) {
+          //   console.error('Session refreshed, please refresh the page!')
+          // }
         }
       // } catch (error) {
       //   auth.logout()

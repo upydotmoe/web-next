@@ -226,9 +226,11 @@
         </div>
 
         <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
-          <span :id="'mobile__user-bio-'+userInfo.id">
-            {{ userInfo.bio.length > 150 && sliceBio ? `${userInfo.bio.slice(0, 150)}...` : userInfo.bio }}
-          </span>
+          <div
+            :id="'mobile__user-bio-'+userInfo.id"
+            v-html="userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 300)}...` : userInfo.bio"
+          />
+
           <a 
             v-if="userInfo.bio.length > 150"
             :id="'mobile__user-bio-read-more-'+userInfo.id" 

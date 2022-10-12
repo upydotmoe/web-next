@@ -6,7 +6,7 @@
   />
 
   <!-- floating buttons -->
-  <div class="float-right fixed right-6 bottom-6 z-30">
+  <div class="float-right fixed right-2 bottom-2 z-30 md:right-6 md:bottom-6">
     <div class="flex flex-col gap-y-2">
       <a
         v-if="auth.loggedIn"

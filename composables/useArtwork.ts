@@ -88,7 +88,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   ) => {
     try {
-      console.log('fetch option:', fetchOptions.headers)
       const { data } = await new ArtworkListApi(oApiConfiguration, fetchOptions)
         .getLatestWorks(
           params.pagination.perPage,
