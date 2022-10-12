@@ -7,6 +7,6 @@ export default defineNuxtPlugin(nuxtApp => {
     preLoad: 1.7,
     loading: loadingImage,
     error: errorImage,
-    attempt: 1
+    attempt: 3
   })
 })

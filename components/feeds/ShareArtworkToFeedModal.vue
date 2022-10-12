@@ -29,7 +29,7 @@
           maxlength="2000"
         />
 
-        <div class="flex float-right flex-row gap-2">
+        <div class="flex flex-row gap-2 justify-end">
           <button class="cancel-button" @click="cancel()">
             {{ $t('cancel') }}
           </button>
@@ -43,18 +43,43 @@
             {{ $t('share') }}
           </button>
         </div>
+
+        <!-- copy sharable link -->
+        <div class="flex flex-row justify-between mt-6">
+          <input
+            readonly
+            :value="runtimeConfig.public.appUrl + '/a/' + props.postId"
+            class="p-3 w-full rounded-md theme-color-secondary"
+          >
+
+          <button class="icon-button" @click="copyLink(runtimeConfig.public.appUrl + '/a/' + postId)">
+            <Icon :name="'i-icon-park-outline-copy'" />
+          </button>
+        </div>
       </div>
     </div>
+    
+    <!-- Link copied notification -->
+    <SplashAlert 
+      v-show="copied"
+      id="copy-alert"
+      :text="$t('linkCopied')"
+      :icon="'i-bi-check-all'"
+    />
   </div>
 </template>
 
 <script setup>
 // components
 import Spinner from '~/components/globals/Spinner.vue'
+import Icon from '~/components/globals/Icon.vue'
+import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
+
+const runtimeConfig = useRuntimeConfig()
 
 const props = defineProps ({
   postId: {
@@ -102,5 +127,16 @@ const shareToFeed = async () => {
   }
 
   posting.value = false
+}
+
+const copied = ref(false)
+let splashInterval
+const copyLink = (link) => {
+  const source = ref(link)
+  const { copy } = useClipboard({ source })
+  copy()
+
+  // show splash notification
+  useSplash().splash(splashInterval, copied, 'copy-alert')
 }
 </script>
