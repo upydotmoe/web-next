@@ -1,0 +1,2 @@
+import{openBlock as e,createBlock as t,withCtx as o,createElementVNode as r,createVNode as a}from"vue";import{L as i,_ as c}from"./Layout.95ee41da.js";import"../server.mjs";import"#internal/nitro";import"vue-router";import"./Icon.b4cfd501.js";const m={class:"w-1/3 mx-auto rounded p-2 pt-4"},x={__name:"index",setup(s){return(_,d)=>(e(),t(i,{"with-footer":!1,"hide-side":!0},{default:o(()=>[r("div",m,[a(c,{"direct-mode":!0})])]),_:1}))}};export{x as default};
+//# sourceMappingURL=index.4fea18f4.js.map
