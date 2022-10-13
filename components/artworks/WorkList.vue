@@ -27,9 +27,13 @@
             ]"
           >
             <img 
-              class="object-cover w-full h-full unselectable"
-              :class="{ 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
-              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
+              :class="[
+                'w-full h-full unselectable',
+                { 'object-cover': !isUncropped },
+                isUncropped ? 'object-contain object-center h-44' : 'object-cover',
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
+              ]"
+              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               @error="imageLoadError"
             >
           </a>
@@ -55,7 +59,7 @@
             <img 
               class="object-cover w-full h-full unselectable"
               :class="{ 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
-              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail')"
+              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               @error="imageLoadError"
             >
           </a>
@@ -111,6 +115,9 @@ watch (() => props.currentWorkId, (newWorkId) => {
 })
 
 const router = useRouter()
+
+// switch between crop or full view mode
+const isUncropped = ref(false)
 
 const currentWorkId = ref(props.currentWorkId)
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')

@@ -285,7 +285,7 @@
             target="blank" 
             class="ml-3 cursor-pointer"
           >
-            <Icon :name="'i-ion-heart'" class="text-xl" />
+            <Icon :name="'i-ri-heart-3-line'" class="text-xl" />
           </a>
         </div>
 

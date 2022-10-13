@@ -120,7 +120,7 @@
             <Icon 
               v-show="liked"
               :id="'feedLikeButton'+feedDetail.id"
-              :name="'i-ion-heart'" 
+              :name="'i-ri-heart-3-line'" 
               class="mr-2 text-xl text-red-500 cursor-pointer hover:text-red-500"
             />
             <Icon 
@@ -246,7 +246,7 @@
                 <div class="flex flex-row">
                   <!-- <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
                     <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
-                    <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
+                    <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ri-heart-3-line'" class="text-red-500 hover:text-red-500" />
                     {{ comment._count.artwork_comment_has_likes }}
                   </span>
                   <span class="reaction" @click="showReplyInput(comment.id) && showReplies(comment.id)">

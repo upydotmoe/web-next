@@ -231,7 +231,7 @@
                       <Icon 
                         v-show="feed.type === 'artwork' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
                         :id="'feed-like-button-'+feed.type+'-'+feed.id"
-                        :name="'i-ion-heart'" 
+                        :name="'i-ri-heart-3-line'" 
                         class="mr-1 text-red-500 hover:text-red-500"
                       />
                       <Icon

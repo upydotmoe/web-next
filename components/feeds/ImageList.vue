@@ -7,12 +7,12 @@
         artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')
       ]"
     >
+      <!-- v-lazy="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')"
+      loading="lazy" -->
       <img 
-        v-lazy="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')"
         :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'feed')"
         class="object-contain w-full rounded"
         style="max-height: 1000px;"
-        loading="lazy"
         @error="imageLoadError"
       />
     </div>
@@ -33,13 +33,13 @@
       :images="work.images"
       class="imgrid"
     >
+      <!-- v-lazy="src"
+      loading="lazy" -->
       <img 
         v-for="(src, index) in work.images"
         :key="src" 
-        v-lazy="src"
         :class="imGridClass[2][index]"
         :src="src" 
-        loading="lazy"
         @error="imageLoadError"
       />
     </div>
@@ -50,13 +50,13 @@
       :images="work.images"
       class="imgrid"
     >
+      <!-- v-lazy="src"
+      loading="lazy" -->
       <img 
         v-for="(src, index) in work.images"
         :key="src" 
-        v-lazy="src"
         :class="imGridClass[3][index]"
         :src="src" 
-        loading="lazy"
         @error="imageLoadError"
       />
     </div>
@@ -67,12 +67,12 @@
       :images="work.images"
       class="imgrid"
     >
+      <!-- v-lazy="src"
+      loading="lazy" -->
       <img 
         v-for="src in work.images"
         :key="src" 
-        v-lazy="src"
         :src="src" 
-        loading="lazy"
         @error="imageLoadError"
       />
     </div>
@@ -87,11 +87,11 @@
         :key="index"
       >
         <!-- first 3 images -->
+        <!-- v-lazy="image"
+        loading="lazy" -->
         <img 
           v-if="index < 3"
-          v-lazy="image"
           :src="image" 
-          loading="lazy"
           @error="imageLoadError"
         />
 
@@ -101,11 +101,11 @@
           class="relative text-center"
         >
           <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-3xl font-semibold text-white">+{{ work.artwork_assets.length-4 }}</span>
+          <!-- v-lazy="image"
+          loading="lazy" -->
           <img 
-            v-lazy="image"
             :src="image" 
             class="z-0 brightness-50"
-            loading="lazy"
             @error="imageLoadError"
           />
         </div>

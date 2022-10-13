@@ -9,8 +9,9 @@ export default {
     artworkUrl (bucketName, fileName, viewMode) {
       return useImage().generateSemiCompressedArtworkUrl(bucketName, fileName, viewMode)
     },
-    artworkThumb (bucketName, fileName, mode) {
-      return useImage().generateArtworkThumb(bucketName, fileName, mode)
+    artworkThumb (bucketName, fileName, mode, uncropped) {
+      console.log(uncropped)
+      return useImage().generateArtworkThumb(bucketName, fileName, mode, uncropped)
     },
     avatarCoverUrl (bucketName, fileName) {
       let url

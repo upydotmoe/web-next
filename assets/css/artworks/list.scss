@@ -49,7 +49,8 @@
           @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
         }
         img {
-          @apply object-cover object-top w-full bg-white rounded-md;
+          @apply w-full theme-color rounded-md;
+          // object-cover object-top 
           aspect-ratio: 1/1;
         }
     

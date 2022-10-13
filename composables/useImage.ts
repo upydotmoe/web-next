@@ -1,32 +1,32 @@
 export default function () {
   const config = useRuntimeConfig()
 
-  const generateArtworkThumb = (bucketName: string, fileName: string, mode: 'feed' | 'thumbnail') => {
+  const generateArtworkThumb = (bucketName: string, fileName: string, mode: 'feed' | 'thumbnail', uncropped: boolean) => {
     let format = ''
-    if (config.public.activeCdn === 'cloudflare') {
-      switch (mode) {
-      case 'feed':
-        format = '/f=auto,w=500,q=50'
-        break
-      case 'thumbnail':
-        format = '/f=auto,w=350'
-        break
-      }
+    // if (config.public.activeCdn === 'cloudflare') {
+    //   switch (mode) {
+    //   case 'feed':
+    //     format = '/f=auto,w=500,q=50'
+    //     break
+    //   case 'thumbnail':
+    //     format = '/f=auto,w=350'
+    //     break
+    //   }
 
-      return `${config.public.staticallyCdn}/${config.public.cloudflareUrl}${format}/file/${bucketName}/${fileName}`
-    } else {
+    //   return `${config.public.staticallyCdn}/${config.public.cloudflareUrl}${format}/file/${bucketName}/${fileName}`
+    // } else {
       // class configured on bunnyCDN panel
       switch (mode) {
-      case 'feed':
-        format = '?class=feed'
-        break
-      case 'thumbnail':
-        format = '?class=thumbnail'
-        break
+        case 'feed':
+          format = '?class=feed'
+          break
+        case 'thumbnail':
+          format = uncropped && uncropped !== undefined && !uncropped ? '?class=thumbnail' : '?class=thumbnailUncropped'
+          break
       }
 
       return `https://${config.public.bunnyUrl}/${bucketName}/${fileName}${format}`
-    }
+    // }
   }
 
   const generateSemiCompressedArtworkUrl = (bucketName: string, fileName: string, viewMode: boolean) => {
@@ -44,7 +44,7 @@ export default function () {
     } else {
       // bunny
       if (viewMode) {
-        format = '?width=600&quality=75'
+        format = '?width=900&quality=40'
       }
 
       return `https://${config.public.bunnyUrl}/${bucketName}/${fileName}${format}`

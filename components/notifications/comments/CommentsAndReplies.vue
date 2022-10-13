@@ -39,7 +39,7 @@
         @click="activeSection = 'likes'"
       >
         <Icon v-show="activeSection != 'likes'" :name="'i-ion-heart-outline'" class="mr-1 w-4 h-4" />
-        <Icon v-show="activeSection == 'likes'" :name="'i-ion-heart'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
+        <Icon v-show="activeSection == 'likes'" :name="'i-ri-heart-3-line'" class="mr-1 w-4 h-4" :icon-color="'text-white'" />
         
         <span>Likes</span>
       </button>

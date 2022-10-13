@@ -173,7 +173,7 @@
                 <Icon 
                   v-show="likedIds.includes(feed.id)"
                   :id="'profileFeedLikeButton-'+feed.id"
-                  :name="'i-ion-heart'" 
+                  :name="'i-ri-heart-3-line'" 
                   class="mr-1 text-red-500 hover:text-red-500"
                 />
                 <Icon
