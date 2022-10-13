@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20020 } from '../models';
+import { InlineResponse20021 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * ArtworkCommentsLikesApi - axios parameter creator
@@ -124,7 +124,7 @@ export const ArtworkCommentsLikesApiFp = function(configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeAComment(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20020>>> {
+        async likeAComment(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20021>>> {
             const localVarAxiosArgs = await ArtworkCommentsLikesApiAxiosParamCreator(configuration).likeAComment(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -161,7 +161,7 @@ export const ArtworkCommentsLikesApiFactory = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeAComment(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20020>> {
+        async likeAComment(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20021>> {
             return ArtworkCommentsLikesApiFp(configuration).likeAComment(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -192,7 +192,7 @@ export class ArtworkCommentsLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkCommentsLikesApi
      */
-    public async likeAComment(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20020>> {
+    public async likeAComment(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20021>> {
         return ArtworkCommentsLikesApiFp(this.configuration).likeAComment(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**

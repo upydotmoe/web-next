@@ -22,7 +22,7 @@ export interface InlineResponse20013Data {
      * @type {number}
      * @memberof InlineResponse20013Data
      */
-    albumId?: number;
+    collectionId?: number;
     /**
      * 
      * @type {number}

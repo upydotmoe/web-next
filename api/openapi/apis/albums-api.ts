@@ -20,10 +20,11 @@ import { AlbumLiteModel } from '../models';
 import { AlbumsAddworkBody } from '../models';
 import { AlbumsBody } from '../models';
 import { AlbumsCreateBody } from '../models';
-import { InlineResponse20013 } from '../models';
-import { InlineResponse20016 } from '../models';
+import { InlineResponse20014 } from '../models';
 import { InlineResponse20017 } from '../models';
+import { InlineResponse20018 } from '../models';
 import { InlineResponse2012 } from '../models';
+import { PostTypes } from '../models';
 import { SuccessMessageModel } from '../models';
 import { WorkRemoveBody } from '../models';
 /**
@@ -261,12 +262,12 @@ export const AlbumsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary List wherever the item were saved
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} workId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCurrentAlbumSaveInfo: async (type: string, workId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCurrentAlbumSaveInfo: async (type: PostTypes, workId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'type' is not null or undefined
             if (type === null || type === undefined) {
                 throw new RequiredError('type','Required parameter type was null or undefined when calling getCurrentAlbumSaveInfo.');
@@ -312,11 +313,11 @@ export const AlbumsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {number} userId 
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listUserAlbums: async (userId: number, perPage: number, page: number, type: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listUserAlbums: async (userId: number, perPage: number, page: number, type: PostTypes, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
                 throw new RequiredError('userId','Required parameter userId was null or undefined when calling listUserAlbums.');
@@ -531,7 +532,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).getAlbumItems(id, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -541,12 +542,12 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary List wherever the item were saved
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} workId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentAlbumSaveInfo(type: string, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20013>>> {
+        async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20014>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).getCurrentAlbumSaveInfo(type, workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -559,11 +560,11 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {number} userId 
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserAlbums(userId: number, perPage: number, page: number, type: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
+        async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20018>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).listUserAlbums(userId, perPage, page, type, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -656,18 +657,18 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return AlbumsApiFp(configuration).getAlbumItems(id, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary List wherever the item were saved
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} workId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentAlbumSaveInfo(type: string, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20013>> {
+        async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20014>> {
             return AlbumsApiFp(configuration).getCurrentAlbumSaveInfo(type, workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -676,11 +677,11 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {number} userId 
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserAlbums(userId: number, perPage: number, page: number, type: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
+        async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20018>> {
             return AlbumsApiFp(configuration).listUserAlbums(userId, perPage, page, type, options).then((request) => request(axios, basePath));
         },
         /**
@@ -767,19 +768,19 @@ export class AlbumsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return AlbumsApiFp(this.configuration).getAlbumItems(id, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary List wherever the item were saved
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {number} workId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async getCurrentAlbumSaveInfo(type: string, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20013>> {
+    public async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20014>> {
         return AlbumsApiFp(this.configuration).getCurrentAlbumSaveInfo(type, workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -788,12 +789,12 @@ export class AlbumsApi extends BaseAPI {
      * @param {number} userId 
      * @param {number} perPage How many record to show per page of pagination
      * @param {number} page Pagination index
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async listUserAlbums(userId: number, perPage: number, page: number, type: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
+    public async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20018>> {
         return AlbumsApiFp(this.configuration).listUserAlbums(userId, perPage, page, type, options).then((request) => request(this.axios, this.basePath));
     }
     /**

@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20035 } from '../models';
+import { InlineResponse20036 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * NotificationsFeedsApi - axios parameter creator
@@ -238,7 +238,7 @@ export const NotificationsFeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20035>>> {
+        async getFeedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await NotificationsFeedsApiAxiosParamCreator(configuration).getFeedNotifications(showLimit, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -300,7 +300,7 @@ export const NotificationsFeedsApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20035>> {
+        async getFeedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return NotificationsFeedsApiFp(configuration).getFeedNotifications(showLimit, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -353,7 +353,7 @@ export class NotificationsFeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsFeedsApi
      */
-    public async getFeedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20035>> {
+    public async getFeedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return NotificationsFeedsApiFp(this.configuration).getFeedNotifications(showLimit, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**

@@ -20,12 +20,17 @@ import { CollectionIdItemsBody } from '../models';
 import { CollectionIdItemsBody1 } from '../models';
 import { CollectionModel } from '../models';
 import { CollectionsBody } from '../models';
+import { CollectionsCountBody } from '../models';
 import { CollectionsCreateBody } from '../models';
 import { CollectionsLaterBody } from '../models';
+import { CreatePermissionBody } from '../models';
 import { InlineResponse20010 } from '../models';
 import { InlineResponse20011 } from '../models';
+import { InlineResponse20012 } from '../models';
+import { InlineResponse20013 } from '../models';
 import { InlineResponse2009 } from '../models';
 import { InlineResponse201 } from '../models';
+import { PostTypes } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * CollectionsApi - axios parameter creator
@@ -36,12 +41,12 @@ export const CollectionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary Add item to 'for later' collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {CollectionsLaterBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addItemForLater: async (type: string, body?: CollectionsLaterBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        addItemForLater: async (type: PostTypes, body?: CollectionsLaterBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'type' is not null or undefined
             if (type === null || type === undefined) {
                 throw new RequiredError('type','Required parameter type was null or undefined when calling addItemForLater.');
@@ -86,13 +91,13 @@ export const CollectionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary Add item(s) to specific collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} collectionId 
          * @param {CollectionIdItemsBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addItemToCollection: async (type: string, collectionId: number, body?: CollectionIdItemsBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        addItemToCollection: async (type: PostTypes, collectionId: number, body?: CollectionIdItemsBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'type' is not null or undefined
             if (type === null || type === undefined) {
                 throw new RequiredError('type','Required parameter type was null or undefined when calling addItemToCollection.');
@@ -175,6 +180,47 @@ export const CollectionsApiAxiosParamCreator = function (configuration?: Configu
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Count user collection by type
+         * @param {CollectionsCountBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        countUserCollectionsByType: async (body?: CollectionsCountBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/collections/count`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
@@ -267,12 +313,12 @@ export const CollectionsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * 
          * @summary List where the work saved
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} workId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCurrentSaveInfo: async (type: string, workId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCurrentSaveInfo: async (type: PostTypes, workId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'type' is not null or undefined
             if (type === null || type === undefined) {
                 throw new RequiredError('type','Required parameter type was null or undefined when calling getCurrentSaveInfo.');
@@ -376,14 +422,14 @@ export const CollectionsApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary List collection owned by user
          * @param {number} userId 
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} page Pagination index
          * @param {number} perPage How many record to show per page of pagination
          * @param {string} [name] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listUserCollections: async (userId: number, type: string, page: number, perPage: number, name?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listUserCollections: async (userId: number, type: PostTypes, page: number, perPage: number, name?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
                 throw new RequiredError('userId','Required parameter userId was null or undefined when calling listUserCollections.');
@@ -448,14 +494,55 @@ export const CollectionsApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
+         * @summary Is user can create more collection
+         * @param {CreatePermissionBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        proLimitIsCanCreateCollection: async (body?: CreatePermissionBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/collections/create/permission`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Remove item(s) from specific collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} collectionId 
          * @param {CollectionIdItemsBody1} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeItemFromCollection: async (type: string, collectionId: number, body?: CollectionIdItemsBody1, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        removeItemFromCollection: async (type: PostTypes, collectionId: number, body?: CollectionIdItemsBody1, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'type' is not null or undefined
             if (type === null || type === undefined) {
                 throw new RequiredError('type','Required parameter type was null or undefined when calling removeItemFromCollection.');
@@ -555,12 +642,12 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Add item to 'for later' collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {CollectionsLaterBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addItemForLater(type: string, body?: CollectionsLaterBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+        async addItemForLater(type: PostTypes, body?: CollectionsLaterBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).addItemForLater(type, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -570,13 +657,13 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Add item(s) to specific collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} collectionId 
          * @param {CollectionIdItemsBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addItemToCollection(type: string, collectionId: number, body?: CollectionIdItemsBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+        async addItemToCollection(type: PostTypes, collectionId: number, body?: CollectionIdItemsBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).addItemToCollection(type, collectionId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -592,6 +679,20 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          */
         async collectionsIdDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).collectionsIdDelete(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary Count user collection by type
+         * @param {CollectionsCountBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20010>>> {
+            const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).countUserCollectionsByType(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -628,12 +729,12 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary List where the work saved
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} workId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentSaveInfo(type: string, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20011>>> {
+        async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20013>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).getCurrentSaveInfo(type, workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -649,7 +750,7 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
+        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20011>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).listCollectionItems(id, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -660,14 +761,14 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * 
          * @summary List collection owned by user
          * @param {number} userId 
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} page Pagination index
          * @param {number} perPage How many record to show per page of pagination
          * @param {string} [name] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserCollections(userId: number, type: string, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20010>>> {
+        async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20012>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).listUserCollections(userId, type, page, perPage, name, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -676,14 +777,28 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Is user can create more collection
+         * @param {CreatePermissionBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
+            const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).proLimitIsCanCreateCollection(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Remove item(s) from specific collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} collectionId 
          * @param {CollectionIdItemsBody1} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeItemFromCollection(type: string, collectionId: number, body?: CollectionIdItemsBody1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+        async removeItemFromCollection(type: PostTypes, collectionId: number, body?: CollectionIdItemsBody1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).removeItemFromCollection(type, collectionId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -716,24 +831,24 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @summary Add item to 'for later' collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {CollectionsLaterBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addItemForLater(type: string, body?: CollectionsLaterBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+        async addItemForLater(type: PostTypes, body?: CollectionsLaterBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
             return CollectionsApiFp(configuration).addItemForLater(type, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Add item(s) to specific collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} collectionId 
          * @param {CollectionIdItemsBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addItemToCollection(type: string, collectionId: number, body?: CollectionIdItemsBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+        async addItemToCollection(type: PostTypes, collectionId: number, body?: CollectionIdItemsBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
             return CollectionsApiFp(configuration).addItemToCollection(type, collectionId, body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -745,6 +860,16 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          */
         async collectionsIdDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
             return CollectionsApiFp(configuration).collectionsIdDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Count user collection by type
+         * @param {CollectionsCountBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20010>> {
+            return CollectionsApiFp(configuration).countUserCollectionsByType(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -769,12 +894,12 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
         /**
          * 
          * @summary List where the work saved
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} workId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentSaveInfo(type: string, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20011>> {
+        async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20013>> {
             return CollectionsApiFp(configuration).getCurrentSaveInfo(type, workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -786,33 +911,43 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
+        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20011>> {
             return CollectionsApiFp(configuration).listCollectionItems(id, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary List collection owned by user
          * @param {number} userId 
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} page Pagination index
          * @param {number} perPage How many record to show per page of pagination
          * @param {string} [name] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserCollections(userId: number, type: string, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20010>> {
+        async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20012>> {
             return CollectionsApiFp(configuration).listUserCollections(userId, type, page, perPage, name, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Is user can create more collection
+         * @param {CreatePermissionBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
+            return CollectionsApiFp(configuration).proLimitIsCanCreateCollection(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Remove item(s) from specific collection
-         * @param {string} type 
+         * @param {PostTypes} type 
          * @param {number} collectionId 
          * @param {CollectionIdItemsBody1} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeItemFromCollection(type: string, collectionId: number, body?: CollectionIdItemsBody1, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+        async removeItemFromCollection(type: PostTypes, collectionId: number, body?: CollectionIdItemsBody1, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
             return CollectionsApiFp(configuration).removeItemFromCollection(type, collectionId, body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -838,26 +973,26 @@ export class CollectionsApi extends BaseAPI {
     /**
      * 
      * @summary Add item to 'for later' collection
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {CollectionsLaterBody} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async addItemForLater(type: string, body?: CollectionsLaterBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+    public async addItemForLater(type: PostTypes, body?: CollectionsLaterBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
         return CollectionsApiFp(this.configuration).addItemForLater(type, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary Add item(s) to specific collection
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {number} collectionId 
      * @param {CollectionIdItemsBody} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async addItemToCollection(type: string, collectionId: number, body?: CollectionIdItemsBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+    public async addItemToCollection(type: PostTypes, collectionId: number, body?: CollectionIdItemsBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
         return CollectionsApiFp(this.configuration).addItemToCollection(type, collectionId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -870,6 +1005,17 @@ export class CollectionsApi extends BaseAPI {
      */
     public async collectionsIdDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
         return CollectionsApiFp(this.configuration).collectionsIdDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Count user collection by type
+     * @param {CollectionsCountBody} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CollectionsApi
+     */
+    public async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
+        return CollectionsApiFp(this.configuration).countUserCollectionsByType(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -896,13 +1042,13 @@ export class CollectionsApi extends BaseAPI {
     /**
      * 
      * @summary List where the work saved
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {number} workId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async getCurrentSaveInfo(type: string, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20011>> {
+    public async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20013>> {
         return CollectionsApiFp(this.configuration).getCurrentSaveInfo(type, workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -915,14 +1061,14 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
+    public async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20011>> {
         return CollectionsApiFp(this.configuration).listCollectionItems(id, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary List collection owned by user
      * @param {number} userId 
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {number} page Pagination index
      * @param {number} perPage How many record to show per page of pagination
      * @param {string} [name] 
@@ -930,20 +1076,31 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async listUserCollections(userId: number, type: string, page: number, perPage: number, name?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
+    public async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20012>> {
         return CollectionsApiFp(this.configuration).listUserCollections(userId, type, page, perPage, name, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
+     * @summary Is user can create more collection
+     * @param {CreatePermissionBody} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CollectionsApi
+     */
+    public async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
+        return CollectionsApiFp(this.configuration).proLimitIsCanCreateCollection(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
      * @summary Remove item(s) from specific collection
-     * @param {string} type 
+     * @param {PostTypes} type 
      * @param {number} collectionId 
      * @param {CollectionIdItemsBody1} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async removeItemFromCollection(type: string, collectionId: number, body?: CollectionIdItemsBody1, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+    public async removeItemFromCollection(type: PostTypes, collectionId: number, body?: CollectionIdItemsBody1, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
         return CollectionsApiFp(this.configuration).removeItemFromCollection(type, collectionId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

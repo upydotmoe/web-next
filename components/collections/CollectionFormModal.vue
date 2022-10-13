@@ -42,7 +42,14 @@
             </span>
             
             <div class="flex flex-row gap-x-1">
-              <span class="ml-2">{{ $t('private') }}</span>
+              <span
+                :class="[
+                  'ml-2',
+                  { 'leading-6': !auth.i502p00r0 }
+                ]"
+              >
+                {{ $t('private') }}
+              </span>
               <ProBadge />
             </div>
           </label>

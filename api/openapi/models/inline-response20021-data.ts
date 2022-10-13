@@ -22,5 +22,17 @@ export interface InlineResponse20021Data {
      * @type {number}
      * @memberof InlineResponse20021Data
      */
-    views?: number;
+    userId?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20021Data
+     */
+    commentId?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20021Data
+     */
+    createdAt?: string;
 }

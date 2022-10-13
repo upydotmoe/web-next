@@ -6,6 +6,24 @@ import {
 import { workTypes } from '~/types/works'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
+  const proCanCreateCollection = async (params: {
+    type: string
+  }) => {
+    try {
+      const { data } = await new CollectionsApi(oApiConfiguration)
+        .proLimitIsCanCreateCollection(
+          {
+            type: params.type
+          },
+          fetchOptions
+        )
+      
+      return [data.data.is_can_create, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   const createCollection = async (
     type: workTypes, 
     inputData: {
@@ -249,6 +267,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }
 
   return {
+    proCanCreateCollection,
     createCollection,
     getInfo,
     countCollections,

@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { PostTypes } from './post-types';
 /**
  * 
  * @export
@@ -37,10 +38,10 @@ export interface AlbumsCreateBody {
     isPublic: AlbumsCreateBodyIsPublicEnum;
     /**
      * 
-     * @type {string}
+     * @type {PostTypes}
      * @memberof AlbumsCreateBody
      */
-    type: AlbumsCreateBodyTypeEnum;
+    type: PostTypes;
 }
 
 /**
@@ -50,14 +51,5 @@ export interface AlbumsCreateBody {
 export enum AlbumsCreateBodyIsPublicEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
-}
-/**
-    * @export
-    * @enum {string}
-    */
-export enum AlbumsCreateBodyTypeEnum {
-    Artwork = 'artwork',
-    Comic = 'comic',
-    Tutorial = 'tutorial'
 }
 

@@ -29,8 +29,9 @@
         </div>
 
         <div v-if="auth.loggedIn && auth.user.id === userId">
-          <div class="icon-button" @click="openModal('collection-form-modal')">
+          <div class="flex flex-row icon-button" @click="isCanCreateCollection ? openModal('collection-form-modal') : null">
             <Icon :name="'i-ion-add-outline'" />
+            <ProBadge v-if="!isCanCreateCollection" class="ml-1" />
           </div>
         </div>
       </div>
@@ -186,6 +187,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 import EditForm from '~/components/collections/EditForm.vue'
 import ArtworkThumbnail from '~/components/collections/thumbnails/ArtworkThumbnail.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'
@@ -207,9 +209,28 @@ onMounted (() => {
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
+onBeforeMount (() => {
+  isUserCanCreateCollection()
+})
+
 const loading = ref(true)
 const activeType = ref('artwork')
 const selectedCollection = ref(0)
+
+// free user collection creation limitation
+const isCanCreateCollection = ref(false)
+const isUserCanCreateCollection = async () => {
+  const [isCanCreate, error] = await collectionApi.proCanCreateCollection({
+    type: activeType.value
+  })
+
+  if (error) {
+    isCanCreateCollection.value = false
+    // TODO: handle error
+  } else {
+    isCanCreateCollection.value = isCanCreate
+  }
+}
 
 const collections = ref([])
 const config = ref({
@@ -300,6 +321,8 @@ const hideManageButton = (isEmpty) => {
 const isCreated = ref(false)
 let splashInterval
 const created = async () => {
+  await isUserCanCreateCollection()
+
   useSplash().splash(splashInterval, isCreated, 'created-alert')
   await reset()
 }
@@ -341,6 +364,8 @@ const deleteCollection = async () => {
     const [success, error] = await collectionApi.deleteCollection(selectedCollection.value)
     
     if (success) {
+      await isUserCanCreateCollection()
+      
       selectedCollection.value = 0
       reset()
     }
