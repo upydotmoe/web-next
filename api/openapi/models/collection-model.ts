@@ -86,4 +86,10 @@ export interface CollectionModel {
      * @memberof CollectionModel
      */
     users?: UserLiteModel;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CollectionModel
+     */
+    isCanAddMore?: boolean;
 }

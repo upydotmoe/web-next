@@ -19,10 +19,14 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { AlbumLiteModel } from '../models';
 import { AlbumsAddworkBody } from '../models';
 import { AlbumsBody } from '../models';
+import { AlbumsCountBody } from '../models';
 import { AlbumsCreateBody } from '../models';
+import { CreatePermissionBody1 } from '../models';
+import { InlineResponse20010 } from '../models';
 import { InlineResponse20014 } from '../models';
 import { InlineResponse20017 } from '../models';
 import { InlineResponse20018 } from '../models';
+import { InlineResponse2009 } from '../models';
 import { InlineResponse2012 } from '../models';
 import { PostTypes } from '../models';
 import { SuccessMessageModel } from '../models';
@@ -42,6 +46,47 @@ export const AlbumsApiAxiosParamCreator = function (configuration?: Configuratio
          */
         addWorkToAlbum: async (body?: AlbumsAddworkBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/albums/add-work`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Count user album by type
+         * @param {AlbumsCountBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        countUserAlbumsByType: async (body?: AlbumsCountBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/albums/count`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -378,6 +423,47 @@ export const AlbumsApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary Is user can create more album
+         * @param {CreatePermissionBody1} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        proLimitIsCanCreateAlbum: async (body?: CreatePermissionBody1, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/albums/create/permission`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Remove a work(s) from album
          * @param {WorkRemoveBody} [body] 
          * @param {*} [options] Override http request option.
@@ -483,6 +569,20 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Count user album by type
+         * @param {AlbumsCountBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20010>>> {
+            const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).countUserAlbumsByType(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Create a new album
          * @param {AlbumsCreateBody} [body] 
          * @param {*} [options] Override http request option.
@@ -573,6 +673,20 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Is user can create more album
+         * @param {CreatePermissionBody1} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
+            const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).proLimitIsCanCreateAlbum(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Remove a work(s) from album
          * @param {WorkRemoveBody} [body] 
          * @param {*} [options] Override http request option.
@@ -617,6 +731,16 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          */
         async addWorkToAlbum(body?: AlbumsAddworkBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
             return AlbumsApiFp(configuration).addWorkToAlbum(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Count user album by type
+         * @param {AlbumsCountBody} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20010>> {
+            return AlbumsApiFp(configuration).countUserAlbumsByType(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -686,6 +810,16 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @summary Is user can create more album
+         * @param {CreatePermissionBody1} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
+            return AlbumsApiFp(configuration).proLimitIsCanCreateAlbum(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Remove a work(s) from album
          * @param {WorkRemoveBody} [body] 
          * @param {*} [options] Override http request option.
@@ -724,6 +858,17 @@ export class AlbumsApi extends BaseAPI {
      */
     public async addWorkToAlbum(body?: AlbumsAddworkBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
         return AlbumsApiFp(this.configuration).addWorkToAlbum(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Count user album by type
+     * @param {AlbumsCountBody} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AlbumsApi
+     */
+    public async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
+        return AlbumsApiFp(this.configuration).countUserAlbumsByType(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -796,6 +941,17 @@ export class AlbumsApi extends BaseAPI {
      */
     public async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20018>> {
         return AlbumsApiFp(this.configuration).listUserAlbums(userId, perPage, page, type, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Is user can create more album
+     * @param {CreatePermissionBody1} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AlbumsApi
+     */
+    public async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
+        return AlbumsApiFp(this.configuration).proLimitIsCanCreateAlbum(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

@@ -6,6 +6,29 @@ import {
 import { workTypes } from '~/types/works'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
+  /**
+   * Check whether the user can still create a new album or not, because free users can only create a maximum of 3 albums
+   * @param params 
+   * @returns 
+   */
+  const proCanCreateAlbum = async (params: {
+    type: string
+  }) => {
+    try {
+      const { data } = await new AlbumsApi(oApiConfiguration)
+        .proLimitIsCanCreateAlbum(
+          {
+            type: params.type
+          },
+          fetchOptions
+        )
+      
+      return [data.data.is_can_create, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   const createAlbum = async (
     type: workTypes, 
     inputData: {
@@ -206,6 +229,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }
 
   return {
+    proCanCreateAlbum,
     createAlbum,
     getInfo,
     countAlbums,

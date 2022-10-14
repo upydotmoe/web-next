@@ -6,31 +6,32 @@
         <div class="flex flex-row">
           <div 
             class="ml-0 primary-button theme-color-secondary"
-            :class="{ 'button-color text-white': activeCategory === 'artwork' }"
-            @click="activeCategory = 'artwork'" 
+            :class="{ 'button-color text-white': activeType === 'artwork' }"
+            @click="activeType = 'artwork'" 
           >
             {{ $t('artworks.artwork') }}
-            <span class="px-1 ml-2 font-normal rounded" :class="activeCategory === 'artwork' ? 'theme-color' : 'button-color text-white'">{{ counter.artwork }}</span>
+            <span class="px-1 ml-2 font-normal rounded" :class="activeType === 'artwork' ? 'theme-color' : 'button-color text-white'">{{ counter.artwork }}</span>
           </div>
           <!-- <div 
             class="primary-button theme-color-secondary"
-            :class="{ 'button-color text-white': activeCategory === 'comic' }"
-            @click="activeCategory = 'comic'" 
+            :class="{ 'button-color text-white': activeType === 'comic' }"
+            @click="activeType = 'comic'" 
           >
             Comic
           </div> -->
           <!-- <div 
             class="primary-button theme-color-secondary"
-            :class="{ 'button-color text-white': activeCategory === 'tutorial' }"
-            @click="activeCategory = 'tutorial'" 
+            :class="{ 'button-color text-white': activeType === 'tutorial' }"
+            @click="activeType = 'tutorial'" 
           >
             Tutorial
           </div> -->
         </div>
 
         <div v-if="auth.loggedIn && auth.user.id === userId">
-          <div class="icon-button" @click="openModal('album-form-modal')">
+          <div class="flex flex-row icon-button" @click="isCanCreateAlbum ? openModal('album-form-modal') : null">
             <Icon :name="'i-ion-add-outline'" />
+            <ProBadge v-if="!isCanCreateAlbum" class="ml-1" />
           </div>
         </div>
       </div>
@@ -121,7 +122,7 @@
       v-if="!loading && !selectedAlbum"
       id="album-form-modal"
       :modal-id="'album-form-modal'"
-      :category="activeCategory"
+      :category="activeType"
       class="modal"
       @created="created"
     />
@@ -185,6 +186,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 import EditForm from '~/components/albums/EditForm.vue'
 import ArtworkThumbnail from '~/components/albums/thumbnails/ArtworkThumbnail.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // composables
 import useAlbum from '~/composables/users/useAlbum'
@@ -203,13 +205,39 @@ const props = defineProps ({
   }
 })
 
+onBeforeMount (() => {
+  isUserCanCreateAlbum()
+})
+
 onMounted (() => {
   fetch()
 })
 
 const loading = ref(true)
-const activeCategory = ref('artwork')
+const activeType = ref('artwork')
 const selectedAlbum = ref(0)
+
+// free user collection creation limitation
+const isCanCreateAlbum = ref(false)
+const isUserCanCreateAlbum = async () => {
+  if (auth.i502p00r0) {
+    isCanCreateAlbum.value = true
+  } else {
+    console.log(activeType.value)
+    const [isCanCreate, error] = await albumApi.proCanCreateAlbum({
+      type: activeType.value
+    })
+
+    console.log(isCanCreate)
+
+    if (error) {
+      isCanCreateAlbum.value = false
+      // TODO: handle error
+    } else {
+      isCanCreateAlbum.value = isCanCreate
+    }
+  }
+}
 
 const albums = ref([])
 const config = ref({
@@ -230,7 +258,7 @@ const fetch = async () => {
 
   const [data, showLoadMore, error] = await albumApi.fetchAlbums(
     props.userId, 
-    activeCategory.value,
+    activeType.value,
     config.value.pagination.page === 0 ? config.value.pagination.firstLoad : config.value.pagination.perPage, 
     config.value.pagination.page
   )
@@ -291,6 +319,8 @@ const reset = async () => {
 const isCreated = ref(false)
 let splashInterval
 const created = async () => {
+  await isUserCanCreateAlbum()
+
   useSplash().splash(splashInterval, isCreated, 'created-alert')
   await reset()
 }
@@ -332,6 +362,8 @@ const deleteAlbum = async () => {
     const [success, error] = await albumApi.deleteAlbum(selectedAlbum.value)
     
     if (success) {
+      await isUserCanCreateAlbum()
+
       selectedAlbum.value = 0
       reset()
     }

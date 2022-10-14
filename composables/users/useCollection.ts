@@ -6,6 +6,11 @@ import {
 import { workTypes } from '~/types/works'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
+  /**
+   * Check whether the user can still create a new collection or not, because free users can only create a maximum of 3 collections
+   * @param params 
+   * @returns 
+   */
   const proCanCreateCollection = async (params: {
     type: string
   }) => {
