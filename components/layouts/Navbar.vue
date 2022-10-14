@@ -218,7 +218,7 @@
                   </nuxt-link>
                   <nuxt-link :to="'/support-us'">
                     <div class="menu parent-icon">
-                      <Icon :name="'i-ion-heart-outline'" />
+                      <Icon :name="'i-ri-heart-3-line'" />
                       {{ $t('supportUs') }}
                     </div>
                   </nuxt-link>

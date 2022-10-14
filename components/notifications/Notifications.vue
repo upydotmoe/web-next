@@ -10,8 +10,8 @@
           @click.prevent="currentSection = 'likes'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'likes'" :name="'i-ion-heart-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'likes'" :name="'i-ion-heart-outline'" class="md:mr-2" />
+            <Icon v-show="currentSection === 'likes'" :name="'i-ri-heart-3-line'" class="text-white md:mr-2" />
+            <Icon v-show="currentSection !== 'likes'" :name="'i-ri-heart-3-line'" class="md:mr-2" />
 
             <div class="hidden-md-flex">{{ $t('notifications.likes') }}</div>
           </div>

@@ -231,12 +231,12 @@
                       <Icon 
                         v-show="feed.type === 'artwork' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
                         :id="'feed-like-button-'+feed.type+'-'+feed.id"
-                        :name="'i-ri-heart-3-line'" 
+                        :name="'i-ion-heart'" 
                         class="mr-1 text-red-500 hover:text-red-500"
                       />
                       <Icon
                         v-show="feed.type === 'artwork' ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
-                        :name="'i-ion-heart-outline'" 
+                        :name="'i-ri-heart-3-line'" 
                         class="mr-1 icon-color hover:text-red-500"
                       />
                       {{ thousand(feed._count.likes) }}

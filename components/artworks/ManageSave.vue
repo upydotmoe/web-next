@@ -16,13 +16,24 @@
             <div 
               v-for="(collection, index) in collections"
               :key="collection.id"
-              class="item"
-              :class="[{ 'mt-2': index !== 0 }, selectedCollections.includes(collection.id) ? 'button-color text-white' : 'theme-color-secondary']"
-              @click="selectUnselect(collection.id)" 
+              :class="[
+                'item',
+                { 'mt-2': index !== 0 }, selectedCollections.includes(collection.id) ? 'button-color text-white' : 'theme-color-secondary',
+                collection.is_can_add_more ? 'cursor-pointer' : 'cursor-not-allowed'
+              ]"
+              @click="collection.is_can_add_more ? selectUnselect(collection.id) : null" 
             >
               <div class="flex flex-row justify-between">
                 <span>{{ collection.name }}</span>
-                <span class="ml-2 font-bold" :class="selectedCollections.includes(collection.id) ? 'text-white' : 'text-colored'">{{ collection._count.collection_has_artworks }}</span>
+                
+                <div class="flex flex-row">
+                  <span class="ml-2 font-bold" :class="selectedCollections.includes(collection.id) ? 'text-white' : 'text-colored'">{{ collection._count.collection_has_artworks }}</span>
+                </div>
+              </div>
+
+              <div v-if="!collection.is_can_add_more" class="flex flex-row mt-2 w-full">
+                <ProBadge class="mr-1" />
+                <p class="leading-6">{{ $t('collections.maxItemLimitReached') }}</p>
               </div>
             </div>
           </div>
@@ -68,7 +79,7 @@
               @click="isCanCreateCollection ? create() : null"
             >
               <span :class="{ 'leading-6': !isCanCreateCollection }">{{ $t('create') }}</span>
-              <ProBadge v-if="!isCanCreateCollection" class="ml-2" />
+              <ProBadge v-if="!isCanCreateCollection" class="ml-1" />
             </button>
           </div>
         </div>
@@ -370,7 +381,7 @@ defineExpose ({
   @apply my-4;
 
   .item {
-    @apply p-3 rounded cursor-pointer align-middle;
+    @apply p-3 rounded align-middle;
 
     label {
       @apply inline-flex items-center w-full;

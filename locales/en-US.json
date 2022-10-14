@@ -299,7 +299,8 @@
       "form": {
         "title": "Update Collection"
       }
-    }
+    },
+    "maxItemLimitReached": "Max item limit reached"
   },
   "profile": {
     "profile": "Profile",

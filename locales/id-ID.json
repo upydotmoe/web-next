@@ -299,7 +299,8 @@
       "form": {
         "title": "Update Koleksi"
       }
-    }
+    },
+    "maxItemLimitReached": "Mencapai maksimum item yang dapat disimpan"
   },
   "profile": {
     "profile": "Profil",
