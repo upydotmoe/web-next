@@ -27,7 +27,14 @@
                 <span>{{ collection.name }}</span>
                 
                 <div class="flex flex-row">
-                  <span class="ml-2 font-bold" :class="selectedCollections.includes(collection.id) ? 'text-white' : 'text-colored'">{{ collection._count.collection_has_artworks }}</span>
+                  <span
+                    :class="[
+                      'ml-2 font-bold',
+                      selectedCollections.includes(collection.id) ? 'text-white' : 'text-colored'
+                    ]"
+                  >
+                      {{ collection._count.collection_has_artworks }}
+                    </span>
                 </div>
               </div>
 

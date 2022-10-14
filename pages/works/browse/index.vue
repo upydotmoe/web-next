@@ -338,11 +338,13 @@ const openTagsFilterSelection = () => {
 }
 
 const filterTags = ref('')
+const customFilterTags = ref('')
 const previousSelectedTags = ref()
 const filterTagsCount = ref(0)
 const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
   previousSelectedTags.value = selectedTags
   filterTags.value = selectedTagsJoined
+  customFilterTags.value = selectedTagsJoined
   filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
   pagination.page = 0
 
@@ -397,8 +399,8 @@ const pagination = reactive({
   page: ref(0)
 })
 const fetch = async () => {
-  if (!route.query.tags && !tags) {
-    filterTags.value = ''
+  if (route.query.tags && !customFilterTags.value) {
+    filterTags.value = route.query.tags
   }
 
   if (pagination.page === 0) {

@@ -17,19 +17,33 @@
               <div 
                 v-for="(album, index) in albums"
                 :key="album.id"
-                class="item"
-                :class="[{ 'mt-2': index !== 0 }, selectedAlbums.includes(album.id) ? 'button-color text-white' : 'theme-color-secondary']"
-                @click="selectUnselect(album.id)" 
+                :class="[
+                  'item',
+                  { 'mt-2': index !== 0 }, selectedAlbums.includes(album.id) ? 'button-color text-white' : 'theme-color-secondary',
+                  album.is_can_add_more ? 'cursor-pointer' : 'cursor-not-allowed'
+                ]"
+                @click="album.is_can_add_more ? selectUnselect(album.id) : null"
               >
-                <span>{{ album.name }}</span>
-                <span
-                  :class="[
-                    'ml-2 font-bold',
-                    selectedAlbums.includes(album.id) ? 'text-white' : 'text-colored'
-                  ]"
+                <div class="flex flex-row justify-between">
+                  <span>{{ album.name }}</span>
+
+                  <span
+                    :class="[
+                      'ml-2 font-bold',
+                      selectedAlbums.includes(album.id) ? 'text-white' : 'text-colored'
+                    ]"
+                  >
+                    {{ album._count.album_has_artworks }}
+                  </span>
+                </div>
+
+                <div
+                  v-if="!album.is_can_add_more || (!auth.i502p00r0 && album._count.album_has_artworks+props.workIds.length > maxAlbumItems)"
+                  class="flex flex-row mt-2 w-full"
                 >
-                  {{ album._count.album_has_artworks }}
-                </span>
+                  <ProBadge class="mr-1" />
+                  <p class="leading-6">{{ $t('albums.maxItemLimitReached') }}</p>
+                </div>
               </div>
             </div>
             <div v-show="config.showLoadMore" class="mt-2 primary-button" @click="loadMore()">
@@ -66,9 +80,19 @@ import authStore from '@/stores/auth.store'
 // components
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import Icon from '~/components/globals/Icon.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // composables
 import useAlbum from '~/composables/users/useAlbum'
+import useSetting from '~/composables/useSetting'
+
+// stores
+const auth = authStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const albumApi = useAlbum(oApiConfiguration, fetchOptions())
+const settingApi = useSetting(oApiConfiguration, fetchOptions())
 
 const emits = defineEmits (['addedToAlbum'])
 const props = defineProps ({
@@ -86,6 +110,10 @@ const props = defineProps ({
   }
 })
 
+onBeforeMount (async () => {
+  await getMaxAlbumItemLimit()
+})
+
 onMounted (() => {
   fetchAlbums()
   if (!props.workIds.length) {
@@ -93,11 +121,11 @@ onMounted (() => {
   }
 })
 
-const auth = authStore()
-
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const album = useAlbum(oApiConfiguration, fetchOptions())
+const maxAlbumItems = ref(999)
+const getMaxAlbumItemLimit = async () => {
+  const maxAlbumItemLimit = await settingApi.getSetting('max_free_album_items')
+  maxAlbumItems.value = maxAlbumItemLimit
+}
 
 const fetchTop = async () => {
   albums.value = []
@@ -123,7 +151,7 @@ const fetchAlbums = async () => {
   resetLoadingEmptyErrorMessage()
   loading.value = true
 
-  const [data, showLoadMore, error] = await album.fetchAlbums(
+  const [data, showLoadMore, error] = await albumApi.fetchAlbums(
     auth.user.id,
     'artwork',
     config.value.pagination.page === 0 ? config.value.pagination.firstLoad : config.value.pagination.perPage,
@@ -163,7 +191,7 @@ const fetchCurrentSaved = async () => {
   selectedAlbums.value = []
   unselectedAlbums.value = []
 
-  const [data, error] = await album.getCurrentSaveInfo(
+  const [data, error] = await albumApi.getCurrentSaveInfo(
     'artwork',
     props.workId
   )
@@ -201,16 +229,17 @@ const selectUnselect = (albumId) => {
 }
 
 const save = async () => {
-  const [success, error] = await album.addItems(
-    selectedAlbums.value,
-    props.workIds.length ? props.workIds : [props.workId]
-  )
+  const [success, error] = await albumApi.addItems({
+    albumIds: selectedAlbums.value,
+    type: 'artwork',
+    workIds: props.workIds.length ? props.workIds : [props.workId]
+  })
 
   // if it's a single item, any albums that previously were selected and are now unselected will remove the item from those albums
   if (!props.workIds.length) {
     if (unselectedAlbums.value.length) {
       for (const albumId of unselectedAlbums.value) {
-        await album.removeItems(
+        await albumApi.removeItems(
           albumId,
           [props.workId]
         )
@@ -256,7 +285,7 @@ defineExpose ({
   @apply my-4;
 
   .item {
-    @apply p-3 rounded flex flex-row cursor-pointer justify-between align-middle;
+    @apply p-3 rounded justify-between align-middle;
 
     label {
       @apply inline-flex items-center w-full;

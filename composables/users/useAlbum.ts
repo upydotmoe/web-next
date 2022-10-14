@@ -187,14 +187,22 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
-  const addItems = async (albumIds: number[], workIds: number[]) => {
+  const addItems = async (params: {
+    albumIds: number[],
+    type: string,
+    workIds: number[],
+  }) => {
     try {
-      for (const albumId of albumIds) {
+      for (const albumId of params.albumIds) {
         await new AlbumsApi(oApiConfiguration)
-          .addWorkToAlbum({
-            album_id: albumId,
-            work_ids: workIds
-          }, fetchOptions)
+          .addWorkToAlbum(
+            {
+              album_id: albumId,
+              type: params.type,
+              work_ids: params.workIds
+            }, 
+            fetchOptions
+          )
       }
 
       return [true, null]

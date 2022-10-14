@@ -276,12 +276,12 @@ const resetForm = () => {
 }
 
 // Fetch setting relate to artwork upload
-const setting = useSetting(oApiConfiguration, fetchOptions())
+const settingApi = useSetting(oApiConfiguration, fetchOptions())
 const fetchSetting = async () => {
-  const settingMaxFileCount = await setting.getSetting('artwork_max_uploads')
+  const settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads')
   maxFileCount.value = settingMaxFileCount
 
-  const settingMaxFileSize = await setting.getSetting('artwork_max_file_size')
+  const settingMaxFileSize = await settingApi.getSetting('artwork_max_file_size')
   maxFileSize.value = settingMaxFileSize
 
   labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'

@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { PostTypes } from './post-types';
 /**
  * 
  * @export
@@ -23,6 +24,12 @@ export interface AlbumsAddworkBody {
      * @memberof AlbumsAddworkBody
      */
     albumId: number;
+    /**
+     * 
+     * @type {PostTypes}
+     * @memberof AlbumsAddworkBody
+     */
+    type?: PostTypes;
     /**
      * 
      * @type {Array<number>}

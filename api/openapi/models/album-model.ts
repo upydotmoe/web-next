@@ -34,6 +34,12 @@ export interface AlbumModel extends AlbumLiteModel {
      * @memberof AlbumModel
      */
     users?: UserLiteModel;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof AlbumModel
+     */
+    isCanAddMore?: boolean;
 }
 
 

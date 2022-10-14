@@ -39,7 +39,7 @@
 
   /** Works list */
   .work-grid {
-    @apply grid z-0 grid-cols-2 gap-2 my-2 md:gap-4 md:grid-cols-5 lg:grid-cols-10;
+    @apply grid z-0 grid-cols-2 gap-2 my-2 md:gap-4 md:grid-cols-5 xl:grid-cols-10;
 
     .work-thumbnail {
       @apply object-cover shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
@@ -49,7 +49,7 @@
           @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
         }
         img {
-          @apply w-full theme-color rounded-md;
+          @apply w-full rounded-md theme-color;
           // object-cover object-top 
           aspect-ratio: 1/1;
         }

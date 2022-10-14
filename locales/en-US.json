@@ -271,7 +271,8 @@
       "form": {
         "title": "Update Album"
       }
-    }
+    },
+    "maxItemLimitReached": "Max item limit reached"
   },
   "collections": {
     "collection": "Collection",

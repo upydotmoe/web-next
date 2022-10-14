@@ -148,7 +148,7 @@
             />
             <Icon 
               v-show="!liked"
-              :name="'i-ri-heart-3-line'" 
+              :name="'i-ion-heart-outline'" 
               class="hover:text-red-500"
             />
           </span>
@@ -347,7 +347,7 @@
                 :class="[{ 'cursor-not-allowed': submitCommentLoading }, { 'theme-color-secondary textarea': isModal }]"
                 :readonly="submitCommentLoading"
                 cols="30"
-                :rows="commentInput != null && commentInput != '' ? '8' : '0'"
+                :rows="commentInput != null && commentInput != '' ? '5' : '0'"
                 :placeholder="$t('comments.inputPlaceholder')"
                 :maxlength="commentMaxChar"
                 data-gramm="false"
@@ -425,7 +425,7 @@
                   <div v-if="auth.loggedIn" class="flex flex-row">
                     <!-- like a comment button -->
                     <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
-                      <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
+                      <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
                       <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
                       {{ shortNumber(comment._count.artwork_comment_has_likes) }}
                     </span>
@@ -578,7 +578,7 @@
                     <div class="flex flex-row">
                       <span class="reaction" @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
                         <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
-                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
+                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
                         {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
                       </span>
                       

@@ -271,7 +271,8 @@
       "form": {
         "title": "Update Album"
       }
-    }
+    },
+    "maxItemLimitReached": "Mencapai maksimum item yang dapat disimpan"
   },
   "collections": {
     "collection": "Koleksi",
