@@ -220,15 +220,19 @@ const selectedCollection = ref(0)
 // free user collection creation limitation
 const isCanCreateCollection = ref(false)
 const isUserCanCreateCollection = async () => {
-  const [isCanCreate, error] = await collectionApi.proCanCreateCollection({
-    type: activeType.value
-  })
-
-  if (error) {
-    isCanCreateCollection.value = false
-    // TODO: handle error
+  if (auth.i502p00r0) {
+    isCanCreateCollection.value = true
   } else {
-    isCanCreateCollection.value = isCanCreate
+    const [isCanCreate, error] = await collectionApi.proCanCreateCollection({
+      type: activeType.value
+    })
+
+    if (error) {
+      isCanCreateCollection.value = false
+      // TODO: handle error
+    } else {
+      isCanCreateCollection.value = isCanCreate
+    }
   }
 }
 

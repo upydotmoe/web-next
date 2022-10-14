@@ -46,19 +46,15 @@
           <input 
             v-model="newCollectionInput" 
             type="text" 
-            class="mt-4 mb-0 form-input theme-color-secondary" 
-            :class="{ 'border border-red-400': createCollectionFailureAlert }"
+            :class="[
+              'mt-4 mb-0 form-input theme-color-secondary',
+              { 'border border-red-400': createCollectionFailureAlert }
+            ]"
             :placeholder="$t('collections.createNewCollection')"
           >
 
           <div class="flex flex-row justify-between mt-2">
             <div>
-              <span 
-                v-show="collectionCreatedAlert"
-                class="font-bold text-green-400 transition-all duration-200 ease-in-out"
-              >
-                {{ $t('collections.collectionCreated') }}
-              </span>
               <span 
                 v-show="createCollectionFailureAlert"
                 class="font-bold text-red-400 transition-all duration-200 ease-in-out"
@@ -66,8 +62,13 @@
                 {{ $t('collections.failedToCreateCollection') }}
               </span>
             </div>
-            <button v-show="newCollectionInput && newCollectionInput.length > 0" class="primary-button" @click="create()">
-              {{ $t('create') }}
+            <button
+              v-show="newCollectionInput && newCollectionInput.length > 0"
+              class="flex flex-row primary-button"
+              @click="isCanCreateCollection ? create() : null"
+            >
+              <span :class="{ 'leading-6': !isCanCreateCollection }">{{ $t('create') }}</span>
+              <ProBadge v-if="!isCanCreateCollection" class="ml-2" />
             </button>
           </div>
         </div>
@@ -81,6 +82,14 @@
         :fetch="fetchCollection"
       />
     </div>
+
+    <!-- Collection created splash notification -->
+    <SplashAlert 
+      v-show="collectionCreatedAlert"
+      id="collection-created-alert"
+      :text="$t('collections.collectionCreated')"
+      :icon="'i-bi-check-all'"
+    />
   </div>
 </template>
 
@@ -96,6 +105,8 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
+import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'
@@ -121,6 +132,10 @@ const props = defineProps ({
   }
 })
 
+onBeforeMount (() => {
+  isUserCanCreateCollection()
+})
+
 onMounted (() => {
   fetchCollection()
   fetchCurrentSaved()
@@ -129,6 +144,25 @@ onMounted (() => {
 /**
  * @methods
  */
+// check for free user collection creation limitation
+const isCanCreateCollection = ref(false)
+const isUserCanCreateCollection = async () => {
+  if (auth.i502p00r0) {
+    isCanCreateCollection.value = true
+  } else {
+    const [isCanCreate, error] = await collectionApi.proCanCreateCollection({
+      type: 'artwork'
+    })
+
+    if (error) {
+      isCanCreateCollection.value = false
+      // TODO: handle error
+    } else {
+      isCanCreateCollection.value = isCanCreate
+    }
+  }
+}
+
 const config = ref({
   pagination: {
     page: 0,
@@ -140,6 +174,8 @@ const isError = ref(false)
 const isEmpty = ref(false)
 const collections = ref([])
 const fetchCollection = async (isLoadMore = false) => {
+  await isUserCanCreateCollection()
+
   collections.value = []
 
   if (!isLoadMore) {
@@ -289,6 +325,7 @@ const create = async () => {
     config.value.pagination.page = 0
     await fetchCollection()
     await fetchCurrentSaved()
+    await isUserCanCreateCollection()
     
     newCollectionInput.value = ''
 
@@ -300,12 +337,12 @@ const create = async () => {
 }
 
 const collectionCreatedAlert = ref(false)
+let collectionCreatedSplashInterval
 const showCollectionCreatedAlert = () => {
   collectionCreatedAlert.value = true
-
-  setInterval(() => {
-    collectionCreatedAlert.value = false
-  }, 5000)
+  
+  // show splash notification
+  useSplash().splash(collectionCreatedSplashInterval, collectionCreatedAlert, 'collection-created-alert')
 }
 
 const clear = () => {
