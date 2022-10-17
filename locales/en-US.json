@@ -11,7 +11,8 @@
       },
       "profile": {
         "settings": "Profile Settings"
-      }
+      },
+      "browse": "Browse"
     }
   },
   "all": "All",
@@ -381,6 +382,7 @@
     "accountRecovered": "Account recovered, you can now login with the new credential."
   },
   "comments": {
+    "comments": "Comments",
     "noCommentYet": "No comment yet, be the first to comment.",
     "reachedTheEnd": "You have reached the end.",
     "send": "COMMENT",

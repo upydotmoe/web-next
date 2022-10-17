@@ -11,7 +11,8 @@
       },
       "profile": {
         "settings": "Pengaturan Profil"
-      }
+      },
+      "browse": "Jelajahi"
     }
   },
   "all": "Semua",
@@ -381,6 +382,7 @@
     "accountRecovered": "Akun kamu berhasil dipulihkan."
   },
   "comments": {
+    "comments": "Komentar",
     "noCommentYet": "Belum ada komentar.",
     "reachedTheEnd": "Tidak ada lagi yang bisa dimuat.",
     "send": "Kirim",

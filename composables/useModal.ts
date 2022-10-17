@@ -12,6 +12,7 @@ export default function () {
   const closeModal = (modalId: string) => {
     const modalToClose: HTMLElement | null = document.querySelector(`#${modalId}`)
     if (modalToClose) {
+      console.log('modal to close:', modalToClose)
       if (modalToClose.classList.contains('fadeIn')) {
         modalToClose.classList.remove('fadeIn')
         modalToClose.classList.add('fadeOut')

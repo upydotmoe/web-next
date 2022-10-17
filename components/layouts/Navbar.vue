@@ -2,7 +2,7 @@
   <div
     class="z-20 w-full theme-color"
     :class="[
-      // { 'md:fixed': !unfixedNavbarRoutes().includes(currentRoute) }
+      { 'md:fixed': fixedNavbarRoutes().includes(currentRoute) && !isMobile() }
     ]"
   >
     <div 
@@ -264,14 +264,16 @@ import useLocaleStore from '@/stores/locale.store'
 // misc
 import { availableLanguages } from '@/utils/locale/available-languages'
 
-// composable use
+// stores
+const auth = authStore()
+
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
-// store use
-const auth = authStore()
 const router = useRouter()
 const route = useRoute()
+const currentRoute = route.name
 
 onMounted(async () => {
   if (auth.loggedIn) {

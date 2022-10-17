@@ -34,6 +34,10 @@ export default {
 
     unfixedNavbarRoutes () {
       return ['work', 'profile']
+    },
+
+    fixedNavbarRoutes () {
+      return ['feed']
     }
   }
 }

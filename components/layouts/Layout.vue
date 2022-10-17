@@ -54,7 +54,8 @@
         :class="[
           hideSide || noRightSide ? 'w-full' : 'w-full lg:w-7/12',
           { 'h-screen': hScreen },
-          // { 'md:mt-36': !unfixedNavbarRoutes().includes(currentRoute) }
+          // { 'md:mt-36': !unfixedNavbarRoutes().includes(currentRoute) },
+          { 'md:mt-36': fixedNavbarRoutes().includes(currentRoute) && !isMobile() },
         ]"
       >
         <slot />
@@ -105,6 +106,7 @@ defineProps ({
 })
 
 const route = useRoute()
+const currentRoute = route.name
 
 // todo: future feature, custom color theme configured by user
 // document.documentElement.style.setProperty('--button', '#FF0000')

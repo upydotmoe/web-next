@@ -430,7 +430,6 @@ const viewFeed = (feedId) => {
 const artworkModalViewRef = ref(null)
 const viewArtwork = (workId, isExplicitFilterApplied, feedIdx) => {
   if (isExplicitFilterApplied) {
-    console.log('removing explicit filter..')
     feeds.value[feedIdx].artworks.apply_explicit_filter = false
   } else {
     artworkModalViewRef.value.view(workId)

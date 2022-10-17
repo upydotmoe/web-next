@@ -420,20 +420,26 @@ import FeedSide from '~/components/layouts/right-sides/FeedSide.vue'
 import ManageSave from '~/components/artworks/ManageSave.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 
+// stores
+const auth = useAuthStore()
+
+// composables
+const { generateArtworkThumb } = useImage()
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
+const feedApi = useFeed(oApiConfiguration, fetchOptions())
+
 /**
  * @meta
  */
 definePageMeta ({
-  // keepalive: true
+  keepalive: true
 })
 
 useHead ({
   title: useI18n().tl('meta.title.feed.feed')
 })
 
-/**
- * @props
- */
 defineProps ({
   changeMode: {
     type: Function,
@@ -441,27 +447,9 @@ defineProps ({
   }
 })
 
-/**
- * @stores
- */
-const auth = useAuthStore()
-
-/**
- * @composables
- */
-const { generateArtworkThumb } = useImage()
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
-const feedApi = useFeed(oApiConfiguration, fetchOptions())
-/**
- * @composables
- */
-
-/**
- * @nuxt
- */
 const runtimeConfig = useRuntimeConfig()
 const router = useRouter()
+const route = useRoute()
 const { $router } = useNuxtApp()
 
 onBeforeMount (() => {
@@ -483,12 +471,21 @@ onMounted (() => {
 /**
  * @watchers
  */
-watch (() => $router.currentRoute.value.params.path, () => {
+watch (() => route.query, () => {
   // close modal on changing route or going back to previous page
   closeArtworkModals()
 
   // close collection selection modal
   useModal().closeModal('feed-collection-selection-modal')
+
+  // close collection selection modal
+  useModal().closeModal('collection-selection-modal')
+
+  // close album selection modal
+  useModal().closeModal('album-selection-modal')
+
+  // close report modal
+  useModal().closeModal('report-modal')
 })
 
 /**

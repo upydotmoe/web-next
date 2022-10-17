@@ -223,12 +223,9 @@ const isUserCanCreateAlbum = async () => {
   if (auth.i502p00r0) {
     isCanCreateAlbum.value = true
   } else {
-    console.log(activeType.value)
     const [isCanCreate, error] = await albumApi.proCanCreateAlbum({
       type: activeType.value
     })
-
-    console.log(isCanCreate)
 
     if (error) {
       isCanCreateAlbum.value = false

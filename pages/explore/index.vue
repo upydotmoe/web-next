@@ -14,6 +14,9 @@
 </template>
 
 <script setup>
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Recent from '~/components/artworks/index/Recent.vue'
@@ -24,20 +27,18 @@ import Popular from '~/components/artworks/index/Popular.vue'
 import useUser from '~~/composables/users/useUser'
 
 // stores
-import authStore from '@/stores/auth.store'
+const auth = useAuthStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const userApi = useUser(oApiConfiguration, fetchOptions())
 
 /**
  * @meta
  */
 definePageMeta ({
-  // keepalive: true
+  keepalive: true
 })
-
-// composables use
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const userApi = useUser(oApiConfiguration, fetchOptions())
-
-const auth = authStore()
 
 onMounted (() => {
   if (auth.loggedIn) {

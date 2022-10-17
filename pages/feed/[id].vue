@@ -30,7 +30,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
  * @meta
  */
 definePageMeta ({
-  // keepalive: true
+  keepalive: true
 })
 
 const { $router } = useNuxtApp()

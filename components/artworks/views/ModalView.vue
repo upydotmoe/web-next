@@ -102,35 +102,37 @@
             v-show="artworkDetail.views > 0" 
             class="counter"
           >
-            <b>{{ shortNumber(artworkDetail.views) }}</b> {{ $t('count.views') }}
+            <Icon :name="'i-mi-eye'" />
+            <b>{{ shortNumber(artworkDetail.views) }}</b> {{ artworkDetail.views > 1 ? $t('count.views') : $t('count.view') }}
           </span>
           
           <!-- Total of likes -->
-          <span 
+          <!-- <span 
             v-if="artworkDetail._count"
             v-show="artworkDetail._count.artwork_likes > 0" 
             class="counter"
           >
-            <b>{{ thousand(artworkDetail._count.artwork_likes) }}</b> {{ $t('count.likes') }}
-          </span>
+            <b>{{ thousand(artworkDetail._count.artwork_likes) }}</b> {{ artworkDetail._count.artwork_likes > 1 ? $t('count.likes') : $t('count.like') }}
+          </span> -->
 
           <!-- Total of comments -->
-          <span 
+          <!-- <a
             v-if="artworkDetail._count"
+            href="#comments"
             v-show="artworkDetail._count.artwork_comments > 0" 
             class="counter"
           >
-            <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ $t('count.comments') }}
-          </span>
+            <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
+          </a> -->
           
           <!-- Total of saves -->
-          <span 
+          <!-- <span 
             v-if="artworkDetail._count"
             v-show="artworkDetail._count.artwork_collection_has_works" 
             class="counter"
           >
             <b>{{ thousand(artworkDetail._count.artwork_collection_has_works) }}</b>
-          </span>
+          </span> -->
         </div>
 
         <!-- Reactions -->
@@ -148,9 +150,13 @@
             />
             <Icon 
               v-show="!liked"
-              :name="'i-ion-heart-outline'" 
+              :name="'i-ri-heart-3-line'" 
               class="hover:text-red-500"
             />
+
+            <span v-if="artworkDetail._count && artworkDetail._count.artwork_likes">
+              {{ thousand(artworkDetail._count.artwork_likes) }}
+            </span>
           </span>
 
           <!-- Save -->
@@ -169,6 +175,10 @@
               :name="'i-majesticons-bookmark-line'" 
               class="hover:text-blue-500"
             />
+
+            <span v-if="artworkDetail._count && artworkDetail._count.collection_has_artworks">
+              {{ thousand(artworkDetail._count.collection_has_artworks) }}
+            </span>
           </span>
 
           <!-- Add to album -->
@@ -375,7 +385,13 @@
         </div>
 
         <!-- comment list -->
-        <div class="comment-content">
+        <div id="comments" class="comment-content">
+          <div class="flex flex-row justify-end mb-2">
+            <div v-if="artworkDetail._count && artworkDetail._count.artwork_comments">
+              <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
+            </div>
+          </div>
+
           <div 
             v-auto-animate
             v-for="comment in comments" 
@@ -425,7 +441,7 @@
                   <div v-if="auth.loggedIn" class="flex flex-row">
                     <!-- like a comment button -->
                     <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
-                      <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
+                      <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
                       <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
                       {{ shortNumber(comment._count.artwork_comment_has_likes) }}
                     </span>
@@ -578,7 +594,7 @@
                     <div class="flex flex-row">
                       <span class="reaction" @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
                         <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
-                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ion-heart-outline'" class="text-gray-500 hover:text-red-500" />
+                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
                         {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
                       </span>
                       
@@ -761,25 +777,7 @@ const { applyExplicitFilter, removeExplicitFilter, generateSemiCompressedArtwork
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-/**
- * @meta
- */
-definePageMeta ({
-  // keepalive: true
-})
-
-/**
- * @emits
- */
-const emits = defineEmits([
-  'stopLoading',
-  'showEmpty',
-'showError'
-])
-
-/**
- * @props
- */
+const emits = defineEmits(['stopLoading', 'showEmpty', 'showError'])
 const props = defineProps ({
   id: {
     type: String,

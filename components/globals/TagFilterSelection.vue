@@ -50,7 +50,6 @@ const apiUrl = rConfig.public.apiUrl
 const tags = ref([])
 
 const init = (previousSelectedTags) => {
-  console.log(previousSelectedTags)
   tags.value = previousSelectedTags
 }
 

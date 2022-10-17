@@ -232,6 +232,17 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
+/**
+ * @meta
+ */
+definePageMeta ({
+  keepalive: true
+})
+
+useHead ({
+  title: useI18n().tl('meta.title.browse')
+})
+
 const route = useRoute()
 const { tags } = route.query
 
@@ -311,7 +322,6 @@ const toggleFollowingOnlyFilter = async () => {
  */
 const applyTagOnMount = async (routeTag) => {
   const tagKeyword = routeTag ?? tags
-  console.log(tagKeyword)
 
   const [tagData, error] = await artworkApi.getTagKeys(tagKeyword)
 
