@@ -81,6 +81,9 @@ import useAuthStore from '~/stores/auth.store'
 // composables
 import useAlbum from '~/composables/users/useAlbum'
 
+// components
+import ProBadge from '~/components/globals/ProBadge.vue'
+
 // stores
 const auth = useAuthStore()
 
