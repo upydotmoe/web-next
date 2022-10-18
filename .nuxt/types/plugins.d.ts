@@ -23,6 +23,7 @@ type NuxtAppInjections =
   InjectionType<typeof import("../../plugins/work-modal.client").default> &
   InjectionType<typeof import("../../plugins/image-viewer.client").default> &
   InjectionType<typeof import("../../plugins/auto-animate").default> &
+  InjectionType<typeof import("../../plugins/flowbite").default> &
   InjectionType<typeof import("../../plugins/tag-input.client").default>
 
 declare module '#app' {

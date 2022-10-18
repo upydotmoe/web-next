@@ -162,6 +162,21 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       return [null, error]
     }
   }
+  
+  const followPrivately = async (userToFollow: number) => {
+    try {
+      const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
+        .followUserPrivately(
+          userToFollow,
+          true,
+          fetchOptions
+        )
+
+      return [data.success, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
 
   const unfollow = async (userToUnfollow: number) => {
     try {
@@ -335,6 +350,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     countFollowings,
     isFollowing,
     follow,
+    followPrivately,
     unfollow,
     getFollowerList,
     getFollowingList

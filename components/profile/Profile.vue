@@ -33,37 +33,11 @@
 
           <!-- follow & unfollow -->
           <div class="mt-2">
-            <div 
-              v-if="auth.loggedIn && userInfo.id !== auth.user.id"
-              :class="[
-                'mt-2 primary-button rounded-b-none hover:rounded-b-none',
-                { 'hover:danger-button': isFollowing }
-              ]"
-              @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
-              @mouseover="unfollowHoverLeave('i-ri-user-unfollow-fill', $t('unfollow'))"
-              @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('following'))"
-            >
-              <!-- if not following -->
-              <div v-show="!isFollowing" class="flex flex-row">
-                <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
-                {{ $t('follow') }}
-              </div>
-
-              <!-- if following -->
-              <div 
-                v-show="isFollowing" 
-                class="flex flex-row"
-              >
-                <Icon :name="unfollowIcon" :text-size="'text-base'" />
-                {{ unfollowText === null ? $t('following') : unfollowText }}
-              </div>
-            </div>
-
             <!-- followers and followings -->
             <div 
               :class="[
                 'flex-row justify-center border hidden-md-flex',
-                userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-b-md'
+                userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-t-md'
               ]"
             >
               <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
@@ -73,6 +47,63 @@
               <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
                 <b>{{ counter.followings }}</b>&nbsp;
                 <i>{{ $t('following').toLowerCase() }}</i>
+              </div>
+            </div>
+
+            <div 
+              v-if="auth.loggedIn && userInfo.id !== auth.user.id"
+              :class="[
+                'primary-button rounded-t-none hover:rounded-t-none',
+                { 'hover:danger-button': followingData.isFollowing }
+              ]"
+              @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
+              @mouseover="unfollowHoverLeave('i-ri-user-unfollow-fill', $t('unfollow'))"
+              @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('following'))"
+            >
+              <!-- if not following -->
+              <div v-show="!followingData.isFollowing" class="flex flex-row">
+                <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
+                {{ $t('follow') }}
+              </div>
+
+              <!-- if following -->
+              <div 
+                v-show="followingData.isFollowing" 
+                class="flex flex-row"
+              >
+                <Icon :name="unfollowIcon" :text-size="'text-base'" />
+                {{ unfollowText === null ? $t('following') : unfollowText }}
+              </div>
+            </div>
+            <div
+              v-show="followingData.isFollowing"
+              class="flex flex-row text-center"
+            >
+              <!-- follow privately toggler -->
+              <div class="w-full">
+                <label 
+                  @click="auth.i502p00r0 ? (followingData.isPrivate ? follow(userInfo.id, false) : follow(userInfo.id, true)) : null"
+                  for="small-toggle"
+                  class="inline-flex relative flex-row justify-center items-center mt-2 cursor-pointer"
+                >
+                  <input 
+                    id="small-toggle" 
+                    type="checkbox" 
+                    class="sr-only peer" 
+                    :checked="followingData.isPrivate" 
+                    :disabled="!auth.i502p00r0"
+                  >
+                  <div 
+                    :class="[
+                      'w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600',
+                      { 'unclickable': !auth.i502p00r0 },
+                      auth.i502p00r0 ? ' after:top-[2px]' : ' after:top-[4px]'
+                    ]"
+                  />
+                  <span class="ml-2">Follow Privately</span>
+                  
+                  <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
+                </label>
               </div>
             </div>
           </div>
@@ -306,19 +337,19 @@
           v-if="auth.loggedIn && userInfo.id !== auth.user.id"
           :class="[
             'mt-2 w-auto',
-            isFollowing ? 'danger-button' : 'primary-button'
+            followingData.isFollowing ? 'danger-button' : 'primary-button'
           ]"
-          @click="isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
+          @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
         >
           <!-- if not following -->
-          <div v-show="!isFollowing" class="flex flex-row">
+          <div v-show="!followingData.isFollowing" class="flex flex-row">
             <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
             {{ $t('follow') }}
           </div>
 
           <!-- if following -->
           <div 
-            v-show="isFollowing" 
+            v-show="followingData.isFollowing" 
             class="flex flex-row"
           >
             <Icon :name="unfollowIcon" :text-size="'text-base'" />
@@ -578,6 +609,7 @@ import Collection from '~/components/profile/Collection.vue'
 import FollowerList from '~/components/profile/FollowerList.vue'
 import FollowingList from '~/components/profile/FollowingList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
@@ -654,8 +686,13 @@ const fetchUserInfo = async () => {
 
     // is user followed or not
     if (auth.loggedIn && (auth.user.id !== userId.value)) {
-      const [isUserFollowing] = await userApi.isFollowing(userId.value)
-      isFollowing.value = isUserFollowing.is_following
+      const [followData] = await userApi.isFollowing(userId.value)
+
+      followingData.value = {
+        isFollowing: followData.is_following,
+        isPrivate: followData.is_private,
+        followingSince: followData.following_since
+      }
     }
 
     // count feed total
@@ -721,7 +758,11 @@ const addedToAlbum = () => {
 /**
  * FOLLOW AND UNFOLLOW =======================================================================================================================
  */
-const isFollowing = ref(false)
+const followingData = ref({
+  isFollowing: false,
+  isPrivate: false,
+  followingSince: ''
+})
 
 const unfollowText = ref(null)
 const unfollowIcon = ref('i-ri-user-follow-fill')
@@ -730,14 +771,23 @@ const unfollowHoverLeave = (iconName, text) => {
   unfollowText.value = text
 }
 
-const follow = async (userToFollow) => {
-  const [success, error] = await userApi.follow(userToFollow)
+const follow = async (userToFollow, isPrivate) => {
+  let [success, error] = [null, false]
+  if (isPrivate) {
+    [success, error] = await userApi.followPrivately(userToFollow)
+  } else {
+    [success, error] = await userApi.follow(userToFollow)
+  }
 
   if (error) {
     // todo: handle error
   } else {
-    // todo: user has been followed
-    isFollowing.value = true
+    // user followed
+    followingData.value = {
+      isFollowing: true,
+      isPrivate: isPrivate ?? false,
+      followingSince: ''
+    }
   }
 }
 
@@ -747,8 +797,12 @@ const unfollow = async (userToUnfollow) => {
   if (error) {
     // todo: handle error
   } else {
-    // todo: user has been followed
-    isFollowing.value = false
+    // user unfollowed
+    followingData.value = {
+      isFollowing: false,
+      isPrivate: false,
+      followingSince: ''
+    }
   }
 }
 
