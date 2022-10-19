@@ -278,7 +278,13 @@ const resetForm = () => {
 // Fetch setting relate to artwork upload
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 const fetchSetting = async () => {
-  const settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads')
+  // get allowed max file(s) to upload
+  let settingMaxFileCount = 1
+  if (auth.i502p00r0) {
+    settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads_pro')
+  } else {
+    settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads')
+  }
   maxFileCount.value = settingMaxFileCount
 
   const settingMaxFileSize = await settingApi.getSetting('artwork_max_file_size')
