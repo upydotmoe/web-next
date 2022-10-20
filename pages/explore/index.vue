@@ -37,7 +37,7 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
  * @meta
  */
 definePageMeta ({
-  keepalive: true
+  keepalive: false
 })
 
 onMounted (() => {

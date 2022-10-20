@@ -1,6 +1,26 @@
 <template>
   <div>
-    <div class="text-lg font-bold">{{ $t('followings') }}</div>
+    <div class="flex flex-row justify-between">
+      <div class="text-lg font-bold">{{ $t('followings') }}</div>
+
+      <div>
+        <div
+          v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id == userId"
+          @click="fetchTop(privateOnlyFollowing ? false : true)"
+          :class="[
+            'flex flex-row cursor-pointer href',
+            { 'font-bold': privateOnlyFollowing }
+          ]"
+        >
+          <Icon v-show="privateOnlyFollowing" :name="'i-mdi-eye-check'" />
+          <div class="mr-1">
+            <Icon v-show="!privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-regular'" />
+            <Icon v-show="privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-filled'" />
+          </div>
+          <span>{{ $t('privateFollow') }}</span>
+        </div>
+      </div>
+    </div>
 
     <div class="grid grid-cols-1 gap-4 mt-4 w-full md:grid-cols-2 lg:grid-cols-3">
       <nuxt-link
@@ -51,7 +71,7 @@
       </nuxt-link>
     </div>
 
-    <div v-show="showLoadMore" class="primary-button mt-4" @click="fetch()">
+    <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch(false)">
       {{ $t('loadMore') }}
     </div>
 
@@ -94,13 +114,15 @@ const props = defineProps ({
 })
 
 onMounted (() => {
-  fetch()
+  fetch(false)
 })
 
-const fetchTop = async () => {
+const privateOnlyFollowing = ref(false)
+const fetchTop = async (isPrivateOnly) => {
   followingList.value = []
   pagination.value.page = 0
-  await fetch()
+  privateOnlyFollowing.value = isPrivateOnly
+  await fetch(isPrivateOnly)
 }
 
 const followingList = ref([])
@@ -112,12 +134,13 @@ const pagination = ref({
 const isError = ref(false)
 const isEmpty = ref(false)
 const showLoadMore = ref(false)
-const fetch = async () => {
+const fetch = async (isPrivateOnly) => {
   resetLoadingEmptyErrorMessage()
   loading.value = true
 
   const [data, error] = await userApi.getFollowingList({
     userId: props.userId,
+    isPrivateOnly: isPrivateOnly ? 1 : 0,
     pagination: {
       page: pagination.value.page,
       perPage: pagination.value.perPage

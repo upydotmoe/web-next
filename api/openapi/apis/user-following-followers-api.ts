@@ -265,15 +265,20 @@ export const UserFollowingFollowersApiAxiosParamCreator = function (configuratio
          * 
          * @summary List followed user of specific user
          * @param {number} userId 
+         * @param {number} privateOnly 
          * @param {number} page Pagination index
          * @param {number} perPage How many record to show per page of pagination
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        followingList: async (userId: number, page: number, perPage: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        followingList: async (userId: number, privateOnly: number, page: number, perPage: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
                 throw new RequiredError('userId','Required parameter userId was null or undefined when calling followingList.');
+            }
+            // verify required parameter 'privateOnly' is not null or undefined
+            if (privateOnly === null || privateOnly === undefined) {
+                throw new RequiredError('privateOnly','Required parameter privateOnly was null or undefined when calling followingList.');
             }
             // verify required parameter 'page' is not null or undefined
             if (page === null || page === undefined) {
@@ -296,6 +301,10 @@ export const UserFollowingFollowersApiAxiosParamCreator = function (configuratio
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
+
+            if (privateOnly !== undefined) {
+                localVarQueryParameter['private_only'] = privateOnly;
+            }
 
             if (page !== undefined) {
                 localVarQueryParameter['page'] = page;
@@ -491,13 +500,14 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
          * 
          * @summary List followed user of specific user
          * @param {number} userId 
+         * @param {number} privateOnly 
          * @param {number} page Pagination index
          * @param {number} perPage How many record to show per page of pagination
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async followingList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2007>>> {
-            const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).followingList(userId, page, perPage, options);
+        async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2007>>> {
+            const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).followingList(userId, privateOnly, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -597,13 +607,14 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
          * 
          * @summary List followed user of specific user
          * @param {number} userId 
+         * @param {number} privateOnly 
          * @param {number} page Pagination index
          * @param {number} perPage How many record to show per page of pagination
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async followingList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2007>> {
-            return UserFollowingFollowersApiFp(configuration).followingList(userId, page, perPage, options).then((request) => request(axios, basePath));
+        async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2007>> {
+            return UserFollowingFollowersApiFp(configuration).followingList(userId, privateOnly, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -697,14 +708,15 @@ export class UserFollowingFollowersApi extends BaseAPI {
      * 
      * @summary List followed user of specific user
      * @param {number} userId 
+     * @param {number} privateOnly 
      * @param {number} page Pagination index
      * @param {number} perPage How many record to show per page of pagination
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserFollowingFollowersApi
      */
-    public async followingList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
-        return UserFollowingFollowersApiFp(this.configuration).followingList(userId, page, perPage, options).then((request) => request(this.axios, this.basePath));
+    public async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
+        return UserFollowingFollowersApiFp(this.configuration).followingList(userId, privateOnly, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

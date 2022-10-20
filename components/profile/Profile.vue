@@ -118,6 +118,8 @@
                 <div>
                   <span class="text-base font-semibold">{{ userInfo.name }}</span>&nbsp;
                   <span class="mr-2 italic">{{ userInfo.username }}</span>
+
+                  <ProBadge :force-show="userInfo.is_pro" />
                 </div>
 
                 <div class="flex flex-row mt-2">

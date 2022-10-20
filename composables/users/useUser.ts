@@ -213,6 +213,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const getFollowingList = async (params: {
     userId: number,
+    isPrivateOnly: 0 | 1,
     pagination: {
       page: number,
       perPage: number
@@ -222,6 +223,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
         .followingList(
           params.userId, 
+          params.isPrivateOnly,
           params.pagination.page,
           params.pagination.perPage,
           fetchOptions
