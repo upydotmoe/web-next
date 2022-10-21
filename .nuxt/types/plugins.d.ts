@@ -16,6 +16,7 @@ type NuxtAppInjections =
   InjectionType<typeof import("../unocss").default> &
   InjectionType<typeof import("../../node_modules/@pinia/nuxt/dist/runtime/plugin.vue3").default> &
   InjectionType<typeof import("../plugin").default> &
+  InjectionType<typeof import("../../node_modules/nuxt/dist/app/plugins/payload.client").default> &
   InjectionType<typeof import("../../plugins/pinia-persistedstate.client").default> &
   InjectionType<typeof import("../../plugins/mixins").default> &
   InjectionType<typeof import("../../plugins/v-img").default> &
