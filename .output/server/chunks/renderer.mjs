@@ -1,18 +1,19 @@
-import { createRenderer } from 'vue-bundle-renderer/runtime';
-import { eventHandler, getQuery } from 'h3';
+import { renderResourceHeaders, createRenderer } from 'vue-bundle-renderer/runtime';
+import { eventHandler, getQuery, writeEarlyHints } from 'h3';
 import { joinURL } from 'ufo';
-import { u as useNitroApp, a as useRuntimeConfig } from './node-server.mjs';
+import { u as useNitroApp, a as useRuntimeConfig, g as getRouteRules } from './node-server.mjs';
 import 'node-fetch-native/polyfill';
 import 'http';
 import 'https';
 import 'destr';
 import 'ohmyfetch';
-import 'radix3';
 import 'unenv/runtime/fetch/index';
 import 'hookable';
 import 'scule';
 import 'ohash';
 import 'unstorage';
+import 'defu';
+import 'radix3';
 import 'fs';
 import 'pathe';
 import 'url';
@@ -47,9 +48,7 @@ function defineRenderHandler(handler) {
         event.res.statusMessage = response.statusMessage;
       }
     }
-    if (!event.res.writableEnded) {
-      event.res.end(typeof response.body === "string" ? response.body : JSON.stringify(response.body));
-    }
+    return typeof response.body === "string" ? response.body : JSON.stringify(response.body);
   });
 }
 
@@ -294,6 +293,8 @@ function publicAssetsURL(...path) {
   return path.length ? joinURL(publicBase, ...path) : publicBase;
 }
 
+globalThis.__buildAssetsURL = buildAssetsURL;
+globalThis.__publicAssetsURL = publicAssetsURL;
 const getClientManifest = () => import('./client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
 const getSPARenderer = lazyCachedFunction(async () => {
   const manifest = await getClientManifest();
@@ -319,7 +320,10 @@ const getSPARenderer = lazyCachedFunction(async () => {
     ssrContext.renderMeta = ssrContext.renderMeta ?? (() => ({}));
     return Promise.resolve(result);
   };
-  return { renderToString };
+  return {
+    rendererContext: renderer.rendererContext,
+    renderToString
+  };
 });
 const PAYLOAD_URL_RE = /\/_payload(\.[a-zA-Z0-9]+)?.js(\?.*)?$/;
 const renderer = defineRenderHandler(async (event) => {
@@ -330,18 +334,21 @@ const renderer = defineRenderHandler(async (event) => {
     url = url.substring(0, url.lastIndexOf("/")) || "/";
     event.req.url = url;
   }
+  getRouteRules(event);
   const ssrContext = {
     url,
     event,
-    req: event.req,
-    res: event.res,
     runtimeConfig: useRuntimeConfig(),
-    noSSR: !!true  ,
+    noSSR: !!true   ,
     error: !!ssrError,
     nuxt: void 0,
     payload: ssrError ? { error: ssrError } : {}
   };
   const renderer = await getSPARenderer() ;
+  if (!isRenderingPayload && !false) {
+    const { link } = renderResourceHeaders({}, renderer.rendererContext);
+    writeEarlyHints(event, link);
+  }
   const _rendered = await renderer.renderToString(ssrContext).catch((err) => {
     if (!ssrError) {
       throw ssrContext.payload?.error || err;

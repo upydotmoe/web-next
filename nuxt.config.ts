@@ -45,7 +45,8 @@ export default defineNuxtConfig({
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/logo/logo.ico' },
       { rel: 'dns-prefetch', href: `//${process.env.BUNNY_CDN_URL}` },
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css' }
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css' },
+      { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
     ],
     script: [
       {
@@ -64,7 +65,8 @@ export default defineNuxtConfig({
         src: 'https://umami.upy.moe/umami.js',
         asyns: true,
         'data-website-id': 'a41fcb1f-d44e-447a-abcc-33468b840da8'
-      }
+      },
+      { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
     ]
   },
 
@@ -110,7 +112,7 @@ export default defineNuxtConfig({
     '~/plugins/work-modal.client.js',
     '~/plugins/image-viewer.client.js',
     '~/plugins/auto-animate.js',
-    '~/plugins/flowbite.js'
+    // '~/plugins/flowbite.js'
   ],
 
   build: {
