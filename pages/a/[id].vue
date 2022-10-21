@@ -32,7 +32,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
  * @meta
  */
 definePageMeta ({
-  keepalive: true
+  keepalive: false
 })
 
 const loading = ref(true)

@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    v-if="forceShow ? auth.i502p00r0 : !auth.i502p00r0"
+    v-if="forceShow"
     :to="'/pro'"
     class="py-1 px-2 font-bold text-black align-middle bg-yellow-200 rounded-md text-xxs hover:text-black"
   >

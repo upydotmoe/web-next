@@ -134,9 +134,16 @@
             <span class="ml-2">{{ $t('explicitContent') }}</span>
           </label>
 
-          <div v-show="inputData.isExplicit" class="flex flex-row p-2 mt-2 text-white bg-red-400 rounded">
-            <Icon :name="'alert-outline'" class="mr-1 text-white" /> 
-            <span>{{ $t('artworks.add.form.prohibitChildExplicitContent') }}</span>
+          <div v-show="inputData.isExplicit" class="flex p-4 mt-2 text-white bg-red-400 rounded" role="alert">
+            <div>
+              <span>We strictly forbid the following categories to be uploaded to our platform:</span>
+              <ul class="mt-2 list-disc list-inside text-white">
+                <div>- *AI/program/machine generated arts <i>(we strongly do not support AI generated arts, for anyone who breaks this special rule will result in insta-ban)</i></div>
+                <div>- Other's people works <i>(even if you have permission from the original artist)</i></div>
+                <div>- Child pornography, child abuse, etc.</div>
+                <div>- Extreme gore, mutilation, etc. (a little bit is allowed, but if it's too much, we cannot accept it)</div>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

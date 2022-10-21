@@ -9,17 +9,19 @@
       <div class="mb-2 input-block">
         <label class="font-semibold">{{ $t('explicitContent') }}</label>
         <div class="field">
-          <label :for="!inputData.showExplicit ? 'checked' : 'unchecked'" class="inline-flex items-center mt-2">
-            <span class="relative cursor-pointer" @click="inputData.showExplicit = !inputData.showExplicit">
-              <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
-              <span v-if="!inputData.showExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-gray-100 rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline">
-                <input id="unchecked" type="checkbox" class="absolute w-0 h-0 opacity-0">
-              </span>
-              
-              <span v-if="inputData.showExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out transform translate-x-full focus-within:shadow-outline button-color">
-                <input id="checked" type="checkbox" class="absolute w-0 h-0 opacity-0">
-              </span>
-            </span>
+          <label 
+            for="small-toggle"
+            class="inline-flex relative items-center mb-5 cursor-pointer"
+          >
+            <input 
+              @click="inputData.showExplicit = !inputData.showExplicit"
+              id="small-toggle" 
+              type="checkbox" 
+              class="sr-only peer" 
+              :checked="inputData.showExplicit"
+            >
+            <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+
             <span class="ml-2">{{ $t('profile.forms.update.showExplicitContent') }}</span>
           </label>
         </div>

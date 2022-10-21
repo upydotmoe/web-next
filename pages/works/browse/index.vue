@@ -236,7 +236,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
  * @meta
  */
 definePageMeta ({
-  keepalive: true
+  keepalive: false
 })
 
 useHead ({

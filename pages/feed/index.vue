@@ -433,7 +433,7 @@ const feedApi = useFeed(oApiConfiguration, fetchOptions())
  * @meta
  */
 definePageMeta ({
-  keepalive: true
+  keepalive: false
 })
 
 useHead ({

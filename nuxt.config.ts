@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   dev: process.env.NODE_ENV === 'development',
   components: true,
   app: {
-    keepalive: true
+    keepalive: false
   },
   loading: {
     color: '#a855f7',

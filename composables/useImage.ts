@@ -21,7 +21,7 @@ export default function () {
           format = '?class=feed'
           break
         case 'thumbnail':
-          format = uncropped && uncropped !== undefined && !uncropped ? '?class=thumbnail' : '?class=thumbnailUncropped'
+          format = uncropped !== undefined && !uncropped ? '?class=thumbnail' : '?class=thumbnailUncropped'
           break
       }
 

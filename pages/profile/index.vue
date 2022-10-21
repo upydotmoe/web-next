@@ -14,11 +14,14 @@ import Profile from '~/components/profile/Profile.vue'
 // stores
 const auth = useAuthStore()
 
-const { $router } = useNuxtApp()
+const router = useRouter()
 
-// onBeforeMount (() => {
-//   if (!auth.loggedIn) {
-//     $router.push('/')
-//   }
-// })
+onBeforeMount (() => {
+  if (!auth.loggedIn) {
+    router.push({
+      path: '/',
+      force: true
+    })
+  }
+})
 </script>
