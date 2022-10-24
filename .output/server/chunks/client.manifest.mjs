@@ -5,12 +5,6 @@ const client_manifest = {
     "file": "Inter-400-1.f7666a51.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-1.woff2"
   },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-2.woff2": {
-    "resourceType": "font",
-    "mimeType": "font/woff2",
-    "file": "Inter-400-2.e9493683.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-2.woff2"
-  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-3.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
@@ -23,23 +17,29 @@ const client_manifest = {
     "file": "Inter-400-4.2f2d421a.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-4.woff2"
   },
+  "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-2.woff2": {
+    "resourceType": "font",
+    "mimeType": "font/woff2",
+    "file": "Inter-400-2.e9493683.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-2.woff2"
+  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-6.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
     "file": "Inter-400-6.64a98f58.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-6.woff2"
   },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Lato-400-8.woff2": {
-    "resourceType": "font",
-    "mimeType": "font/woff2",
-    "file": "Lato-400-8.1c2fc265.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Lato-400-8.woff2"
-  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-7.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
     "file": "Inter-400-7.0364d368.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Inter-400-7.woff2"
+  },
+  "node_modules/.cache/nuxt-google-fonts/fonts/Lato-400-8.woff2": {
+    "resourceType": "font",
+    "mimeType": "font/woff2",
+    "file": "Lato-400-8.1c2fc265.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Lato-400-8.woff2"
   },
   "node_modules/.cache/nuxt-google-fonts/fonts/Lato-400-9.woff2": {
     "resourceType": "font",
@@ -59,6 +59,12 @@ const client_manifest = {
     "file": "Nunito-400-11.ce5142e3.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-11.woff2"
   },
+  "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-13.woff2": {
+    "resourceType": "font",
+    "mimeType": "font/woff2",
+    "file": "Nunito-400-13.a8aed46d.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-13.woff2"
+  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-12.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
@@ -71,23 +77,17 @@ const client_manifest = {
     "file": "Nunito-400-14.5e2f97ea.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-14.woff2"
   },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-13.woff2": {
+  "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-16.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
-    "file": "Nunito-400-13.a8aed46d.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Nunito-400-13.woff2"
+    "file": "Poppins-400-16.cb8bdeab.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-16.woff2"
   },
   "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-15.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
     "file": "Poppins-400-15.478b3ab7.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-15.woff2"
-  },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-16.woff2": {
-    "resourceType": "font",
-    "mimeType": "font/woff2",
-    "file": "Poppins-400-16.cb8bdeab.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-16.woff2"
   },
   "node_modules/.cache/nuxt-google-fonts/fonts/Poppins-400-17.woff2": {
     "resourceType": "font",
@@ -101,17 +101,17 @@ const client_manifest = {
     "file": "Quicksand-400-19.bb022ef8.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Quicksand-400-19.woff2"
   },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Quicksand-400-20.woff2": {
-    "resourceType": "font",
-    "mimeType": "font/woff2",
-    "file": "Quicksand-400-20.e3616551.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Quicksand-400-20.woff2"
-  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Readex_Pro-400-21.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
     "file": "Readex_Pro-400-21.49998ebe.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Readex_Pro-400-21.woff2"
+  },
+  "node_modules/.cache/nuxt-google-fonts/fonts/Quicksand-400-20.woff2": {
+    "resourceType": "font",
+    "mimeType": "font/woff2",
+    "file": "Quicksand-400-20.e3616551.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Quicksand-400-20.woff2"
   },
   "node_modules/.cache/nuxt-google-fonts/fonts/Readex_Pro-400-23.woff2": {
     "resourceType": "font",
@@ -119,29 +119,17 @@ const client_manifest = {
     "file": "Readex_Pro-400-23.9aa35e2a.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Readex_Pro-400-23.woff2"
   },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-25.woff2": {
-    "resourceType": "font",
-    "mimeType": "font/woff2",
-    "file": "Rubik-400-25.3a8db66e.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-25.woff2"
-  },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-27.woff2": {
-    "resourceType": "font",
-    "mimeType": "font/woff2",
-    "file": "Rubik-400-27.300c9f68.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-27.woff2"
-  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Readex_Pro-400-24.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
     "file": "Readex_Pro-400-24.aad6f94c.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Readex_Pro-400-24.woff2"
   },
-  "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-29.woff2": {
+  "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-25.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
-    "file": "Rubik-400-29.f1e0d25f.woff2",
-    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-29.woff2"
+    "file": "Rubik-400-25.3a8db66e.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-25.woff2"
   },
   "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-26.woff2": {
     "resourceType": "font",
@@ -149,11 +137,23 @@ const client_manifest = {
     "file": "Rubik-400-26.116c9b0a.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-26.woff2"
   },
+  "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-27.woff2": {
+    "resourceType": "font",
+    "mimeType": "font/woff2",
+    "file": "Rubik-400-27.300c9f68.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-27.woff2"
+  },
   "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-28.woff2": {
     "resourceType": "font",
     "mimeType": "font/woff2",
     "file": "Rubik-400-28.bc5e3f53.woff2",
     "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-28.woff2"
+  },
+  "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-29.woff2": {
+    "resourceType": "font",
+    "mimeType": "font/woff2",
+    "file": "Rubik-400-29.f1e0d25f.woff2",
+    "src": "node_modules/.cache/nuxt-google-fonts/fonts/Rubik-400-29.woff2"
   },
   "static/blank.png": {
     "resourceType": "image",
@@ -1089,60 +1089,60 @@ const client_manifest = {
     "file": "index.02f61f44.css",
     "src": "pages/feed/index.css"
   },
-  "node_modules/@nuxt/ui-templates/dist/templates/error-500.css": {
-    "resourceType": "style",
-    "file": "error-500.e60962de.css",
-    "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.css"
-  },
   "node_modules/@nuxt/ui-templates/dist/templates/error-404.css": {
     "resourceType": "style",
     "file": "error-404.18ced855.css",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.css"
   },
-  "components/user/account/RecoverPassword.css": {
+  "node_modules/@nuxt/ui-templates/dist/templates/error-500.css": {
     "resourceType": "style",
-    "file": "RecoverPassword.17bdcbd1.css",
-    "src": "components/user/account/RecoverPassword.css"
-  },
-  "pages/post/index.css": {
-    "resourceType": "style",
-    "file": "index.489b746d.css",
-    "src": "pages/post/index.css"
-  },
-  "pages/works/browse/index.css": {
-    "resourceType": "style",
-    "file": "index.87784500.css",
-    "src": "pages/works/browse/index.css"
+    "file": "error-500.e60962de.css",
+    "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.css"
   },
   "pages/search/index.css": {
     "resourceType": "style",
     "file": "index.11995c5d.css",
     "src": "pages/search/index.css"
   },
-  "pages/works/popular/index.css": {
+  "pages/post/index.css": {
     "resourceType": "style",
-    "file": "index.937079c6.css",
-    "src": "pages/works/popular/index.css"
-  },
-  "pages/works/following/index.css": {
-    "resourceType": "style",
-    "file": "index.f256dd67.css",
-    "src": "pages/works/following/index.css"
-  },
-  "pages/reports/index.css": {
-    "resourceType": "style",
-    "file": "index.9631d8a4.css",
-    "src": "pages/reports/index.css"
+    "file": "index.489b746d.css",
+    "src": "pages/post/index.css"
   },
   "pages/works/update/[id].css": {
     "resourceType": "style",
     "file": "_id_.4bd6b868.css",
     "src": "pages/works/update/[id].css"
   },
+  "pages/reports/index.css": {
+    "resourceType": "style",
+    "file": "index.9631d8a4.css",
+    "src": "pages/reports/index.css"
+  },
+  "pages/works/following/index.css": {
+    "resourceType": "style",
+    "file": "index.f256dd67.css",
+    "src": "pages/works/following/index.css"
+  },
+  "pages/works/popular/index.css": {
+    "resourceType": "style",
+    "file": "index.937079c6.css",
+    "src": "pages/works/popular/index.css"
+  },
   "pages/works/recent/index.css": {
     "resourceType": "style",
     "file": "index.2ae0f744.css",
     "src": "pages/works/recent/index.css"
+  },
+  "pages/works/browse/index.css": {
+    "resourceType": "style",
+    "file": "index.87784500.css",
+    "src": "pages/works/browse/index.css"
+  },
+  "components/user/account/RecoverPassword.css": {
+    "resourceType": "style",
+    "file": "RecoverPassword.17bdcbd1.css",
+    "src": "components/user/account/RecoverPassword.css"
   },
   "node_modules/nuxt/dist/app/entry.css": {
     "resourceType": "style",

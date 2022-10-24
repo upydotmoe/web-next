@@ -14,13 +14,13 @@
         :to="auth.loggedIn ? '/feed' : '/explore'" 
         class="w-8 h-8 rounded-md flex-md-hidden"
       >
-        <img src="/static/logo/logo.png" class="logo">
+        <img :src="logo" class="logo">
       </nuxt-link>
 
       <!-- left menus -->
       <div class="menus">
         <nuxt-link :to="auth.loggedIn ? '/feed' : '/explore'">
-          <img src="/static/logo/logo.png" class="logo">
+          <img :src="logo" class="logo">
         </nuxt-link>
       </div>
 
@@ -251,6 +251,9 @@
 </template>
 
 <script setup>
+// assets
+import logo from '~/static/logo/logo.png'
+
 // components
 import MiniNavbar from '~/components/layouts/MiniNavbar.vue'
 import Icon from '~/components/globals/Icon.vue'
