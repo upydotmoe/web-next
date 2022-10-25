@@ -160,7 +160,7 @@
     "describeReason": "Jelaskan mengapa kamu memutuskan untuk melaporkan konten ini",
     "describeText": "Jelaskan alasanmu melaporkan konten ini",
     "reasons": {
-      "stolen": "Pencurian konten/hak cipta/unggahan tanpa izin",
+      "stolen": "Pencurian konten/hak cipta",
       "spam": "Spam",
       "hateSpeech": "Kalimat kebencian",
       "harassment": "Harrassment atau pelecehan",
@@ -168,6 +168,7 @@
       "suicide": "Bunuh diri atau melukai diri sendiri",
       "graphic": "Konten grafik (mengandung gore/mutilasi/darah)",
       "terrorism": "Terrorisme",
+      "aiGeneratedArt": "Gambar yang dihasilkan oleh AI",
       "somethingElse": "Lainnnya"
     },
     "reportSubmitted": "Laporan terkirim",

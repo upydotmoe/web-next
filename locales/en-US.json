@@ -160,7 +160,7 @@
     "describeReason": "Describe why you decided to report this content",
     "describeText": "Describe your reason for reporting this content",
     "reasons": {
-      "stolen": "Stolen content/copyright infringement/upload without permission",
+      "stolen": "Stolen content/copyright infringement",
       "spam": "Spam",
       "hateSpeech": "Hate speech",
       "harassment": "Harrasment",
@@ -168,6 +168,7 @@
       "suicide": "Suicide or self-injury",
       "graphic": "Graphic violence (gore/mutilation/blood)",
       "terrorism": "Terrorism",
+      "aiGeneratedArt": "AI generated art",
       "somethingElse": "Something else"
     },
     "reportSubmitted": "Report Submitted",
