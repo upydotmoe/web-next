@@ -412,6 +412,7 @@
     "min": "{fieldName} must be at least {min} characters",
     "max": "{fieldName} must be at most {max} characters",
     "containSymbol": "{fieldName} must contain at least one symbol",
-    "containNumber": "{fieldName} must contain at least one numeric character"
+    "containNumber": "{fieldName} must contain at least one numeric character",
+    "equalTo": "{fieldName} should equal to {fieldNameSource}"
   }
 }

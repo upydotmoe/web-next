@@ -1,10 +1,11 @@
 <template>
   <div v-show="showForm || directMode" class="w-full">
     <div v-show="!showRecoveryLinkSentDialog" class="text-base mb-2">
-    {{ $t('accountRecovery.form.recoverYourPassword') }}
+      {{ $t('accountRecovery.form.recoverYourPassword') }}
     </div>
 
     <form
+      v-show="!showRecoveryLinkSentDialog"
       :id="formId"
       @submit.prevent="proceed(formId)"
     >
@@ -61,7 +62,7 @@ const authForm = useAuthFormStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-defineProps ({
+const props = defineProps ({
   directMode: {
     type: Boolean,
     default: false
@@ -81,7 +82,7 @@ const alert = reactive({ ...initAlert })
 const showRecoveryLinkSentDialog = computed(() => authForm.showRecoveryLinkSentDialog)
 const showResendInfo = ref(false)
 
-const formId = 'account-recovery-form'
+const formId = 'account-recovery-form' + (props.directMode ?? '-direct')
 const initialValue = {
   email: ''
 }

@@ -412,6 +412,7 @@
     "min": "{fieldName} minimal {min} karakter",
     "max": "{fieldName} maksimal {max} karakter",
     "containSymbol": "{fieldName} wajib mengandung minimal satu karakter simbol",
-    "containNumber": "{fieldName} wajib mengandung minimal satu karakter numerik"
+    "containNumber": "{fieldName} wajib mengandung minimal satu karakter numerik",
+    "equalTo": "{fieldName} harus sama dengan {fieldNameSource}"
   }
 }

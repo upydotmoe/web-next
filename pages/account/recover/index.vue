@@ -2,6 +2,7 @@
   <Layout 
     :with-footer="false" 
     :hide-side="true"
+    :no-right-side="true"
   >
     <div class="w-1/3 mx-auto rounded p-2 pt-4">
       <AccountRecovery :direct-mode="true" />

@@ -120,6 +120,18 @@ export default function () {
             break
           }
         }
+
+        // rule config for 'equal-to'
+        if (rules[iRules].startsWith('equalTo:')) {
+          const [fieldNameSource, passEqual] = validateEqualTo(form, input.value, rules[iRules].split(':')[1])
+
+          if (!passEqual) {
+            addAlert(fieldName, rules[iRules])
+            const alertEl = `<div class='input-error'>${t('validation.equalTo', { fieldName: nValidate.getAttribute('name'), fieldNameSource: fieldNameSource })}</div>`
+            nValidate.insertAdjacentHTML('beforeend', alertEl)
+            break
+          }
+        }
       }
     }
 
@@ -186,6 +198,13 @@ export default function () {
   const validateContainNumber = (value) => {
     const numberRegEx = /\d/
     return numberRegEx.test(value)
+  }
+
+  const validateEqualTo = (form, value, sourceForAttr) => {
+    const sourceNValidate = form.querySelectorAll('[for="'+sourceForAttr+'"]')[0]
+    const sourceInput = sourceNValidate.getElementsByTagName('input')[0]
+
+    return [sourceNValidate.getAttribute('name'), value === sourceInput.value]
   }
 
   return {

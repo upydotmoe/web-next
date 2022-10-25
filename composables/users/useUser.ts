@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   UserApi,
   UserCountersApi,
@@ -5,7 +6,8 @@ import {
   UserUpdateUserInfoApi,
   AuthServiceRegistrationApi,
   UserChangeUserMediaApi,
-  SearchApi
+  SearchApi,
+  UserForgotPasswordApi
 } from '~/api/openapi/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
@@ -332,6 +334,41 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const checkResetPasswordTokenValidity = async (params: {
+    iv: string,
+    content: string
+  }) => {
+    try {
+      const { data } = await new UserForgotPasswordApi(oApiConfiguration)
+        .checkResetPasswordTokenValidity(params.iv, params.content)
+        
+      return [data.data, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
+  const resetPassword = async (params: {
+    iv: string,
+    content: string,
+    newPassword: string
+  }) => {
+    try {
+      const { data } = await new UserForgotPasswordApi(oApiConfiguration)
+        .recoverChangePassword(
+          {
+            iv: params.iv,
+            content: params.content,
+            new_password: params.newPassword
+          }
+        )
+
+      return [data, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   return {
     checkUsernameAvailability,
     checkPenNameAvailability,
@@ -355,6 +392,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     followPrivately,
     unfollow,
     getFollowerList,
-    getFollowingList
+    getFollowingList,
+
+    checkResetPasswordTokenValidity,
+    resetPassword
   }
 }
