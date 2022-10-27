@@ -254,6 +254,10 @@
     }
   }
 
+  .success-button-close {
+    @apply font-bold border-2 border-green-400 b-button theme-color hover:bg-green-400 hover:text-white;
+  }
+
   .disabled-button {
     @apply text-white cursor-not-allowed pointer-events-none b-button;
     background-color: var(--button-disabled);
@@ -327,6 +331,10 @@
 
   .form-input {
     @apply p-3 mb-2 w-full text-xs rounded border-none focus:ring-transparent;
+  }
+
+  .error-message {
+    @apply p-2 mb-2 w-full text-white bg-red-500 rounded-md;
   }
 
   .border-b-red {

@@ -7,7 +7,8 @@ import {
   AuthServiceRegistrationApi,
   UserChangeUserMediaApi,
   SearchApi,
-  UserForgotPasswordApi
+  UserForgotPasswordApi,
+  UserChangePasswordApi
 } from '~/api/openapi/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
@@ -334,6 +335,48 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const checkCurrentPassword = async (params: {
+    userId: number,
+    currentPassword: string
+  }) => {
+    try {
+      const { data } = await new UserChangePasswordApi(oApiConfiguration)
+        .checkCurrentPassword(
+          {
+            user_id: params.userId,
+            current_password: params.currentPassword
+          },
+          fetchOptions
+        )
+
+      return [data, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
+  const updateCurrentPassword = async (params: {
+    userId: number
+    currentPassword: string,
+    newPassword: string
+  }) => {
+    try {
+      const { data } = await new UserChangePasswordApi(oApiConfiguration)
+        .changePassword(
+          {
+            user_id: params.userId,
+            current_password: params.currentPassword,
+            new_password: params.newPassword
+          },
+          fetchOptions
+        )
+
+      return [data, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   const checkResetPasswordTokenValidity = async (params: {
     iv: string,
     content: string
@@ -394,6 +437,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     getFollowerList,
     getFollowingList,
 
+    checkCurrentPassword,
+    updateCurrentPassword,
     checkResetPasswordTokenValidity,
     resetPassword
   }

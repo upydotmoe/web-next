@@ -172,7 +172,7 @@
       "somethingElse": "Lainnnya"
     },
     "reportSubmitted": "Laporan terkirim",
-    "reportSubmittedMessage": "Terima kasih telah melapor dan membantu kami membuat wadah komunitas yang lebih aman, kami akan mereview laporan Anda secepatnya.",
+    "reportSubmittedMessage": "Terima kasih telah melapor dan membantu kami membuat wadah komunitas yang lebih aman, kami akan mereview laporanmu secepatnya.",
     "reportId": "ID Laporan",
     "reportDate": "Tanggal laporan",
     "user": "User",
@@ -246,6 +246,7 @@
   "updated": "Diupdate",
   "updating": "Memperbarui..",
   "success": "Sukses",
+  "close": "Tutup",
   "publishedOn": "Dipublikasikan pada",
   "willBePublishedOn": "Akan dipublikasikan pada",
   "unpublish": "Tidak dipublikasikan",
@@ -336,7 +337,13 @@
         "cover": "Cover",
         "changeCover": "Ubah cover",
         "chooseNewCover": "Pilih cover baru",
-        "coverMaxAllowedFileSize": "Maksimal ukuran file yang diperbolehkan adalah 5MB"
+        "coverMaxAllowedFileSize": "Maksimal ukuran file yang diperbolehkan adalah 5MB",
+        "password": {
+          "currentPasswordLabel": "Masukan kata sandimu yang sekarang untuk memverifikasi bahwa kamu adalah pemilik akun.",
+          "currentPassword": "Kata Sandi Sekarang",
+          "newPassword": "Kata Sandi Baru",
+          "success": "Password berhasil dirubah! Sekarang kamu dapat login menggunakan password barumu."
+        }
       }
     }
   },

@@ -246,6 +246,7 @@
   "updated": "Updated",
   "updating": "Updating..",
   "success": "Success",
+  "close": "Close",
   "publishedOn": "Published on",
   "willBePublishedOn": "Will be published on",
   "unpublish": "Unpublish",
@@ -336,7 +337,13 @@
         "cover": "Cover",
         "changeCover": "Change cover",
         "chooseNewCover": "Choose new cover",
-        "coverMaxAllowedFileSize": "Max allowed size is 500 Kb"
+        "coverMaxAllowedFileSize": "Max allowed size is 500 Kb",
+        "password": {
+          "currentPasswordLabel": "Input your current password to verify that you are the account owner.",
+          "currentPassword": "Current Password",
+          "newPassword": "New Password",
+          "success": "Password changed! Now you can login with your new password."
+        }
       }
     }
   },
