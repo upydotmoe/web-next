@@ -6,11 +6,13 @@
   >
     <!-- cover -->
     <div>
-      <img 
+      <nuxt-img 
+        preload
+        loading="lazy"
         :src="avatarCoverUrl(userInfo.cover_bucket, userInfo.cover_filename)" 
         class="object-cover object-top w-full h-32 rounded-t md:h-52 lg:h-72 xl:h-96 unselectable" 
         @error="defaultCoverImage"
-      >
+      />
       <nuxt-link
         v-if="auth.loggedIn && auth.user.id === userInfo.id"
         :to="'/profile/setting'"
@@ -25,11 +27,13 @@
         <!-- for desktop: left side -->
         <div class="mr-6 w-1/5">
           <!-- avatar -->
-          <img
-            :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)"
+          <nuxt-img
+            preload
+            loading="lazy"
             class="hidden -mt-2 w-full md:-mt-16 avatar md:flex"
+            :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)"
             @error="defaultCoverImage"
-          >
+          />
 
           <!-- follow & unfollow -->
           <div class="mt-2">
@@ -228,11 +232,13 @@
       <!-- user info: for mobile or smaller device -->
       <div class="flex flex-col text-center md:hidden">
         <!-- avatar -->
-        <img 
-          :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)" 
+        <nuxt-img
+          preload
+          loading="lazy"
           class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar md:hidden"
+          :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)" 
           @error="imageLoadError"
-        >
+        />
 
         <!-- user info -->
         <div class="mt-4 text-base font-semibold">

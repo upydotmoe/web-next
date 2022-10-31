@@ -22,108 +22,11 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-4 mt-4 w-full md:grid-cols-2 lg:grid-cols-3">
-      <nuxt-link
-        v-for="(following, index) in followingList"
-        :key="following.id"
-        :to="'/profile/' + following.username"
-        class="flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
-        :style="following.cover_bucket && following.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('+avatarCoverUrl(following.cover_bucket, following.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('+abstractImgUrl+');background-size:cover;'"
-      >
-        <div class="flex flex-col w-full">
-          <div class="flex flex-row w-full">
-            <img
-              :src="avatarCoverUrl(following.avatar_bucket, following.avatar_filename)"
-              :class="[
-                'rounded-bl-none avatar',
-                following.artworks.length ? 'rounded-r-none' : 'rounded-tr-none'
-              ]"
-              @error="imageLoadError"
-            >
-
-            <div class="flex flex-col justify-between p-3 w-full text-white">
-              <div class="flex flex-col">
-                <span class="font-bold">{{ following.name }}</span>
-                <span class="text-xxs">{{ following.pen_name }}</span>
-              </div>
-
-              <div class="flex flex-row w-full">
-                <!-- user follow status, not appeared if the user is current login user -->
-                <div v-if="auth.loggedIn && following.id !== auth.user.id" class="flex flex-row">
-                  <!-- follow -->
-                  <div 
-                    v-show="!following.is_following"
-                    class="flex flex-row"
-                    @click.prevent="followUser(index, following.id)"
-                  >
-                    <Icon :name="'i-ri-user-add-fill'" class="text-gray-300 hover:text-white" />
-                  </div>
-                  
-                  <div 
-                    v-show="following.is_following"
-                    class="flex flex-row" 
-                    @mouseover="showUnfollow = following.id" 
-                    @mouseout="showUnfollow = 0"
-                    @click.prevent="unfollowUser(index, following.id)"
-                  >
-                    <!-- following -->
-                    <Icon v-show="showUnfollow !== following.id" :name="'i-ri-user-follow-fill'" class="text-green-400" />
-
-                    <!-- unfollow -->
-                    <Icon v-show="showUnfollow && showUnfollow === following.id" :name="'i-ri-user-unfollow-fill'" class="text-red-400 hover:text-red-400" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="work-grid">
-            <div
-              v-for="(latestArtwork, workIndex) in following.artworks"
-              :key="latestArtwork.id"
-              :class="[
-                'work-thumbnail theme-color-bg',
-                latestArtwork._count.artwork_assets > 1 && currentWorkId != latestArtwork.id ? 'work-multiple' : ''
-              ]"
-            >
-              <a
-                :href="'/a/'+latestArtwork.id"
-                target="_blank"
-                class="w-full h-full theme-color-bg"
-              >
-                <div 
-                  :class="[
-                    'overflow-hidden relative text-center',
-                    { 'rounded-bl-md': workIndex == 0 },
-                    { 'rounded-br-md': workIndex == 2 }
-                  ]"
-                >
-                  <!-- <p v-if="latestArtwork._count.artwork_assets > 1 && !applyExplicitFilter(auth, latestArtwork.is_explicit)">{{ latestArtwork._count.artwork_assets }}</p> -->
-                  <span v-if="applyExplicitFilter(auth, latestArtwork.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
-                  
-                  <a 
-                    :href="'/a/'+latestArtwork.id"
-                    :class="[
-                      { 'animate-wigglefast': manageMode }
-                    ]"
-                  >
-                    <img 
-                      :class="[
-                        'w-full h-full unselectable',
-                        { 'object-cover': !isUncropped },
-                        isUncropped ? 'object-contain object-center h-44' : 'object-cover',
-                        { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, latestArtwork.is_explicit) }
-                      ]"
-                      :src="artworkThumb(latestArtwork.artwork_assets[0].bucket, latestArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-                      @error="imageLoadError"
-                    >
-                  </a>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </nuxt-link>
-    </div>
+    <UserList
+      class="mt-4"
+      :users="followingList"
+      :column-type="3"
+    />
 
     <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch(false)">
       {{ $t('loadMore') }}
@@ -149,6 +52,7 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import UserList from '~/components/users/UserList.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'

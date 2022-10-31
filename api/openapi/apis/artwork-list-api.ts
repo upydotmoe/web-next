@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20015 } from '../models';
-import { InlineResponse20023 } from '../models';
+import { InlineResponse20016 } from '../models';
+import { InlineResponse20024 } from '../models';
 /**
  * ArtworkListApi - axios parameter creator
  * @export
@@ -361,7 +361,7 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFollowingArtworks(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20023>>> {
+        async getFollowingArtworks(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20024>>> {
             const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getFollowingArtworks(perPage, page, mode, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -379,7 +379,7 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestWorks(perPage: number, page: number, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20015>>> {
+        async getLatestWorks(perPage: number, page: number, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
             const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getLatestWorks(perPage, page, mode, tags, following, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -399,7 +399,7 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMostPopular(perPage: number, page: number, range: string, by: string, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20015>>> {
+        async getMostPopular(perPage: number, page: number, range: string, by: string, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
             const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getMostPopular(perPage, page, range, by, mode, tags, following, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -413,7 +413,7 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRelatedArtworks(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20015>>> {
+        async getRelatedArtworks(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
             const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getRelatedArtworks(workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -429,7 +429,7 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20015>>> {
+        async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
             const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getUserArtworks(userId, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -454,7 +454,7 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFollowingArtworks(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20023>> {
+        async getFollowingArtworks(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20024>> {
             return ArtworkListApiFp(configuration).getFollowingArtworks(perPage, page, mode, options).then((request) => request(axios, basePath));
         },
         /**
@@ -468,7 +468,7 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestWorks(perPage: number, page: number, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20015>> {
+        async getLatestWorks(perPage: number, page: number, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
             return ArtworkListApiFp(configuration).getLatestWorks(perPage, page, mode, tags, following, options).then((request) => request(axios, basePath));
         },
         /**
@@ -484,7 +484,7 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMostPopular(perPage: number, page: number, range: string, by: string, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20015>> {
+        async getMostPopular(perPage: number, page: number, range: string, by: string, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
             return ArtworkListApiFp(configuration).getMostPopular(perPage, page, range, by, mode, tags, following, options).then((request) => request(axios, basePath));
         },
         /**
@@ -494,7 +494,7 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRelatedArtworks(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20015>> {
+        async getRelatedArtworks(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
             return ArtworkListApiFp(configuration).getRelatedArtworks(workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -506,7 +506,7 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20015>> {
+        async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
             return ArtworkListApiFp(configuration).getUserArtworks(userId, perPage, page, options).then((request) => request(axios, basePath));
         },
     };
@@ -529,7 +529,7 @@ export class ArtworkListApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getFollowingArtworks(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20023>> {
+    public async getFollowingArtworks(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20024>> {
         return ArtworkListApiFp(this.configuration).getFollowingArtworks(perPage, page, mode, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -544,7 +544,7 @@ export class ArtworkListApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getLatestWorks(perPage: number, page: number, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20015>> {
+    public async getLatestWorks(perPage: number, page: number, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
         return ArtworkListApiFp(this.configuration).getLatestWorks(perPage, page, mode, tags, following, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -561,7 +561,7 @@ export class ArtworkListApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getMostPopular(perPage: number, page: number, range: string, by: string, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20015>> {
+    public async getMostPopular(perPage: number, page: number, range: string, by: string, mode?: string, tags?: string, following?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
         return ArtworkListApiFp(this.configuration).getMostPopular(perPage, page, range, by, mode, tags, following, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -572,7 +572,7 @@ export class ArtworkListApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getRelatedArtworks(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20015>> {
+    public async getRelatedArtworks(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
         return ArtworkListApiFp(this.configuration).getRelatedArtworks(workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -585,7 +585,7 @@ export class ArtworkListApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20015>> {
+    public async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
         return ArtworkListApiFp(this.configuration).getUserArtworks(userId, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
 }

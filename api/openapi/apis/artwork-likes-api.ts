@@ -19,6 +19,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { ArtworksLikeBody } from '../models';
 import { ArtworksUnlikeBody } from '../models';
 import { InlineResponse20010 } from '../models';
+import { InlineResponse20014 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * ArtworkLikesApi - axios parameter creator
@@ -51,6 +52,66 @@ export const ArtworkLikesApiAxiosParamCreator = function (configuration?: Config
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get list of users that liked the artwork
+         * @param {number} workId 
+         * @param {number} perPage How many record to show per page of pagination
+         * @param {number} page Pagination index
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserLikedTheArtwork: async (workId: number, perPage: number, page: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workId' is not null or undefined
+            if (workId === null || workId === undefined) {
+                throw new RequiredError('workId','Required parameter workId was null or undefined when calling getUserLikedTheArtwork.');
+            }
+            // verify required parameter 'perPage' is not null or undefined
+            if (perPage === null || perPage === undefined) {
+                throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getUserLikedTheArtwork.');
+            }
+            // verify required parameter 'page' is not null or undefined
+            if (page === null || page === undefined) {
+                throw new RequiredError('page','Required parameter page was null or undefined when calling getUserLikedTheArtwork.');
+            }
+            const localVarPath = `/artworks/{work_id}/like/user-liked`
+                .replace(`{${"work_id"}}`, encodeURIComponent(String(workId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['per_page'] = perPage;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -175,6 +236,22 @@ export const ArtworkLikesApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get list of users that liked the artwork
+         * @param {number} workId 
+         * @param {number} perPage How many record to show per page of pagination
+         * @param {number} page Pagination index
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserLikedTheArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20014>>> {
+            const localVarAxiosArgs = await ArtworkLikesApiAxiosParamCreator(configuration).getUserLikedTheArtwork(workId, perPage, page, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Like an artwork
          * @param {ArtworksLikeBody} [body] 
          * @param {*} [options] Override http request option.
@@ -222,6 +299,18 @@ export const ArtworkLikesApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
+         * @summary Get list of users that liked the artwork
+         * @param {number} workId 
+         * @param {number} perPage How many record to show per page of pagination
+         * @param {number} page Pagination index
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserLikedTheArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20014>> {
+            return ArtworkLikesApiFp(configuration).getUserLikedTheArtwork(workId, perPage, page, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Like an artwork
          * @param {ArtworksLikeBody} [body] 
          * @param {*} [options] Override http request option.
@@ -260,6 +349,19 @@ export class ArtworkLikesApi extends BaseAPI {
      */
     public async countLikes(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
         return ArtworkLikesApiFp(this.configuration).countLikes(id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Get list of users that liked the artwork
+     * @param {number} workId 
+     * @param {number} perPage How many record to show per page of pagination
+     * @param {number} page Pagination index
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtworkLikesApi
+     */
+    public async getUserLikedTheArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20014>> {
+        return ArtworkLikesApiFp(this.configuration).getUserLikedTheArtwork(workId, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

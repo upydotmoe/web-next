@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20016 } from '../models';
+import { InlineResponse20017 } from '../models';
 /**
  * NotificationsMarkersUsersApi - axios parameter creator
  * @export
@@ -74,7 +74,7 @@ export const NotificationsMarkersUsersApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFollowMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getUserFollowMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersUsersApiAxiosParamCreator(configuration).getUserFollowMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -96,7 +96,7 @@ export const NotificationsMarkersUsersApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFollowMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getUserFollowMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersUsersApiFp(configuration).getUserFollowMarker(options).then((request) => request(axios, basePath));
         },
     };
@@ -116,7 +116,7 @@ export class NotificationsMarkersUsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersUsersApi
      */
-    public async getUserFollowMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getUserFollowMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersUsersApiFp(this.configuration).getUserFollowMarker(options).then((request) => request(this.axios, this.basePath));
     }
 }

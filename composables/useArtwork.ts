@@ -319,6 +319,27 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const viewWhoLikedTheArtwork = async (params: {
+    workId: number,
+    pagination: {
+      page: number,
+      perPage: number
+    }
+  }) => {
+    try {
+      const { data } = await new ArtworkLikesApi(oApiConfiguration)
+        .getUserLikedTheArtwork(
+          params.workId,
+          params.pagination.perPage,
+          params.pagination.page
+        )
+
+      return [data.data.users, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   const unlike = async (params: {
     workId: number
   }) => {
@@ -622,6 +643,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     deleteWork,
     
     like,
+    viewWhoLikedTheArtwork,
     unlike,
 
     getTagKeys,

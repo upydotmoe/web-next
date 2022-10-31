@@ -26,16 +26,18 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <img 
+            <nuxt-img
+              preload
+              loading="lazy"
+              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'w-full h-full unselectable',
                 { 'object-cover': !isUncropped },
                 isUncropped ? 'object-contain object-center h-44' : 'object-cover',
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
               ]"
-              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               @error="imageLoadError"
-            >
+            />
           </a>
         </div>
       </a>
@@ -56,12 +58,16 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <img 
-              class="object-cover w-full h-full unselectable"
-              :class="{ 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }"
+            <nuxt-img
+              preload
+              loading="lazy"
               :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+              :class="[
+                'object-cover w-full h-full unselectable',
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
+              ]"
               @error="imageLoadError"
-            >
+            />
           </a>
         </div>
       </nuxt-link>

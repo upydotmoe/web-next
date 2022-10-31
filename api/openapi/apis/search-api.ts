@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20015 } from '../models';
-import { InlineResponse20028 } from '../models';
+import { InlineResponse20016 } from '../models';
+import { InlineResponse20029 } from '../models';
 /**
  * SearchApi - axios parameter creator
  * @export
@@ -210,7 +210,7 @@ export const SearchApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchArtworks(keyword: string, range: string, by: string, page: number, perPage: number, mode?: string, following?: boolean, recent?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20015>>> {
+        async searchArtworks(keyword: string, range: string, by: string, page: number, perPage: number, mode?: string, following?: boolean, recent?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
             const localVarAxiosArgs = await SearchApiAxiosParamCreator(configuration).searchArtworks(keyword, range, by, page, perPage, mode, following, recent, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -226,7 +226,7 @@ export const SearchApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20028>>> {
+        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20029>>> {
             const localVarAxiosArgs = await SearchApiAxiosParamCreator(configuration).searchUsers(keyword, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -256,7 +256,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchArtworks(keyword: string, range: string, by: string, page: number, perPage: number, mode?: string, following?: boolean, recent?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20015>> {
+        async searchArtworks(keyword: string, range: string, by: string, page: number, perPage: number, mode?: string, following?: boolean, recent?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
             return SearchApiFp(configuration).searchArtworks(keyword, range, by, page, perPage, mode, following, recent, options).then((request) => request(axios, basePath));
         },
         /**
@@ -268,7 +268,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20028>> {
+        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20029>> {
             return SearchApiFp(configuration).searchUsers(keyword, page, perPage, options).then((request) => request(axios, basePath));
         },
     };
@@ -296,7 +296,7 @@ export class SearchApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public async searchArtworks(keyword: string, range: string, by: string, page: number, perPage: number, mode?: string, following?: boolean, recent?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20015>> {
+    public async searchArtworks(keyword: string, range: string, by: string, page: number, perPage: number, mode?: string, following?: boolean, recent?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
         return SearchApiFp(this.configuration).searchArtworks(keyword, range, by, page, perPage, mode, following, recent, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -309,7 +309,7 @@ export class SearchApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20028>> {
+    public async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20029>> {
         return SearchApiFp(this.configuration).searchUsers(keyword, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
 }

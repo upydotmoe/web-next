@@ -38,7 +38,6 @@ export default defineStore('auth', () => {
       loggedIn.value = true
 
       // fetch user data after authentication is successful and save to auth store
-      console.log('1. getting authenticated user data..')
       await authApi.getAuthenticatedUserData({
         tokenRefreshed: authorizationData.tokenRefreshed
       })

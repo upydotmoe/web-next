@@ -44,7 +44,7 @@ export default function () {
     } else {
       // bunny
       if (viewMode) {
-        format = '?width=900&quality=40'
+        format = '?width=800&quality=40'
       }
 
       return `https://${config.public.bunnyUrl}/${bucketName}/${fileName}${format}`

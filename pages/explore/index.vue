@@ -42,7 +42,7 @@ definePageMeta ({
 
 onMounted (() => {
   if (auth.loggedIn) {
-    getFollowedUsers()
+    countFollowing()
   }
 })
 
@@ -66,15 +66,16 @@ watch (() => route.query, _ => {
 })
 
 const isFollowingSomeone = ref(false)
-const getFollowedUsers = async () => {
-  const [followedUsers, error] = await userApi.getFollowingList({
-    userId: auth.user.id,
-    pagination: {
-      page: 0,
-      perPage: 1
-    }
-  })
+const countFollowing = async () => {
+  // reset current state
+  isFollowingSomeone.value = false
 
-  isFollowingSomeone.value = followedUsers.pagination.record_total > 0
+  const [totalFollowing, error] = await userApi.countFollowings(auth.user.id)
+
+  if (error) {
+    isFollowingSomeone.value = false
+  } else {
+    isFollowingSomeone.value = totalFollowing > 0
+  }
 }
 </script>

@@ -105,7 +105,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     if (auth.a4ht0jen === '' && auth.r43f0rt3jen === '') {
       auth.logout()
     } else {
-      console.log('refetching user data..')
       /**
        * We need to check fetchOptions value, because the first time user authenticating to the app,
        * useApiFetch() composition doesn't record Authorization token and throw empty header object.
@@ -116,7 +115,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         // (params.tokenRefreshed && params.tokenRefreshed !== undefined) || 
         (!fetchOptions.hasOwnProperty('headers') && !fetchOptions.hasOwnProperty('headers.Authorization') && auth.a4ht0jen !== '')
       ) {
-        console.log('2. getting authenticated user data..')
         fetchOptions = {
           headers: {
             // we use 'Bearer' here because we use typescript-axios mode when generating code for API via Swagger Codegen.
@@ -126,12 +124,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       }
 
       // try {
-        console.log('3. calling getCurrentUserInfo endpoint')
-        console.log('> fetch options:', fetchOptions.headers)
         const { data } = await new UserApi(oApiConfiguration)
           .getCurrentUserInfo(fetchOptions)
-
-        console.log('4. user data:', data)
 
         if (!data.success) {
           // auth.logout()

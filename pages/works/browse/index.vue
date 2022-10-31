@@ -36,7 +36,7 @@
               <Icon v-show="followingOnly" :name="'i-fluent-people-checkmark-24-regular'" class="text-white" />
               <Icon v-show="!followingOnly" :name="'i-fluent-people-checkmark-24-regular'" /> 
               
-              {{ $t('following') }}
+              {{ $t('followingOnly') }}
             </button>
           </div>
 
@@ -54,6 +54,12 @@
               :class="[listMode === 'popularity' ? 'button' : 'theme-color']"
               @click="changeListMode('popularity')"
             >
+              <Icon 
+                :name="'i-icon-park-outline-oval-love-two'"
+                :class="[
+                  { 'text-white': listMode === 'popularity' }
+                ]"
+              /> 
               {{ $t('artworks.mostPopular') }}
             </p>
           </div>
@@ -90,7 +96,12 @@
         </div>
       </div>
 
-      <div class="navigations">
+      <div 
+        :class="[
+          'navigations',
+          listMode === 'popularity' ? '-mt-2' : '-mt-4'
+        ]"
+      >
         <div class="hidden md:flex" />
         <div class="buttons">
           <div v-show="listMode === 'popularity'" class="filter-buttons">
@@ -127,7 +138,7 @@
           <div v-show="listMode === 'popularity'" class="filter-buttons">
             <div class="inline-block w-full group md:w-40">
               <button class="flex items-center py-2 w-full rounded-md outline-none md:w-40 theme-color hover:button" @click="togglePopularOrderStatus()">
-                <span class="flex-1 pr-1">{{ sortBy === 'none' ? $t('default') : sortByTitle }}</span>
+                <span class="flex-1 pr-1">{{ sortBy === 'views' ? $t('mostViewed') : sortByTitle }}</span>
                 <span>
                   <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
@@ -135,7 +146,7 @@
                 </span>
               </button>
               <ul id="popular-order-options" class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-40 theme-color group-hover:scale-100">
-                <li class="py-2 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li>
+                <!-- <li class="py-2 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li> -->
                 <li class="py-2 cursor-pointer hover:button" :class="{ 'button': sortBy === 'views' }" @click="changeSort('views', $t('mostViewed'))">{{ $t('mostViewed') }}</li>
                 <li class="py-2 cursor-pointer hover:button" :class="{ 'button': sortBy === 'likes' }" @click="changeSort('likes', $t('mostLiked'))">{{ $t('mostLiked') }}</li>
                 <li class="py-2 rounded-b-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'comments' }" @click="changeSort('comments', $t('mostCommented'))">{{ $t('mostCommented') }}</li>
@@ -154,7 +165,7 @@
       />
 
       <!-- List area -->
-      <div v-show="!loading" class="mt-4">
+      <div v-show="!loading">
         <WorkList 
           v-show="!isEmpty"
           :section-class="'work-grid'"
@@ -491,7 +502,7 @@ const view = (workId, keepArtistPageNumber = false) => {
   useModal().openModal('browse-modal')
 }
 
-const sortBy = ref('none')
+const sortBy = ref('views')
 const sortByTitle = ref('')
 const changeSort = async (key, text) => {
   sortBy.value = key

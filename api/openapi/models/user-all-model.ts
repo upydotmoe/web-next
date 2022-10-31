@@ -32,6 +32,12 @@ export interface UserAllModel extends UserModel {
      * @memberof UserAllModel
      */
     userSettings?: UserSettingModel;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UserAllModel
+     */
+    isPro?: boolean;
 }
 
 

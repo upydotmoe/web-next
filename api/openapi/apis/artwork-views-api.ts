@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20022 } from '../models';
+import { InlineResponse20023 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * ArtworkViewsApi - axios parameter creator
@@ -146,7 +146,7 @@ export const ArtworkViewsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countViews(id: number, mode: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20022>>> {
+        async countViews(id: number, mode: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20023>>> {
             const localVarAxiosArgs = await ArtworkViewsApiAxiosParamCreator(configuration).countViews(id, mode, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -179,7 +179,7 @@ export const ArtworkViewsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countViews(id: number, mode: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20022>> {
+        async countViews(id: number, mode: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20023>> {
             return ArtworkViewsApiFp(configuration).countViews(id, mode, options).then((request) => request(axios, basePath));
         },
     };
@@ -211,7 +211,7 @@ export class ArtworkViewsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkViewsApi
      */
-    public async countViews(id: number, mode: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20022>> {
+    public async countViews(id: number, mode: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20023>> {
         return ArtworkViewsApiFp(this.configuration).countViews(id, mode, options).then((request) => request(this.axios, this.basePath));
     }
 }

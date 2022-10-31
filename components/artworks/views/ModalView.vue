@@ -69,7 +69,9 @@
           >
             <!-- loading="lazy" -->
             <!-- v-lazy="src.thumbnail" -->
-            <img 
+            <nuxt-img
+              preload
+              loading="lazy"
               :src="src.thumbnail"
               :data-source="src.source"
               :class="[
@@ -138,23 +140,26 @@
         <!-- Reactions -->
         <div v-if="!previewMode" class="reactions">
           <!-- Like -->
-          <span
-            v-if="auth.loggedIn"
-            @click="liked ? unlike() : like()"
-          >
-            <Icon 
-              v-show="liked"
-              id="like-button"
-              :name="'i-ion-heart'" 
-              class="text-red-500 hover:text-red-500"
-            />
-            <Icon 
-              v-show="!liked"
-              :name="'i-ri-heart-3-line'" 
-              class="hover:text-red-500"
-            />
+          <span v-if="auth.loggedIn">
+            <span @click="liked ? unlike() : like()">
+              <Icon 
+                v-show="liked"
+                id="like-button"
+                :name="'i-ion-heart'" 
+                class="text-red-500 hover:text-red-500"
+              />
+              <Icon 
+                v-show="!liked"
+                :name="'i-ri-heart-3-line'" 
+                class="hover:text-red-500"
+              />
+            </span>
 
-            <span v-if="artworkDetail._count && artworkDetail._count.artwork_likes">
+            <span
+              v-if="artworkDetail._count && artworkDetail._count.artwork_likes"
+              class="hover:cursor-pointer"
+              @click="showUserLikedModal()"
+            >
               {{ thousand(artworkDetail._count.artwork_likes) }}
             </span>
           </span>
@@ -701,18 +706,18 @@
       v-if="!loading && (auth.loggedIn && artworkDetail.users && auth.user.id == artworkDetail.users.id)"
       id="album-selection-modal"
       ref="albumSelectionModalRef"
+      class="modal"
       :modal-id="'album-selection-modal'"
       :work-id="artworkDetail.id"
-      class="modal"
       @addedToAlbum="addedToAlbum"
     />
 
     <!-- Work deletion confirmation dialog -->
     <ConfirmationDialog
       id="work-deletion-confirm-modal"
+      class="modal"
       :modal-id="'work-deletion-confirm-modal'"
       :message="`${$t('alert.areYouSure')} ${$t('alert.youCannotUndoThisAction')}`"
-      class="modal"
       @onAccept="deleteWork(artworkDetail.id)"
     />
 
@@ -732,6 +737,13 @@
       ref="shareToFeedModalRef"
       class="modal"
       :post-id="artworkDetail.id"
+    />
+
+    <!-- User liked list -->
+    <UserLiked
+      id="user-liked-modal"
+      class="modal"
+      :work-id="artworkDetail.id"
     />
     
     <!-- Link copied notification -->
@@ -767,6 +779,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 import ReportModal from '~/components/reports/ReportModal.vue'
 import ShareArtworkToFeedModal from '~/components/feeds/ShareArtworkToFeedModal.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import UserLiked from '~/components/artworks/views/UserLiked.vue'
 
 // stores
 const auth = useAuthStore()
@@ -964,6 +977,10 @@ const like = async () => {
   } else {
     // todo: handle error
   }
+}
+
+const showUserLikedModal = () => {
+  useModal().openModal('user-liked-modal')
 }
 
 const unlike = async () => {

@@ -35,11 +35,13 @@
         @click="openNotification(notification, index)"
       >
         <!-- follower avatar -->
-        <img 
-          :src="avatarCoverUrl(notification.follower_detail.avatar_bucket, notification.follower_detail.avatar_filename)"
+        <nuxt-img
+          preload
+          loading="lazy"
           class="object-cover w-12 h-12 rounded unselectable"
+          :src="avatarCoverUrl(notification.follower_detail.avatar_bucket, notification.follower_detail.avatar_filename)"
           @error="imageLoadError"
-        >
+        />
 
         <!-- description -->
         <div>

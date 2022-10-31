@@ -7,7 +7,7 @@
           
           <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
             <div class="modal-close" @click="cancel()">
-              <Icon :name="'close'" class="text-2xl" />
+              <Icon :name="'i-majesticons-close'" class="text-2xl" />
             </div>
           </div>
         </div>

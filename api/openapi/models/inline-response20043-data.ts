@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20043DataReport } from './inline-response20043-data-report';
 /**
  * 
  * @export
@@ -19,8 +20,8 @@
 export interface InlineResponse20043Data {
     /**
      * 
-     * @type {boolean}
+     * @type {InlineResponse20043DataReport}
      * @memberof InlineResponse20043Data
      */
-    isPro?: boolean;
+    report?: InlineResponse20043DataReport;
 }

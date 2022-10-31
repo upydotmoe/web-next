@@ -11,26 +11,14 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20029DataUserLiked } from './inline-response20029-data-user-liked';
-import { InlineResponse20032DataArtworks } from './inline-response20032-data-artworks';
+import { InlineResponse20033DataArtworks } from './inline-response20033-data-artworks';
+import { InlineResponse20033DataUserLiked } from './inline-response20033-data-user-liked';
 /**
  * 
  * @export
  * @interface InlineResponse20033DataNotifications
  */
 export interface InlineResponse20033DataNotifications {
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20033DataNotifications
-     */
-    id?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20033DataNotifications
-     */
-    content?: string;
     /**
      * 
      * @type {number}
@@ -45,16 +33,22 @@ export interface InlineResponse20033DataNotifications {
     comment?: string;
     /**
      * 
-     * @type {Array<InlineResponse20029DataUserLiked>}
+     * @type {number}
      * @memberof InlineResponse20033DataNotifications
      */
-    userReplied?: Array<InlineResponse20029DataUserLiked>;
+    isRead?: number;
     /**
      * 
-     * @type {InlineResponse20032DataArtworks}
+     * @type {Array<InlineResponse20033DataUserLiked>}
      * @memberof InlineResponse20033DataNotifications
      */
-    artworks?: InlineResponse20032DataArtworks;
+    userLiked?: Array<InlineResponse20033DataUserLiked>;
+    /**
+     * 
+     * @type {InlineResponse20033DataArtworks}
+     * @memberof InlineResponse20033DataNotifications
+     */
+    artworks?: InlineResponse20033DataArtworks;
     /**
      * 
      * @type {number}

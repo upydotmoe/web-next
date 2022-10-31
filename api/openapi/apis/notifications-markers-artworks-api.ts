@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20016 } from '../models';
+import { InlineResponse20017 } from '../models';
 /**
  * NotificationsMarkersArtworksApi - axios parameter creator
  * @export
@@ -254,7 +254,7 @@ export const NotificationsMarkersArtworksApiFp = function(configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentLikedMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getArtworkCommentLikedMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersArtworksApiAxiosParamCreator(configuration).getArtworkCommentLikedMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -267,7 +267,7 @@ export const NotificationsMarkersArtworksApiFp = function(configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getArtworkCommentMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersArtworksApiAxiosParamCreator(configuration).getArtworkCommentMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -280,7 +280,7 @@ export const NotificationsMarkersArtworksApiFp = function(configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentRepliesMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getArtworkCommentRepliesMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersArtworksApiAxiosParamCreator(configuration).getArtworkCommentRepliesMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -293,7 +293,7 @@ export const NotificationsMarkersArtworksApiFp = function(configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentReplyLikesMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getArtworkCommentReplyLikesMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersArtworksApiAxiosParamCreator(configuration).getArtworkCommentReplyLikesMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -306,7 +306,7 @@ export const NotificationsMarkersArtworksApiFp = function(configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentsAndRepliesMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getArtworkCommentsAndRepliesMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersArtworksApiAxiosParamCreator(configuration).getArtworkCommentsAndRepliesMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -319,7 +319,7 @@ export const NotificationsMarkersArtworksApiFp = function(configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkLikeMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getArtworkLikeMarker(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await NotificationsMarkersArtworksApiAxiosParamCreator(configuration).getArtworkLikeMarker(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -341,7 +341,7 @@ export const NotificationsMarkersArtworksApiFactory = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentLikedMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getArtworkCommentLikedMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersArtworksApiFp(configuration).getArtworkCommentLikedMarker(options).then((request) => request(axios, basePath));
         },
         /**
@@ -350,7 +350,7 @@ export const NotificationsMarkersArtworksApiFactory = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getArtworkCommentMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersArtworksApiFp(configuration).getArtworkCommentMarker(options).then((request) => request(axios, basePath));
         },
         /**
@@ -359,7 +359,7 @@ export const NotificationsMarkersArtworksApiFactory = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentRepliesMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getArtworkCommentRepliesMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersArtworksApiFp(configuration).getArtworkCommentRepliesMarker(options).then((request) => request(axios, basePath));
         },
         /**
@@ -368,7 +368,7 @@ export const NotificationsMarkersArtworksApiFactory = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentReplyLikesMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getArtworkCommentReplyLikesMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersArtworksApiFp(configuration).getArtworkCommentReplyLikesMarker(options).then((request) => request(axios, basePath));
         },
         /**
@@ -377,7 +377,7 @@ export const NotificationsMarkersArtworksApiFactory = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkCommentsAndRepliesMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getArtworkCommentsAndRepliesMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersArtworksApiFp(configuration).getArtworkCommentsAndRepliesMarker(options).then((request) => request(axios, basePath));
         },
         /**
@@ -386,7 +386,7 @@ export const NotificationsMarkersArtworksApiFactory = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkLikeMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getArtworkLikeMarker(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return NotificationsMarkersArtworksApiFp(configuration).getArtworkLikeMarker(options).then((request) => request(axios, basePath));
         },
     };
@@ -406,7 +406,7 @@ export class NotificationsMarkersArtworksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersArtworksApi
      */
-    public async getArtworkCommentLikedMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getArtworkCommentLikedMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersArtworksApiFp(this.configuration).getArtworkCommentLikedMarker(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -416,7 +416,7 @@ export class NotificationsMarkersArtworksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersArtworksApi
      */
-    public async getArtworkCommentMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getArtworkCommentMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersArtworksApiFp(this.configuration).getArtworkCommentMarker(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -426,7 +426,7 @@ export class NotificationsMarkersArtworksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersArtworksApi
      */
-    public async getArtworkCommentRepliesMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getArtworkCommentRepliesMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersArtworksApiFp(this.configuration).getArtworkCommentRepliesMarker(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -436,7 +436,7 @@ export class NotificationsMarkersArtworksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersArtworksApi
      */
-    public async getArtworkCommentReplyLikesMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getArtworkCommentReplyLikesMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersArtworksApiFp(this.configuration).getArtworkCommentReplyLikesMarker(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -446,7 +446,7 @@ export class NotificationsMarkersArtworksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersArtworksApi
      */
-    public async getArtworkCommentsAndRepliesMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getArtworkCommentsAndRepliesMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersArtworksApiFp(this.configuration).getArtworkCommentsAndRepliesMarker(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -456,7 +456,7 @@ export class NotificationsMarkersArtworksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersArtworksApi
      */
-    public async getArtworkLikeMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getArtworkLikeMarker(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return NotificationsMarkersArtworksApiFp(this.configuration).getArtworkLikeMarker(options).then((request) => request(this.axios, this.basePath));
     }
 }

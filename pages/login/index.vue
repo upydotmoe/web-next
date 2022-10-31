@@ -31,9 +31,9 @@
 
   const login = async () => {
     try {
-      console.log('login successful');
+      // console.log('login successful');
     } catch (error) {
-      console.log('login error:', error);
+      // console.log('login error:', error);
     }
   }
 </script>
