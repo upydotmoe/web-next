@@ -91,6 +91,8 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
+const { t } = useI18n()
+
 const emits = defineEmits ('updated')
 const props = defineProps ({
   albumId: {
@@ -102,8 +104,6 @@ const props = defineProps ({
     default: ''
   }
 })
-
-const { t } = useI18n()
 
 const loading = ref(true)
 

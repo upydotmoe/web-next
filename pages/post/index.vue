@@ -53,16 +53,29 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
 import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
 import FeedForm from '~/components/feeds/forms/FeedForm.vue'
 
+const { t } = useI18n()
+
 const mode = ref('artwork')
 
+/**
+ * @meta
+ */
 useHead ({
-  title: useI18n().tl('meta.title.post')
+  title: mode.value === 'artwork' ? t('meta.title.artwork.post') : t('meta.title.feed.post')
+})
+
+watch (() => mode.value, () => {
+  useHead ({
+    title: mode.value === 'artwork' ? t('meta.title.artwork.post') : t('meta.title.feed.post')
+  })
 })
 </script>
 

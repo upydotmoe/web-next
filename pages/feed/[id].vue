@@ -17,6 +17,7 @@
       :id="id"
       @showEmpty="showEmpty"
       @showError="showError"
+      @setMeta="setMeta"
     />
   </Layout>
 </template>
@@ -33,6 +34,11 @@ definePageMeta ({
   keepalive: false
 })
 
+const metaTitle = ref('')
+useHead ({
+  title: computed(() => metaTitle.value)
+})
+
 const { $router } = useNuxtApp()
 
 const { id } = $router.currentRoute.value.params
@@ -45,5 +51,9 @@ const showError = () => {
 const empty = ref(false)
 const showEmpty = () => {
   empty.value = true
+}
+
+const setMeta = (meta) => {
+  metaTitle.value = meta.title
 }
 </script>

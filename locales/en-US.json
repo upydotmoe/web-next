@@ -2,15 +2,19 @@
   "meta": {
     "title": {
       "app": "Upy (Community Platform for Artists)",
-      "post": "Post New Update",
       "feed": {
+        "post": "Post New Feed Update",
         "feed": "Feed"
       },
       "artwork": {
+        "post": "Post New Artwork",
         "artwork": "Artwork"
       },
       "profile": {
-        "settings": "Profile Settings"
+        "profile": "Profile Setting",
+        "social": "Social Setting",
+        "password": "Change Password",
+        "settings": "Preferences"
       },
       "browse": "Browse"
     }

@@ -62,14 +62,14 @@ const authForm = useAuthFormStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
+const { t } = useI18n()
+
 const props = defineProps ({
   directMode: {
     type: Boolean,
     default: false
   }
 })
-
-const { t } = useI18n()
 
 const showForm = computed(() => authForm.showAccountRecovery)
 

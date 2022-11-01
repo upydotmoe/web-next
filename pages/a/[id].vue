@@ -16,6 +16,7 @@
     <ModalView
       v-show="!loading && !empty && !error"
       :id="id"
+      @setMeta="setMeta"
       @stopLoading="stopLoading"
       @showEmpty="showEmpty"
       @showError="showError"
@@ -34,6 +35,12 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 definePageMeta ({
   keepalive: false
 })
+
+const setMeta = (meta) => {
+  useHead ({
+    title: meta.title
+  })
+}
 
 const loading = ref(true)
 const stopLoading = () => {

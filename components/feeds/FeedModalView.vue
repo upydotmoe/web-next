@@ -1,108 +1,132 @@
 <template>
   <div 
     class="z-40 work-container work-view"
-    :class="!isModal ? 'w-full' : 'w-full md:w-9/12 lg:w-2/5 mx-auto md:p-6 p-4 theme-color'"
   >
     <div class="w-full" :class="{ 'overflow-y-scroll pr-4': isModal }">
-      <div class="flex flex-row justify-between mb-2 w-full">
-        <div v-if="feedDetail.users" class="user-info">
-          <nuxt-link :to="'/profile/'+feedDetail.users.username">
-            <img class="avatar" :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)" @error="imageLoadError">
-          </nuxt-link>
-          <div class="name">
-            <nuxt-link :to="'/profile/'+feedDetail.users.username" class="fullname">
-              {{ feedDetail.users.name }}
+      <div class="p-4 mb-4 rounded-md theme-color">
+        <!-- user info -->
+        <div class="flex flex-row justify-between w-full">
+          <div v-if="feedDetail.users" class="user-info">
+            <nuxt-link :to="'/profile/'+feedDetail.users.username">
+              <img class="avatar" :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)" @error="imageLoadError">
             </nuxt-link>
-            <br>
-            <nuxt-link :to="'/profile/'+feedDetail.users.username" class="username">
-              @{{ feedDetail.users.username }}
-            </nuxt-link>
+            <div class="name">
+              <nuxt-link :to="'/profile/'+feedDetail.users.username" class="fullname">
+                {{ feedDetail.users.name }}
+              </nuxt-link>
+              <br>
+              <nuxt-link :to="'/profile/'+feedDetail.users.username" class="username">
+                @{{ feedDetail.users.username }}
+              </nuxt-link>
 
-            <span class="mx-1">·</span>
-                  
-            <span class="text-xxs">
-              {{ formatDate(feedDetail.created_at, true) }}
-            </span>
+              <span class="mx-1">·</span>
+                    
+              <span class="text-xxs">
+                {{ formatDate(feedDetail.created_at, true) }}
+              </span>
+            </div>
+          </div>
+
+          <div v-if="isModal" class="flex float-right flex-row gap-2 mb-4 cursor-pointer">
+            <div class="modal-close" @click="closeModal(section + '-modal')">
+              <Icon :name="'i-ion-close'" class="text-2xl" />
+            </div>
           </div>
         </div>
 
-        <div v-if="isModal" class="flex float-right flex-row gap-2 mb-4 cursor-pointer">
-          <div class="modal-close" @click="closeModal(section + '-modal')">
-            <Icon :name="'i-ion-close'" class="text-2xl" />
+        <!-- feed text -->
+        <div 
+          v-if="feedDetail.text"
+          v-html="feedDetail.text"
+        />
+
+        <!-- shared artwork post detail -->
+        <div
+          v-if="feedDetail.artworks"
+          class="mt-4 rounded-md theme-color-secondary"
+        >
+          <!-- creator information -->
+          <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
+            <nuxt-link :to="'/profile/'+feedDetail.artworks.users.username">
+              <img class="avatar" :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)" @error="imageLoadError">
+            </nuxt-link>
+            <div class="name">
+              <nuxt-link 
+                :to="'/profile/'+feedDetail.artworks.users.username" 
+                class="fullname hover:href"
+              >
+                {{ feedDetail.artworks.users.name }}
+              </nuxt-link>
+              <br>
+              <nuxt-link 
+                :to="'/profile/'+feedDetail.artworks.users.username" 
+                class="hover:underline text-xxs"
+              >
+                @{{ feedDetail.artworks.users.username }}
+              </nuxt-link>
+              
+              <span class="mx-1">·</span>
+              
+              <nuxt-link :to="'/a/' + feedDetail.artworks.id" class="hover:underline text-xxs">
+                {{ formatDate(feedDetail.artworks.scheduled_post ? feedDetail.artworks.scheduled_post : feedDetail.artworks.created_at, true) }}
+              </nuxt-link>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div 
-        v-if="feedDetail.text"
-        v-html="feedDetail.text"
-        class="p-4 mb-4 rounded-md theme-color"
-      />
-
-      <!-- shared artwork post detail -->
-      <div
-        v-if="feedDetail.artworks"
-        :class="[
-          'mb-4 w-full rounded-md',
-          isModal ? 'theme-color-secondary' : 'theme-color'
-        ]"
-      >
-        <!-- creator information -->
-        <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
-          <nuxt-link :to="'/profile/'+feedDetail.artworks.users.username">
-            <img class="avatar" :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)" @error="imageLoadError">
-          </nuxt-link>
-          <div class="name">
-            <nuxt-link 
-              :to="'/profile/'+feedDetail.artworks.users.username" 
-              class="fullname hover:href"
-            >
-              {{ feedDetail.artworks.users.name }}
-            </nuxt-link>
-            <br>
-            <nuxt-link 
-              :to="'/profile/'+feedDetail.artworks.users.username" 
-              class="hover:underline text-xxs"
-            >
-              @{{ feedDetail.artworks.users.username }}
-            </nuxt-link>
-            
-            <span class="mx-1">·</span>
-            
-            <nuxt-link :to="'/a/' + feedDetail.artworks.id" class="hover:underline text-xxs">
-              {{ formatDate(feedDetail.artworks.scheduled_post ? feedDetail.artworks.scheduled_post : feedDetail.artworks.created_at, true) }}
-            </nuxt-link>
+          <!-- title & description of shared artwork -->
+          <div class="px-2 md:px-4">
+            <span class="text-xs font-semibold">{{ feedDetail.artworks.title }}</span>
+            <p v-show="feedDetail.artworks.description">
+              <span :id="'feed-description-'+feedDetail.artworks.id">
+                {{ feedDetail.artworks.description.length > 300 ? `${feedDetail.artworks.description.slice(0, 300)}...` : feedDetail.artworks.description }}
+              </span>
+              <a 
+                v-if="feedDetail.artworks.description.length > 300" 
+                :id="'feed-read-more-'+feedDetail.artworks.id" 
+                class="href" 
+                @click.prevent="readMore(feedDetail.artworks.description, feedDetail.artworks.id, 'feed-read-more-', 'feed-description-')"
+              >
+                {{ $t('readMore') }}
+              </a>
+            </p>
           </div>
-        </div>
 
-        <!-- title & description of shared artwork -->
-        <div class="px-2 mt-2 md:px-4">
-          <span class="text-xs font-semibold">{{ feedDetail.artworks.title }}</span>
-          <p v-show="feedDetail.artworks.description">
-            <span :id="'feed-description-'+feedDetail.artworks.id">
-              {{ feedDetail.artworks.description.length > 300 ? `${feedDetail.artworks.description.slice(0, 300)}...` : feedDetail.artworks.description }}
-            </span>
-            <a 
-              v-if="feedDetail.artworks.description.length > 300" 
-              :id="'feed-read-more-'+feedDetail.artworks.id" 
-              class="href" 
-              @click.prevent="readMore(feedDetail.artworks.description, feedDetail.artworks.id, 'feed-read-more-', 'feed-description-')"
+          <!-- the artwork(s) -->
+          <div class="px-2">
+            <!-- Image view on Desktop -->
+            <div
+              v-if="feedDetail.artworks && !isMobile()"
+              class="cursor-pointer"
+              @click.prevent="viewArtwork(feedDetail.artworks.id, feedDetail.artworks.apply_explicit_filter)"
             >
-              {{ $t('readMore') }}
-            </a>
-          </p>
-        </div>
+              <!-- <ImageList class="p-2 md:p-4" :work="feedDetail.artworks" /> -->
+              <div
+                :class="[
+                  'overflow-hidden relative p-2 rounded-md',
+                  { 'm-2': feedDetail.artworks.apply_explicit_filter }
+                ]"
+              >
+                <ImageList
+                  :class="[
+                    'mb-2',
+                    { 'blur-3xl unclickable': feedDetail.artworks.apply_explicit_filter },
+                    feedDetail.artworks.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                  ]"
+                  :work="feedDetail.artworks"
+                />
 
-        <!-- the artwork(s) -->
-        <div>
-          <!-- Image view on mobile or smaller device -->
-          <nuxt-link v-if="feedDetail.artworks && isMobile()" :to="'/a/'+feedDetail.id" class="cursor-pointer">
-            <ImageList class="p-2" :work="feedDetail.artworks" />
-          </nuxt-link>
+                <!-- filter message -->
+                <div v-if="feedDetail.artworks.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                  <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                  <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                </div>
+              </div>
+            </div>
 
-          <!-- Image view on Desktop -->
-          <div v-if="feedDetail.artworks && !isMobile()" class="cursor-pointer" @click.prevent="viewArtwork(feedDetail.artworks.id)">
-            <ImageList class="p-2 md:p-4" :work="feedDetail.artworks" />
+            <!-- Image view on mobile or smaller device -->
+            <nuxt-link v-if="feedDetail.artworks && isMobile()" :to="'/a/'+feedDetail.id" class="cursor-pointer">
+              <ImageList class="p-2" :work="feedDetail.artworks" />
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -180,7 +204,7 @@
                 :class="[{ 'cursor-not-allowed': submitCommentLoading }, { 'theme-color-secondary textarea': isModal }]"
                 :readonly="submitCommentLoading"
                 cols="20"
-                :rows="commentInput != null && commentInput != '' ? '6' : '0'"
+                :rows="commentInput != null && commentInput != '' ? '4' : '0'"
                 :placeholder="$t('comments.inputPlaceholder')"
                 :maxlength="commentMaxChar"
                 data-gramm="false"
@@ -194,8 +218,8 @@
               <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
                 <Icon 
                   v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
-                  :name="'i-ion-prism'" 
-                  class="text-xl transition-all duration-100 rotate-90 cursor-pointer text-colored"
+                  :name="'i-carbon-send-filled'" 
+                  class="text-xl transition-all duration-100 cursor-pointer text-colored"
                 />
                 <Spinner v-show="submitCommentLoading" />
               </span>
@@ -356,14 +380,7 @@ import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
  */
 const auth = useAuthStore()
 
-const emits = defineEmits([
-  'showEmpty',
-  'showError'
-])
-
-/**
- * @props
- */
+const emit = defineEmits (['setMeta', 'showEmpty', 'showError'])
 const props = defineProps ({
   id: {
     type: String,
@@ -384,7 +401,7 @@ const feedApi = useFeed(oApiConfiguration, fetchOptions())
 const { generateArtworkThumb } = useImage()
 
 onMounted (() => {
-  if (props.id !== '') {
+  if (props.id !== 0) {
     view(props.id)
   }
 
@@ -400,7 +417,7 @@ onMounted (() => {
   })
 })
 
-const isModal = props.id === ''
+const isModal = props.id === 0
 
 /** Open the modal view function */
 const loading = ref(true)
@@ -416,45 +433,55 @@ const view = async (selectedFeedId) => {
   commentPagination.value.page = 0
 
   // fetch artwork detail
-  try {
-    const [data, error] = await feedApi.feedDetail({
-      id: selectedFeedId
-    })
+  const [data, error] = await feedApi.feedDetail({
+    id: selectedFeedId
+  })
 
-    if (error) {
-      if (error == 'Post not found') {
-        emits('showEmpty')
-      } else {
-        emits('showError')
-      }
+  if (error) {
+    if (error == 'Post not found') {
+      emit('showEmpty')
     } else {
-      if (data.feed.artworks) {
-        data.feed.artworks.images = []
-        for (let assetIdx = 0; assetIdx < data.feed.artworks.artwork_assets.length; assetIdx++) {
-          if (assetIdx <= 3) {
-            const imageUrl = await generateArtworkThumb(data.feed.artworks.artwork_assets[assetIdx].bucket, data.feed.artworks.artwork_assets[assetIdx].filename, 'feed')
-            data.feed.artworks.images.push(imageUrl)
-          }
+      emit('showError')
+    }
+  } else {
+    if (data.feed.artworks) {
+      data.feed.artworks.images = []
+      for (let assetIdx = 0; assetIdx < data.feed.artworks.artwork_assets.length; assetIdx++) {
+        if (assetIdx <= 3) {
+          const imageUrl = await generateArtworkThumb(data.feed.artworks.artwork_assets[assetIdx].bucket, data.feed.artworks.artwork_assets[assetIdx].filename, 'feed')
+          data.feed.artworks.images.push(imageUrl)
         }
       }
 
-      feedDetail.value = data.feed
-
-      liked.value = data.feed.liked
-
-      await getComments(selectedFeedId)
+      if (((!auth.loggedIn && data.feed.artworks.is_explicit) || (data.feed.artworks.is_explicit && !auth.user.user_settings.show_explicit))) {
+        data.feed.artworks.apply_explicit_filter = true
+      }
     }
-  } catch (error) {
-    showError()
+
+    feedDetail.value = data.feed
+
+    liked.value = data.feed.liked
+
+    await getComments(selectedFeedId)
+
+    if (!isModal) {
+      emit('setMeta', {
+        title: data.feed.text.length > 20 ? `${data.feed.text.substring(0, 20)}..` : data.feed.text
+      })
+    }
   }
 
   loading.value = false
 }
 
 const sharedWorkModalViewRef = ref(null)
-const viewArtwork = async (workId) => {
-  sharedWorkModalViewRef.value.view(workId)
-  useModal().openModal('chronological-modal')
+const viewArtwork = async (workId, isExplicitFilterApplied) => {
+  if (isExplicitFilterApplied) {
+    feedDetail.value.artworks.apply_explicit_filter = false
+  } else {
+    sharedWorkModalViewRef.value.view(workId)
+    useModal().openModal('chronological-modal')
+  }
 }
 
 /** Likes */

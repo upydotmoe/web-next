@@ -61,6 +61,7 @@
 
 <script setup>
 // import { onClickOutside } from '@vueuse/core'
+import { useI18n } from 'vue-i18n'
 
 // components
 import Layout from '~/components/layouts/Layout.vue'
@@ -68,13 +69,24 @@ import Icon from '~/components/globals/Icon.vue'
 import Artworks from '~/components/search/Artworks.vue'
 import Users from '~/components/search/Users.vue'
 
-const activeSection = ref('artworks')
+const { t } = useI18n()
+
 const router = useRouter()
 const route = useRoute()
 
+/**
+ * @meta
+ */
+useHead ({
+  title: t('search') + (route.query.q ? ` "${route.query.q}"` : '')
+})
+
+const searchKeyword = ref('')
 onMounted (() => {
   searchKeyword.value = route.query.q
 })
+
+const activeSection = ref('artworks')
 
 const artworkFound = ref(0)
 const countArtworks = (foundRows) => {
@@ -92,10 +104,12 @@ const countUsers = (foundRows) => {
 /**
  * SEARCH
  */
-const searchKeyword = ref('')
-
 watch (() => route.query, ({ q }) => {
   searchKeyword.value = q
+
+  useHead ({
+    title: t('search') + (searchKeyword.value ? ` "${searchKeyword.value}"` : route.query.q)
+  })
 })
 
 const search = () => {

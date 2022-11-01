@@ -362,7 +362,7 @@
                 :class="[{ 'cursor-not-allowed': submitCommentLoading }, { 'theme-color-secondary textarea': isModal }]"
                 :readonly="submitCommentLoading"
                 cols="30"
-                :rows="commentInput != null && commentInput != '' ? '5' : '0'"
+                :rows="commentInput != null && commentInput != '' ? '4' : '0'"
                 :placeholder="$t('comments.inputPlaceholder')"
                 :maxlength="commentMaxChar"
                 data-gramm="false"
@@ -376,8 +376,8 @@
               <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
                 <Icon 
                   v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
-                  :name="'i-ion-prism'" 
-                  class="text-xl transition-all duration-100 rotate-90 cursor-pointer text-colored"
+                  :name="'i-carbon-send-filled'" 
+                  class="text-xl transition-all duration-100 cursor-pointer text-colored"
                 />
                 <Spinner v-show="submitCommentLoading" />
               </span>
@@ -530,7 +530,7 @@
                       :class="[{ 'cursor-not-allowed': submitReplyLoading }, { 'theme-color-secondary textarea': isModal }]"
                       :readonly="submitReplyLoading"
                       cols="30"
-                      :rows="replyInput != null && replyInput != '' ? '5' : '0'"
+                      :rows="replyInput != null && replyInput != '' ? '4' : '0'"
                       :placeholder="$t('comments.replies.write')"
                       :maxlength="replyMaxChar"
                       data-gramm="false"
@@ -544,8 +544,8 @@
                     <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitReply(comment.id)">
                       <Icon 
                         v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
-                        :name="'i-ion-prism'" 
-                        class="text-xl transition-all duration-100 rotate-90 cursor-pointer text-colored"
+                        :name="'i-carbon-send-filled'" 
+                        class="text-xl transition-all duration-100 cursor-pointer text-colored"
                       />
                       <Spinner v-show="submitReplyLoading" />
                     </span>
@@ -790,11 +790,11 @@ const { applyExplicitFilter, removeExplicitFilter, generateSemiCompressedArtwork
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['stopLoading', 'showEmpty', 'showError'])
+const emit = defineEmits(['setMeta', 'stopLoading', 'showEmpty', 'showError'])
 const props = defineProps ({
   id: {
-    type: String,
-    default: ''
+    type: Number,
+    default: 0
   },
   section: {
     type: String,
@@ -824,7 +824,7 @@ watch (() => route.query, () => {
 })
 
 onMounted (() => {
-  if (props.id !== '') {
+  if (props.id !== 0) {
     view(props.id)
   }
 
@@ -855,7 +855,7 @@ const removeFilter = () => {
   removeExplicitFilter()
 }
 
-const isModal = props.id === ''
+const isModal = props.id === 0
 
 /** Increase view count */
 const increaseView = async (workId) => {
@@ -889,9 +889,9 @@ const view = async (selectedWorkId) => {
 
   if (error) {
     if (error == 'Work not found') {
-      emits('showEmpty')
+      emit('showEmpty')
     } else {
-      emits('showError')
+      emit('showError')
     }
   } else {
     artworkDetail.value = data
@@ -937,10 +937,16 @@ const view = async (selectedWorkId) => {
         await increaseView(selectedWorkId)
       }
     }
+
+    if (props.id !== 0) {
+      emit('setMeta', {
+        title: artworkDetail.value.title
+      })
+    }
   }
 
   loading.value = false
-  emits('stopLoading')
+  emit('stopLoading')
 }
 
 const reportStatus = ref({})

@@ -33,6 +33,10 @@ const getUserId = async () => {
   if (error) {
     // todo: handle error
   } else {
+    useHead ({
+      title: `(${data.username}) ${data.name}`
+    })
+
     userId.value = data.id
   }
 }

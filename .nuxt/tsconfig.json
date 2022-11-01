@@ -71,7 +71,7 @@
         "node_modules/vue-i18n/dist/vue-i18n.esm-bundler"
       ],
       "pinia": [
-        "pinia/dist/pinia"
+        "node_modules/pinia/dist/pinia"
       ],
       "#color-mode-options": [
         ".nuxt/color-mode-options"

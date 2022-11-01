@@ -221,6 +221,13 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
+/**
+ * @meta
+ */
+useHead ({
+  title: auth.user.is_admin || auth.user.is_moderator ? useI18n().tl('reports.reports') : useI18n().tl('reports.yourReports')
+})
+
 const { $router } = useNuxtApp()
 
 onMounted(async () => {

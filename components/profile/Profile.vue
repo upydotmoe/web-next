@@ -633,9 +633,7 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
 const album = useAlbum(oApiConfiguration, fetchOptions())
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
-/**
- * @props
- */
+const emit = defineEmits (['setMeta'])
 const props = defineProps ({
   id: {
     type: Number,
@@ -726,6 +724,11 @@ const fetchUserInfo = async () => {
     // count collection total
     const [collectionTotal] = await collectionApi.countCollections(userId.value)
     counter.value.collection = collectionTotal
+
+    console.log('setting meta..');
+    emit('setMeta', {
+      title: `(${userInfo.value.username}) ${userInfo.value.name}`
+    })
   } catch (error) {
     // 
   }

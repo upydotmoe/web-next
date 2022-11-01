@@ -80,7 +80,13 @@ import useAuthStore from '~/stores/auth.store'
 import useCollection from '~/composables/users/useCollection'
 import ProBadge from '~/components/globals/ProBadge.vue'
 
+// stores
 const auth = useAuthStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const collectionApi = useCollection(oApiConfiguration, fetchOptions())
+
 const { t } = useI18n()
 
 const emits = defineEmits ('updated')
@@ -94,10 +100,6 @@ const props = defineProps ({
     default: ''
   }
 })
-
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
 const loading = ref(true)
 

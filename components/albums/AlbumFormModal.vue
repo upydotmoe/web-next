@@ -86,6 +86,8 @@ import ProBadge from '~/components/globals/ProBadge.vue'
 // stores
 const auth = useAuthStore()
 
+const { t } = useI18n()
+
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
@@ -101,8 +103,6 @@ const props = defineProps ({
     default: ''
   }
 })
-
-const { t } = useI18n()
 
 const formId = 'create-album-form'
 const inputData = ref({

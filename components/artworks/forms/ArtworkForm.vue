@@ -210,10 +210,10 @@
 
 <script setup>
 import axios from 'axios'
-import { useI18n } from 'vue-i18n'
 import 'flowbite'
 import Datepicker from '@themesberg/tailwind-datepicker/Datepicker'
 import moment from 'moment'
+import { useI18n } from 'vue-i18n'
 
 // vue3-editor
 import { VueEditor } from 'vue3-editor'
@@ -242,8 +242,9 @@ const FilePond = vueFilePond(
   FilePondPluginImagePreview
 )
 
-const runtimeConfig = useRuntimeConfig()
 const { t } = useI18n()
+
+const runtimeConfig = useRuntimeConfig()
 const auth = authStore()
 const { $router } = useNuxtApp()
 const apiUrl = runtimeConfig.public.apiUrl

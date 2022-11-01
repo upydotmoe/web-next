@@ -2,15 +2,19 @@
   "meta": {
     "title": {
       "app": "Upy (Platform Komunitas untuk para Artist)",
-      "post": "Posting Update",
       "feed": {
+        "post": "Posting Update",
         "feed": "Umpan"
       },
       "artwork": {
+        "post": "Unggah Art Baru",
         "artwork": "Artwork"
       },
       "profile": {
-        "settings": "Pengaturan Profil"
+        "profile": "Pengaturan Profil",
+        "social": "Pengaturan Sosial",
+        "password": "Ubah Password",
+        "settings": "Preferensi"
       },
       "browse": "Jelajahi"
     }

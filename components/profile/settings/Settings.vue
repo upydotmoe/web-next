@@ -65,8 +65,9 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
 const { t } = useI18n()
+
+const { $router } = useNuxtApp()
 
 onBeforeMount (() => {
   if (!auth.loggedIn) {

@@ -12,8 +12,6 @@
 </template>
 
 <script setup>
-import { useI18n } from 'vue-i18n'
-
 // components
 import Layout from '~/components/layouts/Layout.vue'
 
@@ -22,7 +20,6 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 const { $router } = useNuxtApp()
-const { t } = useI18n()
 
 onMounted (() => {
   verifyAccount()

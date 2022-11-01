@@ -54,15 +54,18 @@
 import { useI18n } from 'vue-i18n'
 
 // stores
-import useAuthFormStore from '@/stores/auth-form.store'
+import useAuthStore from '@/stores/auth-form.store'
 
-const authForm = useAuthFormStore()
+// stores
+const authForm = useAuthStore()
 
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
 const { t } = useI18n()
+
+const { $router } = useNuxtApp()
 
 /**
  * @visiblity

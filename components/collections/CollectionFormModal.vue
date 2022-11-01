@@ -85,6 +85,8 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
+const { t } = useI18n()
+
 const emits = defineEmits ('created')
 const props = defineProps ({
   category: {
@@ -96,8 +98,6 @@ const props = defineProps ({
     default: ''
   }
 })
-
-const { t } = useI18n()
 
 const formId = 'create-collection-form'
 const inputData = ref({

@@ -132,6 +132,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
+
 const { $router } = useNuxtApp()
 
 onBeforeMount (() => {

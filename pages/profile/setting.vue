@@ -75,6 +75,8 @@
 </template>
 
 <script setup>
+import { useI18n } from 'vue-i18n'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
@@ -83,15 +85,30 @@ import Social from '~/components/profile/settings/Social.vue'
 import Settings from '~/components/profile/settings/Settings.vue'
 import Password from '~/components/profile/settings/Password.vue'
 
+const { t } = useI18n()
+
 /**
  * @meta
  */
+const metaTitle = ref(t('meta.title.profile.profile'))
 useHead ({
-  title: useI18n().tl('meta.title.profile.settings')
+  title: computed(() => metaTitle.value)
 })
 
 const config = ref({
   currentState: 'profile'
+})
+
+watch(() => config.value.currentState, (current) => {
+  if (current === 'profile') {
+    metaTitle.value = t('meta.title.profile.profile')
+  } else if (current === 'social') {
+    metaTitle.value = t('meta.title.profile.social')
+  } else if (current === 'password') {
+    metaTitle.value = t('meta.title.profile.password')
+  } else {
+    metaTitle.value = t('meta.title.profile.settings')
+  }
 })
 
 const changeCurrentState = (state) => {

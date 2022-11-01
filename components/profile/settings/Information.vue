@@ -331,15 +331,16 @@ import Spinner from '~/components/globals/Spinner.vue'
 import useUser from '~/composables/users/useUser'
 
 // stores
-const runtimeConfig = useRuntimeConfig()
 const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
 const { t } = useI18n()
+
+const runtimeConfig = useRuntimeConfig()
+const { $router } = useNuxtApp()
 
 onBeforeMount (() => {
   if (!auth.loggedIn) {
@@ -442,7 +443,7 @@ const checkPenNameAvailability = async () => {
 /** Save changes */
 const basicInformationFormId = 'basic-information-form'
 const update = async () => {
-  useValidator().validate(basicInformationFormId, t)
+  useValidator().validate(basicInformationformId, t)
 
   if (!penNameUsedAlert.value) {
     saving.value.basic.loading = true
@@ -508,7 +509,7 @@ const checkUsernameAvailability = async () => {
 
 const changeUsernameFormId = 'change-username-form'
 const changeUsername = async () => {
-  const v = useValidator().validate(changeUsernameFormId, t)
+  const v = useValidator().validate(changeUsernameformId, t)
 
   if (!usernameUsedAlert.value) {
     saving.value.username.loading = true

@@ -87,7 +87,6 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { useI18n } from 'vue-i18n'
 
 // stores
@@ -100,8 +99,9 @@ const authFormStore = useAuthFormStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-const runtimeConfig = useRuntimeConfig()
 const { t } = useI18n()
+
+const runtimeConfig = useRuntimeConfig()
 
 const showForm = computed(() => authFormStore.showRegistration)
 watch (() => authFormStore.showRegistration, () => {

@@ -1,6 +1,7 @@
 <template>
   <Profile 
     :user-logon="true"
+    @setMeta="setMeta"
   />
 </template>
 
@@ -15,6 +16,13 @@ import Profile from '~/components/profile/Profile.vue'
 const auth = useAuthStore()
 
 const router = useRouter()
+
+/**
+ * @meta
+ */
+useHead ({
+  title: useI18n().tl('profile.profile')
+})
 
 onBeforeMount (() => {
   if (!auth.loggedIn) {
