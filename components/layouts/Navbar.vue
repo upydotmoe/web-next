@@ -14,13 +14,13 @@
         :to="auth.loggedIn ? '/feed' : '/explore'" 
         class="w-8 h-8 rounded-md flex-md-hidden"
       >
-        <img :src="logo" class="logo">
+        <img :src="$colorMode.preference == 'dark' ? logoWhite : logo" class="logo">
       </nuxt-link>
 
       <!-- left menus -->
       <div class="menus">
         <nuxt-link :to="auth.loggedIn ? '/feed' : '/explore'">
-          <img :src="logo" class="logo">
+          <img :src="$colorMode.preference == 'dark' ? logoWhite : logo" class="logo">
         </nuxt-link>
       </div>
 
@@ -253,6 +253,7 @@
 <script setup>
 // assets
 import logo from '~/static/logo/logo.png'
+import logoWhite from '~/static/logo/logo-white.png'
 
 // components
 import MiniNavbar from '~/components/layouts/MiniNavbar.vue'

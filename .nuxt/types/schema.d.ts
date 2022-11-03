@@ -31,6 +31,8 @@ declare module '@nuxt/schema' {
 
     bunnyUrl: string,
 
+    cdnUrl: string,
+
     staticallyCdn: string,
   }
 }

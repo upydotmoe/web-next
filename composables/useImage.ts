@@ -25,7 +25,7 @@ export default function () {
           break
       }
 
-      return `https://${config.public.bunnyUrl}/${bucketName}/${fileName}${format}`
+      return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
     // }
   }
 
@@ -47,7 +47,7 @@ export default function () {
         format = '?width=800&quality=40'
       }
 
-      return `https://${config.public.bunnyUrl}/${bucketName}/${fileName}${format}`
+      return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
     }
   }
 

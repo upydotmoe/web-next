@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       activeCdn: process.env.ACTIVE_CDN,
       cloudflareUrl: process.env.CLOUDFLARE_CDN_URL,
       bunnyUrl: process.env.BUNNY_CDN_URL,
+      cdnUrl: process.env.CDN_DOMAIN,
       staticallyCdn: process.env.STATICALLY_CDN_URL
     },
     app: {}
@@ -43,8 +44,9 @@ export default defineNuxtConfig({
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/logo/logo.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'dns-prefetch', href: `//${process.env.BUNNY_CDN_URL}` },
+      { rel: 'dns-prefetch', href: `//${process.env.CDN_DOMAIN}` },
       { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css' },
       { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
     ],

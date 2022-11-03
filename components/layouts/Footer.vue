@@ -1,5 +1,8 @@
 <template>
-  <footer v-show="withFooter" class="hidden p-3 mt-10 text-center md:block theme-text-color leading-8">
+  <footer v-show="withFooter" class="hidden p-3 mt-10 leading-8 text-center md:block theme-text-color">
+    <div class="mx-auto w-10 h-10">
+      <img :src="$colorMode.preference == 'dark' ? logoWhite : logo" />
+    </div>
     <!-- <span class="mx-3 hover:underline">
       <nuxt-link :to="'/terms'">{{ $t('terms') }}</nuxt-link>
     </span>
@@ -28,6 +31,10 @@
 </template>
 
 <script setup>
+// assets
+import logo from '~/static/logo/logo.png'
+import logoWhite from '~/static/logo/logo-white.png'
+
 defineProps ({
   withFooter: {
     type: Boolean,
