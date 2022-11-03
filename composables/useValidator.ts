@@ -91,7 +91,7 @@ export default function () {
 
           if (!passMax) {
             addAlert(fieldName, rules[iRules])
-            const alertEl = `<div class='input-error'>${t('validation.max', { fieldName: nValidate.getAttribute('name'), min: rules[iRules].split(':')[1] })}</div>`
+            const alertEl = `<div class='input-error'>${t('validation.max', { fieldName: nValidate.getAttribute('name'), max: rules[iRules].split(':')[1] })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
           }

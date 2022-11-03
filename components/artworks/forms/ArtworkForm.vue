@@ -43,6 +43,7 @@
           <input 
             v-model="inputData.title"
             type="text"
+            rules="required|max:100"
             :class="[
               'form-input input',
               { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
@@ -195,7 +196,7 @@
           :class="[
             'float-right w-full md:w-auto',
             { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }, 
-            artworkFiles.length > 0 ? 'primary-button' : 'disabled-button'
+            inputData.title && artworkFiles.length > 0 ? 'primary-button' : 'disabled-button'
           ]"
         >
           <div class="flex flex-row">
@@ -334,7 +335,8 @@ const uploadErrorMessage = ref('')
 const storeArtwork = async () => {
   useValidator().validate(formId, t)
 
-  alert.value.showFileTooBig = false
+  // reset related state before re/attemping to upload the artwork
+  reset()
 
   // change publish date format
   const publishDateEl = document.getElementById('publishDate')
@@ -419,5 +421,13 @@ const storeArtwork = async () => {
 const isError = ref(false)
 const showError = () => {
   isError.value = true
+}
+
+const reset = () => {
+  isError.value = false
+  uploading.value = false
+  uploadSuccess.value = false
+  uploadError.value = false
+  uploadErrorMessage.value = ''
 }
 </script>
