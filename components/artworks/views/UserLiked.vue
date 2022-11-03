@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="modal-layer sm:w-full lg:w-1/5">
-      <div class="flex flex-row justify-between mb-2 w-full">
-        <div class="title">Users liked</div>
+    <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
+      <div class="flex flex-row justify-between w-full">
+        <div class="title">{{ $t('artworks.usersLiked') }}</div>
           
         <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
           <div class="modal-close" @click="close()">
@@ -15,8 +15,8 @@
         <nuxt-link
           v-for="(user, userIdx) in userLiked"
           :key="user.id"
-          :to="'/profile/'+user.username"
-          class="flex flex-row gap-2 p-2 rounded-md theme-color-secondary hover:button-color hover:text-white"
+          :to="'/profile/'+user.users.username"
+          class="flex flex-row gap-2 p-2 rounded-md theme-color-secondary hover:button-color hover:text-white img-hover"
         >
           <!-- avatar -->
           <nuxt-img

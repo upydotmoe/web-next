@@ -40,6 +40,7 @@
     "deleteArtwork": "Cancel and delete this work",
     "successDelete": "Work successfully removed, redirecting you to homepage..",
     "moreArtworkBy": "More by",
+    "usersLiked": "Users liked",
     "add": {
       "form": {
         "title": "Post New Artwork",

@@ -40,6 +40,7 @@
     "deleteArtwork": "Batal dan hapus karya ini",
     "successDelete": "Karya berhasil dihapus, mengalihkanmu ke halaman utama..",
     "moreArtworkBy": "Lainnya dari",
+    "usersLiked": "Pengguna yang menyukai",
     "add": {
       "form": {
         "title": "Unggah artwork baru",

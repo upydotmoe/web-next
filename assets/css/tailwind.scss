@@ -672,6 +672,12 @@
   span.ql-size-large {
     @apply text-lg;
   }
+
+  .img-hover:hover {
+    img, nuxt-img {
+      @apply border-2 border-color-primary;
+    }
+  }
 }
 
 @layer utilities {}
