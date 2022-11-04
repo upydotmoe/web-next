@@ -79,11 +79,12 @@
                 {{ unfollowText === null ? $t('following') : unfollowText }}
               </div>
             </div>
+            
+            <!-- follow privately toggler -->
             <div
               v-show="followingData.isFollowing"
               class="flex flex-row text-center"
             >
-              <!-- follow privately toggler -->
               <div class="w-full">
                 <label 
                   @click="auth.i502p00r0 ? (followingData.isPrivate ? follow(userInfo.id, false) : follow(userInfo.id, true)) : null"
@@ -123,7 +124,7 @@
                   <span class="text-base font-semibold">{{ userInfo.name }}</span>&nbsp;
                   <span class="mr-2 italic">{{ userInfo.username }}</span>
 
-                  <ProBadge :force-show="userInfo.is_pro" />
+                  <ProBadge />
                 </div>
 
                 <div class="flex flex-row mt-2">
@@ -364,6 +365,38 @@
             {{ unfollowText === null ? $t('following') : unfollowText }}
           </div>
         </div>
+            
+        <!-- follow privately toggler -->
+        <div
+          v-show="followingData.isFollowing"
+          class="flex flex-row text-center"
+        >
+          <div class="w-full">
+            <label 
+              @click="auth.i502p00r0 ? (followingData.isPrivate ? follow(userInfo.id, false) : follow(userInfo.id, true)) : null"
+              for="small-toggle"
+              class="inline-flex relative flex-row justify-center items-center mt-2 cursor-pointer"
+            >
+              <input 
+                id="small-toggle" 
+                type="checkbox" 
+                class="sr-only peer" 
+                :checked="followingData.isPrivate" 
+                :disabled="!auth.i502p00r0"
+              >
+              <div 
+                :class="[
+                  'w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600',
+                  { 'unclickable': !auth.i502p00r0 },
+                  auth.i502p00r0 ? ' after:top-[2px]' : ' after:top-[4px]'
+                ]"
+              />
+              <span class="ml-2">Follow Privately</span>
+              
+              <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
+            </label>
+          </div>
+        </div>
       </div>
 
       <div class="mt-2">
@@ -533,7 +566,6 @@
                 <Feeds
                   v-if="activeDashboard === 'feed'"
                   ref="feedListRef"
-                  class="mt-2"
                   :user-id="userInfo.id"
                 />
 
@@ -541,6 +573,9 @@
                 <Artworks
                   v-if="!loading && activeDashboard === 'artwork'"
                   ref="artworkListRef"
+                  :class="[
+                    { '-mt-2': auth.user.id !== userInfo.id }
+                  ]"
                   :user-id="userInfo.id"
                   :manage-mode="config.manageMode"
                   @feedSelectedItems="feedSelectedItems"

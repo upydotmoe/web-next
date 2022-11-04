@@ -1,7 +1,7 @@
 <template>
   <div class="mb-2">
     <div v-if="!album.album_has_artworks || album._count.album_has_artworks === 0">
-      <img src="/static/folder.png" class="rounded">
+      <img :src="folderIcon" class="rounded">
     </div>
 
     <!-- 1 image -->
@@ -142,6 +142,9 @@
 </template>
 
 <script setup>
+// assets
+import folderIcon from '~/static/folder.png'
+
 // stores
 import authStore from '@/stores/auth.store'
 

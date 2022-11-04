@@ -9,7 +9,7 @@
       <!-- Top navigations -->
       <div class="navigations">
         <div class="title">
-          {{ $t('artworks.recentArtworks') }}
+          {{ $t('artworks.latestArtworks') }}
         </div>
 
         <!-- Options -->
@@ -51,6 +51,7 @@
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
+              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
               {{ $t('explicit') }}
             </p>
           </div>

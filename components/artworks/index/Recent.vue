@@ -1,7 +1,7 @@
 <template>
   <List 
     :section="'recent'"
-    :title="$t('artworks.recentArtworks')"
+    :title="$t('artworks.latestArtworks')"
     :pagination-prop="{
       perPage: pagination.perPage,
       maxLoadMore: pagination.maxLoadMore

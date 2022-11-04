@@ -1,24 +1,24 @@
-globalThis._importMeta_={url:import.meta.url,env:process.env};import 'file://F:/codes/rkgk/web-n3/node_modules/node-fetch-native/dist/polyfill.mjs';
+globalThis._importMeta_={url:import.meta.url,env:process.env};import 'file://F:/codes/rkgk/web-next/node_modules/node-fetch-native/dist/polyfill.mjs';
 import { Server } from 'http';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import { mkdirSync } from 'fs';
 import { parentPort, threadId } from 'worker_threads';
-import { provider, isWindows } from 'file://F:/codes/rkgk/web-n3/node_modules/std-env/dist/index.mjs';
-import { eventHandler, setHeaders, sendRedirect, defineEventHandler, handleCacheHeaders, createEvent, getRequestHeader, createApp, createRouter as createRouter$1, lazyEventHandler, toNodeListener, getQuery, writeEarlyHints } from 'file://F:/codes/rkgk/web-n3/node_modules/h3/dist/index.mjs';
-import { renderResourceHeaders, createRenderer } from 'file://F:/codes/rkgk/web-n3/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import devalue from 'file://F:/codes/rkgk/web-n3/node_modules/@nuxt/devalue/dist/devalue.mjs';
-import { parseURL, withQuery, joinURL } from 'file://F:/codes/rkgk/web-n3/node_modules/ufo/dist/index.mjs';
-import destr from 'file://F:/codes/rkgk/web-n3/node_modules/destr/dist/index.mjs';
-import { snakeCase } from 'file://F:/codes/rkgk/web-n3/node_modules/scule/dist/index.mjs';
-import { createFetch as createFetch$1, Headers } from 'file://F:/codes/rkgk/web-n3/node_modules/ohmyfetch/dist/node.mjs';
-import { createCall, createFetch } from 'file://F:/codes/rkgk/web-n3/node_modules/unenv/runtime/fetch/index.mjs';
-import { createHooks } from 'file://F:/codes/rkgk/web-n3/node_modules/hookable/dist/index.mjs';
-import { hash } from 'file://F:/codes/rkgk/web-n3/node_modules/ohash/dist/index.mjs';
-import { createStorage } from 'file://F:/codes/rkgk/web-n3/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file://F:/codes/rkgk/web-n3/node_modules/unstorage/dist/drivers/fs.mjs';
-import defu from 'file://F:/codes/rkgk/web-n3/node_modules/defu/dist/defu.mjs';
-import { toRouteMatcher, createRouter } from 'file://F:/codes/rkgk/web-n3/node_modules/radix3/dist/index.mjs';
+import { provider, isWindows } from 'file://F:/codes/rkgk/web-next/node_modules/std-env/dist/index.mjs';
+import { eventHandler, setHeaders, sendRedirect, defineEventHandler, handleCacheHeaders, createEvent, getRequestHeader, createApp, createRouter as createRouter$1, lazyEventHandler, toNodeListener, getQuery, writeEarlyHints } from 'file://F:/codes/rkgk/web-next/node_modules/h3/dist/index.mjs';
+import { renderResourceHeaders, createRenderer } from 'file://F:/codes/rkgk/web-next/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import devalue from 'file://F:/codes/rkgk/web-next/node_modules/@nuxt/devalue/dist/devalue.mjs';
+import { parseURL, withQuery, joinURL } from 'file://F:/codes/rkgk/web-next/node_modules/ufo/dist/index.mjs';
+import destr from 'file://F:/codes/rkgk/web-next/node_modules/destr/dist/index.mjs';
+import { snakeCase } from 'file://F:/codes/rkgk/web-next/node_modules/scule/dist/index.mjs';
+import { createFetch as createFetch$1, Headers } from 'file://F:/codes/rkgk/web-next/node_modules/ohmyfetch/dist/node.mjs';
+import { createCall, createFetch } from 'file://F:/codes/rkgk/web-next/node_modules/unenv/runtime/fetch/index.mjs';
+import { createHooks } from 'file://F:/codes/rkgk/web-next/node_modules/hookable/dist/index.mjs';
+import { hash } from 'file://F:/codes/rkgk/web-next/node_modules/ohash/dist/index.mjs';
+import { createStorage } from 'file://F:/codes/rkgk/web-next/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file://F:/codes/rkgk/web-next/node_modules/unstorage/dist/drivers/fs.mjs';
+import defu from 'file://F:/codes/rkgk/web-next/node_modules/defu/dist/defu.mjs';
+import { toRouteMatcher, createRouter } from 'file://F:/codes/rkgk/web-next/node_modules/radix3/dist/index.mjs';
 
 const _runtimeConfig = {"app":{"baseURL":"/","buildAssetsDir":"/_nuxt/","cdnURL":""},"nitro":{"routeRules":{"/__nuxt_error":{"cache":false}},"envPrefix":"NUXT_"},"public":{"dev":true,"apiUrl":"http://192.168.100.5:2021","appUrl":"https://upy.moe","activeCdn":"bunny","cloudflareUrl":"photos.niazatech.com","bunnyUrl":"upy13.b-cdn.net","cdnUrl":"i.upy.moe","staticallyCdn":"https://cdn.statically.io/img"}};
 const ENV_PREFIX = "NITRO_";
@@ -77,7 +77,7 @@ const timingMiddleware = eventHandler((event) => {
   }.bind(event.res);
 });
 
-const serverAssets = [{"baseName":"server","dir":"F:/codes/rkgk/web-n3/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"F:/codes/rkgk/web-next/server/assets"}];
 
 const assets = createStorage();
 
@@ -91,10 +91,10 @@ const useStorage = () => storage;
 
 storage.mount('/assets', assets);
 
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-n3","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-n3\\server","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-n3\\.nuxt","ignore":["**/node_modules/**","**/.git/**"]}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-n3\\.nuxt\\cache","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-next","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-next\\server","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-next\\.nuxt","ignore":["**/node_modules/**","**/.git/**"]}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","base":"F:\\codes\\rkgk\\web-next\\.nuxt\\cache","ignore":["**/node_modules/**","**/.git/**"]}));
 
 function defineRenderHandler(handler) {
   return eventHandler(async (event) => {
@@ -369,14 +369,14 @@ const cachedEventHandler = defineCachedEventHandler;
 
 const script = "const w=window,de=document.documentElement,knownColorSchemes=[\"dark\",\"light\"],preference=window.localStorage.getItem(\"nuxt-color-mode\")||\"system\";let value=preference===\"system\"?getColorScheme():preference;const forcedColorMode=de.getAttribute(\"data-color-mode-forced\");forcedColorMode&&(value=forcedColorMode),addColorScheme(value),w[\"__NUXT_COLOR_MODE__\"]={preference,value,getColorScheme,addColorScheme,removeColorScheme};function addColorScheme(e){const o=\"\"+e+\"-mode\",t=\"\";de.classList?de.classList.add(o):de.className+=\" \"+o,t&&de.setAttribute(\"data-\"+t,e)}function removeColorScheme(e){const o=\"\"+e+\"-mode\",t=\"\";de.classList?de.classList.remove(o):de.className=de.className.replace(new RegExp(o,\"g\"),\"\"),t&&de.removeAttribute(\"data-\"+t)}function prefersColorScheme(e){return w.matchMedia(\"(prefers-color-scheme\"+e+\")\")}function getColorScheme(){if(w.matchMedia&&prefersColorScheme(\"\").media!==\"not all\"){for(const e of knownColorSchemes)if(prefersColorScheme(\":\"+e).matches)return e}return\"light\"}\n";
 
-const _02kC61PisY = (function(nitro) {
+const _J7XoJM2o2T = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
 const plugins = [
-  _02kC61PisY
+  _J7XoJM2o2T
 ];
 
 function hasReqHeader(event, name, includes) {
@@ -438,7 +438,7 @@ const errorHandler = (async function errorhandler(error, event) {
   const isErrorPage = event.req.url?.startsWith("/__nuxt_error");
   let html = !isErrorPage ? await $fetch(withQuery("/__nuxt_error", errorObject)).catch(() => null) : null;
   if (!html) {
-    const { template } = await import('file://F:/codes/rkgk/web-n3/node_modules/@nuxt/ui-templates/dist/templates/error-dev.mjs') ;
+    const { template } = await import('file://F:/codes/rkgk/web-next/node_modules/@nuxt/ui-templates/dist/templates/error-dev.mjs') ;
     {
       errorObject.description = errorObject.message;
     }
@@ -448,11 +448,11 @@ const errorHandler = (async function errorhandler(error, event) {
   event.res.end(html);
 });
 
-const _lazy_jqeG69 = () => Promise.resolve().then(function () { return renderer$1; });
+const _lazy_z9V8rj = () => Promise.resolve().then(function () { return renderer$1; });
 
 const handlers = [
-  { route: '/__nuxt_error', handler: _lazy_jqeG69, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_jqeG69, lazy: true, middleware: false, method: undefined }
+  { route: '/__nuxt_error', handler: _lazy_z9V8rj, lazy: true, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_z9V8rj, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {
@@ -538,7 +538,7 @@ function publicAssetsURL(...path) {
 
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
-const getClientManifest = () => import('file://F:/codes/rkgk/web-n3/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
+const getClientManifest = () => import('file://F:/codes/rkgk/web-next/.nuxt/dist/server/client.manifest.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
 const getSPARenderer = lazyCachedFunction(async () => {
   const manifest = await getClientManifest();
   const options = {

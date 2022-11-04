@@ -19,6 +19,12 @@
           :class="{ 'button-color text-white': activeSection === 'artworks' }"
           @click="activeSection = 'artworks'" 
         >
+          <Icon :name="'i-majesticons-image'"
+            :class="[
+              'mr-2',
+              { 'text-white': activeSection === 'artworks' }
+            ]"
+          />
           {{ $t('artworks.artworks') }}
           <span 
             class="px-1 ml-2 rounded"
@@ -33,6 +39,12 @@
           :class="{ 'button-color text-white': activeSection === 'users' }"
           @click="activeSection = 'users'" 
         >
+          <Icon :name="'i-fluent-person-32-regular'"
+            :class="[
+              'mr-2',
+              { 'text-white': activeSection === 'users' }
+            ]"
+          />
           {{ $t('users.users') }}
           <span 
             class="px-1 ml-2 rounded"

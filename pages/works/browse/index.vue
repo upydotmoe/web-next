@@ -47,7 +47,7 @@
               :class="[listMode === 'recent' ? 'button' : 'theme-color']"
               @click="changeListMode('recent')"
             >
-              {{ $t('artworks.recent') }}
+              {{ $t('artworks.newest') }}
             </p>
             <p 
               class="rounded-r-md button-item"
@@ -90,6 +90,7 @@
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
+              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
               {{ $t('explicit') }}
             </p>
           </div>
@@ -136,8 +137,8 @@
           </div>
 
           <div v-show="listMode === 'popularity'" class="filter-buttons">
-            <div class="inline-block w-full group md:w-40">
-              <button class="flex items-center py-2 w-full rounded-md outline-none md:w-40 theme-color hover:button" @click="togglePopularOrderStatus()">
+            <div class="inline-block w-full group md:w-52">
+              <button class="flex items-center py-2 w-full rounded-md outline-none md:w-52 theme-color hover:button" @click="togglePopularOrderStatus()">
                 <span class="flex-1 pr-1">{{ sortBy === 'views' ? $t('mostViewed') : sortByTitle }}</span>
                 <span>
                   <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -145,11 +146,20 @@
                   </svg>
                 </span>
               </button>
-              <ul id="popular-order-options" class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-40 theme-color group-hover:scale-100">
-                <!-- <li class="py-2 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li> -->
-                <li class="py-2 cursor-pointer hover:button" :class="{ 'button': sortBy === 'views' }" @click="changeSort('views', $t('mostViewed'))">{{ $t('mostViewed') }}</li>
-                <li class="py-2 cursor-pointer hover:button" :class="{ 'button': sortBy === 'likes' }" @click="changeSort('likes', $t('mostLiked'))">{{ $t('mostLiked') }}</li>
-                <li class="py-2 rounded-b-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'comments' }" @click="changeSort('comments', $t('mostCommented'))">{{ $t('mostCommented') }}</li>
+              <ul id="popular-order-options" class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100">
+                <!-- <li class="py-2 px-3 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li> -->
+                <li class="flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent" :class="{ 'button': sortBy === 'views' }" @click="changeSort('views', $t('mostViewed'))">
+                  <Icon :name="'i-mi-eye'" :class="{ 'text-white': sortBy === 'views' }" />
+                  {{ $t('mostViewed') }}
+                </li>
+                <li class="flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent" :class="{ 'button': sortBy === 'likes' }" @click="changeSort('likes', $t('mostLiked'))">
+                  <Icon :name="'i-ri-heart-3-line'" :class="{ 'text-white': sortBy === 'likes' }" />
+                  {{ $t('mostLiked') }}
+                </li>
+                <li class="flex flex-row justify-between py-2 px-3 rounded-b-md cursor-pointer hover:button icon-hover-parent" :class="{ 'button': sortBy === 'comments' }" @click="changeSort('comments', $t('mostCommented'))">
+                  <Icon :name="'i-mdi-comment-multiple-outline'" :class="{ 'text-white': sortBy === 'comments' }" />
+                  {{ $t('mostCommented') }}
+                </li>
               </ul>
             </div>
           </div>

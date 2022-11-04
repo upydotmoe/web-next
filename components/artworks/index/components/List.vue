@@ -37,6 +37,7 @@
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
+              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
               {{ $t('explicit') }}
             </p>
           </div>
