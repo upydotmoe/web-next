@@ -5,8 +5,8 @@ import { join } from 'path';
 import { mkdirSync } from 'fs';
 import { parentPort, threadId } from 'worker_threads';
 import { provider, isWindows } from 'file://F:/codes/rkgk/web-next/node_modules/std-env/dist/index.mjs';
-import { eventHandler, setHeaders, sendRedirect, defineEventHandler, handleCacheHeaders, createEvent, getRequestHeader, createApp, createRouter as createRouter$1, lazyEventHandler, toNodeListener, getQuery, writeEarlyHints } from 'file://F:/codes/rkgk/web-next/node_modules/h3/dist/index.mjs';
-import { renderResourceHeaders, createRenderer } from 'file://F:/codes/rkgk/web-next/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { eventHandler, setHeaders, sendRedirect, defineEventHandler, handleCacheHeaders, createEvent, getRequestHeader, getRequestHeaders, setResponseHeader, createApp, createRouter as createRouter$1, lazyEventHandler, toNodeListener, getQuery, createError } from 'file://F:/codes/rkgk/web-next/node_modules/h3/dist/index.mjs';
+import { createRenderer } from 'file://F:/codes/rkgk/web-next/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import devalue from 'file://F:/codes/rkgk/web-next/node_modules/@nuxt/devalue/dist/devalue.mjs';
 import { parseURL, withQuery, joinURL } from 'file://F:/codes/rkgk/web-next/node_modules/ufo/dist/index.mjs';
 import destr from 'file://F:/codes/rkgk/web-next/node_modules/destr/dist/index.mjs';
@@ -436,16 +436,29 @@ const errorHandler = (async function errorhandler(error, event) {
     return;
   }
   const isErrorPage = event.req.url?.startsWith("/__nuxt_error");
-  let html = !isErrorPage ? await $fetch(withQuery("/__nuxt_error", errorObject)).catch(() => null) : null;
-  if (!html) {
+  const res = !isErrorPage ? await useNitroApp().localFetch(withQuery("/__nuxt_error", errorObject), {
+    headers: getRequestHeaders(event),
+    redirect: "manual"
+  }).catch(() => null) : null;
+  if (!res) {
     const { template } = await import('file://F:/codes/rkgk/web-next/node_modules/@nuxt/ui-templates/dist/templates/error-dev.mjs') ;
     {
       errorObject.description = errorObject.message;
     }
-    html = template(errorObject);
+    event.res.setHeader("Content-Type", "text/html;charset=UTF-8");
+    event.res.end(template(errorObject));
+    return;
   }
-  event.res.setHeader("Content-Type", "text/html;charset=UTF-8");
-  event.res.end(html);
+  for (const [header, value] of res.headers.entries()) {
+    setResponseHeader(event, header, value);
+  }
+  if (res.status && res.status !== 200) {
+    event.res.statusCode = res.status;
+  }
+  if (res.statusText) {
+    event.res.statusMessage = res.statusText;
+  }
+  event.res.end(await res.text());
 });
 
 const _lazy_z9V8rj = () => Promise.resolve().then(function () { return renderer$1; });
@@ -571,6 +584,9 @@ const getSPARenderer = lazyCachedFunction(async () => {
 const PAYLOAD_URL_RE = /\/_payload(\.[a-zA-Z0-9]+)?.js(\?.*)?$/;
 const renderer = defineRenderHandler(async (event) => {
   const ssrError = event.req.url?.startsWith("/__nuxt_error") ? getQuery(event) : null;
+  if (ssrError && event.req.socket.readyState !== "readOnly") {
+    throw createError("Cannot directly render error page!");
+  }
   let url = ssrError?.url || event.req.url;
   const isRenderingPayload = PAYLOAD_URL_RE.test(url);
   if (isRenderingPayload) {
@@ -588,10 +604,6 @@ const renderer = defineRenderHandler(async (event) => {
     payload: ssrError ? { error: ssrError } : {}
   };
   const renderer = await getSPARenderer() ;
-  if (!isRenderingPayload && !false) {
-    const { link } = renderResourceHeaders({}, renderer.rendererContext);
-    writeEarlyHints(event, link);
-  }
   const _rendered = await renderer.renderToString(ssrContext).catch((err) => {
     if (!ssrError) {
       throw ssrContext.payload?.error || err;

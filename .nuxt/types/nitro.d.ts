@@ -58,6 +58,7 @@ declare global {
   const readRawBody: typeof import('h3')['readRawBody']
   const send: typeof import('h3')['send']
   const sendError: typeof import('h3')['sendError']
+  const sendProxy: typeof import('h3')['sendProxy']
   const sendRedirect: typeof import('h3')['sendRedirect']
   const sendStream: typeof import('h3')['sendStream']
   const setCookie: typeof import('h3')['setCookie']
