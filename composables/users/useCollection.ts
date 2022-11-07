@@ -2,7 +2,7 @@
 import {
   CollectionsApi,
   UserCountersApi
-} from '~/api/openapi/api'
+} from '~/api/api'
 import { workTypes } from '~/types/works'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {

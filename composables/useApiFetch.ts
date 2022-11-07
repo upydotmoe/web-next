@@ -1,4 +1,4 @@
-import { Configuration } from '~/api/openapi/configuration'
+import { Configuration } from '~/api/configuration'
 import useAuthStore from '@/stores/auth.store'
 
 export default function () {

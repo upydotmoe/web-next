@@ -112,11 +112,6 @@
 </template>
 
 <script setup>
-// API
-import {
-  CollectionsApi
-} from '~/api/openapi/api'
-
 // stores
 import useAuthStore from '@/stores/auth.store'
 

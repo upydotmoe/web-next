@@ -1,7 +1,7 @@
 // @ts-nocheck
 import {
   ReportsApi
-} from '~/api/openapi/api'
+} from '~/api/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   /**

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { AuthServiceAuthenticationApi, AuthServiceRegistrationApi, ProApi, UserApi, UserForgotPasswordApi } from "~/api/openapi/api"
+import { AuthServiceAuthenticationApi, AuthServiceRegistrationApi, ProApi, UserApi, UserForgotPasswordApi } from "~/api/api"
 
 // stores
 import useAuthStore from '@/stores/auth.store'
