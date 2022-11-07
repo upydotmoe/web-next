@@ -44,6 +44,8 @@
   --input-border: #dddddd;
   
   --modal-color: #ffffff;
+
+  --toggle-background-color: #cccccc;
 }
 
 .dark-mode {
@@ -92,4 +94,6 @@
   --input-border: #494949;
 
   --modal-color: #2b2b2b;
+
+  --toggle-background-color: #494949;
 }

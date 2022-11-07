@@ -41,6 +41,7 @@
     "successDelete": "Karya berhasil dihapus, mengalihkanmu ke halaman utama..",
     "moreArtworkBy": "Lainnya dari",
     "usersLiked": "Pengguna yang menyukai",
+    "originalCharacter": "Karakter Orisinil",
     "add": {
       "form": {
         "title": "Unggah artwork baru",
@@ -52,7 +53,9 @@
         "prohibitChildExplicitContent": "Semua yang berhubungan dengan pelecehan anak-anak dan pornografi anak tidak diizinkan di sini. Kami akan memberikan sanksi yang berat kepada semua yang melanggar peraturan ini.",
         "uploadingButton": "Sedang mengunggah",
         "post": "Unggah",
-        "publishDate": "Rencana tanggal publikasi"
+        "publishDate": "Rencana tanggal publikasi",
+        "allowRedraw": "Izinkan redraw",
+        "redrawInYourStyle": "Redraw dengan gaya gambarmu sendiri"
       }
     },
     "update": {

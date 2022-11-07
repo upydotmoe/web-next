@@ -41,6 +41,7 @@
     "successDelete": "Work successfully removed, redirecting you to homepage..",
     "moreArtworkBy": "More by",
     "usersLiked": "Users liked",
+    "originalCharacter": "Original Character",
     "add": {
       "form": {
         "title": "Post New Artwork",
@@ -52,7 +53,9 @@
         "prohibitChildExplicitContent": "Anything related to child abuse or child pornography is not allowed to be uploaded here, We will impose severe sanctions on violators of this rule.",
         "uploadingButton": "Uploading",
         "post": "Post",
-        "publishDate": "Planned publish date"
+        "publishDate": "Planned publish date",
+        "allowRedraw": "Allow redraw",
+        "redrawInYourStyle": "Redraw in your own style"
       }
     },
     "update": {

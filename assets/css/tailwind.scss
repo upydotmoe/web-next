@@ -686,6 +686,11 @@
       @apply border-2 border-color-primary;
     }
   }
+
+  .toggle {
+    @apply w-9 h-5 dark:border-gray-600 rounded-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all;
+    background: var(--toggle-background-color);
+  }
 }
 
 @layer utilities {}

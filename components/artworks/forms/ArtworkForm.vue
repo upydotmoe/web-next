@@ -119,36 +119,7 @@
         />
       </div>
 
-      <div class="input-block">
-        <div class="mb-3">
-          <label :for="!inputData.isExplicit ? 'checked' : 'unchecked'" class="inline-flex items-center mt-2">
-            <span class="relative cursor-pointer" @click="inputData.isExplicit = !inputData.isExplicit">
-              <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
-              <span v-if="!inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-gray-100 rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline">
-                <input id="unchecked" type="checkbox" class="absolute w-0 h-0 opacity-0">
-              </span>
-              
-              <span v-if="inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out transform translate-x-full focus-within:shadow-outline button-color">
-                <input id="checked" type="checkbox" class="absolute w-0 h-0 opacity-0">
-              </span>
-            </span>
-            <span class="ml-2">{{ $t('explicitContent') }}</span>
-          </label>
-
-          <div v-show="inputData.isExplicit" class="flex p-4 mt-2 text-white bg-red-400 rounded" role="alert">
-            <div>
-              <span>We strictly forbid the following categories to be uploaded to our platform:</span>
-              <ul class="mt-2 list-disc list-inside text-white">
-                <div>- *AI/program/machine generated arts <i>(we strongly do not support AI generated arts, for anyone who breaks this special rule will result in insta-ban)</i></div>
-                <div>- Other's people works <i>(even if you have permission from the original artist)</i></div>
-                <div>- Child pornography, child abuse, etc.</div>
-                <div>- Extreme gore, mutilation, etc. (a little bit is allowed, but if it's too much, we cannot accept it)</div>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <!-- planned publish date -->
       <div class="flex flex-row gap-x-2 input-block">
         <!-- <ClientOnly>
           <div
@@ -187,6 +158,94 @@
         
         <!-- publish time -->
         <input v-model="inputData.publishTime" type="time" class="form-input input">
+      </div>
+
+      <!-- original character toggler -->
+      <div v-if="!redrawWorkId" class="input-block">
+        <label 
+          for="is-original-character"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
+            id="is-original-character" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isOriginalCharacter"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('artworks.originalCharacter') }}</span>
+        </label>
+      </div>
+
+      <!-- allow redraw toggler -->
+      <div v-if="!redrawWorkId" class="input-block">
+        <label 
+          for="is-allow-redraw"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isAllowRedraw = !inputData.isAllowRedraw"
+            id="is-allow-redraw" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isAllowRedraw"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('artworks.add.form.allowRedraw') }}</span>
+        </label>
+      </div>
+
+      <!-- redraw in your style toggler -->
+      <div v-if="redrawWorkId" class="input-block">
+        <label 
+          for="is-redraw-in-your-style"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isRedrawInYourStyle = !inputData.isRedrawInYourStyle"
+            id="is-redraw-in-your-style" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isRedrawInYourStyle"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('artworks.add.form.redrawInYourStyle') }}</span>
+        </label>
+      </div>
+
+      <!-- explicit toggler -->
+      <div class="input-block">
+        <label 
+          for="is-redraw-in-your-style"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isExplicit = !inputData.isExplicit"
+            id="is-redraw-in-your-style" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isExplicit"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('explicitContent') }}</span>
+        </label>
+        
+        <div v-show="inputData.isExplicit" class="flex p-4 mt-2 text-white bg-red-500 rounded" role="alert">
+          <div>
+            <span>We strictly forbid the following categories to be uploaded to our platform:</span>
+            <ul class="mt-2 list-disc list-inside text-white">
+              <div>- *AI/program/machine generated arts <b>(we strongly do not support AI generated arts, for anyone who breaks this special rule will result in insta-ban)</b></div>
+              <div>- Other's people works <b>(even if you have permission from the original artist, we decided not to allow this because it will interfere with the ranking system of other artists who upload their own artwork)</b></div>
+              <div>- Child pornography, child abuse, etc.</div>
+              <div>- Extreme gore, mutilation, etc.</div>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <div class="flex flex-row justify-between md:justify-end">
@@ -229,7 +288,7 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 
 // stores
-import authStore from '@/stores/auth.store'
+import useAuthStore from '@/stores/auth.store'
 
 // components
 import Spinner from '~/components/globals/Spinner.vue'
@@ -243,12 +302,15 @@ const FilePond = vueFilePond(
   FilePondPluginImagePreview
 )
 
-const { t } = useI18n()
+// stores
+const auth = useAuthStore()
 
+const { t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
-const auth = authStore()
-const { $router } = useNuxtApp()
 const apiUrl = runtimeConfig.public.apiUrl
+
+const route = useRoute()
+const { $router } = useNuxtApp()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -277,6 +339,8 @@ onMounted (() => {
     minDate: today
   })
 })
+
+const redrawWorkId = computed(() => route.query.redrawWorkId)
 
 const resetForm = () => {
   artworkFiles.value = []
@@ -316,6 +380,9 @@ const inputData = ref({
   description: '',
   tags: '',
   isExplicit: false,
+  isOriginalCharacter: false,
+  isAllowRedraw: false,
+  isRedrawInYourStyle: false,
   publishDate: null,
   publishTime: null
 })
@@ -366,6 +433,12 @@ const storeArtwork = async () => {
   formData.append('description', inputData.value.description)
   formData.append('tags', tagValues.toString())
   formData.append('is_explicit', inputData.value.isExplicit ? 1 : 0)
+  formData.append('is_original_character', inputData.value.isOriginalCharacter ? 1 : 0)
+  formData.append('allow_redraw', inputData.value.isAllowRedraw ? 1 : 0)
+  formData.append('redraw_in_your_style', inputData.value.isRedrawInYourStyle ? 1 : 0)
+  if (redrawWorkId.value) {
+    formData.append('redraw_of', redrawWorkId.value)
+  }
   formData.append('scheduled_post', 
     !['', null].includes(publishDate) ?? useDate().formatDateToApi(publishDate) !== 'Invalid Date' ? useDate().formatDateToApi(publishDate) : null
   )
