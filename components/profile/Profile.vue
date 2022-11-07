@@ -158,55 +158,101 @@
                     <span class="leading-4">{{ $t('profile.setting') }}</span>
                   </button>
                 </nuxt-link>
-
-                <!-- social links -->
-                <div v-if="userInfo.user_socials" class="mt-4">
-                  <a 
-                    v-if="userInfo.user_socials.facebook" 
-                    :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
-                    target="blank" 
-                    class="ml-3 cursor-pointer"
-                  >
-                    <Icon :name="'i-ion-logo-facebook'" class="text-xl" />
-                  </a>
-                  
-                  <a 
-                    v-if="userInfo.user_socials.instagram" 
-                    :href="'https://instagram.com/' + userInfo.user_socials.instagram + '/'"
-                    target="blank" 
-                    class="ml-3 cursor-pointer"
-                  >
-                    <Icon :name="'i-ion-logo-instagram'" class="text-xl" />
-                  </a>
-
-                  <a 
-                    v-if="userInfo.user_socials.twitter" 
-                    :href="'https://twitter.com/' + userInfo.user_socials.twitter" 
-                    target="blank" 
-                    class="ml-3 cursor-pointer"
-                  >
-                    <Icon :name="'i-ion-logo-twitter'" class="text-xl" />
-                  </a>
-                  
-                  <a 
-                    v-if="userInfo.user_socials.youtube" 
-                    :href="'https://youtube.com/channel/' + userInfo.user_socials.youtube"
-                    target="blank" 
-                    class="ml-3 cursor-pointer"
-                  >
-                    <Icon :name="'i-ion-logo-youtube'" class="text-xl" />
-                  </a>
-                  
-                  <a 
-                    v-if="userInfo.user_socials.patreon" 
-                    :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
-                    target="blank" 
-                    class="ml-3 cursor-pointer"
-                  >
-                    <Icon :name="'heart'" class="text-xl" />
-                  </a>
-                </div>
               </div>
+            </div>
+
+            <!-- social links -->
+            <div v-if="userInfo.user_socials" class="flex flex-row gap-3 mt-4 w-full">
+              <a 
+                v-if="userInfo.user_socials.facebook" 
+                :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ion-logo-facebook'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.instagram" 
+                :href="'https://instagram.com/' + userInfo.user_socials.instagram + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ion-logo-instagram'" :text-size="'text-xl'" />
+              </a>
+
+              <a 
+                v-if="userInfo.user_socials.twitter" 
+                :href="'https://twitter.com/' + userInfo.user_socials.twitter" 
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ion-logo-twitter'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.youtube" 
+                :href="'https://youtube.com/channel/' + userInfo.user_socials.youtube"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ion-logo-youtube'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.patreon" 
+                :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-gg-patreon'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.twitch" 
+                :href="'https://twitch.com/' + userInfo.user_socials.twitch + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ph-twitch-logo-fill'" :text-size="'text-xl'" />
+              </a>
+              
+              <!-- Discord app: copy Discord ID -->
+              <a 
+                v-if="userInfo.user_socials.discord" 
+                :href="'https://discord.com/' + userInfo.user_socials.discord + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ic-twotone-discord'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.picarto"
+                :href="'https://picarto.tv/' + userInfo.user_socials.picarto + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-cib-picarto-tv'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.gumroad" 
+                :href="'https://' + userInfo.user_socials.gumroad + '.gumroad.com'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-cib-gumroad'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.personal_website" 
+                :href="'https://' + userInfo.user_socials.personal_website + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ph-link-simple-break-bold'" :text-size="'text-xl'" />
+              </a>
             </div>
 
             <div>
@@ -257,7 +303,7 @@
 
           <div class="mr-1">
             <span v-if="userInfo.gender === 'm'" class="flex flex-row">
-              <Icon :name="'i-ion-male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/his
+              <Icon :name="'i-ion-male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/him/his
             </span>
             <span v-if="userInfo.gender === 'f'" class="flex flex-row">
               <Icon :name="'i-ion-female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
@@ -287,7 +333,7 @@
             v-if="userInfo.user_socials.facebook" 
             :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
             target="blank" 
-            class="ml-3 cursor-pointer"
+            class="cursor-pointer"
           >
             <Icon :name="'i-ion-logo-facebook'" class="text-xl" />
           </a>
@@ -296,7 +342,7 @@
             v-if="userInfo.user_socials.instagram" 
             :href="'https://instagram.com/' + userInfo.user_socials.instagram + '/'"
             target="blank" 
-            class="ml-3 cursor-pointer"
+            class="cursor-pointer"
           >
             <Icon :name="'i-ion-logo-instagram'" class="text-xl" />
           </a>
@@ -305,7 +351,7 @@
             v-if="userInfo.user_socials.twitter" 
             :href="'https://twitter.com/' + userInfo.user_socials.twitter" 
             target="blank" 
-            class="ml-3 cursor-pointer"
+            class="cursor-pointer"
           >
             <Icon :name="'i-ion-logo-twitter'" class="text-xl" />
           </a>
@@ -314,7 +360,7 @@
             v-if="userInfo.user_socials.youtube" 
             :href="'https://youtube.com/channel/' + userInfo.user_socials.youtube"
             target="blank" 
-            class="ml-3 cursor-pointer"
+            class="cursor-pointer"
           >
             <Icon :name="'i-ion-logo-youtube'" class="text-xl" />
           </a>
@@ -323,7 +369,7 @@
             v-if="userInfo.user_socials.patreon" 
             :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
             target="blank" 
-            class="ml-3 cursor-pointer"
+            class="cursor-pointer"
           >
             <Icon :name="'i-ion-heart'" class="text-xl" />
           </a>

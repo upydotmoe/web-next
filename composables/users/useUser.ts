@@ -273,7 +273,12 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     twitter: string,
     instagram: string,
     patreon: string,
-    youtube: string
+    youtube: string,
+    twitch: string,
+    discord: string,
+    picarto: string,
+    gumroad: string,
+    site: string,
   }) => {
     try {
       const { data } = await new UserUpdateUserInfoApi(oApiConfiguration)
@@ -283,7 +288,12 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           twitter: params.twitter,
           instagram: params.instagram,
           patreon: params.patreon,
-          youtube: params.youtube
+          youtube: params.youtube,
+          twitch: params.twitch,
+          discord: params.discord,
+          picarto: params.picarto,
+          gumroad: params.gumroad,
+          personal_website: params.site,
         }, fetchOptions)
 
       return [data.success, null]

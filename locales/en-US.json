@@ -349,6 +349,28 @@
           "currentPassword": "Current Password",
           "newPassword": "New Password",
           "success": "Password changed! Now you can login with your new password."
+        },
+        "socials": {
+          "facebook": "Facebook",
+          "facebookPlaceholder": "Your Facebook username (https://facebook.com/<your-username-here>)",
+          "twitter": "Twitter",
+          "twitterPlaceholder": "Your Twitter username (https://twitter.com/<your-username-here>)",
+          "instagram": "Instagram",
+          "instagramPlaceholder": "Your Instagram username (https://instagram.com/<your-username-here>)",
+          "patreon": "Patreon",
+          "patreonPlaceholder": "Your Patreon username (https://patreon.com/<your-username-here>)",
+          "youtube": "YouTube",
+          "youtubePlaceholder": "Your full YouTube URL",
+          "twitch": "Patreon",
+          "twitchPlaceholder": "Your Twitch username (https://patreon.com/<your-username-here>)",
+          "discord": "Discord",
+          "discordPlaceholder": "Your Discord ID (example: Upymoe#9732)",
+          "picarto": "Picarto.TV",
+          "picartoPlaceholder": "Your Picarto.TV username (https://picarto.tv/<your-username-here>)",
+          "gumroad": "Gumroad",
+          "gumroadPlaceholder": "Your Gumroad username (https://<your-username-here>.gumroad.com)",
+          "personalWebsite": "Personal Website",
+          "personalWebsitePlaceholder": "Your personal site URL"
         }
       }
     }

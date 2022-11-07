@@ -349,6 +349,28 @@
           "currentPassword": "Kata Sandi Sekarang",
           "newPassword": "Kata Sandi Baru",
           "success": "Password berhasil dirubah! Sekarang kamu dapat login menggunakan password barumu."
+        },
+        "socials": {
+          "facebook": "Facebook",
+          "facebookPlaceholder": "Username Facebook-mu (https://facebook.com/<username-disini>)",
+          "twitter": "Twitter",
+          "twitterPlaceholder": "Username Twitter-mu (https://twitter.com/<username-disini>)",
+          "instagram": "Instagram",
+          "instagramPlaceholder": "Username Instagram-mu (https://instagram.com/<username-disini>)",
+          "patreon": "Patreon",
+          "patreonPlaceholder": "Username Patreon-mu (https://patreon.com/<username-disini>)",
+          "youtube": "YouTube",
+          "youtubePlaceholder": "Link full YouTube-mu",
+          "twitch": "Patreon",
+          "twitchPlaceholder": "Username Twitch-mu (https://patreon.com/<username-disini>)",
+          "discord": "Discord",
+          "discordPlaceholder": "ID Discord-mu (contoh: Upymoe#9732)",
+          "picarto": "Picarto.TV",
+          "picartoPlaceholder": "Username Picarto.TV-mu (https://picarto.tv/<username-disini>)",
+          "gumroad": "Gumroad",
+          "gumroadPlaceholder": "Username Gumroad-mu (https://<username-disini>.gumroad.com)",
+          "personalWebsite": "Website Personal",
+          "personalWebsitePlaceholder": "Link website personal kamu"
         }
       }
     }

@@ -6,7 +6,7 @@
       @submit.prevent="update(formId)"
     >
       <n-validate class="input-block">
-        <label class="font-semibold">Facebook</label>
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.facebook') }}</label>
         <div class="field">
           <div class="flex flex-row">            
             <Icon :name="'i-logos-facebook'" />
@@ -15,7 +15,7 @@
               type="text" 
               class="rounded-l-none form-input input"
               :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
-              placeholder="Your facebook username (https://facebook.com/<your-username-here>)"
+              :placeholder="$t('profile.forms.update.socials.facebookPlaceholder')"
               @keydown.space.prevent
             >
           </div>
@@ -23,7 +23,7 @@
       </n-validate>
 
       <n-validate class="input-block">
-        <label class="font-semibold">Twitter</label>
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.twitter') }}</label>
         <div class="field">
           <div class="flex flex-row">            
             <Icon :name="'i-logos-twitter'" />
@@ -32,7 +32,7 @@
               type="text" 
               class="rounded-l-none form-input input"
               :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
-              placeholder="Your twitter username (twitter.com/<your-username-here>)"
+              :placeholder="$t('profile.forms.update.socials.twitterPlaceholder')"
               @keydown.space.prevent
             >
           </div>
@@ -40,7 +40,7 @@
       </n-validate>
 
       <n-validate class="input-block">
-        <label class="font-semibold">Instagram</label>
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.instagram') }}</label>
         <div class="field">
           <div class="flex flex-row">            
             <Icon :name="'i-ion-logo-instagram'" />
@@ -49,7 +49,7 @@
               type="text" 
               class="rounded-l-none form-input input"
               :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
-              placeholder="Your instagram username (instagram.com/<your-username-here>)"
+              :placeholder="$t('profile.forms.update.socials.instagramPlaceholder')"
               @keydown.space.prevent
             >
           </div>
@@ -57,7 +57,7 @@
       </n-validate>
 
       <n-validate class="input-block">
-        <label class="font-semibold">Patreon</label>
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.patreon') }}</label>
         <div class="field">
           <div class="flex flex-row">            
             <Icon :name="'i-logos-patreon'" />
@@ -66,7 +66,7 @@
               type="text" 
               class="rounded-l-none form-input input"
               :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
-              placeholder="Your patreon username (patreon.com/<your-username-here>)"
+              :placeholder="$t('profile.forms.update.socials.patreonPlaceholder')"
               @keydown.space.prevent
             >
           </div>
@@ -74,7 +74,7 @@
       </n-validate>
       
       <n-validate class="input-block">
-        <label class="font-semibold">Youtube</label>
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.youtube') }}</label>
         <div class="field">
           <div class="flex flex-row">            
             <Icon :name="'i-logos-youtube-icon'" />
@@ -83,7 +83,92 @@
               type="text" 
               class="rounded-l-none form-input input"
               :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
-              placeholder="Your full youtube URL"
+              :placeholder="$t('profile.forms.update.socials.youtubePlaceholder')"
+              @keydown.space.prevent
+            >
+          </div>
+        </div>
+      </n-validate>
+      
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.twitch') }}</label>
+        <div class="field">
+          <div class="flex flex-row">            
+            <Icon :name="'i-logos-twitch'" />
+            <input 
+              v-model="inputData.twitch"
+              type="text" 
+              class="rounded-l-none form-input input"
+              :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
+              :placeholder="$t('profile.forms.update.socials.twitchPlaceholder')"
+              @keydown.space.prevent
+            >
+          </div>
+        </div>
+      </n-validate>
+      
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.discord') }}</label>
+        <div class="field">
+          <div class="flex flex-row">            
+            <Icon :name="'i-logos-discord-icon'" />
+            <input 
+              v-model="inputData.discord"
+              type="text" 
+              class="rounded-l-none form-input input"
+              :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
+              :placeholder="$t('profile.forms.update.socials.discordPlaceholder')"
+              @keydown.space.prevent
+            >
+          </div>
+        </div>
+      </n-validate>
+      
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.picarto') }}</label>
+        <div class="field">
+          <div class="flex flex-row">            
+            <Icon :name="'i-cib-picarto-tv'" :icon-color="'bg-green-600'" />
+            <input 
+              v-model="inputData.picarto"
+              type="text" 
+              class="rounded-l-none form-input input"
+              :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
+              :placeholder="$t('profile.forms.update.socials.picartoPlaceholder')"
+              @keydown.space.prevent
+            >
+          </div>
+        </div>
+      </n-validate>
+      
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.gumroad') }}</label>
+        <div class="field">
+          <div class="flex flex-row">            
+            <Icon :name="'i-cib-gumroad'" />
+            <input 
+              v-model="inputData.gumroad"
+              type="text" 
+              class="rounded-l-none form-input input"
+              :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
+              :placeholder="$t('profile.forms.update.socials.gumroadPlaceholder')"
+              @keydown.space.prevent
+            >
+          </div>
+        </div>
+      </n-validate>
+      
+      <n-validate class="input-block">
+        <label class="font-semibold">{{ $t('profile.forms.update.socials.personalWebsite') }}</label>
+        <div class="field">
+          <div class="flex flex-row">            
+            <Icon :name="'i-ph-link-simple-break-bold'" />
+            <input 
+              v-model="inputData.site"
+              type="text" 
+              class="rounded-l-none form-input input"
+              :class="[{ 'pointer-events-none cursor-not-allowed': saving.socials.loading }]"
+              :placeholder="$t('profile.forms.update.socials.personalWebsitePlaceholder')"
               @keydown.space.prevent
             >
           </div>
@@ -158,6 +243,11 @@ const fetchUserInfo = async () => {
       inputData.value.instagram = data.user_socials.instagram
       inputData.value.patreon = data.user_socials.patreon
       inputData.value.youtube = data.user_socials.youtube
+      inputData.value.twitch = data.user_socials.twitch
+      inputData.value.discord = data.user_socials.discord
+      inputData.value.picarto = data.user_socials.picarto
+      inputData.value.gumroad = data.user_socials.gumroad
+      inputData.value.site = data.user_socials.personal_website
     }
   } else {
     // todo: handle unauthenticated user
@@ -179,7 +269,12 @@ const inputData = ref({
   twitter: '',
   instagram: '',
   patreon: '',
-  youtube: ''
+  youtube: '',
+  twitch: '',
+  discrod: '',
+  picarto: '',
+  gumroad: '',
+  site: '',
 })
 const update = async () => {
   useValidator().validate(formId, t)
@@ -192,7 +287,12 @@ const update = async () => {
     twitter: inputData.value.twitter,
     instagram: inputData.value.instagram,
     patreon: inputData.value.patreon,
-    youtube: inputData.value.youtube
+    youtube: inputData.value.youtube,
+    twitch: inputData.value.twitch,
+    discord: inputData.value.discord,
+    picarto: inputData.value.picarto,
+    gumroad: inputData.value.gumroad,
+    site: inputData.value.site,
   })
 
   if (!success && error) {
