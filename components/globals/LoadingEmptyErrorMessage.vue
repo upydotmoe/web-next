@@ -3,7 +3,7 @@
     v-show="loading || empty || error"
     :class="[
       'p-4 text-center rounded-md message',
-      isMobile() ? 'theme-color-secondary' : 'theme-color'
+      backgroundColor ?? (isMobile() ? 'theme-color-secondary' : 'theme-color')
     ]"
   >
     <!-- When loading is in progress -->
@@ -16,8 +16,8 @@
 
     <!-- If there is no artwork to show -->
     <span v-show="empty">
-      <b>(ㆆ_ㆆ)</b> 
-      {{ props.emptyMessage ?? $t('nothingToShow') }}
+      <b v-if="emptyMessage === ''">(ㆆ_ㆆ)</b>
+      {{ emptyMessage !== '' ? emptyMessage : $t('nothingToShow') }}
     </span>
     
     <!-- When error occured -->
@@ -33,7 +33,7 @@
 // components
 import Spinner from '~/components/globals/Spinner.vue'
 
-const props = defineProps ({
+defineProps ({
   loading: {
     type: Boolean,
     default: false
@@ -42,21 +42,21 @@ const props = defineProps ({
     type: Function,
     default: () => {}
   },
+  backgroundColor: {
+    type: String,
+    default: () => ''
+  },
   empty: {
     type: Boolean,
     default: false
   },
   emptyMessage: {
     type: String,
-    default: 'Nothing to show'
+    default: ''
   },
   error: {
     type: Boolean,
     default: false
   },
-  customEmptyMessage: {
-    type: String,
-    default: ''
-  }
 })
 </script>

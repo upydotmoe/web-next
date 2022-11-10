@@ -127,11 +127,16 @@
   "resetPassword": "Reset password",
   "next": "Selanjutnya",
   "follow": "Ikuti",
-  "followers": "Pengikut",
-  "following": "Mengikuti",
+  "followers": {
+    "followers": "Pengikut",
+    "followersHidden": "User ini menyembunyikan daftar pengikutnya."
+  },
+  "followings": {
+    "following": "Mengikuti",
+    "followings": "Mengikuti"
+  },
   "followingOnly": "Hanya Mengikuti",
   "privateFollow": "Mengikuti secara Privat",
-  "followings": "Mengikuti",
   "unfollow": "Stop ikuti",
   "viewMore": "Lihat lebih banyak",
   "goToHome": "Kembali ke halaman utama",

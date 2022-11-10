@@ -1,44 +1,42 @@
 <template>
   <div>
-    <div class="text-lg font-bold">{{ $t('followers') }}</div>
+    <div class="text-lg font-bold">{{ $t('followers.followers') }}</div>
 
-    <UserList
-      class="mt-4"
-      :users="followerList"
-      :column-type="3"
-    />
+    <div v-if="!hide && !loading && !isEmpty && !isError">
+      <UserList
+        class="mt-4"
+        :users="followerList"
+        :column-type="3"
+      />
 
-    <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch()">
-      {{ $t('loadMore') }}
+      <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch()">
+        {{ $t('loadMore') }}
+      </div>
     </div>
 
     <!-- On loading, empty or error occured -->
     <LoadingEmptyErrorMessage
+      class="mt-4"
       :loading="loading"
       :empty="isEmpty"
+      :empty-message="customEmptyMessage"
       :error="isError"
       :fetch="fetch"
+      :background-color="'theme-color-secondary'"
     />
   </div>
 </template>
 
 <script setup>
-// assets
-import abstractImgUrl from '~/static/bg-abstract.png'
-
 // stores
 import useAuthStore from '@/stores/auth.store'
 
 // components
-import Icon from '~/components/globals/Icon.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import UserList from '~/components/users/UserList.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
-
-// stores
-const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -48,11 +46,22 @@ const props = defineProps ({
   userId: {
     type: Number,
     default: 0
+  },
+  hide: {
+    type: Boolean,
+    default: true
   }
 })
 
 onMounted (() => {
-  fetch()
+  if (!props.hide) {
+    fetch()
+  } else {
+    loading.value = false
+    
+    isEmpty.value = true
+    customEmptyMessage.value = useI18n().tl('followers.followersHidden')
+  }
 })
 
 const followerList = ref([])
@@ -63,6 +72,7 @@ const pagination = ref({
 })
 const isError = ref(false)
 const isEmpty = ref(false)
+const customEmptyMessage = ref('')
 const showLoadMore = ref(false)
 const fetch = async () => {
   resetLoadingEmptyErrorMessage()

@@ -18,7 +18,7 @@
             <Icon v-show="followingOnly" :name="'i-fluent-people-checkmark-24-regular'" class="text-white" />
             <Icon v-show="!followingOnly" :name="'i-fluent-people-checkmark-24-regular'" /> 
             
-            {{ $t('following') }}
+            {{ $t('followings.followings') }}
           </button>
         </div>
 

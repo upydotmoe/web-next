@@ -127,11 +127,16 @@
   "resetPassword": "Reset password",
   "next": "Next",
   "follow": "Follow",
-  "followers": "Followers",
-  "following": "Following",
+  "followers": {
+    "followers": "Followers",
+    "followersHidden": "This user has decided to hide their follower list."
+  },
+  "followings": {
+    "following": "Following",
+    "followings": "Followings"
+  },
   "followingOnly": "Following Only",
   "privateFollow": "Privately Following",
-  "followings": "Followings",
   "unfollow": "Unfollow",
   "viewMore": "View More",
   "goToHome": "Go to home",

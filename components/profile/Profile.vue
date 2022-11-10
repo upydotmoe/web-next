@@ -46,11 +46,11 @@
             >
               <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
                 <b>{{ counter.followers }}</b>&nbsp;
-                <i>{{ $t('followers').toLowerCase() }}</i>
+                <i>{{ $t('followers.followers').toLowerCase() }}</i>
               </div>
               <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
                 <b>{{ counter.followings }}</b>&nbsp;
-                <i>{{ $t('following').toLowerCase() }}</i>
+                <i>{{ $t('followings.followings').toLowerCase() }}</i>
               </div>
             </div>
 
@@ -62,7 +62,7 @@
               ]"
               @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
               @mouseover="unfollowHoverLeave('i-ri-user-unfollow-fill', $t('unfollow'))"
-              @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('following'))"
+              @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('followings.followings'))"
             >
               <!-- if not following -->
               <div v-show="!followingData.isFollowing" class="flex flex-row">
@@ -76,7 +76,7 @@
                 class="flex flex-row"
               >
                 <Icon :name="unfollowIcon" :text-size="'text-base'" />
-                {{ unfollowText === null ? $t('following') : unfollowText }}
+                {{ unfollowText === null ? $t('followings.followings') : unfollowText }}
               </div>
             </div>
             
@@ -379,11 +379,11 @@
         <div class="flex flex-row justify-center w-full md:hidden">
           <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
             <b>{{ counter.followers }}</b>&nbsp;
-            <i>{{ $t('followers') }}</i>
+            <i>{{ $t('followers.followers') }}</i>
           </div>
           <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
             <b>{{ counter.followings }}</b>&nbsp;
-            <i>{{ $t('following') }}</i>
+            <i>{{ $t('followings.followings') }}</i>
           </div>
         </div>
 
@@ -408,7 +408,7 @@
             class="flex flex-row"
           >
             <Icon :name="unfollowIcon" :text-size="'text-base'" />
-            {{ unfollowText === null ? $t('following') : unfollowText }}
+            {{ unfollowText === null ? $t('followings.followings') : unfollowText }}
           </div>
         </div>
             
@@ -650,6 +650,7 @@
               <FollowerList
                 v-if="!loading"
                 :user-id="userInfo.id"
+                :hide="auth.loggedIn ? (userInfo.id !== auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_follower_list"
               />
             </div>
 

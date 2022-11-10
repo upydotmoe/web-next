@@ -1,7 +1,7 @@
 <template>
   <List 
     :section="'following'"
-    :title="$t('following')"
+    :title="$t('followings.followings')"
     :pagination-prop="{
       perPage: pagination.perPage,
       maxLoadMore: pagination.maxLoadMore

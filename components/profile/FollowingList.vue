@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-row justify-between">
-      <div class="text-lg font-bold">{{ $t('followings') }}</div>
+      <div class="text-lg font-bold">{{ $t('followings.followings') }}</div>
 
       <div>
         <div

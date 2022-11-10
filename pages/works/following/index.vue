@@ -9,7 +9,7 @@
       <!-- Top navigations -->
       <div class="navigations">
         <div class="title">
-          {{ $t('following') }}
+          {{ $t('followings.followings') }}
         </div>
 
         <!-- Options -->
