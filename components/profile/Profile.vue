@@ -806,7 +806,6 @@ const fetchUserInfo = async () => {
     const [collectionTotal] = await collectionApi.countCollections(userId.value)
     counter.value.collection = collectionTotal
 
-    console.log('setting meta..');
     emit('setMeta', {
       title: `(${userInfo.value.username}) ${userInfo.value.name}`
     })

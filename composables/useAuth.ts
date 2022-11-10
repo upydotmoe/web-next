@@ -99,9 +99,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
    * 
    * @returns - void
    */
-  const getAuthenticatedUserData = async (params: {
-    tokenRefreshed?: boolean
-  }): Promise<void> => {
+  const getAuthenticatedUserData = async (): Promise<void> => {
     if (auth.a4ht0jen === '' && auth.r43f0rt3jen === '') {
       auth.logout()
     } else {
@@ -111,10 +109,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
        * 
        * Check if fetchOptions has property headers and headers.Authorization.
        */
-      if (
-        // (params.tokenRefreshed && params.tokenRefreshed !== undefined) || 
-        (!fetchOptions.hasOwnProperty('headers') && !fetchOptions.hasOwnProperty('headers.Authorization') && auth.a4ht0jen !== '')
-      ) {
+      if (!fetchOptions.hasOwnProperty('headers') && !fetchOptions.hasOwnProperty('headers.Authorization') && auth.a4ht0jen !== '') {
         fetchOptions = {
           headers: {
             // we use 'Bearer' here because we use typescript-axios mode when generating code for API via Swagger Codegen.

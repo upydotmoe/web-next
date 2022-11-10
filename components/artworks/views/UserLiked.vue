@@ -114,7 +114,6 @@ const fetch = async ({ loaded }) => {
 
     for (let userIdx = 0; userIdx < users.length; userIdx++) {
       const user = users[userIdx]
-      console.log(user)
       userLiked.value.push(user)
     }
   }

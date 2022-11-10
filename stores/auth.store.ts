@@ -35,12 +35,11 @@ export default defineStore('auth', () => {
     if (authorizationData && authorizationData.token && authorizationData.refresh_token) {
       a4ht0jen.value = authorizationData.token
       r43f0rt3jen.value = authorizationData.refresh_token
+
       loggedIn.value = true
 
       // fetch user data after authentication is successful and save to auth store
-      await authApi.getAuthenticatedUserData({
-        tokenRefreshed: authorizationData.tokenRefreshed
-      })
+      await authApi.getAuthenticatedUserData()
     }
   }
 
