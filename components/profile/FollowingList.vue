@@ -1,43 +1,76 @@
 <template>
   <div>
     <div class="flex flex-row justify-between">
-      <div class="text-lg font-bold">{{ $t('followings.followings') }}</div>
+      <div class="section-title">{{ $t('followings.followings') }}</div>
 
-      <div>
-        <div
-          v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id == userId"
-          @click="fetchTop(privateOnlyFollowing ? false : true)"
-          :class="[
-            'flex flex-row cursor-pointer href',
-            { 'font-bold': privateOnlyFollowing }
-          ]"
-        >
-          <Icon v-show="privateOnlyFollowing" :name="'i-mdi-eye-check'" />
-          <div class="mr-1">
-            <Icon v-show="!privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-regular'" />
-            <Icon v-show="privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-filled'" />
+      <div class="inline-flex flex-row gap-4">
+        <div class="flex flex-col justify-center align-middle">
+          <div
+            v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id == userId"
+            @click="fetchTop(privateOnlyFollowing ? false : true)"
+            :class="[
+              'flex flex-row cursor-pointer href',
+              { 'font-bold': privateOnlyFollowing }
+            ]"
+          >
+            <Icon v-show="privateOnlyFollowing" :name="'i-mdi-eye-check'" />
+            <div class="mr-1">
+              <Icon v-show="!privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-regular'" />
+              <Icon v-show="privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-filled'" />
+            </div>
+            <span>{{ $t('privateFollow') }}</span>
           </div>
-          <span>{{ $t('privateFollow') }}</span>
         </div>
+
+        <!-- hide following list toggle -->
+        <label 
+          v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id === userId"
+          @click.prevent="toggleFollowingVisibility()"
+          for="hide-following-toggle"
+          class="inline-flex relative flex-row justify-center items-center cursor-pointer"
+        >
+          <input 
+            id="hide-following-toggle" 
+            type="checkbox" 
+            class="inline-block align-middle sr-only peer"
+            :checked="hideFollowingListToggle"
+            :disabled="!auth.i502p00r0"
+          >
+          <div 
+            :class="[
+              'w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600',
+              { 'unclickable': !auth.i502p00r0 },
+              auth.i502p00r0 ? ' after:top-[4px]' : ' after:top-[6px]'
+            ]"
+          />
+          <span class="ml-2">{{ $t('followings.hideMyFollowings') }}</span>
+          
+          <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
+        </label>
       </div>
     </div>
 
-    <UserList
-      class="mt-4"
-      :users="followingList"
-      :column-type="3"
-    />
+    <div v-if="!hide && !loading && !isEmpty && !isError">
+      <UserList
+        class="mt-4"
+        :users="followingList"
+        :column-type="3"
+      />
 
-    <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch(false)">
-      {{ $t('loadMore') }}
+      <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch(false)">
+        {{ $t('loadMore') }}
+      </div>
     </div>
 
     <!-- On loading, empty or error occured -->
     <LoadingEmptyErrorMessage
+      class="mt-4"
       :loading="loading"
       :empty="isEmpty"
+      :empty-message="customEmptyMessage"
       :error="isError"
       :fetch="fetchTop"
+      :background-color="'theme-color-secondary'"
     />
   </div>
 </template>
@@ -68,11 +101,30 @@ const props = defineProps ({
   userId: {
     type: Number,
     default: 0
+  },
+  hide: {
+    type: Boolean,
+    default: true
+  },
+  userHideFollowingListStatus: {
+    type: Boolean,
+    default: false
   }
 })
 
+const hideFollowingListToggle = ref(false)
+
 onMounted (() => {
-  fetch(false)
+  hideFollowingListToggle.value = props.userHideFollowingListStatus
+  
+  if (!props.hide) {
+    fetch(false)
+  } else {
+    loading.value = false
+    
+    isEmpty.value = true
+    customEmptyMessage.value = useI18n().tl('followings.followingsHidden')
+  }
 })
 
 const privateOnlyFollowing = ref(false)
@@ -91,6 +143,7 @@ const pagination = ref({
 })
 const isError = ref(false)
 const isEmpty = ref(false)
+const customEmptyMessage = ref('')
 const showLoadMore = ref(false)
 const fetch = async (isPrivateOnly) => {
   resetLoadingEmptyErrorMessage()
@@ -132,7 +185,24 @@ const resetLoadingEmptyErrorMessage = () => {
   isError.value = false
 }
 
-const showUnfollow = ref(0)
+/**
+ * PRO feature
+ * toggle to hide following list from being seen by the public
+ */
+const toggleFollowingVisibility = async () => {
+  if (!auth.i502p00r0) {
+    return null
+  }
+
+  const [success, error] = await userApi.toggleFollowingPrivacy()
+
+  if (success) {
+    hideFollowingListToggle.value = !hideFollowingListToggle.value
+  } else {
+    // todo: handle error
+    console.error("ERROR: can't toggle following visibility setting.");
+  }
+}
 </script>
 
 <style lang="scss" scoped>

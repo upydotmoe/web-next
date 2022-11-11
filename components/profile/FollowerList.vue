@@ -10,7 +10,7 @@
           v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id === userId"
           @click.prevent="toggleFollowerVisibility()"
           for="hide-follower-toggle"
-          class="inline-flex relative flex-row justify-center items-center mt-2 cursor-pointer"
+          class="inline-flex relative flex-row justify-center items-center cursor-pointer"
         >
           <input 
             id="hide-follower-toggle" 

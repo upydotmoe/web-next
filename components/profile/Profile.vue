@@ -659,6 +659,8 @@
               <FollowingList
                 v-if="!loading"
                 :user-id="userInfo.id"
+                :hide="auth.loggedIn ? (userInfo.id !== auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_following_list"
+                :user-hide-following-list-status="!!userInfo.user_settings.hide_following_list"
               />
             </div>
           </div>
