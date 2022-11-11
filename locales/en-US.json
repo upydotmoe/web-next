@@ -129,11 +129,14 @@
   "follow": "Follow",
   "followers": {
     "followers": "Followers",
-    "followersHidden": "This user has decided to hide their follower list."
+    "followersHidden": "This user has decided to hide their follower list.",
+    "hideMyFollowers": "Hide my followers"
   },
   "followings": {
     "following": "Following",
-    "followings": "Followings"
+    "followings": "Followings",
+    "followingsHidden": "This user has decided to hide their following list.",
+    "hideMyFollowings": "Hide people I follow"
   },
   "followingOnly": "Following Only",
   "privateFollow": "Privately Following",

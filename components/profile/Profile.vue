@@ -124,7 +124,7 @@
                   <span class="text-base font-semibold">{{ userInfo.name }}</span>&nbsp;
                   <span class="mr-2 italic">{{ userInfo.username }}</span>
 
-                  <ProBadge />
+                  <ProBadge v-if="userInfo.is_pro" />
                 </div>
 
                 <div class="flex flex-row mt-2">
@@ -651,6 +651,7 @@
                 v-if="!loading"
                 :user-id="userInfo.id"
                 :hide="auth.loggedIn ? (userInfo.id !== auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_follower_list"
+                :user-hide-follower-list-status="!!userInfo.user_settings.hide_follower_list"
               />
             </div>
 

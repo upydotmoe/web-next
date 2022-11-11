@@ -129,11 +129,14 @@
   "follow": "Ikuti",
   "followers": {
     "followers": "Pengikut",
-    "followersHidden": "User ini menyembunyikan daftar pengikutnya."
+    "followersHidden": "User ini menyembunyikan daftar pengikutnya.",
+    "hideMyFollowers": "Sembunyikan pengikutku"
   },
   "followings": {
     "following": "Mengikuti",
-    "followings": "Mengikuti"
+    "followings": "Mengikuti",
+    "followingsHidden": "User ini menyembunyikan orang yang dia ikuti.",
+    "hideMyFollowings": "Sembunyikan orang yang aku ikuti"
   },
   "followingOnly": "Hanya Mengikuti",
   "privateFollow": "Mengikuti secara Privat",

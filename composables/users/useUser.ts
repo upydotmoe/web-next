@@ -238,6 +238,28 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const toggleFollowerPrivacy = async () => {
+    try {
+      const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
+        .toggleFollowersVisibility(fetchOptions)
+        
+      return [data.success, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
+  const toggleFollowingPrivacy = async () => {
+    try {
+      const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
+        .toggleFollowingsVisibility(fetchOptions)
+
+      return [data.success, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   /**
    * UPDATES =================================================================================================================================
   */
@@ -446,6 +468,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     unfollow,
     getFollowerList,
     getFollowingList,
+    toggleFollowerPrivacy,
+    toggleFollowingPrivacy,
 
     checkCurrentPassword,
     updateCurrentPassword,

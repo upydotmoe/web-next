@@ -378,7 +378,7 @@ export const UserFollowingFollowersApiAxiosParamCreator = function (configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        toggleFollowerssVisibility: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        toggleFollowersVisibility: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/user/follows/followers/toggle-visibility`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -605,8 +605,8 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async toggleFollowerssVisibility(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
-            const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).toggleFollowerssVisibility(options);
+        async toggleFollowersVisibility(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+            const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).toggleFollowersVisibility(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -730,8 +730,8 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async toggleFollowerssVisibility(options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
-            return UserFollowingFollowersApiFp(configuration).toggleFollowerssVisibility(options).then((request) => request(axios, basePath));
+        async toggleFollowersVisibility(options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+            return UserFollowingFollowersApiFp(configuration).toggleFollowersVisibility(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -852,8 +852,8 @@ export class UserFollowingFollowersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserFollowingFollowersApi
      */
-    public async toggleFollowerssVisibility(options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
-        return UserFollowingFollowersApiFp(this.configuration).toggleFollowerssVisibility(options).then((request) => request(this.axios, this.basePath));
+    public async toggleFollowersVisibility(options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+        return UserFollowingFollowersApiFp(this.configuration).toggleFollowersVisibility(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

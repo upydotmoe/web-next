@@ -1,6 +1,37 @@
 <template>
   <div>
-    <div class="text-lg font-bold">{{ $t('followers.followers') }}</div>
+    <div class="flex flex-row justify-between">
+      <div class="section-title">{{ $t('followers.followers') }}</div>
+
+      <!-- options -->
+      <div>
+        <!-- hide follower list toggle -->
+        <label 
+          v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id === userId"
+          @click.prevent="toggleFollowerVisibility()"
+          for="hide-follower-toggle"
+          class="inline-flex relative flex-row justify-center items-center mt-2 cursor-pointer"
+        >
+          <input 
+            id="hide-follower-toggle" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="hideFollowerListToggle"
+            :disabled="!auth.i502p00r0"
+          >
+          <div 
+            :class="[
+              'w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600',
+              { 'unclickable': !auth.i502p00r0 },
+              auth.i502p00r0 ? ' after:top-[2px]' : ' after:top-[4px]'
+            ]"
+          />
+          <span class="ml-2">{{ $t('followers.hideMyFollowers') }}</span>
+          
+          <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
+        </label>
+      </div>
+    </div>
 
     <div v-if="!hide && !loading && !isEmpty && !isError">
       <UserList
@@ -29,14 +60,18 @@
 
 <script setup>
 // stores
-import useAuthStore from '@/stores/auth.store'
+import useAuthStore from '~/stores/auth.store'
+
+// composables
+import useUser from '~/composables/users/useUser'
 
 // components
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import UserList from '~/components/users/UserList.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
-// composables
-import useUser from '~/composables/users/useUser'
+// stores
+const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
@@ -50,10 +85,18 @@ const props = defineProps ({
   hide: {
     type: Boolean,
     default: true
+  },
+  userHideFollowerListStatus: {
+    type: Boolean,
+    default: false
   }
 })
 
+const hideFollowerListToggle = ref(false)
+
 onMounted (() => {
+  hideFollowerListToggle.value = props.userHideFollowerListStatus
+
   if (!props.hide) {
     fetch()
   } else {
@@ -113,7 +156,24 @@ const resetLoadingEmptyErrorMessage = () => {
   isError.value = false
 }
 
-const showUnfollow = ref(0)
+/**
+ * PRO feature
+ * toggle to hide follower list from being seen by the public
+ */
+const toggleFollowerVisibility = async () => {
+  if (!auth.i502p00r0) {
+    return null
+  }
+
+  const [success, error] = await userApi.toggleFollowerPrivacy()
+
+  if (success) {
+    hideFollowerListToggle.value = !hideFollowerListToggle.value
+  } else {
+    // todo: handle error
+    console.error("ERROR: can't toggle follower visibility setting.");
+  }
+}
 </script>
 
 <style lang="scss" scoped>

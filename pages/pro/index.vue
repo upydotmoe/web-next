@@ -171,7 +171,7 @@ const initPaypal = () => {
     },
 
     onError: function(err) {
-      console.log(err);
+      console.log('paypal error:', err)
     }
   }).render(document.getElementById('paypalRef'))
 }
