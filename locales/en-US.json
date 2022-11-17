@@ -42,6 +42,9 @@
     "moreArtworkBy": "More by",
     "usersLiked": "Users liked",
     "originalCharacter": "Original Character",
+    "redrawThisArtwork": "Redraw this Artwork",
+    "redrawedArtwork": "Original Artwork",
+    "redrawOriginalLoading": "Loading original artwork info..",
     "add": {
       "form": {
         "title": "Post New Artwork",
@@ -55,7 +58,7 @@
         "post": "Post",
         "publishDate": "Planned publish date",
         "allowRedraw": "Allow redraw",
-        "redrawInYourStyle": "Redraw in your own style"
+        "redrawInMyStyle": "Redrawed in my style"
       }
     },
     "update": {

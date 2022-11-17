@@ -72,6 +72,13 @@ export default defineNuxtConfig({
     ]
   },
 
+  serverHandlers: [
+    // {
+    //   route: '',
+    //   handler: '~/middleware/heap.js',
+    // }
+  ],
+
   css: [
     '~/assets/css/main.css',
     '~/assets/css/vue-tagsinput/style.css'

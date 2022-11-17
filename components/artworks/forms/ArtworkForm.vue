@@ -1,30 +1,66 @@
 <template>
   <div>
-    <!-- messages -->
-    <div v-if="uploadError" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
-      {{ uploadErrorMessage }}
-    </div>
-
     <!-- form title -->
     <div class="mb-4 text-base font-medium">
       {{ $t('artworks.add.form.title') }}
     </div>
-    
-    <!-- success message -->
-    <div v-show="uploadSuccess" class="alert-success">
-      {{ $t('artworks.add.form.uploadSuccess') }}
-      <span class="italic">{{ $t('artworks.add.form.successRedirect') }}</span>
+
+    <!-- redrawed artwork detail -->
+    <div v-if="redrawWorkId" class="p-2 mb-4 rounded-md theme-color">
+      <div>
+        <div class="mb-2 italic text-tiny">{{ $t('artworks.redrawedArtwork') }}</div>
+
+        <!-- Loading -->
+        <div v-if="redrawedArtworkLoading" class="flex flex-row gap-2">
+          <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
+        </div>
+
+        <!-- Redrawed artwork info -->
+        <nuxt-link
+          v-else
+          :to="'/a/'+redrawWorkId"
+          class="flex flex-row gap-2"
+        >
+          <div v-if="redrawedArtwork.artwork_assets">
+            <nuxt-img
+              preload
+              loading="lazy"
+              class="w-40 rounded-md"
+              :src="artworkThumb(redrawedArtwork.artwork_assets[0].bucket, redrawedArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+              @error="imageLoadError"
+            />
+          </div>
+
+          <div>
+            <span>{{ redrawedArtwork.title }}</span>
+          </div>
+        </nuxt-link>
+      </div>
     </div>
 
-    <!-- loading status -->
-    <div v-show="uploading" class="flex flex-row p-2 mb-2 text-white rounded-md button-color">
-      <Spinner class="mr-1" />
-      {{ $t('artworks.add.form.uploading') }}
-    </div>
+    <!-- error and alert message -->
+    <div>
+      <!-- messages -->
+      <div v-if="uploadError" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
+        {{ uploadErrorMessage }}
+      </div>
+      
+      <!-- success message -->
+      <div v-show="uploadSuccess" class="alert-success">
+        {{ $t('artworks.add.form.uploadSuccess') }}
+        <span class="italic">{{ $t('artworks.add.form.successRedirect') }}</span>
+      </div>
 
-    <!-- error message -->
-    <div v-show="isError" class="alert-danger">
-      {{ $t('artworks.add.form.uploadFailure') }}
+      <!-- loading status -->
+      <div v-show="uploading" class="flex flex-row p-2 mb-2 text-white rounded-md button-color">
+        <Spinner class="mr-1" />
+        {{ $t('artworks.add.form.uploading') }}
+      </div>
+
+      <!-- error message -->
+      <div v-show="isError" class="alert-danger">
+        {{ $t('artworks.add.form.uploadFailure') }}
+      </div>
     </div>
 
     <!-- form -->
@@ -163,12 +199,12 @@
       <!-- original character toggler -->
       <div v-if="!redrawWorkId" class="input-block">
         <label 
-          for="is-original-character"
+          for="is-original-character-toggle"
           class="inline-flex relative items-center cursor-pointer"
         >
           <input 
             @click="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
-            id="is-original-character" 
+            id="is-original-character-toggle"
             type="checkbox" 
             class="sr-only peer" 
             :checked="inputData.isOriginalCharacter"
@@ -182,12 +218,12 @@
       <!-- allow redraw toggler -->
       <div v-if="!redrawWorkId" class="input-block">
         <label 
-          for="is-allow-redraw"
+          for="is-allow-redraw-toggle"
           class="inline-flex relative items-center cursor-pointer"
         >
           <input 
             @click="inputData.isAllowRedraw = !inputData.isAllowRedraw"
-            id="is-allow-redraw" 
+            id="is-allow-redraw-toggle" 
             type="checkbox" 
             class="sr-only peer" 
             :checked="inputData.isAllowRedraw"
@@ -201,31 +237,31 @@
       <!-- redraw in your style toggler -->
       <div v-if="redrawWorkId" class="input-block">
         <label 
-          for="is-redraw-in-your-style"
+          for="is-redraw-in-your-style-toggle"
           class="inline-flex relative items-center cursor-pointer"
         >
           <input 
-            @click="inputData.isRedrawInYourStyle = !inputData.isRedrawInYourStyle"
-            id="is-redraw-in-your-style" 
+            @click="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
+            id="is-redraw-in-your-style-toggle" 
             type="checkbox" 
             class="sr-only peer" 
-            :checked="inputData.isRedrawInYourStyle"
+            :checked="inputData.isredrawInMyStyle"
           >
           <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
 
-          <span class="ml-2">{{ $t('artworks.add.form.redrawInYourStyle') }}</span>
+          <span class="ml-2">{{ $t('artworks.add.form.redrawInMyStyle') }}</span>
         </label>
       </div>
 
       <!-- explicit toggler -->
       <div class="input-block">
         <label 
-          for="is-redraw-in-your-style"
+          for="explicit-mode-toggle"
           class="inline-flex relative items-center cursor-pointer"
         >
           <input 
             @click="inputData.isExplicit = !inputData.isExplicit"
-            id="is-redraw-in-your-style" 
+            id="explicit-mode-toggle" 
             type="checkbox" 
             class="sr-only peer" 
             :checked="inputData.isExplicit"
@@ -235,17 +271,15 @@
           <span class="ml-2">{{ $t('explicitContent') }}</span>
         </label>
         
-        <div v-show="inputData.isExplicit" class="flex p-4 mt-2 text-white bg-red-500 rounded" role="alert">
+        <!-- <div v-show="inputData.isExplicit" class="flex p-4 mt-2 text-white bg-red-500 rounded" role="alert">
           <div>
             <span>We strictly forbid the following categories to be uploaded to our platform:</span>
             <ul class="mt-2 list-disc list-inside text-white">
               <div>- *AI/program/machine generated arts <b>(we strongly do not support AI generated arts, for anyone who breaks this special rule will result in insta-ban)</b></div>
               <div>- Other's people works <b>(even if you have permission from the original artist, we decided not to allow this because it will interfere with the ranking system of other artists who upload their own artwork)</b></div>
-              <div>- Child pornography, child abuse, etc.</div>
-              <div>- Extreme gore, mutilation, etc.</div>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="flex flex-row justify-between md:justify-end">
@@ -291,8 +325,8 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import useAuthStore from '@/stores/auth.store'
 
 // components
-import Spinner from '~/components/globals/Spinner.vue'
 import Icon from '~/components/globals/Icon.vue'
+import Spinner from '~/components/globals/Spinner.vue'
 
 /**
  * Vue FilePond
@@ -314,10 +348,13 @@ const { $router } = useNuxtApp()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 watch (() => $router.query, () => {
   resetForm()
 })
+
+const redrawWorkId = computed(() => route.query.redrawWorkId)
 
 onMounted (() => {
   if (!auth.loggedIn) {
@@ -325,6 +362,10 @@ onMounted (() => {
   }
 
   fetchSetting()
+
+  if (redrawWorkId.value) {
+    fetchRedrawedArtworkInfo()
+  }
 
   /**
    * Init datepicker for artwork scheduled post purpose
@@ -339,8 +380,6 @@ onMounted (() => {
     minDate: today
   })
 })
-
-const redrawWorkId = computed(() => route.query.redrawWorkId)
 
 const resetForm = () => {
   artworkFiles.value = []
@@ -382,7 +421,7 @@ const inputData = ref({
   isExplicit: false,
   isOriginalCharacter: false,
   isAllowRedraw: false,
-  isRedrawInYourStyle: false,
+  isredrawInMyStyle: false,
   publishDate: null,
   publishTime: null
 })
@@ -435,7 +474,7 @@ const storeArtwork = async () => {
   formData.append('is_explicit', inputData.value.isExplicit ? 1 : 0)
   formData.append('is_original_character', inputData.value.isOriginalCharacter ? 1 : 0)
   formData.append('allow_redraw', inputData.value.isAllowRedraw ? 1 : 0)
-  formData.append('redraw_in_your_style', inputData.value.isRedrawInYourStyle ? 1 : 0)
+  formData.append('redraw_in_your_style', inputData.value.isredrawInMyStyle ? 1 : 0)
   if (redrawWorkId.value) {
     formData.append('redraw_of', redrawWorkId.value)
   }
@@ -502,5 +541,21 @@ const reset = () => {
   uploadSuccess.value = false
   uploadError.value = false
   uploadErrorMessage.value = ''
+}
+
+const redrawedArtwork = ref({})
+const redrawedArtworkLoading = ref(true)
+const fetchRedrawedArtworkInfo = async () => {
+  redrawedArtworkLoading.value = true
+
+  const [data, error] = await artworkApi.getWorkById(redrawWorkId.value)
+
+  if (error) {
+    // todo: handle error
+  } else {
+    redrawedArtwork.value = data
+  }
+
+  redrawedArtworkLoading.value = false
 }
 </script>

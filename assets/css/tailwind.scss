@@ -247,7 +247,7 @@
   }
 
   .light-button {
-    @apply b-button button-light hover:theme-colored;
+    @apply b-button button-light hover:theme-colored hover:text-white;
 
     .icon {
       @apply mr-2;

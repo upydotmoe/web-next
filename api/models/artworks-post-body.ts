@@ -76,7 +76,7 @@ export interface ArtworksPostBody {
      * @type {number}
      * @memberof ArtworksPostBody
      */
-    redrawInYourStyle?: ArtworksPostBodyRedrawInYourStyleEnum;
+    redrawInMyStyle?: ArtworksPostBodyredrawInMyStyleEnum;
     /**
      * 
      * @type {number}
@@ -105,7 +105,7 @@ export enum ArtworksPostBodyAllowRedrawEnum {
     * @export
     * @enum {string}
     */
-export enum ArtworksPostBodyRedrawInYourStyleEnum {
+export enum ArtworksPostBodyredrawInMyStyleEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
 }

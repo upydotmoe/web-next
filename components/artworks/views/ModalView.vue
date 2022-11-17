@@ -348,6 +348,60 @@
         :pagination-per-page="isModal ? 4 : 4"
       />
 
+      <!-- Show this if the artwork is a redraw of other artwork -->
+      <div v-if="artworkDetail.redraw_of">
+        <div class="mb-2 italic text-tiny">{{ $t('artworks.redrawedArtwork') }}</div>
+        
+        <!-- Loading -->
+        <div v-if="redrawedArtworkLoading" class="flex flex-row gap-2">
+          <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
+        </div>
+
+        <!-- Redrawed artwork info -->
+        <nuxt-link
+          v-else
+          :to="'/a/'+artworkDetail.redraw_of"
+          class="flex flex-row gap-2 w-full"
+        >
+          <div class="w-1/3" v-if="redrawedArtwork.artwork_assets">
+            <nuxt-img
+              preload
+              loading="lazy"
+              class="w-40 rounded-md"
+              :src="artworkThumb(redrawedArtwork.artwork_assets[0].bucket, redrawedArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+              @error="imageLoadError"
+            />
+          </div>
+
+          <div class="w-2/3">
+            <span class="font-bold">{{ redrawedArtwork.title }}</span>
+            <p v-html="redrawedArtwork.description.length > 200 ? redrawedArtwork.description.slice(0, 200) + '..' : redrawedArtwork.description" />
+          </div>
+        </nuxt-link>
+      </div>
+
+      <div v-if="artworkDetail.allow_redraw" class="custom-divider" />
+
+      <div v-if="artworkDetail.allow_redraw">
+        <div class="flex flex-row gap-2 justify-between w-full">
+          <nuxt-link
+            :to="'/post?redrawWorkId='+artworkDetail.id"
+            class="light-button"
+          >
+            <Icon :name="'i-typcn-brush'" />
+            {{ $t('artworks.redrawThisArtwork') }}
+          </nuxt-link>
+        </div>
+
+        <!-- redraws -->
+        <div
+          class="grid grid-cols-3 gap-2"
+          
+        >
+          
+        </div>
+      </div>
+
       <div class="custom-divider" />
 
       <!-- comment section -->
@@ -385,6 +439,7 @@
           </div>
         </div>
 
+        <!-- if user not logged in, can't comment -->
         <div v-if="!auth.loggedIn" class="p-4 mb-4 text-center rounded-md theme-color-secondary">
           {{ $t('comments.loginOrRegisterToLeaveComment') }}
         </div>
@@ -936,6 +991,11 @@ const view = async (selectedWorkId) => {
       if (!auth.loggedIn || auth.user.id !== data.users.id) {
         await increaseView(selectedWorkId)
       }
+
+      // get original artwork info if this artwork is a redraw of other artwork
+      if (data.redraw_of) {
+        fetchRedrawedArtworkInfo(data.redraw_of)
+      }
     }
 
     if (props.id !== 0) {
@@ -1443,6 +1503,25 @@ const copyLink = (link) => {
 const reportModalRef = ref(null)
 const showReportModal = () => {
   useModal().openModal('report-modal')
+}
+
+/**
+ * @redrawedArtwork
+ */
+const redrawedArtwork = ref({})
+const redrawedArtworkLoading = ref(true)
+const fetchRedrawedArtworkInfo = async (redrawedArtworkId) => {
+  redrawedArtworkLoading.value = true
+
+  const [data, error] = await artworkApi.getWorkById(redrawedArtworkId)
+
+  if (error) {
+    // todo: handle error
+  } else {
+    redrawedArtwork.value = data
+  }
+
+  redrawedArtworkLoading.value = false
 }
 
 defineExpose({

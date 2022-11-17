@@ -67,7 +67,7 @@ export interface ArtworkLiteModel {
      * @type {number}
      * @memberof ArtworkLiteModel
      */
-    redrawInYourStyle?: number;
+    redrawInMyStyle?: number;
     /**
      * 
      * @type {number}

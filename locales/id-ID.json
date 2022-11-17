@@ -42,6 +42,9 @@
     "moreArtworkBy": "Lainnya dari",
     "usersLiked": "Pengguna yang menyukai",
     "originalCharacter": "Karakter Orisinil",
+    "redrawThisArtwork": "Redraw karya ini",
+    "redrawedArtwork": "Karya Original",
+    "redrawOriginalLoading": "Memuat informasi karya original..",
     "add": {
       "form": {
         "title": "Unggah artwork baru",
@@ -55,7 +58,7 @@
         "post": "Unggah",
         "publishDate": "Rencana tanggal publikasi",
         "allowRedraw": "Izinkan redraw",
-        "redrawInYourStyle": "Redraw dengan gaya gambarmu sendiri"
+        "redrawInMyStyle": "Diredraw dengan gaya lukisanku sendiri"
       }
     },
     "update": {
@@ -185,7 +188,7 @@
       "suicide": "Bunuh diri atau melukai diri sendiri",
       "graphic": "Konten grafik (mengandung gore/mutilasi/darah)",
       "terrorism": "Terrorisme",
-      "aiGeneratedArt": "Gambar yang dihasilkan oleh AI",
+      "aiGeneratedArt": "Karya yang dihasilkan oleh AI",
       "somethingElse": "Lainnnya"
     },
     "reportSubmitted": "Laporan terkirim",
