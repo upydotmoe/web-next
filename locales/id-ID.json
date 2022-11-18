@@ -42,12 +42,14 @@
     "moreArtworkBy": "Lainnya dari",
     "usersLiked": "Pengguna yang menyukai",
     "originalCharacter": "Karakter Orisinil",
+    "redraws": "Redraws",
     "redrawThisArtwork": "Redraw karya ini",
     "redrawedArtwork": "Karya Original",
     "redrawOriginalLoading": "Memuat informasi karya original..",
     "add": {
       "form": {
-        "title": "Unggah artwork baru",
+        "title": "Unggah Artwork Baru",
+        "titleRedraw": "Unggah Redraw Baru",
         "uploadSuccess": "Berhasil menggunggah artworkmu!",
         "uploadFailure": "Gagal mengunggah artworkmu, harap coba lagi.",
         "successRedirect": "Mengalihkanmu ke halaman artworkmu..",
@@ -166,7 +168,13 @@
   "filters": "Saring",
   "readMore": "baca lebih banyak",
   "delete": "Hapus",
-  "settings": "Pengaturan",
+  "settings": {
+    "settings": "Pengaturan",
+    "backToProfile": "Kembali ke Profil",
+    "profile": "Profil",
+    "social": "Sosial",
+    "password": "Kata Sandi"
+  },
   "report": "Laporkan",
   "reports": {
     "reports": "Laporan",

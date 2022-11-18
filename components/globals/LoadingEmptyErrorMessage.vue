@@ -3,7 +3,7 @@
     v-show="loading || empty || error"
     :class="[
       'p-4 text-center rounded-md message',
-      backgroundColor ?? (isMobile() ? 'theme-color-secondary' : 'theme-color')
+      backgroundColor != '' ? backgroundColor : (isMobile() ? 'theme-color-secondary' : 'theme-color')
     ]"
   >
     <!-- When loading is in progress -->

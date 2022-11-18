@@ -197,7 +197,7 @@
                   <nuxt-link v-if="auth.loggedIn" :to="'/profile/setting'">
                     <div class="menu parent-icon">
                       <Icon :name="'i-ph-gear-six'" />
-                      {{ $t('settings') }}
+                      {{ $t('settings.settings') }}
                     </div>
                   </nuxt-link>
 

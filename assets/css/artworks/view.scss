@@ -155,6 +155,29 @@
   }
 }
 
+.redraw-works {
+  @apply grid grid-cols-4 gap-2 w-full;
+
+  .work-thumbnail {
+    @apply object-cover shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
+  
+    a {
+      p {
+        @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
+      }
+      img {
+        @apply object-cover object-top w-full rounded-md;
+        aspect-ratio: 1/1;
+      }
+  
+      .related {
+        @apply object-cover object-top w-full rounded-md;
+        aspect-ratio: 1/1;
+      }
+    }
+  }
+}
+
 .info {
   @apply mb-4;
 

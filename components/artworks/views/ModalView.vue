@@ -382,11 +382,18 @@
 
       <div v-if="artworkDetail.allow_redraw" class="custom-divider" />
 
-      <div v-if="artworkDetail.allow_redraw">
+      <div v-if="artworkDetail.allow_redraw" class="flex flex-col gap-4">
+        <span class="section-title">
+          {{ $t('artworks.redraws') }} 
+          ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
+        </span>
+
         <div class="flex flex-row gap-2 justify-between w-full">
           <nuxt-link
             :to="'/post?redrawWorkId='+artworkDetail.id"
-            class="light-button"
+            :class="[
+              !isModal ? 'light-button' : 'secondary-button'
+            ]"
           >
             <Icon :name="'i-typcn-brush'" />
             {{ $t('artworks.redrawThisArtwork') }}
@@ -394,11 +401,24 @@
         </div>
 
         <!-- redraws -->
-        <div
-          class="grid grid-cols-3 gap-2"
-          
-        >
-          
+        <div v-if="artworkRedraws.data.length">
+          <WorkList
+            :section-class="'redraw-works'"
+            :works="artworkRedraws.data"
+            :view="view"
+            :is-href="isHref"
+            :is-mini-list="true"
+            :current-work-id="artworkDetail.id"
+          />
+
+          <nuxt-link
+            v-if="artworkRedraws.pagination.next_previous.next_page" 
+            :to="'/a/'+artworkDetail.id+'/redraws'"
+            class="mt-2 primary-button"
+          >
+            <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
+            {{ $t('seeMore') }}
+          </nuxt-link>
         </div>
       </div>
 
@@ -412,14 +432,17 @@
             <div class="flex relative flex-col">
               <textarea
                 v-model="commentInput"
-                class="input form-input"
-                :class="[{ 'cursor-not-allowed': submitCommentLoading }, { 'theme-color-secondary textarea': isModal }]"
-                :readonly="submitCommentLoading"
                 cols="30"
+                data-gramm="false"
+                :class="[
+                  'input form-input',
+                  { 'cursor-not-allowed': submitCommentLoading },
+                  { 'theme-color-secondary textarea': isModal }
+                ]"
+                :readonly="submitCommentLoading"
                 :rows="commentInput != null && commentInput != '' ? '4' : '0'"
                 :placeholder="$t('comments.inputPlaceholder')"
                 :maxlength="commentMaxChar"
-                data-gramm="false"
               />
               <span 
                 v-show="commentInput != null && commentInput != ''" 
@@ -835,6 +858,7 @@ import ReportModal from '~/components/reports/ReportModal.vue'
 import ShareArtworkToFeedModal from '~/components/feeds/ShareArtworkToFeedModal.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import UserLiked from '~/components/artworks/views/UserLiked.vue'
+import WorkList from '~/components/artworks/WorkList.vue'
 
 // stores
 const auth = useAuthStore()
@@ -995,6 +1019,12 @@ const view = async (selectedWorkId) => {
       // get original artwork info if this artwork is a redraw of other artwork
       if (data.redraw_of) {
         fetchRedrawedArtworkInfo(data.redraw_of)
+      }
+
+      // if artwork has redraws
+      await countRedraws()
+      if (redrawCount.value) {
+        await fetchRedraws(data.id)
       }
     }
 
@@ -1508,6 +1538,34 @@ const showReportModal = () => {
 /**
  * @redrawedArtwork
  */
+const redrawCount = ref(0)
+const countRedraws = async () => {
+  const [redrawTotal, error] = await artworkApi.countRedraws(artworkDetail.value.id)
+
+  redrawCount.value = redrawTotal
+}
+
+// get redraws of artwork
+const artworkRedraws = ref({
+  data: [],
+  pagination: {}
+})
+const fetchRedraws = async (workId) => {
+  const [redraws, paginationData, error] = await artworkApi.getRedraws({
+    workId,
+    pagination: {
+      page: 0,
+      perPage: 8
+    }
+  })
+
+  if (!error) {
+    artworkRedraws.value.data = redraws
+    artworkRedraws.value.pagination = paginationData
+  }
+}
+
+// get original artwork info (only show for redraw artwork)
 const redrawedArtwork = ref({})
 const redrawedArtworkLoading = ref(true)
 const fetchRedrawedArtworkInfo = async (redrawedArtworkId) => {

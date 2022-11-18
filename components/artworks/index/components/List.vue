@@ -235,7 +235,7 @@ export default {
             },
             explicitMode: explicitMode.value,
             range: 'daily',
-            rangeMode: 'none'
+            rangeMode: 'views'
           })
 
           if (popularArtworks) {

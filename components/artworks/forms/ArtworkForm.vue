@@ -2,7 +2,7 @@
   <div>
     <!-- form title -->
     <div class="mb-4 text-base font-medium">
-      {{ $t('artworks.add.form.title') }}
+      {{ !redrawWorkId ? $t('artworks.add.form.title') : $t('artworks.add.form.titleRedraw') }}
     </div>
 
     <!-- redrawed artwork detail -->

@@ -7,6 +7,7 @@ import {
   ArtworkLikesApi,
   ArtworkListApi,
   ArtworksApi,
+  ArtworksRedrawsApi,
   ArtworkTagsApi,
   ArtworkViewsApi,
   SearchApi
@@ -328,7 +329,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }) => {
     try {
       const { data } = await new ArtworkLikesApi(oApiConfiguration)
-        .getUserLikedTheArtwork(
+        .getUsersLikedAnArtwork(
           params.workId,
           params.pagination.perPage,
           params.pagination.page
@@ -629,6 +630,45 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  /**
+   * @redraws
+   */
+  const countRedraws = async (workId: number) => {
+    try {
+      const { data } = await new ArtworksRedrawsApi(oApiConfiguration)
+        .countRedraws(
+          workId,
+          fetchOptions
+        )
+
+      return [data.data?.count, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
+  const getRedraws = async (params: {
+    workId: number,
+    pagination: {
+      page: number,
+      perPage: number
+    }
+  }) => {
+    try {
+      const { data } = await new ArtworksRedrawsApi(oApiConfiguration)
+        .getRedraws(
+          params.workId,
+          params.pagination.page,
+          params.pagination.perPage,
+          fetchOptions
+        )
+      
+      return [data.data?.redraws, data.data?.pagination, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   return {
     getMostPopular,
     getLatest,
@@ -659,6 +699,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     addReply,
     deleteReply,
     likeReply,
-    unlikeReply
+    unlikeReply,
+
+    countRedraws,
+    getRedraws
   }
 }

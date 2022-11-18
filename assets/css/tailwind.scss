@@ -255,7 +255,7 @@
   }
 
   .secondary-button {
-    @apply b-button theme-color-secondary hover:theme-colored;
+    @apply b-button theme-color-secondary hover:theme-colored hover:text-white;
 
     .icon {
       @apply mr-2;

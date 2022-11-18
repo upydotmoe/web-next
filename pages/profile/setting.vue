@@ -7,6 +7,15 @@
     <div class="flex flex-row w-full">
       <!-- tabs -->
       <div class="mr-2 md:mr-4 lg:w-1/5">
+        <nuxt-link
+          :to="'/profile'" 
+          class="flex flex-row py-3 px-4 mb-4 font-medium leading-5 text-white rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white button-color"
+        >
+          <Icon :name="'i-typcn-arrow-back'" class="text-lg text-white lg:mr-2 hover:text-white" />
+
+          <span class="hidden-lg-flex">{{ $t('settings.backToProfile') }}</span>
+        </nuxt-link>
+
         <div 
           class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
           :class="{ 'button-color text-white': config.currentState === 'profile' }"
@@ -15,7 +24,7 @@
           <Icon v-show="config.currentState === 'profile'" :name="'i-fluent-person-32-regular'" class="text-lg text-white lg:mr-2 hover:text-white" />
           <Icon v-show="config.currentState !== 'profile'" :name="'i-fluent-person-32-regular'" class="text-lg lg:mr-2 hover:text-white" />
 
-          <span class="hidden-lg-flex">Profile</span>
+          <span class="hidden-lg-flex">{{ $t('settings.profile') }}</span>
         </div>
         
         <div 
@@ -26,7 +35,7 @@
           <Icon v-show="config.currentState === 'social'" :name="'i-ion-share-social-outline'" class="text-lg text-white lg:mr-2 hover:text-white" />
           <Icon v-show="config.currentState !== 'social'" :name="'i-ion-share-social-outline'" class="text-lg lg:mr-2 hover:text-white" />
 
-          <span class="hidden-lg-flex">Social</span>
+          <span class="hidden-lg-flex">{{ $t('settings.social') }}</span>
         </div>
         
         <div 
@@ -37,7 +46,7 @@
           <Icon v-show="config.currentState === 'password'" :name="'i-material-symbols-key-outline-rounded'" class="text-lg text-white lg:mr-2 hover:text-white" />
           <Icon v-show="config.currentState !== 'password'" :name="'i-material-symbols-key-outline-rounded'" class="text-lg lg:mr-2 hover:text-white" />
 
-          <span class="hidden-lg-flex">Password</span>
+          <span class="hidden-lg-flex">{{ $t('settings.password') }}</span>
         </div>
         
         <div 
@@ -48,7 +57,7 @@
           <Icon v-show="config.currentState === 'settings'" :name="'i-ph-gear-six'" class="text-lg text-white lg:mr-2 hover:text-white" />
           <Icon v-show="config.currentState !== 'settings'" :name="'i-ph-gear-six'" class="text-lg lg:mr-2 hover:text-white" />
 
-          <span class="hidden-lg-flex">Settings</span>
+          <span class="hidden-lg-flex">{{ $t('settings.settings') }}</span>
         </div>
       </div>
 

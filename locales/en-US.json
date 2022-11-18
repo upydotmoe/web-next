@@ -42,12 +42,14 @@
     "moreArtworkBy": "More by",
     "usersLiked": "Users liked",
     "originalCharacter": "Original Character",
+    "redraws": "Redraws",
     "redrawThisArtwork": "Redraw this Artwork",
     "redrawedArtwork": "Original Artwork",
     "redrawOriginalLoading": "Loading original artwork info..",
     "add": {
       "form": {
         "title": "Post New Artwork",
+        "titleRedraw": "Post New Redraw",
         "uploadSuccess": "Successfully uploaded your artwork!",
         "uploadFailure": "Failed to upload your artwork, please try again.",
         "successRedirect": "Redirecting you to the work page..",
@@ -166,7 +168,13 @@
   "filters": "Filters",
   "readMore": "read more",
   "delete": "Delete",
-  "settings": "Settings",
+  "settings": {
+    "settings": "Settings",
+    "backToProfile": "Back to Profile",
+    "profile": "Profile",
+    "social": "Social",
+    "password": "Password"
+  },
   "report": "Report",
   "reports": {
     "reports": "Reports",
