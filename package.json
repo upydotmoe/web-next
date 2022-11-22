@@ -4,7 +4,10 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "pm2:start": "pm2 start ./.output/server/index.mjs --name upy-web && pm2 save",
+    "pm2:reload": "pm2 reload upy-web",
+    "pm2:stop": "pm2 delete upy-web"
   },
   "devDependencies": {
     "@iconify/json": "^2.1.84",
