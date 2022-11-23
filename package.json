@@ -42,6 +42,7 @@
     "isomorphic-fetch": "^3.0.0",
     "moment": "latest",
     "number-shortener": "^1.0.1",
+    "nuxt-security": "^0.8.0",
     "pinia-plugin-persistedstate": "^1.6.3",
     "postcss": "^8.4.16",
     "url": "^0.11.0",

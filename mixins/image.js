@@ -14,11 +14,12 @@ export default {
     },
     avatarCoverUrl (bucketName, fileName) {
       let url
-      if (this.$config.activeCdn === 'cloudflare') {
-        url = `${this.$config.staticallyCdn}/${this.$config.cloudflareUrl}/file/${bucketName}/${fileName}`
-      } else {
-        url = `https://${this.$config.cdnUrl}/${bucketName}/${fileName}`
-      }
+      // if (this.$config.activeCdn === 'cloudflare') {
+      //   url = `${this.$config.staticallyCdn}/${this.$config.cloudflareUrl}/file/${bucketName}/${fileName}`
+      // } else {
+        // url = `https://${this.$config.cdnUrl}/${bucketName}/${fileName}`
+        url = `https://${this.$config.cdnUrl}/${fileName}`
+      // }
 
       return url
     },

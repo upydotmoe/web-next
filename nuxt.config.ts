@@ -111,6 +111,7 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
     '@nuxt/image-edge'
+    // 'nuxt-security' // temporary disabled due to cors issue with image CDN
   ],
 
   plugins: [
@@ -211,5 +212,12 @@ export default defineNuxtConfig({
       'http://localhost:3000',
       'https://upy.moe'
     ]
-  }
+  },
+
+  // config for 'nuxt-security'
+  // https://nuxt-security.vercel.app/getting-started/configuration
+  // temporary disabled due to cors issue with image CDN
+  // security: {
+  //   hidePoweredBy: false,
+  // }
 })

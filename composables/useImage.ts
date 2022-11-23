@@ -25,7 +25,8 @@ export default function () {
           break
       }
 
-      return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
+      // return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
+      return `https://${config.public.cdnUrl}/${fileName}${format}`
     // }
   }
 
@@ -47,7 +48,8 @@ export default function () {
         format = '?width=800&quality=40'
       }
 
-      return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
+      // return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
+      return `https://${config.public.cdnUrl}/${fileName}${format}`
     }
   }
 
