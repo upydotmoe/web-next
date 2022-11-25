@@ -43,9 +43,11 @@
     "usersLiked": "Users liked",
     "originalCharacter": "Original Character",
     "redraws": "Redraws",
+    "myRedraw": "My Redraw",
     "redrawThisArtwork": "Redraw this Artwork",
-    "redrawedArtwork": "Original Artwork",
+    "originalArtwork": "Original Artwork",
     "redrawOriginalLoading": "Loading original artwork info..",
+    "noDescription": "No description",
     "add": {
       "form": {
         "title": "Post New Artwork",

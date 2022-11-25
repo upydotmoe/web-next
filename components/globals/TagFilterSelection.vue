@@ -7,19 +7,23 @@
         <h1 class="mb-2 text-sm">{{ $t('pickUpToTags') }}</h1>
 
         <div class="input-block">
-          <tags-input 
-            v-model="tags"
-            :placeholder="$t('tagsInputPlaceholder')"
-            :typeahead="true"
-            :limit="10"
-            :hide-input-on-limit="true"
-            :typeahead-style="'dropdown'"
-            :typeahead-activation-threshold="3"
-            :typeahead-show-on-focus="true"
-            :typeahead-hide-discard="true"
-            :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
-            :add-tags-on-comma="true"
-          />
+          <client-only>
+            <tags-input 
+              v-model="tags"
+              :key="tagKey"
+              :placeholder="$t('tagsInputPlaceholder')"
+              :typeahead="true"
+              :limit="10"
+              :hide-input-on-limit="true"
+              :typeahead-style="'dropdown'"
+              :typeahead-activation-threshold="3"
+              :typeahead-show-on-focus="true"
+              :typeahead-hide-discard="true"
+              :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
+              :add-tags-on-comma="true"
+              :initial-value="tags"
+            />
+          </client-only>
         </div>
         
         <div class="flex float-right flex-row gap-2 mt-4">
@@ -47,10 +51,12 @@ const apiUrl = rConfig.public.apiUrl
 /**
  * @tags
  */
+const tagKey = ref(1)
 const tags = ref([])
 
 const init = (previousSelectedTags) => {
   tags.value = previousSelectedTags
+  tagKey.value++
 }
 
 const selectedTags = ref([])

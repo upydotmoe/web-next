@@ -1,14 +1,14 @@
 <template>
   <div>
     <!-- form title -->
-    <div class="mb-4 text-base font-medium">
+    <div class="mb-4 section-title">
       {{ !redrawWorkId ? $t('artworks.add.form.title') : $t('artworks.add.form.titleRedraw') }}
     </div>
 
     <!-- redrawed artwork detail -->
-    <div v-if="redrawWorkId" class="p-2 mb-4 rounded-md theme-color">
+    <div v-if="redrawWorkId" class="p-2 mb-4 rounded-md theme-color hover:theme-colored">
       <div>
-        <div class="mb-2 italic text-tiny">{{ $t('artworks.redrawedArtwork') }}</div>
+        <div class="mb-2 section-title">{{ $t('artworks.originalArtwork') }}</div>
 
         <!-- Loading -->
         <div v-if="redrawedArtworkLoading" class="flex flex-row gap-2">
@@ -16,25 +16,30 @@
         </div>
 
         <!-- Redrawed artwork info -->
-        <nuxt-link
+        <a
           v-else
-          :to="'/a/'+redrawWorkId"
+          :href="'/a/'+redrawWorkId"
+          target="_blank"
           class="flex flex-row gap-2"
         >
-          <div v-if="redrawedArtwork.artwork_assets">
-            <nuxt-img
+          <div
+            v-if="redrawedArtwork.artwork_assets"
+            class="w-1/4"
+          >
+            <!-- test --> <img
               preload
               loading="lazy"
-              class="w-40 rounded-md"
+              class="w-full rounded-md"
               :src="artworkThumb(redrawedArtwork.artwork_assets[0].bucket, redrawedArtwork.artwork_assets[0].filename, 'thumbnail', false)"
               @error="imageLoadError"
             />
           </div>
 
-          <div>
-            <span>{{ redrawedArtwork.title }}</span>
+          <div class="flex flex-col gap-2 w-3/4">
+            <span class="title">{{ redrawedArtwork.title }}</span>
+            <p v-html="redrawedArtwork.description.length > 300 ? redrawedArtwork.description.slice(0, 300) + '..' : redrawedArtwork.description"/>
           </div>
-        </nuxt-link>
+        </a>
       </div>
     </div>
 
@@ -141,22 +146,29 @@
       </div>
 
       <div class="input-block">
-        <tags-input
-          v-model="tags"
-          :placeholder="$t('tagsInputPlaceholder')"
-          :typeahead="true"
-          :typeahead-style="'dropdown'"
-          :typeahead-activation-threshold="2"
-          :typeahead-show-on-focus="true"
-          :typeahead-hide-discard="true"
-          :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
-          :add-tags-on-comma="true"
-          :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
-        />
+        <client-only>
+          <tags-input
+            v-if="!initTagsLoading"
+            v-model="tags"
+            :placeholder="$t('tagsInputPlaceholder')"
+            :typeahead="true"
+            :typeahead-style="'dropdown'"
+            :typeahead-activation-threshold="2"
+            :typeahead-show-on-focus="true"
+            :typeahead-hide-discard="true"
+            :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
+            :add-tags-on-comma="true"
+            :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
+            :initial-value="!redrawWorkId && !initTagsLoading ? null : initTags"
+          />
+        </client-only>
       </div>
 
       <!-- planned publish date -->
-      <div class="flex flex-row gap-x-2 input-block">
+      <div
+        v-show="!redrawWorkId"
+        class="flex flex-row gap-x-2 input-block"
+      >
         <!-- <ClientOnly>
           <div
             x-data
@@ -365,6 +377,8 @@ onMounted (() => {
 
   if (redrawWorkId.value) {
     fetchRedrawedArtworkInfo()
+  } else {
+    initTagsLoading.value = false
   }
 
   /**
@@ -545,17 +559,37 @@ const reset = () => {
 
 const redrawedArtwork = ref({})
 const redrawedArtworkLoading = ref(true)
+
+const initTagsLoading = ref(true)
+const initTags = ref([])
+
 const fetchRedrawedArtworkInfo = async () => {
   redrawedArtworkLoading.value = true
+  initTagsLoading.value = true
 
   const [data, error] = await artworkApi.getWorkById(redrawWorkId.value)
-
+  
   if (error) {
     // todo: handle error
   } else {
     redrawedArtwork.value = data
+
+    // apply tag filter if artwork has tags
+    if (data.artwork_has_tags.length) {
+      const originalArtworkTags = data.artwork_has_tags
+
+      originalArtworkTags.forEach(({ artwork_tags: tag }) => {
+        initTags.value.push({
+          key: tag.id,
+          value: tag.tag
+        })
+      })
+
+      tags.value = initTags.value
+    }
   }
 
   redrawedArtworkLoading.value = false
+  initTagsLoading.value = false
 }
 </script>

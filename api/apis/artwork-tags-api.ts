@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20027 } from '../models';
 import { InlineResponse20028 } from '../models';
+import { InlineResponse20029 } from '../models';
 /**
  * ArtworkTagsApi - axios parameter creator
  * @export
@@ -130,7 +130,7 @@ export const ArtworkTagsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getKeysByTags(tags: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20028>>> {
+        async getKeysByTags(tags: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20029>>> {
             const localVarAxiosArgs = await ArtworkTagsApiAxiosParamCreator(configuration).getKeysByTags(tags, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -144,7 +144,7 @@ export const ArtworkTagsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchTags(keyword: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<InlineResponse20027>>>> {
+        async searchTags(keyword: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<Array<InlineResponse20028>>>> {
             const localVarAxiosArgs = await ArtworkTagsApiAxiosParamCreator(configuration).searchTags(keyword, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -167,7 +167,7 @@ export const ArtworkTagsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getKeysByTags(tags: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20028>> {
+        async getKeysByTags(tags: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20029>> {
             return ArtworkTagsApiFp(configuration).getKeysByTags(tags, options).then((request) => request(axios, basePath));
         },
         /**
@@ -177,7 +177,7 @@ export const ArtworkTagsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchTags(keyword: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<InlineResponse20027>>> {
+        async searchTags(keyword: string, options?: AxiosRequestConfig): Promise<AxiosResponse<Array<InlineResponse20028>>> {
             return ArtworkTagsApiFp(configuration).searchTags(keyword, options).then((request) => request(axios, basePath));
         },
     };
@@ -198,7 +198,7 @@ export class ArtworkTagsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkTagsApi
      */
-    public async getKeysByTags(tags: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20028>> {
+    public async getKeysByTags(tags: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20029>> {
         return ArtworkTagsApiFp(this.configuration).getKeysByTags(tags, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -209,7 +209,7 @@ export class ArtworkTagsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkTagsApi
      */
-    public async searchTags(keyword: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<InlineResponse20027>>> {
+    public async searchTags(keyword: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<Array<InlineResponse20028>>> {
         return ArtworkTagsApiFp(this.configuration).searchTags(keyword, options).then((request) => request(this.axios, this.basePath));
     }
 }

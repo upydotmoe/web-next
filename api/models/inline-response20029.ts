@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ArtworksUnlikeBody } from './artworks-unlike-body';
+import { InlineResponse20029Data } from './inline-response20029-data';
 /**
  * 
  * @export
@@ -26,8 +26,8 @@ export interface InlineResponse20029 {
     success?: boolean;
     /**
      * 
-     * @type {ArtworksUnlikeBody}
+     * @type {InlineResponse20029Data}
      * @memberof InlineResponse20029
      */
-    data?: ArtworksUnlikeBody;
+    data?: InlineResponse20029Data;
 }

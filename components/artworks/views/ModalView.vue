@@ -55,6 +55,46 @@
 
       <!-- Image list -->
       <div class="image-list">
+        <div
+          v-if="artworkDetail.redraw_of && !originalArtworkLoading"
+          class="flex flex-row mb-2"
+        >
+          <!-- original -->
+          <nuxt-link
+            :to="'a/'+originalArtwork.id"
+            class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
+          >
+            <!-- test --> <img
+              preload
+              loading="lazy"
+              class="inline-block mr-2 w-8 rounded-md"
+              :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+              @error="imageLoadError"
+            />
+            <span class="font-bold">
+              {{ originalArtwork.title.length > redrawBreadcrumbTitleMaxLength ? originalArtwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : originalArtwork.title }}
+            </span>
+          </nuxt-link>
+
+          <!-- redraw version (current) -->
+          <div
+            :class="[
+              'inline-block flex-row gap-2 p-1 pr-2 pl-6 -ml-4 rounded-md',
+              isModal ? 'theme-color-secondary' : 'theme-color'
+            ]"
+          >
+            <!-- test --> <img
+              preload
+              loading="lazy"
+              class="inline-block mr-2 w-8 rounded-md"
+              :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
+              @error="imageLoadError"
+            />
+            <span class="font-bold">
+              {{ artworkDetail.title.length > redrawBreadcrumbTitleMaxLength ? artworkDetail.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : artworkDetail.title }}
+            </span>
+          </div>
+        </div>
         <viewer 
           :options="{
             url: 'data-source'
@@ -69,7 +109,7 @@
           >
             <!-- loading="lazy" -->
             <!-- v-lazy="src.thumbnail" -->
-            <nuxt-img
+            <!-- test --> <img
               preload
               loading="lazy"
               :src="src.thumbnail"
@@ -350,45 +390,46 @@
 
       <!-- Show this if the artwork is a redraw of other artwork -->
       <div v-if="artworkDetail.redraw_of">
-        <div class="mb-2 italic text-tiny">{{ $t('artworks.redrawedArtwork') }}</div>
+        <div class="mb-2 italic title">{{ $t('artworks.originalArtwork') }}</div>
         
         <!-- Loading -->
-        <div v-if="redrawedArtworkLoading" class="flex flex-row gap-2">
+        <div v-if="originalArtworkLoading" class="flex flex-row gap-2">
           <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
         </div>
 
-        <!-- Redrawed artwork info -->
-        <nuxt-link
+        <!-- Original artwork info -->
+        <a
           v-else
-          :to="'/a/'+artworkDetail.redraw_of"
+          :href="'/a/'+artworkDetail.redraw_of"
+          target="_blank"
           class="flex flex-row gap-2 w-full"
         >
-          <div class="w-1/3" v-if="redrawedArtwork.artwork_assets">
-            <nuxt-img
+          <div class="w-1/3" v-if="originalArtwork.artwork_assets">
+            <!-- test --> <img
               preload
               loading="lazy"
               class="w-40 rounded-md"
-              :src="artworkThumb(redrawedArtwork.artwork_assets[0].bucket, redrawedArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+              :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
               @error="imageLoadError"
             />
           </div>
 
           <div class="w-2/3">
-            <span class="font-bold">{{ redrawedArtwork.title }}</span>
-            <p v-html="redrawedArtwork.description.length > 200 ? redrawedArtwork.description.slice(0, 200) + '..' : redrawedArtwork.description" />
+            <span class="title">{{ originalArtwork.title }}</span>
+            <p v-html="originalArtwork.description.length > 200 ? originalArtwork.description.slice(0, 200) + '..' : originalArtwork.description" />
           </div>
-        </nuxt-link>
+        </a>
       </div>
 
       <div v-if="artworkDetail.allow_redraw" class="custom-divider" />
 
-      <div v-if="artworkDetail.allow_redraw" class="flex flex-col gap-4">
+      <div v-if="artworkDetail.allow_redraw || (artworkRedraws.data && artworkRedraws.data.length)" class="flex flex-col gap-4">
         <span class="section-title">
           {{ $t('artworks.redraws') }} 
           ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
         </span>
 
-        <div class="flex flex-row gap-2 justify-between w-full">
+        <div v-if="auth.loggedIn && !myRedraw" class="flex flex-row gap-2 justify-between w-full">
           <nuxt-link
             :to="'/post?redrawWorkId='+artworkDetail.id"
             :class="[
@@ -401,7 +442,7 @@
         </div>
 
         <!-- redraws -->
-        <div v-if="artworkRedraws.data.length">
+        <div v-if="artworkRedraws.data && artworkRedraws.data.length">
           <WorkList
             :section-class="'redraw-works'"
             :works="artworkRedraws.data"
@@ -418,6 +459,38 @@
           >
             <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
             {{ $t('seeMore') }}
+          </nuxt-link>
+        </div>
+        
+        <!-- my redraw -->
+        <div v-if="auth.loggedIn && myRedraw">
+          <span class="title">
+            {{ $t('artworks.myRedraw') }}
+          </span>
+
+          <nuxt-link
+            :to="'/a/'+myRedraw.id"
+            class="flex flex-row gap-2 mt-2 w-full"
+          >
+            <div class="w-1/3" v-if="myRedraw.artwork_assets">
+              <!-- test --> <img
+                preload
+                loading="lazy"
+                class="w-40 rounded-md"
+                :src="artworkThumb(myRedraw.artwork_assets[0].bucket, myRedraw.artwork_assets[0].filename, 'thumbnail', false)"
+                @error="imageLoadError"
+              />
+            </div>
+
+            <div class="w-2/3">
+              <span class="title">{{ myRedraw.title }}</span>
+              <p
+                v-html="myRedraw.description ? (myRedraw.description.length > 100 ? myRedraw.description.slice(0, 100) + '..' : originalArtwork.description) : $t('artworks.noDescription')"
+                class="mb-2"
+              />
+
+              <span class="italic">{{ formatDate(myRedraw.scheduled_post) }}</span>
+            </div>
           </nuxt-link>
         </div>
       </div>
@@ -1018,14 +1091,19 @@ const view = async (selectedWorkId) => {
 
       // get original artwork info if this artwork is a redraw of other artwork
       if (data.redraw_of) {
-        fetchRedrawedArtworkInfo(data.redraw_of)
+        fetchoriginalArtworkInfo(data.redraw_of)
       }
 
       // if artwork has redraws
       await countRedraws()
-      if (redrawCount.value) {
+
+      // if (redrawCount.value) {
         await fetchRedraws(data.id)
-      }
+
+        if (auth.loggedIn) {
+          await fetchMyRedraw(data.id)
+        }
+      // }
     }
 
     if (props.id !== 0) {
@@ -1536,8 +1614,10 @@ const showReportModal = () => {
 }
 
 /**
- * @redrawedArtwork
+ * @originalArtwork
  */
+const redrawBreadcrumbTitleMaxLength = useDevice().isMobile() ? 19 : 25
+
 const redrawCount = ref(0)
 const countRedraws = async () => {
   const [redrawTotal, error] = await artworkApi.countRedraws(artworkDetail.value.id)
@@ -1565,21 +1645,32 @@ const fetchRedraws = async (workId) => {
   }
 }
 
-// get original artwork info (only show for redraw artwork)
-const redrawedArtwork = ref({})
-const redrawedArtworkLoading = ref(true)
-const fetchRedrawedArtworkInfo = async (redrawedArtworkId) => {
-  redrawedArtworkLoading.value = true
+const myRedraw = ref({})
+const fetchMyRedraw = async (workId) => {
+  const [redraw, error] = await artworkApi.getMyRedraw({
+    workId
+  })
 
-  const [data, error] = await artworkApi.getWorkById(redrawedArtworkId)
+  if (!error) {
+    myRedraw.value = redraw
+  }
+}
+
+// get original artwork info (only show for redraw artwork)
+const originalArtwork = ref({})
+const originalArtworkLoading = ref(true)
+const fetchoriginalArtworkInfo = async (originalArtworkId) => {
+  originalArtworkLoading.value = true
+
+  const [data, error] = await artworkApi.getWorkById(originalArtworkId)
 
   if (error) {
     // todo: handle error
   } else {
-    redrawedArtwork.value = data
+    originalArtwork.value = data
   }
 
-  redrawedArtworkLoading.value = false
+  originalArtworkLoading.value = false
 }
 
 defineExpose({

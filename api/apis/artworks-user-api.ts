@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20026 } from '../models';
+import { InlineResponse20027 } from '../models';
 /**
  * ArtworksUserApi - axios parameter creator
  * @export
@@ -101,7 +101,7 @@ export const ArtworksUserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserLikedArtworks(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20026>>> {
+        async getUserLikedArtworks(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20027>>> {
             const localVarAxiosArgs = await ArtworksUserApiAxiosParamCreator(configuration).getUserLikedArtworks(userId, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -126,7 +126,7 @@ export const ArtworksUserApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserLikedArtworks(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20026>> {
+        async getUserLikedArtworks(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20027>> {
             return ArtworksUserApiFp(configuration).getUserLikedArtworks(userId, page, perPage, options).then((request) => request(axios, basePath));
         },
     };
@@ -149,7 +149,7 @@ export class ArtworksUserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworksUserApi
      */
-    public async getUserLikedArtworks(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20026>> {
+    public async getUserLikedArtworks(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20027>> {
         return ArtworksUserApiFp(this.configuration).getUserLikedArtworks(userId, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
 }

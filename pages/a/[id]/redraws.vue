@@ -4,6 +4,13 @@
     :hide-side="true"
     :no-right-side="true"
   >
+    <div class="flex flex-row justify-start w-full md:w-auto">
+      <a @click.prevent="$router.back()" class="mb-4 light-button">
+        <Icon :name="'i-typcn-arrow-back'" />
+        {{ $t('back') }}
+      </a>
+    </div>
+
     <!-- original artwork info -->
     <div
       v-if="!redrawedArtwork.options.loading"
@@ -14,7 +21,7 @@
         class="flex flex-row gap-2"
       >
         <div v-if="redrawedArtwork.data.artwork_assets">
-          <nuxt-img
+          <!-- test --> <img
             preload
             loading="lazy"
             class="w-40 rounded-md"
@@ -72,7 +79,8 @@
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
-import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue';
+import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
+import Icon from '~/components/globals/Icon.vue'
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()

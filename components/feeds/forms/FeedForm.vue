@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-4 text-base font-medium">
+    <div class="mb-4 section-title">
       {{ $t('feeds.form.title') }}
     </div>
     

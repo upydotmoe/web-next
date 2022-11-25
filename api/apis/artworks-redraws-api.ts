@@ -18,6 +18,7 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { InlineResponse20017 } from '../models';
 import { InlineResponse20025 } from '../models';
+import { InlineResponse20026 } from '../models';
 /**
  * ArtworksRedrawsApi - axios parameter creator
  * @export
@@ -37,6 +38,48 @@ export const ArtworksRedrawsApiAxiosParamCreator = function (configuration?: Con
                 throw new RequiredError('workId','Required parameter workId was null or undefined when calling countRedraws.');
             }
             const localVarPath = `/artworks/redraws/{work_id}/count`
+                .replace(`{${"work_id"}}`, encodeURIComponent(String(workId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get my redraw of artwork
+         * @param {number} workId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMyRedraw: async (workId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'workId' is not null or undefined
+            if (workId === null || workId === undefined) {
+                throw new RequiredError('workId','Required parameter workId was null or undefined when calling getMyRedraw.');
+            }
+            const localVarPath = `/artworks/redraws/{work_id}/mine`
                 .replace(`{${"work_id"}}`, encodeURIComponent(String(workId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -151,6 +194,20 @@ export const ArtworksRedrawsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get my redraw of artwork
+         * @param {number} workId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMyRedraw(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20026>>> {
+            const localVarAxiosArgs = await ArtworksRedrawsApiAxiosParamCreator(configuration).getMyRedraw(workId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Get redraws of artwork
          * @param {number} workId 
          * @param {number} page Pagination index
@@ -186,6 +243,16 @@ export const ArtworksRedrawsApiFactory = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Get my redraw of artwork
+         * @param {number} workId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMyRedraw(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20026>> {
+            return ArtworksRedrawsApiFp(configuration).getMyRedraw(workId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get redraws of artwork
          * @param {number} workId 
          * @param {number} page Pagination index
@@ -216,6 +283,17 @@ export class ArtworksRedrawsApi extends BaseAPI {
      */
     public async countRedraws(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return ArtworksRedrawsApiFp(this.configuration).countRedraws(workId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Get my redraw of artwork
+     * @param {number} workId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtworksRedrawsApi
+     */
+    public async getMyRedraw(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20026>> {
+        return ArtworksRedrawsApiFp(this.configuration).getMyRedraw(workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

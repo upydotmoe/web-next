@@ -8,13 +8,45 @@ export default defineNuxtConfig({
   dev: process.env.NODE_ENV === 'development',
   components: true,
   app: {
-    keepalive: false
-  },
-  loading: {
-    color: '#a855f7',
-    height: '5px',
-    continuous: true,
-    throttle: 0
+    keepalive: false,
+    head: {
+      htmlAttrs: {
+        lang: 'en-US'
+      },
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { hid: 'description', name: 'description', content: 'Online community platform for artists, post your work and chat with other artists around the world.' },
+        { name: 'format-detection', content: 'telephone=no' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'dns-prefetch', href: `//${process.env.BUNNY_CDN_URL}` },
+        { rel: 'dns-prefetch', href: `//${process.env.CDN_DOMAIN}` },
+        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css' },
+        { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
+      ],
+      script: [
+        {
+          type: 'module',
+          src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js',
+          body: true
+        },
+        { 
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js',
+          body: true
+        },
+        {
+          src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js'
+        },
+        {
+          src: 'https://umami.upy.moe/umami.js',
+          async: 'true',
+          'data-website-id': 'a41fcb1f-d44e-447a-abcc-33468b840da8'
+        },
+        { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
+      ]
+    },
   },
   runtimeConfig: {
     public: {
@@ -28,48 +60,6 @@ export default defineNuxtConfig({
       staticallyCdn: process.env.STATICALLY_CDN_URL
     },
     app: {}
-  },
-  server: {
-    host: process.env.HOST,
-    port: process.env.PORT
-  },
-  head: {
-    htmlAttrs: {
-      lang: 'en-US'
-    },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Online community platform for artists, post your work and chat with other artists around the world.' },
-      { name: 'format-detection', content: 'telephone=no' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'dns-prefetch', href: `//${process.env.BUNNY_CDN_URL}` },
-      { rel: 'dns-prefetch', href: `//${process.env.CDN_DOMAIN}` },
-      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css' },
-      { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
-    ],
-    script: [
-      {
-        type: 'module',
-        src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js',
-        body: true
-      },
-      { 
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js',
-        body: true
-      },
-      {
-        src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js'
-      },
-      {
-        src: 'https://umami.upy.moe/umami.js',
-        asyns: true,
-        'data-website-id': 'a41fcb1f-d44e-447a-abcc-33468b840da8'
-      },
-      { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
-    ]
   },
 
   serverHandlers: [
@@ -219,5 +209,11 @@ export default defineNuxtConfig({
   // temporary disabled due to cors issue with image CDN
   // security: {
   //   hidePoweredBy: false,
+  //   headers: {
+  //     xFrameOptions: {
+  //       value: "*",
+  //       route: "/**"
+  //     }
+  //   }
   // }
 })

@@ -17,7 +17,7 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { InlineResponse20017 } from '../models';
-import { InlineResponse20033 } from '../models';
+import { InlineResponse20034 } from '../models';
 /**
  * NotificationsMarkersApi - axios parameter creator
  * @export
@@ -111,7 +111,7 @@ export const NotificationsMarkersApiFp = function(configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearMarkers(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20033>>> {
+        async clearMarkers(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
             const localVarAxiosArgs = await NotificationsMarkersApiAxiosParamCreator(configuration).clearMarkers(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -146,7 +146,7 @@ export const NotificationsMarkersApiFactory = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearMarkers(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20033>> {
+        async clearMarkers(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
             return NotificationsMarkersApiFp(configuration).clearMarkers(options).then((request) => request(axios, basePath));
         },
         /**
@@ -175,7 +175,7 @@ export class NotificationsMarkersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersApi
      */
-    public async clearMarkers(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20033>> {
+    public async clearMarkers(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
         return NotificationsMarkersApiFp(this.configuration).clearMarkers(options).then((request) => request(this.axios, this.basePath));
     }
     /**

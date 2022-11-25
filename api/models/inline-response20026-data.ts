@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { AlbumHasArtworksModelArtworkAlbumHasWorks } from './album-has-artworks-model-artwork-album-has-works';
+import { ArtworkLiteModel } from './artwork-lite-model';
 /**
  * 
  * @export
@@ -20,8 +20,8 @@ import { AlbumHasArtworksModelArtworkAlbumHasWorks } from './album-has-artworks-
 export interface InlineResponse20026Data {
     /**
      * 
-     * @type {Array<AlbumHasArtworksModelArtworkAlbumHasWorks>}
+     * @type {ArtworkLiteModel}
      * @memberof InlineResponse20026Data
      */
-    works?: Array<AlbumHasArtworksModelArtworkAlbumHasWorks>;
+    redraw?: ArtworkLiteModel;
 }

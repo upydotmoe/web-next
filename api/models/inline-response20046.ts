@@ -11,53 +11,23 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SuccessMessageModel } from './success-message-model';
+import { InlineResponse20046Data } from './inline-response20046-data';
 /**
  * 
  * @export
  * @interface InlineResponse20046
  */
-export interface InlineResponse20046 extends SuccessMessageModel {
+export interface InlineResponse20046 {
     /**
      * 
-     * @type {number}
+     * @type {boolean}
      * @memberof InlineResponse20046
      */
-    id?: number;
+    success?: boolean;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20046Data}
      * @memberof InlineResponse20046
      */
-    userId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20046
-     */
-    amount?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20046
-     */
-    paymentType?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20046
-     */
-    orderData?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20046
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20046
-     */
-    until?: string;
+    data?: InlineResponse20046Data;
 }

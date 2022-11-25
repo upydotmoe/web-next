@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20034DataArtworksArtworkAssets } from './inline-response20034-data-artworks-artwork-assets';
+import { InlineResponse20035DataArtworksArtworkAssets } from './inline-response20035-data-artworks-artwork-assets';
 /**
  * 
  * @export
@@ -20,14 +20,8 @@ import { InlineResponse20034DataArtworksArtworkAssets } from './inline-response2
 export interface InlineResponse20035DataArtworks {
     /**
      * 
-     * @type {number}
+     * @type {Array<InlineResponse20035DataArtworksArtworkAssets>}
      * @memberof InlineResponse20035DataArtworks
      */
-    id?: number;
-    /**
-     * 
-     * @type {InlineResponse20034DataArtworksArtworkAssets}
-     * @memberof InlineResponse20035DataArtworks
-     */
-    assets?: InlineResponse20034DataArtworksArtworkAssets;
+    artworkAssets?: Array<InlineResponse20035DataArtworksArtworkAssets>;
 }

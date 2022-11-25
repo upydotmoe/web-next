@@ -224,7 +224,7 @@
 
       <!-- Tag filter selection modal -->
       <TagFilterSelection
-        v-show="!loading"
+        v-if="!loading"
         id="tag-filter-selection-modal"
         ref="tagFilterSelectionModalRef"
         class="modal"
@@ -341,7 +341,9 @@ const toggleFollowingOnlyFilter = async () => {
 /**
  * FILTER BY TAGS ===========================================================================================================================
  */
+const initTagsLoading = ref(false)
 const applyTagOnMount = async (routeTag) => {
+  initTagsLoading.value = true
   const tagKeyword = routeTag ?? tags
 
   const [tagData, error] = await artworkApi.getTagKeys(tagKeyword)
@@ -360,6 +362,8 @@ const applyTagOnMount = async (routeTag) => {
     previousSelectedTags.value = tagWithKeys
     await applyTagFilter(tagWithKeys, tagKeyword)
   }
+  
+  initTagsLoading.value = false
 }
 
 const tagFilterSelectionModalRef = ref(null)

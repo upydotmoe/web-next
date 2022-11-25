@@ -17,8 +17,27 @@
         class="w-full h-full theme-color-bg"
       >
         <div class="overflow-hidden relative text-center rounded-md">
-          <p v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)">{{ work._count.artwork_assets }}</p>
-          <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <!-- image count -->
+          <p
+            v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
+            class="regular"
+          >
+            {{ work._count.artwork_assets }}
+          </p>
+
+          <!-- is a redraw -->
+          <p
+            v-if="work.redraw_of"
+            class="redraw"
+          >
+            <Icon
+              :name="'i-fluent-image-copy-20-filled'"
+              class="text-white"
+            />
+          </p>
+
+          <!-- explicit content filter -->
+          <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">{{ $t('explicitContent') }}</span>
           
           <a 
             :href="'/a/'+work.id"
@@ -26,10 +45,10 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <nuxt-img
+            <!-- test --> <img
               preload
               loading="lazy"
-              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+              :src="(!auth.loggedIn || !auth.user.user_settings.show_explicit) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'w-full h-full unselectable',
                 { 'object-cover': !isUncropped },
@@ -48,8 +67,27 @@
         @click="manageMode ? addToManageList(work.id) : open(work.id)"
       >
         <div class="overflow-hidden relative text-center rounded-md">
-          <p v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)">{{ work._count.artwork_assets }}</p>
-          <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <!-- image count -->
+          <p
+            v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
+            class="regular"
+          >
+            {{ work._count.artwork_assets }}
+          </p>
+
+          <!-- is a redraw -->
+          <p
+            v-if="work.redraw_of"
+            class="redraw"
+          >
+            <Icon
+              :name="'i-fluent-image-copy-20-filled'"
+              class="text-white"
+            />
+          </p>
+
+          <!-- explicit content filter -->
+          <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">{{ $t('explicitContent') }}</span>
           
           <a 
             :href="'/a/'+work.id"
@@ -58,10 +96,10 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <nuxt-img
+            <!-- test --> <img
               preload
               loading="lazy"
-              :src="artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+              :src="(!auth.loggedIn || !auth.user.user_settings.show_explicit) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'object-cover w-full h-full unselectable',
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
@@ -80,6 +118,9 @@ import { useMediaQuery } from '@vueuse/core'
 
 // stores
 import authStore from '@/stores/auth.store'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
 
 // stores
 const auth = authStore()

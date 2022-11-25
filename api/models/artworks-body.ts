@@ -58,6 +58,18 @@ export interface ArtworksBody {
      * @type {number}
      * @memberof ArtworksBody
      */
+    allowRedraw?: ArtworksBodyAllowRedrawEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof ArtworksBody
+     */
+    redrawInYourStyle?: ArtworksBodyRedrawInYourStyleEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof ArtworksBody
+     */
     isOriginalCharacter?: ArtworksBodyIsOriginalCharacterEnum;
 }
 
@@ -66,6 +78,22 @@ export interface ArtworksBody {
     * @enum {string}
     */
 export enum ArtworksBodyIsExplicitEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ArtworksBodyAllowRedrawEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ArtworksBodyRedrawInYourStyleEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
 }

@@ -38,7 +38,7 @@
         >
       </div>
 
-      <div class="input-block -mt-2">
+      <div class="-mt-2 input-block">
         <VueEditor
           v-model="inputData.description"
           :editorToolbar="[
@@ -78,27 +78,80 @@
         />
       </div>
 
-      <div class="input-block">
-        <div class="mb-4">
-          <label :for="!inputData.isExplicit ? 'checked' : 'unchecked'" class="inline-flex items-center mt-2">
-            <span class="relative cursor-pointer" @click="inputData.isExplicit = !inputData.isExplicit">
-              <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
-              <span v-if="!inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline">
-                <input id="unchecked" type="checkbox" class="absolute w-0 h-0 opacity-0">
-              </span>
-              
-              <span v-if="inputData.isExplicit" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out transform translate-x-full focus-within:shadow-outline button-color">
-                <input id="checked" type="checkbox" class="absolute w-0 h-0 opacity-0">
-              </span>
-            </span>
-            <span class="ml-2">{{ $t('explicitContent') }}</span>
-          </label>
+      <!-- original character toggler -->
+      <div v-if="!currentInfo.redraw_of" class="input-block">
+        <label 
+          for="is-original-character-toggle"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
+            id="is-original-character-toggle"
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isOriginalCharacter"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
 
-          <div v-show="inputData.isExplicit" class="flex flex-row p-2 mt-2 text-white bg-red-400 rounded">
-            <Icon :name="'alert-outline'" class="mr-1 text-white" /> 
-            <span>{{ $t('artworks.add.form.prohibitChildExplicitContent') }}</span>
-          </div>
-        </div>
+          <span class="ml-2">{{ $t('artworks.originalCharacter') }}</span>
+        </label>
+      </div>
+
+      <!-- allow redraw toggler -->
+      <div v-if="!currentInfo.redraw_of" class="input-block">
+        <label 
+          for="is-allow-redraw-toggle"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isAllowRedraw = !inputData.isAllowRedraw"
+            id="is-allow-redraw-toggle" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isAllowRedraw"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('artworks.add.form.allowRedraw') }}</span>
+        </label>
+      </div>
+
+      <!-- redraw in your style toggler -->
+      <div v-if="currentInfo.redraw_of" class="input-block">
+        <label 
+          for="is-redraw-in-your-style-toggle"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isRedrawInMyStyle = !inputData.isRedrawInMyStyle"
+            id="is-redraw-in-your-style-toggle" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isRedrawInMyStyle"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('artworks.add.form.redrawInMyStyle') }}</span>
+        </label>
+      </div>
+
+      <!-- explicit content toggler -->
+      <div class="input-block">
+        <label
+          for="explicit-mode-toggle"
+          class="inline-flex relative items-center cursor-pointer"
+        >
+          <input 
+            @click="inputData.isExplicit = !inputData.isExplicit"
+            id="explicit-mode-toggle" 
+            type="checkbox" 
+            class="sr-only peer" 
+            :checked="inputData.isExplicit"
+          >
+          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+
+          <span class="ml-2">{{ $t('explicitContent') }}</span>
+        </label>
       </div>
 
       <button class="float-right primary-button" :class="{ 'pointer-events-none cursor-not-allowed': saving || updated }">
@@ -120,8 +173,6 @@ import useAuthStore from '@/stores/auth.store';
 
 // components
 import Spinner from '~/components/globals/Spinner.vue'
-import Icon from '~/components/globals/Icon.vue'
-
 
 const props = defineProps ({
   id: {
@@ -152,21 +203,28 @@ onMounted (() => {
  * Retrieve current work info
  */
 const isErrorFetching = ref(false)
+const currentInfo = ref({})
 const fetchWorkInfo = async () => {
   const [data, error] = await artworkApi.getWorkById(props.id)
 
   if (error) {
     isErrorFetching.value = true
   } else {
+    currentInfo.value = data
+
     inputData.value.title = data.title
     inputData.value.description = data.description.split('<br><br>').join(' \n').split('<br>').join('')
+    inputData.value.isExplicit = !!data.is_explicit
+    inputData.value.isOriginalCharacter = !!data.is_original_character
+    inputData.value.isAllowRedraw = !!data.allow_redraw
+    inputData.value.isRedrawInMyStyle = !!data.redraw_in_your_style
+
     data.artwork_has_tags.forEach((tag) => {
       tags.value.push({
         key: tag.artwork_tags.id,
         value: tag.artwork_tags.tag
       })
     })
-    inputData.value.isExplicit = !!data.is_explicit
   }
 }
 
@@ -175,7 +233,10 @@ const inputData = ref({
   title: '',
   description: '',
   tags: '',
-  isExplicit: false
+  isExplicit: false,
+  isOriginalCharacter: false,
+  isAllowRedraw: false,
+  isRedrawInMyStyle: false,
 })
 const tags = ref([])
 
@@ -205,7 +266,10 @@ const update = async () => {
       title: inputData.value.title,
       description: inputData.value.description,
       isExplicit: inputData.value.isExplicit,
-      tags: tagValues.toString()
+      tags: tagValues.toString(),
+      isOriginalCharacter: inputData.value.isOriginalCharacter,
+      allowRedraw: inputData.value.allowRedraw,
+      redrawInYourStyle: inputData.value.isRedrawInMyStyle,
     })
 
     if (error) {

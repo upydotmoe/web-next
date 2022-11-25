@@ -262,7 +262,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     title: string,
     description?: string,
     isExplicit: boolean,
-    tags?: string
+    tags?: string,
+    isOriginalCharacter: boolean,
+    allowRedraw: boolean,
+    redrawInYourStyle: boolean,
   }) => {
     try {
       const { data } = await new ArtworkCRUDApi(oApiConfiguration)
@@ -271,7 +274,10 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           title: params.title,
           description: params.description,
           is_explicit: params.isExplicit ? 1 : 0,
-          tags: params.tags
+          tags: params.tags,
+          is_original_character: params.isOriginalCharacter ? 1: 0,
+          allow_redraw: params.allowRedraw ? 1: 0,
+          redraw_in_your_style: params.redrawInYourStyle ? 1: 0,
         }, fetchOptions)
 
       return [data.success, null]
@@ -669,6 +675,22 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const getMyRedraw = async (params: {
+    workId: number
+  }) => {
+    try {
+      const { data } = await new ArtworksRedrawsApi(oApiConfiguration)
+        .getMyRedraw(
+          params.workId,
+          fetchOptions
+        )
+
+      return [data.data?.redraw, null]
+    } catch (error) {
+      return [null, error]
+    }
+  }
+
   return {
     getMostPopular,
     getLatest,
@@ -702,6 +724,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     unlikeReply,
 
     countRedraws,
-    getRedraws
+    getRedraws,
+    getMyRedraw
   }
 }

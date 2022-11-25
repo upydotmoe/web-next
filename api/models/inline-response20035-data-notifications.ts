@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 import { InlineResponse20035DataArtworks } from './inline-response20035-data-artworks';
-import { InlineResponse20035DataUserLiked } from './inline-response20035-data-user-liked';
+import { InlineResponse20035DataUsers } from './inline-response20035-data-users';
 /**
  * 
  * @export
@@ -24,7 +24,13 @@ export interface InlineResponse20035DataNotifications {
      * @type {number}
      * @memberof InlineResponse20035DataNotifications
      */
-    commentId?: number;
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20035DataNotifications
+     */
+    workId?: number;
     /**
      * 
      * @type {string}
@@ -33,34 +39,16 @@ export interface InlineResponse20035DataNotifications {
     comment?: string;
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20035DataUsers}
      * @memberof InlineResponse20035DataNotifications
      */
-    isRead?: number;
-    /**
-     * 
-     * @type {Array<InlineResponse20035DataUserLiked>}
-     * @memberof InlineResponse20035DataNotifications
-     */
-    userLiked?: Array<InlineResponse20035DataUserLiked>;
+    users?: InlineResponse20035DataUsers;
     /**
      * 
      * @type {InlineResponse20035DataArtworks}
      * @memberof InlineResponse20035DataNotifications
      */
     artworks?: InlineResponse20035DataArtworks;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20035DataNotifications
-     */
-    totalLiked?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20035DataNotifications
-     */
-    restTotalLiked?: number;
     /**
      * 
      * @type {string}

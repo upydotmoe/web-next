@@ -16,7 +16,7 @@
         :style="user.cover_bucket && user.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(user.cover_bucket, user.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
       >
         <div class="flex flex-row w-full">
-          <nuxt-img
+          <!-- test --> <img
             preload
             loading="lazy"
             class="avatar" 
@@ -91,7 +91,7 @@
                   { 'animate-wigglefast': manageMode }
                 ]"
               >
-                <nuxt-img
+                <!-- test --> <img
                   preload
                   loading="lazy"
                   :class="[

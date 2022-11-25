@@ -6,7 +6,7 @@
   >
     <!-- cover -->
     <div>
-      <nuxt-img 
+      <!-- test --> <img 
         preload
         loading="lazy"
         :src="avatarCoverUrl(userInfo.cover_bucket, userInfo.cover_filename)" 
@@ -27,7 +27,7 @@
         <!-- for desktop: left side -->
         <div class="mr-6 w-1/5">
           <!-- avatar -->
-          <nuxt-img
+          <!-- test --> <img
             preload
             loading="lazy"
             class="hidden -mt-2 w-full md:-mt-16 avatar md:flex"
@@ -279,7 +279,7 @@
       <!-- user info: for mobile or smaller device -->
       <div class="flex flex-col text-center md:hidden">
         <!-- avatar -->
-        <nuxt-img
+        <!-- test --> <img
           preload
           loading="lazy"
           class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar md:hidden"

@@ -45,8 +45,8 @@
                 </div>
 
                 <!-- information for feed type artwork -->
-                <div v-if="feed.type === 'artwork'" class="px-2 mt-2 md:px-4">
-                  <span class="text-xs font-semibold">{{ feed.title }}</span>
+                <div v-if="feed.type === 'artwork'" class="px-2 md:px-4">
+                  <span class="title">{{ feed.title }}</span>
                   <p v-show="feed.description">
                     <span
                       :id="'feed-description-'+feed.id"
@@ -62,6 +62,37 @@
                       {{ $t('readMore') }}
                     </a>
                   </p>
+                </div>
+
+                <!-- if artwork is a redraw of someone's artwork then show the original artwork information -->
+                <div
+                  v-if="feed.redraw_of && feed.redrawed_artwork_info"
+                  class="px-2 mt-2 -mb-2 md:px-4"
+                >
+                  <a
+                    :href="'/a/'+feed.redraw_of"
+                    target="_blank"
+                    class="flex flex-col gap-2 p-2 w-full rounded-md theme-color-secondary hover:theme-colored"
+                  >
+                    <div class="inline-flex text-xs italic">
+                      <Icon
+                        :name="'i-typcn-brush'"
+                        class="inline-block"
+                      /> redrawed
+                    </div>
+
+                    <!-- image -->
+                    <div class="inline-block flex-row w-full rounded-md">
+                      <!-- test --> <img
+                        preload
+                        loading="lazy"
+                        class="inline-block mr-2 w-10 rounded-md"
+                        :src="artworkThumb(feed.redrawed_artwork_info.artwork_assets.bucket, feed.redrawed_artwork_info.artwork_assets.filename, 'thumbnail', false)"
+                        @error="imageLoadError"
+                      />
+                      <span class="title">{{ feed.redrawed_artwork_info.title }}</span>
+                    </div>
+                  </a>
                 </div>
 
                 <!-- Image List -->
@@ -133,7 +164,7 @@
 
                     <!-- title & description of shared artwork -->
                     <div class="px-2 mt-2 md:px-4">
-                      <span class="text-xs font-semibold">{{ feed.artwork_share_info.title }}</span>
+                      <span class="title">{{ feed.artwork_share_info.title }}</span>
                       <p v-show="feed.artwork_share_info.description">
                         <span
                           :id="'feed-description-'+feed.artwork_share_info.id"

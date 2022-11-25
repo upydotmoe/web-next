@@ -43,9 +43,11 @@
     "usersLiked": "Pengguna yang menyukai",
     "originalCharacter": "Karakter Orisinil",
     "redraws": "Redraws",
-    "redrawThisArtwork": "Redraw karya ini",
-    "redrawedArtwork": "Karya Original",
+    "myRedraw": "Gambaran saya",
+    "redrawThisArtwork": "Gambar ulang karya ini",
+    "originalArtwork": "Karya Original",
     "redrawOriginalLoading": "Memuat informasi karya original..",
+    "noDescription": "Tidak ada deskripsi",
     "add": {
       "form": {
         "title": "Unggah Artwork Baru",
@@ -60,7 +62,7 @@
         "post": "Unggah",
         "publishDate": "Rencana tanggal publikasi",
         "allowRedraw": "Izinkan redraw",
-        "redrawInMyStyle": "Diredraw dengan gaya lukisanku sendiri"
+        "redrawInMyStyle": "Digambar dengan gaya lukisanku sendiri"
       }
     },
     "update": {

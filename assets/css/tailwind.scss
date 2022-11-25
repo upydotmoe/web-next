@@ -7,6 +7,14 @@
     font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
+  .inter {
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+
+  .readex {
+    font-family: 'Readex Pro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  }
+
   .quicksand {
     font-family: 'Quicksand', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
   }
@@ -111,7 +119,12 @@
   }
 
   .theme-colored {
+    @apply text-white;
     background: var(--button);
+
+    .icon {
+      @apply text-white;
+    }
   }
   .text-colored {
     color: var(--button);
@@ -197,8 +210,12 @@
     color: var(--link-hover);
   }
 
+  .title {
+    @apply font-bold text-tiny readex;
+  }
+
   .section-title {
-    @apply text-base font-bold;
+    @apply text-base font-bold readex;
   }
 
   .border-light {

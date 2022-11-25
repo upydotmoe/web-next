@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20038DataFollowerDetail } from './inline-response20038-data-follower-detail';
+import { InlineResponse20039DataFollowerDetail } from './inline-response20039-data-follower-detail';
 /**
  * 
  * @export
@@ -23,63 +23,17 @@ export interface InlineResponse20039DataNotifications {
      * @type {number}
      * @memberof InlineResponse20039DataNotifications
      */
-    id?: number;
+    isRead?: number;
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20039DataFollowerDetail>}
      * @memberof InlineResponse20039DataNotifications
      */
-    text?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20039DataNotifications
-     */
-    comment?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20039DataNotifications
-     */
-    isRead?: boolean;
-    /**
-     * 
-     * @type {Array<InlineResponse20038DataFollowerDetail>}
-     * @memberof InlineResponse20039DataNotifications
-     */
-    users?: Array<InlineResponse20038DataFollowerDetail>;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20039DataNotifications
-     */
-    total?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20039DataNotifications
-     */
-    restTotal?: number;
+    followerDetail?: Array<InlineResponse20039DataFollowerDetail>;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse20039DataNotifications
      */
     createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20039DataNotifications
-     */
-    type?: InlineResponse20039DataNotificationsTypeEnum;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20039DataNotificationsTypeEnum {
-    Like = 'like',
-    Comment = 'comment'
-}
-

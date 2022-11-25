@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="mb-2 text-base font-bold">
+    <div class="mb-2 section-title">
       {{ artworkDetail.title }}
     </div>
 
