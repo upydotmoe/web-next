@@ -32,7 +32,7 @@
         v-model="inputs.password"
         type="password"
         autocomplete="off"
-        rules="required|min:6|containSymbol|containNumber"
+        rules="required|min:6|containNumber|containSymbol"
         :placeholder="$t('logins.form.password')"
       >
     </n-validate>
@@ -110,7 +110,7 @@ const login = async () => {
 
     $router.push('/feed')
   } else {
-    triggerLoginError(error.message)
+    triggerLoginError(error)
   }
 }
 

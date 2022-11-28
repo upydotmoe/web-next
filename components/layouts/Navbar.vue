@@ -38,9 +38,9 @@
         <div class="nav-icon-group">
           <div class="hidden-md-flex">
             <div v-if="auth.loggedIn" class="nav-icon">
-              <a href="/post">
+              <nuxt-link :to="'/post'">
                 <Icon :name="'i-ion-add'" />
-              </a>
+              </nuxt-link>
             </div>
           </div>
 

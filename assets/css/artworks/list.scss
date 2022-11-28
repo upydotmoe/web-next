@@ -55,6 +55,14 @@
             @apply text-white;
           }
         }
+        p.original-character {
+          @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-emerald-500 bg-opacity-70 rounded-sm;
+
+          .icon {
+            @apply text-white;
+          }
+        }
+        
         img {
           @apply w-full rounded-md theme-color;
           // object-cover object-top 

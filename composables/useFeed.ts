@@ -22,7 +22,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, data.data, null]
     } catch (error) {
-      return [null, null, error]
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -46,7 +46,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, data.data, null]
     } catch (error) {
-      return [null, null, error]
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -84,7 +84,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -106,7 +106,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -122,7 +122,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -138,7 +138,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
   
@@ -159,9 +159,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data.data, error]
+      return [data.data, useApiFetch().consumeReadableStreamError(error)]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -181,7 +181,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, data.data, null]
     } catch (error) {
-      return [null, null, error]
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -198,7 +198,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       
       return [data.success, null]
     } catch (error) {
-      return [false, error]
+      return [false, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 

@@ -30,6 +30,11 @@
       </div>
     </div>
 
+    <div v-if="artworkDetail.is_original_character" class="flex flex-row mb-4">
+      <Icon :name="'i-clarity-cursor-hand-click-line'" />&nbsp;
+      {{ $t('artworks.originalCharacter') }}
+    </div>
+
     <div class="mb-2 section-title">
       {{ artworkDetail.title }}
     </div>
@@ -78,6 +83,9 @@
 </template>
 
 <script setup>
+// components
+import Icon from '~/components/globals/Icon.vue'
+
 // composables
 import useReadMore from '~/composables/useReadMore'
 

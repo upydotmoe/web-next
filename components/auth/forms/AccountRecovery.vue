@@ -96,7 +96,7 @@ const proceed = async () => {
   const [success, error] = await authApi.recoverAccount(cachedEmail.value)
 
   if (error) {
-    triggerErrorMessage(response.data.message)
+    triggerErrorMessage(error)
   } else {
     setTimeout(async () => {
       authForm.toggleShowRecoveryLinkSentDialog(true)

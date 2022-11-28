@@ -41,8 +41,10 @@
     "successDelete": "Karya berhasil dihapus, mengalihkanmu ke halaman utama..",
     "moreArtworkBy": "Lainnya dari",
     "usersLiked": "Pengguna yang menyukai",
+    "previewModeMessage": "Kamu sedang dalam mode preview, karya ini belum dipublikasikan.",
     "originalCharacter": "Karakter Orisinil",
     "redraws": "Redraws",
+    "redrawed": "menggambar ulang",
     "myRedraw": "Gambaran saya",
     "redrawThisArtwork": "Gambar ulang karya ini",
     "originalArtwork": "Karya Original",
@@ -143,7 +145,7 @@
     "following": "Mengikuti",
     "followings": "Mengikuti",
     "followingsHidden": "User ini menyembunyikan orang yang dia ikuti.",
-    "hideMyFollowings": "Sembunyikan orang yang aku ikuti"
+    "hideMyFollowings": "Sembunyikan orang yang ku ikuti"
   },
   "followingOnly": "Hanya Mengikuti",
   "privateFollow": "Mengikuti secara Privat",

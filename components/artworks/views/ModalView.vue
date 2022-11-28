@@ -18,7 +18,7 @@
       <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
         <div class="flex flex-row justify-center mb-2">
           <Icon :name="'i-ion-alert-outline'" />
-          <div>You are currently viewing the preview mode, this work isn't published yet.</div>
+          <div>{{ $t('artworks.previewModeMessage') }}</div>
         </div>
         <div class="font-bold cursor-pointer">
           <span class="text-red-500" @click="deleteConfirmationDialog = true">
@@ -61,7 +61,7 @@
         >
           <!-- original -->
           <nuxt-link
-            :to="'a/'+originalArtwork.id"
+            :to="'/a/'+originalArtwork.id"
             class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
           >
             <!-- test --> <img
@@ -450,6 +450,8 @@
             :is-href="isHref"
             :is-mini-list="true"
             :current-work-id="artworkDetail.id"
+            :direct-open="true"
+            :hide-redraw-icon="true"
           />
 
           <nuxt-link

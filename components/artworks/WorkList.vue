@@ -27,11 +27,22 @@
 
           <!-- is a redraw -->
           <p
-            v-if="work.redraw_of"
+            v-if="work.redraw_of && !hideRedrawIcon"
             class="redraw"
           >
             <Icon
-              :name="'i-fluent-image-copy-20-filled'"
+              :name="'i-typcn-brush'"
+              class="text-white"
+            />
+          </p>
+
+          <!-- is an original character -->
+          <p
+            v-if="work.is_original_character"
+            class="original-character"
+          >
+            <Icon
+              :name="'i-clarity-cursor-hand-click-line'"
               class="text-white"
             />
           </p>
@@ -48,7 +59,7 @@
             <!-- test --> <img
               preload
               loading="lazy"
-              :src="(!auth.loggedIn || !auth.user.user_settings.show_explicit) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+              :src="(!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit)) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'w-full h-full unselectable',
                 { 'object-cover': !isUncropped },
@@ -77,11 +88,22 @@
 
           <!-- is a redraw -->
           <p
-            v-if="work.redraw_of"
+            v-if="work.redraw_of && !hideRedrawIcon"
             class="redraw"
           >
             <Icon
-              :name="'i-fluent-image-copy-20-filled'"
+              :name="'i-typcn-brush'"
+              class="text-white"
+            />
+          </p>
+
+          <!-- is an original character -->
+          <p
+            v-if="work.is_original_character"
+            class="original-character"
+          >
+            <Icon
+              :name="'i-clarity-cursor-hand-click-line'"
               class="text-white"
             />
           </p>
@@ -99,7 +121,7 @@
             <!-- test --> <img
               preload
               loading="lazy"
-              :src="(!auth.loggedIn || !auth.user.user_settings.show_explicit) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+              :src="(!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit)) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'object-cover w-full h-full unselectable',
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
@@ -154,6 +176,14 @@ const props = defineProps ({
   currentWorkId: {
     type: Number,
     default: 0
+  },
+  hideRedrawIcon: {
+    type: Boolean,
+    default: false
+  },
+  directOpen: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -169,17 +199,23 @@ const isUncropped = ref(false)
 const currentWorkId = ref(props.currentWorkId)
 const isLargeScreen = useMediaQuery('(min-width: 1024px)')
 const open = (workId) => {
-  if (isLargeScreen.value && !props.isMiniList) {
-    currentWorkId.value = workId
-    props.view(workId)
+  if (props.directOpen) {
+    router.push({
+      path: '/a/'+workId
+    })
   } else {
-    if (props.isMiniList) {
+    if (isLargeScreen.value && !props.isMiniList) {
       currentWorkId.value = workId
       props.view(workId)
     } else {
-      router.replace({
-        path: '/a/'+workId
-      })
+      if (props.isMiniList) {
+        currentWorkId.value = workId
+        props.view(workId)
+      } else {
+        router.replace({
+          path: '/a/'+workId
+        })
+      }
     }
   }
 }

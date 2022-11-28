@@ -51,6 +51,7 @@
             :section-class="'work-grid'"
             :works="artworkRedraws.data"
             :view="null"
+            :hide-redraw-icon="true"
           />
         </keep-alive>
 

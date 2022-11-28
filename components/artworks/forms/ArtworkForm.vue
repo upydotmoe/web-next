@@ -136,7 +136,7 @@
             allow-reorder="true"
             allow-process="true"
             credits="false"
-            :max-files="maxFileCount"
+            :max-files="redrawWorkId ? 1 : maxFileCount"
             instant-upload="false"
             class="bg-transparent rounded-sm"
             :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
@@ -159,7 +159,7 @@
             :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
             :add-tags-on-comma="true"
             :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
-            :initial-value="!redrawWorkId && !initTagsLoading ? null : initTags"
+            :initial-value="!redrawWorkId && !initTagsLoading ? [] : initTags"
           />
         </client-only>
       </div>
@@ -404,14 +404,18 @@ const resetForm = () => {
 // Fetch setting relate to artwork upload
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 const fetchSetting = async () => {
-  // get allowed max file(s) to upload
-  let settingMaxFileCount = 1
-  if (auth.i502p00r0) {
-    settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads_pro')
-  } else {
-    settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads')
+  // get allowed max file count to upload
+  if (!redrawWorkId.value) {
+    let settingMaxFileCount = 1
+    
+    if (auth.i502p00r0) {
+      settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads_pro')
+    } else {
+      settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads')
+    }
+    
+    maxFileCount.value = settingMaxFileCount
   }
-  maxFileCount.value = settingMaxFileCount
 
   const settingMaxFileSize = await settingApi.getSetting('artwork_max_file_size')
   maxFileSize.value = settingMaxFileSize

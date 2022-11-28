@@ -1,338 +1,333 @@
 <template>
-  <keep-alive>
-    <Layout 
-      :with-footer="true"
-      :hide-side="isMobile()"
-    >
-      <SplashAlert 
-        v-show="copied"
-        id="copy-alert"
-        :text="$t('linkCopied')"
-        :icon="'i-bi-check-all'"
-      />
+  <Layout 
+    v-if="auth.loggedIn"
+    :with-footer="true"
+    :hide-side="isMobile()"
+  >
+    <SplashAlert 
+      v-show="copied"
+      id="copy-alert"
+      :text="$t('linkCopied')"
+      :icon="'i-bi-check-all'"
+    />
 
-      <div class="mx-auto w-full">
-        <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-10/12">
-          <div v-for="(feed, feedIdx) in feeds" :key="feed.id+feed.type" class="rounded-md lg:mx-6">
-            <div class="flex flex-row rounded-md theme-color">
-              <!-- Images -->
-              <div class="w-full">
-                <div v-if="feed.users" class="p-2 md:p-4 user-info">
-                  <nuxt-link :to="'/profile/'+feed.users.username">
-                    <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
-                  </nuxt-link>
-                  <div class="name">
-                    <nuxt-link 
-                      :to="'/profile/'+feed.users.username" 
-                      class="fullname hover:href"
-                    >
-                      {{ feed.users.name }}
-                    </nuxt-link>
-                    <br>
-                    <nuxt-link 
-                      :to="'/profile/'+feed.users.username" 
-                      class="hover:underline text-xxs"
-                    >
-                      @{{ feed.users.username }}
-                    </nuxt-link>
-                    
-                    <span class="mx-1">·</span>
-                    
-                    <nuxt-link :to="(feed.type === 'artwork' ? '/a/' : '/feed/') + feed.id" class="hover:underline text-xxs">
-                      {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
-                    </nuxt-link>
-                  </div>
-                </div>
-
-                <!-- information for feed type artwork -->
-                <div v-if="feed.type === 'artwork'" class="px-2 md:px-4">
-                  <span class="title">{{ feed.title }}</span>
-                  <p v-show="feed.description">
-                    <span
-                      :id="'feed-description-'+feed.id"
-                      v-html="feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description"
-                    />
-
-                    <a 
-                      v-if="feed.description.length > 300" 
-                      :id="'feed-read-more-'+feed.id" 
-                      class="href" 
-                      @click.prevent="readMore(feed.description, feed.id, 'feed-read-more-', 'feed-description-')"
-                    >
-                      {{ $t('readMore') }}
-                    </a>
-                  </p>
-                </div>
-
-                <!-- if artwork is a redraw of someone's artwork then show the original artwork information -->
-                <div
-                  v-if="feed.redraw_of && feed.redrawed_artwork_info"
-                  class="px-2 mt-2 -mb-2 md:px-4"
-                >
-                  <a
-                    :href="'/a/'+feed.redraw_of"
-                    target="_blank"
-                    class="flex flex-col gap-2 p-2 w-full rounded-md theme-color-secondary hover:theme-colored"
+    <div class="mx-auto w-full">
+      <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-10/12">
+        <div v-for="(feed, feedIdx) in feeds" :key="feed.id+feed.type" class="rounded-md lg:mx-6">
+          <div class="flex flex-row rounded-md theme-color">
+            <!-- Images -->
+            <div class="w-full">
+              <div v-if="feed.users" class="p-2 md:p-4 user-info">
+                <nuxt-link :to="'/profile/'+feed.users.username">
+                  <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
+                </nuxt-link>
+                <div class="name">
+                  <nuxt-link 
+                    :to="'/profile/'+feed.users.username" 
+                    class="fullname hover:href"
                   >
-                    <div class="inline-flex text-xs italic">
-                      <Icon
-                        :name="'i-typcn-brush'"
-                        class="inline-block"
-                      /> redrawed
-                    </div>
-
-                    <!-- image -->
-                    <div class="inline-block flex-row w-full rounded-md">
-                      <!-- test --> <img
-                        preload
-                        loading="lazy"
-                        class="inline-block mr-2 w-10 rounded-md"
-                        :src="artworkThumb(feed.redrawed_artwork_info.artwork_assets.bucket, feed.redrawed_artwork_info.artwork_assets.filename, 'thumbnail', false)"
-                        @error="imageLoadError"
-                      />
-                      <span class="title">{{ feed.redrawed_artwork_info.title }}</span>
-                    </div>
-                  </a>
-                </div>
-
-                <!-- Image List -->
-                <div>
-                  <!-- images -->
-                  <div>
-                    <!-- desktop -->
-                    <div v-if="feed.type === 'artwork' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
-                      <ImageList class="p-2 md:p-4" :work="feed" />
-                    </div>
-                    
-                    <!-- mobile/smaller device -->
-                    <nuxt-link v-if="feed.type === 'artwork' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
-                      <ImageList class="p-2" :work="feed" />
-                    </nuxt-link>
-                  </div>
-                </div>
-
-                <!-- feed type text post -->
-                <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
-                  <p
-                    v-show="feed.text"
-                    v-html="feed.text.split('<br>').length > 3 && feed.text.length > 300 ? `${feed.text.slice(0, 300)}...` : feed.text"
-                    :id="'feed-text-'+feed.id"
-                    :class="[
-                      'mt-2',
-                      { 'mb-2': !feed.artwork_share_info }
-                    ]"
-                  />
+                    {{ feed.users.name }}
+                  </nuxt-link>
+                  <br>
+                  <nuxt-link 
+                    :to="'/profile/'+feed.users.username" 
+                    class="hover:underline text-xxs"
+                  >
+                    @{{ feed.users.username }}
+                  </nuxt-link>
                   
+                  <span class="mx-1">·</span>
+                  
+                  <nuxt-link :to="(feed.type === 'artwork' ? '/a/' : '/feed/') + feed.id" class="hover:underline text-xxs">
+                    {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
+                  </nuxt-link>
+                </div>
+              </div>
+
+              <!-- information for feed type artwork -->
+              <div v-if="feed.type === 'artwork'" class="px-2 md:px-4">
+                <span class="title">{{ feed.title }}</span>
+                <p v-show="feed.description">
+                  <span
+                    :id="'feed-description-'+feed.id"
+                    v-html="feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description"
+                  />
+
                   <a 
-                    v-if="feed.text.split('<br>').length > 3 && feed.text.length > 300" 
+                    v-if="feed.description.length > 300" 
                     :id="'feed-read-more-'+feed.id" 
                     class="href" 
-                    @click.prevent="readMore(feed.text, feed.id, 'feed-read-more-', 'feed-text-')"
+                    @click.prevent="readMore(feed.description, feed.id, 'feed-read-more-', 'feed-description-')"
                   >
                     {{ $t('readMore') }}
                   </a>
+                </p>
+              </div>
 
-                  <!-- shared artwork post detail -->
-                  <div v-if="feed.artwork_share_info" class="my-2 w-full rounded-md theme-color-secondary">
-                    <!-- creator information -->
-                    <div v-if="feed.artwork_share_info.user" class="p-2 md:p-4 user-info">
-                      <nuxt-link :to="'/profile/'+feed.artwork_share_info.user.username">
-                        <img class="avatar" :src="avatarCoverUrl(feed.artwork_share_info.user.avatar_bucket, feed.artwork_share_info.user.avatar_filename)" @error="imageLoadError">
+              <!-- if artwork is a redraw of someone's artwork then show the original artwork information -->
+              <div
+                v-if="feed.redraw_of && feed.redrawed_artwork_info"
+                class="px-2 mt-2 -mb-2 md:px-4"
+              >
+                <a
+                  :href="'/a/'+feed.redraw_of"
+                  target="_blank"
+                  class="flex flex-col gap-2 p-2 w-full rounded-md theme-color-secondary hover:theme-colored"
+                >
+                  <i class="text-xs">{{ $t('artworks.redrawed') }}</i>
+
+                  <!-- image -->
+                  <div class="inline-block flex-row w-full rounded-md">
+                    <!-- test --> <img
+                      preload
+                      loading="lazy"
+                      class="inline-block mr-2 w-10 rounded-md"
+                      :src="artworkThumb(feed.redrawed_artwork_info.artwork_assets.bucket, feed.redrawed_artwork_info.artwork_assets.filename, 'thumbnail', false)"
+                      @error="imageLoadError"
+                    />
+                    <span class="title">{{ feed.redrawed_artwork_info.title }}</span>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Image List -->
+              <div>
+                <!-- images -->
+                <div>
+                  <!-- desktop -->
+                  <div v-if="feed.type === 'artwork' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
+                    <ImageList class="p-2 md:p-4" :work="feed" />
+                  </div>
+                  
+                  <!-- mobile/smaller device -->
+                  <nuxt-link v-if="feed.type === 'artwork' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
+                    <ImageList class="p-2" :work="feed" />
+                  </nuxt-link>
+                </div>
+              </div>
+
+              <!-- feed type text post -->
+              <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
+                <p
+                  v-show="feed.text"
+                  v-html="feed.text.split('<br>').length > 3 && feed.text.length > 300 ? `${feed.text.slice(0, 300)}...` : feed.text"
+                  :id="'feed-text-'+feed.id"
+                  :class="[
+                    'mt-2',
+                    { 'mb-2': !feed.artwork_share_info }
+                  ]"
+                />
+                
+                <a 
+                  v-if="feed.text.split('<br>').length > 3 && feed.text.length > 300" 
+                  :id="'feed-read-more-'+feed.id" 
+                  class="href" 
+                  @click.prevent="readMore(feed.text, feed.id, 'feed-read-more-', 'feed-text-')"
+                >
+                  {{ $t('readMore') }}
+                </a>
+
+                <!-- shared artwork post detail -->
+                <div v-if="feed.artwork_share_info" class="my-2 w-full rounded-md theme-color-secondary">
+                  <!-- creator information -->
+                  <div v-if="feed.artwork_share_info.user" class="p-2 md:p-4 user-info">
+                    <nuxt-link :to="'/profile/'+feed.artwork_share_info.user.username">
+                      <img class="avatar" :src="avatarCoverUrl(feed.artwork_share_info.user.avatar_bucket, feed.artwork_share_info.user.avatar_filename)" @error="imageLoadError">
+                    </nuxt-link>
+                    <div class="name">
+                      <nuxt-link 
+                        :to="'/profile/'+feed.artwork_share_info.user.username" 
+                        class="fullname hover:href"
+                      >
+                        {{ feed.artwork_share_info.user.name }}
                       </nuxt-link>
-                      <div class="name">
-                        <nuxt-link 
-                          :to="'/profile/'+feed.artwork_share_info.user.username" 
-                          class="fullname hover:href"
-                        >
-                          {{ feed.artwork_share_info.user.name }}
-                        </nuxt-link>
-                        <br>
-                        <nuxt-link 
-                          :to="'/profile/'+feed.artwork_share_info.user.username" 
-                          class="hover:underline text-xxs"
-                        >
-                          @{{ feed.artwork_share_info.user.username }}
-                        </nuxt-link>
-                        
-                        <span class="mx-1">·</span>
-                        
-                        <nuxt-link :to="'/a/' + feed.artwork_share_info.id" class="hover:underline text-xxs">
-                          {{ formatDate(feed.artwork_share_info.scheduled_post ? feed.artwork_share_info.scheduled_post : feed.artwork_share_info.created_at, true) }}
-                        </nuxt-link>
-                      </div>
-                    </div>
-
-                    <!-- title & description of shared artwork -->
-                    <div class="px-2 mt-2 md:px-4">
-                      <span class="title">{{ feed.artwork_share_info.title }}</span>
-                      <p v-show="feed.artwork_share_info.description">
-                        <span
-                          :id="'feed-description-'+feed.artwork_share_info.id"
-                          v-html="feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description"
-                        />
-                        
-                        <a 
-                          v-if="feed.artwork_share_info.description.length > 300" 
-                          :id="'feed-read-more-'+feed.artwork_share_info.id" 
-                          class="href" 
-                          @click.prevent="readMore(feed.artwork_share_info.description, feed.artwork_share_info.id, 'feed-read-more-', 'feed-description-')"
-                        >
-                          {{ $t('readMore') }}
-                        </a>
-                      </p>
-                    </div>
-
-                    <!-- artwork images -->
-                    <div>
-                      <!-- desktop -->
-                      <div
-                        v-if="!isMobile()"
-                        :class="[
-                          'p-2',
-                          { 'cursor-pointer': !feed.apply_explicit_filter }
-                        ]"
-                        @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                      <br>
+                      <nuxt-link 
+                        :to="'/profile/'+feed.artwork_share_info.user.username" 
+                        class="hover:underline text-xxs"
                       >
-                        <div
-                          :class="[
-                            'overflow-hidden relative p-2 rounded-md',
-                            { 'md:mx-2': feed.apply_explicit_filter }
-                          ]"
-                        >
-                          <ImageList
-                            :class="[
-                              { 'blur-3xl unclickable': feed.apply_explicit_filter },
-                              feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
-                            ]"
-                            :work="feed"
-                          />
-
-                          <!-- filter message -->
-                          <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
-                            <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                            <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- mobile/smaller device -->
-                      <nuxt-link
-                        v-if="isMobile()"
-                        :to="feed.apply_explicit_filter ? null : '/a/'+feed.artwork_share_info.id"
-                        @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
-                        class="cursor-pointer"
-                      >
-                        <div
-                          :class="[
-                            'overflow-hidden relative p-2 rounded-md',
-                            { 'm-2': feed.apply_explicit_filter }
-                          ]"
-                        >
-                          <ImageList
-                            :class="[
-                              { 'blur-3xl unclickable': feed.apply_explicit_filter },
-                              feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
-                            ]"
-                            :work="feed"
-                          />
-
-                          <!-- filter message -->
-                          <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
-                            <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                            <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
-                          </div>
-                        </div>
+                        @{{ feed.artwork_share_info.user.username }}
+                      </nuxt-link>
+                      
+                      <span class="mx-1">·</span>
+                      
+                      <nuxt-link :to="'/a/' + feed.artwork_share_info.id" class="hover:underline text-xxs">
+                        {{ formatDate(feed.artwork_share_info.scheduled_post ? feed.artwork_share_info.scheduled_post : feed.artwork_share_info.created_at, true) }}
                       </nuxt-link>
                     </div>
                   </div>
-                </div>
 
-                <!-- Intereaction area -->
-                <div class="float-right mx-4 mt-2 interactions">
-                  <!-- Reactions -->
-                  <div v-if="auth.loggedIn" class="reactions">
-                    <!-- Like -->
-                    <span
-                      @click="
-                        feed.type === 'artwork' ?
-                          likedIds.includes('a-'+feed.id) ? unlike('a-'+feed.id, feed.type) : like('a-'+feed.id, feed.type) : 
-                          likedIds.includes('f-'+feed.id) ? unlike('f-'+feed.id, feed.type) : like('f-'+feed.id, feed.type)
-                      "
-                    >
-                      <Icon 
-                        v-show="feed.type === 'artwork' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
-                        :id="'feed-like-button-'+feed.type+'-'+feed.id"
-                        :name="'i-ion-heart'" 
-                        class="mr-1 text-red-500 hover:text-red-500"
+                  <!-- title & description of shared artwork -->
+                  <div class="px-2 mt-2 md:px-4">
+                    <span class="title">{{ feed.artwork_share_info.title }}</span>
+                    <p v-show="feed.artwork_share_info.description">
+                      <span
+                        :id="'feed-description-'+feed.artwork_share_info.id"
+                        v-html="feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description"
                       />
-                      <Icon
-                        v-show="feed.type === 'artwork' ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
-                        :name="'i-ri-heart-3-line'" 
-                        class="mr-1 icon-color hover:text-red-500"
-                      />
-                      {{ thousand(feed._count.likes) }}
-                    </span>
-
-                    <!-- Comment -->
-                    <span @click.prevent="feed.type === 'artwork' ? view(feed.id) : viewFeed(feed.id)">
-                      <Icon 
-                        :name="'i-mdi-comment-multiple-outline'" 
-                        class="mr-1 icon-color hover:text-blue-500"
-                      />
-                      {{ thousand(feed._count.comments) }}
-                    </span>
-
-                    <!-- Save -->
-                    <span v-if="feed.type === 'artwork'" @click="showCollectionSelectionModal(feed.id)">
-                      <Icon 
-                        v-show="savedIds.includes(feed.id)"
-                        :id="'save-to-collection-button-'+feed.id"
-                        :name="'i-ion-bookmark'" 
-                        class="text-blue-500 hover:text-blue-500"
-                      />
-                      <Icon 
-                        v-show="!savedIds.includes(feed.id)"
-                        :name="'i-majesticons-bookmark-line'" 
-                        class="icon-color hover:text-blue-500"
-                      />
-                    </span>
-
-                    <!-- ellipsis other interaction -->
-                    <div class="option dropdown">
-                      <button 
-                        type="button" 
-                        aria-haspopup="true" 
-                        aria-expanded="true" 
-                        aria-controls="option-dropdown-items"
-                      >
-                        <span>
-                          <Icon
-                            :name="'i-uit-ellipsis-v'" 
-                            class="align-middle icon icon-color"
-                          />
-                        </span>
-                      </button>
                       
-                      <div class="option-dropdown dropdown-menu">
-                        <div 
-                          id="option-dropdown-items" 
-                          class="w-52 toggler"
-                          aria-labelledby="option-dropdown-buttons" 
-                          role="menu"
-                        >
-                          <div class="menu-wrapper">
-                            <nuxt-link 
-                              :to="feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id"
-                              class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
-                            >
-                              <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
-                            </nuxt-link>
-                            <nuxt-link 
-                              :to="feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id"
-                              target="_blank" 
-                              class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
-                            >
-                              <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                      <a 
+                        v-if="feed.artwork_share_info.description.length > 300" 
+                        :id="'feed-read-more-'+feed.artwork_share_info.id" 
+                        class="href" 
+                        @click.prevent="readMore(feed.artwork_share_info.description, feed.artwork_share_info.id, 'feed-read-more-', 'feed-description-')"
+                      >
+                        {{ $t('readMore') }}
+                      </a>
+                    </p>
+                  </div>
+
+                  <!-- artwork images -->
+                  <div>
+                    <!-- desktop -->
+                    <div
+                      v-if="!isMobile()"
+                      :class="[
+                        'p-2',
+                        { 'cursor-pointer': !feed.apply_explicit_filter }
+                      ]"
+                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                    >
+                      <div
+                        :class="[
+                          'overflow-hidden relative p-2 rounded-md',
+                          { 'md:mx-2': feed.apply_explicit_filter }
+                        ]"
+                      >
+                        <ImageList
+                          :class="[
+                            { 'blur-3xl unclickable': feed.apply_explicit_filter },
+                            feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                          ]"
+                          :work="feed"
+                        />
+
+                        <!-- filter message -->
+                        <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                          <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                          <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- mobile/smaller device -->
+                    <nuxt-link
+                      v-if="isMobile()"
+                      :to="feed.apply_explicit_filter ? null : '/a/'+feed.artwork_share_info.id"
+                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                      class="cursor-pointer"
+                    >
+                      <div
+                        :class="[
+                          'overflow-hidden relative p-2 rounded-md',
+                          { 'm-2': feed.apply_explicit_filter }
+                        ]"
+                      >
+                        <ImageList
+                          :class="[
+                            { 'blur-3xl unclickable': feed.apply_explicit_filter },
+                            feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                          ]"
+                          :work="feed"
+                        />
+
+                        <!-- filter message -->
+                        <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                          <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                          <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                        </div>
+                      </div>
+                    </nuxt-link>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Intereaction area -->
+              <div class="float-right mx-4 mt-2 interactions">
+                <!-- Reactions -->
+                <div v-if="auth.loggedIn" class="reactions">
+                  <!-- Like -->
+                  <span
+                    @click="
+                      feed.type === 'artwork' ?
+                        likedIds.includes('a-'+feed.id) ? unlike('a-'+feed.id, feed.type) : like('a-'+feed.id, feed.type) : 
+                        likedIds.includes('f-'+feed.id) ? unlike('f-'+feed.id, feed.type) : like('f-'+feed.id, feed.type)
+                    "
+                  >
+                    <Icon 
+                      v-show="feed.type === 'artwork' ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
+                      :id="'feed-like-button-'+feed.type+'-'+feed.id"
+                      :name="'i-ion-heart'" 
+                      class="mr-1 text-red-500 hover:text-red-500"
+                    />
+                    <Icon
+                      v-show="feed.type === 'artwork' ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
+                      :name="'i-ri-heart-3-line'" 
+                      class="mr-1 icon-color hover:text-red-500"
+                    />
+                    {{ thousand(feed._count.likes) }}
+                  </span>
+
+                  <!-- Comment -->
+                  <span @click.prevent="feed.type === 'artwork' ? view(feed.id) : viewFeed(feed.id)">
+                    <Icon 
+                      :name="'i-mdi-comment-multiple-outline'" 
+                      class="mr-1 icon-color hover:text-blue-500"
+                    />
+                    {{ thousand(feed._count.comments) }}
+                  </span>
+
+                  <!-- Save -->
+                  <span v-if="feed.type === 'artwork'" @click="showCollectionSelectionModal(feed.id)">
+                    <Icon 
+                      v-show="savedIds.includes(feed.id)"
+                      :id="'save-to-collection-button-'+feed.id"
+                      :name="'i-ion-bookmark'" 
+                      class="text-blue-500 hover:text-blue-500"
+                    />
+                    <Icon 
+                      v-show="!savedIds.includes(feed.id)"
+                      :name="'i-majesticons-bookmark-line'" 
+                      class="icon-color hover:text-blue-500"
+                    />
+                  </span>
+
+                  <!-- ellipsis other interaction -->
+                  <div class="option dropdown">
+                    <button 
+                      type="button" 
+                      aria-haspopup="true" 
+                      aria-expanded="true" 
+                      aria-controls="option-dropdown-items"
+                    >
+                      <span>
+                        <Icon
+                          :name="'i-uit-ellipsis-v'" 
+                          class="align-middle icon icon-color"
+                        />
+                      </span>
+                    </button>
+                    
+                    <div class="option-dropdown dropdown-menu">
+                      <div 
+                        id="option-dropdown-items" 
+                        class="w-52 toggler"
+                        aria-labelledby="option-dropdown-buttons" 
+                        role="menu"
+                      >
+                        <div class="menu-wrapper">
+                          <nuxt-link 
+                            :to="feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id"
+                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
+                          >
+                            <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
+                          </nuxt-link>
+                          <nuxt-link 
+                            :to="feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id"
+                            target="_blank" 
+                            class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
+                          >
+                            <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
                             </nuxt-link>
 
                             <div class="custom-divider" />
@@ -428,7 +423,6 @@
         <FeedSide />
       </template>
     </Layout>
-  </keep-alive>
 </template>
 
 <script setup>

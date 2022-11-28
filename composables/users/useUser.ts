@@ -25,7 +25,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         return [null, 'Username is already taken']
       }
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -40,7 +40,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         return [null, 'Pen name is already taken']
       }
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -51,7 +51,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -65,7 +65,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -87,7 +87,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -101,7 +101,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data.total, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -115,7 +115,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data.total, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -129,7 +129,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data.total, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -140,7 +140,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data.total, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -151,7 +151,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -162,7 +162,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
   
@@ -188,7 +188,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -210,7 +210,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -234,7 +234,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.data, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -245,7 +245,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -256,7 +256,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -285,7 +285,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -320,7 +320,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -338,7 +338,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -352,7 +352,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -363,7 +363,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       return [data.success, null]
     } catch (error) {
-      return [null, error]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 

@@ -45,9 +45,24 @@
       @apply object-cover shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
     
       a {
-        p {
-          @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
+        p.regular {
+          @apply absolute m-2 w-5 h-5 text-xs font-bold text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
         }
+        p.redraw {
+          @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-blue-500 bg-opacity-70 rounded-sm;
+
+          .icon {
+            @apply text-white;
+          }
+        }
+        p.original-character {
+          @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-emerald-500 bg-opacity-70 rounded-sm;
+
+          .icon {
+            @apply text-white;
+          }
+        }
+        
         img {
           @apply object-cover object-top w-full bg-white rounded-md;
           aspect-ratio: 1/1;
