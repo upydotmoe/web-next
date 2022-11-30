@@ -10,7 +10,7 @@
             @click="activeType = 'artwork'" 
           >
             {{ $t('artworks.artwork') }}
-            <span class="px-1 ml-2 font-normal rounded" :class="activeType === 'artwork' ? 'theme-color' : 'button-color text-white'">{{ counter.artwork }}</span>
+            <span class="px-1 ml-2 font-normal rounded" :class="activeType === 'artwork' ? 'theme-color' : 'button-color text-white'">{{ thousand(counter.artwork) }}</span>
           </div>
           <!-- <div 
             class="primary-button theme-color-secondary"

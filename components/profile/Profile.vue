@@ -45,11 +45,11 @@
               ]"
             >
               <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
-                <b>{{ counter.followers }}</b>&nbsp;
+                <b>{{ thousand(counter.followers) }}</b>&nbsp;
                 <i>{{ $t('followers.followers').toLowerCase() }}</i>
               </div>
               <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
-                <b>{{ counter.followings }}</b>&nbsp;
+                <b>{{ thousand(counter.followings) }}</b>&nbsp;
                 <i>{{ $t('followings.followings').toLowerCase() }}</i>
               </div>
             </div>
@@ -378,11 +378,11 @@
         <!-- mobile: following & followers count -->
         <div class="flex flex-row justify-center w-full md:hidden">
           <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
-            <b>{{ counter.followers }}</b>&nbsp;
+            <b>{{ thousand(counter.followers) }}</b>&nbsp;
             <i>{{ $t('followers.followers') }}</i>
           </div>
           <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
-            <b>{{ counter.followings }}</b>&nbsp;
+            <b>{{ thousand(counter.followings) }}</b>&nbsp;
             <i>{{ $t('followings.followings') }}</i>
           </div>
         </div>
@@ -481,6 +481,20 @@
             </div>
             <span>{{ $t('collections.collection') }}</span>
           </div>
+
+          <!-- liked -->
+          <div 
+            v-if="auth.loggedIn && auth.user.id === userInfo.id"
+            class="profile-navigation__mobile theme-color-secondary"
+            :class="{ 'button-color text-white': currentState == 'liked' }"
+            @click="changeCurrentState('liked')"
+          >
+            <div>
+              <Icon v-show="currentState == 'liked'" :name="'i-ri-heart-3-line'" class="text-white" />
+              <Icon v-show="currentState != 'liked'" :name="'i-ri-heart-3-line'" class="hover:text-white" />
+            </div>
+            <span>{{ $t('artworks.liked') }}</span>
+          </div>
         </div>
 
         <div class="flex flex-row justify-between mt-2 md:mt-6">
@@ -513,7 +527,7 @@
                   {{ $t('albums.album') }}
                 </label>
               </div>
-              <span class="hidden-lg-flex">{{ counter.album }}</span>
+              <span class="hidden-lg-flex">{{ thousand(counter.album) }}</span>
             </div>
 
             <div 
@@ -528,7 +542,25 @@
                   {{ $t('collections.collection') }}
                 </label>
               </div>
-              <span class="hidden-lg-flex">{{ counter.collection }}</span>
+              <span class="hidden-lg-flex">{{ thousand(counter.collection) }}</span>
+            </div>
+
+            <div v-if="auth.loggedIn && auth.user.id === userInfo.id" class="custom-divider" />
+
+            <div 
+              v-if="auth.loggedIn && auth.user.id === userInfo.id"
+              class="profile-navigation left-menu-link theme-color-secondary"
+              :class="{ 'button-color text-white': currentState === 'liked' }"
+              @click="changeCurrentState('liked')"
+            >
+              <div class="profile-navigation_wrapper">
+                <Icon v-show="currentState === 'liked'" :name="'i-ri-heart-3-line'" class="text-white" />
+                <Icon v-show="currentState !== 'liked'" :name="'i-ri-heart-3-line'" />
+                <label class="hidden-lg-flex">
+                  {{ $t('artworks.liked') }}
+                </label>
+              </div>
+              <span class="hidden-lg-flex">{{ thousand(counter.liked) }}</span>
             </div>
           </div>
 
@@ -548,7 +580,7 @@
                     class="px-1 ml-2 rounded" 
                     :class="activeDashboard === 'feed' ? 'theme-color' : 'button-color text-white'"
                   >
-                    {{ counter.feed }}
+                    {{ thousand(counter.feed) }}
                   </span>
                 </div>
 
@@ -562,7 +594,7 @@
                     class="px-1 ml-2 rounded" 
                     :class="activeDashboard === 'artwork' ? 'theme-color' : 'button-color text-white'"
                   >
-                    {{ counter.artwork }}
+                    {{ thousand(counter.artwork) }}
                   </span>
                 </div>
                 <!-- <div 
@@ -646,6 +678,14 @@
               />
             </div>
 
+            <!-- liked -->
+            <div v-if="auth.loggedIn && auth.user.id === userInfo.id && currentState === 'liked'">
+              <Liked
+                v-if="!loading"
+                :user-id="userInfo.id"
+              />
+            </div>
+
             <div v-if="currentState === 'followerList'">
               <FollowerList
                 v-if="!loading"
@@ -699,6 +739,7 @@ import Feeds from '~/components/profile/Feeds.vue'
 import Artworks from '~/components/profile/Artworks.vue'
 import Album from '~/components/profile/Album.vue'
 import Collection from '~/components/profile/Collection.vue'
+import Liked from '~/components/profile/artworks/Liked.vue'
 import FollowerList from '~/components/profile/FollowerList.vue'
 import FollowingList from '~/components/profile/FollowingList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
@@ -717,6 +758,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 const album = useAlbum(oApiConfiguration, fetchOptions())
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const emit = defineEmits (['setMeta'])
 const props = defineProps ({
@@ -765,8 +807,10 @@ const counter = ref({
   comic: 0,
   tutorial: 0,
   album: 0,
+  collection: 0,
+  liked: 0,
   followers: 0,
-  followings: 0
+  followings: 0,
 })
 const fetchUserInfo = async () => {
   loading.value = true
@@ -809,6 +853,14 @@ const fetchUserInfo = async () => {
     // count collection total
     const [collectionTotal] = await collectionApi.countCollections(userId.value)
     counter.value.collection = collectionTotal
+
+    // count liked artwork total
+    if (auth.loggedIn && auth.user.id === userInfo.value.id) {
+      const [likedArtworkTotal] = await artworkApi.countUserLikedArtworks({
+        userId: userId.value
+      })
+      counter.value.liked = likedArtworkTotal
+    }
 
     emit('setMeta', {
       title: `(${userInfo.value.username}) ${userInfo.value.name}`

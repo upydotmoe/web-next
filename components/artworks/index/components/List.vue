@@ -69,7 +69,7 @@
         <!-- Load more button (next pagination) -->
         <div 
           v-show="showLoadMoreButton" 
-          class="primary-button md:mt-4"
+          class="primary-button"
           :class="loadMoreOptions.delay ? 'animate-pulse' : ''" 
           @click="loadMore"
         >

@@ -16,6 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { InlineResponse20027 } from '../models';
 import { InlineResponse20028 } from '../models';
 import { InlineResponse20029 } from '../models';
 /**
@@ -24,6 +25,47 @@ import { InlineResponse20029 } from '../models';
  */
 export const ArtworkTagsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Get all existing tags
+         * @param {string} [orderMode] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllTags: async (orderMode?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/artworks/tags/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            if (orderMode !== undefined) {
+                localVarQueryParameter['order_mode'] = orderMode;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Get tag keys by comma separated tags
@@ -125,6 +167,20 @@ export const ArtworkTagsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Get all existing tags
+         * @param {string} [orderMode] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllTags(orderMode?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20027>>> {
+            const localVarAxiosArgs = await ArtworkTagsApiAxiosParamCreator(configuration).getAllTags(orderMode, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Get tag keys by comma separated tags
          * @param {string} tags 
          * @param {*} [options] Override http request option.
@@ -162,6 +218,16 @@ export const ArtworkTagsApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
+         * @summary Get all existing tags
+         * @param {string} [orderMode] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllTags(orderMode?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20027>> {
+            return ArtworkTagsApiFp(configuration).getAllTags(orderMode, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Get tag keys by comma separated tags
          * @param {string} tags 
          * @param {*} [options] Override http request option.
@@ -190,6 +256,17 @@ export const ArtworkTagsApiFactory = function (configuration?: Configuration, ba
  * @extends {BaseAPI}
  */
 export class ArtworkTagsApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get all existing tags
+     * @param {string} [orderMode] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtworkTagsApi
+     */
+    public async getAllTags(orderMode?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20027>> {
+        return ArtworkTagsApiFp(this.configuration).getAllTags(orderMode, options).then((request) => request(this.axios, this.basePath));
+    }
     /**
      * 
      * @summary Get tag keys by comma separated tags

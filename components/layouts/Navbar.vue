@@ -191,6 +191,12 @@
                       {{ $t('collections.collection') }}
                     </div>
                   </nuxt-link>
+                  <nuxt-link :to="'/profile?o=liked'">
+                    <div class="menu parent-icon">
+                      <Icon :name="'i-ri-heart-3-line'" />
+                      {{ $t('artworks.liked') }}
+                    </div>
+                  </nuxt-link>
 
                   <div class="custom-divider" />
 

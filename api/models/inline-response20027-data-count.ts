@@ -11,23 +11,16 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20027DataTags } from './inline-response20027-data-tags';
 /**
  * 
  * @export
- * @interface InlineResponse20027Data
+ * @interface InlineResponse20027DataCount
  */
-export interface InlineResponse20027Data {
+export interface InlineResponse20027DataCount {
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20027Data
+     * @memberof InlineResponse20027DataCount
      */
-    count?: number;
-    /**
-     * 
-     * @type {Array<InlineResponse20027DataTags>}
-     * @memberof InlineResponse20027Data
-     */
-    tags?: Array<InlineResponse20027DataTags>;
+    artworkHasTags?: number;
 }

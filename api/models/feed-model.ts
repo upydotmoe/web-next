@@ -38,12 +38,6 @@ export interface FeedModel extends FeedLiteModel {
      * @memberof FeedModel
      */
     artworks?: any;
-    /**
-     * 
-     * @type {FeedLiteModel}
-     * @memberof FeedModel
-     */
-    feeds?: FeedLiteModel;
 }
 
 

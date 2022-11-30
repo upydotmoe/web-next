@@ -8,6 +8,7 @@ import {
   ArtworkListApi,
   ArtworksApi,
   ArtworksRedrawsApi,
+  ArtworksUserApi,
   ArtworkTagsApi,
   ArtworkViewsApi,
   SearchApi
@@ -691,6 +692,47 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  /**
+   * @userLikedArtworks
+   */
+  const countUserLikedArtworks = async (params: {
+    userId: number
+  }) => {
+    try {
+      const { data } = await new ArtworksUserApi(oApiConfiguration)
+        .countUserLikedArtworks(
+          params.userId,
+          fetchOptions
+        )
+
+      return [data.data?.total, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
+  const getUserLikedArtworks = async (params: {
+    userId: number,
+    pagination: {
+      page: number,
+      perPage: number
+    }
+  }) => {
+    try {
+      const { data } = await new ArtworksUserApi(oApiConfiguration)
+        .getUserLikedArtworks(
+          params.userId,
+          params.pagination.page,
+          params.pagination.perPage,
+          fetchOptions
+        )
+
+      return [data.data?.works, data.data?.pagination, null]
+    } catch (error) {
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   return {
     getMostPopular,
     getLatest,
@@ -725,6 +767,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
     countRedraws,
     getRedraws,
-    getMyRedraw
+    getMyRedraw,
+
+    countUserLikedArtworks,
+    getUserLikedArtworks,
   }
 }

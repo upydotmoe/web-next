@@ -4,7 +4,7 @@
       v-for="work in works" 
       :key="work.id" 
       :class="[
-        'work-thumbnail theme-color-bg rounded-lg',
+        'work-thumbnail theme-color-bg rounded-lg mb-2',
         work._count.artwork_assets > 1 && currentWorkId != work.id ? 'work-multiple' : '',
         { 'border-4 border-yellow-400': manageList.includes(work.id) || currentWorkId == work.id }
       ]"
@@ -17,35 +17,37 @@
         class="w-full h-full theme-color-bg"
       >
         <div class="overflow-hidden relative text-center rounded-md">
-          <!-- image count -->
-          <p
-            v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
-            class="regular"
-          >
-            {{ work._count.artwork_assets }}
-          </p>
+          <div class="mini-icon">
+            <!-- image count -->
+            <p
+              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
+              class="regular"
+            >
+              {{ work._count.artwork_assets }}
+            </p>
 
-          <!-- is a redraw -->
-          <p
-            v-if="work.redraw_of && !hideRedrawIcon"
-            class="redraw"
-          >
-            <Icon
-              :name="'i-typcn-brush'"
-              class="text-white"
-            />
-          </p>
+            <!-- is an original character -->
+            <p
+              v-if="work.is_original_character"
+              class="original-character"
+            >
+              <Icon
+                :name="'i-clarity-cursor-hand-click-line'"
+                class="text-white"
+              />
+            </p>
 
-          <!-- is an original character -->
-          <p
-            v-if="work.is_original_character"
-            class="original-character"
-          >
-            <Icon
-              :name="'i-clarity-cursor-hand-click-line'"
-              class="text-white"
-            />
-          </p>
+            <!-- is a redraw -->
+            <p
+              v-if="work.redraw_of && !hideRedrawIcon"
+              class="redraw"
+            >
+              <Icon
+                :name="'i-typcn-brush'"
+                class="text-white"
+              />
+            </p>
+          </div>
 
           <!-- explicit content filter -->
           <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">{{ $t('explicitContent') }}</span>
@@ -78,35 +80,37 @@
         @click="manageMode ? addToManageList(work.id) : open(work.id)"
       >
         <div class="overflow-hidden relative text-center rounded-md">
-          <!-- image count -->
-          <p
-            v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
-            class="regular"
-          >
-            {{ work._count.artwork_assets }}
-          </p>
+          <div class="mini-icon">
+            <!-- image count -->
+            <p
+              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
+              class="regular"
+            >
+              {{ work._count.artwork_assets }}
+            </p>
 
-          <!-- is a redraw -->
-          <p
-            v-if="work.redraw_of && !hideRedrawIcon"
-            class="redraw"
-          >
-            <Icon
-              :name="'i-typcn-brush'"
-              class="text-white"
-            />
-          </p>
+            <!-- is an original character -->
+            <p
+              v-if="work.is_original_character"
+              class="original-character"
+            >
+              <Icon
+                :name="'i-clarity-cursor-hand-click-line'"
+                class="text-white"
+              />
+            </p>
 
-          <!-- is an original character -->
-          <p
-            v-if="work.is_original_character"
-            class="original-character"
-          >
-            <Icon
-              :name="'i-clarity-cursor-hand-click-line'"
-              class="text-white"
-            />
-          </p>
+            <!-- is a redraw -->
+            <p
+              v-if="work.redraw_of && !hideRedrawIcon"
+              class="redraw"
+            >
+              <Icon
+                :name="'i-typcn-brush'"
+                class="text-white"
+              />
+            </p>
+          </div>
 
           <!-- explicit content filter -->
           <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">{{ $t('explicitContent') }}</span>

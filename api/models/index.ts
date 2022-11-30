@@ -90,6 +90,8 @@ export * from './inline-response20026';
 export * from './inline-response20026-data';
 export * from './inline-response20027';
 export * from './inline-response20027-data';
+export * from './inline-response20027-data-count';
+export * from './inline-response20027-data-tags';
 export * from './inline-response20028';
 export * from './inline-response20029';
 export * from './inline-response20029-data';
