@@ -12,7 +12,7 @@
 }
 
 .work-container {
-  @apply flex overflow-y-auto overscroll-none flex-col justify-between h-full text-left rounded-md;
+  @apply flex overflow-hidden md:overflow-y-auto overscroll-none flex-col justify-between h-full text-left rounded-md;
 
   .left-side {
     @apply overflow-hidden overscroll-none w-full lg:pr-6;

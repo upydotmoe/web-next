@@ -1,4 +1,5 @@
 <template>
+  <!-- loading -->
   <div
     v-show="loading && !isMobile() && isModal"
     class="mx-auto w-full align-middle work-view md:w-1/2"
@@ -8,12 +9,13 @@
     />
   </div>
 
+  <!--  -->
   <div
     v-show="!loading"
     class="work-container work-view"
     :class="!isModal ? 'w-full' : 'w-full 2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color'"
   >
-    <div class="flex flex-row w-full">
+    <div class="flex flex-col w-full lg:flex-row">
       <!-- Left side: Image view; total of views, likes, comments, and other works by user -->
       <div class="left-side">
         <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
@@ -848,7 +850,7 @@
     <div class="custom-divider" />
 
     <!-- related artworks -->
-    <div class="w-full mt-4">
+    <div class="mt-4 w-full">
       <div class="section-title">Similar Artworks</div>
 
       <RelatedArtworks
