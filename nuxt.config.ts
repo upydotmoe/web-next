@@ -100,7 +100,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxt/image-edge'
+    '@nuxt/image-edge',
+    '@nuxtjs/critters',
     // 'nuxt-security' // temporary disabled due to cors issue with image CDN
   ],
 

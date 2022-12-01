@@ -7,6 +7,7 @@
 /// <reference types="@unocss/nuxt" />
 /// <reference types="@nuxtjs/color-mode" />
 /// <reference types="@nuxt/image-edge" />
+/// <reference types="@nuxtjs/critters" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference types="nuxt" />
 /// <reference path="types/plugins.d.ts" />
