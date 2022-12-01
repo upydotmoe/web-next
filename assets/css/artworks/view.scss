@@ -8,14 +8,14 @@
 }
 
 .work-view {
-  @apply overflow-hidden overscroll-none;
+  @apply hidden overscroll-none;
 }
 
 .work-container {
-  @apply flex overscroll-none flex-col justify-between h-full text-left rounded-md lg:flex-row;
+  @apply flex overflow-y-auto overscroll-none flex-col justify-between h-full text-left rounded-md;
 
   .left-side {
-    @apply overflow-hidden overscroll-none w-full md:overflow-y-auto lg:pr-6;
+    @apply overflow-hidden overscroll-none w-full lg:pr-6;
 
     .image-list {
       @apply mb-3 rounded-md;

@@ -13,756 +13,611 @@
     class="work-container work-view"
     :class="!isModal ? 'w-full' : 'w-full 2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color'"
   >
-    <!-- Left side: Image view; total of views, likes, comments, and other works by user -->
-    <div class="left-side" :class="{ 'overflow-y-scroll mr-6': isModal }">
-      <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
-        <div class="flex flex-row justify-center mb-2">
-          <Icon :name="'i-ion-alert-outline'" />
-          <div>{{ $t('artworks.previewModeMessage') }}</div>
-        </div>
-        <div class="font-bold cursor-pointer">
-          <span class="text-red-500" @click="deleteConfirmationDialog = true">
-            {{ $t('artworks.deleteArtwork') }}
-          </span>
-
-          <!-- Delete confirmation -->
-          <div v-show="deleteConfirmationDialog">
-            <span class="mr-2 font-normal">
-              {{ $t('alert.areYouSure') }} <span class="italic">({{ $t('alert.youCannotUndoThisAction') }})</span>
+    <div class="flex flex-row w-full">
+      <!-- Left side: Image view; total of views, likes, comments, and other works by user -->
+      <div class="left-side">
+        <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
+          <div class="flex flex-row justify-center mb-2">
+            <Icon :name="'i-ion-alert-outline'" />
+            <div>{{ $t('artworks.previewModeMessage') }}</div>
+          </div>
+          <div class="font-bold cursor-pointer">
+            <span class="text-red-500" @click="deleteConfirmationDialog = true">
+              {{ $t('artworks.deleteArtwork') }}
             </span>
 
-            <span class="mr-2 text-red-500 hover:underline" @click="deleteWork(artworkDetail.id)">
-              {{ $t('yes') }}
-            </span>
-            <span class="hover:underline" @click="deleteConfirmationDialog = false">
-              {{ $t('no') }}
-            </span>
+            <!-- Delete confirmation -->
+            <div v-show="deleteConfirmationDialog">
+              <span class="mr-2 font-normal">
+                {{ $t('alert.areYouSure') }} <span class="italic">({{ $t('alert.youCannotUndoThisAction') }})</span>
+              </span>
+
+              <span class="mr-2 text-red-500 hover:underline" @click="deleteWork(artworkDetail.id)">
+                {{ $t('yes') }}
+              </span>
+              <span class="hover:underline" @click="deleteConfirmationDialog = false">
+                {{ $t('no') }}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div v-if="deleteSuccess" class="alert-success">
-        {{ $t('artworks.successDelete') }}
-      </div>
+        <div v-if="deleteSuccess" class="alert-success">
+          {{ $t('artworks.successDelete') }}
+        </div>
 
-      <div v-show="showExplicitAlert" class="flex flex-row justify-between p-3 mb-2 text-black align-middle bg-yellow-200 rounded">
-        <span class="mr-4">{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</span>
+        <div v-show="showExplicitAlert" class="flex flex-row justify-between p-3 mb-2 text-black align-middle bg-yellow-200 rounded">
+          <span class="mr-4">{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</span>
 
-        <button class="primary-button" @click.prevent="removeFilter()">
-          {{ $t('show') }}
-        </button>
-      </div>
+          <button class="primary-button" @click.prevent="removeFilter()">
+            {{ $t('show') }}
+          </button>
+        </div>
 
-      <!-- Image list -->
-      <div class="image-list">
-        <div
-          v-if="artworkDetail.redraw_of && !originalArtworkLoading"
-          class="flex flex-row mb-2"
-        >
-          <!-- original -->
-          <nuxt-link
-            :to="'/a/'+originalArtwork.id"
-            class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
-          >
-            <!-- test --> <img
-              preload
-              loading="lazy"
-              class="inline-block mr-2 w-8 rounded-md"
-              :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-              @error="imageLoadError"
-            />
-            <span class="font-bold">
-              {{ originalArtwork.title.length > redrawBreadcrumbTitleMaxLength ? originalArtwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : originalArtwork.title }}
-            </span>
-          </nuxt-link>
-
-          <!-- redraw version (current) -->
+        <!-- Image list -->
+        <div class="image-list">
           <div
-            :class="[
-              'inline-block flex-row gap-2 p-1 pr-2 pl-6 -ml-4 rounded-md',
-              isModal ? 'theme-color-secondary' : 'theme-color'
-            ]"
+            v-if="artworkDetail.redraw_of && !originalArtworkLoading"
+            class="flex flex-row mb-2"
           >
-            <!-- test --> <img
-              preload
-              loading="lazy"
-              class="inline-block mr-2 w-8 rounded-md"
-              :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
-              @error="imageLoadError"
-            />
-            <span class="font-bold">
-              {{ artworkDetail.title.length > redrawBreadcrumbTitleMaxLength ? artworkDetail.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : artworkDetail.title }}
-            </span>
-          </div>
-        </div>
-        <viewer 
-          :options="{
-            url: 'data-source'
-          }"
-          :images="images"
-          class="overflow-hidden rounded-md"
-        >
-          <template 
-            @click.prevent="null"
-            v-for="(src, index) in images"
-            :key="src.thumbnail"
-          >
-            <!-- loading="lazy" -->
-            <!-- v-lazy="src.thumbnail" -->
-            <!-- test --> <img
-              preload
-              loading="lazy"
-              :src="src.thumbnail"
-              :data-source="src.source"
+            <!-- original -->
+            <nuxt-link
+              :to="'/a/'+originalArtwork.id"
+              class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
+            >
+              <!-- test --> <img
+                preload
+                loading="lazy"
+                class="inline-block mr-2 w-8 rounded-md"
+                :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+                @error="imageLoadError"
+              />
+              <span class="font-bold">
+                {{ originalArtwork.title.length > redrawBreadcrumbTitleMaxLength ? originalArtwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : originalArtwork.title }}
+              </span>
+            </nuxt-link>
+
+            <!-- redraw version (current) -->
+            <div
               :class="[
-                'overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable',
-                { 'blur-lg unclickable': showExplicitAlert }, 
-                showExplicitAlert ? 'brightness-50' : 'brightness-100'
+                'inline-block flex-row gap-2 p-1 pr-2 pl-6 -ml-4 rounded-md',
+                isModal ? 'theme-color-secondary' : 'theme-color'
               ]"
-              @error="imageLoadError"
-            />
-          </template>
-        </viewer>
-      </div>
-
-      <!-- Intereaction area -->
-      <div 
-        class="interactions"
-      >
-        <!-- Counter -->
-        <div class="reaction-counters">
-          <span
-            v-if="artworkDetail.is_explicit"
-            :class="[
-              'py-1 px-2 mr-2 font-bold rounded-md text-xxs',
-              isModal ? 'theme-color-secondary' : 'bg-tag'
-            ]"
-          >E</span>
-
-          <!-- Total of views -->
-          <span
-            v-show="artworkDetail.views > 0" 
-            class="counter"
+            >
+              <!-- test --> <img
+                preload
+                loading="lazy"
+                class="inline-block mr-2 w-8 rounded-md"
+                :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
+                @error="imageLoadError"
+              />
+              <span class="font-bold">
+                {{ artworkDetail.title.length > redrawBreadcrumbTitleMaxLength ? artworkDetail.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : artworkDetail.title }}
+              </span>
+            </div>
+          </div>
+          <viewer 
+            :options="{
+              url: 'data-source'
+            }"
+            :images="images"
+            class="overflow-hidden rounded-md"
           >
-            <Icon :name="'i-mi-eye'" />
-            <b>{{ shortNumber(artworkDetail.views) }}</b> {{ artworkDetail.views > 1 ? $t('count.views') : $t('count.view') }}
-          </span>
-          
-          <!-- Total of likes -->
-          <!-- <span 
-            v-if="artworkDetail._count"
-            v-show="artworkDetail._count.artwork_likes > 0" 
-            class="counter"
-          >
-            <b>{{ thousand(artworkDetail._count.artwork_likes) }}</b> {{ artworkDetail._count.artwork_likes > 1 ? $t('count.likes') : $t('count.like') }}
-          </span> -->
-
-          <!-- Total of comments -->
-          <!-- <a
-            v-if="artworkDetail._count"
-            href="#comments"
-            v-show="artworkDetail._count.artwork_comments > 0" 
-            class="counter"
-          >
-            <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
-          </a> -->
-          
-          <!-- Total of saves -->
-          <!-- <span 
-            v-if="artworkDetail._count"
-            v-show="artworkDetail._count.artwork_collection_has_works" 
-            class="counter"
-          >
-            <b>{{ thousand(artworkDetail._count.artwork_collection_has_works) }}</b>
-          </span> -->
+            <template 
+              @click.prevent="null"
+              v-for="(src, index) in images"
+              :key="src.thumbnail"
+            >
+              <!-- loading="lazy" -->
+              <!-- v-lazy="src.thumbnail" -->
+              <!-- test --> <img
+                preload
+                loading="lazy"
+                :src="src.thumbnail"
+                :data-source="src.source"
+                :class="[
+                  'overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable',
+                  { 'blur-lg unclickable': showExplicitAlert }, 
+                  showExplicitAlert ? 'brightness-50' : 'brightness-100'
+                ]"
+                @error="imageLoadError"
+              />
+            </template>
+          </viewer>
         </div>
 
-        <!-- Reactions -->
-        <div v-if="!previewMode" class="reactions">
-          <!-- Like -->
-          <span v-if="auth.loggedIn">
-            <span @click="liked ? unlike() : like()">
-              <Icon 
-                v-show="liked"
-                id="like-button"
-                :name="'i-ion-heart'" 
-                class="text-red-500 hover:text-red-500"
-              />
-              <Icon 
-                v-show="!liked"
-                :name="'i-ri-heart-3-line'" 
-                class="hover:text-red-500"
-              />
-            </span>
-
+        <!-- Intereaction area -->
+        <div 
+          class="interactions"
+        >
+          <!-- Counter -->
+          <div class="reaction-counters">
             <span
-              v-if="artworkDetail._count && artworkDetail._count.artwork_likes"
-              class="hover:cursor-pointer"
-              @click="showUserLikedModal()"
+              v-if="artworkDetail.is_explicit"
+              :class="[
+                'py-1 px-2 mr-2 font-bold rounded-md text-xxs',
+                isModal ? 'theme-color-secondary' : 'bg-tag'
+              ]"
+            >E</span>
+
+            <!-- Total of views -->
+            <span
+              v-show="artworkDetail.views > 0" 
+              class="counter"
             >
-              {{ thousand(artworkDetail._count.artwork_likes) }}
+              <Icon :name="'i-mi-eye'" />
+              <b>{{ shortNumber(artworkDetail.views) }}</b> {{ artworkDetail.views > 1 ? $t('count.views') : $t('count.view') }}
             </span>
-          </span>
-
-          <!-- Save -->
-          <span 
-            v-if="auth.loggedIn"
-            @click="showCollectionSelectionModal()"
-          >
-            <Icon 
-              v-show="saved"
-              id="save-to-collection-button"
-              :name="'i-majesticons-bookmark'" 
-              class="text-blue-500 hover:text-blue-500"
-            />
-            <Icon 
-              v-show="!saved"
-              :name="'i-majesticons-bookmark-line'" 
-              class="hover:text-blue-500"
-            />
-
-            <span v-if="artworkDetail._count && artworkDetail._count.collection_has_artworks">
-              {{ thousand(artworkDetail._count.collection_has_artworks) }}
-            </span>
-          </span>
-
-          <!-- Add to album -->
-          <span 
-            v-if="auth.loggedIn && (artworkDetail.users && auth.user.id === artworkDetail.users.id)"
-            @click="showAlbumSelectionModal()"
-          >
-            <Icon 
-              v-show="inAlbum"
-              id="save-to-album-button"
-              :name="'i-ion-folder-open'" 
-              class="text-green-500 hover:text-green-500"
-            />
-            <Icon 
-              v-show="!inAlbum"
-              :name="'i-bx-photo-album'" 
-              class="hover:text-blue-500"
-            />
-          </span>
-
-          <!-- share to feed -->
-          <span v-if="auth.loggedIn" @click="showShareToFeedModal()">
-            <Icon 
-              :name="'i-uil-share'" 
-              class="hover:text-blue-500"
-            />
-          </span>
-
-          <!-- ellipsis other interaction -->
-          <div class="inline-block relative z-30 dropdown">
-            <button 
-              type="button" 
-              aria-haspopup="true" 
-              aria-expanded="true" 
-              aria-controls="headlessui-menu-items-feed-more-options"
+            
+            <!-- Total of likes -->
+            <!-- <span 
+              v-if="artworkDetail._count"
+              v-show="artworkDetail._count.artwork_likes > 0" 
+              class="counter"
             >
-              <span>
-                <Icon
-                  :name="'i-ion-ellipsis-vertical-outline'" 
-                  class="align-middle icon icon-color"
+              <b>{{ thousand(artworkDetail._count.artwork_likes) }}</b> {{ artworkDetail._count.artwork_likes > 1 ? $t('count.likes') : $t('count.like') }}
+            </span> -->
+
+            <!-- Total of comments -->
+            <!-- <a
+              v-if="artworkDetail._count"
+              href="#comments"
+              v-show="artworkDetail._count.artwork_comments > 0" 
+              class="counter"
+            >
+              <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
+            </a> -->
+            
+            <!-- Total of saves -->
+            <!-- <span 
+              v-if="artworkDetail._count"
+              v-show="artworkDetail._count.artwork_collection_has_works" 
+              class="counter"
+            >
+              <b>{{ thousand(artworkDetail._count.artwork_collection_has_works) }}</b>
+            </span> -->
+          </div>
+
+          <!-- Reactions -->
+          <div v-if="!previewMode" class="reactions">
+            <!-- Like -->
+            <span v-if="auth.loggedIn">
+              <span @click="liked ? unlike() : like()">
+                <Icon 
+                  v-show="liked"
+                  id="like-button"
+                  :name="'i-ion-heart'" 
+                  class="text-red-500 hover:text-red-500"
+                />
+                <Icon 
+                  v-show="!liked"
+                  :name="'i-ri-heart-3-line'" 
+                  class="hover:text-red-500"
                 />
               </span>
-            </button>
-            <div class="invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 dropdown-menu">
-              <div 
-                id="headlessui-menu-items-feed-more-options"
-                class="absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right outline-none theme-color"
-                aria-labelledby="headlessui-menu-button-1" 
-                role="menu"
+
+              <span
+                v-if="artworkDetail._count && artworkDetail._count.artwork_likes"
+                class="hover:cursor-pointer"
+                @click="showUserLikedModal()"
               >
-                <!-- Open / Open in New Tab (Only show in modal view) -->
-                <nuxt-link 
-                  v-if="isModal" 
-                  :to="'/a/'+artworkDetail.id" 
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                >
-                  <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
-                </nuxt-link>
-                <nuxt-link 
-                  v-if="isModal" 
-                  :to="'/a/'+artworkDetail.id" 
-                  target="_blank" 
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                >
-                  <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
-                </nuxt-link>
-                
-                <div v-if="isModal" class="custom-divider" />
+                {{ thousand(artworkDetail._count.artwork_likes) }}
+              </span>
+            </span>
 
-                <div
-                  v-if="auth.loggedIn && artworkDetail.users && auth.user.id != artworkDetail.users.id && !auth.user.is_admin && !auth.user.is_moderator"
-                  :to="'#'" 
-                  class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                  :class="{ 'rounded-t-md': !isModal }"
-                  @click="showReportModal()"
-                >
-                  <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                </div>
+            <!-- Save -->
+            <span 
+              v-if="auth.loggedIn"
+              @click="showCollectionSelectionModal()"
+            >
+              <Icon 
+                v-show="saved"
+                id="save-to-collection-button"
+                :name="'i-majesticons-bookmark'" 
+                class="text-blue-500 hover:text-blue-500"
+              />
+              <Icon 
+                v-show="!saved"
+                :name="'i-majesticons-bookmark-line'" 
+                class="hover:text-blue-500"
+              />
 
-                <div
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
-                  @click="copyLink('/a/'+artworkDetail.id)" 
-                >
-                  <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
-                </div>
+              <span v-if="artworkDetail._count && artworkDetail._count.collection_has_artworks">
+                {{ thousand(artworkDetail._count.collection_has_artworks) }}
+              </span>
+            </span>
 
-                <div v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" class="custom-divider" />
+            <!-- Add to album -->
+            <span 
+              v-if="auth.loggedIn && (artworkDetail.users && auth.user.id === artworkDetail.users.id)"
+              @click="showAlbumSelectionModal()"
+            >
+              <Icon 
+                v-show="inAlbum"
+                id="save-to-album-button"
+                :name="'i-ion-folder-open'" 
+                class="text-green-500 hover:text-green-500"
+              />
+              <Icon 
+                v-show="!inAlbum"
+                :name="'i-bx-photo-album'" 
+                class="hover:text-blue-500"
+              />
+            </span>
 
-                <nuxt-link 
-                  v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
-                  :to="'/works/update/'+artworkDetail.id"
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                >
-                  <Icon :name="'i-ion-settings-outline'" class="mr-2 text-base" /> {{ $t('update') }}
-                </nuxt-link>
-                <!-- <div
-                  v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
-                  :to="'/works/update/'+artworkDetail.id"
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
-                  @click="unpublish()"
-                >
-                  <Icon :name="'i-ion-eye-off-outline'" class="mr-2 text-base" /> {{ $t('unpublish') }}
-                </div> -->
+            <!-- share to feed -->
+            <span v-if="auth.loggedIn" @click="showShareToFeedModal()">
+              <Icon 
+                :name="'i-uil-share'" 
+                class="hover:text-blue-500"
+              />
+            </span>
+
+            <!-- ellipsis other interaction -->
+            <div class="inline-block relative z-30 dropdown">
+              <button 
+                type="button" 
+                aria-haspopup="true" 
+                aria-expanded="true" 
+                aria-controls="headlessui-menu-items-feed-more-options"
+              >
+                <span>
+                  <Icon
+                    :name="'i-ion-ellipsis-vertical-outline'" 
+                    class="align-middle icon icon-color"
+                  />
+                </span>
+              </button>
+              <div class="invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 dropdown-menu">
                 <div 
-                  v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" 
-                  :to="'/a/'+artworkDetail.id" 
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
-                  @click="openModal('work-deletion-confirm-modal')"
+                  id="headlessui-menu-items-feed-more-options"
+                  class="absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right outline-none theme-color"
+                  aria-labelledby="headlessui-menu-button-1" 
+                  role="menu"
                 >
-                  <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                  <!-- Open / Open in New Tab (Only show in modal view) -->
+                  <nuxt-link 
+                    v-if="isModal" 
+                    :to="'/a/'+artworkDetail.id" 
+                    class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                  >
+                    <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
+                  </nuxt-link>
+                  <nuxt-link 
+                    v-if="isModal" 
+                    :to="'/a/'+artworkDetail.id" 
+                    target="_blank" 
+                    class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                  >
+                    <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                  </nuxt-link>
+                  
+                  <div v-if="isModal" class="custom-divider" />
+
+                  <div
+                    v-if="auth.loggedIn && artworkDetail.users && auth.user.id != artworkDetail.users.id && !auth.user.is_admin && !auth.user.is_moderator"
+                    :to="'#'" 
+                    class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                    :class="{ 'rounded-t-md': !isModal }"
+                    @click="showReportModal()"
+                  >
+                    <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
+                  </div>
+
+                  <div
+                    class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
+                    @click="copyLink('/a/'+artworkDetail.id)" 
+                  >
+                    <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
+                  </div>
+
+                  <div v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" class="custom-divider" />
+
+                  <nuxt-link 
+                    v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
+                    :to="'/works/update/'+artworkDetail.id"
+                    class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                  >
+                    <Icon :name="'i-ion-settings-outline'" class="mr-2 text-base" /> {{ $t('update') }}
+                  </nuxt-link>
+                  <!-- <div
+                    v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
+                    :to="'/works/update/'+artworkDetail.id"
+                    class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
+                    @click="unpublish()"
+                  >
+                    <Icon :name="'i-ion-eye-off-outline'" class="mr-2 text-base" /> {{ $t('unpublish') }}
+                  </div> -->
+                  <div 
+                    v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" 
+                    :to="'/a/'+artworkDetail.id" 
+                    class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
+                    @click="openModal('work-deletion-confirm-modal')"
+                  >
+                    <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- section info -->
+        <ModalViewInfo
+          :section="section"
+          class="flex-md-hidden"
+          :is-modal="isModal"
+          :artwork-detail="artworkDetail"
+          :preview-mode="previewMode"
+          :is-desktop="true"
+        />
+
+        <!-- Other artworks by user that currently viewing (show only on desktop) -->
+        <keep-alive>
+          <ArtistWorks
+            v-if="!loading"
+            class="mb-6 hidden-md-flex"
+            :artwork-detail="artworkDetail"
+            :view="view"
+            :is-href="!isModal"
+            :keep-artist-page-number="true"
+            :pagination-per-page="isModal ? 4 : 4"
+          />
+        </keep-alive>
       </div>
 
-      <!-- section info -->
-      <ModalViewInfo
-        :section="section"
-        class="flex-md-hidden"
-        :is-modal="isModal"
-        :artwork-detail="artworkDetail"
-        :preview-mode="previewMode"
-        :is-desktop="true"
-      />
+      <!-- Right side: artwork information, comment section -->
+      <div class="right-side">
+        <!-- section info -->
+        <ModalViewInfo
+          :section="section"
+          class="hidden-md-flex"
+          :is-modal="isModal"
+          :artwork-detail="artworkDetail"
+          :preview-mode="previewMode"
+          :is-desktop="false"
+        />
 
-      <!-- Other artworks by user that currently viewing (show only on desktop) -->
-      <keep-alive>
-        <ArtistWorks
+        <!-- other artworks by user (only show in smaller or mobile device) -->
+        <ArtistWorks 
           v-if="!loading"
-          class="mb-6 hidden-md-flex"
+          class="flex-md-hidden"
           :artwork-detail="artworkDetail"
           :view="view"
           :is-href="!isModal"
           :keep-artist-page-number="true"
           :pagination-per-page="isModal ? 4 : 4"
         />
-      </keep-alive>
-    </div>
 
-    <!-- Right side: artwork information, comment section -->
-    <div class="right-side" :class="{ 'pr-3 overflow-y-scroll': isModal }">
-      <!-- section info -->
-      <ModalViewInfo
-        :section="section"
-        class="hidden-md-flex"
-        :is-modal="isModal"
-        :artwork-detail="artworkDetail"
-        :preview-mode="previewMode"
-        :is-desktop="false"
-      />
-
-      <!-- other artworks by user (only show in smaller or mobile device) -->
-      <ArtistWorks 
-        v-if="!loading"
-        class="flex-md-hidden"
-        :artwork-detail="artworkDetail"
-        :view="view"
-        :is-href="!isModal"
-        :keep-artist-page-number="true"
-        :pagination-per-page="isModal ? 4 : 4"
-      />
-
-      <!-- Show this if the artwork is a redraw of other artwork -->
-      <div v-if="artworkDetail.redraw_of">
-        <div class="mb-2 italic title">{{ $t('artworks.originalArtwork') }}</div>
-        
-        <!-- Loading -->
-        <div v-if="originalArtworkLoading" class="flex flex-row gap-2">
-          <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
-        </div>
-
-        <!-- Original artwork info -->
-        <a
-          v-else
-          :href="'/a/'+artworkDetail.redraw_of"
-          target="_blank"
-          class="flex flex-row gap-2 w-full"
-        >
-          <div class="w-1/3" v-if="originalArtwork.artwork_assets">
-            <!-- test --> <img
-              preload
-              loading="lazy"
-              class="w-40 rounded-md"
-              :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-              @error="imageLoadError"
-            />
+        <!-- Show this if the artwork is a redraw of other artwork -->
+        <div v-if="artworkDetail.redraw_of">
+          <div class="mb-2 italic title">{{ $t('artworks.originalArtwork') }}</div>
+          
+          <!-- Loading -->
+          <div v-if="originalArtworkLoading" class="flex flex-row gap-2">
+            <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
           </div>
 
-          <div class="w-2/3">
-            <span class="title">{{ originalArtwork.title }}</span>
-            <p v-html="originalArtwork.description.length > 200 ? originalArtwork.description.slice(0, 200) + '..' : originalArtwork.description" />
-          </div>
-        </a>
-      </div>
-
-      <div v-if="artworkDetail.allow_redraw" class="custom-divider" />
-
-      <div v-if="artworkDetail.allow_redraw || (artworkRedraws.data && artworkRedraws.data.length)" class="flex flex-col gap-4">
-        <span class="section-title">
-          {{ $t('artworks.redraws') }} 
-          ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
-        </span>
-
-        <div v-if="auth.loggedIn && !myRedraw" class="flex flex-row gap-2 justify-between w-full">
-          <nuxt-link
-            :to="'/post?redrawWorkId='+artworkDetail.id"
-            :class="[
-              !isModal ? 'light-button' : 'secondary-button'
-            ]"
+          <!-- Original artwork info -->
+          <a
+            v-else
+            :href="'/a/'+artworkDetail.redraw_of"
+            target="_blank"
+            class="flex flex-row gap-2 w-full"
           >
-            <Icon :name="'i-typcn-brush'" />
-            {{ $t('artworks.redrawThisArtwork') }}
-          </nuxt-link>
-        </div>
-
-        <!-- redraws -->
-        <div v-if="artworkRedraws.data && artworkRedraws.data.length">
-          <WorkList
-            :section-class="'redraw-works'"
-            :works="artworkRedraws.data"
-            :view="view"
-            :is-href="isHref"
-            :is-mini-list="true"
-            :current-work-id="artworkDetail.id"
-            :direct-open="true"
-            :hide-redraw-icon="true"
-          />
-
-          <nuxt-link
-            v-if="artworkRedraws.pagination.next_previous.next_page" 
-            :to="'/a/'+artworkDetail.id+'/redraws'"
-            class="mt-2 primary-button"
-          >
-            <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
-            {{ $t('seeMore') }}
-          </nuxt-link>
-        </div>
-        
-        <!-- my redraw -->
-        <div v-if="auth.loggedIn && myRedraw">
-          <span class="title">
-            {{ $t('artworks.myRedraw') }}
-          </span>
-
-          <nuxt-link
-            :to="'/a/'+myRedraw.id"
-            class="flex flex-row gap-2 mt-2 w-full"
-          >
-            <div class="w-1/3" v-if="myRedraw.artwork_assets">
+            <div class="w-1/3" v-if="originalArtwork.artwork_assets">
               <!-- test --> <img
                 preload
                 loading="lazy"
                 class="w-40 rounded-md"
-                :src="artworkThumb(myRedraw.artwork_assets[0].bucket, myRedraw.artwork_assets[0].filename, 'thumbnail', false)"
+                :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
                 @error="imageLoadError"
               />
             </div>
 
             <div class="w-2/3">
-              <span class="title">{{ myRedraw.title }}</span>
-              <p
-                v-html="myRedraw.description ? (myRedraw.description.length > 100 ? myRedraw.description.slice(0, 100) + '..' : originalArtwork.description) : $t('artworks.noDescription')"
-                class="mb-2"
-              />
-
-              <span class="italic">{{ formatDate(myRedraw.scheduled_post) }}</span>
+              <span class="title">{{ originalArtwork.title }}</span>
+              <p v-html="originalArtwork.description.length > 200 ? originalArtwork.description.slice(0, 200) + '..' : originalArtwork.description" />
             </div>
-          </nuxt-link>
-        </div>
-      </div>
-
-      <div class="custom-divider" />
-
-      <!-- comment section -->
-      <section class="comments">
-        <!-- comment text box -->
-        <div v-if="auth.loggedIn && !previewMode" class="comment-box">
-          <div class="flex flex-col">
-            <div class="flex relative flex-col">
-              <textarea
-                v-model="commentInput"
-                cols="30"
-                data-gramm="false"
-                :class="[
-                  'input form-input',
-                  { 'cursor-not-allowed': submitCommentLoading },
-                  { 'theme-color-secondary textarea': isModal }
-                ]"
-                :readonly="submitCommentLoading"
-                :rows="commentInput != null && commentInput != '' ? '4' : '0'"
-                :placeholder="$t('comments.inputPlaceholder')"
-                :maxlength="commentMaxChar"
-              />
-              <span 
-                v-show="commentInput != null && commentInput != ''" 
-                class="absolute left-4 bottom-6 py-1 px-2 text-white rounded-md button-color"
-              >
-                {{ commentCharLeft }}
-              </span>
-              <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
-                <Icon 
-                  v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
-                  :name="'i-carbon-send-filled'" 
-                  class="text-xl transition-all duration-100 cursor-pointer text-colored"
-                />
-                <Spinner v-show="submitCommentLoading" />
-              </span>
-            </div>
-          </div>
+          </a>
         </div>
 
-        <!-- if user not logged in, can't comment -->
-        <div v-if="!auth.loggedIn" class="p-4 mb-4 text-center rounded-md theme-color-secondary">
-          {{ $t('comments.loginOrRegisterToLeaveComment') }}
-        </div>
+        <div v-if="artworkDetail.allow_redraw" class="custom-divider" />
 
-        <!-- comment list -->
-        <div id="comments" class="comment-content">
-          <div class="flex flex-row justify-end mb-2">
-            <div v-if="artworkDetail._count && artworkDetail._count.artwork_comments">
-              <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
-            </div>
-          </div>
+        <div v-if="artworkDetail.allow_redraw || (artworkRedraws.data && artworkRedraws.data.length)" class="flex flex-col gap-4">
+          <span class="section-title">
+            {{ $t('artworks.redraws') }} 
+            ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
+          </span>
 
-          <div 
-            v-auto-animate
-            v-for="comment in comments" 
-            :key="comment.id" 
-            class="flex flex-row w-full comment-item"
-          >
-            <nuxt-link class="mr-2" :to="'/profile/'+comment.users.username">
-              <img
-                class="w-10 h-10 avatar"
-                :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
-                @error="imageLoadError"
-              >
+          <div v-if="auth.loggedIn && !myRedraw" class="flex flex-row gap-2 justify-between w-full">
+            <nuxt-link
+              :to="'/post?redrawWorkId='+artworkDetail.id"
+              :class="[
+                !isModal ? 'light-button' : 'secondary-button'
+              ]"
+            >
+              <Icon :name="'i-typcn-brush'" />
+              {{ $t('artworks.redrawThisArtwork') }}
             </nuxt-link>
-            <div class="w-full">
-              <div 
-                class="p-3 w-full rounded-md"
-                :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
-              >
-                <!-- profile info -->
-                <div class="flex justify-between">
-                  <nuxt-link :to="'/profile/'+comment.users.username" class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer">
-                    {{ comment.users.name }}
-                  </nuxt-link>
-                  <div class="comment-time">
-                    {{ formatDate(comment.created_at, true) }}
-                  </div>
-                </div>
-                
-                <div>
-                  {{ comment.comment }}
-                </div>
+          </div>
 
-                <!-- comment reactions -->
-                <div class="mt-4 reactions">
-                  <!-- left side: X replies -->
-                  <div 
-                    class="cursor-pointer hover:underline"
-                    @click="activeReplyTray == comment.id ? hideReplies(comment.id) : showReplies(comment.id)"
-                  >
-                    <span v-if="comment._count.artwork_comment_has_replies > 0">
-                      <b>{{ shortNumber(comment._count.artwork_comment_has_replies) }}</b> 
-                      {{ comment._count.artwork_comment_has_replies > 1 ? $t('comments.replies.replies').toLowerCase() : $t('comments.replies.reply').toLowerCase() }} 
-                    </span>
-                  </div>
+          <!-- redraws -->
+          <div v-if="artworkRedraws.data && artworkRedraws.data.length">
+            <WorkList
+              :section-class="'redraw-works'"
+              :works="artworkRedraws.data"
+              :view="view"
+              :is-href="isHref"
+              :is-mini-list="true"
+              :current-work-id="artworkDetail.id"
+              :direct-open="true"
+              :hide-redraw-icon="true"
+            />
 
-                  <!-- right side: interaction buttons -->
-                  <div v-if="auth.loggedIn" class="flex flex-row">
-                    <!-- like a comment button -->
-                    <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
-                      <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
-                      <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
-                      {{ shortNumber(comment._count.artwork_comment_has_likes) }}
-                    </span>
+            <nuxt-link
+              v-if="artworkRedraws.pagination.next_previous.next_page" 
+              :to="'/a/'+artworkDetail.id+'/redraws'"
+              class="mt-2 primary-button"
+            >
+              <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
+              {{ $t('seeMore') }}
+            </nuxt-link>
+          </div>
+          
+          <!-- my redraw -->
+          <div v-if="auth.loggedIn && myRedraw">
+            <span class="title">
+              {{ $t('artworks.myRedraw') }}
+            </span>
 
-                    <!-- reply a comment button -->
-                    <span class="reaction" @click="showReplyInput(comment.id)">
-                      <Icon :name="'i-quill-reply'" class="text-gray-500 hover:text-blue-500" />
-                    </span>
-
-                    <!-- Other comment interaction buttons -->
-                    <div class="inline-block relative ml-2 dropdown">
-                      <button 
-                        type="button" 
-                        aria-haspopup="true" 
-                        aria-expanded="true" 
-                        aria-controls="headlessui-menu-items-feed-more-options"
-                        @click="showReplyInputId = 0"
-                      >
-                        <span>
-                          <Icon
-                            :name="'i-ion-ellipsis-vertical-outline'" 
-                            class="align-middle icon icon-color"
-                          />
-                        </span>
-                      </button>
-
-                      <!-- ellipsis element -->
-                      <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
-                        <div 
-                          id="headlessui-menu-items-feed-more-options"
-                          class="absolute right-0 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
-                          aria-labelledby="headlessui-menu-button-1"
-                          role="menu"
-                        >
-                          <!-- view profile -->
-                          <nuxt-link 
-                            :to="'/profile/'+comment.users.username" 
-                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                            @click.prevent 
-                          >
-                            <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
-                          </nuxt-link>
-
-                          <!-- delete comment -->
-                          <div
-                            v-if="auth.loggedIn && auth.user.id === comment.users.id"
-                            class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                            @click="deleteComment(comment.id)"
-                          >
-                            <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
-                          </div>
-
-                          <!-- report -->
-                          <!-- <nuxt-link 
-                            v-if="auth.loggedIn && auth.user.id !== comment.users.id"
-                            :to="'#'" 
-                            class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                            @click.prevent 
-                          >
-                            <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                          </nuxt-link> -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <nuxt-link
+              :to="'/a/'+myRedraw.id"
+              class="flex flex-row gap-2 mt-2 w-full"
+            >
+              <div class="w-1/3" v-if="myRedraw.artwork_assets">
+                <!-- test --> <img
+                  preload
+                  loading="lazy"
+                  class="w-40 rounded-md"
+                  :src="artworkThumb(myRedraw.artwork_assets[0].bucket, myRedraw.artwork_assets[0].filename, 'thumbnail', false)"
+                  @error="imageLoadError"
+                />
               </div>
 
-              <!-- Reply input -->
-              <div 
-                v-if="auth.loggedIn" 
-                v-show="showReplyInputId === comment.id"
-                class="-mb-4 comment-box"
-              >
-                <div class="flex flex-col">
-                  <div class="flex relative flex-col">
-                    <textarea
-                      :id="'reply-'+comment.id"
-                      v-model="replyInput"
-                      class="mt-2 w-full input form-input"
-                      :class="[{ 'cursor-not-allowed': submitReplyLoading }, { 'theme-color-secondary textarea': isModal }]"
-                      :readonly="submitReplyLoading"
-                      cols="30"
-                      :rows="replyInput != null && replyInput != '' ? '4' : '0'"
-                      :placeholder="$t('comments.replies.write')"
-                      :maxlength="replyMaxChar"
-                      data-gramm="false"
-                    />
-                    <span 
-                      v-show="replyInput != null && replyInput != ''" 
-                      class="absolute left-4 bottom-6 py-1 px-2 text-white rounded-md button-color"
-                    >
-                      {{ replyCharLeft }}
-                    </span>
-                    <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitReply(comment.id)">
-                      <Icon 
-                        v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
-                        :name="'i-carbon-send-filled'" 
-                        class="text-xl transition-all duration-100 cursor-pointer text-colored"
-                      />
-                      <Spinner v-show="submitReplyLoading" />
-                    </span>
-                  </div>
-                </div>
+              <div class="w-2/3">
+                <span class="title">{{ myRedraw.title }}</span>
+                <p
+                  v-html="myRedraw.description ? (myRedraw.description.length > 100 ? myRedraw.description.slice(0, 100) + '..' : originalArtwork.description) : $t('artworks.noDescription')"
+                  class="mb-2"
+                />
+
+                <span class="italic">{{ formatDate(myRedraw.scheduled_post) }}</span>
               </div>
-              
-              <!-- Comment replies -->
-              <div 
-                :id="'comment-replies-'+comment.id"
-                class="hidden flex-col mt-2"
-              > 
-                <div 
-                  v-if="commentReplies[comment.id] && commentReplies[comment.id].length"
-                  class="w-full"
+            </nuxt-link>
+          </div>
+        </div>
+
+        <div class="custom-divider" />
+
+        <!-- comment section -->
+        <section class="comments">
+          <!-- comment text box -->
+          <div v-if="auth.loggedIn && !previewMode" class="comment-box">
+            <div class="flex flex-col">
+              <div class="flex relative flex-col">
+                <textarea
+                  v-model="commentInput"
+                  cols="30"
+                  data-gramm="false"
+                  :class="[
+                    'input form-input',
+                    { 'cursor-not-allowed': submitCommentLoading },
+                    { 'theme-color-secondary textarea': isModal }
+                  ]"
+                  :readonly="submitCommentLoading"
+                  :rows="commentInput != null && commentInput != '' ? '4' : '0'"
+                  :placeholder="$t('comments.inputPlaceholder')"
+                  :maxlength="commentMaxChar"
+                />
+                <span 
+                  v-show="commentInput != null && commentInput != ''" 
+                  class="absolute left-4 bottom-6 py-1 px-2 text-white rounded-md button-color"
                 >
-                  <span class="float-left mb-2 text-xs italic text-color-secondary">{{ $t('comments.replies.replies') }}</span>
-                  <span 
-                    class="float-right text-xs cursor-pointer hover:font-semibold"
-                    @click="hideReplies(comment.id)" 
-                  >
-                    {{ $t('hide') }}
-                  </span>
-                </div>
+                  {{ commentCharLeft }}
+                </span>
+                <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
+                  <Icon 
+                    v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
+                    :name="'i-carbon-send-filled'" 
+                    class="text-xl transition-all duration-100 cursor-pointer text-colored"
+                  />
+                  <Spinner v-show="submitCommentLoading" />
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- if user not logged in, can't comment -->
+          <div v-if="!auth.loggedIn" class="p-4 mb-4 text-center rounded-md theme-color-secondary">
+            {{ $t('comments.loginOrRegisterToLeaveComment') }}
+          </div>
+
+          <!-- comment list -->
+          <div id="comments" class="comment-content">
+            <div class="flex flex-row justify-end mb-2">
+              <div v-if="artworkDetail._count && artworkDetail._count.artwork_comments">
+                <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
+              </div>
+            </div>
+
+            <div 
+              v-auto-animate
+              v-for="comment in comments" 
+              :key="comment.id" 
+              class="flex flex-row w-full comment-item"
+            >
+              <nuxt-link class="mr-2" :to="'/profile/'+comment.users.username">
+                <img
+                  class="w-10 h-10 avatar"
+                  :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
+                  @error="imageLoadError"
+                >
+              </nuxt-link>
+              <div class="w-full">
                 <div 
-                  v-for="reply in commentReplies[comment.id]"
-                  :key="reply.id"
-                  class="p-3 mb-2 w-full rounded-md border-l-4"
+                  class="p-3 w-full rounded-md"
                   :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
                 >
-                  <div 
-                    class="flex flex-row justify-between"
-                  >
-                    <nuxt-link :to="'/profile/'+reply.users.username" class="flex flex-row leading-6">
-                      <img class="mr-2 w-6 h-6 rounded-full" :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)" @error="imageLoadError">
-                      <span class="transition-all duration-150 cursor-pointer hover:font-bold">{{ reply.users.name }}</span>
+                  <!-- profile info -->
+                  <div class="flex justify-between">
+                    <nuxt-link :to="'/profile/'+comment.users.username" class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer">
+                      {{ comment.users.name }}
                     </nuxt-link>
-                    <span class="leading-6 comment-time">
-                      {{ formatDate(reply.created_at, true) }}
-                    </span>
+                    <div class="comment-time">
+                      {{ formatDate(comment.created_at, true) }}
+                    </div>
+                  </div>
+                  
+                  <div>
+                    {{ comment.comment }}
                   </div>
 
-                  <!-- The reply -->
-                  <div class="mt-2">
-                    {{ reply.content }}
-                  </div>
-
-                  <!-- Reactions -->
-                  <div v-if="auth.loggedIn" class="mt-2 reactions">
-                    <span />
-                    <div class="flex flex-row">
-                      <span class="reaction" @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
-                        <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
-                        <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
-                        {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
+                  <!-- comment reactions -->
+                  <div class="mt-4 reactions">
+                    <!-- left side: X replies -->
+                    <div 
+                      class="cursor-pointer hover:underline"
+                      @click="activeReplyTray == comment.id ? hideReplies(comment.id) : showReplies(comment.id)"
+                    >
+                      <span v-if="comment._count.artwork_comment_has_replies > 0">
+                        <b>{{ shortNumber(comment._count.artwork_comment_has_replies) }}</b> 
+                        {{ comment._count.artwork_comment_has_replies > 1 ? $t('comments.replies.replies').toLowerCase() : $t('comments.replies.reply').toLowerCase() }} 
                       </span>
-                      
-                      <!-- Other reply interaction buttons -->
+                    </div>
+
+                    <!-- right side: interaction buttons -->
+                    <div v-if="auth.loggedIn" class="flex flex-row">
+                      <!-- like a comment button -->
+                      <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
+                        <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
+                        <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
+                        {{ shortNumber(comment._count.artwork_comment_has_likes) }}
+                      </span>
+
+                      <!-- reply a comment button -->
+                      <span class="reaction" @click="showReplyInput(comment.id)">
+                        <Icon :name="'i-quill-reply'" class="text-gray-500 hover:text-blue-500" />
+                      </span>
+
+                      <!-- Other comment interaction buttons -->
                       <div class="inline-block relative ml-2 dropdown">
                         <button 
                           type="button" 
                           aria-haspopup="true" 
                           aria-expanded="true" 
                           aria-controls="headlessui-menu-items-feed-more-options"
+                          @click="showReplyInputId = 0"
                         >
                           <span>
                             <Icon
@@ -771,34 +626,36 @@
                             />
                           </span>
                         </button>
+
+                        <!-- ellipsis element -->
                         <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
                           <div 
-                            id="headlessui-menu-items-feed-more-options" 
-                            class="absolute right-0 z-50 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
-                            aria-labelledby="headlessui-menu-button-1" 
+                            id="headlessui-menu-items-feed-more-options"
+                            class="absolute right-0 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
+                            aria-labelledby="headlessui-menu-button-1"
                             role="menu"
                           >
                             <!-- view profile -->
                             <nuxt-link 
-                              :to="'/profile/'+reply.users.id" 
-                              class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                              :to="'/profile/'+comment.users.username" 
+                              class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
                               <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
                             </nuxt-link>
 
-                            <!-- delete reply -->
+                            <!-- delete comment -->
                             <div
-                              v-if="auth.loggedIn && auth.user.id === reply.users.id"
-                              class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                              @click="deleteReply(comment.id, reply.id)"
+                              v-if="auth.loggedIn && auth.user.id === comment.users.id"
+                              class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                              @click="deleteComment(comment.id)"
                             >
                               <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
                             </div>
 
                             <!-- report -->
                             <!-- <nuxt-link 
-                              v-if="auth.loggedIn && auth.user.id !== reply.users.id"
+                              v-if="auth.loggedIn && auth.user.id !== comment.users.id"
                               :to="'#'" 
                               class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
@@ -811,36 +668,193 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Reply input -->
                 <div 
-                  v-if="commentReplies[comment.id] && showLoadMoreReplies" 
-                  class="mb-1 text-center transition ease-in-out delay-75 cursor-pointer hover:font-semibold hover:underline text-color-secondary href"
-                  @click="loadMoreReplies(comment.id)"
+                  v-if="auth.loggedIn" 
+                  v-show="showReplyInputId === comment.id"
+                  class="-mb-4 comment-box"
                 >
-                  {{ $t('comments.replies.loadMore') }}
+                  <div class="flex flex-col">
+                    <div class="flex relative flex-col">
+                      <textarea
+                        :id="'reply-'+comment.id"
+                        v-model="replyInput"
+                        class="mt-2 w-full input form-input"
+                        :class="[{ 'cursor-not-allowed': submitReplyLoading }, { 'theme-color-secondary textarea': isModal }]"
+                        :readonly="submitReplyLoading"
+                        cols="30"
+                        :rows="replyInput != null && replyInput != '' ? '4' : '0'"
+                        :placeholder="$t('comments.replies.write')"
+                        :maxlength="replyMaxChar"
+                        data-gramm="false"
+                      />
+                      <span 
+                        v-show="replyInput != null && replyInput != ''" 
+                        class="absolute left-4 bottom-6 py-1 px-2 text-white rounded-md button-color"
+                      >
+                        {{ replyCharLeft }}
+                      </span>
+                      <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitReply(comment.id)">
+                        <Icon 
+                          v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
+                          :name="'i-carbon-send-filled'" 
+                          class="text-xl transition-all duration-100 cursor-pointer text-colored"
+                        />
+                        <Spinner v-show="submitReplyLoading" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Comment replies -->
+                <div 
+                  :id="'comment-replies-'+comment.id"
+                  class="hidden flex-col mt-2"
+                > 
+                  <div 
+                    v-if="commentReplies[comment.id] && commentReplies[comment.id].length"
+                    class="w-full"
+                  >
+                    <span class="float-left mb-2 text-xs italic text-color-secondary">{{ $t('comments.replies.replies') }}</span>
+                    <span 
+                      class="float-right text-xs cursor-pointer hover:font-semibold"
+                      @click="hideReplies(comment.id)" 
+                    >
+                      {{ $t('hide') }}
+                    </span>
+                  </div>
+                  <div 
+                    v-for="reply in commentReplies[comment.id]"
+                    :key="reply.id"
+                    class="p-3 mb-2 w-full rounded-md border-l-4"
+                    :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
+                  >
+                    <div 
+                      class="flex flex-row justify-between"
+                    >
+                      <nuxt-link :to="'/profile/'+reply.users.username" class="flex flex-row leading-6">
+                        <img class="mr-2 w-6 h-6 rounded-full" :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)" @error="imageLoadError">
+                        <span class="transition-all duration-150 cursor-pointer hover:font-bold">{{ reply.users.name }}</span>
+                      </nuxt-link>
+                      <span class="leading-6 comment-time">
+                        {{ formatDate(reply.created_at, true) }}
+                      </span>
+                    </div>
+
+                    <!-- The reply -->
+                    <div class="mt-2">
+                      {{ reply.content }}
+                    </div>
+
+                    <!-- Reactions -->
+                    <div v-if="auth.loggedIn" class="mt-2 reactions">
+                      <span />
+                      <div class="flex flex-row">
+                        <span class="reaction" @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
+                          <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
+                          <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
+                          {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
+                        </span>
+                        
+                        <!-- Other reply interaction buttons -->
+                        <div class="inline-block relative ml-2 dropdown">
+                          <button 
+                            type="button" 
+                            aria-haspopup="true" 
+                            aria-expanded="true" 
+                            aria-controls="headlessui-menu-items-feed-more-options"
+                          >
+                            <span>
+                              <Icon
+                                :name="'i-ion-ellipsis-vertical-outline'" 
+                                class="align-middle icon icon-color"
+                              />
+                            </span>
+                          </button>
+                          <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
+                            <div 
+                              id="headlessui-menu-items-feed-more-options" 
+                              class="absolute right-0 z-50 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
+                              aria-labelledby="headlessui-menu-button-1" 
+                              role="menu"
+                            >
+                              <!-- view profile -->
+                              <nuxt-link 
+                                :to="'/profile/'+reply.users.id" 
+                                class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                                @click.prevent 
+                              >
+                                <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
+                              </nuxt-link>
+
+                              <!-- delete reply -->
+                              <div
+                                v-if="auth.loggedIn && auth.user.id === reply.users.id"
+                                class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                                @click="deleteReply(comment.id, reply.id)"
+                              >
+                                <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                              </div>
+
+                              <!-- report -->
+                              <!-- <nuxt-link 
+                                v-if="auth.loggedIn && auth.user.id !== reply.users.id"
+                                :to="'#'" 
+                                class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
+                                @click.prevent 
+                              >
+                                <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
+                              </nuxt-link> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div 
+                    v-if="commentReplies[comment.id] && showLoadMoreReplies" 
+                    class="mb-1 text-center transition ease-in-out delay-75 cursor-pointer hover:font-semibold hover:underline text-color-secondary href"
+                    @click="loadMoreReplies(comment.id)"
+                  >
+                    {{ $t('comments.replies.loadMore') }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div
-          v-if="artworkDetail._count"
-          v-show="artworkDetail._count.artwork_comments > 3 && showLoadOlderComments"
-          class="text-center capitalize href"
-          @click.prevent="loadMoreComments(artworkDetail.id)"
-        >
-          {{ $t('comments.loadOlder') }}
-        </div>
+          <div
+            v-if="artworkDetail._count"
+            v-show="artworkDetail._count.artwork_comments > 3 && showLoadOlderComments"
+            class="text-center capitalize href"
+            @click.prevent="loadMoreComments(artworkDetail.id)"
+          >
+            {{ $t('comments.loadOlder') }}
+          </div>
 
-        <div v-show="comments.length && !showLoadOlderComments" class="w-full text-xs italic text-center">
-          {{ $t('comments.reachedTheEnd') }}
-        </div>
+          <div v-show="comments.length && !showLoadOlderComments" class="w-full text-xs italic text-center">
+            {{ $t('comments.reachedTheEnd') }}
+          </div>
 
-        <div v-if="auth.loggedIn && !comments.length && !previewMode" class="mt-4 w-full text-xs italic text-center">
-          {{ $t('comments.noCommentYet') }}
-        </div>
-      </section>
-      <!-- end of comment section -->
+          <div v-if="auth.loggedIn && !comments.length && !previewMode" class="mt-4 w-full text-xs italic text-center">
+            {{ $t('comments.noCommentYet') }}
+          </div>
+        </section>
+        <!-- end of comment section -->
+      </div>
+    </div>
+
+    <div class="custom-divider" />
+
+    <!-- related artworks -->
+    <div class="w-full mt-4">
+      <div class="section-title">Similar Artworks</div>
+
+      <RelatedArtworks
+        v-if="!loading"
+        :work-id="artworkDetail.id"
+      />
     </div>
 
     <!-- add or remove from selected collection(s) -->
@@ -934,6 +948,7 @@ import ShareArtworkToFeedModal from '~/components/feeds/ShareArtworkToFeedModal.
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import UserLiked from '~/components/artworks/views/UserLiked.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
+import RelatedArtworks from '~/components/artworks/RelatedArtworks.vue'
 
 // stores
 const auth = useAuthStore()
@@ -1682,4 +1697,6 @@ defineExpose({
 
 <style lang="scss" scoped>
 @import "~/assets/css/artworks/view.scss";
+@import '~/assets/css/artworks/list-6.scss';
+
 </style>

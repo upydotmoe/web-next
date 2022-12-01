@@ -248,6 +248,28 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const getRelatedArtworks = async (params: {
+    workId: number,
+    pagination: {
+      page: number,
+      perPage: number
+    }
+  }) => {
+    try {
+      const { data } = await new ArtworkListApi(oApiConfiguration)
+        .getRelatedArtworks(
+          params.workId,
+          params.pagination.perPage,
+          params.pagination.page,
+          fetchOptions
+        )
+
+      return [data.data?.works, data.data?.pagination, null]
+    } catch (error) {
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   /**
    * Increase the view count of the artwork
    * @param workId - The id of the artwork
@@ -742,6 +764,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     getChronologicalFeeds,
     
     getWorkById,
+    getRelatedArtworks,
     incraseViewCount,
     updateInfo,
     deleteWork,

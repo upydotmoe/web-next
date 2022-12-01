@@ -1,9 +1,10 @@
 <template>
+  <!-- :hide-side="isMobile() || loading || error || empty ? true : false"
+  :no-right-side="true" -->
   <Layout
     :class-prop="'work-view'"
-    :hide-side="isMobile() || loading || error || empty ? true : false"
-    :no-right-side="true"
     :with-footer="true"
+    :fullscreen="!isMobile() ? true : false"
   >
     <LoadingEmptyErrorMessage
       v-show="loading || empty || error"

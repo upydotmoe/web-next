@@ -243,13 +243,23 @@ export const ArtworkListApiAxiosParamCreator = function (configuration?: Configu
          * 
          * @summary Get artworks that related to currently viewed artwork
          * @param {number} workId 
+         * @param {number} perPage How many record to show per page of pagination
+         * @param {number} page Pagination index
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRelatedArtworks: async (workId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getRelatedArtworks: async (workId: number, perPage: number, page: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'workId' is not null or undefined
             if (workId === null || workId === undefined) {
                 throw new RequiredError('workId','Required parameter workId was null or undefined when calling getRelatedArtworks.');
+            }
+            // verify required parameter 'perPage' is not null or undefined
+            if (perPage === null || perPage === undefined) {
+                throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getRelatedArtworks.');
+            }
+            // verify required parameter 'page' is not null or undefined
+            if (page === null || page === undefined) {
+                throw new RequiredError('page','Required parameter page was null or undefined when calling getRelatedArtworks.');
             }
             const localVarPath = `/artworks/related/{workId}`
                 .replace(`{${"workId"}}`, encodeURIComponent(String(workId)));
@@ -266,6 +276,14 @@ export const ArtworkListApiAxiosParamCreator = function (configuration?: Configu
             // authentication bearerAuth required
 
             // authentication none required
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['per_page'] = perPage;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -410,11 +428,13 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * 
          * @summary Get artworks that related to currently viewed artwork
          * @param {number} workId 
+         * @param {number} perPage How many record to show per page of pagination
+         * @param {number} page Pagination index
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRelatedArtworks(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
-            const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getRelatedArtworks(workId, options);
+        async getRelatedArtworks(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+            const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getRelatedArtworks(workId, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -491,11 +511,13 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * 
          * @summary Get artworks that related to currently viewed artwork
          * @param {number} workId 
+         * @param {number} perPage How many record to show per page of pagination
+         * @param {number} page Pagination index
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRelatedArtworks(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
-            return ArtworkListApiFp(configuration).getRelatedArtworks(workId, options).then((request) => request(axios, basePath));
+        async getRelatedArtworks(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+            return ArtworkListApiFp(configuration).getRelatedArtworks(workId, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -568,12 +590,14 @@ export class ArtworkListApi extends BaseAPI {
      * 
      * @summary Get artworks that related to currently viewed artwork
      * @param {number} workId 
+     * @param {number} perPage How many record to show per page of pagination
+     * @param {number} page Pagination index
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getRelatedArtworks(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
-        return ArtworkListApiFp(this.configuration).getRelatedArtworks(workId, options).then((request) => request(this.axios, this.basePath));
+    public async getRelatedArtworks(workId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+        return ArtworkListApiFp(this.configuration).getRelatedArtworks(workId, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
