@@ -47,13 +47,13 @@
               <!-- information for feed type artwork -->
               <div v-if="feed.type === 'artwork'" class="px-2 md:px-4">
                 <span class="title">{{ feed.title }}</span>
-                <p v-show="feed.description">
+                <p v-if="feed.description">
                   <span
                     :id="'feed-description-'+feed.id"
                     v-html="feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description"
                   />
 
-                  <a 
+                  <a
                     v-if="feed.description.length > 300" 
                     :id="'feed-read-more-'+feed.id" 
                     class="href" 
@@ -109,7 +109,7 @@
               <!-- feed type text post -->
               <div v-if="feed.type === 'feed'" class="px-2 md:px-4">
                 <p
-                  v-show="feed.text"
+                  v-if="feed.text"
                   v-html="feed.text.split('<br>').length > 3 && feed.text.length > 300 ? `${feed.text.slice(0, 300)}...` : feed.text"
                   :id="'feed-text-'+feed.id"
                   :class="[
@@ -119,7 +119,7 @@
                 />
                 
                 <a 
-                  v-if="feed.text.split('<br>').length > 3 && feed.text.length > 300" 
+                  v-if="feed.text && feed.text.split('<br>').length > 3 && feed.text.length > 300" 
                   :id="'feed-read-more-'+feed.id" 
                   class="href" 
                   @click.prevent="readMore(feed.text, feed.id, 'feed-read-more-', 'feed-text-')"
@@ -160,7 +160,7 @@
                   <!-- title & description of shared artwork -->
                   <div class="px-2 mt-2 md:px-4">
                     <span class="title">{{ feed.artwork_share_info.title }}</span>
-                    <p v-show="feed.artwork_share_info.description">
+                    <p v-if="feed.artwork_share_info.description">
                       <span
                         :id="'feed-description-'+feed.artwork_share_info.id"
                         v-html="feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description"
@@ -475,7 +475,6 @@ defineProps ({
 const runtimeConfig = useRuntimeConfig()
 const router = useRouter()
 const route = useRoute()
-const { $router } = useNuxtApp()
 
 onBeforeMount (() => {
   if (!auth.loggedIn) {
@@ -541,44 +540,46 @@ const fetch = async ({ loaded }) => {
 
   options.value.pagination.page += 1
 
-  for (let feedIdx = 0; feedIdx < data.feeds.length; feedIdx++) {
-    const feed = data.feeds[feedIdx]
+  if (data.feeds.length) {
+    for (let feedIdx = 0; feedIdx < data.feeds.length; feedIdx++) {
+      const feed = data.feeds[feedIdx]
 
-    // collect liked feed IDs
-    if (feed.liked) {
-      if (feed.type === 'artwork') {
-        likedIds.value.push('a-' + feed.id)
-      } else {
-        likedIds.value.push('f-' + feed.id)
-      }
-    }
-
-    feed.images = []
-    feed.apply_explicit_filter = false
-    if (feed.type === 'artwork' || (feed.type === 'feed' && feed.artwork_share_info != null)) {
-      // collect to saved IDs
-      if (feed.type === 'artwork') {
-        if (feed.saved) {
-          savedIds.value.push(feed.id)
+      // collect liked feed IDs
+      if (feed.liked) {
+        if (feed.type === 'artwork') {
+          likedIds.value.push('a-' + feed.id)
+        } else {
+          likedIds.value.push('f-' + feed.id)
         }
       }
 
-      // collect images and transform to readable url to render in image list
-      for (let assetIdx = 0; assetIdx < feed.artwork_assets.length; assetIdx++) {
-        if (assetIdx <= 3) {
-          const imageUrl = await generateArtworkThumb(feed.artwork_assets[assetIdx].bucket, feed.artwork_assets[assetIdx].filename, 'feed')
-          feed.images.push(imageUrl)
+      feed.images = []
+      feed.apply_explicit_filter = false
+      if (feed.type === 'artwork' || (feed.type === 'feed' && feed.artwork_share_info != null)) {
+        // collect to saved IDs
+        if (feed.type === 'artwork') {
+          if (feed.saved) {
+            savedIds.value.push(feed.id)
+          }
+        }
+
+        // collect images and transform to readable url to render in image list
+        for (let assetIdx = 0; assetIdx < feed.artwork_assets.length; assetIdx++) {
+          if (assetIdx <= 3) {
+            const imageUrl = await generateArtworkThumb(feed.artwork_assets[assetIdx].bucket, feed.artwork_assets[assetIdx].filename, 'feed')
+            feed.images.push(imageUrl)
+          }
+        }
+
+        // apply explicit alert if user doesn't activated explicit content in user settings
+        if (feed.artwork_share_info != null && ((!auth.loggedIn && feed.artwork_share_info.is_explicit) || (feed.artwork_share_info.is_explicit && !auth.user.user_settings.show_explicit))) {
+          feed.apply_explicit_filter = true
         }
       }
 
-      // apply explicit alert if user doesn't activated explicit content in user settings
-      if (feed.artwork_share_info != null && ((!auth.loggedIn && feed.artwork_share_info.is_explicit) || (feed.artwork_share_info.is_explicit && !auth.user.user_settings.show_explicit))) {
-        feed.apply_explicit_filter = true
-      }
+      // finally, push it to feeds array
+      feeds.value.push(feed)
     }
-
-    // finally, push it to feeds array
-    feeds.value.push(feed)
   }
 
   loaded(data.feeds.length, options.value.pagination.perPage)
