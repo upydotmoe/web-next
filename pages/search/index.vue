@@ -63,7 +63,7 @@
       </div>
 
       <div v-show="activeSection === 'users'">
-        <Users 
+        <Users
           @countUsers="countUsers"
         />
       </div>
@@ -134,11 +134,6 @@ const search = () => {
     force: true
   })
 }
-
-// const closeModal = (modalId) => {
-//   useModal().closeModal(modalId)
-// }
-// onClickOutside(popularModalViewRef, () => closeModal('popular-modal'))
 </script>
 
 <style lang="scss" scoped>

@@ -83,8 +83,10 @@ watch (() => route.query.q, (newKeyword, oldKeyword) => {
 
 /** Before mount, fetch first row */
 const keyword = ref(q)
-onBeforeMount (() => {
-  fetchTop()
+onMounted (() => {
+  setTimeout(() => {
+    fetchTop()
+  }, 1000);
 })
 
 /** Fetch first row */
