@@ -4,10 +4,15 @@
     :hide-side="true"
     :no-right-side="true"
   >
-    <div id="lists">
+    <LoginMessage v-if="!auth.loggedIn" />
+
+    <div
+      v-else
+      id="lists"
+    >
       <!-- search box -->
       <span class="search">
-        <input v-model="searchKeyword" type="text" name="search" :placeholder="$t('search')" @keyup.enter="search()">
+        <input v-model="searchKeyword" type="text" name="search" :placeholder="$t('search.search')" @keyup.enter="search()">
         <span class="search-button" @click="search()">
           <Icon :name="'i-ion-search'" />
         </span>
@@ -75,11 +80,18 @@
 // import { onClickOutside } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
 import Artworks from '~/components/search/Artworks.vue'
 import Users from '~/components/search/Users.vue'
+import LoginMessage from '~/components/globals/LoginMessage.vue'
+
+// stores
+const auth = useAuthStore()
 
 const { t } = useI18n()
 
@@ -90,7 +102,7 @@ const route = useRoute()
  * @meta
  */
 useHead ({
-  title: t('search') + (route.query.q ? ` "${route.query.q}"` : '')
+  title: t('search.search') + (route.query.q ? ` "${route.query.q}"` : '')
 })
 
 const searchKeyword = ref('')
@@ -120,7 +132,7 @@ watch (() => route.query, ({ q }) => {
   searchKeyword.value = q
 
   useHead ({
-    title: t('search') + (searchKeyword.value ? ` "${searchKeyword.value}"` : route.query.q)
+    title: t('search.search') + (searchKeyword.value ? ` "${searchKeyword.value}"` : route.query.q)
   })
 })
 

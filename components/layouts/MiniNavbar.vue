@@ -1,24 +1,40 @@
 <template>
   <div class="flex flex-row justify-center items-center py-2 px-4 mx-auto mt-0 w-full text-white rounded-none border-none md:justify-between md:px-6 2xl:w-8/12">
     <div class="menus">
-      <nuxt-link v-if="auth.loggedIn" :to="'/feed'">
-        {{ $t('feed').toUpperCase() }}
+      <nuxt-link
+        v-if="auth.loggedIn"
+        :to="'/feed'"
+        class="uppercase"
+      >
+        {{ $t('feed') }}
       </nuxt-link>
-      <nuxt-link :to="'/explore'">
-        {{ $t('explore').toUpperCase() }}
+      <nuxt-link
+        :to="'/explore'"
+        class="uppercase"
+      >
+        {{ $t('explore') }}
       </nuxt-link>
-      <nuxt-link :to="'/works/browse'">
-        {{ $t('browse').toUpperCase() }}
+      <nuxt-link
+        :to="'/works/browse'"
+        class="uppercase"
+      >
+        {{ $t('browse') }}
       </nuxt-link>
-      <a v-show="artworkAvailabity > 1" href="#" @click="random()">
-        {{ $t('random').toUpperCase() }}
+      <a
+        v-if="artworkAvailabity > 1 && auth.loggedIn"
+        @click="random()"
+        href="#"
+        class="uppercase"
+      >
+        {{ $t('random') }}
       </a>
-      <!-- <nuxt-link :to="'/comics'">
-        &nbsp;{{ $t('comics.comics').toUpperCase() }}
+      <nuxt-link
+        v-if="auth.loggedIn"
+        :to="'/tags'"
+        class="uppercase"
+      >
+        {{ $t('tags.tags') }}
       </nuxt-link>
-      <nuxt-link :to="'/tutorials'">
-        &nbsp;{{ $t('tutorials.tutorials').toUpperCase() }}&nbsp;
-      </nuxt-link> -->
     </div>
   </div>
 </template>

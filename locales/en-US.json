@@ -77,7 +77,10 @@
       }
     }
   },
-  "search": "Search",
+  "search": {
+    "search": "Search",
+    "loginMessage": "Please login first to use this feature"
+  },
   "users": {
     "user": "User",
     "users": "Users"
@@ -271,7 +274,10 @@
   "reset": "Reset",
   "title": "Title",
   "description": "Description",
-  "tags": "Tags",
+  "tags": {
+    "tags": "Tags",
+    "artworkCount": "Artwork Count"
+  },
   "tagsInputPlaceholder": "Tags (Press enter or comma to add new tag)",
   "tagsApplied": "tags aplied",
   "pickUpToTags": "Pick up to 10 tags",
