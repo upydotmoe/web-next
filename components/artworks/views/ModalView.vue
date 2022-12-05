@@ -407,7 +407,7 @@
             target="_blank"
             class="flex flex-row gap-2 w-full"
           >
-            <div class="w-1/3" v-if="originalArtwork.artwork_assets">
+            <div v-if="originalArtwork.artwork_assets">
               <!-- test --> <img
                 preload
                 loading="lazy"

@@ -447,9 +447,10 @@
 
       <div class="mt-2">
         <!-- mobile or smaller device navigation -->
-        <div class="flex flex-row justify-center md:hidden">
+        <div class="flex flex-row gap-x-2 justify-center md:hidden">
+          <!-- dashboard -->
           <div 
-            class="mr-2 profile-navigation__mobile theme-color-secondary"
+            class="profile-navigation__mobile theme-color-secondary"
             :class="{ 'button-color text-white': currentState == 'dashboard' }"
             @click="changeCurrentState('dashboard')"
           >
@@ -459,8 +460,10 @@
             </div>
             <span>{{ $t('dashboard') }}</span>
           </div>
+
+          <!-- album -->
           <div 
-            class="mr-2 profile-navigation__mobile theme-color-secondary"
+            class="profile-navigation__mobile theme-color-secondary"
             :class="{ 'button-color text-white': currentState == 'albums' }"
             @click="changeCurrentState('albums')"
           >
@@ -470,6 +473,8 @@
             </div>
             <span>{{ $t('albums.album') }}</span>
           </div>
+
+          <!-- collection -->
           <div 
             class="profile-navigation__mobile theme-color-secondary"
             :class="{ 'button-color text-white': currentState == 'collections' }"
@@ -684,6 +689,7 @@
               <Liked
                 v-if="!loading"
                 :user-id="userInfo.id"
+                @onEmpty="onEmpty"
               />
             </div>
 

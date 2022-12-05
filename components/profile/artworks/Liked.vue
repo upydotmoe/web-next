@@ -28,6 +28,7 @@
       :empty="isEmpty"
       :error="isError"
       :fetch="fetch"
+      :background-color="'theme-color-secondary'"
     />
 
     <!-- modal view -->
@@ -79,6 +80,7 @@ onBeforeMount (() => {
   if (!auth.i502p00r0) {
     fetchMaxFree()
   }
+
   fetchTop()
 })
 
@@ -181,6 +183,7 @@ const loadMore = async () => {
 const isEmpty = ref(false)
 const showEmpty = () => {
   isEmpty.value = true
+  loading.value = false
   hideLoadMoreButton()
   emits('onEmpty')
 }
