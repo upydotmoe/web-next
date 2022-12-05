@@ -631,6 +631,7 @@
 
               <LoadingEmptyErrorMessage
                 :loading="loading"
+                :background-color="'theme-color-secondary'"
               />
               
               <!-- manage mode message -->

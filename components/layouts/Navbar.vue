@@ -314,9 +314,7 @@ const search = () => {
     path: '/search',
     query: {
       q: searchKeyword.value
-    },
-    replace: true,
-    force: true
+    }
   })
 }
 /**

@@ -285,7 +285,7 @@
       
       <template #no-results>
         <div class="mx-auto mt-10 text-center">
-          <b>(ㆆ_ㆆ)</b> {{ $t('nothingToShow') }}
+          <b>(ㆆ_ㆆ)</b> {{ $t('feeds.haventPostedAnyUpdate') }}
         </div>
       </template>
         

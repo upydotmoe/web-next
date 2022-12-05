@@ -27,6 +27,7 @@
       :empty="isEmpty"
       :error="isError"
       :fetch="fetch"
+      :background-color="'theme-color-secondary'"
     />
 
     <!-- modal view -->

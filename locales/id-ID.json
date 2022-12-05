@@ -99,6 +99,7 @@
   "feed": "Beranda",
   "feeds": {
     "notFound": "Feed tidak ditemukan atau sudah dihapus",
+    "haventPostedAnyUpdate": "User ini belum memposting update",
     "form": {
       "title": "Posting status",
       "posted": "Status update berhasil diposting!",

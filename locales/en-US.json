@@ -99,6 +99,7 @@
   "feed": "Feed",
   "feeds": {
     "notFound": "Feed not found or has been removed",
+    "haventPostedAnyUpdate": "This user hasn't posted any update yet",
     "form": {
       "title": "Post Feed Update",
       "posted": "Feed update successfully posted!",
