@@ -10,6 +10,10 @@ export default {
       return useDevice().isMobile()
     },
 
+    isMobileDevice () {
+      return useDevice().isMobileDevice()
+    },
+
     isLgScreen () {
       return useDevice().isLgScreen()
     },

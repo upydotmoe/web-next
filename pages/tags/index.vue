@@ -1,7 +1,8 @@
 <template>
   <Layout
     :with-footer="true"
-    :fullscreen="true"
+    :hide-side="true"
+    :no-right-side="true"
   >
     <div class="flex flex-row gap-2 justify-center mb-4 w-full">
       <button
@@ -21,7 +22,7 @@
     <div
       class="grid grid-flow-col gap-3"
       :style="[
-        'grid-template-rows: repeat('+ Math.round(tags.total/4) +', minmax(0, 1fr))'
+        'grid-template-rows: repeat('+ Math.round(tags.total/(!isMobile() ? 4 : (!isMobileDevice() ? 2 : 1))) +', minmax(0, 1fr))'
       ]"
     >
       <nuxt-link
@@ -90,6 +91,16 @@ const fetch = async () => {
  * Watch for order mode change
  */
 watch (() => tags.value.options.data.orderBy, () => {
-  fetch()
+  sort()
 })
+
+const sort = () => {
+  const orderBy = tags.value.options.data.orderBy
+
+  if (orderBy == 'count') {
+    tags.value.data = tags.value.data.sort((a, b) => b._count.artwork_has_tags - a._count.artwork_has_tags)
+  } else {
+    tags.value.data = tags.value.data.sort((a, b) => (a.tag > b.tag) ? 1 : ((b.tag > a.tag) ? -1 : 0))
+  }
+}
 </script>
