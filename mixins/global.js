@@ -14,8 +14,8 @@ export default {
       return useDevice().isLgScreen()
     },
 
-    formatDate (date, timeAgo) {
-      return useDate().formatDate(date, timeAgo)
+    formatDate (date, timeAgo, withTime) {
+      return useDate().formatDate(date, timeAgo, withTime)
     },
 
     shortNumber (number = 0) {

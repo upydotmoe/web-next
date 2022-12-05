@@ -47,13 +47,14 @@
             <div class="flex flex-row gap-x-1">
               <span
                 :class="[
-                  'ml-2',
+                  'ml-2 inline-block',
                   { 'leading-6': !auth.i502p00r0 }
                 ]"
               >
                 {{ $t('private') }}
               </span>
-              <ProBadge />
+              
+              <ProBadge v-if="!auth.i502p00r0" />
             </div>
           </label>
 

@@ -1,9 +1,16 @@
 import moment from 'moment'
 
 export default function useDate () {
-  const formatDate = (date: string, withTimeAgo: boolean = false): string => {
-    let formattedDate = moment(date).format('MMMM DD, YYYY h:mm A')
+  const formatDate = (date: string, withTimeAgo: boolean = false, withTime: boolean = true): string => {
+    let formattedDate
 
+    if (withTime) {
+      formattedDate = moment(date).format('MMMM DD, YYYY h:mm A')
+    } else {
+      formattedDate = moment(date).format('MMMM DD, YYYY')
+    }
+
+    // apply time ago
     if (withTimeAgo) {
       formattedDate = moment(formattedDate).fromNow()
     }
