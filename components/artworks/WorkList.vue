@@ -4,7 +4,7 @@
       v-for="work in works" 
       :key="work.id" 
       :class="[
-        'work-thumbnail theme-color-bg rounded-lg mb-2',
+        'work-thumbnail theme-color-bg rounded-lg',
         work._count.artwork_assets > 1 && currentWorkId != work.id ? 'work-multiple' : '',
         { 'border-4 border-yellow-400': manageList.includes(work.id) || currentWorkId == work.id }
       ]"

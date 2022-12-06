@@ -1,9 +1,6 @@
 <template>
   <div id="lists">
-    <div class="hidden" @click="fetchInfo()" />
-    <div class="hidden" @click="removeItems()" />
-    
-    <div class="p-4 mb-4 w-full rounded-md theme-color-secondary">
+    <div class="p-4 mb-2 w-full rounded-md theme-color-secondary">
       <div class="mb-2 text-base font-bold">{{ albumData.info.name }}</div>
       <div class="mb-2">{{ albumData.info.description }}</div>
       <div><b>{{ $t('private') }}:</b> <span class="italic">{{ albumData.info.is_public ? $t('no') : $t('yes') }}</span></div>
@@ -36,6 +33,7 @@
       :empty="albumData.empty"
       :error="false"
       :fetch="fetch"
+      :background-color="'theme-color-secondary'"
     />
 
     <!-- Modal view (artwork detail) -->

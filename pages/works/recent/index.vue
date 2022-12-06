@@ -264,6 +264,7 @@ const movePage = async (mode) => {
   }
 
   await fetchTop()
+  window.scrollTo(0, 0)
 }
 
 /** Show empty if there's no artwork to show */

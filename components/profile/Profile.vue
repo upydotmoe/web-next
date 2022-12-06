@@ -192,7 +192,7 @@
               
               <a 
                 v-if="userInfo.user_socials.youtube" 
-                :href="'https://youtube.com/channel/' + userInfo.user_socials.youtube"
+                :href="userInfo.user_socials.youtube"
                 target="blank" 
                 class="cursor-pointer"
               >
@@ -623,12 +623,26 @@
                 v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
                 class="flex flex-row gap-2 justify-between w-full md:justify-end"
               >
-                <button class="w-full action-button secondary-button md:w-auto" @click="config.manageMode = !config.manageMode">
-                  <Icon :name="config.manageMode ? 'i-ion-close-outline' : 'i-material-symbols-library-add-check-outline-rounded'" />
+                <button
+                  @click="config.manageMode = !config.manageMode"
+                  :class="[
+                    'w-full action-button md:w-auto',
+                    config.manageMode ? 'danger-button' : 'secondary-button'
+                  ]"
+                >
+                  <Icon 
+                    :name="config.manageMode ? 
+                      'i-ion-close-outline' : 
+                      'i-material-symbols-library-add-check-outline-rounded'"
+                  />
                   {{ config.manageMode ? $t('quit') : $t('manage') }}
                 </button>
 
-                <button v-show="config.manageMode" class="w-full primary-button md:w-auto" @click="openAlbumSelectionModal()">
+                <button
+                  v-show="config.manageMode"
+                  @click="openAlbumSelectionModal()"
+                  class="w-full primary-button md:w-auto"
+                >
                   <Icon :name="'i-ion-add-outline'" />
                   {{ $t('albums.addToAlbum') }}
                 </button>
@@ -645,7 +659,7 @@
               </div>
               
               <!-- CONTENTS -->
-              <div>
+              <div class="mt-2">
                 <!-- feeds -->
                 <Feeds
                   v-if="activeDashboard === 'feed'"
@@ -657,9 +671,6 @@
                 <Artworks
                   v-if="!loading && activeDashboard === 'artwork'"
                   ref="artworkListRef"
-                  :class="[
-                    { '-mt-2': auth.user.id !== userInfo.id }
-                  ]"
                   :user-id="userInfo.id"
                   :manage-mode="config.manageMode"
                   @feedSelectedItems="feedSelectedItems"

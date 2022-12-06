@@ -1,8 +1,5 @@
 <template>
-  <div id="lists">
-    <div class="hidden" @click="fetchInfo()" />
-    <div class="hidden" @click="removeItem()" />
-    
+  <div id="lists">    
     <div class="p-4 mb-4 w-full rounded-md theme-color-secondary">
       <div class="text-base font-bold mb-2">{{ collection.info.name }}</div>
       <div class="mb-2">{{ collection.info.description }}</div>
@@ -36,6 +33,7 @@
       :empty="collection.empty"
       :error="false"
       :fetch="fetch"
+      :background-color="'theme-color-secondary'"
     />
 
     <!-- Modal view (artwork detail) -->

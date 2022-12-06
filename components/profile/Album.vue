@@ -52,15 +52,27 @@
         <div class="flex flex-row">
           <!-- manage items -->
           <div v-show="auth.loggedIn && (auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
-            <button class="action-button secondary-button" @click="config.manageMode = !config.manageMode">
-              <Icon :name="config.manageMode ? 'i-ion-close-outline' : 'i-material-symbols-library-add-check-outline-rounded'" />
+            <button
+              @click="config.manageMode = !config.manageMode"
+              :class="[
+                'action-button',
+                config.manageMode ? 'danger-button' : 'secondary-button'
+              ]"
+            >
+              <Icon
+                :name="config.manageMode ?
+                  'i-ion-close-outline' : 
+                  'i-material-symbols-library-add-check-outline-rounded'"
+              />
               {{ config.manageMode ? $t('quit') : $t('manage') }}
             </button>
             <button 
               v-show="config.manageMode"
-              class="flex flex-row"
-              :class="selectedItems.length > 0 ? 'danger-button' : 'disabled-button cursor-not-allowed'"
               @click="selectedItems.length > 0 ? openModal('item-deletion-confirm-modal') : null"
+              :class="[
+                'flex flex-row',
+                selectedItems.length > 0 ? 'danger-button' : 'disabled-button cursor-not-allowed'
+              ]"
             >
               <Icon :name="'i-akar-icons-trash-bin'" />
               {{ $t('albums.removeSelected') }}
