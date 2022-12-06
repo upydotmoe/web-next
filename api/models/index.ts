@@ -154,6 +154,8 @@ export * from './inline-response20046-data-report';
 export * from './inline-response20047';
 export * from './inline-response20048';
 export * from './inline-response20048-data';
+export * from './inline-response20049';
+export * from './inline-response20049-data';
 export * from './inline-response2004-data';
 export * from './inline-response2005';
 export * from './inline-response2005-data';

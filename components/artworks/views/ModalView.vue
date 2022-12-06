@@ -856,6 +856,7 @@
       <RelatedArtworks
         v-if="!loading"
         :work-id="artworkDetail.id"
+        :is-modal="isModal"
       />
     </div>
 

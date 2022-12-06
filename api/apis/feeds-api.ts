@@ -266,11 +266,12 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
          * @summary Get latest updated feeds combined with artwork posts
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
+         * @param {string} fetchMode 
          * @param {string} [mode] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFeeds: async (perPage: number, page: number, mode?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFeeds: async (perPage: number, page: number, fetchMode: string, mode?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'perPage' is not null or undefined
             if (perPage === null || perPage === undefined) {
                 throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getFeeds.');
@@ -278,6 +279,10 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
             // verify required parameter 'page' is not null or undefined
             if (page === null || page === undefined) {
                 throw new RequiredError('page','Required parameter page was null or undefined when calling getFeeds.');
+            }
+            // verify required parameter 'fetchMode' is not null or undefined
+            if (fetchMode === null || fetchMode === undefined) {
+                throw new RequiredError('fetchMode','Required parameter fetchMode was null or undefined when calling getFeeds.');
             }
             const localVarPath = `/feeds`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -302,6 +307,10 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
 
             if (mode !== undefined) {
                 localVarQueryParameter['mode'] = mode;
+            }
+
+            if (fetchMode !== undefined) {
+                localVarQueryParameter['fetch_mode'] = fetchMode;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -786,12 +795,13 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @summary Get latest updated feeds combined with artwork posts
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
+         * @param {string} fetchMode 
          * @param {string} [mode] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeeds(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
-            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeeds(perPage, page, mode, options);
+        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
+            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeeds(perPage, page, fetchMode, mode, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -978,12 +988,13 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @summary Get latest updated feeds combined with artwork posts
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
+         * @param {string} fetchMode 
          * @param {string} [mode] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeeds(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
-            return FeedsApiFp(configuration).getFeeds(perPage, page, mode, options).then((request) => request(axios, basePath));
+        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
+            return FeedsApiFp(configuration).getFeeds(perPage, page, fetchMode, mode, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1140,13 +1151,14 @@ export class FeedsApi extends BaseAPI {
      * @summary Get latest updated feeds combined with artwork posts
      * @param {number} perPage How many record to show per page of pagination
      * @param {number} page Pagination index
+     * @param {string} fetchMode 
      * @param {string} [mode] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeeds(perPage: number, page: number, mode?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
-        return FeedsApiFp(this.configuration).getFeeds(perPage, page, mode, options).then((request) => request(this.axios, this.basePath));
+    public async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
+        return FeedsApiFp(this.configuration).getFeeds(perPage, page, fetchMode, mode, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

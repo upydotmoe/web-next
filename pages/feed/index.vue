@@ -2,14 +2,14 @@
   <Layout 
     v-if="auth.loggedIn"
     :with-footer="true"
-    :hide-side="isMobile()"
+    :hide-side="isMobileDevice()"
+    :no-right-side="isMobile()"
   >
-    <SplashAlert 
-      v-show="copied"
-      id="copy-alert"
-      :text="$t('linkCopied')"
-      :icon="'i-bi-check-all'"
-    />
+    <template #left-side>
+      <FeedLeftSide
+        @refetch="changeFetchMode"
+      />
+    </template>
 
     <div class="mx-auto w-full">
       <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-10/12">
@@ -328,20 +328,11 @@
                             class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                           >
                             <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
-                            </nuxt-link>
+                          </nuxt-link>
 
-                            <div class="custom-divider" />
-                            
-                            <!-- report -->
-                            <!-- <nuxt-link 
-                              :to="'#'" 
-                              class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
-                              @click.prevent 
-                            >
-                              <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                            </nuxt-link> -->
-
-                            <!-- copy sharable link -->
+                          <div class="custom-divider" />
+                          
+                          <div>
                             <a
                               class="flex py-2 px-3 w-full leading-4 rounded-md transition-all duration-150 cursor-pointer hover:button-color parent-icon hover:text-white"
                               @click="copyLink(feed.type === 'artwork' ? '/a/'+feed.id : '/feed/'+feed.id)" 
@@ -357,72 +348,79 @@
               </div>
             </div>
           </div>
-          
-          <client-only>
-            <InfiniteLoading 
-              class="mt-6"
-              :load="fetch"
-            >
-              <template #loading>
-                <div class="mx-auto text-center">
-                  <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
-                </div>
-              </template>
+        </div>
 
-              <template #no-results>
-                <div class="mx-auto text-center">
-                  {{ $t('feeds.nothingToShow') }}
-                </div>
-              </template>
+        <InfiniteLoading 
+          class="mt-6"
+          :load="fetch"
+          v-model:is-initial="isInitial"
+        >
+          <template #loading>
+            <div class="mx-auto text-center">
+              <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+            </div>
+          </template>
 
-              <template #no-more>
-                <div class="mx-auto text-center">
-                  {{ $t('youHaveReachedTheEnd') }}
-                  <br>
-                  {{ $t('feeds.followMorePeople') }}
-                </div>
-              </template>
-            </InfiniteLoading>
-          </client-only>
+          <template #no-results>
+            <div class="mx-auto text-center">
+              {{ $t('feeds.nothingToShow') }}
+            </div>
+          </template>
 
-          <!-- Artwork Modal View -->
-          <div 
-            :id="'chronological-modal'"
-            class="modal work-view" 
-          >
-            <ModalView 
-              ref="chronologicalModalViewRef"
-              :section="'chronological'"
-            />
-          </div>
+          <template #no-more>
+            <div class="mx-auto text-center">
+              {{ $t('youHaveReachedTheEnd') }}
+              <br>
+              {{ $t('feeds.followMorePeople') }}
+            </div>
+          </template>
+        </InfiniteLoading>
 
-          <!-- Feed Modal View -->
-          <div 
-            :id="'chronological-feed-modal'"
-            class="z-30 modal work-view"
-          >
-            <FeedModalView
-              ref="chronologicalFeedModalViewRef"
-              :section="'chronological-feed'"
-            />
-          </div>
-
-          <!-- add or remove from selected collection(s) -->
-          <ManageSave 
-            id="feed-collection-selection-modal"
-            :modal-id="'feed-collection-selection-modal'"
-            ref="collectionSelectionModalRef"
-            :work-id="collectionWorkId"
-            class="modal"
-            @save="save"
+        <!-- Artwork Modal View -->
+        <div 
+          :id="'chronological-modal'"
+          class="modal work-view" 
+        >
+          <ModalView 
+            ref="chronologicalModalViewRef"
+            :section="'chronological'"
           />
         </div>
-      </div>
 
-      <template #right-side>
-        <FeedSide />
-      </template>
-    </Layout>
+        <!-- Feed Modal View -->
+        <div 
+          :id="'chronological-feed-modal'"
+          class="z-30 modal work-view"
+        >
+          <FeedModalView
+            ref="chronologicalFeedModalViewRef"
+            :section="'chronological-feed'"
+          />
+        </div>
+
+        <!-- add or remove from selected collection(s) -->
+        <ManageSave 
+          id="feed-collection-selection-modal"
+          :modal-id="'feed-collection-selection-modal'"
+          ref="collectionSelectionModalRef"
+          :work-id="collectionWorkId"
+          class="modal"
+          @save="save"
+        />
+        
+        <SplashAlert 
+          v-show="copied"
+          id="copy-alert"
+          :text="$t('linkCopied')"
+          :icon="'i-bi-check-all'"
+        />
+      </div>
+    </div>
+
+    <template #right-side>
+      <FeedSide />
+    </template>
+  </Layout>
 </template>
 
 <script setup>
@@ -441,6 +439,7 @@ import Layout from '~/components/layouts/Layout.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import ImageList from '~/components/feeds/ImageList.vue'
+import FeedLeftSide from '~/components/feeds/FeedLeftSide.vue'
 import FeedSide from '~/components/layouts/right-sides/FeedSide.vue'
 import ManageSave from '~/components/artworks/ManageSave.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
@@ -524,9 +523,12 @@ const options = ref({
 })
 
 /** Fetch / inifinite load */
+const isInitial = ref(true)
 const feeds = ref([])
+const fetchMode = ref('feed')
 const fetch = async ({ loaded }) => {
   const [data, error] = await feedApi.getChronologicalFeeds({
+    fetchMode: fetchMode.value,
     explicitMode: options.value.explicitMode,
     pagination: {
       page: options.value.pagination.page,
@@ -583,6 +585,16 @@ const fetch = async ({ loaded }) => {
   }
 
   loaded(data.feeds.length, options.value.pagination.perPage)
+}
+
+const changeFetchMode = (mode) => {
+  fetchMode.value = mode
+
+  // reset current state
+  options.value.pagination.page = 0
+  feeds.value = []
+
+  isInitial.value = true
 }
 
 /** Modal view */

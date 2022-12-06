@@ -98,6 +98,9 @@
   "home": "Halaman utama",
   "feed": "Beranda",
   "feeds": {
+    "all": "Semua",
+    "textOnly": "Hany Text",
+    "artworkOnly": "Hanya Artwork",
     "notFound": "Feed tidak ditemukan atau sudah dihapus",
     "haventPostedAnyUpdate": "User ini belum memposting update",
     "form": {

@@ -4,8 +4,7 @@
   <Layout
     :class-prop="'work-view'"
     :with-footer="true"
-    :hide-side="true"
-    :no-right-side="true"
+    :fullscreen="true"
   >
     <LoadingEmptyErrorMessage
       v-show="loading || empty || error"

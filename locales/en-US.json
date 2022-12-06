@@ -98,6 +98,9 @@
   "home": "Home",
   "feed": "Feed",
   "feeds": {
+    "all": "All",
+    "textOnly": "Text Only",
+    "artworkOnly": "Artwork Only",
     "notFound": "Feed not found or has been removed",
     "haventPostedAnyUpdate": "This user hasn't posted any update yet",
     "form": {

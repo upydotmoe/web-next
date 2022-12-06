@@ -5,6 +5,7 @@
       :empty="relatedArtworks.options.isEmpty"
       :error="relatedArtworks.options.isError"
       :fetch="getRelatedArtworks"
+      :background-color="isModal ? 'theme-color-secondary' : 'theme-color'"
       class="mt-2"
     />
 
@@ -45,6 +46,10 @@ const props = defineProps ({
   workId: {
     type: Number,
     default: 0
+  },
+  isModal: {
+    type: Boolean,
+    default: true
   }
 })
 
