@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="w-full modal-layer xl:w-1/4 lg:w-2/5">
-      <p class="mb-4">{{ message }}</p>
+      <p
+        v-html="message"
+        class="mb-4"
+      />
       
       <div class="flex flex-row justify-end gap-2">
         <button class="cancel-button" @click="close(false)">

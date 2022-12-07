@@ -163,13 +163,31 @@
 
             <!-- social links -->
             <div v-if="userInfo.user_socials" class="flex flex-row gap-3 mt-4 w-full">
-              <a 
-                v-if="userInfo.user_socials.facebook" 
-                :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
+              <button
+                v-if="userInfo.user_socials.personal_website" 
+                @click="openModal('external-website-visit-confirmation-modal')"
                 target="blank" 
                 class="cursor-pointer"
               >
-                <Icon :name="'i-ion-logo-facebook'" :text-size="'text-xl'" />
+                <Icon :name="'i-ph-link-simple-break-bold'" :text-size="'text-xl'" />
+              </button>
+
+              <a 
+                v-if="userInfo.user_socials.patreon" 
+                :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-gg-patreon'" :text-size="'text-xl'" />
+              </a>
+              
+              <a 
+                v-if="userInfo.user_socials.twitch" 
+                :href="'https://twitch.com/' + userInfo.user_socials.twitch + '/'"
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ph-twitch-logo-fill'" :text-size="'text-xl'" />
               </a>
               
               <a 
@@ -189,6 +207,15 @@
               >
                 <Icon :name="'i-ion-logo-twitter'" :text-size="'text-xl'" />
               </a>
+
+              <a 
+                v-if="userInfo.user_socials.facebook" 
+                :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
+                target="blank" 
+                class="cursor-pointer"
+              >
+                <Icon :name="'i-ion-logo-facebook'" :text-size="'text-xl'" />
+              </a>
               
               <a 
                 v-if="userInfo.user_socials.youtube" 
@@ -197,24 +224,6 @@
                 class="cursor-pointer"
               >
                 <Icon :name="'i-ion-logo-youtube'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.patreon" 
-                :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-gg-patreon'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.twitch" 
-                :href="'https://twitch.com/' + userInfo.user_socials.twitch + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ph-twitch-logo-fill'" :text-size="'text-xl'" />
               </a>
               
               <!-- Discord app: copy Discord ID -->
@@ -243,15 +252,6 @@
                 class="cursor-pointer"
               >
                 <Icon :name="'i-cib-gumroad'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.personal_website" 
-                :href="'https://' + userInfo.user_socials.personal_website + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ph-link-simple-break-bold'" :text-size="'text-xl'" />
               </a>
             </div>
 
@@ -328,14 +328,32 @@
         </div>
 
         <!-- social links -->
-        <div v-if="userInfo.user_socials" class="flex flex-row justify-center mt-4">
-          <a 
-            v-if="userInfo.user_socials.facebook" 
-            :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
+        <div v-if="userInfo.user_socials" class="flex flex-row gap-x-2 justify-center mt-4">
+          <button
+            v-if="userInfo.user_socials.personal_website" 
+            @click="openModal('external-website-visit-confirmation-modal')"
             target="blank" 
             class="cursor-pointer"
           >
-            <Icon :name="'i-ion-logo-facebook'" class="text-xl" />
+            <Icon :name="'i-ph-link-simple-break-bold'" :text-size="'text-xl'" />
+          </button>
+
+          <a 
+            v-if="userInfo.user_socials.patreon" 
+            :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
+            target="blank" 
+            class="cursor-pointer"
+          >
+            <Icon :name="'i-gg-patreon'" :text-size="'text-xl'" />
+          </a>
+          
+          <a 
+            v-if="userInfo.user_socials.twitch" 
+            :href="'https://twitch.com/' + userInfo.user_socials.twitch + '/'"
+            target="blank" 
+            class="cursor-pointer"
+          >
+            <Icon :name="'i-ph-twitch-logo-fill'" :text-size="'text-xl'" />
           </a>
           
           <a 
@@ -344,7 +362,7 @@
             target="blank" 
             class="cursor-pointer"
           >
-            <Icon :name="'i-ion-logo-instagram'" class="text-xl" />
+            <Icon :name="'i-ion-logo-instagram'" :text-size="'text-xl'" />
           </a>
 
           <a 
@@ -353,25 +371,53 @@
             target="blank" 
             class="cursor-pointer"
           >
-            <Icon :name="'i-ion-logo-twitter'" class="text-xl" />
+            <Icon :name="'i-ion-logo-twitter'" :text-size="'text-xl'" />
+          </a>
+
+          <a 
+            v-if="userInfo.user_socials.facebook" 
+            :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
+            target="blank" 
+            class="cursor-pointer"
+          >
+            <Icon :name="'i-ion-logo-facebook'" :text-size="'text-xl'" />
           </a>
           
           <a 
             v-if="userInfo.user_socials.youtube" 
-            :href="'https://youtube.com/channel/' + userInfo.user_socials.youtube"
+            :href="userInfo.user_socials.youtube"
             target="blank" 
             class="cursor-pointer"
           >
-            <Icon :name="'i-ion-logo-youtube'" class="text-xl" />
+            <Icon :name="'i-ion-logo-youtube'" :text-size="'text-xl'" />
+          </a>
+          
+          <!-- Discord app: copy Discord ID -->
+          <a 
+            v-if="userInfo.user_socials.discord" 
+            :href="'https://discord.com/' + userInfo.user_socials.discord + '/'"
+            target="blank" 
+            class="cursor-pointer"
+          >
+            <Icon :name="'i-ic-twotone-discord'" :text-size="'text-xl'" />
           </a>
           
           <a 
-            v-if="userInfo.user_socials.patreon" 
-            :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
+            v-if="userInfo.user_socials.picarto"
+            :href="'https://picarto.tv/' + userInfo.user_socials.picarto + '/'"
             target="blank" 
             class="cursor-pointer"
           >
-            <Icon :name="'i-ion-heart'" class="text-xl" />
+            <Icon :name="'i-cib-picarto-tv'" :text-size="'text-xl'" />
+          </a>
+          
+          <a 
+            v-if="userInfo.user_socials.gumroad" 
+            :href="'https://' + userInfo.user_socials.gumroad + '.gumroad.com'"
+            target="blank" 
+            class="cursor-pointer"
+          >
+            <Icon :name="'i-cib-gumroad'" :text-size="'text-xl'" />
           </a>
         </div>
 
@@ -626,7 +672,7 @@
                 <button
                   @click="config.manageMode = !config.manageMode"
                   :class="[
-                    'w-full action-button md:w-auto',
+                    'w-full action-button md:w-auto mt-2 md:mt-0',
                     config.manageMode ? 'danger-button' : 'secondary-button'
                   ]"
                 >
@@ -726,6 +772,16 @@
       </div>
     </div>
 
+    <!-- external website visit confirmation dialog -->
+    <ConfirmationDialog
+      v-if="userInfo.user_socials && userInfo.user_socials.personal_website"
+      id="external-website-visit-confirmation-modal"
+      class="modal"
+      :modal-id="'external-website-visit-confirmation-modal'"
+      :message="'<div>You are going to visit this website, are you sure?</div><div class=\'text-center w-full italic href mt-4 rounded-md p-2 rounded-md theme-color-secondary\'>'+userInfo.user_socials.personal_website+'</div>'"
+      @onAccept="visitExternalWebsite"
+    />
+
     <!-- Miscellaneous -->
     <!-- [Add selected item(s) to albums] Select album where the items will be stored. -->
     <ManageAlbum
@@ -762,6 +818,7 @@ import FollowerList from '~/components/profile/FollowerList.vue'
 import FollowingList from '~/components/profile/FollowingList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import ProBadge from '~/components/globals/ProBadge.vue'
+import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
@@ -975,6 +1032,12 @@ const sliceBio = ref(true)
 const readMore = (bio, userId, selectorElId, bioElId) => {
   sliceBio.value = false
   useReadMore().readMore(bio, userId, selectorElId, bioElId)
+}
+
+const visitExternalWebsite = () => {
+  if (userInfo.value.user_socials && userInfo.value.user_socials.personal_website) {
+    window.open(userInfo.value.user_socials.personal_website, '_blank')
+  }
 }
 </script>
 
