@@ -46,10 +46,14 @@ import Icon from '~/components/globals/Icon.vue'
 const auth = useAuthStore()
 
 const emits = defineEmits (['refetch'])
+const props = defineProps ({
+  currentView: {
+    type: String,
+    default: 'feed'
+  }
+})
 
-const currentView = ref('feed')
 const changeView = (mode) => {
-  currentView.value = mode
   emits('refetch', mode)
 }
 </script>

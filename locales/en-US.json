@@ -153,7 +153,9 @@
     "following": "Following",
     "followings": "Followings",
     "followingsHidden": "This user has decided to hide their following list.",
-    "hideMyFollowings": "Hide people I follow"
+    "hideMyFollowings": "Hide people I follow",
+    "followingOnly": "Following",
+    "global": "Global"
   },
   "followingOnly": "Following Only",
   "privateFollow": "Privately Following",

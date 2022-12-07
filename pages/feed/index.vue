@@ -7,11 +7,34 @@
   >
     <template #left-side>
       <FeedLeftSide
+        v-if="feeds.length"
+        :current-view="fetchMode"
         @refetch="changeFetchMode"
       />
     </template>
 
     <div class="mx-auto w-full">
+      <!-- switch between following only and global for text feed -->
+      <div
+        v-if="fetchMode == 'text'"
+        class="flex flex-row gap-x-2 justify-center mb-4"
+      >
+        <button
+          @click="showPublicTextPost = false"
+          :class="showPublicTextPost == false ? 'primary-button' : 'light-button'"
+        >
+          <Icon :name="'i-fluent-people-checkmark-24-regular'" />
+          {{ $t('followings.followingOnly') }}
+        </button>
+        <button 
+          @click="showPublicTextPost = true"
+          :class="showPublicTextPost == true ? 'primary-button' : 'light-button'"
+        >
+          <Icon :name="'i-heroicons-globe-asia-australia'" />
+          {{ $t('followings.global') }}
+        </button>
+      </div>
+
       <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2 xl:w-10/12">
         <div v-for="(feed, feedIdx) in feeds" :key="feed.id+feed.type" class="rounded-md lg:mx-6">
           <div class="flex flex-row rounded-md theme-color">
@@ -524,12 +547,14 @@ const options = ref({
 
 /** Fetch / inifinite load */
 const isInitial = ref(true)
+const showPublicTextPost = ref(false)
 const feeds = ref([])
 const fetchMode = ref('feed')
 const fetch = async ({ loaded }) => {
   const [data, error] = await feedApi.getChronologicalFeeds({
     fetchMode: fetchMode.value,
     explicitMode: options.value.explicitMode,
+    showAllTextPost: showPublicTextPost.value,
     pagination: {
       page: options.value.pagination.page,
       perPage: options.value.pagination.perPage
@@ -587,9 +612,18 @@ const fetch = async ({ loaded }) => {
   loaded(data.feeds.length, options.value.pagination.perPage)
 }
 
+// switch text post between following only and global
+watch (() => showPublicTextPost.value, () => {
+  refetch()
+})
+
 const changeFetchMode = (mode) => {
   fetchMode.value = mode
 
+  refetch()
+}
+
+const refetch = () => {
   // reset current state
   options.value.pagination.page = 0
   feeds.value = []

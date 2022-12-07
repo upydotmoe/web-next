@@ -69,6 +69,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   const getChronologicalFeeds = async (params: {
     fetchMode: 'feed' | 'text' | 'artwork',
     explicitMode?: boolean,
+    showAllTextPost?: boolean,
     pagination: {
       page: number,
       perPage: number
@@ -81,6 +82,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           params.pagination.page,
           params.fetchMode,
           params.explicitMode,
+          params.showAllTextPost,
           fetchOptions
         )
 

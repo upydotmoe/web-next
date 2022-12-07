@@ -268,10 +268,11 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
          * @param {number} page Pagination index
          * @param {string} fetchMode 
          * @param {string} [mode] 
+         * @param {boolean} [showAllTextPost] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFeeds: async (perPage: number, page: number, fetchMode: string, mode?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getFeeds: async (perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'perPage' is not null or undefined
             if (perPage === null || perPage === undefined) {
                 throw new RequiredError('perPage','Required parameter perPage was null or undefined when calling getFeeds.');
@@ -311,6 +312,10 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
 
             if (fetchMode !== undefined) {
                 localVarQueryParameter['fetch_mode'] = fetchMode;
+            }
+
+            if (showAllTextPost !== undefined) {
+                localVarQueryParameter['show_all_text_post'] = showAllTextPost;
             }
 
             const query = new URLSearchParams(localVarUrlObj.search);
@@ -797,11 +802,12 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {number} page Pagination index
          * @param {string} fetchMode 
          * @param {string} [mode] 
+         * @param {boolean} [showAllTextPost] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
-            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeeds(perPage, page, fetchMode, mode, options);
+        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
+            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeeds(perPage, page, fetchMode, mode, showAllTextPost, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -990,11 +996,12 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {number} page Pagination index
          * @param {string} fetchMode 
          * @param {string} [mode] 
+         * @param {boolean} [showAllTextPost] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
-            return FeedsApiFp(configuration).getFeeds(perPage, page, fetchMode, mode, options).then((request) => request(axios, basePath));
+        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
+            return FeedsApiFp(configuration).getFeeds(perPage, page, fetchMode, mode, showAllTextPost, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1153,12 +1160,13 @@ export class FeedsApi extends BaseAPI {
      * @param {number} page Pagination index
      * @param {string} fetchMode 
      * @param {string} [mode] 
+     * @param {boolean} [showAllTextPost] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
-        return FeedsApiFp(this.configuration).getFeeds(perPage, page, fetchMode, mode, options).then((request) => request(this.axios, this.basePath));
+    public async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
+        return FeedsApiFp(this.configuration).getFeeds(perPage, page, fetchMode, mode, showAllTextPost, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
