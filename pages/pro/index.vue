@@ -46,7 +46,7 @@
 
         <!-- Multiple Image Upload -->
         <div class="feature">
-          <img src="@/pro/upload-multiple-images.png" />
+          <img src="/pro/upload-multiple-images.png" />
           <div>
             <h1>More Image in One Post</h1>
             Break the limit and upload more images at once.
@@ -59,12 +59,12 @@
             <h1>Private Collection</h1>
             Hide your secret collections from public so no one can see the artworks inside but yourself.
           </div>
-          <img src="@/pro/private-collection.png" />
+          <img src="/pro/private-collection.png" />
         </div>
 
         <!-- Unlimited Collections -->
         <div class="feature">
-          <img src="@/pro/unlimited-collections.png" />
+          <img src="/pro/unlimited-collections.png" />
           <div>
             <h1>Unlimited Collection</h1>
             Break the limit and create as many collections as you want.
@@ -77,12 +77,12 @@
             <h1>Unlimited Collection Items</h1>
             Break the limit and add as many artworks you want to your collections.
           </div>
-          <img src="@/pro/unlimited-collection-items.png" />
+          <img src="/pro/unlimited-collection-items.png" />
         </div>
 
         <!-- Private Album -->
         <div class="feature">
-          <img src="@/pro/private-album.png" />
+          <img src="/pro/private-album.png" />
           <div>
             <h1>Private Album</h1>
             Create a private album and add your work to it.
@@ -95,12 +95,12 @@
             <h1>Unlimited Albums</h1>
             Break the limit and create as many albums as you want.
           </div>
-          <img src="@/pro/private-album.png" />
+          <img src="/pro/private-album.png" />
         </div>
 
         <!-- Unlimited Album Items -->
         <div class="feature">
-          <img src="@/pro/private-album.png" />
+          <img src="/pro/private-album.png" />
           <div>
             <h1>Unlimited Album Items</h1>
             Break the limit and add as many artworks you want to your albums.
@@ -113,12 +113,12 @@
             <h1>Follow Someone Privately</h1>
             Hide who you follow with this, so no one that you followed that user.
           </div>
-          <img src="@/pro/follow-privately.png" />
+          <img src="/pro/follow-privately.png" />
         </div>
 
         <!-- Hide My Followings -->
         <div class="feature">
-          <img src="@/pro/hide-followings.png" />
+          <img src="/pro/hide-followings.png" />
           <div>
             <h1>Hide Who You Follow</h1>
             Hide who you follow, so your friends or your family don't know whoever you follow.
@@ -131,12 +131,12 @@
             <h1>Hide Who Following You</h1>
             Hide your followers from public, so no one can see who following you.
           </div>
-          <img src="@/pro/hide-followers.png" />
+          <img src="/pro/hide-followers.png" />
         </div>
 
         <!-- List All My Liked Artworks -->
         <div class="feature">
-          <img src="@/pro/list-all-my-liked-arts.png" />
+          <img src="/pro/list-all-my-liked-arts.png" />
           <div>
             <h1>List All My Liked Artworks</h1>
             Break the limit and view your previously liked artworks.
