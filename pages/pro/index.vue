@@ -16,6 +16,15 @@
           </p>
 
           <p class="mt-2 text-sm font-normal">Expires on/by {{ formatDate(validUntil, false, false) }}</p>
+          
+          <p class="flex flex-row gap-2 justify-center mt-8 text-sm italic font-normal">
+            Thank you for your support, much love
+            <Icon
+              :name="'i-noto-heart-hands'"
+              :text-size="'text-2xl'"
+              class="text-red-500"
+            />
+          </p>
         </div>
 
         <div v-else>
@@ -23,7 +32,7 @@
             Unlock all features for only ${{ amount }} a month with PRO version
           </p>
 
-          <a href="#pay" class="p-2 mx-auto w-2/5 text-lg font-bold text-white rounded-md button-color hover:shadow-lg">
+          <a href="#pay" class="p-3 mx-auto w-2/5 text-base font-bold text-white rounded-md button-color hover:shadow-lg">
             GET PRO VERSION
           </a>
         </div>
@@ -140,7 +149,7 @@
       </div>
     
       <div
-        v-if="!isPro"
+        v-if="!isPro && isPaymentActive"
         id="pay"
         class="p-10 w-full text-center rounded-md theme-color"
       >
@@ -169,10 +178,26 @@ const auth = useAuthStore()
 // composition
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const proApi = usePro(oApiConfiguration, fetchOptions())
+const settingAPi = useSetting(oApiConfiguration, fetchOptions())
 
 onBeforeMount(async () => {
+  await checkPaymentStatus()
   await checkCurrentSubscriptionStatus()
 })
+
+/**
+ * Check if payment is currently active or not
+ */
+const isPaymentActive = ref(false)
+const checkPaymentStatus = async () => {
+  const [data, error] = await settingAPi.getSetting('is_payment_active')
+
+  if (error) {
+    isPaymentActive.value = false
+  } else {
+    isPaymentActive.value = data == 1 ? true : false
+  }
+}
 
 const isPro = ref(false)
 const validUntil = ref('')
