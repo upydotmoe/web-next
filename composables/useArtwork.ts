@@ -7,6 +7,7 @@ import {
   ArtworkLikesApi,
   ArtworkListApi,
   ArtworksApi,
+  ArtworkSharesApi,
   ArtworksRedrawsApi,
   ArtworksUserApi,
   ArtworkTagsApi,
@@ -383,6 +384,27 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         )
 
       return [data.success, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
+  const viewWhoSharedTheArtwork = async (params: {
+    workId: number,
+    pagination: {
+      page: number,
+      perPage: number
+    }
+  }) => {
+    try {
+      const { data } = await new ArtworkSharesApi(oApiConfiguration)
+        .getUsersSharedAnArtwork(
+          params.workId,
+          params.pagination.perPage,
+          params.pagination.page
+        )
+
+      return [data.data.users, null]
     } catch (error) {
       return [null, useApiFetch().consumeReadableStreamError(error)]
     }
@@ -787,6 +809,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     deleteReply,
     likeReply,
     unlikeReply,
+
+    viewWhoSharedTheArtwork,
 
     countRedraws,
     getRedraws,

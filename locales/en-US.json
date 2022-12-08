@@ -42,6 +42,7 @@
     "moreArtworkBy": "More by",
     "liked": "Liked",
     "usersLiked": "Users liked",
+    "usersShared": "Users shared",
     "previewModeMessage": "You are currently viewing the preview mode, this work isn't published yet.",
     "originalCharacter": "Original Character",
     "redraws": "Redraws",
@@ -258,7 +259,8 @@
     "like": "likes",
     "likes": "likes",
     "comment": "comment",
-    "comments": "comments"
+    "comments": "comments",
+    "share": "share"
   },
   "notifications": {
     "likes": "Likes",

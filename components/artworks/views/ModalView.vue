@@ -12,8 +12,10 @@
   <!--  -->
   <div
     v-show="!loading"
-    class="work-container work-view"
-    :class="!isModal ? 'w-full' : 'w-full 2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color'"
+    :class="[
+      'work-container work-view',
+      !isModal ? 'w-full mx-12' : 'w-full 2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color'
+    ]"
   >
     <div class="flex flex-col w-full lg:flex-row">
       <!-- Left side: Image view; total of views, likes, comments, and other works by user -->
@@ -148,17 +150,28 @@
               class="counter"
             >
               <Icon :name="'i-mi-eye'" />
-              <b>{{ shortNumber(artworkDetail.views) }}</b> {{ artworkDetail.views > 1 ? $t('count.views') : $t('count.view') }}
+              <b>{{ shortNumber(artworkDetail.views) }}</b>
             </span>
             
             <!-- Total of likes -->
-            <!-- <span 
+            <span 
               v-if="artworkDetail._count"
-              v-show="artworkDetail._count.artwork_likes > 0" 
-              class="counter"
+              v-show="artworkDetail._count.artwork_likes > 0"
+              @click="showUserLikedModal()"
+              class="counter hover:href hover:underline"
             >
               <b>{{ thousand(artworkDetail._count.artwork_likes) }}</b> {{ artworkDetail._count.artwork_likes > 1 ? $t('count.likes') : $t('count.like') }}
-            </span> -->
+            </span>
+            
+            <!-- Total of shares -->
+            <span 
+              v-if="artworkDetail._count"
+              v-show="artworkDetail._count.feeds > 0"
+              @click="showUserSharedModal()"
+              class="counter hover:href hover:underline"
+            >
+              <b>{{ thousand(artworkDetail._count.feeds) }}</b> {{ $t('count.share') }}
+            </span>
 
             <!-- Total of comments -->
             <!-- <a
@@ -197,14 +210,6 @@
                   class="hover:text-red-500"
                 />
               </span>
-
-              <span
-                v-if="artworkDetail._count && artworkDetail._count.artwork_likes"
-                class="hover:cursor-pointer"
-                @click="showUserLikedModal()"
-              >
-                {{ thousand(artworkDetail._count.artwork_likes) }}
-              </span>
             </span>
 
             <!-- Save -->
@@ -223,8 +228,10 @@
                 :name="'i-majesticons-bookmark-line'" 
                 class="hover:text-blue-500"
               />
-
-              <span v-if="artworkDetail._count && artworkDetail._count.collection_has_artworks">
+              
+              <span
+                v-if="artworkDetail._count && artworkDetail._count.collection_has_artworks"
+              >
                 {{ thousand(artworkDetail._count.collection_has_artworks) }}
               </span>
             </span>
@@ -248,9 +255,10 @@
             </span>
 
             <!-- share to feed -->
-            <span v-if="auth.loggedIn" @click="showShareToFeedModal()">
+            <span v-if="auth.loggedIn">
               <Icon 
-                :name="'i-uil-share'" 
+                :name="'i-uil-share'"
+                @click="showShareToFeedModal()"
                 class="hover:text-blue-500"
               />
             </span>
@@ -915,6 +923,13 @@
       class="modal"
       :work-id="artworkDetail.id"
     />
+
+    <!-- User shared list -->
+    <UserShared
+      id="user-shared-modal"
+      class="modal"
+      :work-id="artworkDetail.id"
+    />
     
     <!-- Link copied notification -->
     <SplashAlert 
@@ -950,6 +965,7 @@ import ReportModal from '~/components/reports/ReportModal.vue'
 import ShareArtworkToFeedModal from '~/components/feeds/ShareArtworkToFeedModal.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import UserLiked from '~/components/artworks/views/UserLiked.vue'
+import UserShared from '~/components/artworks/views/UserShared.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
 import RelatedArtworks from '~/components/artworks/RelatedArtworks.vue'
 
@@ -1175,6 +1191,10 @@ const like = async () => {
 
 const showUserLikedModal = () => {
   useModal().openModal('user-liked-modal')
+}
+
+const showUserSharedModal = () => {
+  useModal().openModal('user-shared-modal')
 }
 
 const unlike = async () => {
