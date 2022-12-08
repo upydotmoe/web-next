@@ -41,4 +41,10 @@ export interface ArtworkModelCount {
      * @memberof ArtworkModelCount
      */
     collectionHasArtworks?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ArtworkModelCount
+     */
+    feeds?: number;
 }

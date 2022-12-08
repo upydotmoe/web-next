@@ -64,17 +64,23 @@ const props = defineProps ({
   manageMode: {
     type: Boolean,
     default: false
+  },
+  sortBy: {
+    type: String,
+    default: 'default'
   }
 })
 
 const section = 'profile'
 const loading = ref(true)
 
-onBeforeMount (() => {
+onMounted (() => {
   fetchTop()
 })
 
 const fetchTop = async () => {
+  pagination.value.page = 0
+
   const [dataWorks, dataPagination] = await fetch()
 
   // assign data to works ref
@@ -90,6 +96,10 @@ const fetchTop = async () => {
   }
 }
 
+watch (() => props.sortBy, () => {
+  fetchTop()
+})
+
 const works = ref([])
 const pagination = ref({
   perPage: 24,
@@ -102,6 +112,7 @@ const fetch = async () => {
 
   const [works, workPagination, error] = await artworkApi.getUserArtworks({
     userId: props.userId,
+    sortBy: props.sortBy,
     pagination: {
       page: pagination.value.page,
       perPage: pagination.value.perPage

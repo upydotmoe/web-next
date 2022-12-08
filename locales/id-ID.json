@@ -358,6 +358,13 @@
     "profile": "Profil",
     "manageModeActiveMessage": "Kamu sedang dalam mode kelola, kamu dapat memilih lebih dari satu item untuk dihapus dari koleksi.",
     "setting": "Pengaturan Profil",
+    "artworks": {
+      "sorter": {
+        "latest": "Terbaru",
+        "popular": "Popular",
+        "oldest": "Terlama"
+      }
+    },
     "forms": {
       "update": {
         "name": "Nama",

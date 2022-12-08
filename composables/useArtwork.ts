@@ -180,6 +180,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
    */
   const getUserArtworks = async (params: {
     userId: number,
+    sortBy?: string,
     pagination: {
       page: number,
       perPage: number
@@ -191,6 +192,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           params.userId,
           params.pagination.perPage,
           params.pagination.page,
+          params.sortBy,
           fetchOptions
         )
 

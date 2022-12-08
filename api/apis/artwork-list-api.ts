@@ -307,10 +307,11 @@ export const ArtworkListApiAxiosParamCreator = function (configuration?: Configu
          * @param {number} userId 
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
+         * @param {string} [orderBy] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserArtworks: async (userId: number, perPage: number, page: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUserArtworks: async (userId: number, perPage: number, page: number, orderBy?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userId' is not null or undefined
             if (userId === null || userId === undefined) {
                 throw new RequiredError('userId','Required parameter userId was null or undefined when calling getUserArtworks.');
@@ -336,6 +337,10 @@ export const ArtworkListApiAxiosParamCreator = function (configuration?: Configu
             const localVarQueryParameter = {} as any;
 
             // authentication bearerAuth required
+
+            if (orderBy !== undefined) {
+                localVarQueryParameter['order_by'] = orderBy;
+            }
 
             if (perPage !== undefined) {
                 localVarQueryParameter['per_page'] = perPage;
@@ -446,11 +451,12 @@ export const ArtworkListApiFp = function(configuration?: Configuration) {
          * @param {number} userId 
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
+         * @param {string} [orderBy] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
-            const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getUserArtworks(userId, perPage, page, options);
+        async getUserArtworks(userId: number, perPage: number, page: number, orderBy?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+            const localVarAxiosArgs = await ArtworkListApiAxiosParamCreator(configuration).getUserArtworks(userId, perPage, page, orderBy, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -525,11 +531,12 @@ export const ArtworkListApiFactory = function (configuration?: Configuration, ba
          * @param {number} userId 
          * @param {number} perPage How many record to show per page of pagination
          * @param {number} page Pagination index
+         * @param {string} [orderBy] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
-            return ArtworkListApiFp(configuration).getUserArtworks(userId, perPage, page, options).then((request) => request(axios, basePath));
+        async getUserArtworks(userId: number, perPage: number, page: number, orderBy?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+            return ArtworkListApiFp(configuration).getUserArtworks(userId, perPage, page, orderBy, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -605,11 +612,12 @@ export class ArtworkListApi extends BaseAPI {
      * @param {number} userId 
      * @param {number} perPage How many record to show per page of pagination
      * @param {number} page Pagination index
+     * @param {string} [orderBy] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ArtworkListApi
      */
-    public async getUserArtworks(userId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
-        return ArtworkListApiFp(this.configuration).getUserArtworks(userId, perPage, page, options).then((request) => request(this.axios, this.basePath));
+    public async getUserArtworks(userId: number, perPage: number, page: number, orderBy?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+        return ArtworkListApiFp(this.configuration).getUserArtworks(userId, perPage, page, orderBy, options).then((request) => request(this.axios, this.basePath));
     }
 }

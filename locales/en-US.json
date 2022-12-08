@@ -358,6 +358,13 @@
     "profile": "Profile",
     "manageModeActiveMessage": "You are currently in manage mode, you can add multiple items to add them to your albums.",
     "setting": "Profile Setting",
+    "artworks": {
+      "sorter": {
+        "latest": "Latest",
+        "popular": "Popular",
+        "oldest": "Oldest"
+      }
+    },
     "forms": {
       "update": {
         "name": "Name",

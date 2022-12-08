@@ -667,31 +667,94 @@
               <!-- manage mode: action button -->
               <div 
                 v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
-                class="flex flex-row gap-2 justify-between w-full md:justify-end"
+                class="flex flex-row gap-2 justify-between mt-4 w-full"
               >
-                <button
-                  @click="config.manageMode = !config.manageMode"
-                  :class="[
-                    'w-full action-button md:w-auto mt-2 md:mt-0',
-                    config.manageMode ? 'danger-button' : 'secondary-button'
-                  ]"
-                >
-                  <Icon 
-                    :name="config.manageMode ? 
-                      'i-ion-close-outline' : 
-                      'i-material-symbols-library-add-check-outline-rounded'"
-                  />
-                  {{ config.manageMode ? $t('quit') : $t('manage') }}
-                </button>
+                <!-- left buttons: sort -->
+                <div class="w-full md:w-auto">
+                  <div class="inline-block w-full group md:w-52">
+                    <button class="flex items-center py-2 w-full rounded-md outline-none md:w-52 theme-color-secondary hover:button" @click="togglePopularOrderStatus()">
+                      <span class="flex-1 pr-1">{{ sortBy === 'latest' ? $t('profile.artworks.sorter.latest') : sortByTitle }}</span>
+                      <span>
+                        <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                      </span>
+                    </button>
+                    <ul
+                      id="profile-artwork-order" 
+                      class="absolute z-10 mt-1 w-6/12 text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100"
+                    >
+                      <li
+                        :class="[
+                          { 'button': sortBy === 'latest' },
+                          { 'rounded-b-md': !auth.loggedIn }
+                        ]" 
+                        @click="changeSort('latest', $t('profile.artworks.sorter.latest'))"
+                      >
+                        <Icon
+                          :name="'i-material-symbols-fiber-new'"
+                          :class="{ 'text-white': sortBy === 'latest' }"
+                        />
+                        Latest
+                      </li>
 
-                <button
-                  v-show="config.manageMode"
-                  @click="openAlbumSelectionModal()"
-                  class="w-full primary-button md:w-auto"
-                >
-                  <Icon :name="'i-ion-add-outline'" />
-                  {{ $t('albums.addToAlbum') }}
-                </button>
+                      <li
+                        :class="[
+                          { 'button': sortBy === 'popular' },
+                          { 'rounded-b-md': !auth.loggedIn }
+                        ]" 
+                        @click="changeSort('popular', $t('profile.artworks.sorter.popular'))"
+                      >
+                        <Icon
+                          :name="'i-ic-twotone-star'"
+                          :class="{ 'text-white': sortBy === 'popular' }"
+                        />
+                        Popular
+                      </li>
+
+                      <li
+                        :class="[
+                          { 'button': sortBy === 'oldest' },
+                          { 'rounded-b-md': !auth.loggedIn }
+                        ]" 
+                        @click="changeSort('oldest', $t('profile.artworks.sorter.oldest'))"
+                      >
+                        <Icon
+                          :name="'i-ic-baseline-update'"
+                          :class="{ 'text-white': sortBy === 'oldest' }"
+                        />
+                        Oldest
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- right buttons: manage -->
+                <div class="w-full md:w-auto">
+                  <button
+                    @click="config.manageMode = !config.manageMode"
+                    :class="[
+                      'w-full action-button md:w-auto md:mt-0',
+                      config.manageMode ? 'danger-button' : 'secondary-button'
+                    ]"
+                  >
+                    <Icon 
+                      :name="config.manageMode ? 
+                        'i-ion-close-outline' : 
+                        'i-material-symbols-library-add-check-outline-rounded'"
+                    />
+                    {{ config.manageMode ? $t('quit') : $t('manage') }}
+                  </button>
+
+                  <button
+                    v-show="config.manageMode"
+                    @click="openAlbumSelectionModal()"
+                    class="w-full primary-button md:w-auto"
+                  >
+                    <Icon :name="'i-ion-add-outline'" />
+                    {{ $t('albums.addToAlbum') }}
+                  </button>
+                </div>
               </div>
 
               <LoadingEmptyErrorMessage
@@ -717,8 +780,10 @@
                 <Artworks
                   v-if="!loading && activeDashboard === 'artwork'"
                   ref="artworkListRef"
+                  :key="artworkListKey"
                   :user-id="userInfo.id"
                   :manage-mode="config.manageMode"
+                  :sort-by="sortBy"
                   @feedSelectedItems="feedSelectedItems"
                   @onEmpty="onEmpty"
                 />
@@ -855,6 +920,7 @@ const { o } = route.query
 const loading = ref(true)
 const currentState = o != null ? ref(o) : ref('dashboard')
 const activeDashboard = ref('artwork')
+const artworkListKey = ref(0)
 const userId = computed(() => {
   return props.userLogon && auth.loggedIn ? auth.user.id : props.id
 })
@@ -1028,6 +1094,25 @@ const unfollow = async (userToUnfollow) => {
   }
 }
 
+/**
+ * @sorting
+ */
+const sortBy = ref('latest')
+const sortByTitle = ref('')
+const changeSort = async (key, text) => {
+  sortBy.value = key
+  sortByTitle.value = text
+
+  unfoldArtworkOrder()
+}
+const unfoldArtworkOrder = () => {
+  const popularOrderOptions = document.getElementById('profile-artwork-order')
+  popularOrderOptions.classList.add('scale-0')
+}
+/**
+ * @sorting
+ */
+
 const sliceBio = ref(true)
 const readMore = (bio, userId, selectorElId, bioElId) => {
   sliceBio.value = false
@@ -1070,6 +1155,12 @@ const visitExternalWebsite = () => {
 
   .icon {
     @apply mb-1 mt-1 w-full text-lg text-center hover:text-white;
+  }
+}
+
+#profile-artwork-order {
+  li {
+    @apply flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent;
   }
 }
 </style>
