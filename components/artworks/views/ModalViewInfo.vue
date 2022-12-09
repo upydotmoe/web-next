@@ -9,7 +9,7 @@
           <div class="flex flex-row justify-between">
             <div class="flex flex-col">
               <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="fullname">
-                {{ artworkDetail.users.name }}
+                {{ artworkDetail.users.name }} <ProBadge v-if="artworkDetail.users.isPro" />
               </nuxt-link>
               <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="username">
                 @{{ artworkDetail.users.username }}
@@ -83,11 +83,12 @@
 </template>
 
 <script setup>
-// components
-import Icon from '~/components/globals/Icon.vue'
-
 // composables
 import useReadMore from '~/composables/useReadMore'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 defineProps ({
   section: {

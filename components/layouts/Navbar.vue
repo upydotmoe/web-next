@@ -166,6 +166,10 @@
                 <div class="menu-wrapper">
                   <div class="mini-profile-info">
                     <img :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" @error="imageLoadError">
+                    <ProBadge
+                      v-if="auth.i502p00r0"
+                      class="mt-2"  
+                    />
 
                     <div class="mt-4 font-semibold">{{ auth.user.name }}</div>
                     <div class="text-xs">@{{ auth.user.username }}</div>
@@ -266,6 +270,7 @@ import MiniNavbar from '~/components/layouts/MiniNavbar.vue'
 import Icon from '~/components/globals/Icon.vue'
 import LoginModal from '~/components/auth/forms/Modal.vue'
 import Notifications from '~/components/notifications/Notifications.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // stores
 import authStore from '@/stores/auth.store'
