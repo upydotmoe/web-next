@@ -38,14 +38,14 @@
         </div>
       </div>
 
-      <div class="features-grid">
-        <div class="flex flex-row justify-center mb-4 text-lg italic text-center">
-          <Icon class="mr-2" :name="'i-twemoji-thinking-face'" :text-size="'text-4xl'" />
-          <span class="mt-1">What features will be unlocked?</span>
-        </div>
+      <div class="flex flex-row justify-center text-lg italic text-center">
+        <Icon class="mr-2" :name="'i-twemoji-thinking-face'" :text-size="'text-4xl'" />
+        <span class="mt-1">What features will be unlocked?</span>
+      </div>
 
+      <div class="features-grid">
         <!-- Multiple Image Upload -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row-reverse">
           <img src="/pro/upload-multiple-images.png" />
           <div>
             <h1>More Image in One Post</h1>
@@ -54,16 +54,16 @@
         </div>
 
         <!-- Private Collection -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row">
+          <img src="/pro/private-collection.png" />
           <div>
             <h1>Private Collection</h1>
-            Hide your secret collections from public so no one can see the artworks inside but yourself.
+            Hide your "secret" ( ͡º ͜ʖ ͡º) collections from public so no one can see the artworks you saved inside but yourself.
           </div>
-          <img src="/pro/private-collection.png" />
         </div>
 
         <!-- Unlimited Collections -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row-reverse">
           <img src="/pro/unlimited-collections.png" />
           <div>
             <h1>Unlimited Collection</h1>
@@ -72,16 +72,16 @@
         </div>
 
         <!-- Unlimited Collection Items -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row">
+          <img src="/pro/unlimited-collection-items.png" />
           <div>
             <h1>Unlimited Collection Items</h1>
             Break the limit and add as many artworks you want to your collections.
           </div>
-          <img src="/pro/unlimited-collection-items.png" />
         </div>
 
         <!-- Private Album -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row-reverse">
           <img src="/pro/private-album.png" />
           <div>
             <h1>Private Album</h1>
@@ -90,61 +90,61 @@
         </div>
 
         <!-- Unlimited Album -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row">
+          <img src="/pro/private-album.png" />
           <div>
             <h1>Unlimited Albums</h1>
             Break the limit and create as many albums as you want.
           </div>
-          <img src="/pro/private-album.png" />
         </div>
 
         <!-- Unlimited Album Items -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row-reverse">
           <img src="/pro/private-album.png" />
           <div>
             <h1>Unlimited Album Items</h1>
-            Break the limit and add as many artworks you want to your albums.
+            Break the limit and add as many artworks as you want to your albums.
           </div>
         </div>
 
         <!-- Follow Privately -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row">
+          <img src="/pro/follow-privately.png" />
           <div>
             <h1>Follow Someone Privately</h1>
-            Hide who you follow with this, so no one that you followed that user.
+            Follow people privately and hide them from the following list, so no one knows you're following them.
           </div>
-          <img src="/pro/follow-privately.png" />
         </div>
 
         <!-- Hide My Followings -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row-reverse">
           <img src="/pro/hide-followings.png" />
           <div>
             <h1>Hide Who You Follow</h1>
-            Hide who you follow, so your friends or your family don't know whoever you follow.
+            Hide who you follow so your friends, your family or anyone else doesn't know whoever you follow.
           </div>
         </div>
 
         <!-- Hide My Followers -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row">
+          <img src="/pro/hide-followers.png" />
           <div>
             <h1>Hide Who Following You</h1>
-            Hide your followers from public, so no one can see who following you.
+            Hide your followers from the public so no one knows who follows you.
           </div>
-          <img src="/pro/hide-followers.png" />
         </div>
 
         <!-- List All My Liked Artworks -->
-        <div class="feature">
+        <div class="flex-col feature md:flex-row-reverse">
           <img src="/pro/list-all-my-liked-arts.png" />
           <div>
             <h1>List All My Liked Artworks</h1>
-            Break the limit and view your previously liked artworks.
+            Break the limit and see more of the art you loved in the past.
           </div>
         </div>
 
-        <div class="text-lg italic font-bold text-center">
-          and many more coming..
+        <div class="text-base italic font-bold text-center">
+          and many more features to come..
         </div>
       </div>
     
@@ -218,6 +218,10 @@ const checkCurrentSubscriptionStatus = async () => {
 
 onMounted (() => {
   const script = document.createElement("script")
+  // real client id
+  // script.src = "https://www.paypal.com/sdk/js?client-id=ATTFj4gsmCdfLUnnyO-3DYHvaFYfcgJIo14g9rrA_DuAKGvb1UzHhicZ_16NbJja9l3hmcMrmBZr70-8&enable-funding=venmo&currency=USD"
+
+  // sandbox client id:
   script.src = "https://www.paypal.com/sdk/js?client-id=AbFZEy35RTD5A3oCINCJ0m6gfaofU2B95o8gOMRq7ry8C58Uw9hfVNEeVejkXLDjqHOt0ueQ_GoswZei&enable-funding=venmo&currency=USD"
   script.addEventListener("load", initPaypal)
   document.body.appendChild(script)
@@ -246,7 +250,7 @@ const initPaypal = () => {
         // console.log('Merchant ID:', orderData.purchase_units[0].payee.merchant_id)
 
         if (orderData.purchase_units[0].payee.merchant_id === 'NUTUV969GELDJ' && orderData.purchase_units[0].amount.value == amount.value) {
-          const [success, error] = await proApi.registerProVersion({
+          const [success, data, error] = await proApi.registerProVersion({
             paymentType: 'paypal',
             amount: amount.value,
             orderData: JSON.stringify(orderData)
@@ -254,6 +258,8 @@ const initPaypal = () => {
 
           if (success) {
             isPro.value = true
+            validUntil.value = data.until
+            window.scrollTo(0, 0)
           } else {
             console.error('something went wrong!', error)
           }
@@ -270,13 +276,13 @@ const initPaypal = () => {
 
 <style lang="scss" scoped>
 .features-grid {
-  @apply flex flex-col gap-y-16 mb-20;
+  @apply flex flex-col;
 
   .feature {
-    @apply flex flex-row gap-4 justify-between w-full;
+    @apply flex gap-4 justify-between w-full mb-10;
 
     img {
-      @apply object-cover w-4/6 h-40 rounded-md border-4 border-blue-300;
+      @apply object-cover w-full md:w-4/6 h-40 rounded-md border-4 border-blue-300;
     }
 
     div {

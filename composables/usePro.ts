@@ -18,9 +18,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data.success, data]
+      return [data.success, data.data, null]
     } catch (error) {
-      return [null, useApiFetch().consumeReadableStreamError(error)]
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
