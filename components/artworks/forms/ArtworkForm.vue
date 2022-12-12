@@ -208,6 +208,40 @@
         <!-- publish time -->
         <input v-model="inputData.publishTime" type="time" class="form-input input">
       </div>
+      
+      <div class="input-block">
+        <div class="flex flex-row gap-2">
+          <div
+            @click.prevent="inputData.isExplicit = !inputData.isExplicit"
+            :class="[
+              'flex flex-row gap-2 p-4 rounded-md cursor-pointer theme-color',
+              { 'border-2 border-green-400': !inputData.isExplicit }
+            ]"
+          >
+            <Icon v-if="!inputData.isExplicit" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+
+            {{ $t('explicitContent') }}
+          </div>
+
+          <div
+            v-if="inputData.isExplicit"
+            @click.prevent="inputData.isGore = !inputData.isGore"
+            :class="[
+              'flex flex-row gap-2 p-4 rounded-md cursor-pointer theme-color',
+              { 'border-2 border-green-400': !inputData.isGore }
+            ]"
+          >
+            <Icon v-if="!inputData.isGore" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+
+            Contain Gore
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2">
+      </div>
 
       <!-- original character toggler -->
       <div v-if="!redrawWorkId" class="input-block">
@@ -440,6 +474,7 @@ const inputData = ref({
   description: '',
   tags: '',
   isExplicit: false,
+  isGore: false,
   isOriginalCharacter: false,
   isAllowRedraw: false,
   isredrawInMyStyle: false,

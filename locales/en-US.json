@@ -306,6 +306,7 @@
   "youHaveReachedTheEnd": "You have reached the end",
   "albums": {
     "album": "Album",
+    "albums": "Albums",
     "selectAlbums": "Select albums",
     "removeSelected": "Remove selected",
     "created": "Album created!",
@@ -327,6 +328,7 @@
   },
   "collections": {
     "collection": "Collection",
+    "collections": "Collections",
     "selectCollections": "Select collections",
     "removeSelected": "Remove selected",
     "created": "Collection created!",

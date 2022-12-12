@@ -306,6 +306,7 @@
   "youHaveReachedTheEnd": "Tidak ada lagi yang bisa dimuat",
   "albums": {
     "album": "Album",
+    "albums": "Album",
     "selectAlbums": "Pilih album",
     "removeSelected": "Hapus yang terpilih",
     "created": "Album terbuat!",
@@ -327,6 +328,7 @@
   },
   "collections": {
     "collection": "Koleksi",
+    "collections": "Koleksi",
     "selectCollections": "Pilih koleksi",
     "removeSelected": "Hapus yang terpilih",
     "created": "Koleksi terbuat!",

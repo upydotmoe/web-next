@@ -549,7 +549,7 @@ const options = ref({
 })
 
 /** Fetch / inifinite load */
-const isInitial = ref(true)
+const isInitial = ref(false)
 const showPublicTextPost = ref(false)
 const feeds = ref([])
 const fetchMode = ref('feed')

@@ -52,7 +52,8 @@
               >
                 {{ $t('private') }}
               </span>
-              <ProBadge />
+              
+              <ProBadge v-if="!auth.i502p00r0" />
             </div>
           </label>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-full md:w-2/3">
+  <div class="left-0 w-full md:w-2/3">
     <div v-for="(feed, feedIdx) in feeds" :key="feed.id">
       <div class="flex flex-row mb-2 rounded-lg border-none shadow-none theme-color-secondary">
         <!-- Images -->
@@ -276,6 +276,7 @@
     
     <InfiniteLoading
       :load="fetch"
+      :is-initial="false"
     >
       <template #loading>
         <div class="mx-auto text-center">

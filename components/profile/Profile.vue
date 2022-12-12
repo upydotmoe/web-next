@@ -517,7 +517,7 @@
               <Icon v-show="currentState == 'albums'" :name="'i-ion-folder-outline'" class="text-white" />
               <Icon v-show="currentState != 'albums'" :name="'i-ion-folder-outline'" class="hover:text-white" />
             </div>
-            <span>{{ $t('albums.album') }}</span>
+            <span>{{ $t('albums.albums') }}</span>
           </div>
 
           <!-- collection -->
@@ -530,7 +530,7 @@
               <Icon v-show="currentState == 'collections'" :name="'i-majesticons-bookmark-line'" class="text-white" />
               <Icon v-show="currentState != 'collections'" :name="'i-majesticons-bookmark-line'" class="hover:text-white" />
             </div>
-            <span>{{ $t('collections.collection') }}</span>
+            <span>{{ $t('collections.collections') }}</span>
           </div>
 
           <!-- liked -->
@@ -575,7 +575,7 @@
                 <Icon v-show="currentState === 'albums'" :name="'i-bx-photo-album'" class="text-white" />
                 <Icon v-show="currentState !== 'albums'" :name="'i-bx-photo-album'" />
                 <label class="hidden-lg-flex">
-                  {{ $t('albums.album') }}
+                  {{ $t('albums.albums') }}
                 </label>
               </div>
               <span class="hidden-lg-flex">{{ thousand(counter.album) }}</span>
@@ -590,7 +590,7 @@
                 <Icon v-show="currentState === 'collections'" :name="'i-majesticons-bookmark-line'" class="text-white" />
                 <Icon v-show="currentState !== 'collections'" :name="'i-majesticons-bookmark-line'" />
                 <label class="hidden-lg-flex">
-                  {{ $t('collections.collection') }}
+                  {{ $t('collections.collections') }}
                 </label>
               </div>
               <span class="hidden-lg-flex">{{ thousand(counter.collection) }}</span>
@@ -730,7 +730,7 @@
                 </div>
 
                 <!-- right buttons: manage -->
-                <div class="w-full md:w-auto">
+                <div class="flex flex-row gap-x-2 w-full md:w-auto">
                   <button
                     @click="config.manageMode = !config.manageMode"
                     :class="[
@@ -1135,7 +1135,7 @@ const visitExternalWebsite = () => {
 }
 
 .profile-navigation {
-  @apply flex flex-row py-3 px-4 lg:mr-2 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white justify-between;
+  @apply flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white justify-between;
 
   .profile-navigation_wrapper {
     @apply flex flex-row ml-2 lg:ml-0;
