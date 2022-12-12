@@ -2,7 +2,7 @@
   <div
     class="z-20 w-full theme-color"
     :class="[
-      { 'md:fixed': fixedNavbarRoutes().includes(currentRoute) && !isMobile() }
+      { 'md:fixed': fixedNavbarRoutes().includes(currentRoute) && !isMobileDevice() }
     ]"
   >
     <div 

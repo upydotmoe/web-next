@@ -5,20 +5,22 @@
     :no-right-side="!empty && !error ? false : true"
     :with-footer="true"
   >
-    <LoadingEmptyErrorMessage
-      v-show="empty || error"
-      :empty="empty"
-      :emptyMessage="$t('feeds.notFound')"
-      :error="error"
-    />
+    <div class="mx-auto w-full lg:w-10/12">
+      <LoadingEmptyErrorMessage
+        v-show="empty || error"
+        :empty="empty"
+        :emptyMessage="$t('feeds.notFound')"
+        :error="error"
+      />
 
-    <FeedModalView
-      v-show="!empty && !error"
-      :id="id"
-      @showEmpty="showEmpty"
-      @showError="showError"
-      @setMeta="setMeta"
-    />
+      <FeedModalView
+        v-show="!empty && !error"
+        :id="id"
+        @showEmpty="showEmpty"
+        @showError="showError"
+        @setMeta="setMeta"
+      />
+    </div>
   </Layout>
 </template>
 

@@ -45,7 +45,7 @@ export default function () {
     } else {
       // bunny
       if (viewMode) {
-        format = '?width=650&quality=40'
+        format = '?width=650&quality=75'
       }
 
       // return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`

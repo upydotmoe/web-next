@@ -6,6 +6,7 @@
     :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
+    :center-class="'mx-0 xl:mx-12'"
   >
     <LoadingEmptyErrorMessage
       v-show="loading || empty || error"

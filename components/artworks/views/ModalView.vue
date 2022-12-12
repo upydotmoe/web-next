@@ -14,7 +14,7 @@
     v-show="!loading"
     :class="[
       'work-container work-view',
-      !isModal ? 'w-full mx-12' : 'w-full 2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color'
+      { '2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color': isModal }
     ]"
   >
     <div class="flex flex-col w-full lg:flex-row">
