@@ -155,7 +155,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }) => {
     try {
-      const { data, error } = await new FeedsApi(oApiConfiguration)
+      const { data } = await new FeedsApi(oApiConfiguration)
         .getFeedComments(
           params.feedId,
           params.pagination.page,
@@ -163,7 +163,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           fetchOptions
         )
 
-      return [data.data, useApiFetch().consumeReadableStreamError(error)]
+      return [data.data, null]
     } catch (error) {
       return [null, useApiFetch().consumeReadableStreamError(error)]
     }

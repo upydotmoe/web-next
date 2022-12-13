@@ -1,9 +1,21 @@
 <template>
   <div 
-    class="z-40 work-container work-view"
+    :class="[
+      'z-40 work-container work-view mx-auto',
+      { 'w-full xl:w-1/2 p-2 md:p-6 theme-color': isModal }
+    ]"
   >
-    <div class="w-full" :class="{ 'overflow-y-scroll pr-4': isModal }">
-      <div class="p-4 mb-4 rounded-md theme-color">
+    <div
+      :class="[
+        'w-full',
+        { 'overflow-y-scroll pr-2': isModal }
+      ]">
+      <div
+        :class="[
+          'mb-4 rounded-md theme-color',
+          { 'p-4': !isModal },
+        ]"
+      >
         <!-- user info -->
         <div class="flex flex-row justify-between w-full">
           <div v-if="feedDetail.users" class="user-info">
@@ -236,13 +248,16 @@
       <!-- comments -->
       <div 
         class="comment-content"
-        :class="[{ 'pr-3 overflow-x-hidden': isModal }, { 'mb-20': !isModal }]"
+        :class="[
+          { 'overflow-x-hidden': isModal },
+          { 'mb-20': !isModal }
+        ]"
       >
         <div 
           v-auto-animate
           v-for="comment in comments" 
           :key="comment.id" 
-          class="flex flex-row w-full comment-item"
+          class="comment-item"
         >
           <nuxt-link class="mr-2" :to="'/profile/'+comment.users.username">
             <img class="w-10 h-10 avatar" :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)" @error="imageLoadError">
@@ -321,7 +336,7 @@
         <div
           v-if="feedDetail._count"
           v-show="feedDetail._count.feed_comments > commentPagination.perPage && showLoadOlderComments"
-          class="text-center capitalize href"
+          class="mx-auto w-full md:w-fit primary-button"
           @click.prevent="loadMoreComments(feedDetail.id)"
         >
           {{ $t('comments.loadOlder') }}
@@ -383,8 +398,8 @@ const auth = useAuthStore()
 const emit = defineEmits (['setMeta', 'showEmpty', 'showError'])
 const props = defineProps ({
   id: {
-    type: String,
-    default: ''
+    type: Number,
+    default: 0
   },
   section: {
     type: String,
@@ -711,6 +726,8 @@ defineExpose ({
 }
 
 .comment-content {
+  @apply flex flex-col gap-4;
+
   .comment-order {
     @apply flex justify-end mb-4 w-full;
 
@@ -720,7 +737,7 @@ defineExpose ({
   }
 
   .comment-item {
-    @apply mb-2;
+    @apply flex flex-row w-full;
 
     .comment-time {
       @apply italic text-xxs;

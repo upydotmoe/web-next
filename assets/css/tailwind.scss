@@ -104,6 +104,9 @@
     background: var(--theme-color-secondary);
     color: var(--theme-text-color);
   }
+  .border-color-button-color {
+    border-color: var(--button);
+  }
   .border-color-primary {
     border-color: var(--border-colored);
   }
@@ -265,6 +268,14 @@
 
   .light-button {
     @apply b-button button-light hover:theme-colored hover:text-white;
+
+    .icon {
+      @apply mr-2;
+    }
+  }
+
+  .light-bordered-button {
+    @apply flex flex-row justify-center p-2 text-center rounded-md border-2 cursor-pointer w-fit border-color-button-color hover:theme-colored theme-color;
 
     .icon {
       @apply mr-2;
