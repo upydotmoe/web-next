@@ -20,7 +20,7 @@
           <div class="mini-icon">
             <!-- image count -->
             <p
-              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
+              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
               class="regular"
             >
               {{ work._count.artwork_assets }}
@@ -66,7 +66,7 @@
                 'w-full h-full unselectable',
                 { 'object-cover': !isUncropped },
                 isUncropped ? 'object-contain object-center h-44' : 'object-cover',
-                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"
               @error="imageLoadError"
             />
@@ -83,7 +83,7 @@
           <div class="mini-icon">
             <!-- image count -->
             <p
-              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit)"
+              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
               class="regular"
             >
               {{ work._count.artwork_assets }}
@@ -113,7 +113,7 @@
           </div>
 
           <!-- explicit content filter -->
-          <span v-if="applyExplicitFilter(auth, work.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">{{ $t('explicitContent') }}</span>
           
           <a 
             :href="'/a/'+work.id"
@@ -125,10 +125,14 @@
             <!-- test --> <img
               preload
               loading="lazy"
-              :src="(!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit)) && work.is_explicit ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+              :src="(
+                !auth.loggedIn
+                || (auth.loggedIn && work.is_explicit && auth.user.user_settings && !auth.user.user_settings.show_explicit)
+                || (auth.loggedIn && work.is_gore && auth.user.user_settings && !auth.user.user_settings.show_gore)
+              ) ? 'https://via.placeholder.com/150' : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'object-cover w-full h-full unselectable',
-                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit) }
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"
               @error="imageLoadError"
             />

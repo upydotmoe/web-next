@@ -29,13 +29,6 @@ import Layout from '~/components/layouts/Layout.vue'
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
-/**
- * @meta
- */
-definePageMeta ({
-  keepalive: false
-})
-
 const metaTitle = ref('')
 useHead ({
   title: computed(() => metaTitle.value)

@@ -8,16 +8,14 @@
     </div>
 
     <div v-show="!loading">
-      <keep-alive>
-        <WorkList
-          v-show="!collection.empty"
-          :section-class="'work-grid'"
-          :works="collection.list"
-          :view="view"
-          :manage-mode="manageMode"
-          @feedManageList="feedManageList"
-        />
-      </keep-alive>
+      <WorkList
+        v-show="!collection.empty"
+        :section-class="'work-grid'"
+        :works="collection.list"
+        :view="view"
+        :manage-mode="manageMode"
+        @feedManageList="feedManageList"
+      />
 
       <div 
         v-show="collection.loadMore" 

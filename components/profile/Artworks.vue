@@ -1,16 +1,14 @@
 <template>
   <div id="lists">
     <div v-show="!loading">
-      <keep-alive>
-        <WorkList 
-          v-show="!isEmpty"
-          :section-class="'work-grid'"
-          :works="works"
-          :view="view"
-          :manage-mode="manageMode"
-          @feedManageList="feedManageList"
-        />
-      </keep-alive>
+      <WorkList 
+        v-show="!isEmpty"
+        :section-class="'work-grid'"
+        :works="works"
+        :view="view"
+        :manage-mode="manageMode"
+        @feedManageList="feedManageList"
+      />
 
       <div 
         v-show="showLoadMoreButton" 

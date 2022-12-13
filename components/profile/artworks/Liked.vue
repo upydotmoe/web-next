@@ -1,14 +1,12 @@
 <template>
   <div id="lists">
     <div v-show="!loading">
-      <keep-alive>
-        <WorkList 
-          v-show="!isEmpty"
-          :section-class="'work-grid'"
-          :works="works"
-          :view="view"
-        />
-      </keep-alive>
+      <WorkList 
+        v-show="!isEmpty"
+        :section-class="'work-grid'"
+        :works="works"
+        :view="view"
+      />
 
       <div 
         v-show="showLoadMoreButton" 

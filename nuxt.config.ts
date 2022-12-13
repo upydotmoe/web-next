@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   dev: process.env.NODE_ENV === 'development',
   components: true,
   app: {
-    keepalive: false,
+    keepalive: true,
     head: {
       htmlAttrs: {
         lang: 'en-US'

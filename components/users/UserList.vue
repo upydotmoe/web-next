@@ -83,7 +83,7 @@
                 { 'rounded-br-md': workIndex == 2 }
               ]"
             >
-              <span v-if="applyExplicitFilter(auth, latestArtwork.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+              <span v-if="applyExplicitFilter(auth, latestArtwork.is_explicit, latestArtwork.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
               
               <a 
                 :href="'/a/'+latestArtwork.id"
@@ -98,7 +98,7 @@
                     'w-full h-full unselectable',
                     { 'object-cover': !isUncropped },
                     isUncropped ? 'object-contain object-center h-44' : 'object-cover',
-                    { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, latestArtwork.is_explicit) }
+                    { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, latestArtwork.is_explicit, latestArtwork.is_gore) }
                   ]"
                   :src="artworkThumb(latestArtwork.artwork_assets[0].bucket, latestArtwork.artwork_assets[0].filename, 'thumbnail', false)"
                   @error="imageLoadError"

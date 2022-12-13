@@ -363,17 +363,15 @@
         />
 
         <!-- Other artworks by user that currently viewing (show only on desktop) -->
-        <keep-alive>
-          <ArtistWorks
-            v-if="!loading"
-            class="mb-6 hidden-md-flex"
-            :artwork-detail="artworkDetail"
-            :view="view"
-            :is-href="!isModal"
-            :keep-artist-page-number="true"
-            :pagination-per-page="isModal ? 4 : 4"
-          />
-        </keep-alive>
+        <ArtistWorks
+          v-if="!loading"
+          class="mb-6 hidden-md-flex"
+          :artwork-detail="artworkDetail"
+          :view="view"
+          :is-href="!isModal"
+          :keep-artist-page-number="true"
+          :pagination-per-page="isModal ? 4 : 4"
+        />
       </div>
 
       <!-- Right side: artwork information, comment section -->
@@ -1092,7 +1090,11 @@ const view = async (selectedWorkId) => {
       })
     })
     
-    if ((!auth.loggedIn && data.is_explicit) || (data.is_explicit && !auth.user.user_settings.show_explicit)) {
+    if (
+      (!auth.loggedIn && data.is_explicit) 
+      || (data.is_explicit && !auth.user.user_settings.show_explicit) 
+      || (data.is_gore && !auth.user.user_settings.show_gore)
+    ) {
       showExplicitAlert.value = true
       applyExplicitFilter()
     } else {

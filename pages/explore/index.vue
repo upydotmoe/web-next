@@ -35,13 +35,6 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
-/**
- * @meta
- */
-definePageMeta ({
-  keepalive: false
-})
-
 useHead ({
   title: t('explore')
 })

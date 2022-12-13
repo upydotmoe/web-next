@@ -280,13 +280,6 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-/**
- * @meta
- */
-definePageMeta ({
-  keepalive: false
-})
-
 useHead ({
   title: useI18n().tl('meta.title.browse')
 })

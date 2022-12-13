@@ -7,14 +7,14 @@
     <!-- 1 image -->
     <div v-if="collection.collection_has_artworks && collection._count.collection_has_artworks === 1">
       <div class="relative text-center">
-        <span v-if="applyExplicitFilter(auth, collection.collection_has_artworks[0].artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+        <span v-if="applyExplicitFilter(auth, collection.collection_has_artworks[0].artworks.is_explicit, collection.collection_has_artworks[0].artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
         
         <div class="overflow-hidden rounded-md">
           <img 
             v-if="collection.collection_has_artworks && collection._count.collection_has_artworks === 1"
             :src="artworkThumb(collection.collection_has_artworks[0].artworks.artwork_assets[0].bucket, collection.collection_has_artworks[0].artworks.artwork_assets[0].filename, 'thumbnail')"
             class="object-cover object-top rounded"
-            :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, collection.collection_has_artworks[0].artworks.is_explicit) }"
+            :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, collection.collection_has_artworks[0].artworks.is_explicit, collection.collection_has_artworks[0].artworks.is_gore) }"
             style="aspect-ratio: 1/1;"
             @error="imageLoadError"
           >
@@ -33,12 +33,12 @@
         :class="imGridClass[2][index]"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
               class="theme-color"
-              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit) }"
+              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore) }"
               :src="artworkThumb(image.artworks.artwork_assets[0].bucket, image.artworks.artwork_assets[0].filename, 'thumbnail')" 
               @error="imageLoadError"
             >
@@ -61,12 +61,12 @@
         :class="imGridClass[3][index]"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
 
           <div class="overflow-hidden rounded-md">
             <img 
               class="theme-color"
-              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit) }"
+              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore) }"
               :src="artworkThumb(image.artworks.artwork_assets[0].bucket, image.artworks.artwork_assets[0].filename, 'thumbnail')" 
               @error="imageLoadError"
             >
@@ -85,12 +85,12 @@
         :key="index"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
               class="theme-color"
-              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit) }"
+              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore) }"
               :src="artworkThumb(image.artworks.artwork_assets[0].bucket, image.artworks.artwork_assets[0].filename, 'thumbnail')" 
               @error="imageLoadError"
             >
@@ -109,12 +109,12 @@
         :key="index"
       >
         <div v-if="index < 3" class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
+          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
               class="theme-color"
-              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit) }"
+              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore) }"
               :src="artworkThumb(image.artworks.artwork_assets[0].bucket, image.artworks.artwork_assets[0].filename, 'thumbnail')" 
               @error="imageLoadError"
             >
@@ -131,7 +131,7 @@
             <img 
               :src="artworkThumb(image.artworks.artwork_assets[0].bucket, image.artworks.artwork_assets[0].filename, 'thumbnail')" 
               class="z-0 brightness-50"
-              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit) }"
+              :class="{ 'blur-sm brightness-50': applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore) }"
               @error="imageLoadError"
             >
           </div>

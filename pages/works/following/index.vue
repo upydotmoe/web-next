@@ -117,13 +117,6 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
-/**
- * @meta
- */
-definePageMeta ({
-  // keepalive: false
-})
-
 // stores
 const auth = useAuthStore()
 

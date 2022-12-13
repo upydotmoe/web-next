@@ -32,8 +32,18 @@ export default {
       return separatedNumber
     },
 
-    applyExplicitFilter (auth, isExplicit) {
-      return (!auth.loggedIn && isExplicit) || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit && isExplicit)
+    applyExplicitFilter (auth, isExplicit, isGore) {
+      return (!auth.loggedIn && isExplicit && isGore)
+        || (
+          auth.loggedIn && auth.user.user_settings
+          && !auth.user.user_settings.show_explicit
+          && isExplicit
+        )
+        || (
+          auth.loggedIn && auth.user.user_settings
+          && !auth.user.user_settings.show_gore
+          && isGore
+        )
     },
 
     unfixedNavbarRoutes () {

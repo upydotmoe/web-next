@@ -32,13 +32,6 @@ import Layout from '~/components/layouts/Layout.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
-/**
- * @meta
- */
-definePageMeta ({
-  keepalive: false
-})
-
 const setMeta = (meta) => {
   useHead ({
     title: meta.title

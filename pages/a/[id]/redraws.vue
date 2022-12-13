@@ -45,15 +45,13 @@
       <div class="section-title">{{ $t('artworks.redraws') }}</div>
     
       <div id="lists">
-        <keep-alive>
-          <WorkList
-            v-show="!artworkRedraws.options.isEmpty"
-            :section-class="'work-grid'"
-            :works="artworkRedraws.data"
-            :view="null"
-            :hide-redraw-icon="true"
-          />
-        </keep-alive>
+        <WorkList
+          v-show="!artworkRedraws.options.isEmpty"
+          :section-class="'work-grid'"
+          :works="artworkRedraws.data"
+          :view="null"
+          :hide-redraw-icon="true"
+        />
 
         <!-- loading -->
         <LoadingEmptyErrorMessage

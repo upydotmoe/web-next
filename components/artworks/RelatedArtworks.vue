@@ -10,16 +10,14 @@
     />
 
     <div v-if="!relatedArtworks.loadings.first">
-      <keep-alive>
-        <WorkList
-          v-if="!relatedArtworks.options.isEmpty"
-          :section-class="'work-grid'"
-          :view="null"
-          :works="relatedArtworks.data"
-          :is-href="true"
-          :direct-open="true"
-        />
-      </keep-alive>
+      <WorkList
+        v-if="!relatedArtworks.options.isEmpty"
+        :section-class="'work-grid'"
+        :view="null"
+        :works="relatedArtworks.data"
+        :is-href="true"
+        :direct-open="true"
+      />
 
       <div 
         v-show="relatedArtworks.options.paginations.showLoadMore"

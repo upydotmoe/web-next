@@ -37,7 +37,8 @@
 
       <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2">
         <div
-          v-for="(feed, feedIdx) in feeds" :key="feed.id+feed.type"
+          v-for="(feed, feedIdx) in feeds"
+          :key="feed.id+feed.type"
           class="relative rounded-md lg:mx-6"
         >
           <div class="flex flex-row rounded-md theme-color">
@@ -479,13 +480,6 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 
-/**
- * @meta
- */
-definePageMeta ({
-  keepalive: false
-})
-
 useHead ({
   title: useI18n().tl('meta.title.feed.feed')
 })
@@ -502,6 +496,7 @@ const router = useRouter()
 const route = useRoute()
 
 onBeforeMount (() => {
+  console.log('before mount fired!')
   if (!auth.loggedIn) {
     router.push({
       path: '/explore'
@@ -509,33 +504,35 @@ onBeforeMount (() => {
   }
 })
 
-onMounted (() => {
+// onMounted (() => {
   // window.addEventListener('keydown', (e) => {
   //   if (e.key === 'Escape') {
   //     closeArtworkModals()
   //   }
   // })
-})
+// })
 
 /**
  * @watchers
  */
-watch (() => route.query, () => {
-  // close modal on changing route or going back to previous page
-  closeArtworkModals()
+// watch (() => route.query, () => {
+//   console.log('watcher fired!')
 
-  // close collection selection modal
-  useModal().closeModal('feed-collection-selection-modal')
+//   // close modal on changing route or going back to previous page
+//   closeArtworkModals()
 
-  // close collection selection modal
-  useModal().closeModal('collection-selection-modal')
+//   // close collection selection modal
+//   useModal().closeModal('feed-collection-selection-modal')
 
-  // close album selection modal
-  useModal().closeModal('album-selection-modal')
+//   // close collection selection modal
+//   useModal().closeModal('collection-selection-modal')
 
-  // close report modal
-  useModal().closeModal('report-modal')
-})
+//   // close album selection modal
+//   useModal().closeModal('album-selection-modal')
+
+//   // close report modal
+//   useModal().closeModal('report-modal')
+// })
 
 /**
  * @methods
@@ -554,6 +551,8 @@ const showPublicTextPost = ref(false)
 const feeds = ref([])
 const fetchMode = ref('feed')
 const fetch = async ({ loaded }) => {
+  console.log('fetch fired!')
+
   const [data, error] = await feedApi.getChronologicalFeeds({
     fetchMode: fetchMode.value,
     explicitMode: options.value.explicitMode,
