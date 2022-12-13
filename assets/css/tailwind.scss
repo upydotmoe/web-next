@@ -247,7 +247,7 @@
   }
 
   .cancel-button {
-    @apply py-2 px-3 rounded cursor-pointer theme-color-secondary;
+    @apply light-bordered-button;
   }
 
   .danger-button-color {

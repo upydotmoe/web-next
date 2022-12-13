@@ -128,20 +128,22 @@
         <client-only>
           <file-pond
             ref="pond"
-            name="files[]"
+            @updatefiles="handleFilePondUpdateFile"
             :label-idle="labelIdleText"
+            :max-files="redrawWorkId ? 1 : maxFileCount"
+            :max-file-size="maxFileSize*1000000"
+            :class="[
+              'bg-transparent rounded-sm',
+              { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess },
+            ]"
             accepted-file-types="image/jpeg, image/png"
             allow-multiple="true"
             allow-drop="true"
             allow-reorder="true"
             allow-process="true"
             credits="false"
-            :max-files="redrawWorkId ? 1 : maxFileCount"
-            :max-file-size="maxFileSize"
+            name="files[]"
             instant-upload="false"
-            class="bg-transparent rounded-sm"
-            :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
-            @updatefiles="handleFilePondUpdateFile"
           />
         </client-only>
       </div>
@@ -170,163 +172,138 @@
         v-show="!redrawWorkId"
         class="flex flex-row gap-x-2 input-block"
       >
-        <!-- <ClientOnly>
-          <div
-            x-data
-            x-init="flatpickr($refs.datetimewidget, {wrap: true, enableTime: true, dateFormat: 'M j, Y h:i K'});"
-            x-ref="datetimewidget"
-            class="mb-2 flatpickr"
-          >
-            <div class="flex align-middle align-content-center">
-              <input
-                id="datetime"
-                v-model="inputData.publishDate"
-                x-ref="datetime"
-                type="text"
-                data-input
-                :placeholder="$t('artworks.add.form.publishDate')"
-                class="form-input input"
-                :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
-              >
-            </div>
-          </div>
-        </ClientOnly> -->
         <div class="relative w-full">
           <div class="flex absolute left-1 top-3.5 items-center pl-2 pointer-events-none">
-            <!-- <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg> -->
-            <Icon :name="'i-bi-calendar3-event'" />
+            <Icon :name="'i-ion-ios-calendar'" />
           </div>
           <input 
             id="publishDate" 
             type="text"
-            class="block pl-10 w-full form-input input"
+            class="block pl-10 mb-0 w-full form-input input"
             :placeholder="$t('artworks.add.form.publishDate')"
             autocomplete="off"
           >
         </div>
         
         <!-- publish time -->
-        <input v-model="inputData.publishTime" type="time" class="form-input input">
+        <input v-model="inputData.publishTime" type="time" class="mb-0 form-input input">
       </div>
       
-      <div class="input-block">
-        <div class="flex flex-row gap-2">
-          <div
-            @click.prevent="inputData.isExplicit = !inputData.isExplicit"
-            :class="[
-              'flex flex-row gap-2 p-4 rounded-md cursor-pointer theme-color',
-              { 'border-2 border-green-400': !inputData.isExplicit }
-            ]"
-          >
+      <!-- explicit toggler -->
+      <div :class="[
+        'grid gap-2 grid-cols-1 input-block md:grid-cols-3',
+      ]">
+        <!-- explicit toggler -->
+        <div
+          @click.prevent="toggleExplicit()"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isExplicit }
+          ]"
+        >
+          <div class="toggler-box__icons">
             <Icon v-if="!inputData.isExplicit" :name="'i-fluent-checkbox-unchecked-20-regular'" />
             <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
-
-            {{ $t('explicitContent') }}
           </div>
 
-          <div
-            v-if="inputData.isExplicit"
-            @click.prevent="inputData.isGore = !inputData.isGore"
-            :class="[
-              'flex flex-row gap-2 p-4 rounded-md cursor-pointer theme-color',
-              { 'border-2 border-green-400': !inputData.isGore }
-            ]"
-          >
+          <div class="toggler-box__description">
+            <b>{{ $t('explicitContent') }}</b>
+            <span>
+              Check this if your work contain explicit content (explicit art wihout explicit mark will be forcibly taken down)
+            </span>
+          </div>
+        </div>
+
+        <!-- explicit+gore toggler -->
+        <div
+          v-if="inputData.isExplicit"
+          @click.prevent="inputData.isGore = !inputData.isGore"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isGore }
+          ]"
+        >
+          <div class="toggler-box__icons">
             <Icon v-if="!inputData.isGore" :name="'i-fluent-checkbox-unchecked-20-regular'" />
             <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
 
-            Contain Gore
+          <div class="toggler-box__description">
+            <b>Contain Gore</b>
+            <span>
+              Check this if your work contain blood, etc.
+            </span>
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-3 gap-2">
-      </div>
-
-      <!-- original character toggler -->
-      <div v-if="!redrawWorkId" class="input-block">
-        <label 
-          for="is-original-character-toggle"
-          class="inline-flex relative items-center cursor-pointer"
+      <!-- additional option toggler -->
+      <div class="grid grid-cols-1 gap-2 md:grid-cols-3 input-block">
+        <!-- original character toggler -->
+        <div
+          v-if="!redrawWorkId"
+          @click.prevent="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isOriginalCharacter }
+          ]"
         >
-          <input 
-            @click="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
-            id="is-original-character-toggle"
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isOriginalCharacter"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
-
-          <span class="ml-2">{{ $t('artworks.originalCharacter') }}</span>
-        </label>
-      </div>
-
-      <!-- allow redraw toggler -->
-      <div v-if="!redrawWorkId" class="input-block">
-        <label 
-          for="is-allow-redraw-toggle"
-          class="inline-flex relative items-center cursor-pointer"
-        >
-          <input 
-            @click="inputData.isAllowRedraw = !inputData.isAllowRedraw"
-            id="is-allow-redraw-toggle" 
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isAllowRedraw"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
-
-          <span class="ml-2">{{ $t('artworks.add.form.allowRedraw') }}</span>
-        </label>
-      </div>
-
-      <!-- redraw in your style toggler -->
-      <div v-if="redrawWorkId" class="input-block">
-        <label 
-          for="is-redraw-in-your-style-toggle"
-          class="inline-flex relative items-center cursor-pointer"
-        >
-          <input 
-            @click="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
-            id="is-redraw-in-your-style-toggle" 
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isredrawInMyStyle"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
-
-          <span class="ml-2">{{ $t('artworks.add.form.redrawInMyStyle') }}</span>
-        </label>
-      </div>
-
-      <!-- explicit toggler -->
-      <div class="input-block">
-        <label 
-          for="explicit-mode-toggle"
-          class="inline-flex relative items-center cursor-pointer"
-        >
-          <input 
-            @click="inputData.isExplicit = !inputData.isExplicit"
-            id="explicit-mode-toggle" 
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isExplicit"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
-
-          <span class="ml-2">{{ $t('explicitContent') }}</span>
-        </label>
-        
-        <!-- <div v-show="inputData.isExplicit" class="flex p-4 mt-2 text-white bg-red-500 rounded" role="alert">
-          <div>
-            <span>We strictly forbid the following categories to be uploaded to our platform:</span>
-            <ul class="mt-2 list-disc list-inside text-white">
-              <div>- *AI/program/machine generated arts <b>(we strongly do not support AI generated arts, for anyone who breaks this special rule will result in insta-ban)</b></div>
-              <div>- Other's people works <b>(even if you have permission from the original artist, we decided not to allow this because it will interfere with the ranking system of other artists who upload their own artwork)</b></div>
-            </ul>
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isOriginalCharacter" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
           </div>
-        </div> -->
+
+          <div class="toggler-box__description">
+            <b>{{ $t('artworks.originalCharacter') }}</b>
+            <span>
+              Check this if the character in your work is your original character made by you (don't check this if the character is someone else's or a character from animation series)
+            </span>
+          </div>
+        </div>
+
+        <!-- original character toggler -->
+        <div
+          v-if="!redrawWorkId"
+          @click.prevent="inputData.isAllowRedraw = !inputData.isAllowRedraw"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isAllowRedraw }
+          ]"
+        >
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isAllowRedraw" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
+
+          <div class="toggler-box__description">
+            <b>{{ $t('artworks.add.form.allowRedraw') }}</b>
+            <span>
+              Check this if you allow other artist to redraw your artwork
+            </span>
+          </div>
+        </div>
+
+        <!-- redraw in my style toggler -->
+        <div
+          v-if="redrawWorkId"
+          @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isredrawInMyStyle }
+          ]"
+        >
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isredrawInMyStyle" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
+
+          <div class="toggler-box__description">
+            <b>{{ $t('artworks.add.form.redrawInMyStyle') }}</b>
+            <span>
+              Check this if you redraw the art with your own drawing style.
+            </span>
+          </div>
+        </div>
       </div>
 
       <div class="flex flex-row justify-between md:justify-end">
@@ -528,6 +505,7 @@ const storeArtwork = async () => {
   formData.append('description', inputData.value.description)
   formData.append('tags', tagValues.toString())
   formData.append('is_explicit', inputData.value.isExplicit ? 1 : 0)
+  formData.append('is_gore', inputData.value.isGore ? 1 : 0)
   formData.append('is_original_character', inputData.value.isOriginalCharacter ? 1 : 0)
   formData.append('allow_redraw', inputData.value.isAllowRedraw ? 1 : 0)
   formData.append('redraw_in_your_style', inputData.value.isredrawInMyStyle ? 1 : 0)
@@ -591,6 +569,11 @@ const showError = () => {
   isError.value = true
 }
 
+const toggleExplicit = () => {
+  inputData.value.isExplicit = !inputData.value.isExplicit
+  inputData.value.isGore = false
+}
+
 const reset = () => {
   isError.value = false
   uploading.value = false
@@ -635,3 +618,25 @@ const fetchRedrawedArtworkInfo = async () => {
   initTagsLoading.value = false
 }
 </script>
+
+<style lang="scss" scoped>
+.toggler-box {
+  @apply flex flex-row gap-4 md:gap-2 p-4 rounded-md cursor-pointer theme-color;
+
+  &__active {
+    @apply border-2 border-green-400;
+  }
+
+  &__icons {
+    @apply w-1/12;
+  }
+
+  &__description {
+    @apply flex flex-col gap-1 w-full;
+
+    span {
+      @apply text-color-secondary;
+    }
+  }
+}
+</style>
