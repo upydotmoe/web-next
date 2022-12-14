@@ -50,10 +50,17 @@
           {{ $t('artworks.successDelete') }}
         </div>
 
-        <div v-show="showExplicitAlert" class="flex flex-row justify-between p-3 mb-2 text-black align-middle bg-yellow-200 rounded">
-          <span class="mr-4">{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</span>
+        <div
+          v-show="showExplicitAlert"
+          :class="[
+            'flex flex-row justify-between p-3 mb-2 text-black align-middle rounded',
+            artworkDetail.is_gore ? 'bg-red-200' : 'bg-yellow-200'
+          ]"
+        >
+          <span v-if="artworkDetail.is_explicit && !artworkDetail.is_gore" class="mr-4">{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</span>
+          <span v-if="artworkDetail.is_gore" class="mr-4">{{ auth.loggedIn ? $t('goreContentAlert') : $t('goreContentAlertForGuest') }}</span>
 
-          <button class="primary-button" @click.prevent="removeFilter()">
+          <button class="light-bordered-button" @click.prevent="removeFilter()">
             {{ $t('show') }}
           </button>
         </div>

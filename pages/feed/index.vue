@@ -211,28 +211,36 @@
                       v-if="!isMobile()"
                       :class="[
                         'p-2',
-                        { 'cursor-pointer': !feed.apply_explicit_filter }
+                        { 'cursor-pointer': !feed.apply_explicit_filter || feed.apply_gore_filter }
                       ]"
-                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)"
                     >
                       <div
                         :class="[
                           'overflow-hidden relative p-2 rounded-md',
-                          { 'md:mx-2': feed.apply_explicit_filter }
+                          { 'md:mx-2': feed.apply_explicit_filter || feed.apply_gore_filter }
                         ]"
                       >
                         <ImageList
                           :class="[
-                            { 'blur-3xl unclickable': feed.apply_explicit_filter },
-                            feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                            { 'blur-3xl unclickable': feed.apply_explicit_filter || feed.apply_gore_filter },
+                            feed.apply_explicit_filter || feed.apply_gore_filter ? 'brightness-50' : 'brightness-100'
                           ]"
                           :work="feed"
                         />
 
                         <!-- filter message -->
-                        <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
-                          <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                          <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                        <div
+                          v-if="feed.apply_explicit_filter || feed.apply_gore_filter"
+                          :class="[
+                            'p-2 mx-auto w-full text-center rounded-md opacity-90',
+                            feed.apply_gore_filter ? 'bg-red-200' : 'bg-yellow-200'
+                          ]"
+                        >
+                          <div v-if="feed.apply_explicit_filter && !feed.apply_gore_filter">{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
+                          <div v-if="feed.apply_gore_filter">{{ auth.loggedIn ? $t('goreContentAlert') : $t('goreContentAlertForGuest') }}</div>
+
+                          <button class="mx-auto mt-2 light-bordered-button">{{ $t('explicitShowMeThisContent') }}</button>
                         </div>
                       </div>
                     </div>
@@ -240,26 +248,26 @@
                     <!-- mobile/smaller device -->
                     <nuxt-link
                       v-if="isMobile()"
-                      :to="feed.apply_explicit_filter ? null : '/a/'+feed.artwork_share_info.id"
-                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter, feedIdx)"
+                      :to="feed.apply_explicit_filter || feed.apply_gore_filter ? null : '/a/'+feed.artwork_share_info.id"
+                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)"
                       class="cursor-pointer"
                     >
                       <div
                         :class="[
                           'overflow-hidden relative p-2 rounded-md',
-                          { 'm-2': feed.apply_explicit_filter }
+                          { 'm-2': feed.apply_explicit_filter || feed.apply_gore_filter }
                         ]"
                       >
                         <ImageList
                           :class="[
-                            { 'blur-3xl unclickable': feed.apply_explicit_filter },
-                            feed.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
+                            { 'blur-3xl unclickable': feed.apply_explicit_filter || feed.apply_gore_filter },
+                            feed.apply_explicit_filter || feed.apply_gore_filter ? 'brightness-50' : 'brightness-100'
                           ]"
                           :work="feed"
                         />
 
                         <!-- filter message -->
-                        <div v-if="feed.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                        <div v-if="feed.apply_explicit_filter || feed.apply_gore_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
                           <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
                           <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
                         </div>
@@ -496,7 +504,6 @@ const router = useRouter()
 const route = useRoute()
 
 onBeforeMount (() => {
-  console.log('before mount fired!')
   if (!auth.loggedIn) {
     router.push({
       path: '/explore'
@@ -504,35 +511,34 @@ onBeforeMount (() => {
   }
 })
 
-// onMounted (() => {
+onMounted (() => {
   // window.addEventListener('keydown', (e) => {
   //   if (e.key === 'Escape') {
   //     closeArtworkModals()
   //   }
   // })
-// })
+})
 
 /**
  * @watchers
  */
-// watch (() => route.query, () => {
-//   console.log('watcher fired!')
+watch (() => route.query, () => {
 
-//   // close modal on changing route or going back to previous page
-//   closeArtworkModals()
+  // close modal on changing route or going back to previous page
+  closeArtworkModals()
 
-//   // close collection selection modal
-//   useModal().closeModal('feed-collection-selection-modal')
+  // close collection selection modal
+  useModal().closeModal('feed-collection-selection-modal')
 
-//   // close collection selection modal
-//   useModal().closeModal('collection-selection-modal')
+  // close collection selection modal
+  useModal().closeModal('collection-selection-modal')
 
-//   // close album selection modal
-//   useModal().closeModal('album-selection-modal')
+  // close album selection modal
+  useModal().closeModal('album-selection-modal')
 
-//   // close report modal
-//   useModal().closeModal('report-modal')
-// })
+  // close report modal
+  useModal().closeModal('report-modal')
+})
 
 /**
  * @methods
@@ -551,8 +557,6 @@ const showPublicTextPost = ref(false)
 const feeds = ref([])
 const fetchMode = ref('feed')
 const fetch = async ({ loaded }) => {
-  console.log('fetch fired!')
-
   const [data, error] = await feedApi.getChronologicalFeeds({
     fetchMode: fetchMode.value,
     explicitMode: options.value.explicitMode,
@@ -584,6 +588,7 @@ const fetch = async ({ loaded }) => {
 
       feed.images = []
       feed.apply_explicit_filter = false
+      feed.apply_gore_filter = false
       if (feed.type === 'artwork' || (feed.type === 'feed' && feed.artwork_share_info != null)) {
         // collect to saved IDs
         if (feed.type === 'artwork') {
@@ -600,9 +605,14 @@ const fetch = async ({ loaded }) => {
           }
         }
 
-        // apply explicit alert if user doesn't activated explicit content in user settings
+        // apply explicit alert if user did not activate explicit content
         if (feed.artwork_share_info != null && ((!auth.loggedIn && feed.artwork_share_info.is_explicit) || (feed.artwork_share_info.is_explicit && !auth.user.user_settings.show_explicit))) {
           feed.apply_explicit_filter = true
+        }
+
+        // apply gore alert if user did not activate gore content
+        if (feed.artwork_share_info != null && ((!auth.loggedIn && feed.artwork_share_info.is_gore) || (feed.artwork_share_info.is_gore && !auth.user.user_settings.show_gore))) {
+          feed.apply_gore_filter = true
         }
       }
 
@@ -638,6 +648,7 @@ const chronologicalModalViewRef = ref(null)
 const view = (workId, isExplicitFilterApplied, feedIdx) => {
   if (isExplicitFilterApplied) {
     feeds.value[feedIdx].apply_explicit_filter = false
+    feeds.value[feedIdx].apply_gore_filter = false
   } else {
     chronologicalModalViewRef.value.view(workId)
 
