@@ -80,7 +80,7 @@ watch (() => mode.value, () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 .categories {
   @apply grid grid-cols-2 md:grid-cols-4 gap-2 mb-2;

@@ -128,5 +128,5 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 </style>

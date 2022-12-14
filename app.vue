@@ -79,7 +79,7 @@ const route = useRoute()
 </script>
 
 <style lang="scss">
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 form {
   .input-block {

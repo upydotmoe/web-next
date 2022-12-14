@@ -115,7 +115,7 @@
 
         <div v-show="listMode === 'popularity'" class="filter-buttons">
           <div class="inline-block w-full md:w-52 group">
-            <button class="flex items-center py-2 px-3 w-full rounded-md outline-none md:w-52 theme-color hover:button focus:outline-none">
+            <button class="flex items-center py-2 px-3 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color hover:button focus:outline-none">
               <span class="flex-1 pr-1">{{ sortBy === 'views' ? $t('mostViewed') : sortByTitle }}</span>
               <span>
                 <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -396,6 +396,6 @@ const changeSort = async (key, text) => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 @import '~/assets/css/artworks/list-6.scss';
 </style>

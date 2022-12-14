@@ -177,7 +177,7 @@ const toggleFollowerVisibility = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 .avatar {
   @apply object-cover h-24 rounded-md;

@@ -1,0 +1,19 @@
+.toggler-box {
+  @apply flex flex-row gap-4 p-4 rounded-md border-2 border-transparent cursor-pointer md:gap-2 theme-color hover:shadow-md;
+
+  &__active {
+    @apply border-green-400;
+  }
+
+  &__icons {
+    @apply w-1/12;
+  }
+
+  &__description {
+    @apply flex flex-col gap-1 w-full;
+
+    span {
+      @apply text-color-secondary;
+    }
+  }
+}

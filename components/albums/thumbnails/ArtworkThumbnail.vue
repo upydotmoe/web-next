@@ -176,7 +176,7 @@ const imGridClass = {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 .imgrid {
   @apply w-full grid grid-cols-2 grid-rows-2 gap-2;

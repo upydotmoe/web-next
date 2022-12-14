@@ -8,7 +8,7 @@
     <!-- redrawed artwork detail -->
     <div v-if="redrawWorkId" class="p-2 mb-4 rounded-md theme-color hover:theme-colored">
       <div>
-        <div class="mb-2 section-title">{{ $t('artworks.originalArtwork') }}</div>
+        <div class="mb-2 title">{{ $t('artworks.originalArtwork') }}</div>
 
         <!-- Loading -->
         <div v-if="redrawedArtworkLoading" class="flex flex-row gap-2">
@@ -24,7 +24,7 @@
         >
           <div
             v-if="redrawedArtwork.artwork_assets"
-            class="w-1/4"
+            class="w-1/5"
           >
             <!-- test --> <img
               preload
@@ -190,9 +190,7 @@
       </div>
       
       <!-- explicit toggler -->
-      <div :class="[
-        'grid gap-2 grid-cols-1 input-block md:grid-cols-3',
-      ]">
+      <div class="grid grid-cols-1 gap-2 input-block md:grid-cols-3">
         <!-- explicit toggler -->
         <div
           @click.prevent="toggleExplicit()"
@@ -620,23 +618,5 @@ const fetchRedrawedArtworkInfo = async () => {
 </script>
 
 <style lang="scss" scoped>
-.toggler-box {
-  @apply flex flex-row gap-4 md:gap-2 p-4 rounded-md cursor-pointer theme-color;
-
-  &__active {
-    @apply border-2 border-green-400;
-  }
-
-  &__icons {
-    @apply w-1/12;
-  }
-
-  &__description {
-    @apply flex flex-col gap-1 w-full;
-
-    span {
-      @apply text-color-secondary;
-    }
-  }
-}
+@import '~/assets/css/artworks/form.scss';
 </style>

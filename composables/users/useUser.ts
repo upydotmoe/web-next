@@ -326,14 +326,16 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
   const updateSettings = async (params: {
     userId: number,
-    showExplicit: boolean
+    showExplicit: boolean,
+    showGore: boolean
   }) => {
     try {
       const { data } = await new UserUpdateUserInfoApi(oApiConfiguration)
         .updateUserPreference({
           id: params.userId,
           // @ts-ignore: Swagger convert any underscores to camelCase style
-          show_explicit: params.showExplicit ? 1 : 0
+          show_explicit: params.showExplicit ? 1 : 0,
+          show_gore: params.showGore ? 1 : 0
         }, fetchOptions)
 
       return [data.success, null]

@@ -134,7 +134,7 @@ const clearNotifs = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 @import '~/assets/css/navbar.scss';
 
 .section-button {

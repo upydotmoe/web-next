@@ -78,80 +78,117 @@
         />
       </div>
 
-      <!-- original character toggler -->
-      <div v-if="!currentInfo.redraw_of" class="input-block">
-        <label 
-          for="is-original-character-toggle"
-          class="inline-flex relative items-center cursor-pointer"
+      <!-- explicit toggler -->
+      <div class="grid grid-cols-1 gap-2 input-block md:grid-cols-3">
+        <!-- explicit toggler -->
+        <div
+          @click.prevent="toggleExplicit()"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isExplicit }
+          ]"
         >
-          <input 
-            @click="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
-            id="is-original-character-toggle"
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isOriginalCharacter"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isExplicit" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
 
-          <span class="ml-2">{{ $t('artworks.originalCharacter') }}</span>
-        </label>
-      </div>
+          <div class="toggler-box__description">
+            <b>{{ $t('explicitContent') }}</b>
+            <span>
+              Check this if your work contain explicit content (explicit art wihout explicit mark will be forcibly taken down)
+            </span>
+          </div>
+        </div>
 
-      <!-- allow redraw toggler -->
-      <div v-if="!currentInfo.redraw_of" class="input-block">
-        <label 
-          for="is-allow-redraw-toggle"
-          class="inline-flex relative items-center cursor-pointer"
+        <!-- explicit+gore toggler -->
+        <div
+          v-if="inputData.isExplicit"
+          @click.prevent="inputData.isGore = !inputData.isGore"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isGore }
+          ]"
         >
-          <input 
-            @click="inputData.isAllowRedraw = !inputData.isAllowRedraw"
-            id="is-allow-redraw-toggle" 
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isAllowRedraw"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isGore" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
 
-          <span class="ml-2">{{ $t('artworks.add.form.allowRedraw') }}</span>
-        </label>
-      </div>
-
-      <!-- redraw in your style toggler -->
-      <div v-if="currentInfo.redraw_of" class="input-block">
-        <label 
-          for="is-redraw-in-your-style-toggle"
-          class="inline-flex relative items-center cursor-pointer"
+          <div class="toggler-box__description">
+            <b>Contain Gore</b>
+            <span>
+              Check this if your work contain blood, etc.
+            </span>
+          </div>
+        </div>
+      </div><!-- additional option toggler -->
+      <div class="grid grid-cols-1 gap-2 md:grid-cols-3 input-block">
+        <!-- original character toggler -->
+        <div
+          v-if="!currentInfo.redraw_of"
+          @click.prevent="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isOriginalCharacter }
+          ]"
         >
-          <input 
-            @click="inputData.isRedrawInMyStyle = !inputData.isRedrawInMyStyle"
-            id="is-redraw-in-your-style-toggle" 
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isRedrawInMyStyle"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isOriginalCharacter" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
 
-          <span class="ml-2">{{ $t('artworks.add.form.redrawInMyStyle') }}</span>
-        </label>
-      </div>
+          <div class="toggler-box__description">
+            <b>{{ $t('artworks.originalCharacter') }}</b>
+            <span>
+              Check this if the character in your work is your original character made by you (don't check this if the character is someone else's or a character from animation series)
+            </span>
+          </div>
+        </div>
 
-      <!-- explicit content toggler -->
-      <div class="input-block">
-        <label
-          for="explicit-mode-toggle"
-          class="inline-flex relative items-center cursor-pointer"
+        <!-- original character toggler -->
+        <div
+          v-if="!currentInfo.redraw_of"
+          @click.prevent="inputData.isAllowRedraw = !inputData.isAllowRedraw"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isAllowRedraw }
+          ]"
         >
-          <input 
-            @click="inputData.isExplicit = !inputData.isExplicit"
-            id="explicit-mode-toggle" 
-            type="checkbox" 
-            class="sr-only peer" 
-            :checked="inputData.isExplicit"
-          >
-          <div class="toggle peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer-checked:bg-blue-600 " />
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isAllowRedraw" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
 
-          <span class="ml-2">{{ $t('explicitContent') }}</span>
-        </label>
+          <div class="toggler-box__description">
+            <b>{{ $t('artworks.add.form.allowRedraw') }}</b>
+            <span>
+              Check this if you allow other artist to redraw your artwork
+            </span>
+          </div>
+        </div>
+
+        <!-- redraw in my style toggler -->
+        <div
+          v-if="currentInfo.redraw_of"
+          @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
+          :class="[
+            'toggler-box',
+            { 'toggler-box__active': inputData.isredrawInMyStyle }
+          ]"
+        >
+          <div class="toggler-box__icons">
+            <Icon v-if="!inputData.isredrawInMyStyle" :name="'i-fluent-checkbox-unchecked-20-regular'" />
+            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+          </div>
+
+          <div class="toggler-box__description">
+            <b>{{ $t('artworks.add.form.redrawInMyStyle') }}</b>
+            <span>
+              Check this if you redraw the art with your own drawing style.
+            </span>
+          </div>
+        </div>
       </div>
 
       <button class="float-right primary-button" :class="{ 'pointer-events-none cursor-not-allowed': saving || updated }">
@@ -169,10 +206,18 @@
 import { VueEditor } from 'vue3-editor'
 
 // stores
-import useAuthStore from '@/stores/auth.store';
+import useAuthStore from '@/stores/auth.store'
 
 // components
 import Spinner from '~/components/globals/Spinner.vue'
+import Icon from '~/components/globals/Icon.vue'
+
+// stores
+const auth = useAuthStore()
+
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const props = defineProps ({
   id: {
@@ -181,13 +226,7 @@ const props = defineProps ({
   }
 })
 
-const auth = useAuthStore()
 const { $router } = useNuxtApp()
-
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
-
 const runtimeConfig = useRuntimeConfig()
 const apiUrl = runtimeConfig.public.apiUrl
 
@@ -215,6 +254,7 @@ const fetchWorkInfo = async () => {
     inputData.value.title = data.title
     inputData.value.description = data.description.split('<br><br>').join(' \n').split('<br>').join('')
     inputData.value.isExplicit = !!data.is_explicit
+    inputData.value.isGore = !!data.is_gore
     inputData.value.isOriginalCharacter = !!data.is_original_character
     inputData.value.isAllowRedraw = !!data.allow_redraw
     inputData.value.isRedrawInMyStyle = !!data.redraw_in_your_style
@@ -234,6 +274,7 @@ const inputData = ref({
   description: '',
   tags: '',
   isExplicit: false,
+  isGore: false,
   isOriginalCharacter: false,
   isAllowRedraw: false,
   isRedrawInMyStyle: false,
@@ -266,6 +307,7 @@ const update = async () => {
       title: inputData.value.title,
       description: inputData.value.description,
       isExplicit: inputData.value.isExplicit,
+      isGore: inputData.value.isGore,
       tags: tagValues.toString(),
       isOriginalCharacter: inputData.value.isOriginalCharacter,
       allowRedraw: inputData.value.allowRedraw,
@@ -286,14 +328,13 @@ const update = async () => {
 
   saving.value = false
 }
+
+const toggleExplicit = () => {
+  inputData.value.isExplicit = !inputData.value.isExplicit
+  inputData.value.isGore = false
+}
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
-
-form {
-  .input-block {
-    @apply mb-4;
-  }
-}
+@import '~/assets/css/artworks/form.scss';
 </style>

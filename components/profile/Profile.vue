@@ -153,8 +153,8 @@
                   :to="'/profile/setting'" 
                   class="float-right -mt-20 shadow-md"
                 >
-                  <button class="flex flex-row shadow-md primary-button">
-                    <Icon :name="'i-ph-gear-six'" class="mr-2" />
+                  <button class="shadow-md light-bordered-button">
+                    <Icon :name="'i-ph-gear-six'" />
                     <span class="leading-4">{{ $t('profile.setting') }}</span>
                   </button>
                 </nuxt-link>
@@ -672,7 +672,7 @@
                 <!-- left buttons: sort -->
                 <div class="w-full md:w-auto">
                   <div class="inline-block w-full group md:w-52">
-                    <button class="flex items-center py-2 w-full rounded-md outline-none md:w-52 theme-color-secondary hover:button" @click="togglePopularOrderStatus()">
+                    <button class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color-secondary hover:button" @click="togglePopularOrderStatus()">
                       <span class="flex-1 pr-1">{{ sortBy === 'latest' ? $t('profile.artworks.sorter.latest') : sortByTitle }}</span>
                       <span>
                         <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -682,7 +682,7 @@
                     </button>
                     <ul
                       id="profile-artwork-order" 
-                      class="absolute z-10 mt-1 w-6/12 text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100"
+                      class="absolute z-50 mt-1 w-6/12 text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100"
                     >
                       <li
                         :class="[
@@ -1127,7 +1127,7 @@ const visitExternalWebsite = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 .avatar {
   @apply object-cover rounded-md shadow-lg;

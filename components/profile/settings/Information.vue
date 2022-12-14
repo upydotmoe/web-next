@@ -663,7 +663,7 @@ const updateCover = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 form {
   .input-block {
@@ -677,7 +677,7 @@ form {
 </style>
 
 <style lang="scss">
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 .avatar {
   @apply object-cover rounded-md;

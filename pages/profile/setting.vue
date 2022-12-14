@@ -9,7 +9,7 @@
       <div class="mr-2 md:mr-4 lg:w-1/5">
         <nuxt-link
           :to="'/profile'" 
-          class="flex flex-row py-3 px-4 mb-4 font-medium leading-5 text-white rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white button-color"
+          class="mb-6 w-full light-bordered-button"
         >
           <Icon :name="'i-typcn-arrow-back'" class="text-lg text-white lg:mr-2 hover:text-white" />
 

@@ -137,6 +137,6 @@ const save = async () => {
 </script>
 
 <style lang="scss">
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 </style>

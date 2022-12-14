@@ -92,7 +92,7 @@ const random = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
+// @import '~/assets/css/tailwind.scss';
 
 .menus {
   @apply flex flex-row md:justify-between;

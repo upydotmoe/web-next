@@ -2,43 +2,12 @@
   <Layout
     :with-footer="true"
     :h-screen="true"
+    :hide-side="true"
+    :no-right-side="true"
   >
     <UpdateForm
       :id="id"
     />
-
-    <template #right-side>
-      <h1 class="mb-3 text-base font-bold">Current Info</h1>
-
-      <div class="mt-2">
-        <label class="italic font-medium text-color-secondary">Title</label>
-        <p>{{ currentInfo.title }}</p>
-      </div>
-      <!-- <div class="mt-2">
-        <label class="italic font-medium text-color-secondary">Description</label>
-        <p v-html="currentInfo.description" class="text-justify" />
-      </div> -->
-      <div class="mt-2">
-        <label class="italic font-medium text-color-secondary">Explicit</label>
-        <p>{{ currentInfo.is_explicit ? 'Yes' : 'No' }}</p>
-      </div>
-      <div v-if="currentInfo.artwork_has_tags && currentInfo.artwork_has_tags.length" class="mt-2">
-        <label class="italic font-medium text-color-secondary">Tags</label>
-        <div class="tags">
-          <span
-            v-for="tag in currentInfo.artwork_has_tags"
-            :key="tag.artwork_tags.id"
-            class="tag"
-          >
-            {{ tag.artwork_tags.tag }}
-          </span>
-        </div>
-      </div>
-      <div class="mt-2">
-        <label class="italic font-medium text-color-secondary">Publish Date</label>
-        <p>{{ formatDate(currentInfo.scheduled_post) }}</p>
-      </div>
-    </template>
   </Layout>
 </template>
 
@@ -96,19 +65,3 @@ const fetchWorkInfo = async () => {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~/assets/css/tailwind.scss';
-
-.tags {
-  @apply flex flex-wrap mb-4 mt-1;
-
-  .tag {
-    @apply py-1 px-2 mr-1 mt-1 rounded transition-all duration-150 button;
-
-    &:hover {
-      @apply button-hover;
-    }
-  }
-}
-</style>
