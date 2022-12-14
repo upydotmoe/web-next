@@ -785,6 +785,8 @@ const save = (unsaved) => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .user-info {
   @apply flex flex-row;
 

@@ -128,7 +128,6 @@ const reasonList = ref([
   'harassment',
   'falseInfo',
   'suicide',
-  'graphic',
   'terrorism',
   'aiGeneratedArt',
   'somethingElse'
