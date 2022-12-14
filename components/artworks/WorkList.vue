@@ -47,6 +47,14 @@
                 class="text-white"
               />
             </p>
+
+            <!-- is a gore content -->
+            <p
+              v-if="work.is_gore"
+              class="gore"
+            >
+              G
+            </p>
           </div>
 
           <!-- explicit content filter -->

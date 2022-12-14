@@ -65,6 +65,9 @@
               @apply text-white;
             }
           }
+          p.gore {
+            @apply w-5 h-5 text-xs font-bold text-center text-white align-middle bg-red-500 bg-opacity-70 rounded-md;
+          }
         }
         
         img {
