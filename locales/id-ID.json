@@ -506,5 +506,9 @@
     "containSymbol": "{fieldName} wajib mengandung minimal satu karakter simbol",
     "containNumber": "{fieldName} wajib mengandung minimal satu karakter numerik",
     "equalTo": "{fieldName} harus sama dengan {fieldNameSource}"
+  },
+  "guidelines": {
+    "title": "Pedoman Konten",
+    "content": "<div class='mt-4'><span class='font-bold'>Anda dilarang untuk-</span><ul><li>- mengupload konten milik orang lain (baik <b>dengan</b> atau <b>tidak dengan</b> izin dari yang bersangkutan)</li><li>- tag spamming untuk mendapatkan views</li><li>- mengupload konten yang bersifat mengancam atau mempromosikan terorisme</li><li>- mengupload kontek eksplisit tanpa mengecek opsi Konten Eksplisit</li><li>- mengupload konten yang bersifat gore tanpa mengecek opsi Eksplisit dan Konten Gore</li><li>- mengupload <s>karya seni</s>image yang dihasilkan oleh AI</li><li>- mengiklankan hal-hal yang berhubungan dengan AI/bot dalam bentuk apapun</li><li>- mengupload konten yang tidak terkait dengan karya seni 2D seperti fotografi, kerajinan tangan, tato, dll.</li></ul></div>"
   }
 }

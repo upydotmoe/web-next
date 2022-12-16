@@ -1,5 +1,23 @@
 <template>
   <div>
+    <!-- guidelines -->
+    <div class="p-4 mb-6 w-full rounded-md theme-color">
+      <div
+        @click="showContentGuidelines = !showContentGuidelines"
+        class="flex flex-row justify-between w-full cursor-pointer title"
+      >
+        {{ $t('guidelines.title') }}
+
+        <Icon :name="'i-material-symbols-keyboard-arrow-down'" />
+      </div>
+
+      <div
+        v-if="showContentGuidelines"
+        v-html="$t('guidelines.content')"
+        class="guidelines"
+      />
+    </div>
+
     <!-- form title -->
     <div class="mb-4 section-title">
       {{ !redrawWorkId ? $t('artworks.add.form.title') : $t('artworks.add.form.titleRedraw') }}
@@ -327,9 +345,10 @@
 <script setup>
 import axios from 'axios'
 import 'flowbite'
-import Datepicker from '@themesberg/tailwind-datepicker/Datepicker'
 import moment from 'moment'
 import { useI18n } from 'vue-i18n'
+
+import Datepicker from '@themesberg/tailwind-datepicker/Datepicker'
 
 // vue3-editor
 import { VueEditor } from 'vue3-editor'
@@ -363,6 +382,14 @@ const FilePond = vueFilePond(
 // stores
 const auth = useAuthStore()
 
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
+
+definePageMeta ({
+  keepalive: false
+})
+
 const { t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 const apiUrl = runtimeConfig.public.apiUrl
@@ -370,13 +397,7 @@ const apiUrl = runtimeConfig.public.apiUrl
 const route = useRoute()
 const { $router } = useNuxtApp()
 
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
-
-watch (() => $router.query, () => {
-  resetForm()
-})
+const showContentGuidelines = ref(false)
 
 const redrawWorkId = computed(() => route.query.redrawWorkId)
 
@@ -405,6 +426,10 @@ onMounted (() => {
     format: 'dd/mm/yyyy',
     minDate: today
   })
+})
+
+watch (() => $router.query, () => {
+  resetForm()
 })
 
 const resetForm = () => {

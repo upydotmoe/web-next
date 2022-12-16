@@ -2,8 +2,6 @@
   <Layout
     :with-footer="true"
     :h-screen="true"
-    :hide-side="true"
-    :no-right-side="true"
   >
     <UpdateForm
       :id="id"

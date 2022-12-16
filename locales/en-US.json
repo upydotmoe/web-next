@@ -506,5 +506,9 @@
     "containSymbol": "{fieldName} must contain at least one symbol",
     "containNumber": "{fieldName} must contain at least one numeric character",
     "equalTo": "{fieldName} should equal to {fieldNameSource}"
+  },
+  "guidelines": {
+    "title": "Content Guidelines",
+    "content": "<div class='mt-4'><span class='font-bold'>You are prohibited to-</span><ul><li>- submit other people's artwork (<b>with</b> or <b>without</b> their permission)</li><li>- spamming tags to gain views</li><li>- submit a content that threaten or promote terrorism</li><li>- submit explicit artwork without checking the Explicit Content option</li><li>- submit gore artwork without checking the Explicit & Gore content option</li><li>- submit AI generated <s>art</s>image</li><li>- advertise AI/machine/bot stuff in any form</li><li>- submit a content that unrelated to artwork such as photography, craft, tattoo, etc.</li></ul></div>"
   }
 }

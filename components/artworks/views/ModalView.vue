@@ -137,20 +137,29 @@
           </viewer>
         </div>
 
+        <div class="flex flex-row gap-2 mb-4">
+          <div
+            v-if="artworkDetail.is_explicit"
+            :class="[
+              'p-2 font-bold rounded-md',
+              isModal ? 'theme-color-secondary' : 'bg-tag'
+            ]"
+          >
+            E
+          </div>
+
+          <div v-if="artworkDetail.is_original_character" class="flex flex-row p-2 rounded-full theme-colored">
+            <Icon :name="'i-clarity-cursor-hand-click-line'" :text-size="'text-sm'" />&nbsp;
+            {{ $t('artworks.originalCharacter') }}
+          </div>
+        </div>
+
         <!-- Intereaction area -->
         <div 
           class="interactions"
         >
           <!-- Counter -->
           <div class="reaction-counters">
-            <span
-              v-if="artworkDetail.is_explicit"
-              :class="[
-                'py-1 px-2 mr-2 font-bold rounded-md text-xxs',
-                isModal ? 'theme-color-secondary' : 'bg-tag'
-              ]"
-            >E</span>
-
             <!-- Total of views -->
             <span
               v-show="artworkDetail.views > 0" 

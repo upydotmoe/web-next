@@ -2,7 +2,6 @@
   <Layout 
     :with-footer="false" 
     :hide-side="false"
-    :hide-right-side="true"
   >
     <div class="mb-20">
       <!-- post category -->
