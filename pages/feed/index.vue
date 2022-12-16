@@ -207,11 +207,11 @@
                         'p-2',
                         { 'cursor-pointer': !feed.apply_explicit_filter || feed.apply_gore_filter }
                       ]"
+                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)"
                     >
-                      <!-- @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)" -->
                       <div
                         :class="[
-                          'overflow-hidden relative p-2 rounded-md',
+                          'overflow-hidden relative md:p-2 rounded-md',
                           { 'md:mx-2': feed.apply_explicit_filter || feed.apply_gore_filter }
                         ]"
                       >

@@ -2,14 +2,15 @@
   <div 
     :class="[
       'z-40 work-container work-view mx-auto',
-      { 'w-full xl:w-1/2 p-2 md:p-6 theme-color': isModal }
+      { 'w-full xl:w-1/2 py-4 pl-4 md:p-6 theme-color': isModal }
     ]"
   >
     <div
       :class="[
         'w-full',
-        { 'overflow-y-scroll pr-2': isModal }
-      ]">
+        { 'overflow-y-scroll pr-4': isModal }
+      ]"
+    >
       <div
         :class="[
           'mb-4 rounded-md theme-color',
@@ -107,14 +108,15 @@
           <div class="px-2">
             <!-- Image view on Desktop -->
             <div
-              v-if="feedDetail.artworks && !isMobile()"
+              v-if="feedDetail.artworks"
               class="cursor-pointer"
               @click.prevent="viewArtwork(feedDetail.artworks.id, feedDetail.artworks.apply_explicit_filter)"
             >
               <!-- <ImageList class="p-2 md:p-4" :work="feedDetail.artworks" /> -->
               <div
                 :class="[
-                  'overflow-hidden relative p-2 rounded-md',
+                  'overflow-hidden relative rounded-md',
+                  !isMobile() ? 'p-2' : 'pt-2',
                   { 'm-2': feedDetail.artworks.apply_explicit_filter }
                 ]"
               >
@@ -136,9 +138,9 @@
             </div>
 
             <!-- Image view on mobile or smaller device -->
-            <nuxt-link v-if="feedDetail.artworks && isMobile()" :to="'/a/'+feedDetail.id" class="cursor-pointer">
+            <!-- <nuxt-link v-if="feedDetail.artworks && isMobile()" :to="'/a/'+feedDetail.id" class="cursor-pointer">
               <ImageList class="p-2" :work="feedDetail.artworks" />
-            </nuxt-link>
+            </nuxt-link> -->
           </div>
         </div>
       </div>
@@ -537,7 +539,7 @@ const unlike = async () => {
 // comments
 const comments = ref([])
 const commentPagination = ref({
-  perPage: 5,
+  perPage: 10,
   page: 0
 })
 const commentIndexes = ref([])
