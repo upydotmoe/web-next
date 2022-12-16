@@ -310,7 +310,7 @@ const update = async () => {
       isGore: inputData.value.isGore,
       tags: tagValues.toString(),
       isOriginalCharacter: inputData.value.isOriginalCharacter,
-      allowRedraw: inputData.value.allowRedraw,
+      allowRedraw: inputData.value.isAllowRedraw,
       redrawInYourStyle: inputData.value.isRedrawInMyStyle,
     })
 

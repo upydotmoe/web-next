@@ -14,12 +14,23 @@
     v-show="!loading"
     :class="[
       'work-container work-view',
-      { '2xl:w-4/6 2xl:mx-auto p-2 md:p-6 theme-color': isModal }
+      { '2xl:w-4/6 2xl:mx-auto p-2 md:p-6 overflow-y-scroll theme-color': isModal }
     ]"
   >
     <div class="flex flex-col w-full lg:flex-row">
       <!-- Left side: Image view; total of views, likes, comments, and other works by user -->
       <div class="left-side">
+        <div
+          v-if="isModal && isMobileDevice()"
+          class="text-right"
+        >
+          <Icon
+            :name="'i-ion-close-outline'"
+            :text-size="'text-3xl'"
+            @click="closeModal(section + '-modal')"
+          />
+        </div>
+
         <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
           <div class="flex flex-row justify-center mb-2">
             <Icon :name="'i-ion-alert-outline'" />
@@ -141,11 +152,20 @@
           <div
             v-if="artworkDetail.is_explicit"
             :class="[
-              'p-2 font-bold rounded-md',
+              'py-2 px-3 font-bold rounded-md',
               isModal ? 'theme-color-secondary' : 'bg-tag'
             ]"
           >
             E
+          </div>
+
+          <div
+            v-if="artworkDetail.is_gore"
+            :class="[
+              'py-2 px-3 font-bold rounded-md bg-red-400 text-white'
+            ]"
+          >
+            G
           </div>
 
           <div v-if="artworkDetail.is_original_character" class="flex flex-row p-2 rounded-full theme-colored">
@@ -879,6 +899,7 @@
         v-if="!loading"
         :work-id="artworkDetail.id"
         :is-modal="isModal"
+        :view="view"
       />
     </div>
 

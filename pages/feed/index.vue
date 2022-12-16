@@ -119,17 +119,12 @@
 
               <!-- Image List -->
               <div>
-                <!-- images -->
-                <div>
-                  <!-- desktop -->
-                  <div v-if="feed.type === 'artwork' && !isMobile()" class="cursor-pointer" @click.prevent="view(feed.id)">
-                    <ImageList class="p-2 md:p-4" :work="feed" />
-                  </div>
-                  
-                  <!-- mobile/smaller device -->
-                  <nuxt-link v-if="feed.type === 'artwork' && isMobile()" :to="'/a/'+feed.id" class="cursor-pointer">
-                    <ImageList class="p-2" :work="feed" />
-                  </nuxt-link>
+                <div
+                  v-if="feed.type === 'artwork'" 
+                  class="cursor-pointer"
+                  @click.prevent="view(feed.id)"
+                >
+                  <ImageList class="p-2 md:p-4" :work="feed" />
                 </div>
               </div>
 
@@ -208,13 +203,12 @@
                   <div>
                     <!-- desktop -->
                     <div
-                      v-if="!isMobile()"
                       :class="[
                         'p-2',
                         { 'cursor-pointer': !feed.apply_explicit_filter || feed.apply_gore_filter }
                       ]"
-                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)"
                     >
+                      <!-- @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)" -->
                       <div
                         :class="[
                           'overflow-hidden relative p-2 rounded-md',
@@ -246,7 +240,7 @@
                     </div>
 
                     <!-- mobile/smaller device -->
-                    <nuxt-link
+                    <!-- <nuxt-link
                       v-if="isMobile()"
                       :to="feed.apply_explicit_filter || feed.apply_gore_filter ? null : '/a/'+feed.artwork_share_info.id"
                       @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)"
@@ -266,13 +260,12 @@
                           :work="feed"
                         />
 
-                        <!-- filter message -->
                         <div v-if="feed.apply_explicit_filter || feed.apply_gore_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
                           <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
                           <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
                         </div>
                       </div>
-                    </nuxt-link>
+                    </nuxt-link> -->
                   </div>
                 </div>
               </div>

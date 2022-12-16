@@ -19,7 +19,7 @@
             <!-- close modal button -->
             <div
               v-show="isModal"
-              class="p-1 h-7 font-bold rounded-md border-2 cursor-pointer hover:shadow-md border-color-primary"
+              class="p-1 h-7 font-bold text-white bg-red-500 rounded-md border-2 border-red-500 cursor-pointer hover:bg-red-600 hover:border-red-600"
               style="font-size: 10px;"
               @click="closeModal(section + '-modal')"
             >

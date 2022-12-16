@@ -13,9 +13,9 @@
       <WorkList
         v-if="!relatedArtworks.options.isEmpty"
         :section-class="'work-grid'"
-        :view="null"
+        :view="view"
         :works="relatedArtworks.data"
-        :is-href="true"
+        :is-href="isModal ? false : true"
         :direct-open="true"
       />
 
@@ -44,6 +44,10 @@ const props = defineProps ({
   workId: {
     type: Number,
     default: 0
+  },
+  view: {
+    type: Function,
+    default: () => {}
   },
   isModal: {
     type: Boolean,

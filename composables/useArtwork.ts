@@ -301,9 +301,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           description: params.description,
           is_explicit: params.isExplicit ? 1 : 0,
           tags: params.tags,
-          is_original_character: params.isOriginalCharacter ? 1: 0,
-          allow_redraw: params.allowRedraw ? 1: 0,
-          redraw_in_your_style: params.redrawInYourStyle ? 1: 0,
+          is_original_character: params.isOriginalCharacter ? 1 : 0,
+          allow_redraw: params.allowRedraw ? 1 : 0,
+          redraw_in_your_style: params.redrawInYourStyle ? 1 : 0,
         }, fetchOptions)
 
       return [data.success, null]

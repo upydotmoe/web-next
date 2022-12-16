@@ -11,13 +11,13 @@
     >
       <!-- Desktop -->
       <a
-        v-if="!isMobile() && !isHref && !isMiniList"
+        v-if="!isHref && !isMiniList"
         :href="'/a/'+work.id"
         @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
         class="w-full h-full theme-color-bg"
       >
         <div class="overflow-hidden relative text-center rounded-md">
-          <div class="mini-icon">
+          <div class="flex flex-row gap-1 mini-icon">
             <!-- image count -->
             <p
               v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
