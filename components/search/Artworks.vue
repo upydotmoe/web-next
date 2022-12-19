@@ -329,7 +329,7 @@ const fetch = async () => {
     rangeMode: sortBy.value,
     explicitMode: explicitMode.value,
     keyword: keyword.value ?? '',
-    followingOnly: followingOnly.value,
+    followingOnly: followingOnly.value === false ? undefined : followingOnly.value,
     pagination: {
       perPage: pagination.value.perPage,
       page: pagination.value.page

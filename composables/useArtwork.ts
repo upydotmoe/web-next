@@ -1,18 +1,8 @@
 // @ts-nocheck
 import {
-  ArtworkCommentsApi,
-  ArtworkCommentsLikesApi,
-  ArtworkCommentsRepliesApi,
-  ArtworkCRUDApi,
-  ArtworkLikesApi,
-  ArtworkListApi,
-  ArtworksApi,
-  ArtworkSharesApi,
-  ArtworksRedrawsApi,
-  ArtworksUserApi,
-  ArtworkTagsApi,
-  ArtworkViewsApi,
-  SearchApi
+    ArtworkCommentsApi, ArtworkCommentsLikesApi, ArtworkCommentsRepliesApi, ArtworkCRUDApi,
+    ArtworkLikesApi, ArtworkListApi, ArtworksApi, ArtworkSharesApi, ArtworksRedrawsApi,
+    ArtworksUserApi, ArtworkTagsApi, ArtworkViewsApi, SearchApi
 } from '~/api/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
@@ -156,6 +146,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   ) => {
     try {
+      console.log('following only:', params.followingOnly)
       const { data } = await new SearchApi(oApiConfiguration)
         .searchArtworks(
           params.keyword,
