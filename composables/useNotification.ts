@@ -1,12 +1,7 @@
 import {
-  NotificationsArtworksLikesApi,
-  NotificationsArtworksCommentsApi,
-  NotificationsUsersApi,
-  NotificationsMarkersArtworksApi,
-  NotificationsMarkersUsersApi,
-  NotificationsMarkersApi,
-  NotificationsFeedsApi,
-  NotificationsMarkersFeedsApi
+    NotificationsArtworksCommentsApi, NotificationsArtworksLikesApi, NotificationsFeedsApi,
+    NotificationsMarkersApi, NotificationsMarkersArtworksApi, NotificationsMarkersFeedsApi,
+    NotificationsMarkersUsersApi, NotificationsUsersApi
 } from '~/api/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {

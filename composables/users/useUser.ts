@@ -1,14 +1,7 @@
 // @ts-nocheck
 import {
-  UserApi,
-  UserCountersApi,
-  UserFollowingFollowersApi,
-  UserUpdateUserInfoApi,
-  AuthServiceRegistrationApi,
-  UserChangeUserMediaApi,
-  SearchApi,
-  UserForgotPasswordApi,
-  UserChangePasswordApi
+    AuthServiceRegistrationApi, SearchApi, UserApi, UserChangePasswordApi, UserChangeUserMediaApi,
+    UserCountersApi, UserFollowingFollowersApi, UserForgotPasswordApi, UserUpdateUserInfoApi
 } from '~/api/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {

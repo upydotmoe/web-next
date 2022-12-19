@@ -1,7 +1,9 @@
-import { resolve } from 'path'
 import { createCommonJS } from 'mlly'
-const { __dirname } = createCommonJS(import.meta.url)
+import { resolve } from 'path'
+
 import presetIcons from '@unocss/preset-icons'
+
+const { __dirname } = createCommonJS(import.meta.url)
 
 export default defineNuxtConfig({
   ssr: false,

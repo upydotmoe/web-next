@@ -1,7 +1,5 @@
 import { Configuration } from '~/api'
-import {
-  SettingsApi
-} from '~/api/api'
+import { SettingsApi } from '~/api/api'
 
 export default function (oApiConfiguration: Configuration, fetchOptions: any) {
   const getSetting = async (key: string) => {

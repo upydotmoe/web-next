@@ -1,6 +1,4 @@
-import {
-  ArtworkRandomApi
-} from '~/api/api'
+import { ArtworkRandomApi } from '~/api/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   const getRandomArtwork = async () => {

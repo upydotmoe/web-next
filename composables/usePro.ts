@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { ProApi } from "~/api/api"
+import { ProApi } from '~/api/api'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   const registerProVersion = async (params: {

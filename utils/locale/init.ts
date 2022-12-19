@@ -1,6 +1,8 @@
-import useLocale from '@/stores/locale.store'
-import { availableLanguages } from './available-languages'
 import { useI18n } from 'vue-i18n'
+
+import useLocale from '@/stores/locale.store'
+
+import { availableLanguages } from './available-languages'
 
 export async function initLocale () {
   const { locale } = useI18n()

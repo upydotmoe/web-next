@@ -1,8 +1,5 @@
 // @ts-nocheck
-import {
-  AlbumsApi,
-  UserCountersApi
-} from '~/api/api'
+import { AlbumsApi, UserCountersApi } from '~/api/api'
 import { workTypes } from '~/types/works'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {

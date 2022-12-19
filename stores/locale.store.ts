@@ -1,4 +1,4 @@
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'
 import { useI18n } from 'vue-i18n'
 
 export default defineStore('locale', () => {
