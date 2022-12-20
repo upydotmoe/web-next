@@ -118,34 +118,61 @@
               </span>
             </div>
           </div>
-          <viewer 
-            :options="{
-              url: 'data-source'
-            }"
-            :images="images"
-            class="overflow-hidden rounded-md"
-          >
-            <template 
-              @click.prevent="null"
-              v-for="(src, index) in images"
-              :key="src.thumbnail"
+          
+          <div class="flex flex-row gap-2">
+            <!-- mini thumbnails -->
+            <div
+              v-if="!isModal"
+              class="sticky top-0 flex-col gap-2 w-1/6 hidden-md-flex"
             >
-              <!-- loading="lazy" -->
-              <!-- v-lazy="src.thumbnail" -->
-              <!-- test --> <img
-                preload
-                loading="lazy"
-                :src="src.thumbnail"
-                :data-source="src.source"
-                :class="[
-                  'overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable',
-                  { 'blur-lg unclickable': showExplicitAlert }, 
-                  showExplicitAlert ? 'brightness-50' : 'brightness-100'
-                ]"
-                @error="imageLoadError"
-              />
-            </template>
-          </viewer>
+              <div class="sticky top-0">
+                <a
+                  v-for="(src, index) in images"
+                  :key="image"
+                  :href="'#image_' + index"
+                  class="cursor-pointer"
+                >
+                  <img
+                    preload
+                    loading="lazy"
+                    :src="src.thumbnail"
+                    @error="imageLoadError"
+                    class="mb-2 rounded-md hover:shadow-md"
+                  />
+                </a>
+              </div>
+            </div>
+
+            <!-- images -->
+            <viewer 
+              :options="{
+                url: 'data-source'
+              }"
+              :images="images"
+              class="overflow-hidden w-full rounded-md"
+            >
+              <template 
+                @click.prevent="null"
+                v-for="(src, index) in images"
+                :key="src.thumbnail"
+              >
+                <!-- v-lazy="src.thumbnail" -->
+                <!-- test --> <img
+                  :id="'image_' + index"
+                  preload
+                  loading="lazy"
+                  :src="src.thumbnail"
+                  :data-source="src.source"
+                  :class="[
+                    'overflow-hidden mb-2 rounded cursor-pointer image image-layer unselectable w-full',
+                    { 'blur-lg unclickable': showExplicitAlert }, 
+                    showExplicitAlert ? 'brightness-50' : 'brightness-100'
+                  ]"
+                  @error="imageLoadError"
+                />
+              </template>
+            </viewer>
+          </div>
         </div>
 
         <div class="flex flex-row gap-2 mb-4">

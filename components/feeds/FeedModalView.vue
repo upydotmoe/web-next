@@ -2,7 +2,7 @@
   <div 
     :class="[
       'z-40 work-container work-view mx-auto',
-      { 'w-full xl:w-5/12 py-4 pl-4 md:p-6 theme-color': isModal }
+      { 'w-full xl:w-4/12 py-4 pl-4 md:p-6 theme-color': isModal }
     ]"
   >
     <div
@@ -171,7 +171,10 @@
           </div>
 
           <!-- ellipsis other interaction -->
-          <div class="inline-block relative z-30 dropdown">
+          <div
+            v-if="!feedDetail.artworks"
+            class="inline-block relative z-30 dropdown"
+          >
             <button 
               type="button" 
               aria-haspopup="true" 

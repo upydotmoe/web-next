@@ -43,7 +43,7 @@
               class="redraw"
             >
               <Icon
-                :name="'i-typcn-brush'"
+                :name="'i-fluent-draw-image-20-regular'"
                 class="text-white"
               />
             </p>
@@ -120,7 +120,7 @@
               class="redraw"
             >
               <Icon
-                :name="'i-typcn-brush'"
+                :name="'i-fluent-draw-image-20-regular'"
                 class="text-white"
               />
             </p>
