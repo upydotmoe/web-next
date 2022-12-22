@@ -2,7 +2,7 @@
   <div 
     :class="[
       'z-40 work-container work-view mx-auto',
-      { 'w-full xl:w-4/12 py-4 pl-4 md:p-6 theme-color': isModal }
+      { 'w-full md:w-2/3 lg:w-6/12 xl:w-4/12 py-4 pl-4 md:p-6 theme-color': isModal }
     ]"
   >
     <div

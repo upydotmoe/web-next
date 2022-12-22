@@ -153,7 +153,7 @@ const loadMoreOptions = ref({
 })
 const loadMore = async () => {
   loadMoreOptions.value.delay = true
-  const [dataWorks, workPagination] = await fetch()
+  const [dataWorks, dataPagination] = await fetch()
 
   for (let workIdx = 0; workIdx < dataWorks.length; workIdx++) {
     works.value.push(dataWorks[workIdx])

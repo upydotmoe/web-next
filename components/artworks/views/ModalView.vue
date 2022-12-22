@@ -1060,17 +1060,19 @@ const route = useRoute()
  * @watchers
  */
 watch (() => route.query, () => {
-  // close modal on changing route or going back to previous page
-  closeArtworkModals()
+  setTimeout(() => {
+    // close modal on changing route or going back to previous page
+    closeArtworkModals()
 
-  // close collection selection modal
-  useModal().closeModal('collection-selection-modal')
+    // close collection selection modal
+    useModal().closeModal('collection-selection-modal')
 
-  // close album selection modal
-  useModal().closeModal('album-selection-modal')
+    // close album selection modal
+    useModal().closeModal('album-selection-modal')
 
-  // close report modal
-  useModal().closeModal('report-modal')
+    // close report modal
+    useModal().closeModal('report-modal')
+  }, 1)
 })
 
 onMounted (() => {

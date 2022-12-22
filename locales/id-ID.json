@@ -76,6 +76,15 @@
         "updated": "Artwork berhasil diupdate!",
         "successRedirect": "Mengalihkanmu ke halaman artworkmu.."
       }
+    },
+    "form": {
+      "options": {
+        "explicitMark": "Tandai karya Anda sebagai eksplisit jika mengandung konten eksplisit. Karya yang tidak ditandai sebagai eksplisit dan ternyata mengandung konten eksplisit akan dihapus.",
+        "goreMark": "Tandai karya Anda sebagai mengandung tema sensitif jika mencakup elemen seperti darah, konten menyeramkan, atau elemen serupa. Ini akan membantu untuk memastikan bahwa viewers menyadari sifat potensial sensitif dari karya dan dapat membuat keputusan yang informatif tentang apakah ingin melihatnya.",
+        "originalCharacterMark": "Tandai karya Anda sebagai menampilkan karakter original jika karakter yang digambarkan dalam karya Anda diciptakan oleh Anda sendiri. Jika karakter yang digambarkan dalam karya orang lain atau dari seri animasi, jangan centang opsi ini.",
+        "allowRedrawMark": "Tandai opsi ini jika Anda memberikan izin kepada artist lain untuk menggambar ulang karya Anda dan mengirimkan versi mereka sendiri. Mencentang opsi ini akan mengaktifkan tombol redraw, yang memungkinkan artist lain untuk membuat versi redraw dari karya Anda.",
+        "redrawOwnStyleMark": "Pilih opsi ini jika Anda menggunakan gaya menggambar sendiri untuk menggambar ulang karya artist lain."
+      }
     }
   },
   "search": {
@@ -99,6 +108,17 @@
   "home": "Halaman utama",
   "feed": "Beranda",
   "feeds": {
+    "newUser": {
+      "welcomingMenus": {
+        "setupYourAccount": "Atur akun Anda",
+        "uploadYourFirstArtwork": "Unggah karya pertama Anda",
+        "exploreArtworks": "Jelajah",
+        "followSomeone": "Ikuti seseorang"
+      },
+      "welcome": "Selamat Datang di Upy",
+      "suggestedUsers": "Pengguna yang Disarankan untuk Diikuti"
+    },
+    "suggestedUsers": "Pengguna yang Disarankan",
     "all": "Semua",
     "textOnly": "Hany Text",
     "artworkOnly": "Hanya Artwork",

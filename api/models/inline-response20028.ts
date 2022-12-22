@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20028Data } from './inline-response20028-data';
 /**
  * 
  * @export
@@ -19,14 +20,14 @@
 export interface InlineResponse20028 {
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof InlineResponse20028
      */
-    id?: string;
+    success?: boolean;
     /**
      * 
-     * @type {string}
+     * @type {InlineResponse20028Data}
      * @memberof InlineResponse20028
      */
-    value?: string;
+    data?: InlineResponse20028Data;
 }

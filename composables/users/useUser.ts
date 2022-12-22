@@ -253,6 +253,17 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const getSuggestedUsersToFollow = async () => {
+    try {
+      const { data } = await new UserFollowingFollowersApi(oApiConfiguration)
+        .getFollowSuggestions(fetchOptions)
+
+      return [data.data?.suggestions, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   /**
    * UPDATES =================================================================================================================================
   */
@@ -465,6 +476,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     getFollowingList,
     toggleFollowerPrivacy,
     toggleFollowingPrivacy,
+    getSuggestedUsersToFollow,
 
     checkCurrentPassword,
     updateCurrentPassword,

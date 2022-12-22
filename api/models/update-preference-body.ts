@@ -34,13 +34,13 @@ export interface UpdatePreferenceBody {
      * @type {number}
      * @memberof UpdatePreferenceBody
      */
-    darkMode?: UpdatePreferenceBodyDarkModeEnum;
+    showExplicit?: UpdatePreferenceBodyShowExplicitEnum;
     /**
      * 
      * @type {number}
      * @memberof UpdatePreferenceBody
      */
-    showExplicit?: UpdatePreferenceBodyShowExplicitEnum;
+    showGore?: UpdatePreferenceBodyShowGoreEnum;
 }
 
 /**
@@ -56,7 +56,7 @@ export enum UpdatePreferenceBodyLanguageEnum {
     * @export
     * @enum {string}
     */
-export enum UpdatePreferenceBodyDarkModeEnum {
+export enum UpdatePreferenceBodyShowExplicitEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
 }
@@ -64,7 +64,7 @@ export enum UpdatePreferenceBodyDarkModeEnum {
     * @export
     * @enum {string}
     */
-export enum UpdatePreferenceBodyShowExplicitEnum {
+export enum UpdatePreferenceBodyShowGoreEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
 }

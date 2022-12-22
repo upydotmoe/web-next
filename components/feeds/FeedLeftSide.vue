@@ -62,7 +62,7 @@ const changeView = (mode) => {
 // @import '~/assets/css/tailwind.scss';
 
 .feed__left-buttons {
-  @apply flex flex-col gap-2;
+  @apply flex flex-col gap-2 w-4/5;
 
   .left-button {
     @apply flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white;

@@ -19,11 +19,11 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { FeedsCommentBody } from '../models';
 import { FeedsCreateBody } from '../models';
 import { FeedsUpdateBody } from '../models';
-import { InlineResponse20034 } from '../models';
-import { InlineResponse20041 } from '../models';
-import { InlineResponse20042 } from '../models';
+import { InlineResponse20036 } from '../models';
 import { InlineResponse20043 } from '../models';
 import { InlineResponse20044 } from '../models';
+import { InlineResponse20045 } from '../models';
+import { InlineResponse20046 } from '../models';
 import { InlineResponse2015 } from '../models';
 import { InlineResponse2016 } from '../models';
 import { SuccessMessageModel } from '../models';
@@ -772,7 +772,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedById(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20044>>> {
+        async getFeedById(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20046>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeedById(feedId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -788,7 +788,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedComments(feedId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20042>>> {
+        async getFeedComments(feedId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20044>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeedComments(feedId, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -806,7 +806,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
+        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20045>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeeds(perPage, page, fetchMode, mode, showAllTextPost, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -822,7 +822,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20041>>> {
+        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeedsByUserId(userId, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -837,7 +837,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20041>>> {
+        async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFollowingFeed(page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -852,7 +852,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20041>>> {
+        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20043>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getLatestFeeds(page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -866,7 +866,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeFeed(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async likeFeed(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).likeFeed(feedId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -880,7 +880,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).likeFeedComment(commentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -894,7 +894,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unlikeFeed(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async unlikeFeed(feedId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).unlikeFeed(feedId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -908,7 +908,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unlikeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async unlikeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).unlikeFeedComment(commentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -974,7 +974,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedById(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20044>> {
+        async getFeedById(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20046>> {
             return FeedsApiFp(configuration).getFeedById(feedId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -986,7 +986,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedComments(feedId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20042>> {
+        async getFeedComments(feedId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20044>> {
             return FeedsApiFp(configuration).getFeedComments(feedId, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1000,7 +1000,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
+        async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20045>> {
             return FeedsApiFp(configuration).getFeeds(perPage, page, fetchMode, mode, showAllTextPost, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1012,7 +1012,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20041>> {
+        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
             return FeedsApiFp(configuration).getFeedsByUserId(userId, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1023,7 +1023,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20041>> {
+        async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
             return FeedsApiFp(configuration).getFollowingFeed(page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1034,7 +1034,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20041>> {
+        async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20043>> {
             return FeedsApiFp(configuration).getLatestFeeds(page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1044,7 +1044,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeFeed(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async likeFeed(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return FeedsApiFp(configuration).likeFeed(feedId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1054,7 +1054,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return FeedsApiFp(configuration).likeFeedComment(commentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1064,7 +1064,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unlikeFeed(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async unlikeFeed(feedId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return FeedsApiFp(configuration).unlikeFeed(feedId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1074,7 +1074,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unlikeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async unlikeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return FeedsApiFp(configuration).unlikeFeedComment(commentId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1137,7 +1137,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeedById(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20044>> {
+    public async getFeedById(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20046>> {
         return FeedsApiFp(this.configuration).getFeedById(feedId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1150,7 +1150,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeedComments(feedId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20042>> {
+    public async getFeedComments(feedId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20044>> {
         return FeedsApiFp(this.configuration).getFeedComments(feedId, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1165,7 +1165,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
+    public async getFeeds(perPage: number, page: number, fetchMode: string, mode?: string, showAllTextPost?: boolean, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20045>> {
         return FeedsApiFp(this.configuration).getFeeds(perPage, page, fetchMode, mode, showAllTextPost, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1178,7 +1178,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20041>> {
+    public async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
         return FeedsApiFp(this.configuration).getFeedsByUserId(userId, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1190,7 +1190,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20041>> {
+    public async getFollowingFeed(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
         return FeedsApiFp(this.configuration).getFollowingFeed(page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1202,7 +1202,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20041>> {
+    public async getLatestFeeds(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20043>> {
         return FeedsApiFp(this.configuration).getLatestFeeds(page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1213,7 +1213,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async likeFeed(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async likeFeed(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return FeedsApiFp(this.configuration).likeFeed(feedId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1224,7 +1224,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async likeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async likeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return FeedsApiFp(this.configuration).likeFeedComment(commentId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1235,7 +1235,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async unlikeFeed(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async unlikeFeed(feedId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return FeedsApiFp(this.configuration).unlikeFeed(feedId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1246,7 +1246,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async unlikeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async unlikeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return FeedsApiFp(this.configuration).unlikeFeedComment(commentId, options).then((request) => request(this.axios, this.basePath));
     }
     /**

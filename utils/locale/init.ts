@@ -4,7 +4,7 @@ import useLocale from '@/stores/locale.store'
 
 import { availableLanguages } from './available-languages'
 
-export async function initLocale () {
+export async function initLocale() {
   const { locale } = useI18n()
   const localeStore = useLocale()
 

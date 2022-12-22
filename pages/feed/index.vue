@@ -13,7 +13,7 @@
       />
     </template>
 
-    <div class="mx-auto w-full xl:w-9/12">
+    <div class="mx-auto w-full">
       <!-- switch between following only and global for text feed -->
       <div
         v-if="fetchMode == 'text'"
@@ -35,7 +35,47 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-1 gap-1 mx-auto md:gap-2">
+      <div
+        v-if="showSuggestedUsers"
+        class="h-screen"
+      >
+        <!-- Welcome -->
+        <div>
+          <h1 class="section-title">{{ $t('feeds.newUser.welcome') }}</h1>
+
+          <div class="grid grid-cols-4 gap-4 mx-auto mt-6 text-center">
+            <nuxt-link
+              v-for="menu in newUserWelcomeMenus"
+              :key="menu.href"
+              :to="menu.href"
+              class="flex flex-col gap-3 p-8 w-full text-center rounded-md theme-color hover:shadow-md"
+            >
+              <Icon
+                :name="menu.icon"
+                :text-size="'text-2xl'"
+                class="mx-auto"
+              />
+              {{ $t(menu.title) }}
+            </nuxt-link>
+          </div>
+        </div>
+
+        <!-- Follow Suggestions -->
+        <div class="mt-14">
+          <div class="section-title">{{ $t('feeds.newUser.suggestedUsers') }}</div>
+
+          <UserList
+            :users="suggestedUsersToFollow"
+            :column-type="2"
+            class="mt-6"
+          />
+        </div>
+      </div>
+      
+      <div
+        v-show="!showSuggestedUsers"
+        class="grid grid-cols-1 gap-1 mx-auto md:gap-4"
+      >
         <div
           v-for="(feed, feedIdx) in feeds"
           :key="feed.id+feed.type"
@@ -73,11 +113,12 @@
 
               <!-- information for feed type artwork -->
               <div v-if="feed.type === 'artwork'" class="px-2 md:px-4">
-                <span class="title">{{ feed.title }}</span>
+                <span class="feed-title">{{ feed.title }}</span>
                 <p v-if="feed.description">
                   <span
                     :id="'feed-description-'+feed.id"
                     v-html="feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description"
+                    class="feed-description"
                   />
 
                   <a
@@ -112,7 +153,7 @@
                       :src="artworkThumb(feed.redrawed_artwork_info.artwork_assets.bucket, feed.redrawed_artwork_info.artwork_assets.filename, 'thumbnail', false)"
                       @error="imageLoadError"
                     />
-                    <span class="title">{{ feed.redrawed_artwork_info.title }}</span>
+                    <span class="feed-title">{{ feed.redrawed_artwork_info.title }}</span>
                   </div>
                 </a>
               </div>
@@ -135,8 +176,8 @@
                   v-html="feed.text.split('<br>').length > 3 && feed.text.length > 300 ? `${feed.text.slice(0, 300)}...` : feed.text"
                   :id="'feed-text-'+feed.id"
                   :class="[
-                    'mt-2',
-                    { 'mb-2': !feed.artwork_share_info }
+                    'text-tiny',
+                    { 'mb-2 mt-2': !feed.artwork_share_info }
                   ]"
                 />
                 
@@ -180,12 +221,16 @@
                   </div>
 
                   <!-- title & description of shared artwork -->
-                  <div class="px-2 mt-2 md:px-4">
-                    <span class="title">{{ feed.artwork_share_info.title }}</span>
-                    <p v-if="feed.artwork_share_info.description">
-                      <span
+                  <div class="px-2 md:px-4">
+                    <span class="feed-title">{{ feed.artwork_share_info.title }}</span>
+                    <div
+                      v-if="feed.artwork_share_info.description"
+                      class="mt-2"
+                    >
+                      <p
                         :id="'feed-description-'+feed.artwork_share_info.id"
                         v-html="feed.artwork_share_info.description.length > 300 ? `${feed.artwork_share_info.description.slice(0, 300)}...` : feed.artwork_share_info.description"
+                        class="feed-description"
                       />
                       
                       <a 
@@ -196,7 +241,7 @@
                       >
                         {{ $t('readMore') }}
                       </a>
-                    </p>
+                    </div>
                   </div>
 
                   <!-- artwork images -->
@@ -447,6 +492,16 @@
 
     <template #right-side>
       <FeedSide />
+      <!-- suggested users -->
+      <div v-if="suggestedUsersToFollow">
+        <div class="section-title">{{ $t('feeds.suggestedUsers') }}</div>
+        
+        <UserList
+          :users="suggestedUsersToFollow"
+          :column-type="1"
+          class="mt-2"
+        />
+      </div>
     </template>
   </Layout>
 </template>
@@ -460,6 +515,7 @@ import useAuthStore from '@/stores/auth.store'
 
 // composables
 import useImage from '~/composables/useImage'
+import useUser from '~/composables/users/useUser'
 
 // components
 import Icon from '~/components/globals/Icon.vue'
@@ -472,6 +528,10 @@ import FeedSide from '~/components/layouts/right-sides/FeedSide.vue'
 import ManageSave from '~/components/artworks/ManageSave.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
 
+// constants
+import { newUserWelcomeMenus } from '~/utils/constants/feed'
+import UserList from '~~/components/users/UserList.vue'
+
 // stores
 const auth = useAuthStore()
 
@@ -480,6 +540,7 @@ const { generateArtworkThumb } = useImage()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
+const userApi = useUser(oApiConfiguration, fetchOptions())
 
 useHead ({
   title: useI18n().tl('meta.title.feed.feed')
@@ -504,7 +565,8 @@ onBeforeMount (() => {
   }
 })
 
-onMounted (() => {
+onMounted (async () => {
+  await getSuggestedUsersToFollow()
   // window.addEventListener('keydown', (e) => {
   //   if (e.key === 'Escape') {
   //     closeArtworkModals()
@@ -516,21 +578,22 @@ onMounted (() => {
  * @watchers
  */
 watch (() => route.query, () => {
+  setTimeout(() => {
+    // close modal on changing route or going back to previous page
+    closeArtworkModals()
 
-  // close modal on changing route or going back to previous page
-  closeArtworkModals()
+    // close collection selection modal
+    useModal().closeModal('feed-collection-selection-modal')
 
-  // close collection selection modal
-  useModal().closeModal('feed-collection-selection-modal')
+    // close collection selection modal
+    useModal().closeModal('collection-selection-modal')
 
-  // close collection selection modal
-  useModal().closeModal('collection-selection-modal')
+    // close album selection modal
+    useModal().closeModal('album-selection-modal')
 
-  // close album selection modal
-  useModal().closeModal('album-selection-modal')
-
-  // close report modal
-  useModal().closeModal('report-modal')
+    // close report modal
+    useModal().closeModal('report-modal')
+  }, 10);
 })
 
 /**
@@ -544,9 +607,15 @@ const options = ref({
   }
 })
 
+const showPublicTextPost = ref(false)
+
+// switch text post between following only and global
+watch (() => showPublicTextPost.value, () => {
+  refetch()
+})
+
 /** Fetch / inifinite load */
 const isInitial = ref(false)
-const showPublicTextPost = ref(false)
 const feeds = ref([])
 const fetchMode = ref('feed')
 const fetch = async ({ loaded }) => {
@@ -562,6 +631,11 @@ const fetch = async ({ loaded }) => {
 
   if (error) {
     // todo: handle error
+  }
+
+  // if no feeds returned, get suggested users to follow
+  if (!data.feeds.length) {
+    showSuggestedUsers.value = true
   }
 
   options.value.pagination.page += 1
@@ -617,11 +691,6 @@ const fetch = async ({ loaded }) => {
   loaded(data.feeds.length, options.value.pagination.perPage)
 }
 
-// switch text post between following only and global
-watch (() => showPublicTextPost.value, () => {
-  refetch()
-})
-
 const changeFetchMode = (mode) => {
   fetchMode.value = mode
 
@@ -634,6 +703,18 @@ const refetch = () => {
   feeds.value = []
 
   isInitial.value = true
+}
+
+/** Get users suggestion to follow */
+const showSuggestedUsers = ref(false)
+const suggestedUsersToFollow = ref([])
+const getSuggestedUsersToFollow = async () => {
+  const [suggestions, error] = await userApi.getSuggestedUsersToFollow()
+  console.log(suggestions)
+
+  if (suggestions.length) {
+    suggestedUsersToFollow.value = suggestions
+  }
 }
 
 /** Modal view */
@@ -914,5 +995,13 @@ const save = (unsaved) => {
       }
     }
   }
+}
+
+.feed-title {
+  @apply font-bold text-base;
+}
+
+.feed-description {
+  @apply text-xs mt-2;
 }
 </style>

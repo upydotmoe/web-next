@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 import { ArtworkLiteModel } from './artwork-lite-model';
+import { PaginationModel } from './pagination-model';
 /**
  * 
  * @export
@@ -20,8 +21,14 @@ import { ArtworkLiteModel } from './artwork-lite-model';
 export interface InlineResponse20026Data {
     /**
      * 
-     * @type {ArtworkLiteModel}
+     * @type {Array<ArtworkLiteModel>}
      * @memberof InlineResponse20026Data
      */
-    redraw?: ArtworkLiteModel;
+    redraws?: Array<ArtworkLiteModel>;
+    /**
+     * 
+     * @type {PaginationModel}
+     * @memberof InlineResponse20026Data
+     */
+    pagination?: PaginationModel;
 }

@@ -76,6 +76,15 @@
         "updated": "Work successfully updated!",
         "successRedirect": "Redirecting you to the work page.."
       }
+    },
+    "form": {
+      "options": {
+        "explicitMark": "Please mark your artwork as explicit if it contains explicit content. Artwork that is not properly marked as explicit and is found to contain explicit content will be removed.",
+        "goreMark": "Please mark your artwork as containing sensitive themes if it includes elements such as blood, disturbing content, or similar elements. This will help to ensure that viewers are aware of the potentially sensitive nature of the artwork and can make informed decisions about whether to view it.",
+        "originalCharacterMark": "Please mark your artwork as featuring original characters if the characters depicted in the artwork were created by you. If the characters depicted in the artwork are someone else's or are from an animation series, do not check this option.",
+        "allowRedrawMark": "Please mark this option if you give permission for other artists to redraw or remix your artwork and submit their own versions. Checking this option will enable the redraw button, allowing other artists to use your artwork as inspiration and submit their own versions.",
+        "redrawOwnStyleMark": "Please select this option if you are using your own drawing style for the redraw."
+      }
     }
   },
   "search": {
@@ -99,6 +108,17 @@
   "home": "Home",
   "feed": "Feed",
   "feeds": {
+    "newUser": {
+      "welcomingMenus": {
+        "setupYourAccount": "Setup your account",
+        "uploadYourFirstArtwork": "Upload your first artwork",
+        "exploreArtworks": "Explore artworks",
+        "followSomeone": "Follow someone"
+      },
+      "welcome": "Welcome to Upy",
+      "suggestedUsers": "Suggested Users to Follow"
+    },
+    "suggestedUsers": "Follow this Users",
     "all": "All",
     "textOnly": "Text Only",
     "artworkOnly": "Artwork Only",

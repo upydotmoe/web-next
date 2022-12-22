@@ -1,4 +1,4 @@
-export default function useBounceAnimation () {
+export default function useBounceAnimation() {
   const bounceInterval = 2500
 
   const animate = (elementId: string) => {

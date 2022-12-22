@@ -12,8 +12,8 @@
       <div
         v-if="!hideSide"
         :class="[
-          'hidden md:mr-4',
-          fullscreen ? '2xl:w-2/12' : (noRightSide ? 'lg:w-4/12 md:block' : 'lg:w-2/12 md:block'),
+          'hidden md:mr-2',
+          fullscreen ? '2xl:w-2/12' : (noRightSide ? 'lg:w-4/12 md:block' : 'lg:w-4/12 md:block'),
         ]"
       >
         <div class="sticky top-36 w-full">
@@ -37,11 +37,11 @@
       <div
         v-if="!noRightSide"
         :class="[
-          'hidden md:ml-4',
-          fullscreen ? '2xl:w-2/12 2xl:block' : 'lg:w-2/12 lg:block'
+          'hidden md:ml-2',
+          fullscreen ? '2xl:w-2/12 2xl:block' : 'lg:w-4/12 lg:block'
         ]"
       >
-        <div class="sticky top-36 w-full">
+        <div class="mt-36 w-full">
           <slot name="right-side" />
         </div>
       </div>

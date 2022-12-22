@@ -20,6 +20,7 @@ import { CounterModel } from '../models';
 import { InlineResponse2006 } from '../models';
 import { InlineResponse2007 } from '../models';
 import { InlineResponse2008 } from '../models';
+import { InlineResponse2009 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * UserFollowingFollowersApi - axios parameter creator
@@ -332,6 +333,42 @@ export const UserFollowingFollowersApiAxiosParamCreator = function (configuratio
         },
         /**
          * 
+         * @summary Get follow suggestions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFollowSuggestions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/follows/suggestions`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Check is user login following specific user
          * @param {number} userIdToCheck 
          * @param {*} [options] Override http request option.
@@ -587,6 +624,19 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
         },
         /**
          * 
+         * @summary Get follow suggestions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFollowSuggestions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
+            const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).getFollowSuggestions(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary Check is user login following specific user
          * @param {number} userIdToCheck 
          * @param {*} [options] Override http request option.
@@ -716,6 +766,15 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
         },
         /**
          * 
+         * @summary Get follow suggestions
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFollowSuggestions(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
+            return UserFollowingFollowersApiFp(configuration).getFollowSuggestions(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Check is user login following specific user
          * @param {number} userIdToCheck 
          * @param {*} [options] Override http request option.
@@ -833,6 +892,16 @@ export class UserFollowingFollowersApi extends BaseAPI {
      */
     public async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
         return UserFollowingFollowersApiFp(this.configuration).followingList(userId, privateOnly, page, perPage, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary Get follow suggestions
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserFollowingFollowersApi
+     */
+    public async getFollowSuggestions(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
+        return UserFollowingFollowersApiFp(this.configuration).getFollowSuggestions(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

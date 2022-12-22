@@ -55,6 +55,12 @@ export interface ArtworkLiteModel {
      * @type {number}
      * @memberof ArtworkLiteModel
      */
+    isGore?: ArtworkLiteModelIsGoreEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof ArtworkLiteModel
+     */
     allowRedraw?: number;
     /**
      * 
@@ -82,10 +88,10 @@ export interface ArtworkLiteModel {
     scheduledPost?: string;
     /**
      * 
-     * @type {UserLiteModel}
+     * @type {any}
      * @memberof ArtworkLiteModel
      */
-    users?: UserLiteModel;
+    users?: any;
     /**
      * 
      * @type {Array<ArtworkAssetsModel>}
@@ -117,6 +123,14 @@ export interface ArtworkLiteModel {
     * @enum {string}
     */
 export enum ArtworkLiteModelIsExplicitEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ArtworkLiteModelIsGoreEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
 }

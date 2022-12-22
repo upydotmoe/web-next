@@ -64,12 +64,6 @@ export interface UserLiteModel {
      * @type {string}
      * @memberof UserLiteModel
      */
-    avatarB2FileId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserLiteModel
-     */
     avatarFilename?: string;
     /**
      * 

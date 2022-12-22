@@ -17,7 +17,7 @@ export default defineNuxtPlugin(nuxtApp => {
   }
 
   // close modal
-  function close () {
+  function close() {
     const modalToClose = document.querySelector(modalClassName)
     modalToClose.classList.remove('fadeIn')
     modalToClose.classList.add('fadeOut')

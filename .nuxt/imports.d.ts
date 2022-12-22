@@ -11,6 +11,7 @@ export { default as useBounceAnimation } from '../composables/useBounceAnimation
 export { default as useDate } from '../composables/useDate';
 export { default as useDevice } from '../composables/useDevice';
 export { default as useFeed } from '../composables/useFeed';
+export { default as useFunction } from '../composables/useFunction';
 export { default as useI18n } from '../composables/useI18n';
 export { default as useMisc } from '../composables/useMisc';
 export { default as useModal } from '../composables/useModal';

@@ -1,8 +1,10 @@
 <template>
-  <div 
+  <div
     :class="[
       'grid grid-cols-1 gap-4 mb-4 w-full md:grid-cols-2',
-      columnType == 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+      columnType == 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4',
+      { 'lg:grid-cols-2': columnType == 2 },
+      { 'lg:grid-cols-1': columnType == 1 },
     ]"
   >
     <div
@@ -12,7 +14,7 @@
     >
       <nuxt-link
         :to="'/profile/' + user.username"
-        class="flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
+        class="flex object-cover flex-row rounded-md rounded-br-none shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
         :style="user.cover_bucket && user.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(user.cover_bucket, user.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
       >
         <div class="flex flex-row w-full">
@@ -175,12 +177,12 @@ const unfollowUser = async (index, userToUnfollow) => {
 // @import '~/assets/css/tailwind.scss';
 
 .avatar {
-  @apply object-cover h-24;
+  @apply object-cover h-24 rounded-none rounded-tl-md;
   aspect-ratio: 1/1;
 }
 
 .work-grid {
-  @apply grid z-0 grid-cols-3;
+  @apply grid z-0 grid-cols-3 theme-color-secondary w-full rounded-b-md;
 
   .work-thumbnail {
     @apply object-cover shadow-lg transition-all duration-200 cursor-pointer;

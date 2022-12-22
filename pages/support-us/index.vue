@@ -1,8 +1,8 @@
 <template>
   <Layout
-    :with-footer="false"
+    :with-footer="true"
   >
-    <div class="mt-10 mb-20">
+    <div class="lg:mt-5">
       <div class="w-full">
         <span class="text-lg text-center">Hi, thank you for visiting this page! <b>(๑‵●‿●‵๑)</b></span>
 

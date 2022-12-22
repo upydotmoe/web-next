@@ -11,8 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20035DataArtworks } from './inline-response20035-data-artworks';
-import { InlineResponse20035DataUsers } from './inline-response20035-data-users';
+import { InlineResponse20035DataUserLiked } from './inline-response20035-data-user-liked';
 /**
  * 
  * @export
@@ -24,31 +23,55 @@ export interface InlineResponse20035DataNotifications {
      * @type {number}
      * @memberof InlineResponse20035DataNotifications
      */
-    id?: number;
+    workId?: number;
     /**
      * 
      * @type {number}
      * @memberof InlineResponse20035DataNotifications
      */
-    workId?: number;
+    isRead?: number;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse20035DataNotifications
      */
-    comment?: string;
+    driver?: string;
     /**
      * 
-     * @type {InlineResponse20035DataUsers}
+     * @type {string}
      * @memberof InlineResponse20035DataNotifications
      */
-    users?: InlineResponse20035DataUsers;
+    bucket?: string;
     /**
      * 
-     * @type {InlineResponse20035DataArtworks}
+     * @type {string}
      * @memberof InlineResponse20035DataNotifications
      */
-    artworks?: InlineResponse20035DataArtworks;
+    b2FileId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20035DataNotifications
+     */
+    filename?: string;
+    /**
+     * 
+     * @type {Array<InlineResponse20035DataUserLiked>}
+     * @memberof InlineResponse20035DataNotifications
+     */
+    userLiked?: Array<InlineResponse20035DataUserLiked>;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20035DataNotifications
+     */
+    totalLiked?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20035DataNotifications
+     */
+    restTotalLiked?: number;
     /**
      * 
      * @type {string}

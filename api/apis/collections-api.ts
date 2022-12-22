@@ -28,7 +28,7 @@ import { InlineResponse20010 } from '../models';
 import { InlineResponse20011 } from '../models';
 import { InlineResponse20012 } from '../models';
 import { InlineResponse20013 } from '../models';
-import { InlineResponse2009 } from '../models';
+import { InlineResponse20014 } from '../models';
 import { InlineResponse201 } from '../models';
 import { PostTypes } from '../models';
 import { SuccessMessageModel } from '../models';
@@ -691,7 +691,7 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20010>>> {
+        async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20011>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).countUserCollectionsByType(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -734,7 +734,7 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20013>>> {
+        async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20014>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).getCurrentSaveInfo(type, workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -750,7 +750,7 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20011>>> {
+        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20012>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).listCollectionItems(id, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -768,7 +768,7 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20012>>> {
+        async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20013>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).listUserCollections(userId, type, page, perPage, name, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -782,7 +782,7 @@ export const CollectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
+        async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20010>>> {
             const localVarAxiosArgs = await CollectionsApiAxiosParamCreator(configuration).proLimitIsCanCreateCollection(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -868,7 +868,7 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20010>> {
+        async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20011>> {
             return CollectionsApiFp(configuration).countUserCollectionsByType(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -899,7 +899,7 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20013>> {
+        async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20014>> {
             return CollectionsApiFp(configuration).getCurrentSaveInfo(type, workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -911,7 +911,7 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20011>> {
+        async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20012>> {
             return CollectionsApiFp(configuration).listCollectionItems(id, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -925,7 +925,7 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20012>> {
+        async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20013>> {
             return CollectionsApiFp(configuration).listUserCollections(userId, type, page, perPage, name, options).then((request) => request(axios, basePath));
         },
         /**
@@ -935,7 +935,7 @@ export const CollectionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
+        async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20010>> {
             return CollectionsApiFp(configuration).proLimitIsCanCreateCollection(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1014,7 +1014,7 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
+    public async countUserCollectionsByType(body?: CollectionsCountBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20011>> {
         return CollectionsApiFp(this.configuration).countUserCollectionsByType(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1048,7 +1048,7 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20013>> {
+    public async getCurrentSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20014>> {
         return CollectionsApiFp(this.configuration).getCurrentSaveInfo(type, workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1061,7 +1061,7 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20011>> {
+    public async listCollectionItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20012>> {
         return CollectionsApiFp(this.configuration).listCollectionItems(id, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1076,7 +1076,7 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20012>> {
+    public async listUserCollections(userId: number, type: PostTypes, page: number, perPage: number, name?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20013>> {
         return CollectionsApiFp(this.configuration).listUserCollections(userId, type, page, perPage, name, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1087,7 +1087,7 @@ export class CollectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof CollectionsApi
      */
-    public async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
+    public async proLimitIsCanCreateCollection(body?: CreatePermissionBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
         return CollectionsApiFp(this.configuration).proLimitIsCanCreateCollection(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

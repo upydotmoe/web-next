@@ -53,12 +53,6 @@ export interface UserModel extends UserLiteModel {
      * @type {string}
      * @memberof UserModel
      */
-    coverB2FileId?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserModel
-     */
     coverFilename?: string;
     /**
      * 

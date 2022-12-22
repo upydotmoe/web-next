@@ -1,4 +1,4 @@
-export default function () {
+export default function() {
   const config = useRuntimeConfig()
 
   const generateArtworkThumb = (bucketName: string, fileName: string, mode: 'feed' | 'thumbnail', uncropped: boolean) => {

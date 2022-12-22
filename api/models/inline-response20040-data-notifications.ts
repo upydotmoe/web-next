@@ -11,7 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20039DataFollowerDetail } from './inline-response20039-data-follower-detail';
+import { InlineResponse20035DataUserLiked } from './inline-response20035-data-user-liked';
+import { InlineResponse20038DataArtworks } from './inline-response20038-data-artworks';
 /**
  * 
  * @export
@@ -29,57 +30,35 @@ export interface InlineResponse20040DataNotifications {
      * @type {string}
      * @memberof InlineResponse20040DataNotifications
      */
-    text?: string;
+    content?: string;
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20035DataUserLiked>}
      * @memberof InlineResponse20040DataNotifications
      */
-    comment?: string;
+    userLiked?: Array<InlineResponse20035DataUserLiked>;
     /**
      * 
-     * @type {boolean}
+     * @type {InlineResponse20038DataArtworks}
      * @memberof InlineResponse20040DataNotifications
      */
-    isRead?: boolean;
-    /**
-     * 
-     * @type {Array<InlineResponse20039DataFollowerDetail>}
-     * @memberof InlineResponse20040DataNotifications
-     */
-    users?: Array<InlineResponse20039DataFollowerDetail>;
+    artworks?: InlineResponse20038DataArtworks;
     /**
      * 
      * @type {number}
      * @memberof InlineResponse20040DataNotifications
      */
-    total?: number;
+    totalLiked?: number;
     /**
      * 
      * @type {number}
      * @memberof InlineResponse20040DataNotifications
      */
-    restTotal?: number;
+    restTotalLiked?: number;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse20040DataNotifications
      */
     createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20040DataNotifications
-     */
-    type?: InlineResponse20040DataNotificationsTypeEnum;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum InlineResponse20040DataNotificationsTypeEnum {
-    Like = 'like',
-    Comment = 'comment'
-}
-

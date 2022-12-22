@@ -11,8 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { CommentModel } from './comment-model';
 import { PaginationModel } from './pagination-model';
-import { ReplyModel } from './reply-model';
 /**
  * 
  * @export
@@ -21,10 +21,10 @@ import { ReplyModel } from './reply-model';
 export interface InlineResponse20021Data {
     /**
      * 
-     * @type {Array<ReplyModel & any>}
+     * @type {Array<CommentModel>}
      * @memberof InlineResponse20021Data
      */
-    replies?: Array<ReplyModel & any>;
+    comments?: Array<CommentModel>;
     /**
      * 
      * @type {PaginationModel}

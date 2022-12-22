@@ -26,8 +26,8 @@ export interface InlineResponse20016 {
     success?: boolean;
     /**
      * 
-     * @type {InlineResponse20016Data}
+     * @type {Array<InlineResponse20016Data>}
      * @memberof InlineResponse20016
      */
-    data?: InlineResponse20016Data;
+    data?: Array<InlineResponse20016Data>;
 }

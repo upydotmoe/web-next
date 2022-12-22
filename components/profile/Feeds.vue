@@ -361,7 +361,27 @@ const props = defineProps ({
   }
 })
 
-const router = useRouter()
+const route = useRoute()
+
+watch (() => route.query, () => {
+  setTimeout(() => {
+    // close modal on changing route or going back to previous page
+    useModal().closeModal('chronological-modal')
+    useModal().closeModal('chronological-feed-modal')
+
+    // close collection selection modal
+    useModal().closeModal('feed-collection-selection-modal')
+
+    // close collection selection modal
+    useModal().closeModal('collection-selection-modal')
+
+    // close album selection modal
+    useModal().closeModal('album-selection-modal')
+
+    // close report modal
+    useModal().closeModal('report-modal')
+  }, 10);
+})
 
 const ellipsisFeedIdClicked = ref(0)
 const ellipsisFeedIdClickedIdx = ref(0)
@@ -487,11 +507,6 @@ const removeFeed = async () => {
   const [success, error] = await feedApi.remove(ellipsisFeedIdClicked.value)
 
   if (success) {
-    // setTimeout(() => {
-    //   router.push({
-    //     path: '/'
-    //   })
-    // }, 1000)
     feeds.value.splice(ellipsisFeedIdClickedIdx.value, 1)
   } else {
     // todo: handle error

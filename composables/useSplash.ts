@@ -1,4 +1,4 @@
-export default function useSplash () {
+export default function useSplash() {
   const splash = (interval: any, ref: Ref<boolean>, splashId: string) => {
     ref.value = false
     clearTimeout(interval)

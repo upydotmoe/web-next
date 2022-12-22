@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20034 } from '../models';
-import { InlineResponse20039 } from '../models';
+import { InlineResponse20036 } from '../models';
+import { InlineResponse20041 } from '../models';
 /**
  * NotificationsUsersApi - axios parameter creator
  * @export
@@ -207,7 +207,7 @@ export const NotificationsUsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearUserFollowNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async clearUserFollowNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await NotificationsUsersApiAxiosParamCreator(configuration).clearUserFollowNotifications(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -222,7 +222,7 @@ export const NotificationsUsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFollowNotifications(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20039>>> {
+        async getUserFollowNotifications(page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20041>>> {
             const localVarAxiosArgs = await NotificationsUsersApiAxiosParamCreator(configuration).getUserFollowNotifications(page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -235,7 +235,7 @@ export const NotificationsUsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async markAllUserFollowNotificationAsRead(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async markAllUserFollowNotificationAsRead(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await NotificationsUsersApiAxiosParamCreator(configuration).markAllUserFollowNotificationAsRead(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -249,7 +249,7 @@ export const NotificationsUsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async markUserFollowNotificationAsRead(followerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async markUserFollowNotificationAsRead(followerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await NotificationsUsersApiAxiosParamCreator(configuration).markUserFollowNotificationAsRead(followerId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -271,7 +271,7 @@ export const NotificationsUsersApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearUserFollowNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async clearUserFollowNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return NotificationsUsersApiFp(configuration).clearUserFollowNotifications(options).then((request) => request(axios, basePath));
         },
         /**
@@ -282,7 +282,7 @@ export const NotificationsUsersApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFollowNotifications(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20039>> {
+        async getUserFollowNotifications(page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20041>> {
             return NotificationsUsersApiFp(configuration).getUserFollowNotifications(page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -291,7 +291,7 @@ export const NotificationsUsersApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async markAllUserFollowNotificationAsRead(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async markAllUserFollowNotificationAsRead(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return NotificationsUsersApiFp(configuration).markAllUserFollowNotificationAsRead(options).then((request) => request(axios, basePath));
         },
         /**
@@ -301,7 +301,7 @@ export const NotificationsUsersApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async markUserFollowNotificationAsRead(followerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async markUserFollowNotificationAsRead(followerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return NotificationsUsersApiFp(configuration).markUserFollowNotificationAsRead(followerId, options).then((request) => request(axios, basePath));
         },
     };
@@ -321,7 +321,7 @@ export class NotificationsUsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsUsersApi
      */
-    public async clearUserFollowNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async clearUserFollowNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return NotificationsUsersApiFp(this.configuration).clearUserFollowNotifications(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -333,7 +333,7 @@ export class NotificationsUsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsUsersApi
      */
-    public async getUserFollowNotifications(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20039>> {
+    public async getUserFollowNotifications(page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20041>> {
         return NotificationsUsersApiFp(this.configuration).getUserFollowNotifications(page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -343,7 +343,7 @@ export class NotificationsUsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsUsersApi
      */
-    public async markAllUserFollowNotificationAsRead(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async markAllUserFollowNotificationAsRead(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return NotificationsUsersApiFp(this.configuration).markAllUserFollowNotificationAsRead(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -354,7 +354,7 @@ export class NotificationsUsersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsUsersApi
      */
-    public async markUserFollowNotificationAsRead(followerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async markUserFollowNotificationAsRead(followerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return NotificationsUsersApiFp(this.configuration).markUserFollowNotificationAsRead(followerId, options).then((request) => request(this.axios, this.basePath));
     }
 }

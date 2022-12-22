@@ -53,6 +53,7 @@
       <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
+        :empty-message="'No artwork yet, be the first one to upload your artwork here.'"
         :error="isError"
         :fetch="fetchTop"
       />
@@ -131,7 +132,7 @@ export default {
     },
     paginationProp: {
       type: Object,
-      default () {
+      default() {
         return {
           perPage: {
             type: Number,

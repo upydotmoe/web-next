@@ -31,7 +31,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 
 const metaTitle = ref('')
 useHead ({
-  title: computed(() => metaTitle.value)
+  title: computed(() => useFunction().cutText(useFunction().removeHtmlTags(metaTitle.value), 15))
 })
 
 const { $router } = useNuxtApp()

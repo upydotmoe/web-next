@@ -25,12 +25,6 @@ export interface UserSettingModel {
     userId?: number;
     /**
      * 
-     * @type {number}
-     * @memberof UserSettingModel
-     */
-    darkMode?: number;
-    /**
-     * 
      * @type {string}
      * @memberof UserSettingModel
      */
@@ -41,4 +35,10 @@ export interface UserSettingModel {
      * @memberof UserSettingModel
      */
     showExplicit?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserSettingModel
+     */
+    showGore?: number;
 }

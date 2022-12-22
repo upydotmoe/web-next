@@ -19,6 +19,12 @@
 export interface InlineResponse20035DataUserLiked {
     /**
      * 
+     * @type {number}
+     * @memberof InlineResponse20035DataUserLiked
+     */
+    id?: number;
+    /**
+     * 
      * @type {string}
      * @memberof InlineResponse20035DataUserLiked
      */
@@ -28,11 +34,5 @@ export interface InlineResponse20035DataUserLiked {
      * @type {string}
      * @memberof InlineResponse20035DataUserLiked
      */
-    avatarBucket?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20035DataUserLiked
-     */
-    avatarFilename?: string;
+    username?: string;
 }

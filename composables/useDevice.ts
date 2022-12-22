@@ -1,4 +1,4 @@
-export default function useDevice () {
+export default function useDevice() {
   const getScreenSize = () => {
     // window width size
     const windowWidth = ref(window.innerWidth)

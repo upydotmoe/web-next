@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20044Feed } from './inline-response20044-feed';
+import { InlineResponse20044Data } from './inline-response20044-data';
 /**
  * 
  * @export
@@ -26,8 +26,8 @@ export interface InlineResponse20044 {
     success?: boolean;
     /**
      * 
-     * @type {InlineResponse20044Feed}
+     * @type {InlineResponse20044Data}
      * @memberof InlineResponse20044
      */
-    feed?: InlineResponse20044Feed;
+    data?: InlineResponse20044Data;
 }

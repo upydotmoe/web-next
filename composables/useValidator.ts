@@ -1,4 +1,4 @@
-export default function () {
+export default function() {
   const clear = () => {
     document.querySelectorAll('.input-error').forEach(el => el.remove())
   }

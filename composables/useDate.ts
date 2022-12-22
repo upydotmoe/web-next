@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export default function useDate () {
+export default function useDate() {
   const formatDate = (date: string, withTimeAgo: boolean = false, withTime: boolean = true): string => {
     let formattedDate
 

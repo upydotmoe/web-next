@@ -11,6 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { PaginationModel } from './pagination-model';
+import { ReportModel } from './report-model';
 /**
  * 
  * @export
@@ -19,44 +21,14 @@
 export interface InlineResponse20047Data {
     /**
      * 
-     * @type {number}
+     * @type {Array<ReportModel>}
      * @memberof InlineResponse20047Data
      */
-    id?: number;
+    reports?: Array<ReportModel>;
     /**
      * 
-     * @type {number}
+     * @type {PaginationModel}
      * @memberof InlineResponse20047Data
      */
-    userId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20047Data
-     */
-    amount?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20047Data
-     */
-    paymentType?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20047Data
-     */
-    orderData?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20047Data
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20047Data
-     */
-    until?: string;
+    pagination?: PaginationModel;
 }

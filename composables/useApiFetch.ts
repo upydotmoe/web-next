@@ -2,7 +2,7 @@ import { Configuration } from '~/api/configuration'
 
 import useAuthStore from '@/stores/auth.store'
 
-export default function () {
+export default function() {
   const auth = useAuthStore()
 
   /** OAPI Configuration */

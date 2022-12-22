@@ -6,15 +6,15 @@ import useDevice from '~/composables/useDevice'
 
 export default {
   methods: {
-    isMobile () {
+    isMobile() {
       return useDevice().isMobile()
     },
 
-    isMobileDevice () {
+    isMobileDevice() {
       return useDevice().isMobileDevice()
     },
 
-    isLgScreen () {
+    isLgScreen() {
       return useDevice().isLgScreen()
     },
 
@@ -46,11 +46,11 @@ export default {
         )
     },
 
-    unfixedNavbarRoutes () {
+    unfixedNavbarRoutes() {
       return ['work', 'profile']
     },
 
-    fixedNavbarRoutes () {
+    fixedNavbarRoutes() {
       return ['feed']
     }
   }

@@ -21,7 +21,7 @@
               v-show="isModal"
               class="p-1 h-7 font-bold text-white bg-red-500 rounded-md border-2 border-red-500 cursor-pointer hover:bg-red-600 hover:border-red-600"
               style="font-size: 10px;"
-              @click="closeModal(section + '-modal')"
+              @click="closeModal(`${section}-modal`)"
             >
               ESC
             </div>
@@ -65,7 +65,10 @@
         :key="tag.artwork_tags.id" 
         class="tag"
       >
-        <nuxt-link :to="'/works/browse?tags=' + tag.artwork_tags.tag.replaceAll(' ', '+')">
+        <nuxt-link
+          :to="`/works/browse?tags=${tag.artwork_tags.tag.replaceAll(' ', '+')}`"
+          @click="closeModal(`${section}-modal`)"
+        >
           {{ tag.artwork_tags.tag }}
         </nuxt-link>
       </span>

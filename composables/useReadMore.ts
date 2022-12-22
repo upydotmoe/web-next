@@ -1,4 +1,4 @@
-export default function () {
+export default function() {
   const readMore = (description: string, id: number, selectorElId: string, descriptionElId: string) => {
     const descriptionEl = document.getElementById(`${descriptionElId}${id}`)
     if (descriptionEl !== null) {

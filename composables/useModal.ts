@@ -1,4 +1,4 @@
-export default function () {
+export default function() {
   const openModal = (modalId: string) => {
     const modalToOpen = document.querySelector<HTMLElement>(`#${modalId}`)
     

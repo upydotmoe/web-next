@@ -225,7 +225,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('explicitContent') }}</b>
             <span>
-              Check this if your work contain explicit content (explicit art wihout explicit mark will be forcibly taken down)
+              {{ $t('artworks.form.explicitMark') }}
             </span>
           </div>
         </div>
@@ -247,7 +247,7 @@
           <div class="toggler-box__description">
             <b>Contain Gore</b>
             <span>
-              Check this if your work contain blood, etc.
+              {{ $t('artworks.form.goreMark') }}
             </span>
           </div>
         </div>
@@ -272,7 +272,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.originalCharacter') }}</b>
             <span>
-              Check this if the character in your work is your original character made by you (don't check this if the character is someone else's or a character from animation series)
+              {{ $t('artworks.form.originalCharacterMark') }}
             </span>
           </div>
         </div>
@@ -294,7 +294,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.add.form.allowRedraw') }}</b>
             <span>
-              Check this if you allow other artist to redraw your artwork
+              {{ $t('artworks.form.allowRedrawMark') }}
             </span>
           </div>
         </div>
@@ -316,7 +316,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.add.form.redrawInMyStyle') }}</b>
             <span>
-              Check this if you redraw the art with your own drawing style.
+              {{ $t('artworks.form.allowRedrawMark') }}
             </span>
           </div>
         </div>
