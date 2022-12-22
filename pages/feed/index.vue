@@ -493,7 +493,7 @@
     <template #right-side>
       <FeedSide />
       <!-- suggested users -->
-      <div v-if="suggestedUsersToFollow">
+      <div v-if="suggestedUsersToFollow && suggestedUsersToFollow.length">
         <div class="section-title">{{ $t('feeds.suggestedUsers') }}</div>
         
         <UserList
