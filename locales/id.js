@@ -275,7 +275,6 @@ export default {
     forms: {
       update: {
         name: 'Nama',
-        gender: 'Jenis kelamin',
         bio: 'Bio',
         location: 'Lokasi',
         country: 'Negara',

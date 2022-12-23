@@ -139,12 +139,12 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       Poppins: true,
-      Quicksand: true,
-      Nunito: true,
       Inter: true,
-      Rubik: true,
-      Lato: true,
-      'Readex Pro': true
+      // Quicksand: true,
+      // Nunito: true,
+      // Rubik: true,
+      // Lato: true,
+      // 'Readex Pro': true
     },
     display: 'swap',
     prefetch: true,
@@ -184,6 +184,7 @@ export default defineNuxtConfig({
       'i-ci-external-link',
       'i-akar-icons-flag',
       'i-icon-park-outline-copy',
+      'i-ph-user-plus',
     ]
   },
 

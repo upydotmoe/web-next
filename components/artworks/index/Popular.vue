@@ -6,7 +6,7 @@
       perPage: pagination.perPage,
       maxLoadMore: pagination.maxLoadMore
     }"
-    :discover-route="'/works/popular'"
+    :discover-route="'/artworks/popular'"
   />
 </template>
 

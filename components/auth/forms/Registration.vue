@@ -122,7 +122,6 @@ const initialValue = {
   username: runtimeConfig.public.dev ? 'rkgkmoe' : '',
   email: runtimeConfig.public.dev ? 'rkgk.moe@gmail.com' : '',
   name: runtimeConfig.public.dev ? 'Rkgk Moe' : '',
-  gender: runtimeConfig.public.dev ? 'm' : 'm',
   password: runtimeConfig.public.dev ? 'password123!' : ''
 }
 const formData = reactive({ ...initialValue })

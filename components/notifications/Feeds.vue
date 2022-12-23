@@ -157,7 +157,7 @@ const markAllAsRead = async () => {
 }
 
 const openUserProfile = (username) => {
-  $router.push('/profile/' + username)
+  $router.push('/u/' + username)
 }
 
 const clearNotifs = async () => {

@@ -211,7 +211,7 @@ const reset = () => {
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
+@import '~/assets/css/tailwind.scss';
 
 .opt-modal {
   @apply w-full xl:w-3/12 lg:w-2/5;

@@ -111,7 +111,7 @@
     "newUser": {
       "welcomingMenus": {
         "setupYourAccount": "Setup your account",
-        "uploadYourFirstArtwork": "Upload your first artwork",
+        "uploadYourArtwork": "Upload your artwork",
         "exploreArtworks": "Explore artworks",
         "followSomeone": "Follow someone"
       },
@@ -385,6 +385,7 @@
     "profile": "Profile",
     "manageModeActiveMessage": "You are currently in manage mode, you can add multiple items to add them to your albums.",
     "setting": "Profile Setting",
+    "penName": "pen name",
     "artworks": {
       "sorter": {
         "latest": "Latest",
@@ -395,7 +396,6 @@
     "forms": {
       "update": {
         "name": "Name",
-        "gender": "Gender",
         "bio": "Bio",
         "location": "Location",
         "country": "Country",
@@ -437,7 +437,7 @@
           "patreonPlaceholder": "Your Patreon username (https://patreon.com/<your-username-here>)",
           "youtube": "YouTube",
           "youtubePlaceholder": "Your full YouTube URL",
-          "twitch": "Patreon",
+          "twitch": "Twitch",
           "twitchPlaceholder": "Your Twitch username (https://patreon.com/<your-username-here>)",
           "discord": "Discord",
           "discordPlaceholder": "Your Discord ID (example: Upymoe#9732)",

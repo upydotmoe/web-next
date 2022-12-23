@@ -22,6 +22,7 @@ export { default as useReport } from '../composables/useReport';
 export { default as useSetting } from '../composables/useSetting';
 export { default as useSplash } from '../composables/useSplash';
 export { default as useTags } from '../composables/useTags';
+export { default as useUpyImage } from '../composables/useUpyImage';
 export { default as useValidator } from '../composables/useValidator';
 export { initApp } from '../utils/init-app';
 export { usePinia } from '../node_modules/@pinia/nuxt/dist/runtime/composables';

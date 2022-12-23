@@ -9,7 +9,7 @@ export default function() {
    * @param t - The translation function, from 'vue-i18n.useI18n.t', because we cannot use $t directly in non-setup components, 
    *            so we need to pass it from the component to here.
    */
-  const validate = (formId, t) => {
+  const validate = (formId: string, t: any) => {
     const form = document.getElementById(formId)
 
     // remove all current exisiting error message (.input-error class)
@@ -19,7 +19,7 @@ export default function() {
     let ruleAlerts = []
 
     // add error message to each input that has a validation error to var 'ruleAlerts'
-    const addAlert = (fieldName, ruleName) => {
+    const addAlert = (fieldName: string, ruleName: string) => {
       ruleAlerts.push({
         [fieldName]: {
           [ruleName]: false
@@ -27,14 +27,14 @@ export default function() {
       })
     }
 
-    const formInputs = form.getElementsByTagName('n-validate')
+    const formInputs = form!.getElementsByTagName('n-validate')
 
     /**
      * Loop through all inputs in the form and validate them.
      * If there is an error, add an error message to the input.
      */
     for (let i = 0; i < formInputs.length; i++) {
-      const nValidate = form.getElementsByTagName('n-validate')[i]
+      const nValidate = form!.getElementsByTagName('n-validate')[i]
       
       const fieldName = nValidate.getAttribute('for')
       
@@ -54,7 +54,7 @@ export default function() {
           const passRequired = validateRequired(input.value)
           
           if (!passRequired) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.required', { fieldName: nValidate.getAttribute('name') })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -66,7 +66,7 @@ export default function() {
           const passEmail = validateEmail(input.value)
 
           if (!passEmail) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.email')}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -75,10 +75,10 @@ export default function() {
 
         // rule config for 'min:[number]'
         if (rules[iRules].startsWith('min:')) {
-          const passMin = validateMin(input.value, rules[iRules].split(':')[1])
+          const passMin = validateMin(input.value, Number(rules[iRules].split(':')[1]))
 
           if (!passMin) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.min', { fieldName: nValidate.getAttribute('name'), min: rules[iRules].split(':')[1] })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -87,10 +87,10 @@ export default function() {
 
         // rule config for 'max:[number]
         if (rules[iRules].startsWith('max:')) {
-          const passMax = validateMax(input.value, rules[iRules].split(':')[1])
+          const passMax = validateMax(input.value, Number(rules[iRules].split(':')[1]))
 
           if (!passMax) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.max', { fieldName: nValidate.getAttribute('name'), max: rules[iRules].split(':')[1] })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -102,7 +102,7 @@ export default function() {
           const passContainSymbol = validateContainSymbol(input.value)
 
           if (!passContainSymbol) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.containSymbol', { fieldName: nValidate.getAttribute('name') })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -114,7 +114,7 @@ export default function() {
           const passContainNumber = validateContainNumber(input.value)
 
           if (!passContainNumber) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.containNumber', { fieldName: nValidate.getAttribute('name') })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -123,10 +123,10 @@ export default function() {
 
         // rule config for 'equal-to'
         if (rules[iRules].startsWith('equalTo:')) {
-          const [fieldNameSource, passEqual] = validateEqualTo(form, input.value, rules[iRules].split(':')[1])
+          const [fieldNameSource, passEqual] = validateEqualTo(form!, input.value, rules[iRules].split(':')[1])
 
           if (!passEqual) {
-            addAlert(fieldName, rules[iRules])
+            addAlert(fieldName!, rules[iRules])
             const alertEl = `<div class='input-error'>${t('validation.equalTo', { fieldName: nValidate.getAttribute('name'), fieldNameSource: fieldNameSource })}</div>`
             nValidate.insertAdjacentHTML('beforeend', alertEl)
             break
@@ -145,14 +145,14 @@ export default function() {
    * @param value - input value
    * @returns - true if value is not empty, false if value is empty
    */
-  const validateRequired = (value) => value ? true : false
+  const validateRequired = (value: string) => value ? true : false
 
   /**
    * Validate rule for 'email'
    * @param value - input value (string, in email format)
    * @returns - true if email format is valid, false if not
    */
-  const validateEmail = (value) => {
+  const validateEmail = (value: string) => {
     const emailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     
     // check if email format is valid
@@ -170,7 +170,7 @@ export default function() {
    * @param min - min value of input field (number)
    * @returns - true if value is greater than min value
    */
-  const validateMin = (value, min) => value.length >= min ? true : false
+  const validateMin = (value: string, min: number) => value.length >= min ? true : false
 
   /**
    * Validate rule for 'max:', value of input field (max:[number])
@@ -178,14 +178,14 @@ export default function() {
    * @param max - max value of input field (number)
    * @returns - true if value is less than max value
    */
-  const validateMax = (value, max) => value.length <= max ? true : false
+  const validateMax = (value: string, max: number) => value.length <= max ? true : false
 
   /**
    * Validate rule for 'containSymbol', value of input must contain a symbol character
    * @param value - input value
    * @returns - true if value contains a symbol character, false if not
    */
-  const validateContainSymbol = (value) => {
+  const validateContainSymbol = (value: string) => {
     const symbolRegEx = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
     return symbolRegEx.test(value)
   }
@@ -195,12 +195,12 @@ export default function() {
    * @param value - input value
    * @returns - true if value contains numeric character, false if not
    */
-  const validateContainNumber = (value) => {
+  const validateContainNumber = (value: string) => {
     const numberRegEx = /\d/
     return numberRegEx.test(value)
   }
 
-  const validateEqualTo = (form, value, sourceForAttr) => {
+  const validateEqualTo = (form: HTMLElement, value: string, sourceForAttr: string) => {
     const sourceNValidate = form.querySelectorAll('[for="'+sourceForAttr+'"]')[0]
     const sourceInput = sourceNValidate.getElementsByTagName('input')[0]
 

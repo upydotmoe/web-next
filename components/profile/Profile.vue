@@ -24,7 +24,7 @@
     
     <div class="px-2 pb-4 w-full rounded md:px-6 md:pb-6 theme-color">
       <div class="flex-row justify-between hidden-md-flex">
-        <!-- for desktop: left side -->
+        <!-- DESKTOP: left side -->
         <div class="mr-6 w-1/5">
           <!-- avatar -->
           <!-- test --> <img
@@ -122,25 +122,19 @@
               <div class="w-9/12">
                 <div>
                   <span class="text-base font-semibold">{{ userInfo.name }}</span>&nbsp;
-                  <span class="mr-2 italic">{{ userInfo.username }}</span>
+                  <span class="mr-2 italic">@{{ userInfo.username }}</span>
 
                   <ProBadge v-if="userInfo.is_pro" />
                 </div>
 
                 <div class="flex flex-row mt-2">
                   <div v-if="userInfo.pen_name && userInfo.pen_name !== ''" class="mr-1">
-                    <span class="flex flex-row">
-                      <Icon :name="'i-ion-pencil-outline'" class="mr-1 text-base font-bold" /> 
-                      {{ userInfo.pen_name }}
-                    </span>
-                  </div>
-
-                  <div class="mr-1">
-                    <span v-if="userInfo.gender === 'm'" class="flex flex-row">
-                      <Icon :name="'i-ion-male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/his
-                    </span>
-                    <span v-if="userInfo.gender === 'f'" class="flex flex-row">
-                      <Icon :name="'i-ion-female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
+                    <span class="flex flex-row rounded-md border-2 border-color-secondary">
+                      <div class="flex flex-row gap-1 p-1 pr-2 theme-color-secondary">
+                        <Icon :name="'i-mdi-fountain-pen-tip'" /> 
+                        {{ $t('profile.penName') }}
+                      </div>
+                      <div class="py-1 px-2 rounded-md">{{ userInfo.pen_name }}</div>
                     </span>
                   </div>
                 </div>
@@ -162,104 +156,16 @@
             </div>
 
             <!-- social links -->
-            <div v-if="userInfo.user_socials" class="flex flex-row gap-3 mt-4 w-full">
-              <button
-                v-if="userInfo.user_socials.personal_website" 
-                @click="openModal('external-website-visit-confirmation-modal')"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ph-link-simple-break-bold'" :text-size="'text-xl'" />
-              </button>
-
-              <a 
-                v-if="userInfo.user_socials.patreon" 
-                :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-gg-patreon'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.twitch" 
-                :href="'https://twitch.com/' + userInfo.user_socials.twitch + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ph-twitch-logo-fill'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.instagram" 
-                :href="'https://instagram.com/' + userInfo.user_socials.instagram + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ion-logo-instagram'" :text-size="'text-xl'" />
-              </a>
-
-              <a 
-                v-if="userInfo.user_socials.twitter" 
-                :href="'https://twitter.com/' + userInfo.user_socials.twitter" 
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ion-logo-twitter'" :text-size="'text-xl'" />
-              </a>
-
-              <a 
-                v-if="userInfo.user_socials.facebook" 
-                :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ion-logo-facebook'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.youtube" 
-                :href="userInfo.user_socials.youtube"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ion-logo-youtube'" :text-size="'text-xl'" />
-              </a>
-              
-              <!-- Discord app: copy Discord ID -->
-              <a 
-                v-if="userInfo.user_socials.discord" 
-                :href="'https://discord.com/' + userInfo.user_socials.discord + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-ic-twotone-discord'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.picarto"
-                :href="'https://picarto.tv/' + userInfo.user_socials.picarto + '/'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-cib-picarto-tv'" :text-size="'text-xl'" />
-              </a>
-              
-              <a 
-                v-if="userInfo.user_socials.gumroad" 
-                :href="'https://' + userInfo.user_socials.gumroad + '.gumroad.com'"
-                target="blank" 
-                class="cursor-pointer"
-              >
-                <Icon :name="'i-cib-gumroad'" :text-size="'text-xl'" />
-              </a>
-            </div>
+            <Socials
+              v-if="userInfo.user_socials"
+              :socials="userInfo.user_socials"
+            />
 
             <div>
               <p v-if="userInfo.bio" class="mt-4">
-                <div
+                <p
                   :id="'user-bio-'+userInfo.id"
-                  v-html="userInfo.bio.length > 300 ? `${userInfo.bio.slice(0, 300)}...` : userInfo.bio"
+                  v-html="userInfo.bio.length > 300 ? `${userInfo.bio.slice(0, 300)}..` : userInfo.bio"
                 />
 
                 <a 
@@ -292,152 +198,26 @@
           {{ userInfo.name }}
         </div>
         <div>
-          {{ userInfo.username }}
+          @{{ userInfo.username }}
         </div>
 
         <div class="flex flex-row justify-center mt-4">
           <span v-if="userInfo.pen_name" class="flex flex-row mr-1">
-            <Icon :name="'i-ion-pencil-outline'" class="mr-1 text-base font-bold" /> 
-            {{ userInfo.pen_name && userInfo.pen_name !== '' ? userInfo.pen_name : '-' }}
+            <span class="flex flex-row rounded-md border-2 border-color-secondary">
+              <div class="flex flex-row gap-1 p-1 pr-2 theme-color-secondary">
+                <Icon :name="'i-mdi-fountain-pen-tip'" /> 
+                {{ $t('profile.penName') }}
+              </div>
+              <div class="py-1 px-2 rounded-md">{{ userInfo.pen_name }}</div>
+            </span>
           </span>
-
-          <div class="mr-1">
-            <span v-if="userInfo.gender === 'm'" class="flex flex-row">
-              <Icon :name="'i-ion-male-outline'" class="mr-1 ml-2 text-base font-bold" /> he/him/his
-            </span>
-            <span v-if="userInfo.gender === 'f'" class="flex flex-row">
-              <Icon :name="'i-ion-female-outline'" class="mr-1 ml-2 text-base font-bold" /> she/her
-            </span>
-          </div>
         </div>
 
-        <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
-          <div
-            :id="'mobile__user-bio-'+userInfo.id"
-            v-html="userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 300)}...` : userInfo.bio"
-          />
-
-          <a 
-            v-if="userInfo.bio.length > 150"
-            :id="'mobile__user-bio-read-more-'+userInfo.id" 
-            class="href" 
-            @click.prevent="readMore(userInfo.bio, userInfo.id, 'mobile__user-bio-read-more-', 'mobile__user-bio-')"
-          >
-            {{ $t('readMore') }}
-          </a>
-        </div>
-
-        <!-- social links -->
-        <div v-if="userInfo.user_socials" class="flex flex-row gap-x-2 justify-center mt-4">
-          <button
-            v-if="userInfo.user_socials.personal_website" 
-            @click="openModal('external-website-visit-confirmation-modal')"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ph-link-simple-break-bold'" :text-size="'text-xl'" />
-          </button>
-
-          <a 
-            v-if="userInfo.user_socials.patreon" 
-            :href="'https://patreon.com/' + userInfo.user_socials.patreon + '/'"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-gg-patreon'" :text-size="'text-xl'" />
-          </a>
-          
-          <a 
-            v-if="userInfo.user_socials.twitch" 
-            :href="'https://twitch.com/' + userInfo.user_socials.twitch + '/'"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ph-twitch-logo-fill'" :text-size="'text-xl'" />
-          </a>
-          
-          <a 
-            v-if="userInfo.user_socials.instagram" 
-            :href="'https://instagram.com/' + userInfo.user_socials.instagram + '/'"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ion-logo-instagram'" :text-size="'text-xl'" />
-          </a>
-
-          <a 
-            v-if="userInfo.user_socials.twitter" 
-            :href="'https://twitter.com/' + userInfo.user_socials.twitter" 
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ion-logo-twitter'" :text-size="'text-xl'" />
-          </a>
-
-          <a 
-            v-if="userInfo.user_socials.facebook" 
-            :href="'https://facebook.com/' + userInfo.user_socials.facebook" 
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ion-logo-facebook'" :text-size="'text-xl'" />
-          </a>
-          
-          <a 
-            v-if="userInfo.user_socials.youtube" 
-            :href="userInfo.user_socials.youtube"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ion-logo-youtube'" :text-size="'text-xl'" />
-          </a>
-          
-          <!-- Discord app: copy Discord ID -->
-          <a 
-            v-if="userInfo.user_socials.discord" 
-            :href="'https://discord.com/' + userInfo.user_socials.discord + '/'"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-ic-twotone-discord'" :text-size="'text-xl'" />
-          </a>
-          
-          <a 
-            v-if="userInfo.user_socials.picarto"
-            :href="'https://picarto.tv/' + userInfo.user_socials.picarto + '/'"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-cib-picarto-tv'" :text-size="'text-xl'" />
-          </a>
-          
-          <a 
-            v-if="userInfo.user_socials.gumroad" 
-            :href="'https://' + userInfo.user_socials.gumroad + '.gumroad.com'"
-            target="blank" 
-            class="cursor-pointer"
-          >
-            <Icon :name="'i-cib-gumroad'" :text-size="'text-xl'" />
-          </a>
-        </div>
-
-        <!-- mobile: following & followers count -->
-        <div class="flex flex-row justify-center w-full md:hidden">
-          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
-            <b>{{ thousand(counter.followers) }}</b>&nbsp;
-            <i>{{ $t('followers.followers') }}</i>
-          </div>
-          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
-            <b>{{ thousand(counter.followings) }}</b>&nbsp;
-            <i>{{ $t('followings.followings') }}</i>
-          </div>
-        </div>
-
-        <!-- mobile: follow & unfollow -->
+        <!-- MOBILE: follow & unfollow -->
         <div 
           v-if="auth.loggedIn && userInfo.id !== auth.user.id"
           :class="[
-            'mt-2 w-auto',
+            'mt-4 w-auto',
             followingData.isFollowing ? 'danger-button' : 'primary-button'
           ]"
           @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
@@ -489,7 +269,42 @@
             </label>
           </div>
         </div>
+
+        <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
+          <p
+            :id="'mobile__user-bio-'+userInfo.id"
+            v-html="userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 300)}..` : userInfo.bio"
+          />
+
+          <a 
+            v-if="userInfo.bio.length > 150"
+            :id="'mobile__user-bio-read-more-'+userInfo.id" 
+            class="href" 
+            @click.prevent="readMore(userInfo.bio, userInfo.id, 'mobile__user-bio-read-more-', 'mobile__user-bio-')"
+          >
+            {{ $t('readMore') }}
+          </a>
+        </div>
+
+        <!-- MOBILE: following & followers count -->
+        <div class="flex flex-row justify-center w-full md:hidden">
+          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
+            <b>{{ thousand(counter.followers) }}</b>&nbsp;
+            <i>{{ $t('followers.followers') }}</i>
+          </div>
+          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
+            <b>{{ thousand(counter.followings) }}</b>&nbsp;
+            <i>{{ $t('followings.followings') }}</i>
+          </div>
+        </div>
       </div>
+
+      <!-- social links -->
+      <Socials
+        v-if="userInfo.user_socials"
+        class="mb-6"
+        :socials="userInfo.user_socials"
+      />
 
       <div class="mt-2">
         <!-- mobile or smaller device navigation -->
@@ -884,6 +699,7 @@ import FollowingList from '~/components/profile/FollowingList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import ProBadge from '~/components/globals/ProBadge.vue'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
+import Socials from './Socials.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
@@ -1127,7 +943,7 @@ const visitExternalWebsite = () => {
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
+@import '~/assets/css/tailwind.scss';
 
 .avatar {
   @apply object-cover rounded-md shadow-lg;

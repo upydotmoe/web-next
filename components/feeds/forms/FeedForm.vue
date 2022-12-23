@@ -21,13 +21,7 @@
     <!-- feed text input -->
     <VueEditor
       v-model="feedInput"
-      :editorToolbar="[
-        [{ 'size': ['normal', 'large'] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        ['link'],
-        [{ 'color': [] }, { 'background': [] }],
-        ['clean']
-      ]"
+      :editorToolbar="quillOptions"
       :class="[
         'mb-4'
       ]"
@@ -59,8 +53,8 @@
 </template>
 
 <script setup>
-// vue3-editor
 import { VueEditor } from 'vue3-editor'
+import { quillOptions } from '~/utils/constants/text-editor'
 
 // components
 import Spinner from '~/components/globals/Spinner.vue'

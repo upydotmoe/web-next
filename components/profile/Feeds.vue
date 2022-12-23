@@ -5,19 +5,19 @@
         <!-- Images -->
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">
-            <nuxt-link :to="'/profile/'+feed.users.username">
+            <nuxt-link :to="'/u/' + feed.users.username">
               <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
             </nuxt-link>
             <div class="name">
               <nuxt-link 
-                :to="'/profile/'+feed.users.username" 
+                :to="'/u/' + feed.users.username" 
                 class="fullname"
               >
                 {{ feed.users.name }}
               </nuxt-link>
               <br>
               <nuxt-link 
-                :to="'/profile/'+feed.users.username" 
+                :to="'/u/' + feed.users.username" 
                 class="username hover:underline"
               >
                 @{{ feed.users.username }}
@@ -51,19 +51,19 @@
             <div v-if="feed.artworks" class="my-2 w-full rounded-md theme-color">
               <!-- creator information -->
               <div v-if="feed.artworks.users" class="p-2 md:p-4 user-info">
-                <nuxt-link :to="'/profile/'+feed.artworks.users.username">
+                <nuxt-link :to="'/u/' + feed.artworks.users.username">
                   <img class="avatar" :src="avatarCoverUrl(feed.artworks.users.avatar_bucket, feed.artworks.users.avatar_filename)" @error="imageLoadError">
                 </nuxt-link>
                 <div class="name">
                   <nuxt-link 
-                    :to="'/profile/'+feed.artworks.users.username" 
+                    :to="'/u/' + feed.artworks.users.username" 
                     class="fullname hover:href"
                   >
                     {{ feed.artworks.users.name }}
                   </nuxt-link>
                   <br>
                   <nuxt-link 
-                    :to="'/profile/'+feed.artworks.users.username" 
+                    :to="'/u/' + feed.artworks.users.username" 
                     class="hover:underline text-xxs"
                   >
                     @{{ feed.artworks.users.username }}
@@ -336,9 +336,6 @@ import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loadin
 // stores
 import useAuthStore from '@/stores/auth.store'
 
-// composables
-import useImage from '~/composables/useImage'
-
 // components
 import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
@@ -352,7 +349,7 @@ const auth = useAuthStore()
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
-const { generateArtworkThumb } = useImage()
+const { generateArtworkThumb } = useUpyImage()
 
 const props = defineProps ({
   userId: {

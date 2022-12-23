@@ -282,7 +282,6 @@ export default {
     forms: {
       update: {
         name: 'Name',
-        gender: 'Gender',
         bio: 'Bio',
         location: 'Location',
         country: 'Country',

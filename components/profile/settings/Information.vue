@@ -12,20 +12,21 @@
         <img v-show="previewNewAvatar" :src="previewNewAvatar" class="avatar" :class="avatarFileTooLargeAlert || updateAvatarError ? 'border-2 border-red-400' : 'border-none'">
         
         <!-- avatar file input -->
-        <input 
+        <input
           id="inputAvatarFile"
           ref="selectedNewAvatarRef"
           type="file"
-          accept="image/png, image/gif, image/jpeg"
+          accept="image/jpeg"
           class="hidden"
           @change="previewAvatar"
         >
         <button
           id="selectNewAvatarButton"
-          class="mt-2 w-full primary-button"
+          class="flex flex-col mt-2 w-full text-center primary-button"
           @click="selectNewAvatarButton()"
         >
-          {{ $t('profile.forms.update.chooseNewAvatar') }}
+          <div class="w-full">{{ $t('profile.forms.update.chooseNewAvatar') }}</div>
+          <div class="w-full">.jpg/.jpeg</div>
         </button>
 
         <!-- submit button -->
@@ -134,14 +135,20 @@
       @submit.prevent="update(basicInformationFormId)"
     >
       <div class="input-block">
-        <n-validate>
+        <n-validate
+          for="name"
+          :name="$t('profile.forms.update.name')"
+        >
           <label class="font-semibold">{{ $t('profile.forms.update.name') }}</label>
           <div class="field">
             <input 
               v-model="inputData.name"
               type="text" 
-              class="form-input input"
-              :class="[{ 'pointer-events-none cursor-not-allowed': saving.basic.loading }]"
+              rules="required|min:2"
+              :class="[
+                'form-input input',
+                { 'pointer-events-none cursor-not-allowed': saving.basic.loading }
+              ]"
             >
           </div>
         </n-validate>
@@ -160,33 +167,14 @@
               @input="checkPenNameAvailability()"
               @keydown.space.prevent
             >
-            <div v-show="penNameUsedAlert" class="input-error">
+            <div
+              v-if="penNameUsedAlert"
+              class="input-error"
+            >
               {{ $t('profile.forms.update.penNameTaken') }}
             </div>
           </div>
         </n-validate>
-      </div>
-
-      <div class="input-block">
-        <label class="font-semibold">{{ $t('profile.forms.update.gender') }}</label>
-        <div class="mb-4 field">
-          <div class="flex flex-row p-1 w-full rounded-md cursor-pointer md:w-min theme-color">
-            <div 
-              class="flex flex-row justify-center py-2 px-3 w-full rounded-md parent-icon"
-              :class="{ 'button-color text-white': inputData.gender === 'm' }"
-              @click="inputData.gender = 'm'"
-            >
-              {{ $t('male') }}
-            </div>
-            <div 
-              class="flex flex-row justify-center py-2 px-3 w-full rounded-md parent-icon"
-              :class="{ 'button-color text-white': inputData.gender === 'f' }"
-              @click="inputData.gender = 'f'"
-            >
-              {{ $t('female') }}
-            </div>
-          </div>
-        </div>
       </div>
 
       <div class="input-block">
@@ -196,13 +184,7 @@
             <client-only>
               <VueEditor
                 v-model="inputData.bio"
-                :editorToolbar="[
-                  [{ 'size': ['normal', 'large'] }],
-                  ['bold', 'italic', 'underline', 'strike'],
-                  ['link'],
-                  [{ 'color': [] }, { 'background': [] }],
-                  ['clean']
-                ]"
+                :editorToolbar="quillOptions"
               />
             </client-only>
             <!-- <textarea 
@@ -249,8 +231,10 @@
             saving.basic.buttonDisabled ? 'disabled-button' : 'primary-button'
           ]"
         >
-          <Spinner v-show="saving.basic.loading" class="mr-2" />
-          {{ saving.basic.loading ? $t('updating') : $t('update') }}
+          <Spinner v-show="saving.basic.loading || saving.basic.checkingValidity" />
+          <span v-show="!saving.basic.checkingValidity">
+            {{ saving.basic.loading ? $t('updating') : $t('update') }}
+          </span>
         </button>
       </div>
     </form>
@@ -281,9 +265,12 @@
               @input="checkUsernameAvailability()"
               @keydown.space.prevent
             >
-            <!-- <div v-show="usernameUsedAlert" class="pt-4 input-error">
+            <div
+              v-if="usernameUsedAlert"
+              class="input-error"
+            >
               {{ $t('profile.forms.update.usernameTaken') }}
-            </div> -->
+            </div>
           </div>
         </n-validate>
       </div>
@@ -303,10 +290,10 @@
             saving.username.buttonDisabled ? 'disabled-button' : 'primary-button'
           ]"
         >
-          <Spinner v-show="saving.username.loading || saving.username.checkingValidity" class="mr-2" />
-          
-          <span v-show="!saving.username.checkingValidity">{{ saving.username.loading ? $t('profile.forms.update.changingYourUsername') : $t('profile.forms.update.changeUsername') }}</span>
-          <span v-show="saving.username.checkingValidity">Checking..</span>
+          <Spinner v-show="saving.username.loading || saving.username.checkingValidity" />
+          <span v-show="!saving.username.checkingValidity">
+            {{ saving.username.loading ? $t('profile.forms.update.changingYourUsername') : $t('profile.forms.update.changeUsername') }}
+          </span>
         </button>
       </div>
     </form>
@@ -317,9 +304,8 @@
 import axios from 'axios'
 import { debounce } from 'vue-debounce'
 import { useI18n } from 'vue-i18n'
-
-// vue3-editor
 import { VueEditor } from 'vue3-editor'
+import { quillOptions } from '~/utils/constants/text-editor'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -358,7 +344,6 @@ const inputData = ref({
   username: '',
   penName: '',
   bio: '',
-  gender: 'm',
   location: ''
 })
 const current = ref({
@@ -381,7 +366,6 @@ const fetchUserInfo = async () => {
       current.value.penName = data.pen_name
 
       inputData.value.bio = data.bio
-      inputData.value.gender = data.gender
       inputData.value.location = data.location
     }
   } else {
@@ -408,30 +392,32 @@ const penNameUsedAlert = ref(false)
 const checkPenNameAvailability = async () => {
   if (inputData.value.penName === '') {
     penNameUsedAlert.value = false
-    saving.value.basic.buttonDisabled = true
     saving.value.basic.checkingValidity = false
+    saving.value.basic.buttonDisabled = false
   }
 
-  if (inputData.value.penName.length >= 4 && inputData.value.penName.length <= 12) {
-    saving.value.basic.buttonDisabled = true
+  const lengthAccepted = inputData.value.penName.length >= 4 && inputData.value.penName.length <= 12
+  if (lengthAccepted) {
     saving.value.basic.checkingValidity = true
+    saving.value.basic.buttonDisabled = true
 
     await debounce(async (_) => {
       if (inputData.value.penName === current.value.penName) {
         penNameUsedAlert.value = false
-        saving.value.basic.buttonDisabled = false
         saving.value.basic.checkingValidity = false
-      } else {
+      }
+
+      if (lengthAccepted) {
         const [result, error] = await userApi.checkPenNameAvailability(inputData.value.penName)
 
         if (!result && error && auth.user.pen_name !== inputData.value.penName) {
           penNameUsedAlert.value = true
-          saving.value.basic.buttonDisabled = true
           saving.value.basic.checkingValidity = false
+          saving.value.basic.buttonDisabled = true
         } else {
           penNameUsedAlert.value = false
-          saving.value.basic.buttonDisabled = false
           saving.value.basic.checkingValidity = false
+          saving.value.basic.buttonDisabled = false
         }
       }
     }, 700)()
@@ -441,9 +427,9 @@ const checkPenNameAvailability = async () => {
 }
 
 /** Save changes */
-const basicInformationFormId = 'basic-information-form'
-const update = async () => {
-  useValidator().validate(basicInformationformId, t)
+const basicInformationFormId = ref('basic-information-form')
+const update = async (formId) => {
+  useValidator().validate(formId, t)
 
   if (!penNameUsedAlert.value) {
     saving.value.basic.loading = true
@@ -451,7 +437,6 @@ const update = async () => {
     const [success, error] = await userApi.updateInfo({
       userId: auth.user.id,
       name: inputData.value.name,
-      gender: inputData.value.gender,
       bio: inputData.value.bio,
       location: inputData.value.location,
       penName: inputData.value.penName
@@ -479,29 +464,32 @@ const checkUsernameAvailability = async () => {
     saving.value.username.checkingValidity = false
   }
 
-  if (inputData.value.username.length >= 4 && inputData.value.username.length <= 12) {
+  const lengthAccepted = inputData.value.username.length >= 4 && inputData.value.username.length <= 12
+  if (lengthAccepted) {
     saving.value.username.buttonDisabled = true
     saving.value.username.checkingValidity = true
 
     await debounce(async (_) => {
-      if (inputData.value.username === current.value.username) {
+      if (inputData.value.username == current.value.username) {
         usernameUsedAlert.value = false
-        saving.value.username.buttonDisabled = false
+        saving.value.username.buttonDisabled = true
         saving.value.username.checkingValidity = false
       } else {
-        const [result, error] = await userApi.checkUsernameAvailability(inputData.value.username)
+        if (lengthAccepted) {
+          const [result, error] = await userApi.checkUsernameAvailability(inputData.value.username)
 
-        if (!result && error) {
-          usernameUsedAlert.value = true
-          saving.value.username.buttonDisabled = true
-          saving.value.username.checkingValidity = false
-        } else {
-          usernameUsedAlert.value = false
-          saving.value.username.buttonDisabled = false
-          saving.value.username.checkingValidity = false
+          if (!result && error) {
+            usernameUsedAlert.value = true
+            saving.value.username.buttonDisabled = true
+            saving.value.username.checkingValidity = false
+          } else {
+            usernameUsedAlert.value = false
+            saving.value.username.buttonDisabled = false
+            saving.value.username.checkingValidity = false
+          }
         }
       }
-    }, 500)()
+    }, 700)()
   } else {
     usernameUsedAlert.value = false
   }
@@ -661,20 +649,6 @@ const updateCover = async () => {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
-
-form {
-  .input-block {
-    @apply mb-2;
-
-    .field {
-      @apply mt-2;
-    }
-  }
-}
-</style>
 
 <style lang="scss">
 // @import '~/assets/css/tailwind.scss';

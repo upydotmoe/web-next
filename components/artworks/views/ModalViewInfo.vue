@@ -2,16 +2,16 @@
   <section class="flex-col info">
     <div v-if="artworkDetail.users" class="user-info">
       <div class="flex flex-row w-full">
-        <nuxt-link :to="'/profile/'+artworkDetail.users.username">
+        <nuxt-link :to="'/u/' + artworkDetail.users.username">
           <img class="avatar" :src="avatarCoverUrl(artworkDetail.users.avatar_bucket, artworkDetail.users.avatar_filename)" @error="imageLoadError">
         </nuxt-link>
         <div class="w-full name">
           <div class="flex flex-row justify-between">
             <div class="flex flex-col">
-              <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="fullname">
+              <nuxt-link :to="'/u/' + artworkDetail.users.username" class="fullname">
                 {{ artworkDetail.users.name }} <ProBadge v-if="artworkDetail.users.isPro" />
               </nuxt-link>
-              <nuxt-link :to="'/profile/'+artworkDetail.users.username" class="username">
+              <nuxt-link :to="'/u/' + artworkDetail.users.username" class="username">
                 @{{ artworkDetail.users.username }}
               </nuxt-link>
             </div>
@@ -66,7 +66,7 @@
         class="tag"
       >
         <nuxt-link
-          :to="`/works/browse?tags=${tag.artwork_tags.tag.replaceAll(' ', '+')}`"
+          :to="`/artworks/browse?tags=${tag.artwork_tags.tag.replaceAll(' ', '+')}`"
           @click="closeModal(`${section}-modal`)"
         >
           {{ tag.artwork_tags.tag }}

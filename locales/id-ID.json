@@ -111,7 +111,7 @@
     "newUser": {
       "welcomingMenus": {
         "setupYourAccount": "Atur akun Anda",
-        "uploadYourFirstArtwork": "Unggah karya pertama Anda",
+        "uploadYourArtwork": "Unggah karya Anda",
         "exploreArtworks": "Jelajah",
         "followSomeone": "Ikuti seseorang"
       },
@@ -385,6 +385,7 @@
     "profile": "Profil",
     "manageModeActiveMessage": "Kamu sedang dalam mode kelola, kamu dapat memilih lebih dari satu item untuk dihapus dari koleksi.",
     "setting": "Pengaturan Profil",
+    "penName": "nama pena",
     "artworks": {
       "sorter": {
         "latest": "Terbaru",
@@ -395,7 +396,6 @@
     "forms": {
       "update": {
         "name": "Nama",
-        "gender": "Jenis kelamin",
         "bio": "Bio",
         "location": "Lokasi",
         "country": "Negara",
@@ -406,7 +406,7 @@
         "changeUsername": "Ubah username",
         "changingYourUsername": "Mengubah usernamemu..",
         "usernameChanged": "Username berhasil dirubah!",
-        "penName": "Nama Pensil",
+        "penName": "Nama Pena",
         "usernameTaken": "Username sudah terpakai",
         "penNameTaken": "Nama pensil sudah terpakai",
         "showExplicitContent": "Tampilkan konten eksplisit",
@@ -437,7 +437,7 @@
           "patreonPlaceholder": "Username Patreon-mu (https://patreon.com/<username-disini>)",
           "youtube": "YouTube",
           "youtubePlaceholder": "Link full YouTube-mu",
-          "twitch": "Patreon",
+          "twitch": "Twitch",
           "twitchPlaceholder": "Username Twitch-mu (https://patreon.com/<username-disini>)",
           "discord": "Discord",
           "discordPlaceholder": "ID Discord-mu (contoh: Upymoe#9732)",

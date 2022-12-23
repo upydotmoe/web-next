@@ -6,7 +6,7 @@
       perPage: pagination.perPage,
       maxLoadMore: pagination.maxLoadMore
     }"
-    :discover-route="'/works/following'"
+    :discover-route="'/artworks/following'"
     :custom-empty-message="$t('explores.noFollowing')"
   />
 </template>

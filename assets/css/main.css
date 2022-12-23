@@ -46,6 +46,8 @@
   --modal-color: #ffffff;
 
   --toggle-background-color: #cccccc;
+
+  --quill-toolbar-background: #f3f3f3;
 }
 
 .dark-mode {
@@ -96,4 +98,6 @@
   --modal-color: #2b2b2b;
 
   --toggle-background-color: #494949;
+
+  --quill-toolbar-background: #bfbfbf;
 }

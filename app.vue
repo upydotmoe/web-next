@@ -87,38 +87,51 @@ form {
   }
 }
 
-// filepond
+/**
+* Filepond
+*/
 .filepond--root, .filepond--hopper, .filepond--panel, .filepond--panel-root {
   @apply rounded-md;
+}
+
+.filepond--panel .filepond--panel-root {
+  @apply rounded-md;
+  background: var(--theme-color) !important;
+  color: var(--theme-text-color) !important;
 }
 
 /* .filepond--drop-label {
   @apply text-color;
 } */
 
-// rich text editor
-.quillWrapper, .filepond--panel .filepond--panel-root {
-  @apply theme-color rounded-md;
+/**
+* Rich Text Editor (QuillEditor)
+*/
+.quillWrapper .ql-snow.ql-toolbar {
+  background-color: var(--quill-toolbar-background) !important;
+  color: var(--theme-text-color) !important;
+}
+
+.quillWrapper {
+  @apply rounded-md;
+  background: var(--theme-color) !important;
+  color: var(--theme-text-color) !important;
 }
 
 .ql-toolbar.ql-snow, .ql-container.ql-snow {
   @apply border-0 border-none;
 }
 
-.ql-toolbar.ql-snow .ql-formats, .ql-snow .ql-picker {
-  @apply text-color-secondary;
-}
+.ql-picker-label {
+  color: #333333 !important;
 
-.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
-  @apply hover:theme-color-secondary;
-}
-
-.ql-picker-label::hover {
-  @apply theme-color-secondary;
+  :hover {
+    color: var(--theme-text-color) !important;
+  }
 }
 
 .ql-snow .ql-picker {
-  @apply text-color;
+  color: var(--theme-text-color) !important;
 }
 
 .ql-snow .ql-stroke, .quillWrapper .ql-snow .ql-stroke {
@@ -130,11 +143,19 @@ form {
 }
 
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-  @apply theme-color;
+  background: var(--theme-color) !important;
+  color: var(--theme-text-color) !important;
+}
+
+.ql-picker-item {
+  :hover {
+    background: var(--theme-color) !important;
+    color: var(--theme-text-color) !important;
+  }
 }
 
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover {
-  @apply text-colored;
+  color: var(--button) !important;
 }
 
 .ql-toolbar {
@@ -146,18 +167,13 @@ form {
 }
 
 .ql-editor {
-  /* @apply px-2; */
+  font-size: 12px !important;
 }
-
 .ql-editor.ql-blank::before {
-  @apply text-color-dimmed;
+  color: var(--text-color-dimmed) !important;
 }
 
 .ql-size-large {
   @apply text-lg;
-}
-
-.ql-editor {
-  @apply text-xs;
 }
 </style>

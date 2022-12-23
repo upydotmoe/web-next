@@ -1,16 +1,13 @@
 import blankImage from '~/static/blank.png'
 import defaultCover from '~/static/bg-abstract.png'
 
-// composables
-import useImage from '~/composables/useImage'
-
 export default {
   methods: {
     artworkUrl (bucketName, fileName, viewMode) {
-      return useImage().generateSemiCompressedArtworkUrl(bucketName, fileName, viewMode)
+      return useUpyImage().generateSemiCompressedArtworkUrl(bucketName, fileName, viewMode)
     },
     artworkThumb (bucketName, fileName, mode, uncropped) {
-      const imgSrc = useImage().generateArtworkThumb(bucketName, fileName, mode, uncropped)
+      const imgSrc = useUpyImage().generateArtworkThumb(bucketName, fileName, mode, uncropped)
       return imgSrc
     },
     avatarCoverUrl (bucketName, fileName) {

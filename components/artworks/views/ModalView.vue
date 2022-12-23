@@ -388,14 +388,14 @@
 
                   <nuxt-link 
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
-                    :to="'/works/update/'+artworkDetail.id"
+                    :to="'/artworks/update/'+artworkDetail.id"
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                   >
                     <Icon :name="'i-ion-settings-outline'" class="mr-2 text-base" /> {{ $t('update') }}
                   </nuxt-link>
                   <!-- <div
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
-                    :to="'/works/update/'+artworkDetail.id"
+                    :to="'/artworks/update/'+artworkDetail.id"
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
                     @click="unpublish()"
                   >
@@ -628,7 +628,7 @@
               :key="comment.id" 
               class="flex flex-row w-full comment-item"
             >
-              <nuxt-link class="mr-2" :to="'/profile/'+comment.users.username">
+              <nuxt-link class="mr-2" :to="'/u/' + comment.users.username">
                 <img
                   class="w-10 h-10 avatar"
                   :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
@@ -642,7 +642,7 @@
                 >
                   <!-- profile info -->
                   <div class="flex justify-between">
-                    <nuxt-link :to="'/profile/'+comment.users.username" class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer">
+                    <nuxt-link :to="'/u/' + comment.users.username" class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer">
                       {{ comment.users.name }}
                     </nuxt-link>
                     <div class="comment-time">
@@ -708,7 +708,7 @@
                           >
                             <!-- view profile -->
                             <nuxt-link 
-                              :to="'/profile/'+comment.users.username" 
+                              :to="'/u/' + comment.users.username" 
                               class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
@@ -804,7 +804,7 @@
                     <div 
                       class="flex flex-row justify-between"
                     >
-                      <nuxt-link :to="'/profile/'+reply.users.username" class="flex flex-row leading-6">
+                      <nuxt-link :to="'/u/' + reply.users.username" class="flex flex-row leading-6">
                         <img class="mr-2 w-6 h-6 rounded-full" :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)" @error="imageLoadError">
                         <span class="transition-all duration-150 cursor-pointer hover:font-bold">{{ reply.users.name }}</span>
                       </nuxt-link>
@@ -852,7 +852,7 @@
                             >
                               <!-- view profile -->
                               <nuxt-link 
-                                :to="'/profile/'+reply.users.id" 
+                                :to="'/u/' + reply.users.id" 
                                 class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                                 @click.prevent 
                               >
@@ -1011,9 +1011,6 @@ import { useClipboard } from '@vueuse/core'
 // stores
 import useAuthStore from '@/stores/auth.store'
 
-// composables
-import useImage from '~/composables/useImage'
-
 // components
 import ModalViewInfo from './ModalViewInfo.vue'
 import ArtistWorks from '~/components/artworks/views/ArtistWorks.vue'
@@ -1036,7 +1033,7 @@ const auth = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
-const { applyExplicitFilter, removeExplicitFilter, generateSemiCompressedArtworkUrl } = useImage()
+const { applyExplicitFilter, removeExplicitFilter, generateSemiCompressedArtworkUrl } = useUpyImage()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 

@@ -41,13 +41,7 @@
       <div class="-mt-2 input-block">
         <VueEditor
           v-model="inputData.description"
-          :editorToolbar="[
-            [{ 'size': ['normal', 'large'] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            ['link'],
-            [{ 'color': [] }, { 'background': [] }],
-            ['clean']
-          ]"
+          :editorToolbar="quillOptions"
           :class="[
             { 'pointer-events-none cursor-not-allowed': saving || updated }
           ]"
@@ -96,7 +90,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('explicitContent') }}</b>
             <span>
-              Check this if your work contain explicit content (explicit art wihout explicit mark will be forcibly taken down)
+              {{ $t('artworks.form.options.explicitMark') }}
             </span>
           </div>
         </div>
@@ -118,7 +112,7 @@
           <div class="toggler-box__description">
             <b>Contain Gore</b>
             <span>
-              Check this if your work contain blood, etc.
+              {{ $t('artworks.form.options.goreMark') }}
             </span>
           </div>
         </div>
@@ -141,7 +135,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.originalCharacter') }}</b>
             <span>
-              Check this if the character in your work is your original character made by you (don't check this if the character is someone else's or a character from animation series)
+              {{ $t('artworks.form.options.originalCharacterMark') }}
             </span>
           </div>
         </div>
@@ -163,7 +157,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.add.form.allowRedraw') }}</b>
             <span>
-              Check this if you allow other artist to redraw your artwork
+              {{ $t('artworks.form.options.allowRedrawMark') }}
             </span>
           </div>
         </div>
@@ -185,7 +179,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.add.form.redrawInMyStyle') }}</b>
             <span>
-              Check this if you redraw the art with your own drawing style.
+              {{ $t('artworks.form.options.redrawOwnStyleMark') }}
             </span>
           </div>
         </div>
@@ -202,8 +196,8 @@
 </template>
 
 <script setup>
-// vue3-editor
 import { VueEditor } from 'vue3-editor'
+import { quillOptions } from '~/utils/constants/text-editor'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -336,5 +330,6 @@ const toggleExplicit = () => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
 @import '~/assets/css/artworks/form.scss';
 </style>

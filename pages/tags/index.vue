@@ -28,7 +28,7 @@
       <nuxt-link
         v-for="tag in tags.data"
         :key="tag.id"
-        :to="'/works/browse?tags=' + tag.tag.replaceAll(' ', '+')"
+        :to="'/artworks/browse?tags=' + tag.tag.replaceAll(' ', '+')"
         class="flex flex-row justify-between p-2 w-full rounded-md cursor-pointer button-light hover:theme-colored hover:font-bold"
       >
         {{ tag.tag }}

@@ -13,8 +13,12 @@
       class="flex flex-col w-full"
     >
       <nuxt-link
-        :to="'/profile/' + user.username"
-        class="flex object-cover flex-row rounded-md rounded-br-none shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl"
+        :to="'/u/' + user.username"
+        class=""
+        :class="[
+          'flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl',
+          { 'rounded-br-none': user.artworks.length }
+        ]"
         :style="user.cover_bucket && user.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(user.cover_bucket, user.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
       >
         <div class="flex flex-row w-full">
@@ -29,7 +33,7 @@
           <div class="flex flex-col justify-between p-3 w-full text-white">
             <div class="flex flex-col">
               <span class="font-bold">{{ user.name }}</span>
-              <span class="text-xxs">{{ user.pen_name }}</span>
+              <span class="text-xxs">@{{ user.username }}</span>
             </div>
 
             <div class="flex flex-row w-full">
@@ -174,7 +178,7 @@ const unfollowUser = async (index, userToUnfollow) => {
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
+@import '~/assets/css/tailwind.scss';
 
 .avatar {
   @apply object-cover h-24 rounded-none rounded-tl-md;

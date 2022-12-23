@@ -48,7 +48,7 @@
               v-for="menu in newUserWelcomeMenus"
               :key="menu.href"
               :to="menu.href"
-              class="flex flex-col gap-3 p-8 w-full text-center rounded-md theme-color hover:shadow-md"
+              class="flex flex-col gap-3 p-4 w-full text-center rounded-md theme-color hover:shadow-md hover:theme-colored"
             >
               <Icon
                 :name="menu.icon"
@@ -61,7 +61,10 @@
         </div>
 
         <!-- Follow Suggestions -->
-        <div class="mt-14">
+        <div
+          v-if="suggestedUsersToFollow && suggestedUsersToFollow.length"
+          class="mt-14"
+        >
           <div class="section-title">{{ $t('feeds.newUser.suggestedUsers') }}</div>
 
           <UserList
@@ -85,19 +88,19 @@
             <!-- Images -->
             <div class="w-full">
               <div v-if="feed.users" class="p-2 md:p-4 user-info">
-                <nuxt-link :to="'/profile/'+feed.users.username">
+                <nuxt-link :to="'/u/' + feed.users.username">
                   <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
                 </nuxt-link>
                 <div class="name">
                   <nuxt-link 
-                    :to="'/profile/'+feed.users.username" 
+                    :to="'/u/' + feed.users.username" 
                     class="fullname hover:href"
                   >
                     {{ feed.users.name }}
                   </nuxt-link>
                   <br>
                   <nuxt-link 
-                    :to="'/profile/'+feed.users.username" 
+                    :to="'/u/' + feed.users.username" 
                     class="hover:underline text-xxs"
                   >
                     @{{ feed.users.username }}
@@ -194,19 +197,19 @@
                 <div v-if="feed.artwork_share_info" class="my-2 w-full rounded-md theme-color-secondary">
                   <!-- creator information -->
                   <div v-if="feed.artwork_share_info.user" class="p-2 md:p-4 user-info">
-                    <nuxt-link :to="'/profile/'+feed.artwork_share_info.user.username">
+                    <nuxt-link :to="'/u/' + feed.artwork_share_info.user.username">
                       <img class="avatar" :src="avatarCoverUrl(feed.artwork_share_info.user.avatar_bucket, feed.artwork_share_info.user.avatar_filename)" @error="imageLoadError">
                     </nuxt-link>
                     <div class="name">
                       <nuxt-link 
-                        :to="'/profile/'+feed.artwork_share_info.user.username" 
+                        :to="'/u/' + feed.artwork_share_info.user.username" 
                         class="fullname hover:href"
                       >
                         {{ feed.artwork_share_info.user.name }}
                       </nuxt-link>
                       <br>
                       <nuxt-link 
-                        :to="'/profile/'+feed.artwork_share_info.user.username" 
+                        :to="'/u/' + feed.artwork_share_info.user.username" 
                         class="hover:underline text-xxs"
                       >
                         @{{ feed.artwork_share_info.user.username }}
@@ -493,7 +496,7 @@
     <template #right-side>
       <FeedSide />
       <!-- suggested users -->
-      <div v-if="suggestedUsersToFollow && suggestedUsersToFollow.length">
+      <div v-if="feeds.length">
         <div class="section-title">{{ $t('feeds.suggestedUsers') }}</div>
         
         <UserList
@@ -514,7 +517,6 @@ import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loadin
 import useAuthStore from '@/stores/auth.store'
 
 // composables
-import useImage from '~/composables/useImage'
 import useUser from '~/composables/users/useUser'
 
 // components
@@ -536,7 +538,7 @@ import UserList from '~~/components/users/UserList.vue'
 const auth = useAuthStore()
 
 // composables
-const { generateArtworkThumb } = useImage()
+const { generateArtworkThumb } = useUpyImage()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const feedApi = useFeed(oApiConfiguration, fetchOptions())

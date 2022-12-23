@@ -59,7 +59,7 @@ const changeView = (mode) => {
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
+@import '~/assets/css/tailwind.scss';
 
 .feed__left-buttons {
   @apply flex flex-col gap-2 w-4/5;

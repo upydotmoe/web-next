@@ -1,4 +1,3 @@
-import en from 'vee-validate/dist/locale/ja.json'
 
 export default {
   all: 'All',
@@ -224,7 +223,6 @@ export default {
     forms: {
       update: {
         name: 'Name',
-        gender: 'Gender',
         bio: 'Bio',
         location: 'Location',
         country: 'Country',

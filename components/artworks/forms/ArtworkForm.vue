@@ -97,18 +97,19 @@
         <n-validate 
           for="title"
           :name="$t('title')" 
-          class="input-block"
         >
-          <input 
-            v-model="inputData.title"
-            type="text"
-            rules="required|max:100"
-            :class="[
-              'form-input input',
-              { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
-            ]"
-            :placeholder="$t('title')"
-          >
+          <div class="field">
+            <input 
+              v-model="inputData.title"
+              type="text"
+              rules="required|max:100"
+              :class="[
+                'form-input input',
+                { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
+              ]"
+              :placeholder="$t('title')"
+            >
+          </div>
         </n-validate>
       </div>
 
@@ -116,13 +117,7 @@
       <div class="-mt-2 input-block">
         <VueEditor
           v-model="inputData.description"
-          :editorToolbar="[
-            [{ 'size': ['normal', 'large'] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            ['link'],
-            [{ 'color': [] }, { 'background': [] }],
-            ['clean']
-          ]"
+          :editorToolbar="quillOptions"
           :class="[
             { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
           ]"
@@ -225,7 +220,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('explicitContent') }}</b>
             <span>
-              {{ $t('artworks.form.explicitMark') }}
+              {{ $t('artworks.form.options.explicitMark') }}
             </span>
           </div>
         </div>
@@ -247,7 +242,7 @@
           <div class="toggler-box__description">
             <b>Contain Gore</b>
             <span>
-              {{ $t('artworks.form.goreMark') }}
+              {{ $t('artworks.form.options.goreMark') }}
             </span>
           </div>
         </div>
@@ -272,7 +267,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.originalCharacter') }}</b>
             <span>
-              {{ $t('artworks.form.originalCharacterMark') }}
+              {{ $t('artworks.form.options.originalCharacterMark') }}
             </span>
           </div>
         </div>
@@ -294,7 +289,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.add.form.allowRedraw') }}</b>
             <span>
-              {{ $t('artworks.form.allowRedrawMark') }}
+              {{ $t('artworks.form.options.allowRedrawMark') }}
             </span>
           </div>
         </div>
@@ -316,7 +311,7 @@
           <div class="toggler-box__description">
             <b>{{ $t('artworks.add.form.redrawInMyStyle') }}</b>
             <span>
-              {{ $t('artworks.form.allowRedrawMark') }}
+              {{ $t('artworks.form.options.allowRedrawMark') }}
             </span>
           </div>
         </div>
@@ -347,18 +342,14 @@ import axios from 'axios'
 import 'flowbite'
 import moment from 'moment'
 import { useI18n } from 'vue-i18n'
-
+import { VueEditor } from 'vue3-editor'
+import vueFilePond from 'vue-filepond'
+import { quillOptions } from '~/utils/constants/text-editor'
 import Datepicker from '@themesberg/tailwind-datepicker/Datepicker'
 
-// vue3-editor
-import { VueEditor } from 'vue3-editor'
-
-import vueFilePond from 'vue-filepond'
-
-// filepond configuration
+// filepond
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
-
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
@@ -643,5 +634,6 @@ const fetchRedrawedArtworkInfo = async () => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
 @import '~/assets/css/artworks/form.scss';
 </style>

@@ -156,7 +156,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   const registerNewAccount = async (params: {
     email: string,
     password: string,
-    gender?: 'm' | 'f',
     name?: string,
     username: string
   }) => {
@@ -166,7 +165,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           {
             email: params.email,
             password: params.password,
-            gender: params.gender,
             name: params.name,
             username: params.username
           }

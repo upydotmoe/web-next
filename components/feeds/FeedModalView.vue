@@ -20,15 +20,15 @@
         <!-- user info -->
         <div class="flex flex-row justify-between w-full">
           <div v-if="feedDetail.users" class="user-info">
-            <nuxt-link :to="'/profile/'+feedDetail.users.username">
+            <nuxt-link :to="'/u/' + feedDetail.users.username">
               <img class="avatar" :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)" @error="imageLoadError">
             </nuxt-link>
             <div class="name">
-              <nuxt-link :to="'/profile/'+feedDetail.users.username" class="fullname">
+              <nuxt-link :to="'/u/' + feedDetail.users.username" class="fullname">
                 {{ feedDetail.users.name }}
               </nuxt-link>
               <br>
-              <nuxt-link :to="'/profile/'+feedDetail.users.username" class="username">
+              <nuxt-link :to="'/u/' + feedDetail.users.username" class="username">
                 @{{ feedDetail.users.username }}
               </nuxt-link>
 
@@ -60,19 +60,19 @@
         >
           <!-- creator information -->
           <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
-            <nuxt-link :to="'/profile/'+feedDetail.artworks.users.username">
+            <nuxt-link :to="'/u/' + feedDetail.artworks.users.username">
               <img class="avatar" :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)" @error="imageLoadError">
             </nuxt-link>
             <div class="name">
               <nuxt-link 
-                :to="'/profile/'+feedDetail.artworks.users.username" 
+                :to="'/u/' + feedDetail.artworks.users.username" 
                 class="fullname hover:href"
               >
                 {{ feedDetail.artworks.users.name }}
               </nuxt-link>
               <br>
               <nuxt-link 
-                :to="'/profile/'+feedDetail.artworks.users.username" 
+                :to="'/u/' + feedDetail.artworks.users.username" 
                 class="hover:underline text-xxs"
               >
                 @{{ feedDetail.artworks.users.username }}
@@ -264,7 +264,7 @@
           :key="comment.id" 
           class="comment-item"
         >
-          <nuxt-link class="mr-2" :to="'/profile/'+comment.users.username">
+          <nuxt-link class="mr-2" :to="'/u/' + comment.users.username">
             <img class="w-10 h-10 avatar" :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)" @error="imageLoadError">
           </nuxt-link>
 
@@ -274,7 +274,7 @@
               :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
             >
               <div class="flex justify-between">
-                <nuxt-link :to="'/profile/'+comment.users.username" class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold">
+                <nuxt-link :to="'/u/' + comment.users.username" class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold">
                   {{ comment.users.name }}
                 </nuxt-link>
                 <div class="comment-time">
@@ -308,7 +308,7 @@
                         role="menu"
                       >
                         <nuxt-link 
-                          :to="'/profile/'+comment.users.username" 
+                          :to="'/u/' + comment.users.username" 
                           class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                           @click.prevent 
                         >
@@ -385,9 +385,6 @@ import 'viewerjs/dist/viewer.css'
 // stores
 import useAuthStore from '@/stores/auth.store'
 
-// composables
-import useImage from '~/composables/useImage'
-
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
@@ -418,7 +415,7 @@ const { $router } = useNuxtApp()
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
-const { generateArtworkThumb } = useImage()
+const { generateArtworkThumb } = useUpyImage()
 
 onMounted (() => {
   if (props.id !== 0) {

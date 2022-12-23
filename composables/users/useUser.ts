@@ -270,7 +270,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   const updateInfo = async (params: {
     userId: number,
     name: string,
-    gender: 'm' | 'f',
     bio: string,
     location: string,
     penName: string
@@ -280,8 +279,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
         .updateUserInfo({
           id: params.userId,
           name: params.name,
-          // @ts-ignore: Swagger doesn't recognize given value as accepted enum value
-          gender: params.gender,
           bio: params.bio,
           location: params.location,
           pen_name: params.penName

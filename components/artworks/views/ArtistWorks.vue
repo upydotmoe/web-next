@@ -3,12 +3,12 @@
     <div class="heading">
       <span>
         {{ $t('artworks.moreArtworkBy') }}
-        <nuxt-link v-if="artworkDetail.users" :to="'/profile/'+artworkDetail.users.username" class="text-colored">
+        <nuxt-link v-if="artworkDetail.users" :to="'/u/' + artworkDetail.users.username" class="text-colored">
           {{ artworkDetail.users.username }} &#60;{{ artworkDetail.users.name }}&#62;
         </nuxt-link>
       </span>
 
-      <nuxt-link :to="'/profile/'+artworkDetail.users.username" target="_blank" class="flex flex-row cursor-pointer">
+      <nuxt-link :to="'/u/' + artworkDetail.users.username" target="_blank" class="flex flex-row cursor-pointer">
         <Icon :name="'i-ci-external-link'" />
       </nuxt-link>
     </div>

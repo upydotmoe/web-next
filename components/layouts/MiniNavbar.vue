@@ -15,7 +15,7 @@
         {{ $t('explore') }}
       </nuxt-link>
       <nuxt-link
-        :to="'/works/browse'"
+        :to="'/artworks/browse'"
         class="uppercase"
       >
         {{ $t('browse') }}

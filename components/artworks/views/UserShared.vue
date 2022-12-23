@@ -15,7 +15,7 @@
         <nuxt-link
           v-for="(user, userIdx) in userShared"
           :key="user.id"
-          :to="'/profile/'+user.users.username"
+          :to="'/u/' + user.users.username"
           class="flex flex-row gap-2 p-2 rounded-md theme-color-secondary hover:button-color hover:text-white img-hover"
         >
           <!-- avatar -->
@@ -28,7 +28,7 @@
           />
 
           <span
-            :to="'/profile/'+user.users.username"
+            :to="'/u/' + user.users.username"
             class="font-bold leading-10"
           >
             {{ user.users.name }}
