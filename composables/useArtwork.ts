@@ -146,7 +146,6 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   ) => {
     try {
-      console.log('following only:', params.followingOnly)
       const { data } = await new SearchApi(oApiConfiguration)
         .searchArtworks(
           params.keyword,

@@ -2,7 +2,7 @@
   <div 
     v-show="loading || empty || error"
     :class="[
-      'p-4 text-center rounded-md message',
+      'loading-empty-error-message',
       backgroundColor != '' ? backgroundColor : (isMobile() ? 'theme-color-secondary' : 'theme-color')
     ]"
   >
@@ -15,10 +15,14 @@
     </span>
 
     <!-- If there is no artwork to show -->
-    <span v-show="empty">
+    <div
+      v-show="empty"
+      class="inline-flex flex-row gap-2 justify-center w-full"
+    >
       <b v-if="emptyMessage === ''">(ㆆ_ㆆ)</b>
+      <Icon v-if="emptyIcon" :name="emptyIcon" />
       {{ emptyMessage !== '' ? emptyMessage : $t('nothingToShow') }}
-    </span>
+    </div>
     
     <!-- When error occured -->
     <span v-show="error && !loading">
@@ -32,6 +36,7 @@
 <script setup>
 // components
 import Spinner from '~/components/globals/Spinner.vue'
+import Icon from './Icon.vue'
 
 defineProps ({
   loading: {
@@ -51,6 +56,10 @@ defineProps ({
     default: false
   },
   emptyMessage: {
+    type: String,
+    default: ''
+  },
+  emptyIcon: {
     type: String,
     default: ''
   },

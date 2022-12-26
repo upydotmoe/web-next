@@ -390,12 +390,15 @@
   .form-input {
     @apply p-3 mb-2 w-full text-xs rounded border-none focus:ring-transparent;
   }
+  
+  /** Loading, empty or error occured */
+  .loading-empty-error-message {
+    @apply p-4 w-full text-center rounded-md;
+  }
 
   .error-message {
     @apply p-2 mb-2 w-full text-white bg-red-500 rounded-md;
   }
-
-
 
   .login-button {
     @apply py-3 mt-4 w-full;

@@ -35,83 +35,18 @@
             @error="defaultCoverImage"
           />
 
-          <!-- follow & unfollow -->
-          <div class="mt-2">
-            <!-- followers and followings -->
-            <div 
-              :class="[
-                'flex-row justify-center border hidden-md-flex',
-                userInfo.id == auth.user.id ? 'rounded-md' : 'rounded-t-md'
-              ]"
-            >
-              <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
-                <b>{{ thousand(counter.followers) }}</b>&nbsp;
-                <i>{{ $t('followers.followers').toLowerCase() }}</i>
-              </div>
-              <div class="py-2 w-1/2 text-center cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
-                <b>{{ thousand(counter.followings) }}</b>&nbsp;
-                <i>{{ $t('followings.followings').toLowerCase() }}</i>
-              </div>
-            </div>
-
-            <div 
-              v-if="auth.loggedIn && userInfo.id !== auth.user.id"
-              :class="[
-                'primary-button rounded-t-none hover:rounded-t-none',
-                { 'hover:danger-button': followingData.isFollowing }
-              ]"
-              @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
-              @mouseover="unfollowHoverLeave('i-ri-user-unfollow-fill', $t('unfollow'))"
-              @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('followings.followings'))"
-            >
-              <!-- if not following -->
-              <div v-show="!followingData.isFollowing" class="flex flex-row">
-                <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
-                {{ $t('follow') }}
-              </div>
-
-              <!-- if following -->
-              <div 
-                v-show="followingData.isFollowing" 
-                class="flex flex-row"
-              >
-                <Icon :name="unfollowIcon" :text-size="'text-base'" />
-                {{ unfollowText === null ? $t('followings.followings') : unfollowText }}
-              </div>
-            </div>
-            
-            <!-- follow privately toggler -->
-            <div
-              v-show="followingData.isFollowing"
-              class="flex flex-row text-center"
-            >
-              <div class="w-full">
-                <label 
-                  @click="auth.i502p00r0 ? (followingData.isPrivate ? follow(userInfo.id, false) : follow(userInfo.id, true)) : null"
-                  for="small-toggle"
-                  class="inline-flex relative flex-row justify-center items-center mt-2 cursor-pointer"
-                >
-                  <input 
-                    id="small-toggle" 
-                    type="checkbox" 
-                    class="sr-only peer" 
-                    :checked="followingData.isPrivate" 
-                    :disabled="!auth.i502p00r0"
-                  >
-                  <div 
-                    :class="[
-                      'w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600',
-                      { 'unclickable': !auth.i502p00r0 },
-                      auth.i502p00r0 ? ' after:top-[2px]' : ' after:top-[4px]'
-                    ]"
-                  />
-                  <span class="ml-2">Follow Privately</span>
-                  
-                  <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
-                </label>
-              </div>
-            </div>
-          </div>
+          <!-- desktop -->
+          <FollowButtons
+            v-if="!loading"
+            class="mt-2 hidden-md-flex"
+            :userInfo="userInfo"
+            :followersCount="counter.followers"
+            :followingsCount="counter.followings"
+            :isFollowing="followingData.isFollowing"
+            :isPrivate="followingData.isPrivate"
+            :followingSince="followingData.followingSince"
+            @changeCurrentState="changeCurrentState"
+          />
         </div>
 
         <!-- user information -->
@@ -155,12 +90,6 @@
               </div>
             </div>
 
-            <!-- social links -->
-            <Socials
-              v-if="userInfo.user_socials"
-              :socials="userInfo.user_socials"
-            />
-
             <div>
               <p v-if="userInfo.bio" class="mt-4">
                 <p
@@ -178,6 +107,12 @@
                 </a>
               </p>
             </div>
+
+            <!-- social links -->
+            <Socials
+              v-if="userInfo.user_socials"
+              :socials="userInfo.user_socials"
+            />
           </div>
         </div>
       </div>
@@ -213,63 +148,6 @@
           </span>
         </div>
 
-        <!-- MOBILE: follow & unfollow -->
-        <div 
-          v-if="auth.loggedIn && userInfo.id !== auth.user.id"
-          :class="[
-            'mt-4 w-auto',
-            followingData.isFollowing ? 'danger-button' : 'primary-button'
-          ]"
-          @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
-        >
-          <!-- if not following -->
-          <div v-show="!followingData.isFollowing" class="flex flex-row">
-            <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
-            {{ $t('follow') }}
-          </div>
-
-          <!-- if following -->
-          <div 
-            v-show="followingData.isFollowing" 
-            class="flex flex-row"
-          >
-            <Icon :name="unfollowIcon" :text-size="'text-base'" />
-            {{ unfollowText === null ? $t('followings.followings') : unfollowText }}
-          </div>
-        </div>
-            
-        <!-- follow privately toggler -->
-        <div
-          v-show="followingData.isFollowing"
-          class="flex flex-row text-center"
-        >
-          <div class="w-full">
-            <label 
-              @click="auth.i502p00r0 ? (followingData.isPrivate ? follow(userInfo.id, false) : follow(userInfo.id, true)) : null"
-              for="small-toggle"
-              class="inline-flex relative flex-row justify-center items-center mt-2 cursor-pointer"
-            >
-              <input 
-                id="small-toggle" 
-                type="checkbox" 
-                class="sr-only peer" 
-                :checked="followingData.isPrivate" 
-                :disabled="!auth.i502p00r0"
-              >
-              <div 
-                :class="[
-                  'w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[\'\'] after:absolute after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600',
-                  { 'unclickable': !auth.i502p00r0 },
-                  auth.i502p00r0 ? ' after:top-[2px]' : ' after:top-[4px]'
-                ]"
-              />
-              <span class="ml-2">Follow Privately</span>
-              
-              <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
-            </label>
-          </div>
-        </div>
-
         <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
           <p
             :id="'mobile__user-bio-'+userInfo.id"
@@ -286,23 +164,24 @@
           </a>
         </div>
 
-        <!-- MOBILE: following & followers count -->
-        <div class="flex flex-row justify-center w-full md:hidden">
-          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followerList'">
-            <b>{{ thousand(counter.followers) }}</b>&nbsp;
-            <i>{{ $t('followers.followers') }}</i>
-          </div>
-          <div class="p-2 cursor-pointer hover:text-colored" @click="currentState = 'followingList'">
-            <b>{{ thousand(counter.followings) }}</b>&nbsp;
-            <i>{{ $t('followings.followings') }}</i>
-          </div>
-        </div>
+        <!-- mobile -->
+        <FollowButtons
+          v-if="!loading"
+          class="mt-4 mb-2 flex-md-hidden"
+          :userInfo="userInfo"
+          :followersCount="counter.followers"
+          :followingsCount="counter.followings"
+          :isFollowing="followingData.isFollowing"
+          :isPrivate="followingData.isPrivate"
+          :followingSince="followingData.followingSince"
+          @changeCurrentState="changeCurrentState"
+        />
       </div>
 
-      <!-- social links -->
+      <!-- MOBILE: social links -->
       <Socials
         v-if="userInfo.user_socials"
-        class="mb-6"
+        class="mb-6 md:hidden"
         :socials="userInfo.user_socials"
       />
 
@@ -430,11 +309,10 @@
             </div>
           </div>
 
-          <!-- right side -->
+          <!-- START OF: CONTENT -->
           <div class="w-full md:ml-6">
-            <!-- dashboard -->
+            <!-- view mode: dashboard -->
             <div v-if="currentState === 'dashboard'">
-              <!-- navigation buttons -->
               <div class="flex flex-row w-full">
                 <div 
                   class="flex flex-row justify-between w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
@@ -463,28 +341,13 @@
                     {{ thousand(counter.artwork) }}
                   </span>
                 </div>
-                <!-- <div 
-                  class="profile-category-button left-menu-link theme-color-secondary"
-                  :class="{ 'button-color text-white': activeDashboard === 'comic' }"
-                  @click="activeDashboard = 'comic'" 
-                >
-                  Comic
-                </div> -->
-                <!-- <div 
-                  class="profile-category-button left-menu-link theme-color-secondary"
-                  :class="{ 'button-color text-white': activeDashboard === 'tutorial' }"
-                  @click="activeDashboard = 'tutorial'" 
-                >
-                  Tutorial
-                </div> -->
               </div>
 
-              <!-- manage mode: action button -->
               <div 
                 v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
                 class="flex flex-row gap-2 justify-between mt-4 w-full"
               >
-                <!-- left buttons: sort -->
+                <!-- left side: artwork sort -->
                 <div class="w-full md:w-auto">
                   <div class="inline-block w-full group md:w-52">
                     <button class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color-secondary hover:button" @click="togglePopularOrderStatus()">
@@ -544,7 +407,7 @@
                   </div>
                 </div>
 
-                <!-- right buttons: manage -->
+                <!-- right side: manage button -->
                 <div class="flex flex-row gap-x-2 w-full md:w-auto">
                   <button
                     @click="config.manageMode = !config.manageMode"
@@ -573,6 +436,7 @@
               </div>
 
               <LoadingEmptyErrorMessage
+                class="mt-2"
                 :loading="loading"
                 :background-color="'theme-color-secondary'"
               />
@@ -582,7 +446,7 @@
                 {{ $t('profile.manageModeActiveMessage') }}
               </div>
               
-              <!-- CONTENTS -->
+              <!-- content -->
               <div class="mt-2">
                 <!-- feeds -->
                 <Feeds
@@ -605,7 +469,7 @@
               </div>
             </div>
 
-            <!-- albums -->
+            <!-- view mode: albums -->
             <div v-if="currentState === 'albums'">
               <Album
                 v-if="!loading"
@@ -613,7 +477,7 @@
               />
             </div>
 
-            <!-- collections -->
+            <!-- view mode: collections -->
             <div v-if="currentState === 'collections'">
               <Collection
                 v-if="!loading"
@@ -621,7 +485,7 @@
               />
             </div>
 
-            <!-- liked -->
+            <!-- view mode: liked artworks -->
             <div v-if="auth.loggedIn && auth.user.id === userInfo.id && currentState === 'liked'">
               <Liked
                 v-if="!loading"
@@ -630,6 +494,7 @@
               />
             </div>
 
+            <!-- view mode: follower list -->
             <div v-if="currentState === 'followerList'">
               <FollowerList
                 v-if="!loading"
@@ -639,6 +504,7 @@
               />
             </div>
 
+            <!-- view mode: following list -->
             <div v-if="currentState === 'followingList'">
               <FollowingList
                 v-if="!loading"
@@ -648,6 +514,7 @@
               />
             </div>
           </div>
+          <!-- END OF: CONTENT -->
         </div>
       </div>
     </div>
@@ -685,6 +552,8 @@
 import useAuthStore from '@/stores/auth.store'
 
 // components
+import Socials from './Socials.vue'
+import FollowButtons from './FollowButtons.vue'
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
@@ -699,7 +568,6 @@ import FollowingList from '~/components/profile/FollowingList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import ProBadge from '~/components/globals/ProBadge.vue'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
-import Socials from './Socials.vue'
 
 // composables
 import useUser from '~/composables/users/useUser'
@@ -768,6 +636,11 @@ const counter = ref({
   liked: 0,
   followers: 0,
   followings: 0,
+})
+const followingData = ref({
+  isFollowing: false,
+  isPrivate: false,
+  followingSince: ''
 })
 const fetchUserInfo = async () => {
   loading.value = true
@@ -857,57 +730,6 @@ const isSelectedItemsAddedToSelectedAlbums = ref(false)
 let selectedItemAddedInterval
 const addedToAlbum = () => {
   useSplash().splash(selectedItemAddedInterval, isSelectedItemsAddedToSelectedAlbums, 'item-added-to-album-alert')
-}
-
-/**
- * FOLLOW AND UNFOLLOW =======================================================================================================================
- */
-const followingData = ref({
-  isFollowing: false,
-  isPrivate: false,
-  followingSince: ''
-})
-
-const unfollowText = ref(null)
-const unfollowIcon = ref('i-ri-user-follow-fill')
-const unfollowHoverLeave = (iconName, text) => {
-  unfollowIcon.value = iconName
-  unfollowText.value = text
-}
-
-const follow = async (userToFollow, isPrivate) => {
-  let [success, error] = [null, false]
-  if (isPrivate) {
-    [success, error] = await userApi.followPrivately(userToFollow)
-  } else {
-    [success, error] = await userApi.follow(userToFollow)
-  }
-
-  if (error) {
-    // todo: handle error
-  } else {
-    // user followed
-    followingData.value = {
-      isFollowing: true,
-      isPrivate: isPrivate ?? false,
-      followingSince: ''
-    }
-  }
-}
-
-const unfollow = async (userToUnfollow) => {
-  const [success, error] = await userApi.unfollow(userToUnfollow)
-
-  if (error) {
-    // todo: handle error
-  } else {
-    // user unfollowed
-    followingData.value = {
-      isFollowing: false,
-      isPrivate: false,
-      followingSince: ''
-    }
-  }
 }
 
 /**

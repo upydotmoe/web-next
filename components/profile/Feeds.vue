@@ -279,8 +279,9 @@
       :is-initial="false"
     >
       <template #loading>
-        <div class="mx-auto text-center">
+        <div class="loading-empty-error-message theme-color-secondary">
           <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+          <div class="mt-2 text-tiny">Currently making magic..</div>
         </div>
       </template>
       

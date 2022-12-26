@@ -4,7 +4,7 @@
       <span>
         {{ $t('artworks.moreArtworkBy') }}
         <nuxt-link v-if="artworkDetail.users" :to="'/u/' + artworkDetail.users.username" class="text-colored">
-          {{ artworkDetail.users.username }} &#60;{{ artworkDetail.users.name }}&#62;
+          @{{ artworkDetail.users.username }} &#60;{{ artworkDetail.users.name }}&#62;
         </nuxt-link>
       </span>
 

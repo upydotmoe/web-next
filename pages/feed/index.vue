@@ -432,8 +432,9 @@
           v-model:is-initial="isInitial"
         >
           <template #loading>
-            <div class="mx-auto text-center">
+            <div class="loading-empty-error-message md:theme-color">
               <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+              <div class="justify-center mt-2 text-tiny hidden-md-flex">Currently making magic..</div>
             </div>
           </template>
 
@@ -712,7 +713,6 @@ const showSuggestedUsers = ref(false)
 const suggestedUsersToFollow = ref([])
 const getSuggestedUsersToFollow = async () => {
   const [suggestions, error] = await userApi.getSuggestedUsersToFollow()
-  console.log(suggestions)
 
   if (suggestions.length) {
     suggestedUsersToFollow.value = suggestions

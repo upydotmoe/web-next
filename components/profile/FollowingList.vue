@@ -64,10 +64,11 @@
 
     <!-- On loading, empty or error occured -->
     <LoadingEmptyErrorMessage
-      class="mt-4"
+      class="mt-2"
       :loading="loading"
       :empty="isEmpty"
-      :empty-message="customEmptyMessage"
+      :empty-message="hideFollowings ? $t('followings.followingsHidden') : null"
+      :empty-icon="'i-ri-eye-close-fill'"
       :error="isError"
       :fetch="fetchTop"
       :background-color="'theme-color-secondary'"
@@ -113,6 +114,7 @@ const props = defineProps ({
 })
 
 const hideFollowingListToggle = ref(false)
+const hideFollowings = ref(false)
 
 onMounted (() => {
   hideFollowingListToggle.value = props.userHideFollowingListStatus
@@ -123,7 +125,7 @@ onMounted (() => {
     loading.value = false
     
     isEmpty.value = true
-    customEmptyMessage.value = useI18n().tl('followings.followingsHidden')
+    hideFollowings.value = true
   }
 })
 
@@ -143,7 +145,6 @@ const pagination = ref({
 })
 const isError = ref(false)
 const isEmpty = ref(false)
-const customEmptyMessage = ref('')
 const showLoadMore = ref(false)
 const fetch = async (isPrivateOnly) => {
   resetLoadingEmptyErrorMessage()

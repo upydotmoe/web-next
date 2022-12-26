@@ -1,8 +1,8 @@
 <template>
   <!-- loading -->
   <div
-    v-show="loading && !isMobile() && isModal"
-    class="mx-auto w-full align-middle work-view md:w-1/2"
+    v-show="loading && isModal"
+    class="mx-auto w-full align-middle md:w-1/2"
   >
     <LoadingEmptyErrorMessage
       :loading="loading"
@@ -122,7 +122,7 @@
           <div class="flex flex-row gap-2">
             <!-- mini thumbnails -->
             <div
-              v-if="!isModal"
+              v-if="!isModal && !showExplicitAlert"
               class="sticky top-0 flex-col gap-2 w-1/6 hidden-md-flex"
             >
               <div class="sticky top-0">

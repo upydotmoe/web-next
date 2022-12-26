@@ -173,6 +173,7 @@
   "followings": {
     "following": "Following",
     "followings": "Followings",
+    "followPrivately": "Follow Privately",
     "followingsHidden": "This user has decided to hide their following list.",
     "hideMyFollowings": "Hide people I follow",
     "followingOnly": "Following",

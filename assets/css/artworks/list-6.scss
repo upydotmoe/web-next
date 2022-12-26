@@ -31,11 +31,6 @@
       }
     }
   }
-  
-  /** Loading, empty or error occured */
-  .message {
-    @apply p-4 w-full text-center rounded-md;
-  }
 
   /** Works list */
   .work-grid {

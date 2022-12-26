@@ -47,10 +47,11 @@
 
     <!-- On loading, empty or error occured -->
     <LoadingEmptyErrorMessage
-      class="mt-4"
+      class="mt-2"
       :loading="loading"
       :empty="isEmpty"
-      :empty-message="customEmptyMessage"
+      :empty-message="hideFollowers ? $t('followers.followersHidden') : null"
+      :empty-icon="'i-ri-eye-close-fill'"
       :error="isError"
       :fetch="fetch"
       :background-color="'theme-color-secondary'"
@@ -92,6 +93,7 @@ const props = defineProps ({
   }
 })
 
+const hideFollowers = ref(false)
 const hideFollowerListToggle = ref(false)
 
 onMounted (() => {
@@ -103,7 +105,7 @@ onMounted (() => {
     loading.value = false
     
     isEmpty.value = true
-    customEmptyMessage.value = useI18n().tl('followers.followersHidden')
+    hideFollowers.value = true
   }
 })
 
