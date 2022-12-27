@@ -11,6 +11,7 @@
       <div 
         v-show="showLoadMoreButton" 
         :class="[
+          'w-full',
           !canLoadMore ? 'disabled-button' : 'primary-button',
           { 'animate-pulse': loadMoreOptions.delay },
           { 'inline-block flex-row w-full text-center': !canLoadMore }

@@ -173,6 +173,11 @@
 
   .button-color {
     background: var(--button);
+    color: var(--button-text);
+
+    .icon {
+      @apply text-white;
+    }
   }
   .button-color:hover {
     background: var(--button-hover);
@@ -241,7 +246,7 @@
   }
 
   .b-button {
-    @apply flex flex-row justify-center py-2 px-3 rounded border-2 border-transparent shadow-none transition-all duration-200 ease-in-out cursor-pointer parent-icon hover:shadow-md;
+    @apply inline-flex flex-row justify-center py-2 px-3 rounded border-2 border-transparent shadow-none transition-all duration-200 ease-in-out cursor-pointer parent-icon hover:shadow-md;
   }
 
   .primary-button {
@@ -312,7 +317,6 @@
   .disabled-button {
     @apply text-white border-2 cursor-not-allowed pointer-events-none b-button;
     background-color: var(--button-disabled);
-    border: var(--button-disabled);
 
     .icon {
       @apply mr-2 text-white;

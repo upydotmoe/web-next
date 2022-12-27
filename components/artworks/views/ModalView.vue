@@ -87,7 +87,7 @@
               :to="'/a/'+originalArtwork.id"
               class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
             >
-              <!-- test --> <img
+              <!-- test --> <nuxt-img
                 preload
                 loading="lazy"
                 class="inline-block mr-2 w-8 rounded-md"
@@ -106,7 +106,7 @@
                 isModal ? 'theme-color-secondary' : 'theme-color'
               ]"
             >
-              <!-- test --> <img
+              <!-- test --> <nuxt-img
                 preload
                 loading="lazy"
                 class="inline-block mr-2 w-8 rounded-md"
@@ -157,7 +157,7 @@
                 :key="src.thumbnail"
               >
                 <!-- v-lazy="src.thumbnail" -->
-                <!-- test --> <img
+                <!-- test --> <nuxt-img
                   :id="'image_' + index"
                   preload
                   loading="lazy"
@@ -477,7 +477,7 @@
             class="flex flex-row gap-2 w-full"
           >
             <div v-if="originalArtwork.artwork_assets">
-              <!-- test --> <img
+              <!-- test --> <nuxt-img
                 preload
                 loading="lazy"
                 class="w-40 rounded-md"
@@ -547,7 +547,7 @@
               class="flex flex-row gap-2 mt-2 w-full"
             >
               <div class="w-1/3" v-if="myRedraw.artwork_assets">
-                <!-- test --> <img
+                <!-- test --> <nuxt-img
                   preload
                   loading="lazy"
                   class="w-40 rounded-md"

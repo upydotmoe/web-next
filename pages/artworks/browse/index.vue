@@ -298,7 +298,9 @@ watch (() => route.query.tags, newTag => {
     applyTagOnMount(newTag)
   }
   
-  fetchTop()
+  if (newTag && newTag !== '') {
+    fetchTop()
+  }
 })
 
 /** Before mount, fetch first rows */

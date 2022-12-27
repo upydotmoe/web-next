@@ -149,7 +149,7 @@
 
                   <!-- image -->
                   <div class="inline-block flex-row w-full rounded-md">
-                    <!-- test --> <img
+                    <!-- test --> <nuxt-img
                       preload
                       loading="lazy"
                       class="inline-block mr-2 w-10 rounded-md"
@@ -426,13 +426,12 @@
           </div>
         </div>
 
-        <InfiniteLoading 
-          class="mt-6"
+        <InfiniteLoading
           :load="fetch"
           v-model:is-initial="isInitial"
         >
           <template #loading>
-            <div class="loading-empty-error-message md:theme-color">
+            <div class="loading-empty-error-message">
               <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
               <div class="justify-center mt-2 text-tiny hidden-md-flex">Currently making magic..</div>
             </div>

@@ -12,7 +12,7 @@
   "devDependencies": {
     "@iconify/json": "^2.1.84",
     "@intlify/nuxt3": "^0.2.3",
-    "@nuxt/image-edge": "^1.0.0-27821548.ab054e4",
+    "@nuxt/image-edge": "^1.0.0-27840416.dc1ed65",
     "@nuxtjs/google-fonts": "^3.0.0-0",
     "@nuxtjs/tailwindcss": "^6.1.3",
     "@unocss/nuxt": "^0.44.7",

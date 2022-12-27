@@ -6,7 +6,7 @@
   >
     <!-- cover -->
     <div>
-      <!-- test --> <img 
+      <!-- test --> <nuxt-img 
         preload
         loading="lazy"
         :src="avatarCoverUrl(userInfo.cover_bucket, userInfo.cover_filename)" 
@@ -27,7 +27,7 @@
         <!-- DESKTOP: left side -->
         <div class="mr-6 w-1/5">
           <!-- avatar -->
-          <!-- test --> <img
+          <!-- test --> <nuxt-img
             preload
             loading="lazy"
             class="hidden -mt-2 w-full md:-mt-16 avatar md:flex"
@@ -64,12 +64,12 @@
 
                 <div class="flex flex-row mt-2">
                   <div v-if="userInfo.pen_name && userInfo.pen_name !== ''" class="mr-1">
-                    <span class="flex flex-row rounded-md border-2 border-color-secondary">
-                      <div class="flex flex-row gap-1 p-1 pr-2 theme-color-secondary">
+                    <span class="flex flex-row rounded-md border-2 border-color-button-color button-color">
+                      <div class="flex flex-row gap-1 p-1 pr-2 button-color">
                         <Icon :name="'i-mdi-fountain-pen-tip'" /> 
                         {{ $t('profile.penName') }}
                       </div>
-                      <div class="py-1 px-2 rounded-md">{{ userInfo.pen_name }}</div>
+                      <div class="py-1 px-2 rounded-md theme-color">{{ userInfo.pen_name }}</div>
                     </span>
                   </div>
                 </div>
@@ -82,7 +82,7 @@
                   :to="'/profile/setting'" 
                   class="float-right -mt-20 shadow-md"
                 >
-                  <button class="shadow-md light-bordered-button">
+                  <button class="shadow-md light-button">
                     <Icon :name="'i-ph-gear-six'" />
                     <span class="leading-4">{{ $t('profile.setting') }}</span>
                   </button>
@@ -120,7 +120,7 @@
       <!-- user info: for mobile or smaller device -->
       <div class="flex flex-col text-center md:hidden">
         <!-- avatar -->
-        <!-- test --> <img
+        <!-- test --> <nuxt-img
           preload
           loading="lazy"
           class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar md:hidden"

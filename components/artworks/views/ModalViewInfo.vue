@@ -1,7 +1,7 @@
 <template>
   <section class="flex-col info">
     <div v-if="artworkDetail.users" class="user-info">
-      <div class="flex flex-row w-full">
+      <div class="flex flex-row gap-2 w-full">
         <nuxt-link :to="'/u/' + artworkDetail.users.username">
           <img class="avatar" :src="avatarCoverUrl(artworkDetail.users.avatar_bucket, artworkDetail.users.avatar_filename)" @error="imageLoadError">
         </nuxt-link>

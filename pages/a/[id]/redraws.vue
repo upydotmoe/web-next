@@ -21,7 +21,7 @@
         class="flex flex-row gap-2"
       >
         <div v-if="redrawedArtwork.data.artwork_assets">
-          <!-- test --> <img
+          <!-- test --> <nuxt-img
             preload
             loading="lazy"
             class="w-40 rounded-md"

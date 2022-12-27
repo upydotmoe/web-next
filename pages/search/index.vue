@@ -77,7 +77,6 @@
 </template>
 
 <script setup>
-// import { onClickOutside } from '@vueuse/core'
 import { useI18n } from 'vue-i18n'
 
 // stores

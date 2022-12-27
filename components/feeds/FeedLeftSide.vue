@@ -7,7 +7,7 @@
         currentView == 'feed' ? 'theme-colored' : 'theme-color'
       ]"
     >
-      <Icon :name="'i-akar-icons-home'" class="text-lg hover:text-white" />
+      <Icon :name="'i-akar-icons-home'" />
       <span class="hidden ml-3 lg:block">{{ $t('feeds.all') }}</span>
     </button>
 
@@ -18,7 +18,7 @@
         currentView == 'text' ? 'theme-colored' : 'theme-color'
       ]"
     >
-      <Icon :name="'i-ion-text-sharp'" class="text-lg hover:text-white" />
+      <Icon :name="'i-ion-text-sharp'" />
       <span class="hidden ml-3 lg:block">{{ $t('feeds.textOnly') }}</span>
     </button>
 
@@ -29,7 +29,7 @@
         currentView == 'artwork' ? 'theme-colored' : 'theme-color'
       ]"
     >
-      <Icon :name="'i-gg-image'" class="text-lg hover:text-white" />
+      <Icon :name="'i-gg-image'" />
       <span class="hidden ml-3 lg:block">{{ $t('feeds.artworkOnly') }}</span>
     </button>
   </div>
@@ -66,6 +66,10 @@ const changeView = (mode) => {
 
   .left-button {
     @apply flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white;
+
+    .icon {
+      @apply text-2xl lg:text-lg hover:text-white;
+    }
   }
 }
 </style>

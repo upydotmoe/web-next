@@ -35,7 +35,7 @@
         @click="openNotification(notification, index)"
       >
         <!-- follower avatar -->
-        <!-- test --> <img
+        <!-- test --> <nuxt-img
           preload
           loading="lazy"
           class="object-cover w-12 h-12 rounded unselectable"

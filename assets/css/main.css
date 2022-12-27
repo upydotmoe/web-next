@@ -42,6 +42,7 @@
 
   --input-bg: #ffffff;
   --input-border: #dddddd;
+  --input-placeholder-color: #a9a9a9;
   
   --modal-color: #ffffff;
 
@@ -94,6 +95,7 @@
 
   --input-bg: #494949;
   --input-border: #494949;
+  --input-placeholder-color: #494949;
 
   --modal-color: #2b2b2b;
 

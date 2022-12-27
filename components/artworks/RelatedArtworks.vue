@@ -21,7 +21,7 @@
 
       <div 
         v-show="relatedArtworks.options.paginations.showLoadMore"
-        class="primary-button"
+        class="w-full primary-button"
         :class="relatedArtworks.loadings.loading ? 'animate-pulse' : ''"
         @click="loadMore"
       >

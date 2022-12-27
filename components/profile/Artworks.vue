@@ -12,7 +12,7 @@
 
       <div 
         v-show="showLoadMoreButton" 
-        class="primary-button" 
+        class="w-full primary-button"
         :class="loadMoreOptions.delay ? 'animate-pulse' : ''" 
         @click="loadMore"
       >

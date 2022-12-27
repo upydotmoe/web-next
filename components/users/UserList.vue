@@ -17,15 +17,20 @@
         class=""
         :class="[
           'flex object-cover flex-row rounded-md shadow-lg cursor-pointer theme-color-secondary hover:shadow-xl',
-          { 'rounded-br-none': user.artworks.length }
+          { 'rounded-br-none': user.artworks.length },
         ]"
         :style="user.cover_bucket && user.cover_filename ? 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+avatarCoverUrl(user.cover_bucket, user.cover_filename)+');background-size:cover;' : 'background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+abstractImgUrl+');background-size:cover;'"
       >
-        <div class="flex flex-row w-full">
-          <!-- test --> <img
+        <div
+          :class="[
+            'flex flex-row w-full',
+            user.artworks.length ? 'rounded-bl-none' : 'rounded-bl-md',
+          ]"
+        >
+          <!-- test --> <nuxt-img
             preload
             loading="lazy"
-            class="avatar" 
+            class="avatar"
             :src="avatarCoverUrl(user.avatar_bucket, user.avatar_filename)" 
             @error="imageLoadError"
           />
@@ -97,7 +102,7 @@
                   { 'animate-wigglefast': manageMode }
                 ]"
               >
-                <!-- test --> <img
+                <!-- test --> <nuxt-img
                   preload
                   loading="lazy"
                   :class="[
@@ -186,7 +191,7 @@ const unfollowUser = async (index, userToUnfollow) => {
 }
 
 .work-grid {
-  @apply grid z-0 grid-cols-3 theme-color-secondary w-full rounded-b-md;
+  @apply grid z-0 grid-cols-3 theme-color w-full rounded-b-md;
 
   .work-thumbnail {
     @apply object-cover shadow-lg transition-all duration-200 cursor-pointer;

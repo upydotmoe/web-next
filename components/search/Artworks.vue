@@ -210,34 +210,37 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 
-// composables
-const { oApiConfiguration, fetchOptions } = useApiFetch()
-const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
-
 // stores
 const auth = useAuthStore()
 
-const route = useRoute()
-const { q } = route.query
+// composables
+const { oApiConfiguration, fetchOptions } = useApiFetch()
+const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const emits = defineEmits ([
   'countArtworks'
 ])
 
+const route = useRoute()
+const { q } = route.query
+
 // watch for search query/keyword change
 watch (() => route.query.q, (newKeyword, oldKeyword) => {
   if (newKeyword !== oldKeyword) {
     keyword.value = newKeyword
-    fetchTop()
+    
+    if (newKeyword && newKeyword !== '') {
+      fetchTop()
+    }
   }
 })
 
 /** Before mount, fetch first row */
 const keyword = ref(q)
 onMounted (() => {
-  setTimeout(() => {
+  // setTimeout(() => {
     fetchTop()
-  }, 1000);
+  // }, 1000);
 })
 
 // change list mode by latest uploaded works or popularity

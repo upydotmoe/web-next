@@ -44,7 +44,7 @@
             v-if="redrawedArtwork.artwork_assets"
             class="w-1/5"
           >
-            <!-- test --> <img
+            <!-- test --> <nuxt-img
               preload
               loading="lazy"
               class="w-full rounded-md"
@@ -203,7 +203,7 @@
       </div>
       
       <!-- explicit toggler -->
-      <div class="grid grid-cols-1 gap-2 input-block md:grid-cols-3">
+      <div class="grid grid-cols-1 gap-2 input-block md:grid-cols-2">
         <!-- explicit toggler -->
         <div
           @click.prevent="toggleExplicit()"
@@ -249,7 +249,12 @@
       </div>
 
       <!-- additional option toggler -->
-      <div class="grid grid-cols-1 gap-2 md:grid-cols-3 input-block">
+      <div
+        :class="[
+          'grid grid-cols-1 gap-2 input-block',
+          redrawWorkId ? 'md:grid-cols-3' : 'md:grid-cols-2'
+        ]"
+      >
         <!-- original character toggler -->
         <div
           v-if="!redrawWorkId"
@@ -318,7 +323,13 @@
       </div>
 
       <div class="flex flex-row justify-between md:justify-end">
-        <button class="mr-2 w-full reset-form-button md:w-auto" type="reset" @click="resetForm()">Reset</button>
+        <button
+          class="mr-2 w-full light-button md:w-auto"
+          type="reset"
+          @click="resetForm()"
+        >
+          {{ $t('reset') }}
+        </button>
         <button
           type="submit"
           :class="[

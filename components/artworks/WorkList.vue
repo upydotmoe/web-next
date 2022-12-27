@@ -68,7 +68,7 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <!-- test --> <img
+            <!-- test --> <nuxt-img
               preload
               loading="lazy"
               :src="
@@ -138,7 +138,7 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <!-- test --> <img
+            <!-- test --> <nuxt-img
               preload
               loading="lazy"
               :src="

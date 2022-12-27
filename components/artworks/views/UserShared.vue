@@ -19,7 +19,7 @@
           class="flex flex-row gap-2 p-2 rounded-md theme-color-secondary hover:button-color hover:text-white img-hover"
         >
           <!-- avatar -->
-          <!-- test --> <img
+          <!-- test --> <nuxt-img
             preload
             loading="lazy"
             class="w-10 h-10 avatar"
