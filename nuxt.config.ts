@@ -18,7 +18,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Online community platform for artists, post your work and chat with other artists around the world.' },
+        { hid: 'description', name: 'description', content: 'Social creative platform for Artists!' },
         { name: 'format-detection', content: 'telephone=no' }
       ],
       link: [
