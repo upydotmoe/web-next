@@ -21,10 +21,10 @@
       <div class="mt-10">
         <span class="text-lg italic">Why should I support Upy?</span>
 
-        <div class="grid grid-cols-1 gap-3 mt-4 md:grid-cols-3">
+        <div class="grid gap-3 mt-4 grid-cols">
           <!-- support the team -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-fluent-people-checkmark-24-regular'" class="mx-auto text-4xl" />
+            <Icon :name="'i-fluent-people-checkmark-24-regular'" class="text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Support the team</span>
               <div class="mt-1">
@@ -35,7 +35,7 @@
 
           <!-- server -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-ion-server-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-server-outline'" class="text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Server and other bills</span>
               <div class="mt-1">
@@ -46,7 +46,7 @@
 
           <!-- no ads -->
           <!-- <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-ion-sad-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-sad-outline'" class="text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Stay Ad-free</span>
               <div class="mt-1">
@@ -57,7 +57,7 @@
 
           <!-- open-source -->
           <!-- <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-ion-people-circle-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-people-circle-outline'" class="text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Become open-source</span>
               <div class="mt-1">
@@ -68,7 +68,7 @@
 
           <!-- make the platform better -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-ion-hand-right-outline'" class="mx-auto text-4xl" />
+            <Icon :name="'i-ion-hand-right-outline'" class="text-4xl" />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Make the platform even better</span>
               <div class="mt-1">
@@ -82,7 +82,7 @@
       <div class="mt-10">
         <span class="text-lg">Donation options</span>
 
-        <div class="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2 lg:grid-cols-5">
+        <div class="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2 lg:grid-cols-3">
           <!-- PayPal -->
           <a :href="'https://paypal.me/noric1902'" target="_blank" class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color">
             <img class="mx-auto mb-4 w-14 h-14" src="https://cdn.iconscout.com/icon/free/png-256/paypal-1527455-1298285.png">

@@ -34,7 +34,7 @@
       ]"
       @click="followingData.isFollowing ? unfollow(userInfo.id) : follow(userInfo.id)"
       @mouseover="unfollowHoverLeave('i-ri-user-unfollow-fill', $t('unfollow'))"
-      @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('followings.followings'))"
+      @mouseleave="unfollowHoverLeave('i-ri-user-follow-fill', $t('followings.following'))"
     >
       <!-- if not following -->
       <button v-show="!followingData.isFollowing">
@@ -45,7 +45,7 @@
       <!-- if following -->
       <button v-show="followingData.isFollowing">
         <Icon :name="unfollowIcon" :text-size="'text-base'" />
-        {{ unfollowText === null ? $t('followings.followings') : unfollowText }}
+        {{ unfollowText === null ? $t('followings.following') : unfollowText }}
       </button>
     </div>
     

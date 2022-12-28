@@ -49,7 +49,7 @@
         </div>
       </div>
 
-      <!-- On loading, empty or error occured -->
+      <!-- On loading, empty or error-->
       <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
@@ -67,7 +67,7 @@
           :view="view"
         />
 
-        <!-- Load more button (next pagination) -->
+        <!-- Load more button -->
         <div 
           v-show="showLoadMoreButton" 
           class="w-full primary-button"
@@ -89,7 +89,7 @@
         </div>
       </div>
 
-      <!-- Modal view (artwork detail) -->
+      <!-- Artwork modal view -->
       <div 
         :id="section+'-modal'"
         class="modal work-view" 

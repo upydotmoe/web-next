@@ -7,7 +7,10 @@
     ]"
   >
     <!-- When loading is in progress -->
-    <span v-show="loading" class="flex flex-row justify-center">
+    <span
+      v-show="loading"
+      class="flex flex-row justify-center"
+    >
       <Spinner class="mr-2" />
 
       <b class="mr-1">(•◡•)</b>
@@ -16,7 +19,7 @@
 
     <!-- If there is no artwork to show -->
     <div
-      v-show="empty"
+      v-show="empty && !loading"
       class="inline-flex flex-row gap-2 justify-center w-full"
     >
       <b v-if="emptyMessage === ''">(ㆆ_ㆆ)</b>

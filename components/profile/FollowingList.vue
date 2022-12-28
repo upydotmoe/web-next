@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <!-- On loading, empty or error occured -->
+    <!-- On loading, empty or error-->
     <LoadingEmptyErrorMessage
       class="mt-2"
       :loading="loading"

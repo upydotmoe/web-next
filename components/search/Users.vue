@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <!-- On loading, empty or error occured -->
+    <!-- On loading, empty or error-->
     <LoadingEmptyErrorMessage
       :loading="loading"
       :empty="isEmpty"
@@ -26,38 +26,22 @@
         v-show="!isEmpty"
         :users="users"
       />
-    </div>
 
-    <!-- Paging control -->
-    <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
-      <button 
-        class="w-full md:w-auto"
-        :class="[config.pagination.enablePrev ? 'primary-button' : 'disabled-button']"
-        @click="config.pagination.enablePrev ? movePage('prev') : null"
+      <!-- Load more button -->
+      <div 
+        v-show="showLoadMoreButton" 
+        class="w-full primary-button"
+        :class="loadMoreOptions.delay ? 'animate-pulse' : ''" 
+        @click="loadMore"
       >
-        <Icon :name="'i-ion-chevron-back-outline'" />
-        {{ $t('pagination.previous') }}
-      </button>
-      
-      <button 
-        class="w-full md:w-auto"
-        :class="config.pagination.enableNext ? 'primary-button' : 'disabled-button'"
-        @click="config.pagination.enableNext ? movePage('next') : null"
-      >
-        {{ $t('pagination.next') }}
-        <Icon 
-          :name="'i-ion-chevron-forward-outline'" 
-          class="ml-2"
-          style="margin-right: 0 !important" 
-        />
-      </button>
+        {{ $t('loadMore') }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 // components
-import Icon from '~/components/globals/Icon.vue'
 import UserList from '~/components/users/UserList.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
@@ -68,10 +52,10 @@ import useUser from '~/composables/users/useUser'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
+const emits = defineEmits (['countUsers'])
+
 const route = useRoute()
 const { q } = route.query
-
-const emits = defineEmits (['countUsers'])
 
 // watch for search query/keyword change
 watch (() => route.query.q, (newKeyword, oldKeyword) => {
@@ -91,53 +75,28 @@ onMounted (() => {
 
 /** Fetch first row */
 const users = ref([])
-const config = ref({
-  pagination: {
-    enablePrev: true,
-    enableNext: true
-  }
-})
 const fetchTop = async () => {
-  const data = await fetch()
+  resetBeforeFetch()
 
-  const dataUsers = data.users
-  const dataPagination = data.pagination
-
-  // handle empty data
-  if (!dataUsers.length && dataPagination.record_total === 0) {
-    showEmpty()
-  } else {
-    users.value = dataUsers
+  const { users: dataUsers, pagination: dataPagination } = await fetch()
   
-    if (dataPagination.next_previous.next_page === null) {
-      config.value.pagination.enableNext = false
-    } else {
-      config.value.pagination.enableNext = true
-    }
-
-    if (dataPagination.next_previous.prev_page === null) {
-      config.value.pagination.enablePrev = false
-    } else {
-      config.value.pagination.enablePrev = true
-    }
-
-    // counter
-    emits('countUsers', dataPagination.record_total)
+  if (dataUsers.length && dataPagination.record_total) {
+    users.value = dataUsers
   }
+
+  emits('countUsers', dataPagination.record_total)
 }
 
 /** Fetch */
 const loading = ref(true)
+const isError = ref(false)
+const isEmpty = computed(() => !isError.value && !users.value.length)
+const showLoadMoreButton = ref(true)
 const pagination = ref({
   perPage: 16,
   page: ref(0)
 })
 const fetch = async () => {
-  if (pagination.value.page === 0) {
-    loading.value = true
-    isEmpty.value = false
-  }
-
   const [data, error] = await userApi.searchUsers({
     keyword: keyword.value ?? '',
     pagination: {
@@ -146,44 +105,42 @@ const fetch = async () => {
     }
   })
 
+  loading.value = false
+  
+  // hide load more button if there is no more artwork to load
+  if (!data.pagination.next_previous.next_page) {
+    showLoadMoreButton.value = false
+  }
+
   if (error) {
-    showError()
+    isError.value = true
   } else {
-    reset()
+    pagination.value.page += 1
     return data
   }
 }
 
-// Control pagination and fetch
-const movePage = async (mode) => {
-  if (mode === 'prev') {
-    pagination.value.page -= 1
-  } else {
-    pagination.value.page += 1
-  }
+// Load more function
+const loadMoreOptions = ref({
+  delay: false,
+  showDiscoveryButton: false
+})
+const loadMore = async () => {
+  loadMoreOptions.value.delay = true
+  const data = await fetch()
 
-  await fetchTop()
+  data.users.forEach((work) => {
+    users.value.push(work)
+  })
+
+  loadMoreOptions.value.delay = false
 }
 
-/** Show empty if there's no artwork to show */
-const isEmpty = ref(false)
-const showEmpty = () => {
-  isEmpty.value = true
-
-  emits('countUsers', 0)
-}
-
-/** Show error message when error occured while trying to fetch artworks */
-const isError = ref(false)
-const showError = () => {
-  loading.value = false
-  isError.value = true
-}
-
-/** Reset refs */
-const reset = () => {
-  loading.value = false
-  isEmpty.value = false
+const resetBeforeFetch = () => {
+  users.value = []
+  showLoadMoreButton.value = true
+  pagination.value.page = 0
+  loading.value = true
   isError.value = false
 }
 </script>

@@ -68,7 +68,7 @@ const changeView = (mode) => {
     @apply flex flex-row py-3 px-4 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer parent-icon hover:button hover:text-white;
 
     .icon {
-      @apply text-2xl lg:text-lg hover:text-white;
+      @apply text-3xl lg:text-lg hover:text-white;
     }
   }
 }

@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <!-- On loading, empty or error occured -->
+      <!-- On loading, empty or error-->
       <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
@@ -91,7 +91,7 @@
         </button>
       </div>
 
-      <!-- Modal view (artwork detail) -->
+      <!-- Artwork modal view -->
       <div 
         id="recent-modal"
         class="modal work-view" 

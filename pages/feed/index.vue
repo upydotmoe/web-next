@@ -13,7 +13,7 @@
       />
     </template>
 
-    <div class="mx-auto w-full">
+    <div class="mx-auto w-full lg:w-5/6 xl:w-full">
       <!-- switch between following only and global for text feed -->
       <div
         v-if="fetchMode == 'text'"

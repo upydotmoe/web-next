@@ -184,7 +184,7 @@
           </div>
         </div>
 
-        <!-- On loading, empty or error occured -->
+        <!-- On loading, empty or error-->
         <LoadingEmptyErrorMessage
           :loading="config.loading"
           :empty="isEmpty"
