@@ -1,8 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "build": "nuxt build",
     "dev": "nuxt dev",
+    "cleanup": "rm -rf .output .nuxt",
+    "build": "npm run cleanup && nuxt build",
+    "start:docker": "pm2-runtime ecosystem.config.js",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "pm2:start": "pm2 start ./.output/server/index.mjs --name upy-web && pm2 save",
