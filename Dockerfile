@@ -1,5 +1,5 @@
 # stage 1
-FROM node:16-alpine as first
+FROM node:16 as first
 WORKDIR /web
 ADD package.json .
 ADD tsconfig.json .
