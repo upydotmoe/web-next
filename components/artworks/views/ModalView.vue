@@ -156,11 +156,11 @@
                 v-for="(src, index) in images"
                 :key="src.thumbnail"
               >
-                <!-- v-lazy="src.thumbnail" -->
                 <!-- test --> <nuxt-img
                   :id="'image_' + index"
                   preload
                   loading="lazy"
+                  v-lazy="src.thumbnail"
                   :src="src.thumbnail"
                   :data-source="src.source"
                   :class="[
@@ -1050,7 +1050,7 @@ const props = defineProps ({
 })
 
 const runtimeConfig = useRuntimeConfig()
-const { $router } = useNuxtApp()
+const router = useRouter()
 const route = useRoute()
 
 /**
@@ -1146,7 +1146,7 @@ const view = async (selectedWorkId) => {
     artworkDetail.value = data
 
     images.value = []
-    data.artwork_assets.forEach((asset) => {                                                    
+    data.artwork_assets.forEach((asset) => {
       images.value.push({
         thumbnail: generateSemiCompressedArtworkUrl(asset.bucket, asset.filename, true),
         source: generateSemiCompressedArtworkUrl(asset.bucket, asset.filename, false)
@@ -1172,7 +1172,7 @@ const view = async (selectedWorkId) => {
     const isPublished = useDate().formatApiToWeb(data.scheduled_post) < useDate().currentUtcTime()
     if (!isPublished) {
       if (auth.user.id !== data.users.id) {
-        $router.push('/')
+        router.push('/')
       } else {
         previewMode.value = true
       }
@@ -1207,9 +1207,13 @@ const view = async (selectedWorkId) => {
       // }
     }
 
-    if (props.id !== 0) {
+    if (!isModal) {
       emit('setMeta', {
         title: artworkDetail.value.title
+      })
+      
+      router.replace({
+        hash: '#as'
       })
     }
   }
@@ -1609,7 +1613,7 @@ const deleteWork = async (workId) => {
     deleteSuccess.value = true
 
     setTimeout(() => {
-      $router.push('/')
+      router.push('/')
     }, 1500)
   } else {
     // todo: handle error

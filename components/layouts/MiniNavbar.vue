@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-row justify-center items-center py-2 px-4 mx-auto mt-0 w-full text-white rounded-none border-none md:justify-between md:px-6 2xl:w-8/12">
+  <div
+    id="as"
+    class="flex flex-row justify-center items-center py-2 px-4 mx-auto mt-0 w-full text-white rounded-none border-none md:justify-between md:px-6 2xl:w-8/12"
+  >
     <div class="menus">
       <nuxt-link
         v-if="auth.loggedIn"

@@ -38,6 +38,10 @@ const setMeta = (meta) => {
   })
 }
 
+const route = useRoute()
+
+const { id } = route.params
+
 const loading = ref(true)
 const stopLoading = () => {
   loading.value = false
@@ -52,8 +56,4 @@ const empty = ref(false)
 const showEmpty = () => {
   empty.value = true
 }
-
-const { $router } = useNuxtApp()
-
-const { id } = $router.currentRoute.value.params
 </script>

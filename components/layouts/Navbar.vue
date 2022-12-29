@@ -26,7 +26,13 @@
 
       <!-- search box -->
       <span class="search">
-        <input v-model="searchKeyword" type="text" name="search" :placeholder="$t('search.search')" @keyup.enter="search()">
+        <input
+          v-model="searchKeyword"
+          type="text"
+          name="search"
+          :placeholder="$t('search.search')"
+          @keyup.enter="search()"
+        >
         <span class="search-button" @click="search()">
           <Icon :name="'i-ion-search'" />
         </span>
