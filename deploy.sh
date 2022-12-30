@@ -1,4 +1,6 @@
 #!/bin/bash
+npm run install
+
 echo "Building app.."
 npm run build
 
