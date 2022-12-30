@@ -81,7 +81,7 @@
         <div v-show="loadMoreOptions.showDiscoveryButton">
           <nuxt-link
             :to="'/artworks/' + section"
-            class="flex-row justify-center primary-button md:mt-4"
+            class="w-full primary-button"
           >
             <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
             {{ $t('seeMore') }}

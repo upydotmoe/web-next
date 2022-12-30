@@ -66,7 +66,7 @@
         :fetch="fetchTop"
       />
 
-      <!-- List area -->
+      <!-- Artwork list -->
       <div v-show="!loading" class="mt-4">
         <WorkList 
           v-show="!isEmpty"
@@ -74,32 +74,16 @@
           :works="works"
           :view="view"
         />
-      </div>
 
-      <!-- Paging control -->
-      <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
-        <button 
-          :class="[
-            config.pagination.enablePrev ? 'primary-button' : 'disabled-button'
-          ]"
-          @click="movePage('prev')"
+        <!-- Load more button -->
+        <div 
+          v-show="showLoadMoreButton" 
+          class="w-full primary-button"
+          :class="loadMoreOptions.delay ? 'animate-pulse' : ''" 
+          @click="loadMore"
         >
-          <Icon :name="'i-ion-chevron-back-outline'" />
-          {{ $t('pagination.previous') }}
-        </button>
-        <button 
-          :class="[
-            config.pagination.enableNext ? 'primary-button' : 'disabled-button'
-          ]"
-          @click="movePage('next')"
-        >
-          {{ $t('pagination.next') }}
-          <Icon 
-            :name="'i-ion-chevron-forward-outline'" 
-            class="md:ml-2"
-            style="margin-right: 0 !important" 
-          />
-        </button>
+          {{ $t('loadMore') }}
+        </div>
       </div>
 
       <!-- Artwork modal view -->
@@ -160,7 +144,7 @@ onBeforeMount (() => {
 const explicitMode = ref(undefined)
 const changeExplicitMode = async (mode) => {
   explicitMode.value = mode
-  pagination.page = 0
+  pagination.value.page = 0
 
   await fetchTop()
 }
@@ -181,7 +165,7 @@ const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
   previousSelectedTags.value = selectedTags
   filterTags.value = selectedTagsJoined
   filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0  
-  pagination.page = 0
+  pagination.value.page = 0
 
   // close tag selection modal and refetch the list
   useModal().closeModal('tag-filter-selection-modal')
@@ -194,97 +178,70 @@ watch (async () => previousSelectedTags.value, _ => {
 })
 
 const works = ref([])
-const config = ref({
-  pagination: {
-    enablePrev: true,
-    enableNext: true
-  }
-})
 const fetchTop = async () => {
-  const data = await fetch()
-
-  const dataWorks = data.works
-  const dataPagination = data.pagination
-
-  // handle empty data
-  if (!dataWorks.length && dataPagination.record_total === 0) {
-    showEmpty()
-  } else {
-    works.value = dataWorks
+  resetBeforeFetch()
   
-    if (dataPagination.next_previous.next_page === null) {
-      config.value.pagination.enableNext = false
-    } else {
-      config.value.pagination.enableNext = true
-    }
+  const { works: dataWorks, pagination: dataPagination } = await fetch()
 
-    if (dataPagination.next_previous.prev_page === null) {
-      config.value.pagination.enablePrev = false
-    } else {
-      config.value.pagination.enablePrev = true
-    }
+  if (dataWorks.length && dataPagination.record_total) {
+    works.value = dataWorks
   }
 }
 
 /** Fetch */
 const loading = ref(true)
-const pagination = reactive({
-  perPage: 30,
-  page: ref(0)
+const isError = ref(false)
+const isEmpty = computed(() => !isError.value && !works.value.length)
+const showLoadMoreButton = ref(true)
+const pagination = ref({
+  perPage: 40,
+  page: 0
 })
 const fetch = async () => {
-  loading.value = true
-  isEmpty.value = false
-
   const [data, error] = await artworkApi.getLatest({
     pagination: {
-      perPage: pagination.perPage,
-      page: pagination.page
+      perPage: pagination.value.perPage,
+      page: pagination.value.page
     },
     explicitMode: explicitMode.value,
     tags: filterTags.value
   })
+  
+  loading.value = false
+  
+  // hide load more button if there is no more artwork to load
+  if (!data.pagination.next_previous.next_page) {
+    showLoadMoreButton.value = false
+  }
 
   if (error) {
-    showError()
+    isError.value = true
   } else {
-    reset()
+    pagination.value.page += 1
     return data
   }
-
-  loading.value = false
 }
 
-// Control pagination and fetch
-const movePage = async (mode) => {
-  if (mode === 'prev') {
-    pagination.page -= 1
-  } else {
-    pagination.page += 1
-  }
+// Load more function
+const loadMoreOptions = ref({
+  delay: false
+})
+const loadMore = async () => {
+  loadMoreOptions.value.delay = true
+  const { works: dataWorks } = await fetch()
 
-  await fetchTop()
-  window.scrollTo(0, 0)
+  dataWorks.forEach((work) => {
+    works.value.push(work)
+  })
+
+  loadMoreOptions.value.delay = false
 }
 
-/** Show empty if there's no artwork to show */
-const isEmpty = ref(false)
-const showEmpty = () => {
-  isEmpty.value = true
-}
-
-/** Show error message when error occured while trying to fetch artworks */
-const isError = ref(false)
-const showError = () => {
-  loading.value = false
-  isError.value = true
-  hideButton()
-}
-
-/** Reset refs */
-const reset = () => {
-  loading.value = false
-  isEmpty.value = false
+const resetBeforeFetch = () => {
+  works.value = []
+  showLoadMoreButton.value = true
+  pagination.value.page = 0
+  loading.value = true
   isError.value = false
 }
 

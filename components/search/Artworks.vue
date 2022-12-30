@@ -328,7 +328,7 @@ const isEmpty = computed(() => !isError.value && !works.value.length)
 const showLoadMoreButton = ref(true)
 const pagination = ref({
   perPage: 24,
-  page: ref(0)
+  page: 0
 })
 const fetch = async () => {
   const [data, error] = await artworkApi.getSearch({
@@ -361,15 +361,11 @@ const fetch = async () => {
 
 // Load more function
 const loadMoreOptions = ref({
-  delay: false,
-  showDiscoveryButton: false
+  delay: false
 })
 const loadMore = async () => {
   loadMoreOptions.value.delay = true
-  const data = await fetch()
-
-  const dataWorks = data.works
-  const dataPagination = data.pagination
+  const { works: dataWorks } = await fetch()
 
   dataWorks.forEach((work) => {
     works.value.push(work)
