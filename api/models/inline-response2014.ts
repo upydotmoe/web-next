@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ReplyModel } from './reply-model';
+import { CommentModel } from './comment-model';
 import { SuccessMessageModel } from './success-message-model';
 /**
  * 
@@ -21,8 +21,8 @@ import { SuccessMessageModel } from './success-message-model';
 export interface InlineResponse2014 extends SuccessMessageModel {
     /**
      * 
-     * @type {ReplyModel & any}
+     * @type {CommentModel}
      * @memberof InlineResponse2014
      */
-    data?: ReplyModel & any;
+    data?: CommentModel;
 }

@@ -16,9 +16,9 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20049 } from '../models';
 import { InlineResponse20050 } from '../models';
 import { InlineResponse20051 } from '../models';
+import { InlineResponse20052 } from '../models';
 import { ProRegisterBody } from '../models';
 /**
  * ProApi - axios parameter creator
@@ -160,7 +160,7 @@ export const ProApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProStatus(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20050>>> {
+        async getProStatus(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20051>>> {
             const localVarAxiosArgs = await ProApiAxiosParamCreator(configuration).getProStatus(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -174,7 +174,7 @@ export const ProApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProStatusByUserId(userId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20051>>> {
+        async getProStatusByUserId(userId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20052>>> {
             const localVarAxiosArgs = await ProApiAxiosParamCreator(configuration).getProStatusByUserId(userId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -188,7 +188,7 @@ export const ProApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async registerProVersion(body?: ProRegisterBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20049>>> {
+        async registerProVersion(body?: ProRegisterBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20050>>> {
             const localVarAxiosArgs = await ProApiAxiosParamCreator(configuration).registerProVersion(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -210,7 +210,7 @@ export const ProApiFactory = function (configuration?: Configuration, basePath?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProStatus(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20050>> {
+        async getProStatus(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20051>> {
             return ProApiFp(configuration).getProStatus(options).then((request) => request(axios, basePath));
         },
         /**
@@ -220,7 +220,7 @@ export const ProApiFactory = function (configuration?: Configuration, basePath?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProStatusByUserId(userId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20051>> {
+        async getProStatusByUserId(userId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20052>> {
             return ProApiFp(configuration).getProStatusByUserId(userId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -230,7 +230,7 @@ export const ProApiFactory = function (configuration?: Configuration, basePath?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async registerProVersion(body?: ProRegisterBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20049>> {
+        async registerProVersion(body?: ProRegisterBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20050>> {
             return ProApiFp(configuration).registerProVersion(body, options).then((request) => request(axios, basePath));
         },
     };
@@ -250,7 +250,7 @@ export class ProApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ProApi
      */
-    public async getProStatus(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20050>> {
+    public async getProStatus(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20051>> {
         return ProApiFp(this.configuration).getProStatus(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -261,7 +261,7 @@ export class ProApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ProApi
      */
-    public async getProStatusByUserId(userId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20051>> {
+    public async getProStatusByUserId(userId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20052>> {
         return ProApiFp(this.configuration).getProStatusByUserId(userId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -272,7 +272,7 @@ export class ProApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ProApi
      */
-    public async registerProVersion(body?: ProRegisterBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20049>> {
+    public async registerProVersion(body?: ProRegisterBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20050>> {
         return ProApiFp(this.configuration).registerProVersion(body, options).then((request) => request(this.axios, this.basePath));
     }
 }

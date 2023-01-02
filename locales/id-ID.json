@@ -461,7 +461,7 @@
   "logins": {
     "login": "Masuk",
     "form": {
-      "email_username": "Email atau Username",
+      "username": "Username",
       "password": "Password"
     }
   },
@@ -473,6 +473,7 @@
       "name": "Nama",
       "password": "Password",
       "registered": {
+        "passphraseCopyAlert": "Tolong simpan data ini di tempat yang aman, Anda akan ditanyakan mengenai data ini jika Anda ingin memulihkan akun Anda.",
         "didNotReceiveVerificationLink": "Kamu tidak menerima link verifikasi?",
         "verificationLinkSent": "Link verifikasi telah dikirim ke email kamu.",
         "accountCreatedInfo": "Akun kamu telah dibuat. Silahkan cek email kamu untuk melakukan verifikasi.",
@@ -483,7 +484,10 @@
   },
   "accountRecovery": {
     "form": {
+      "pleaseInputRecoveryPassphrase": "Masukkan passphrase pemulihan akun Anda",
+      "username": "Username",
       "email": "Email",
+      "passphrase": "Passphrase",
       "recoveryLinkSent": "Link pemulihan telah dikirim ke email kamu.",
       "recoveryLinkSentInfo": "Silahkan cek email kamu untuk melakukan pemulihan.",
       "didNotReceiveRecoveryLink": "Kamu tidak menerima link pemulihan?",
@@ -531,5 +535,7 @@
   "guidelines": {
     "title": "Pedoman Konten",
     "content": "<div class='mt-4' style='line-height:22px;'><ul style='margin:0 20px;'><li style='list-style:decimal'>Jangan memposting karya yang tidak Anda miliki atau buat sendiri, bahkan jika Anda memiliki izin dari artist aslinya. Ini untuk menjamin adilnya partisipasi dan pengakuan bagi semua artist di komunitas. Jika Anda ingin menggambar ulang karya orang lain, Anda dapat menggunakan fitur \"artwork redraw\" dan mengirimkan versi yang digambar ulang.</li><li style='list-style:decimal'>Jaga agar konten tetap sesuai dengan topik. Jangan memposting fotografi, kerajinan, atau tato yang tidak terkait dengan tema komunitas.</li><li style='list-style:decimal'>Jangan memposting gambar yang dihasilkan oleh alat kecerdasan buatan (AI). Jika Anda menemukan gambar yang dihasilkan oleh AI, harap laporkan ke moderator secepatnya. Anda bisa mengenali gambar yang dihasilkan oleh AI dengan ciri khasnya, seperti tangan yang tidak digambar dengan benar, postur yang aneh, warna yang aneh, bayangan yang tidak alami, dan pose yang terbilang monoton.</li><li style='list-style:decimal'>Jangan mengiklankan atau mempromosikan alat atau layanan kecerdasan buatan (AI) di forum atau komunitas.</li><li style='list-style:decimal'>Jangan spam tag untuk mendapatkan lebih banyak viewers.</li><li style='list-style:decimal'>Jika karya Anda mengandung konten dewasa atau eksplisit, harap sertakan filter eksplisit pada submission.</li><li style='list-style:decimal'>Jika karya Anda mengandung darah, gore, atau elemen lain yang mengganggu, harap sertakan filter gore pada submission.</li><li style='list-style:decimal'>Jangan memposting karya yang mengancam atau mempromosikan terorisme.</li><li style='list-style:decimal'>Jangan memposting apapun yang berhubungan dengan politik atau mempromosikan pandangan politik dengan cara apapun.</li><li style='list-style:decimal'>Jangan menyertakan link penipuan atau phising di deskripsi karya Anda.</li></ul><br><div>Jika Anda menemukan karya yang melanggar aturan-aturan ini, harap gunakan tombol lapor untuk memberitahukan moderator. Kami akan menyelidiki masalah secepatnya dan mengambil tindakan yang sesuai untuk menjaga kualitas dan relevansi komunitas. Kami menghargai bantuan Anda dalam menjaga komunitas kami menjadi tempat yang positif dan menyenangkan bagi semua artist.</div><br><div>Dengan mengirimkan karya Anda ke Upy, Anda setuju bahwa karya Anda dapat kami tampilkan di media sosial lain seperti Instagram atau Facebook.<div><br><div>Dengan membaca panduan ini, Anda menyetujui bahwa karya Anda dapat dihapus dan akun Anda dapat ditangguhkan atau dihapus secara permanen jika Anda melanggar satu atau lebih aturan ini. Kami menganggap serius kualitas dan integritas komunitas kami, dan tidak akan toleran terhadap perilaku yang bertentangan dengan panduan ini.</div></div>"
-  }
+  },
+  "copyAll": "Salin semua",
+  "copied": "Tersalin"
 }

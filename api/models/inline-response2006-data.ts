@@ -19,20 +19,8 @@
 export interface InlineResponse2006Data {
     /**
      * 
-     * @type {boolean}
-     * @memberof InlineResponse2006Data
-     */
-    isFollowing?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse2006Data
-     */
-    isPrivate?: boolean;
-    /**
-     * 
      * @type {string}
      * @memberof InlineResponse2006Data
      */
-    followingSince?: string;
+    cover?: string;
 }

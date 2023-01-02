@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { CollectionModel } from './collection-model';
 /**
  * 
  * @export
@@ -19,20 +20,8 @@
 export interface InlineResponse20014Data {
     /**
      * 
-     * @type {number}
+     * @type {Array<CollectionModel>}
      * @memberof InlineResponse20014Data
      */
-    collectionId?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20014Data
-     */
-    workId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20014Data
-     */
-    createdAt?: string;
+    collections?: Array<CollectionModel>;
 }

@@ -11,8 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { PaginationModel } from './pagination-model';
-import { UserModel } from './user-model';
+import { InlineResponse20032DataTags } from './inline-response20032-data-tags';
 /**
  * 
  * @export
@@ -21,14 +20,8 @@ import { UserModel } from './user-model';
 export interface InlineResponse20032Data {
     /**
      * 
-     * @type {Array<UserModel & any>}
+     * @type {Array<InlineResponse20032DataTags>}
      * @memberof InlineResponse20032Data
      */
-    users?: Array<UserModel & any>;
-    /**
-     * 
-     * @type {PaginationModel}
-     * @memberof InlineResponse20032Data
-     */
-    pagination?: PaginationModel;
+    tags?: Array<InlineResponse20032DataTags>;
 }

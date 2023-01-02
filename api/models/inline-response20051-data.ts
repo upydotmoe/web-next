@@ -23,4 +23,10 @@ export interface InlineResponse20051Data {
      * @memberof InlineResponse20051Data
      */
     isPro?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Data
+     */
+    until?: string;
 }

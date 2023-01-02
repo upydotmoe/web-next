@@ -17,8 +17,8 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { CommentsReplyBody } from '../models';
-import { InlineResponse20022 } from '../models';
-import { InlineResponse2014 } from '../models';
+import { InlineResponse20023 } from '../models';
+import { InlineResponse2015 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * ArtworkCommentsRepliesApi - axios parameter creator
@@ -271,7 +271,7 @@ export const ArtworkCommentsRepliesApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReplies(commentId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20022>>> {
+        async getReplies(commentId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20023>>> {
             const localVarAxiosArgs = await ArtworkCommentsRepliesApiAxiosParamCreator(configuration).getReplies(commentId, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -313,7 +313,7 @@ export const ArtworkCommentsRepliesApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async reply(body?: CommentsReplyBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2014>>> {
+        async reply(body?: CommentsReplyBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2015>>> {
             const localVarAxiosArgs = await ArtworkCommentsRepliesApiAxiosParamCreator(configuration).reply(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -352,7 +352,7 @@ export const ArtworkCommentsRepliesApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReplies(commentId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20022>> {
+        async getReplies(commentId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20023>> {
             return ArtworkCommentsRepliesApiFp(configuration).getReplies(commentId, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -382,7 +382,7 @@ export const ArtworkCommentsRepliesApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async reply(body?: CommentsReplyBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2014>> {
+        async reply(body?: CommentsReplyBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2015>> {
             return ArtworkCommentsRepliesApiFp(configuration).reply(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -415,7 +415,7 @@ export class ArtworkCommentsRepliesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkCommentsRepliesApi
      */
-    public async getReplies(commentId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20022>> {
+    public async getReplies(commentId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20023>> {
         return ArtworkCommentsRepliesApiFp(this.configuration).getReplies(commentId, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -448,7 +448,7 @@ export class ArtworkCommentsRepliesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkCommentsRepliesApi
      */
-    public async reply(body?: CommentsReplyBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2014>> {
+    public async reply(body?: CommentsReplyBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2015>> {
         return ArtworkCommentsRepliesApiFp(this.configuration).reply(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

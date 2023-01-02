@@ -12,13 +12,18 @@
  * Do not edit the class manually.
  */
 import { InlineResponse20049Data } from './inline-response20049-data';
-import { SuccessMessageModel } from './success-message-model';
 /**
  * 
  * @export
  * @interface InlineResponse20049
  */
-export interface InlineResponse20049 extends SuccessMessageModel {
+export interface InlineResponse20049 {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse20049
+     */
+    success?: boolean;
     /**
      * 
      * @type {InlineResponse20049Data}

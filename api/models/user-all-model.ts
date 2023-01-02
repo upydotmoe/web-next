@@ -39,5 +39,3 @@ export interface UserAllModel extends UserModel {
      */
     isPro?: boolean;
 }
-
-

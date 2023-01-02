@@ -11,18 +11,23 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse2004Data } from './inline-response2004-data';
-import { SuccessMessageModel } from './success-message-model';
+import { InlineResponse201Data } from './inline-response201-data';
 /**
  * 
  * @export
  * @interface InlineResponse2004
  */
-export interface InlineResponse2004 extends SuccessMessageModel {
+export interface InlineResponse2004 {
     /**
      * 
-     * @type {InlineResponse2004Data}
+     * @type {boolean}
      * @memberof InlineResponse2004
      */
-    data?: InlineResponse2004Data;
+    success?: boolean;
+    /**
+     * 
+     * @type {InlineResponse201Data}
+     * @memberof InlineResponse2004
+     */
+    data?: InlineResponse201Data;
 }

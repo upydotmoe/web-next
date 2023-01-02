@@ -18,7 +18,7 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { ArtworkModel } from '../models';
 import { ArtworksBody } from '../models';
-import { InlineResponse2011 } from '../models';
+import { InlineResponse2012 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * ArtworkCRUDApi - axios parameter creator
@@ -287,7 +287,7 @@ export const ArtworkCRUDApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postForm(title?: string, description?: string, tags?: string, isExplicit?: number, scheduledPost?: string, files?: Array<Blob>, fileOrder?: Array<number>, allowRedraw?: number, redrawOf?: number, redrawInYourStyle?: number, isOriginalCharacter?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2011>>> {
+        async postForm(title?: string, description?: string, tags?: string, isExplicit?: number, scheduledPost?: string, files?: Array<Blob>, fileOrder?: Array<number>, allowRedraw?: number, redrawOf?: number, redrawInYourStyle?: number, isOriginalCharacter?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2012>>> {
             const localVarAxiosArgs = await ArtworkCRUDApiAxiosParamCreator(configuration).postForm(title, description, tags, isExplicit, scheduledPost, files, fileOrder, allowRedraw, redrawOf, redrawInYourStyle, isOriginalCharacter, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -358,7 +358,7 @@ export const ArtworkCRUDApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async postForm(title?: string, description?: string, tags?: string, isExplicit?: number, scheduledPost?: string, files?: Array<Blob>, fileOrder?: Array<number>, allowRedraw?: number, redrawOf?: number, redrawInYourStyle?: number, isOriginalCharacter?: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2011>> {
+        async postForm(title?: string, description?: string, tags?: string, isExplicit?: number, scheduledPost?: string, files?: Array<Blob>, fileOrder?: Array<number>, allowRedraw?: number, redrawOf?: number, redrawInYourStyle?: number, isOriginalCharacter?: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2012>> {
             return ArtworkCRUDApiFp(configuration).postForm(title, description, tags, isExplicit, scheduledPost, files, fileOrder, allowRedraw, redrawOf, redrawInYourStyle, isOriginalCharacter, options).then((request) => request(axios, basePath));
         },
         /**
@@ -420,7 +420,7 @@ export class ArtworkCRUDApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkCRUDApi
      */
-    public async postForm(title?: string, description?: string, tags?: string, isExplicit?: number, scheduledPost?: string, files?: Array<Blob>, fileOrder?: Array<number>, allowRedraw?: number, redrawOf?: number, redrawInYourStyle?: number, isOriginalCharacter?: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2011>> {
+    public async postForm(title?: string, description?: string, tags?: string, isExplicit?: number, scheduledPost?: string, files?: Array<Blob>, fileOrder?: Array<number>, allowRedraw?: number, redrawOf?: number, redrawInYourStyle?: number, isOriginalCharacter?: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2012>> {
         return ArtworkCRUDApiFp(this.configuration).postForm(title, description, tags, isExplicit, scheduledPost, files, fileOrder, allowRedraw, redrawOf, redrawInYourStyle, isOriginalCharacter, options).then((request) => request(this.axios, this.basePath));
     }
     /**

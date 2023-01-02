@@ -34,7 +34,7 @@ export interface InlineResponse2012Data {
      * @type {string}
      * @memberof InlineResponse2012Data
      */
-    name?: string;
+    title?: string;
     /**
      * 
      * @type {string}
@@ -46,11 +46,33 @@ export interface InlineResponse2012Data {
      * @type {number}
      * @memberof InlineResponse2012Data
      */
-    isPublic?: number;
+    isExplicit?: InlineResponse2012DataIsExplicitEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2012Data
+     */
+    scheduledPost?: string;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse2012Data
      */
     createdAt?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2012Data
+     */
+    updatedAt?: string;
 }
+
+/**
+    * @export
+    * @enum {string}
+    */
+export enum InlineResponse2012DataIsExplicitEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
+}
+

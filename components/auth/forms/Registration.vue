@@ -1,6 +1,6 @@
 <template>
   <div v-show="showForm" class="w-full">
-    <div v-if="registerAlert.active" class="w-full rounded-md text-white p-2 bg-red-500 mb-2">
+    <div v-if="registerAlert.active" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
       {{ registerAlert.message }}
     </div>
 
@@ -65,24 +65,95 @@
         >
       </n-validate>
 
-      <button type="submit" class="primary-button float-right mt-4 w-full">
+      <button type="submit" class="float-right mt-4 w-full primary-button">
         {{ $t('registration.register').toUpperCase() }}
       </button>
     </form>
 
     <div v-show="showRegistrationSuccessDialog" id="success-dialog" class="w-full text-center">
       <div class="mb-4">
-        {{ $t('registration.form.registered.accountCreatedInfo') }}
-      </div>
-      <div>
-        {{ $t('registration.form.registered.didNotReceiveVerificationLink') }}
-        <span class="font-medium cursor-pointer link-color" @click="resendEmailActivationInstruction()">Resend</span>
+        <!-- {{ $t('registration.form.registered.accountCreatedInfo') }} -->
+
+        <div class="mx-auto w-full">
+          <div>
+            {{ $t('registration.form.registered.passphraseCopyAlert') }}
+          </div>
+
+          <div class="mt-6">
+            <div class="flex flex-row justify-end w-full">
+              <button @click="copyData('all')" class="inline-flex flex-row gap-2">
+                {{ $t('copyAll') }} <Icon :name="'i-icon-park-outline-copy'" />
+              </button>
+            </div>
+
+            <div class="flex flex-col gap-4 p-2 mt-2 text-left rounded-md theme-color-secondary">
+              <div class="flex flex-row justify-between align-middle">
+                <div class="flex flex-col">
+                  <span class="font-semibold">USERNAME</span>
+                  <span>{{ passphraseInfo.username }}</span>
+                </div>
+                <div class="flex flex-col justify-center">
+                  <Icon
+                    @click="copyData('username')"
+                    :name="'i-icon-park-outline-copy'"
+                    class="cursor-pointer"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-row justify-between align-middle">
+                <div class="flex flex-col">
+                  <span class="font-semibold">EMAIL</span>
+                  <span>{{ passphraseInfo.email }}</span>
+                </div>
+                <div class="flex flex-col justify-center">
+                  <Icon
+                    @click="copyData('email')"
+                    :name="'i-icon-park-outline-copy'"
+                    class="cursor-pointer"
+                  />
+                </div>
+              </div>
+              <div class="flex flex-row justify-between align-middle">
+                <div class="flex flex-col">
+                  <span class="font-semibold">PASSPHRASE</span>
+                  <span>{{ passphraseInfo.passphrase }}</span>
+                </div>
+                <div class="flex flex-col justify-center">
+                  <Icon
+                    @click="copyData('passphrase')"
+                    :name="'i-icon-park-outline-copy'"
+                    class="cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div v-show="showResendNotification" class="w-full mt-4 rounded-md text-white p-2 bg-green-500">
-        {{ $t('registration.form.registered.verificationLinkSent') }}
+      <div
+        @click="authFormStore.toggleLoginRegister()"
+        class="href"
+      >
+        {{ $t('logins.login').toUpperCase() }}
       </div>
+      <!-- <div>
+        {{ $t('registration.form.registered.didNotReceiveVerificationLink') }}
+        <span class="font-medium cursor-pointer link-color" @click="resendEmailActivationInstruction()">Resend</span>
+      </div> -->
+
+      <!-- <div v-show="showResendNotification" class="p-2 mt-4 w-full text-white bg-green-500 rounded-md">
+        {{ $t('registration.form.registered.verificationLinkSent') }}
+      </div> -->
     </div>
+    
+    <!-- Passphrase copied notification -->
+    <SplashAlert 
+      v-show="copied"
+      id="copy-alert"
+      :text="$t('copied')"
+      :icon="'i-bi-check-all'"
+    />
   </div>
 </template>
 
@@ -91,6 +162,10 @@ import { useI18n } from 'vue-i18n'
 
 // stores
 import useAuthFormStore from '@/stores/auth-form.store'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
+import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // stores
 const authFormStore = useAuthFormStore()
@@ -115,7 +190,6 @@ const registerAlert = ref({
 
 const showRegistrationSuccessDialog = computed(() => authFormStore.showRegistrationSuccessDialog)
 const showResendNotification = ref(false)
-const registeredMail = ref('')
 
 // input data
 const initialValue = {
@@ -135,10 +209,15 @@ const resetForm = () => {
 }
 
 const formId = 'user-registration-form'
+const passphraseInfo = ref({
+  username: '',
+  email: '',
+  passphrase: '',
+})
 const proceed = async () => {
   useValidator().validate(formId, t)
 
-  const [success, error] = await authApi.registerNewAccount({
+  const [success, data, error] = await authApi.registerNewAccount({
     email: formData.email,
     password: formData.password,
     username: formData.username,
@@ -148,7 +227,14 @@ const proceed = async () => {
   if (error) {
     showError(error)
   } else {
-    registeredMail.value = formData.email
+    const { passphrase: generatedPassphrase } = data
+
+    passphraseInfo.value = {
+      username: formData.username,
+      email: formData.email,
+      passphrase: generatedPassphrase
+    }
+    
     resetForm()
     authFormStore.toggleSuccessDialog(true)
   }
@@ -158,17 +244,29 @@ const showError = async (message) => {
   registerAlert.value.message = message
 }
 
-const resendEmailActivationInstruction = async () => {
-  showResendNotification.value = false
+const copied = ref(false)
+let splashInterval
+const copyData = (target) => {
+  const source = target == 'all' ?
+                  `Username: ${passphraseInfo.value.username}, Email: ${passphraseInfo.value.email}, Passphrase: ${passphraseInfo.value.passphrase}` : passphraseInfo.value[target]
+  const { copy } = useClipboard({ source })
+  copy()
 
-  const [success, error] = await authApi.resendVerificationLink(registeredMail.value)
-
-  if (error) {
-    showResendNotification.value = true
-  } else {
-    setTimeout(() => {
-      showResendNotification.value = true
-    }, 1500)
-  }
+  // show splash notification
+  useSplash().splash(splashInterval, copied, 'copy-alert')
 }
+
+// const resendEmailActivationInstruction = async () => {
+//   showResendNotification.value = false
+
+//   const [success, error] = await authApi.resendVerificationLink(registeredMail.value)
+
+//   if (error) {
+//     showResendNotification.value = true
+//   } else {
+//     setTimeout(() => {
+//       showResendNotification.value = true
+//     }, 1500)
+//   }
+// }
 </script>

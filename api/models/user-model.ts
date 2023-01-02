@@ -29,12 +29,6 @@ export interface UserModel extends UserLiteModel {
      * @type {string}
      * @memberof UserModel
      */
-    gender?: UserModelGenderEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserModel
-     */
     email?: string;
     /**
      * 
@@ -61,13 +55,3 @@ export interface UserModel extends UserLiteModel {
      */
     createdAt?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum UserModelGenderEnum {
-    M = 'm',
-    F = 'f'
-}
-

@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20045DataFeeds } from './inline-response20045-data-feeds';
+import { FeedCommentModel } from './feed-comment-model';
 import { PaginationModel } from './pagination-model';
 /**
  * 
@@ -21,10 +21,10 @@ import { PaginationModel } from './pagination-model';
 export interface InlineResponse20045Data {
     /**
      * 
-     * @type {Array<InlineResponse20045DataFeeds>}
+     * @type {Array<FeedCommentModel>}
      * @memberof InlineResponse20045Data
      */
-    feeds?: Array<InlineResponse20045DataFeeds>;
+    comments?: Array<FeedCommentModel>;
     /**
      * 
      * @type {PaginationModel}

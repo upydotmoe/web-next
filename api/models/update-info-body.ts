@@ -34,12 +34,6 @@ export interface UpdateInfoBody {
      * @type {string}
      * @memberof UpdateInfoBody
      */
-    gender?: UpdateInfoBodyGenderEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateInfoBody
-     */
     bio?: string;
     /**
      * 
@@ -54,13 +48,3 @@ export interface UpdateInfoBody {
      */
     penName?: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum UpdateInfoBodyGenderEnum {
-    M = 'm',
-    F = 'f'
-}
-

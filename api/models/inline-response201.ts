@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CollectionModel } from './collection-model';
+import { InlineResponse201Data } from './inline-response201-data';
 import { SuccessMessageModel } from './success-message-model';
 /**
  * 
@@ -21,8 +21,8 @@ import { SuccessMessageModel } from './success-message-model';
 export interface InlineResponse201 extends SuccessMessageModel {
     /**
      * 
-     * @type {CollectionModel}
+     * @type {InlineResponse201Data}
      * @memberof InlineResponse201
      */
-    data?: CollectionModel;
+    data?: InlineResponse201Data;
 }

@@ -2,6 +2,7 @@
 import {
     AuthServiceAuthenticationApi, AuthServiceRegistrationApi, ProApi, UserApi, UserForgotPasswordApi
 } from '~/api/api'
+import { IVerifyAccountPassphrase } from '~/utils/auth'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -11,20 +12,20 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   const auth = useAuthStore()
 
   /**
-   * Authenticate user with email or username and password with the AuthService API from Swagger Codegen generated code.
-   * @param params emailUsername - Email or username of user.
+   * Authenticate user with username and password with the AuthService API from Swagger Codegen generated code.
+   * @param params username - Username of user.
    * @param params password - Password of user.
    * 
    * @returns - Return user data if authentication is successful. Otherwise, return error.
    */
   const authenticate = async (params: {
-    emailUsername: string,
+    username: string,
     password: string
   }) => {
     try {
       const { data } = await new AuthServiceAuthenticationApi(oApiConfiguration)
         .authenticate({
-          email_username: params.emailUsername,
+          username: params.username,
           password: params.password
         })
 
@@ -170,9 +171,9 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           }
         )
 
-      return [data.success, null]
+      return [data.success, data.data, null]
     } catch (error) {
-      return [false, useApiFetch().consumeReadableStreamError(error)]
+      return [false, null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
 
@@ -218,25 +219,59 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }
 
   /**
-   * Send instruction email for recovering an account.
-   * @params email - Email of account to recover.
-   * 
-   * @returns - void
+   * Verify account recovery passphrase input
    */
-  const recoverAccount = async (email: string) => {
+  const verifyAccountRecoveryPassphrase = async (passphraseData: IVerifyAccountPassphrase) => {
     try {
       const { data } = await new UserForgotPasswordApi(oApiConfiguration)
-        .sendResetPasswordInstruction(
-          {
-            email
-          }
-        )
+        .verifyForgotPasswordThroughPassphrase(passphraseData)
+
+      return [data.success, data.data, null]
+    } catch (error) {
+      return [false, null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
+  /** Change account password through account recovery method via passphrase */
+  const changePassword = async (params: {
+    userId: number,
+    passphrase: string,
+    newPassword: string
+  }) => {
+    try {
+      const { data } = await new UserForgotPasswordApi(oApiConfiguration)
+        .changePasswordWithPassphrase({
+          user_id: params.userId,
+          passphrase: params.passphrase,
+          new_password: params.newPassword,
+        })
 
       return [data.success, null]
     } catch (error) {
-      return [false, useApiFetch().consumeReadableStreamError(error)]
+      return [null, useApiFetch().consumeReadableStreamError(error)]
     }
   }
+
+  // /**
+  //  * Send instruction email for recovering an account.
+  //  * @params email - Email of account to recover.
+  //  * 
+  //  * @returns - void
+  //  */
+  // const recoverAccount = async (email: string) => {
+  //   try {
+  //     const { data } = await new UserForgotPasswordApi(oApiConfiguration)
+  //       .sendResetPasswordInstruction(
+  //         {
+  //           email
+  //         }
+  //       )
+
+  //     return [data.success, null]
+  //   } catch (error) {
+  //     return [false, useApiFetch().consumeReadableStreamError(error)]
+  //   }
+  // }
 
   return {
     authenticate,
@@ -248,6 +283,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     resendVerificationLink,
     verifyEmailAddress,
 
-    recoverAccount
+    verifyAccountRecoveryPassphrase,
+    changePassword
   }
 }

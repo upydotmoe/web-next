@@ -10,16 +10,16 @@
       {{ loginErrMessage }}
     </div>
 
-    <!-- email or username -->
+    <!-- username -->
     <n-validate 
-      for="emailUsername" 
-      :name="$t('logins.form.email_username')"
+      for="username"
+      :name="$t('logins.form.username')"
     >
       <input 
-        v-model="inputs.emailUsername"
+        v-model="inputs.username"
         type="text"
         rules="required"
-        :placeholder="$t('logins.form.email_username')"
+        :placeholder="$t('logins.form.username')"
       >
     </n-validate>
 
@@ -84,7 +84,7 @@ const toggleAccountRecoveryForm = async () => {
  */
 const formId = 'login-form'
 const inputs = ref({
-  emailUsername: '',
+  username: '',
   password: ''
 })
 
@@ -101,7 +101,7 @@ const login = async () => {
 
   // proceed to validate user login information
   const [success, error] = await authApi.authenticate({
-    emailUsername: inputs.value.emailUsername,
+    username: inputs.value.username,
     password: inputs.value.password
   })
 
@@ -143,7 +143,7 @@ watch (() => authForm.showLogin, () => {
  * Reset login form inputs
  */
 const resetForm = () => {
-  inputs.value.emailUsername = ''
+  inputs.value.username = ''
   inputs.value.password = ''
 }
 </script>

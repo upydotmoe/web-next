@@ -12,18 +12,13 @@
  * Do not edit the class manually.
  */
 import { InlineResponse20050Data } from './inline-response20050-data';
+import { SuccessMessageModel } from './success-message-model';
 /**
  * 
  * @export
  * @interface InlineResponse20050
  */
-export interface InlineResponse20050 {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20050
-     */
-    success?: boolean;
+export interface InlineResponse20050 extends SuccessMessageModel {
     /**
      * 
      * @type {InlineResponse20050Data}

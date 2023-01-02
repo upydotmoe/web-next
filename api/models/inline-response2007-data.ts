@@ -11,7 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse2007DataData } from './inline-response2007-data-data';
 /**
  * 
  * @export
@@ -20,8 +19,20 @@ import { InlineResponse2007DataData } from './inline-response2007-data-data';
 export interface InlineResponse2007Data {
     /**
      * 
-     * @type {InlineResponse2007DataData}
+     * @type {boolean}
      * @memberof InlineResponse2007Data
      */
-    data?: InlineResponse2007DataData;
+    isFollowing?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse2007Data
+     */
+    isPrivate?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2007Data
+     */
+    followingSince?: string;
 }

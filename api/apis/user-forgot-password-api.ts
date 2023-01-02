@@ -17,8 +17,8 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { InlineResponse2002 } from '../models';
-import { PasswordForgotBody } from '../models';
-import { RecoverChangeBody } from '../models';
+import { PassphraseVerifyBody } from '../models';
+import { PasswordChangeBody } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * UserForgotPasswordApi - axios parameter creator
@@ -28,61 +28,13 @@ export const UserForgotPasswordApiAxiosParamCreator = function (configuration?: 
     return {
         /**
          * 
-         * @summary Check if recovery token is still valid
-         * @param {string} token1 
-         * @param {string} token2 
+         * @summary Change password with user ID and passphrase
+         * @param {PasswordChangeBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        checkResetPasswordTokenValidity: async (token1: string, token2: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'token1' is not null or undefined
-            if (token1 === null || token1 === undefined) {
-                throw new RequiredError('token1','Required parameter token1 was null or undefined when calling checkResetPasswordTokenValidity.');
-            }
-            // verify required parameter 'token2' is not null or undefined
-            if (token2 === null || token2 === undefined) {
-                throw new RequiredError('token2','Required parameter token2 was null or undefined when calling checkResetPasswordTokenValidity.');
-            }
-            const localVarPath = `/user/password/recover/token-validity/{token1}/{token2}`
-                .replace(`{${"token1"}}`, encodeURIComponent(String(token1)))
-                .replace(`{${"token2"}}`, encodeURIComponent(String(token2)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication bearerAuth required
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Change password
-         * @param {RecoverChangeBody} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recoverChangePassword: async (body?: RecoverChangeBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user/password/recover/change`;
+        changePasswordWithPassphrase: async (body?: PasswordChangeBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/password/recover/passphrase/password/change`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -117,13 +69,13 @@ export const UserForgotPasswordApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * 
-         * @summary Send a password recovery request to email address
-         * @param {PasswordForgotBody} [body] 
+         * @summary Forgot password verify through passphrase
+         * @param {PassphraseVerifyBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sendResetPasswordInstruction: async (body?: PasswordForgotBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user/password/forgot`;
+        verifyForgotPasswordThroughPassphrase: async (body?: PassphraseVerifyBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/password/recover/passphrase/verify`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -167,14 +119,13 @@ export const UserForgotPasswordApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Check if recovery token is still valid
-         * @param {string} token1 
-         * @param {string} token2 
+         * @summary Change password with user ID and passphrase
+         * @param {PasswordChangeBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkResetPasswordTokenValidity(token1: string, token2: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2002>>> {
-            const localVarAxiosArgs = await UserForgotPasswordApiAxiosParamCreator(configuration).checkResetPasswordTokenValidity(token1, token2, options);
+        async changePasswordWithPassphrase(body?: PasswordChangeBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+            const localVarAxiosArgs = await UserForgotPasswordApiAxiosParamCreator(configuration).changePasswordWithPassphrase(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -182,27 +133,13 @@ export const UserForgotPasswordApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Change password
-         * @param {RecoverChangeBody} [body] 
+         * @summary Forgot password verify through passphrase
+         * @param {PassphraseVerifyBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async recoverChangePassword(body?: RecoverChangeBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
-            const localVarAxiosArgs = await UserForgotPasswordApiAxiosParamCreator(configuration).recoverChangePassword(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
-         * @summary Send a password recovery request to email address
-         * @param {PasswordForgotBody} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async sendResetPasswordInstruction(body?: PasswordForgotBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
-            const localVarAxiosArgs = await UserForgotPasswordApiAxiosParamCreator(configuration).sendResetPasswordInstruction(body, options);
+        async verifyForgotPasswordThroughPassphrase(body?: PassphraseVerifyBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2002>>> {
+            const localVarAxiosArgs = await UserForgotPasswordApiAxiosParamCreator(configuration).verifyForgotPasswordThroughPassphrase(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -219,34 +156,23 @@ export const UserForgotPasswordApiFactory = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary Check if recovery token is still valid
-         * @param {string} token1 
-         * @param {string} token2 
+         * @summary Change password with user ID and passphrase
+         * @param {PasswordChangeBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkResetPasswordTokenValidity(token1: string, token2: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2002>> {
-            return UserForgotPasswordApiFp(configuration).checkResetPasswordTokenValidity(token1, token2, options).then((request) => request(axios, basePath));
+        async changePasswordWithPassphrase(body?: PasswordChangeBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+            return UserForgotPasswordApiFp(configuration).changePasswordWithPassphrase(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary Change password
-         * @param {RecoverChangeBody} [body] 
+         * @summary Forgot password verify through passphrase
+         * @param {PassphraseVerifyBody} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async recoverChangePassword(body?: RecoverChangeBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
-            return UserForgotPasswordApiFp(configuration).recoverChangePassword(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Send a password recovery request to email address
-         * @param {PasswordForgotBody} [body] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async sendResetPasswordInstruction(body?: PasswordForgotBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
-            return UserForgotPasswordApiFp(configuration).sendResetPasswordInstruction(body, options).then((request) => request(axios, basePath));
+        async verifyForgotPasswordThroughPassphrase(body?: PassphraseVerifyBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2002>> {
+            return UserForgotPasswordApiFp(configuration).verifyForgotPasswordThroughPassphrase(body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -260,36 +186,24 @@ export const UserForgotPasswordApiFactory = function (configuration?: Configurat
 export class UserForgotPasswordApi extends BaseAPI {
     /**
      * 
-     * @summary Check if recovery token is still valid
-     * @param {string} token1 
-     * @param {string} token2 
+     * @summary Change password with user ID and passphrase
+     * @param {PasswordChangeBody} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserForgotPasswordApi
      */
-    public async checkResetPasswordTokenValidity(token1: string, token2: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2002>> {
-        return UserForgotPasswordApiFp(this.configuration).checkResetPasswordTokenValidity(token1, token2, options).then((request) => request(this.axios, this.basePath));
+    public async changePasswordWithPassphrase(body?: PasswordChangeBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+        return UserForgotPasswordApiFp(this.configuration).changePasswordWithPassphrase(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary Change password
-     * @param {RecoverChangeBody} [body] 
+     * @summary Forgot password verify through passphrase
+     * @param {PassphraseVerifyBody} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserForgotPasswordApi
      */
-    public async recoverChangePassword(body?: RecoverChangeBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
-        return UserForgotPasswordApiFp(this.configuration).recoverChangePassword(body, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     * 
-     * @summary Send a password recovery request to email address
-     * @param {PasswordForgotBody} [body] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserForgotPasswordApi
-     */
-    public async sendResetPasswordInstruction(body?: PasswordForgotBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
-        return UserForgotPasswordApiFp(this.configuration).sendResetPasswordInstruction(body, options).then((request) => request(this.axios, this.basePath));
+    public async verifyForgotPasswordThroughPassphrase(body?: PassphraseVerifyBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2002>> {
+        return UserForgotPasswordApiFp(this.configuration).verifyForgotPasswordThroughPassphrase(body, options).then((request) => request(this.axios, this.basePath));
     }
 }

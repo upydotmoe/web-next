@@ -22,11 +22,11 @@ export interface AuthAuthenticateBody {
      * @type {string}
      * @memberof AuthAuthenticateBody
      */
-    emailUsername?: string;
+    username: string;
     /**
      * 
      * @type {string}
      * @memberof AuthAuthenticateBody
      */
-    password?: string;
+    password: string;
 }

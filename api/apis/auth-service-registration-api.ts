@@ -18,6 +18,7 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { CheckEmailBody } from '../models';
 import { CheckUsernameBody } from '../models';
+import { InlineResponse201 } from '../models';
 import { RegistrationRegisterBody } from '../models';
 import { RegistrationResendverificationBody } from '../models';
 import { SuccessMessageModel } from '../models';
@@ -283,7 +284,7 @@ export const AuthServiceRegistrationApiFp = function(configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async register(body?: RegistrationRegisterBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+        async register(body?: RegistrationRegisterBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse201>>> {
             const localVarAxiosArgs = await AuthServiceRegistrationApiAxiosParamCreator(configuration).register(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -355,7 +356,7 @@ export const AuthServiceRegistrationApiFactory = function (configuration?: Confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async register(body?: RegistrationRegisterBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+        async register(body?: RegistrationRegisterBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse201>> {
             return AuthServiceRegistrationApiFp(configuration).register(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -419,7 +420,7 @@ export class AuthServiceRegistrationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthServiceRegistrationApi
      */
-    public async register(body?: RegistrationRegisterBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+    public async register(body?: RegistrationRegisterBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse201>> {
         return AuthServiceRegistrationApiFp(this.configuration).register(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

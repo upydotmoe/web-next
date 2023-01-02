@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse2016Data } from './inline-response2016-data';
+import { FeedLiteModel } from './feed-lite-model';
 /**
  * 
  * @export
@@ -26,14 +26,8 @@ export interface InlineResponse2016 {
     success?: boolean;
     /**
      * 
-     * @type {string}
+     * @type {FeedLiteModel}
      * @memberof InlineResponse2016
      */
-    message?: string;
-    /**
-     * 
-     * @type {InlineResponse2016Data}
-     * @memberof InlineResponse2016
-     */
-    data?: InlineResponse2016Data;
+    data?: FeedLiteModel;
 }

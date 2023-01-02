@@ -36,25 +36,9 @@ export interface RegistrationRegisterBody {
      */
     name: string;
     /**
-     * User gender, pick either m or f
-     * @type {string}
-     * @memberof RegistrationRegisterBody
-     */
-    gender: RegistrationRegisterBodyGenderEnum;
-    /**
      * 
      * @type {string}
      * @memberof RegistrationRegisterBody
      */
     password: string;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum RegistrationRegisterBodyGenderEnum {
-    M = 'm',
-    F = 'f'
-}
-

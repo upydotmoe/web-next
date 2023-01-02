@@ -26,6 +26,12 @@ export interface InlineResponse2017 {
     success?: boolean;
     /**
      * 
+     * @type {string}
+     * @memberof InlineResponse2017
+     */
+    message?: string;
+    /**
+     * 
      * @type {InlineResponse2017Data}
      * @memberof InlineResponse2017
      */

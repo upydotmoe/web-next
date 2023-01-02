@@ -19,8 +19,8 @@
 export interface InlineResponse2002Data {
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof InlineResponse2002Data
      */
-    valid?: boolean;
+    userId?: number;
 }

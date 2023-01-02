@@ -65,20 +65,4 @@ export interface UserLiteModel {
      * @memberof UserLiteModel
      */
     avatarFilename?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof UserLiteModel
-     */
-    emailVerified?: UserLiteModelEmailVerifiedEnum;
 }
-
-/**
-    * @export
-    * @enum {string}
-    */
-export enum UserLiteModelEmailVerifiedEnum {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1
-}
-

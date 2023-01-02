@@ -17,7 +17,7 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { CounterModel } from '../models';
-import { InlineResponse2006 } from '../models';
+import { InlineResponse20010 } from '../models';
 import { InlineResponse2007 } from '../models';
 import { InlineResponse2008 } from '../models';
 import { InlineResponse2009 } from '../models';
@@ -598,7 +598,7 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async followersList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2008>>> {
+        async followersList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
             const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).followersList(userId, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -615,7 +615,7 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2007>>> {
+        async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2008>>> {
             const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).followingList(userId, privateOnly, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -628,7 +628,7 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFollowSuggestions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2009>>> {
+        async getFollowSuggestions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20010>>> {
             const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).getFollowSuggestions(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -642,7 +642,7 @@ export const UserFollowingFollowersApiFp = function(configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async isFollowing(userIdToCheck: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2006>>> {
+        async isFollowing(userIdToCheck: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2007>>> {
             const localVarAxiosArgs = await UserFollowingFollowersApiAxiosParamCreator(configuration).isFollowing(userIdToCheck, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -748,7 +748,7 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async followersList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2008>> {
+        async followersList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
             return UserFollowingFollowersApiFp(configuration).followersList(userId, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -761,7 +761,7 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2007>> {
+        async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2008>> {
             return UserFollowingFollowersApiFp(configuration).followingList(userId, privateOnly, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -770,7 +770,7 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFollowSuggestions(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2009>> {
+        async getFollowSuggestions(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20010>> {
             return UserFollowingFollowersApiFp(configuration).getFollowSuggestions(options).then((request) => request(axios, basePath));
         },
         /**
@@ -780,7 +780,7 @@ export const UserFollowingFollowersApiFactory = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async isFollowing(userIdToCheck: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2006>> {
+        async isFollowing(userIdToCheck: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2007>> {
             return UserFollowingFollowersApiFp(configuration).isFollowing(userIdToCheck, options).then((request) => request(axios, basePath));
         },
         /**
@@ -876,7 +876,7 @@ export class UserFollowingFollowersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserFollowingFollowersApi
      */
-    public async followersList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2008>> {
+    public async followersList(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
         return UserFollowingFollowersApiFp(this.configuration).followersList(userId, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -890,7 +890,7 @@ export class UserFollowingFollowersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserFollowingFollowersApi
      */
-    public async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
+    public async followingList(userId: number, privateOnly: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2008>> {
         return UserFollowingFollowersApiFp(this.configuration).followingList(userId, privateOnly, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -900,7 +900,7 @@ export class UserFollowingFollowersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserFollowingFollowersApi
      */
-    public async getFollowSuggestions(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2009>> {
+    public async getFollowSuggestions(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20010>> {
         return UserFollowingFollowersApiFp(this.configuration).getFollowSuggestions(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -911,7 +911,7 @@ export class UserFollowingFollowersApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserFollowingFollowersApi
      */
-    public async isFollowing(userIdToCheck: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2006>> {
+    public async isFollowing(userIdToCheck: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
         return UserFollowingFollowersApiFp(this.configuration).isFollowing(userIdToCheck, options).then((request) => request(this.axios, this.basePath));
     }
     /**
