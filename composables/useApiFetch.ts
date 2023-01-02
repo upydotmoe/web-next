@@ -3,10 +3,14 @@ import { Configuration } from '~/api/configuration'
 import useAuthStore from '@/stores/auth.store'
 
 export default function() {
+  const { apiUrl } = useRuntimeConfig().public
+  
   const auth = useAuthStore()
 
   /** OAPI Configuration */
-  const oApiConfiguration = new Configuration({})
+  const oApiConfiguration = new Configuration({
+    basePath: apiUrl
+  })
 
   /** Set default fetch options */
   const defaultHeaders = {}
@@ -40,7 +44,7 @@ export default function() {
    * 
    * @returns - Return error body as JSON object.
    */
-  const consumeReadableStreamError = (error) => {
+  const consumeReadableStreamError = (error: any) => {
     return error.response.data.message
   }
 

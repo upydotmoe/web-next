@@ -13,12 +13,12 @@
  */
 
 export interface ConfigurationParameters {
-    apiKey?: string | Promise<string> | ((name: string) => string) | ((name: string) => Promise<string>);
-    username?: string;
-    password?: string;
-    accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string) | ((name?: string, scopes?: string[]) => Promise<string>);
-    basePath?: string;
-    baseOptions?: any;
+    apiKey?: string | Promise<string> | ((name: string) => string) | ((name: string) => Promise<string>)
+    username?: string
+    password?: string
+    accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string) | ((name?: string, scopes?: string[]) => Promise<string>)
+    basePath?: string
+    baseOptions?: any
 }
 
 export class Configuration {
@@ -27,50 +27,49 @@ export class Configuration {
      * @param name security name
      * @memberof Configuration
      */
-    apiKey?: string | Promise<string> | ((name: string) => string) | ((name: string) => Promise<string>);
+    apiKey?: string | Promise<string> | ((name: string) => string) | ((name: string) => Promise<string>)
     /**
      * parameter for basic security
      *
      * @type {string}
      * @memberof Configuration
      */
-    username?: string;
+    username?: string
     /**
      * parameter for basic security
      *
      * @type {string}
      * @memberof Configuration
      */
-    password?: string;
+    password?: string
     /**
      * parameter for oauth2 security
      * @param name security name
      * @param scopes oauth2 scope
      * @memberof Configuration
      */
-    accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string) | ((name?: string, scopes?: string[]) => Promise<string>);
+    accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string) | ((name?: string, scopes?: string[]) => Promise<string>)
     /**
      * override base path
      *
      * @type {string}
      * @memberof Configuration
      */
-    basePath?: string;
+    basePath?: string
     /**
      * base options for axios calls
      *
      * @type {any}
      * @memberof Configuration
      */
-    baseOptions?: any;
+    baseOptions?: any
 
     constructor(param: ConfigurationParameters = {}) {
-        this.apiKey = param.apiKey;
-        this.username = param.username;
-        this.password = param.password;
-        this.accessToken = param.accessToken;
-        // this.basePath = 'https://api.upy.moe'
-        this.basePath = 'http://192.168.100.5:2021'
-        this.baseOptions = param.baseOptions;
+        this.apiKey = param.apiKey
+        this.username = param.username
+        this.password = param.password
+        this.accessToken = param.accessToken
+        this.basePath = param.basePath
+        this.baseOptions = param.baseOptions
     }
 }
