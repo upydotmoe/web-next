@@ -6,7 +6,7 @@
 
       <div class="mt-2">
         <!-- show current avatar when user doesn't pick new avatar file yet -->
-        <img v-show="!previewNewAvatar" :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" class="avatar" @error="imageLoadError">
+        <img v-show="!previewNewAvatar" :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" class="avatar" @error="defaultCoverImage">
 
         <!-- display selected file everytime the user selected new file -->
         <img v-show="previewNewAvatar" :src="previewNewAvatar" class="avatar" :class="avatarFileTooLargeAlert || updateAvatarError ? 'border-2 border-red-400' : 'border-none'">

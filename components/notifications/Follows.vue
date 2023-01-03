@@ -40,7 +40,7 @@
           loading="lazy"
           class="object-cover w-12 h-12 rounded unselectable"
           :src="avatarCoverUrl(notification.follower_detail.avatar_bucket, notification.follower_detail.avatar_filename)"
-          @error="imageLoadError"
+          @error="defaultCoverImage"
         />
 
         <!-- description -->

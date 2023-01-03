@@ -32,7 +32,7 @@
             loading="lazy"
             class="avatar"
             :src="avatarCoverUrl(user.avatar_bucket, user.avatar_filename)" 
-            @error="imageLoadError"
+            @error="defaultCoverImage"
           />
 
           <div class="flex flex-col justify-between p-3 w-full text-white">

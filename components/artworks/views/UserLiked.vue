@@ -24,7 +24,7 @@
             loading="lazy"
             class="w-10 h-10 avatar"
             :src="avatarCoverUrl(user.users.avatar_bucket, user.users.avatar_filename)" 
-            @error="imageLoadError"
+            @error="defaultCoverImage"
           />
 
           <span

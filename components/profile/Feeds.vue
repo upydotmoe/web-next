@@ -6,7 +6,11 @@
         <div class="w-full">
           <div v-if="feed.users" class="p-4 user-info">
             <nuxt-link :to="'/u/' + feed.users.username">
-              <img class="avatar" :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)" @error="imageLoadError">
+              <img
+                class="avatar"
+                :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)"
+                @error="imageLoadError"
+              >
             </nuxt-link>
             <div class="name">
               <nuxt-link 
@@ -52,7 +56,11 @@
               <!-- creator information -->
               <div v-if="feed.artworks.users" class="p-2 md:p-4 user-info">
                 <nuxt-link :to="'/u/' + feed.artworks.users.username">
-                  <img class="avatar" :src="avatarCoverUrl(feed.artworks.users.avatar_bucket, feed.artworks.users.avatar_filename)" @error="imageLoadError">
+                  <img
+                    class="avatar"
+                    :src="avatarCoverUrl(feed.artworks.users.avatar_bucket, feed.artworks.users.avatar_filename)"
+                    @error="defaultCoverImage"
+                  >
                 </nuxt-link>
                 <div class="name">
                   <nuxt-link 

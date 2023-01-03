@@ -3,7 +3,11 @@
     <div v-if="artworkDetail.users" class="user-info">
       <div class="flex flex-row gap-2 w-full">
         <nuxt-link :to="'/u/' + artworkDetail.users.username">
-          <img class="avatar" :src="avatarCoverUrl(artworkDetail.users.avatar_bucket, artworkDetail.users.avatar_filename)" @error="imageLoadError">
+          <img
+            class="avatar"
+            :src="avatarCoverUrl(artworkDetail.users.avatar_bucket, artworkDetail.users.avatar_filename)"
+            @error="defaultCoverImage"
+          >
         </nuxt-link>
         <div class="w-full name">
           <div class="flex flex-row justify-between">

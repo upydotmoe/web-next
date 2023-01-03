@@ -159,7 +159,10 @@
               aria-expanded="true" 
               aria-controls="profile-dropdown-items"
             >
-              <img :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" @error="imageLoadError">
+              <img
+                :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)"
+                @error="defaultCoverImage"
+              >
             </button>
 
             <div class="profile-dropdown dropdown-menu">
@@ -171,7 +174,10 @@
               >
                 <div class="menu-wrapper">
                   <div class="mini-profile-info">
-                    <img :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" @error="imageLoadError">
+                    <img
+                      :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)"
+                      @error="defaultCoverImage"
+                    >
                     <ProBadge
                       v-if="auth.i502p00r0"
                       class="mt-2"  

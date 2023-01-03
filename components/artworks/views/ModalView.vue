@@ -632,7 +632,7 @@
                 <img
                   class="w-10 h-10 avatar"
                   :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
-                  @error="imageLoadError"
+                  @error="defaultCoverImage"
                 >
               </nuxt-link>
               <div class="w-full">
@@ -805,7 +805,11 @@
                       class="flex flex-row justify-between"
                     >
                       <nuxt-link :to="'/u/' + reply.users.username" class="flex flex-row leading-6">
-                        <img class="mr-2 w-6 h-6 rounded-full" :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)" @error="imageLoadError">
+                        <img
+                          class="mr-2 w-6 h-6 rounded-full"
+                          :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)"
+                          @error="defaultCoverImage"
+                        >
                         <span class="transition-all duration-150 cursor-pointer hover:font-bold">{{ reply.users.name }}</span>
                       </nuxt-link>
                       <span class="leading-6 comment-time">

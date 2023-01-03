@@ -125,7 +125,7 @@
           loading="lazy"
           class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar md:hidden"
           :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)" 
-          @error="imageLoadError"
+          @error="defaultCoverImage"
         />
 
         <!-- user info -->

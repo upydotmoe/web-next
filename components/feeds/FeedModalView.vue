@@ -21,7 +21,11 @@
         <div class="flex flex-row justify-between w-full">
           <div v-if="feedDetail.users" class="user-info">
             <nuxt-link :to="'/u/' + feedDetail.users.username">
-              <img class="avatar" :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)" @error="imageLoadError">
+              <img
+                class="avatar"
+                :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)"
+                @error="defaultCoverImage"
+              >
             </nuxt-link>
             <div class="name">
               <nuxt-link :to="'/u/' + feedDetail.users.username" class="fullname">
@@ -61,7 +65,11 @@
           <!-- creator information -->
           <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
             <nuxt-link :to="'/u/' + feedDetail.artworks.users.username">
-              <img class="avatar" :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)" @error="imageLoadError">
+              <img
+                class="avatar"
+                :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)"
+                @error="defaultCoverImage"
+              >
             </nuxt-link>
             <div class="name">
               <nuxt-link 
@@ -265,7 +273,11 @@
           class="comment-item"
         >
           <nuxt-link class="mr-2" :to="'/u/' + comment.users.username">
-            <img class="w-10 h-10 avatar" :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)" @error="imageLoadError">
+            <img
+              class="w-10 h-10 avatar"
+              :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
+              @error="defaultCoverImage"
+            >
           </nuxt-link>
 
           <div class="w-full">
