@@ -12,7 +12,7 @@ export const newUserWelcomeMenus = [
   {
     icon: 'i-ph-user-plus',
     title: 'feeds.newUser.welcomingMenus.followSomeone',
-    href: '/search'
+    href: '/search?t=users'
   },
   {
     icon: 'i-ion-search',

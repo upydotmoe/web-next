@@ -109,7 +109,7 @@ onMounted (() => {
   searchKeyword.value = route.query.q
 })
 
-const activeSection = ref('artworks')
+const activeSection = ref(route.query.t ?? 'artworks')
 
 const artworkFound = ref(0)
 const countArtworks = (foundRows) => {
