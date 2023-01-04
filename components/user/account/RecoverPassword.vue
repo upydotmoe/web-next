@@ -6,16 +6,25 @@
   >
     <div class="p-2 pt-4 mx-auto w-1/3 rounded">
       <div class="">
-        <div v-if="!showSuccess" class="mb-2 text-base">
+        <div
+          v-if="!showSuccess"
+          class="mb-2 text-base"
+        >
           {{ $t('accountRecovery.resetPassword') }}
         </div>
 
         <!-- warn & error message box -->
-        <div v-if="showErrorMessage" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
+        <div
+          v-if="showErrorMessage"
+          class="p-2 mb-2 w-full text-white bg-red-500 rounded-md"
+        >
           {{ errorMessage }}
         </div>
 
-        <div v-if="showSuccess" class="p-2 mb-2 w-full text-white bg-green-500 rounded-md">
+        <div
+          v-if="showSuccess"
+          class="p-2 mb-2 w-full text-white bg-green-500 rounded-md"
+        >
           {{ $t('accountRecovery.accountRecovered') }}
         </div>
         

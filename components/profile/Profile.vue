@@ -6,7 +6,7 @@
   >
     <!-- cover -->
     <div>
-      <!-- test --> <nuxt-img 
+      <nuxt-img 
         preload
         loading="lazy"
         :src="avatarCoverUrl(userInfo.cover_bucket, userInfo.cover_filename)" 
@@ -27,7 +27,7 @@
         <!-- DESKTOP: left side -->
         <div class="mr-6 w-1/5">
           <!-- avatar -->
-          <!-- test --> <nuxt-img
+          <nuxt-img
             preload
             loading="lazy"
             class="hidden -mt-2 w-full md:-mt-16 avatar md:flex"
@@ -39,12 +39,12 @@
           <FollowButtons
             v-if="!loading"
             class="mt-2 hidden-md-flex"
-            :userInfo="userInfo"
-            :followersCount="counter.followers"
-            :followingsCount="counter.followings"
-            :isFollowing="followingData.isFollowing"
-            :isPrivate="followingData.isPrivate"
-            :followingSince="followingData.followingSince"
+            :user-info="userInfo"
+            :followers-count="counter.followers"
+            :followings-count="counter.followings"
+            :is-following="followingData.isFollowing"
+            :is-private="followingData.isPrivate"
+            :following-since="followingData.followingSince"
             @changeCurrentState="changeCurrentState"
           />
         </div>
@@ -63,7 +63,10 @@
                 </div>
 
                 <div class="flex flex-row mt-2">
-                  <div v-if="userInfo.pen_name && userInfo.pen_name !== ''" class="mr-1">
+                  <div
+                    v-if="userInfo.pen_name && userInfo.pen_name !== ''"
+                    class="mr-1"
+                  >
                     <span class="flex flex-row rounded-md border-2 border-color-button-color button-color">
                       <div class="flex flex-row gap-1 p-1 pr-2 button-color">
                         <Icon :name="'i-mdi-fountain-pen-tip'" /> 
@@ -91,21 +94,21 @@
             </div>
 
             <div>
-              <p v-if="userInfo.bio" class="mt-4">
-                <p
-                  :id="'user-bio-'+userInfo.id"
-                  v-html="userInfo.bio.length > 300 ? `${userInfo.bio.slice(0, 300)}..` : userInfo.bio"
-                />
+              <p
+                v-if="userInfo.bio"
+                :id="'user-bio-'+userInfo.id"
+                class="mt-4"
+                v-html="userInfo.bio && userInfo.bio.length > 300 ? `${userInfo.bio.slice(0, 300)}..` : userInfo.bio"
+              />
 
-                <a 
-                  v-if="userInfo.bio.length > 300" 
-                  :id="'user-bio-read-more-'+userInfo.id" 
-                  class="href" 
-                  @click.prevent="readMore(userInfo.bio, userInfo.id, 'user-bio-read-more-', 'user-bio-')"
-                >
-                  {{ $t('readMore') }}
-                </a>
-              </p>
+              <a 
+                v-if="userInfo.bio && userInfo.bio.length > 300" 
+                :id="'user-bio-read-more-'+userInfo.id" 
+                class="href" 
+                @click.prevent="readMore(userInfo.bio, userInfo.id, 'user-bio-read-more-', 'user-bio-')"
+              >
+                {{ $t('readMore') }}
+              </a>
             </div>
 
             <!-- social links -->
@@ -120,7 +123,7 @@
       <!-- user info: for mobile or smaller device -->
       <div class="flex flex-col text-center md:hidden">
         <!-- avatar -->
-        <!-- test --> <nuxt-img
+        <nuxt-img
           preload
           loading="lazy"
           class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar md:hidden"
@@ -137,7 +140,10 @@
         </div>
 
         <div class="flex flex-row justify-center mt-4">
-          <span v-if="userInfo.pen_name" class="flex flex-row mr-1">
+          <span
+            v-if="userInfo.pen_name"
+            class="flex flex-row mr-1"
+          >
             <span class="flex flex-row rounded-md border-2 border-color-secondary">
               <div class="flex flex-row gap-1 p-1 pr-2 theme-color-secondary">
                 <Icon :name="'i-mdi-fountain-pen-tip'" /> 
@@ -148,14 +154,17 @@
           </span>
         </div>
 
-        <div v-if="userInfo.bio" class="mx-2 mt-4 text-center">
+        <div
+          v-if="userInfo.bio"
+          class="mx-2 mt-4 text-center"
+        >
           <p
             :id="'mobile__user-bio-'+userInfo.id"
-            v-html="userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 300)}..` : userInfo.bio"
+            v-html="userInfo.bio && userInfo.bio.length > 150 ? `${userInfo.bio.slice(0, 300)}..` : userInfo.bio"
           />
 
           <a 
-            v-if="userInfo.bio.length > 150"
+            v-if="userInfo.bio && userInfo.bio.length > 150"
             :id="'mobile__user-bio-read-more-'+userInfo.id" 
             class="href" 
             @click.prevent="readMore(userInfo.bio, userInfo.id, 'mobile__user-bio-read-more-', 'mobile__user-bio-')"
@@ -168,12 +177,12 @@
         <FollowButtons
           v-if="!loading"
           class="mt-4 mb-2 flex-md-hidden"
-          :userInfo="userInfo"
-          :followersCount="counter.followers"
-          :followingsCount="counter.followings"
-          :isFollowing="followingData.isFollowing"
-          :isPrivate="followingData.isPrivate"
-          :followingSince="followingData.followingSince"
+          :user-info="userInfo"
+          :followers-count="counter.followers"
+          :followings-count="counter.followings"
+          :is-following="followingData.isFollowing"
+          :is-private="followingData.isPrivate"
+          :following-since="followingData.followingSince"
           @changeCurrentState="changeCurrentState"
         />
       </div>
@@ -195,8 +204,16 @@
             @click="changeCurrentState('dashboard')"
           >
             <div>
-              <Icon v-show="currentState == 'dashboard'" :name="'i-ion-home-outline'" class="text-white" />
-              <Icon v-show="currentState != 'dashboard'" :name="'i-ion-home-outline'" class="hover:text-white" />
+              <Icon
+                v-show="currentState == 'dashboard'"
+                :name="'i-ion-home-outline'"
+                class="text-white"
+              />
+              <Icon
+                v-show="currentState != 'dashboard'"
+                :name="'i-ion-home-outline'"
+                class="hover:text-white"
+              />
             </div>
             <span>{{ $t('dashboard') }}</span>
           </div>
@@ -208,8 +225,16 @@
             @click="changeCurrentState('albums')"
           >
             <div>
-              <Icon v-show="currentState == 'albums'" :name="'i-ion-folder-outline'" class="text-white" />
-              <Icon v-show="currentState != 'albums'" :name="'i-ion-folder-outline'" class="hover:text-white" />
+              <Icon
+                v-show="currentState == 'albums'"
+                :name="'i-ion-folder-outline'"
+                class="text-white"
+              />
+              <Icon
+                v-show="currentState != 'albums'"
+                :name="'i-ion-folder-outline'"
+                class="hover:text-white"
+              />
             </div>
             <span>{{ $t('albums.albums') }}</span>
           </div>
@@ -221,8 +246,16 @@
             @click="changeCurrentState('collections')"
           >
             <div>
-              <Icon v-show="currentState == 'collections'" :name="'i-majesticons-bookmark-line'" class="text-white" />
-              <Icon v-show="currentState != 'collections'" :name="'i-majesticons-bookmark-line'" class="hover:text-white" />
+              <Icon
+                v-show="currentState == 'collections'"
+                :name="'i-majesticons-bookmark-line'"
+                class="text-white"
+              />
+              <Icon
+                v-show="currentState != 'collections'"
+                :name="'i-majesticons-bookmark-line'"
+                class="hover:text-white"
+              />
             </div>
             <span>{{ $t('collections.collections') }}</span>
           </div>
@@ -235,8 +268,16 @@
             @click="changeCurrentState('liked')"
           >
             <div>
-              <Icon v-show="currentState == 'liked'" :name="'i-ri-heart-3-line'" class="text-white" />
-              <Icon v-show="currentState != 'liked'" :name="'i-ri-heart-3-line'" class="hover:text-white" />
+              <Icon
+                v-show="currentState == 'liked'"
+                :name="'i-ri-heart-3-line'"
+                class="text-white"
+              />
+              <Icon
+                v-show="currentState != 'liked'"
+                :name="'i-ri-heart-3-line'"
+                class="hover:text-white"
+              />
             </div>
             <span>{{ $t('artworks.liked') }}</span>
           </div>
@@ -251,8 +292,15 @@
               @click="changeCurrentState('dashboard')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'dashboard'" :name="'i-humbleicons-dashboard'" class="text-white" />
-                <Icon v-show="currentState !== 'dashboard'" :name="'i-humbleicons-dashboard'" />
+                <Icon
+                  v-show="currentState === 'dashboard'"
+                  :name="'i-humbleicons-dashboard'"
+                  class="text-white"
+                />
+                <Icon
+                  v-show="currentState !== 'dashboard'"
+                  :name="'i-humbleicons-dashboard'"
+                />
                 <label class="hidden-lg-flex">
                   {{ $t('dashboard') }}
                 </label>
@@ -266,8 +314,15 @@
               @click="changeCurrentState('albums')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'albums'" :name="'i-bx-photo-album'" class="text-white" />
-                <Icon v-show="currentState !== 'albums'" :name="'i-bx-photo-album'" />
+                <Icon
+                  v-show="currentState === 'albums'"
+                  :name="'i-bx-photo-album'"
+                  class="text-white"
+                />
+                <Icon
+                  v-show="currentState !== 'albums'"
+                  :name="'i-bx-photo-album'"
+                />
                 <label class="hidden-lg-flex">
                   {{ $t('albums.albums') }}
                 </label>
@@ -281,8 +336,15 @@
               @click="changeCurrentState('collections')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'collections'" :name="'i-majesticons-bookmark-line'" class="text-white" />
-                <Icon v-show="currentState !== 'collections'" :name="'i-majesticons-bookmark-line'" />
+                <Icon
+                  v-show="currentState === 'collections'"
+                  :name="'i-majesticons-bookmark-line'"
+                  class="text-white"
+                />
+                <Icon
+                  v-show="currentState !== 'collections'"
+                  :name="'i-majesticons-bookmark-line'"
+                />
                 <label class="hidden-lg-flex">
                   {{ $t('collections.collections') }}
                 </label>
@@ -290,7 +352,10 @@
               <span class="hidden-lg-flex">{{ thousand(counter.collection) }}</span>
             </div>
 
-            <div v-if="auth.loggedIn && auth.user.id === userInfo.id" class="custom-divider" />
+            <div
+              v-if="auth.loggedIn && auth.user.id === userInfo.id"
+              class="custom-divider"
+            />
 
             <div 
               v-if="auth.loggedIn && auth.user.id === userInfo.id"
@@ -299,8 +364,15 @@
               @click="changeCurrentState('liked')"
             >
               <div class="profile-navigation_wrapper">
-                <Icon v-show="currentState === 'liked'" :name="'i-ri-heart-3-line'" class="text-white" />
-                <Icon v-show="currentState !== 'liked'" :name="'i-ri-heart-3-line'" />
+                <Icon
+                  v-show="currentState === 'liked'"
+                  :name="'i-ri-heart-3-line'"
+                  class="text-white"
+                />
+                <Icon
+                  v-show="currentState !== 'liked'"
+                  :name="'i-ri-heart-3-line'"
+                />
                 <label class="hidden-lg-flex">
                   {{ $t('artworks.liked') }}
                 </label>
@@ -330,13 +402,13 @@
 
                 <div 
                   class="flex flex-row justify-between mr-0 w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
-                  :class="{ 'button-color text-white': activeDashboard === 'artwork' }"
-                  @click="activeDashboard = 'artwork'" 
+                  :class="{ 'button-color text-white': activeDashboard === POST_TYPES.ARTWORK }"
+                  @click="activeDashboard = POST_TYPES.ARTWORK" 
                 >
                   {{ $t('artworks.artwork') }}
                   <span 
                     class="px-1 ml-2 rounded" 
-                    :class="activeDashboard === 'artwork' ? 'theme-color' : 'button-color text-white'"
+                    :class="activeDashboard === POST_TYPES.ARTWORK ? 'theme-color' : 'button-color text-white'"
                   >
                     {{ thousand(counter.artwork) }}
                   </span>
@@ -344,16 +416,23 @@
               </div>
 
               <div 
-                v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === 'artwork' && config.showManageMode" 
+                v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === POST_TYPES.ARTWORK && config.showManageMode" 
                 class="flex flex-row gap-2 justify-between mt-4 w-full"
               >
                 <!-- left side: artwork sort -->
                 <div class="w-full md:w-auto">
                   <div class="inline-block w-full group md:w-52">
-                    <button class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color-secondary hover:button" @click="togglePopularOrderStatus()">
+                    <button
+                      class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color-secondary hover:button"
+                      @click="togglePopularOrderStatus()"
+                    >
                       <span class="flex-1 pr-1">{{ sortBy === 'latest' ? $t('profile.artworks.sorter.latest') : sortByTitle }}</span>
                       <span>
-                        <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <svg
+                          class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
                           <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                         </svg>
                       </span>
@@ -410,11 +489,11 @@
                 <!-- right side: manage button -->
                 <div class="flex flex-row gap-x-2 w-full md:w-auto">
                   <button
-                    @click="config.manageMode = !config.manageMode"
                     :class="[
                       'w-full action-button md:w-auto md:mt-0',
                       config.manageMode ? 'danger-button' : 'secondary-button'
                     ]"
+                    @click="config.manageMode = !config.manageMode"
                   >
                     <Icon 
                       :name="config.manageMode ? 
@@ -426,8 +505,8 @@
 
                   <button
                     v-show="config.manageMode"
-                    @click="openAlbumSelectionModal()"
                     class="w-full primary-button md:w-auto"
+                    @click="openAlbumSelectionModal()"
                   >
                     <Icon :name="'i-ion-add-outline'" />
                     {{ $t('albums.addToAlbum') }}
@@ -442,7 +521,10 @@
               />
               
               <!-- manage mode message -->
-              <div v-show="config.manageMode" class="p-2 mt-2 text-black bg-yellow-200 rounded-md">
+              <div
+                v-show="config.manageMode"
+                class="p-2 mt-2 text-black bg-yellow-200 rounded-md"
+              >
                 {{ $t('profile.manageModeActiveMessage') }}
               </div>
               
@@ -457,7 +539,7 @@
 
                 <!-- artworks -->
                 <Artworks
-                  v-if="!loading && activeDashboard === 'artwork'"
+                  v-if="!loading && activeDashboard === POST_TYPES.ARTWORK"
                   ref="artworkListRef"
                   :key="artworkListKey"
                   :user-id="userInfo.id"
@@ -548,6 +630,8 @@
 </template>
 
 <script setup>
+import { POST_TYPES } from '~/utils/constants'
+
 // stores
 import useAuthStore from '@/stores/auth.store'
 
@@ -603,7 +687,7 @@ const { o } = route.query
 
 const loading = ref(true)
 const currentState = o != null ? ref(o) : ref('dashboard')
-const activeDashboard = ref('artwork')
+const activeDashboard = ref(POST_TYPES.ARTWORK)
 const artworkListKey = ref(0)
 const userId = computed(() => {
   return props.userLogon && auth.loggedIn ? auth.user.id : props.id

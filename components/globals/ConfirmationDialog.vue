@@ -2,15 +2,21 @@
   <div>
     <div class="w-full modal-layer xl:w-1/4 lg:w-2/5">
       <p
-        v-html="message"
         class="mb-4"
+        v-html="message"
       />
       
       <div class="flex flex-row justify-end gap-2">
-        <button class="cancel-button" @click="close(false)">
+        <button
+          class="cancel-button"
+          @click="close(false)"
+        >
           {{ $t('no') }}
         </button>
-        <button class="danger-button" @click="close(true)">
+        <button
+          class="danger-button"
+          @click="close(true)"
+        >
           {{ $t('yes') }}
         </button>
       </div>

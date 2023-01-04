@@ -33,7 +33,7 @@ onBeforeMount(async () => {
   await checkAuthority()
 })
 
-onMounted (() => {
+onMounted(() => {
   fetchWorkInfo()
 })
 

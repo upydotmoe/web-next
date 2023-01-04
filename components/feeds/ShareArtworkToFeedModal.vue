@@ -6,16 +6,25 @@
 
       <!-- form -->
       <div class="mt-2">
-        <div v-show="posted" class="alert-success">
+        <div
+          v-show="posted"
+          class="alert-success"
+        >
           <span class="italic">{{ $t('feeds.share.artwork.success') }}</span>
         </div>
 
-        <div v-show="posting" class="flex flex-row p-2 mb-2 text-white rounded-md button-color">
+        <div
+          v-show="posting"
+          class="flex flex-row p-2 mb-2 text-white rounded-md button-color"
+        >
           <Spinner class="mr-2" />
           {{ $t('feeds.form.postingYourUpdate') }}
         </div>
 
-        <div v-show="isError" class="alert-danger">
+        <div
+          v-show="isError"
+          class="alert-danger"
+        >
           {{ $t('feeds.form.postFailure') }}
         </div>
 
@@ -30,7 +39,10 @@
         />
 
         <div class="flex flex-row gap-2 justify-end">
-          <button class="cancel-button" @click="cancel()">
+          <button
+            class="cancel-button"
+            @click="cancel()"
+          >
             {{ $t('cancel') }}
           </button>
           <button
@@ -52,7 +64,10 @@
             class="p-3 w-full rounded-md theme-color-secondary"
           >
 
-          <button class="icon-button" @click="copyLink(runtimeConfig.public.appUrl + '/a/' + postId)">
+          <button
+            class="icon-button"
+            @click="copyLink(runtimeConfig.public.appUrl + '/a/' + postId)"
+          >
             <Icon :name="'i-icon-park-outline-copy'" />
           </button>
         </div>

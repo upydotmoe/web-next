@@ -1,11 +1,14 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
   >
     <div class="flex flex-row justify-start w-full md:w-auto">
-      <a @click.prevent="$router.back()" class="mb-4 light-button">
+      <a
+        class="mb-4 light-button"
+        @click.prevent="$router.back()"
+      >
         <Icon :name="'i-typcn-arrow-back'" />
         {{ $t('back') }}
       </a>
@@ -21,7 +24,7 @@
         class="flex flex-row gap-2"
       >
         <div v-if="redrawedArtwork.data.artwork_assets">
-          <!-- test --> <nuxt-img
+          <nuxt-img
             preload
             loading="lazy"
             class="w-40 rounded-md"
@@ -42,8 +45,10 @@
 
     <!-- redraw list -->
     <div>
-      <div class="section-title">{{ $t('artworks.redraws') }}</div>
-    
+      <div class="section-title">
+        {{ $t('artworks.redraws') }}
+      </div>
+
       <div id="lists">
         <WorkList
           v-show="!artworkRedraws.options.isEmpty"
@@ -64,8 +69,8 @@
 
         <button
           v-if="artworkRedraws.pagination.next_previous && artworkRedraws.pagination.next_previous.next_page"
-          @click="loadMore()"
           class="w-full primary-button"
+          @click="loadMore()"
         >
           {{ $t('loadMore') }}
         </button>
@@ -88,7 +93,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const route = useRoute()
 const { id: workId } = route.params
 
-onMounted (() => {
+onMounted(() => {
   fetchRedraws()
   fetchRedrawedArtworkInfo()
 })
@@ -154,7 +159,7 @@ const fetch = async () => {
     redraws.forEach((redraw) => {
       artworkRedraws.value.data.push(redraw)
     })
-    
+
     artworkRedraws.value.pagination = paginationData
 
     // if no record found

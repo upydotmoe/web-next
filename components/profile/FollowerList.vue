@@ -1,16 +1,18 @@
 <template>
   <div>
     <div class="flex flex-row justify-between">
-      <div class="section-title">{{ $t('followers.followers') }}</div>
+      <div class="section-title">
+        {{ $t('followers.followers') }}
+      </div>
 
       <!-- options -->
       <div>
         <!-- hide follower list toggle -->
         <label 
           v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id === userId"
-          @click.prevent="toggleFollowerVisibility()"
           for="hide-follower-toggle"
           class="inline-flex relative flex-row justify-center items-center cursor-pointer"
+          @click.prevent="toggleFollowerVisibility()"
         >
           <input 
             id="hide-follower-toggle" 
@@ -28,7 +30,10 @@
           />
           <span class="ml-2">{{ $t('followers.hideMyFollowers') }}</span>
           
-          <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
+          <ProBadge
+            v-if="!auth.i502p00r0"
+            class="ml-1"
+          />
         </label>
       </div>
     </div>
@@ -40,7 +45,11 @@
         :column-type="3"
       />
 
-      <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch()">
+      <div
+        v-show="showLoadMore"
+        class="mt-4 primary-button"
+        @click="fetch()"
+      >
         {{ $t('loadMore') }}
       </div>
     </div>

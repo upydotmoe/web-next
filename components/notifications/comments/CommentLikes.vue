@@ -22,7 +22,10 @@
 
       <!-- description -->
       <div>
-        <span v-for="(user, index) in notification.user_liked" :key="user.id">
+        <span
+          v-for="(user, index) in notification.user_liked"
+          :key="user.id"
+        >
           <span 
             class="font-bold hover:underline"
             @click.prevent="openUserProfile(user.username)" 
@@ -41,7 +44,10 @@
     <InfiniteLoading :load="fetch">
       <template #loading>
         <div class="mx-auto text-center">
-          <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+          <Icon
+            :name="'i-line-md-loading-twotone-loop'"
+            class="text-3xl"
+          />
         </div>
       </template>
 
@@ -52,7 +58,7 @@
       </template>
 
       <template #no-more>
-        <p></p>
+        <p />
       </template>
     </InfiniteLoading>
   </div>

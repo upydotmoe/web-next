@@ -2,30 +2,38 @@
   <div>
     <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
       <div class="flex flex-row justify-between w-full">
-        <div class="title">{{ $t('artworks.usersLiked') }}</div>
+        <div class="title">
+          {{ $t('artworks.usersLiked') }}
+        </div>
           
         <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
-          <div class="modal-close" @click="close()">
-            <Icon :name="'i-majesticons-close'" class="text-2xl" />
+          <div
+            class="modal-close"
+            @click="close()"
+          >
+            <Icon
+              :name="'i-majesticons-close'"
+              class="text-2xl"
+            />
           </div>
         </div>
       </div>
 
       <div class="grid overflow-y-scroll gap-2 pr-2 max-h-96 grid-cols">
         <nuxt-link
-          v-for="(user, userIdx) in userLiked"
+          v-for="(user) in userLiked"
           :key="user.id"
           :to="'/u/' + user.users.username"
           class="flex flex-row gap-2 p-2 rounded-md theme-color-secondary hover:button-color hover:text-white img-hover"
         >
           <!-- avatar -->
-          <!-- test --> <nuxt-img
-            preload
-            loading="lazy"
-            class="w-10 h-10 avatar"
-            :src="avatarCoverUrl(user.users.avatar_bucket, user.users.avatar_filename)" 
-            @error="defaultCoverImage"
-          />
+          <nuxt-img
+                          preload
+                          loading="lazy"
+                          class="w-10 h-10 avatar"
+                          :src="avatarCoverUrl(user.users.avatar_bucket, user.users.avatar_filename)" 
+                          @error="defaultCoverImage"
+                        />
 
           <span
             :to="'/u/' + user.users.username"
@@ -42,7 +50,10 @@
           >
             <template #loading>
               <div class="mx-auto text-center">
-                <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+                <Icon
+                  :name="'i-line-md-loading-twotone-loop'"
+                  class="text-3xl"
+                />
               </div>
             </template>
 

@@ -7,18 +7,29 @@
 
         <!-- close modal button -->
         <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
-          <div class="modal-close" @click="close()">
-            <Icon :name="'i-ion-close'" class="text-2xl" />
+          <div
+            class="modal-close"
+            @click="close()"
+          >
+            <Icon
+              :name="'i-ion-close'"
+              class="text-2xl"
+            />
           </div>
         </div>
       </div>
 
       <!-- content -->
       <div class="opt-modal__content">
-        <div v-show="!reportSubmitted && !reportStatus.id" class="report">
+        <div
+          v-show="!reportSubmitted && !reportStatus.id"
+          class="report"
+        >
           <!-- report reason options -->
           <div class="report__reason_opt">
-            <div class="report__title">{{ $t('reports.selectReasons') }}</div>
+            <div class="report__title">
+              {{ $t('reports.selectReasons') }}
+            </div>
             <span
               v-for="reason in reasonList"
               :key="reason"
@@ -26,11 +37,22 @@
               @click="toggleSelectedReason(reason)"
             >
               <div>
-                <Icon v-show="!input.selectedReasons.includes(reason)" :name="'i-ion-square-outline'" class="text-color-secondary" />
-                <Icon v-show="input.selectedReasons.includes(reason)" :name="'i-ion-checkbox-outline'" class="text-green-300" />
+                <Icon
+                  v-show="!input.selectedReasons.includes(reason)"
+                  :name="'i-ion-square-outline'"
+                  class="text-color-secondary"
+                />
+                <Icon
+                  v-show="input.selectedReasons.includes(reason)"
+                  :name="'i-ion-checkbox-outline'"
+                  class="text-green-300"
+                />
               </div>
 
-              <div class="reason" :class="[input.selectedReasons.includes(reason) ? 'text-white' : 'text-color-secondary']">
+              <div
+                class="reason"
+                :class="[input.selectedReasons.includes(reason) ? 'text-white' : 'text-color-secondary']"
+              >
                 {{ $t('reports.reasons.'+reason) }}
               </div>
             </span>
@@ -38,7 +60,9 @@
 
           <!-- report reason -->
           <div>
-            <div class="report__title">{{ $t('reports.describeReason') }}</div>
+            <div class="report__title">
+              {{ $t('reports.describeReason') }}
+            </div>
             <textarea 
               v-model="input.reasonDescription"
               class="report__reason_description"
@@ -50,7 +74,10 @@
 
           <!-- buttons -->
           <div class="report__buttons">
-            <button class="cancel-button" @click="close()">
+            <button
+              class="cancel-button"
+              @click="close()"
+            >
               {{ $t('cancel') }}
             </button>
             <button 
@@ -82,7 +109,12 @@
         <!-- if post already reported -->
         <div v-show="reportStatus.id">
           {{ $t('reports.alreadyReportedDescription') }}
-          <nuxt-link class="underline href" :to="'/reports'">{{ $t('reports.reportStatus') }}</nuxt-link>
+          <nuxt-link
+            class="underline href"
+            :to="'/reports'"
+          >
+            {{ $t('reports.reportStatus') }}
+          </nuxt-link>
         </div>
       </div>
     </div>

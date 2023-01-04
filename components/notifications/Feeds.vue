@@ -43,7 +43,10 @@
 
         <!-- description -->
         <div>
-          <span v-for="(user, index) in notification.users" :key="user.id">
+          <span
+            v-for="(user, index) in notification.users"
+            :key="user.id"
+          >
             <span 
               class="font-bold hover:underline"
               @click.prevent="openUserProfile(user.username)" 
@@ -57,7 +60,10 @@
             {{ notification.rest_total > 0 && notification.type === 'like' ? notification.rest_total+' others' : '' }}
           </span> {{ notification.type === 'like' ? 'liked your post' : 'commented on your post' }}
 
-          <div v-if="notification.type === 'comment'" class="mt-1 italic text-xxs">
+          <div
+            v-if="notification.type === 'comment'"
+            class="mt-1 italic text-xxs"
+          >
             {{ notification.comment.length > 45 ? `${notification.comment.slice(0, 45)}...` : notification.comment }}
           </div>
         </div>
@@ -66,7 +72,10 @@
       <InfiniteLoading :load="fetch">
         <template #loading>
           <div class="mx-auto text-center">
-            <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+            <Icon
+              :name="'i-line-md-loading-twotone-loop'"
+              class="text-3xl"
+            />
           </div>
         </template>
 
@@ -77,7 +86,7 @@
         </template>
 
         <template #no-more>
-          <p></p>
+          <p />
         </template>
       </InfiniteLoading>
     </div>

@@ -1,11 +1,13 @@
-<template></template>
+<template>
+  <div />
+</template>
 
 <script setup>
 import useAuthStore from '@/stores/auth.store'
 
 const auth = useAuthStore()
 
-onBeforeMount (() => {
+onBeforeMount(() => {
   auth.logout()
 })
 </script>

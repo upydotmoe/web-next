@@ -1,4 +1,4 @@
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin((nuxtApp) => {
   const modalClassName = '.auth-modal'
   const modal = document.querySelector(modalClassName)
   const closeButton = document.querySelectorAll('.modal-close')
@@ -17,7 +17,7 @@ export default defineNuxtPlugin(nuxtApp => {
   }
 
   // close modal
-  function close() {
+  function close () {
     const modalToClose = document.querySelector(modalClassName)
     modalToClose.classList.remove('fadeIn')
     modalToClose.classList.add('fadeOut')
@@ -25,5 +25,4 @@ export default defineNuxtPlugin(nuxtApp => {
       modalToClose.style.display = 'none'
     }, 500)
   }
-
 })

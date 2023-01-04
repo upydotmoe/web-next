@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { FeedsApi } from '~/api/api'
+import { TFetchModes } from '~/utils/constants'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   const postFeed = async (params: {
@@ -65,7 +66,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }
 
   const getChronologicalFeeds = async (params: {
-    fetchMode: 'feed' | 'text' | 'artwork',
+    fetchMode: TFetchModes,
     explicitMode?: boolean,
     showAllTextPost?: boolean,
     pagination: {

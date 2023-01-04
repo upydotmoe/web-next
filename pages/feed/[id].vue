@@ -1,5 +1,5 @@
 <template>
-  <Layout 
+  <Layout
     :class-prop="'work-view'"
     :hide-side="!empty && !error ? false : true"
     :no-right-side="!empty && !error ? false : true"
@@ -9,7 +9,7 @@
       <LoadingEmptyErrorMessage
         v-show="empty || error"
         :empty="empty"
-        :emptyMessage="$t('feeds.notFound')"
+        :empty-message="$t('feeds.notFound')"
         :error="error"
       />
 
@@ -30,7 +30,7 @@ import FeedModalView from '~/components/feeds/FeedModalView.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 const metaTitle = ref('')
-useHead ({
+useHead({
   title: computed(() => useFunction().cutText(useFunction().removeHtmlTags(metaTitle.value), 15))
 })
 

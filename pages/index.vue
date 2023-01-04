@@ -9,7 +9,7 @@ const auth = authStore()
 
 const { $router } = useNuxtApp()
 
-onMounted (() => {
+onMounted(() => {
   if (!auth.loggedIn) {
     $router.push('/explore')
   } else {

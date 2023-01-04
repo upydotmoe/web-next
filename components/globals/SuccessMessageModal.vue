@@ -18,7 +18,12 @@
           </p>
         </div>
 
-        <button @click="close()" class="success-button-close">{{ $t('close').toUpperCase() }}</button>
+        <button
+          class="success-button-close"
+          @click="close()"
+        >
+          {{ $t('close').toUpperCase() }}
+        </button>
       </div>
     </div>
   </div>

@@ -43,7 +43,7 @@ export default function useDevice() {
   }
 
   const isMobile = () => {
-    let isMobileDevice = isMobileBrowser()
+    const isMobileDevice = isMobileBrowser()
 
     // get screen size (sm, md, lg)
     const screenSize = getScreenSize()
@@ -52,7 +52,7 @@ export default function useDevice() {
   }
 
   const isMobileDevice = () => {
-    let isMobileDevice = isMobileBrowser()
+    const isMobileDevice = isMobileBrowser()
 
     // get screen size (sm, md, lg)
     const screenSize = getScreenSize()

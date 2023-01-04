@@ -5,22 +5,28 @@
       { 'md:fixed': fixedNavbarRoutes().includes(currentRoute) && !isMobileDevice() }
     ]"
   >
-    <div 
+    <div
       id="nav"
       @blur="languageSelection = false"
     >
       <!-- mobile navigation bars -->
       <nuxt-link
-        :to="auth.loggedIn ? '/feed' : '/explore'" 
+        :to="auth.loggedIn ? '/feed' : '/explore'"
         class="w-8 h-8 rounded-md flex-md-hidden"
       >
-        <img :src="$colorMode.preference == 'dark' ? logoWhite : logo" class="logo">
+        <img
+          :src="$colorMode.preference == 'dark' ? logoWhite : logo"
+          class="logo"
+        >
       </nuxt-link>
 
       <!-- left menus -->
       <div class="menus">
         <nuxt-link :to="auth.loggedIn ? '/feed' : '/explore'">
-          <img :src="$colorMode.preference == 'dark' ? logoWhite : logo" class="logo">
+          <img
+            :src="$colorMode.preference == 'dark' ? logoWhite : logo"
+            class="logo"
+          >
         </nuxt-link>
       </div>
 
@@ -33,7 +39,10 @@
           :placeholder="$t('search.search')"
           @keyup.enter="search()"
         >
-        <span class="search-button" @click="search()">
+        <span
+          class="search-button"
+          @click="search()"
+        >
           <Icon :name="'i-ion-search'" />
         </span>
       </span>
@@ -43,7 +52,10 @@
         <!-- desktop nav icons -->
         <div class="nav-icon-group">
           <div class="hidden-md-flex">
-            <div v-if="auth.loggedIn" class="nav-icon">
+            <div
+              v-if="auth.loggedIn"
+              class="nav-icon"
+            >
               <a href="/post">
                 <Icon :name="'i-ion-add'" />
               </a>
@@ -59,18 +71,18 @@
           </div>
 
           <div class="nav-icon">
-            <Icon 
-              :name="$colorMode.value == 'light' ? 'i-fluent-weather-moon-16-regular' : 'i-line-md-sunny-outline-loop'" 
-              @click.native="$colorMode.preference == 'dark' ? $colorMode.preference='light' : $colorMode.preference='dark'" 
+            <Icon
+              :name="$colorMode.value == 'light' ? 'i-fluent-weather-moon-16-regular' : 'i-line-md-sunny-outline-loop'"
+              @click="$colorMode.preference == 'dark' ? $colorMode.preference='light' : $colorMode.preference='dark'"
             />
           </div>
 
           <!-- language selection -->
           <div class="profile dropdown nav-icon">
-            <button 
-              class="thumbnail" 
-              aria-haspopup="true" 
-              aria-expanded="true" 
+            <button
+              class="thumbnail"
+              aria-haspopup="true"
+              aria-expanded="true"
               aria-controls="language-group"
               @click="languageSelection = !languageSelection"
             >
@@ -78,19 +90,29 @@
             </button>
 
             <div class="profile-dropdown dropdown-menu">
-              <div 
+              <div
                 id="language-group"
                 class="px-2 w-52 toggler"
-                aria-labelledby="language-selection-buttons" 
+                aria-labelledby="language-selection-buttons"
                 role="menu"
               >
-                <div v-for="locale in availableLanguages" @click="switchLocale(locale.iso)">
-                  <div class="item" :class="selectedLocale == locale.iso ? 'button-color text-white' : 'theme-color-secondary'">
-                    <Icon :name="locale.icon" :with-padding="true" /> {{ locale.name }}
+                <div
+                  v-for="locale in availableLanguages"
+                  :key="locale"
+                  @click="switchLocale(locale.iso)"
+                >
+                  <div
+                    class="item"
+                    :class="selectedLocale == locale.iso ? 'button-color text-white' : 'theme-color-secondary'"
+                  >
+                    <Icon
+                      :name="locale.icon"
+                      :with-padding="true"
+                    /> {{ locale.name }}
                   </div>
                 </div>
-                
-                <!-- <div class="custom-divider" /> 
+
+                <!-- <div class="custom-divider" />
 
                 <nuxt-link :to="'/'" class="rounded-md">
                   <div class="px-2 item">
@@ -103,14 +125,14 @@
 
           <!-- notification icon: show in desktop -->
           <div class="hidden-md-flex">
-            <div 
-              v-if="auth.loggedIn" 
+            <div
+              v-if="auth.loggedIn"
               class="inline-block relative profile dropdown nav-icon"
               @click="clearNotificationCounter()"
             >
               <button
-                aria-haspopup="true" 
-                aria-expanded="true" 
+                aria-haspopup="true"
+                aria-expanded="true"
                 aria-controls="notification-group"
               >
                 <Icon :name="'i-ri-notification-3-line'" />
@@ -124,7 +146,7 @@
               </button>
 
               <div class="text-xs profile-dropdown dropdown-menu">
-                <div 
+                <div
                   id="notification-group"
                   class="toggler"
                   style="width: 500px;"
@@ -134,9 +156,12 @@
               </div>
             </div>
           </div>
-          
+
           <!-- notification icon: show in mobile or smaller device -->
-          <div v-if="auth.loggedIn" class="flex-md-hidden">
+          <div
+            v-if="auth.loggedIn"
+            class="flex-md-hidden"
+          >
             <div class="nav-icon">
               <nuxt-link :to="'/notifications'">
                 <Icon :name="'i-ri-notification-3-line'" />
@@ -146,17 +171,24 @@
 
           <!-- login button for mobile or smaller device -->
           <div class="flex md:hidden">
-            <div v-if="!auth.loggedIn" class="flex nav-icon md:hidden" @click="openModal('auth-modal')">
+            <div
+              v-if="!auth.loggedIn"
+              class="flex nav-icon md:hidden"
+              @click="openModal('auth-modal')"
+            >
               <Icon :name="'i-fe-login'" />
             </div>
           </div>
 
           <!-- user logged in -->
-          <div v-if="auth.loggedIn" class="ml-4 profile dropdown">
-            <button 
+          <div
+            v-if="auth.loggedIn"
+            class="ml-4 profile dropdown"
+          >
+            <button
               class="thumbnail"
-              aria-haspopup="true" 
-              aria-expanded="true" 
+              aria-haspopup="true"
+              aria-expanded="true"
               aria-controls="profile-dropdown-items"
             >
               <img
@@ -166,10 +198,10 @@
             </button>
 
             <div class="profile-dropdown dropdown-menu">
-              <div 
-                id="profile-dropdown-items" 
+              <div
+                id="profile-dropdown-items"
                 class="w-52 toggler"
-                aria-labelledby="profile-dropdown-buttons" 
+                aria-labelledby="profile-dropdown-buttons"
                 role="menu"
               >
                 <div class="menu-wrapper">
@@ -180,11 +212,15 @@
                     >
                     <ProBadge
                       v-if="auth.i502p00r0"
-                      class="mt-2"  
+                      class="mt-2"
                     />
 
-                    <div class="mt-4 font-semibold">{{ auth.user.name }}</div>
-                    <div class="text-xs">@{{ auth.user.username }}</div>
+                    <div class="mt-4 font-semibold">
+                      {{ auth.user.name }}
+                    </div>
+                    <div class="text-xs">
+                      @{{ auth.user.username }}
+                    </div>
                   </div>
 
                   <div class="custom-divider" />
@@ -216,7 +252,10 @@
 
                   <div class="custom-divider" />
 
-                  <nuxt-link v-if="auth.loggedIn" :to="'/profile/setting'">
+                  <nuxt-link
+                    v-if="auth.loggedIn"
+                    :to="'/profile/setting'"
+                  >
                     <div class="menu parent-icon">
                       <Icon :name="'i-ph-gear-six'" />
                       {{ $t('settings.settings') }}
@@ -247,7 +286,10 @@
 
                   <div class="custom-divider" />
 
-                  <div class="menu parent-icon" @click="userLogout()">
+                  <div
+                    class="menu parent-icon"
+                    @click="userLogout()"
+                  >
                     <Icon :name="'i-majesticons-logout-line'" />
                     {{ $t('logout') }}
                   </div>
@@ -257,7 +299,11 @@
           </div>
         </div>
 
-        <button v-if="!auth.loggedIn" class="hidden ml-2 primary-button md:flex" @click="openModal('auth-modal')">
+        <button
+          v-if="!auth.loggedIn"
+          class="hidden ml-2 primary-button md:flex"
+          @click="openModal('auth-modal')"
+        >
           {{ $t('logins.login').toUpperCase() }}
         </button>
       </div>
@@ -315,7 +361,7 @@ onMounted(async () => {
 const userLogout = async () => {
   await auth.logout()
 
-  // redirect to explore page 
+  // redirect to explore page
   router.go('/')
 }
 
@@ -369,7 +415,7 @@ const clearNotificationCounter = async () => {
  * Change language/app locale
  */
 const localeStore = useLocaleStore()
-const selectedLocale = computed (() => localeStore.locale)
+const selectedLocale = computed(() => localeStore.locale)
 const switchLocale = (localePrefix) => {
   localeStore.changeLocale(localePrefix)
 }

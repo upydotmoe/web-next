@@ -9,25 +9,41 @@
       </span>
     </div>
 
-    <div v-show="isErrorFetching" class="alert-danger">
+    <div
+      v-show="isErrorFetching"
+      class="alert-danger"
+    >
       {{ $t('artworks.update.form.fetchFailure') }}
     </div>
     
-    <div v-show="updated" class="alert-success">
+    <div
+      v-show="updated"
+      class="alert-success"
+    >
       {{ $t('artworks.update.form.updated') }}
       <span class="italic">{{ $t('artworks.update.form.successRedirect') }}</span>
     </div>
 
-    <div v-show="saving" class="flex flex-row p-2 mb-6 text-white rounded-md button-color">
+    <div
+      v-show="saving"
+      class="flex flex-row p-2 mb-6 text-white rounded-md button-color"
+    >
       <Spinner class="mr-1" />
       {{ $t('saving') }}
     </div>
 
-    <div v-show="isError" class="alert-danger">
+    <div
+      v-show="isError"
+      class="alert-danger"
+    >
       {{ $t('artworks.add.form.uploadFailure') }}
     </div>
 
-    <form v-show="!isErrorFetching" enctype="multipart/form-data" @submit.prevent="update">
+    <form
+      v-show="!isErrorFetching"
+      enctype="multipart/form-data"
+      @submit.prevent="update"
+    >
       <div class="input-block">
         <input 
           v-model="inputData.title" 
@@ -41,7 +57,7 @@
       <div class="-mt-2 input-block">
         <VueEditor
           v-model="inputData.description"
-          :editorToolbar="quillOptions"
+          :editor-toolbar="quillOptions"
           :class="[
             { 'pointer-events-none cursor-not-allowed': saving || updated }
           ]"
@@ -76,15 +92,22 @@
       <div class="grid grid-cols-1 gap-2 input-block md:grid-cols-3">
         <!-- explicit toggler -->
         <div
-          @click.prevent="toggleExplicit()"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isExplicit }
           ]"
+          @click.prevent="toggleExplicit()"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isExplicit" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isExplicit"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -98,15 +121,22 @@
         <!-- explicit+gore toggler -->
         <div
           v-if="inputData.isExplicit"
-          @click.prevent="inputData.isGore = !inputData.isGore"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isGore }
           ]"
+          @click.prevent="inputData.isGore = !inputData.isGore"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isGore" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isGore"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -121,15 +151,22 @@
         <!-- original character toggler -->
         <div
           v-if="!currentInfo.redraw_of"
-          @click.prevent="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isOriginalCharacter }
           ]"
+          @click.prevent="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isOriginalCharacter" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isOriginalCharacter"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -143,15 +180,22 @@
         <!-- original character toggler -->
         <div
           v-if="!currentInfo.redraw_of"
-          @click.prevent="inputData.isAllowRedraw = !inputData.isAllowRedraw"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isAllowRedraw }
           ]"
+          @click.prevent="inputData.isAllowRedraw = !inputData.isAllowRedraw"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isAllowRedraw" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isAllowRedraw"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -165,15 +209,22 @@
         <!-- redraw in my style toggler -->
         <div
           v-if="currentInfo.redraw_of"
-          @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isredrawInMyStyle }
           ]"
+          @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isredrawInMyStyle" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isredrawInMyStyle"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -185,9 +236,15 @@
         </div>
       </div>
 
-      <button class="float-right primary-button" :class="{ 'pointer-events-none cursor-not-allowed': saving || updated }">
+      <button
+        class="float-right primary-button"
+        :class="{ 'pointer-events-none cursor-not-allowed': saving || updated }"
+      >
         <div class="flex flex-row">
-          <Spinner v-if="saving" class="mr-1" />
+          <Spinner
+            v-if="saving"
+            class="mr-1"
+          />
           {{ !saving ? $t('save') : $t('saving') }}
         </div>
       </button>

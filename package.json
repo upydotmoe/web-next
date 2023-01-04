@@ -9,19 +9,28 @@
     "preview": "nuxt preview",
     "pm2:start": "pm2 start ./.output/server/index.mjs --name upy-web && pm2 save",
     "pm2:reload": "pm2 reload upy-web",
-    "pm2:stop": "pm2 delete upy-web"
+    "pm2:stop": "pm2 delete upy-web",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "devDependencies": {
     "@iconify/json": "^2.1.84",
     "@intlify/nuxt3": "^0.2.3",
     "@nuxt/image-edge": "^1.0.0-27840416.dc1ed65",
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/google-fonts": "^3.0.0-0",
     "@nuxtjs/tailwindcss": "^6.1.3",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
     "@unocss/nuxt": "^0.44.7",
     "@unocss/preset-icons": "^0.44.7",
+    "eslint": "^8.31.0",
+    "eslint-plugin-nuxt": "^4.0.0",
+    "eslint-plugin-vue": "^9.8.0",
     "nuxt": "^3.0.0",
     "sass": "^1.54.0",
-    "tailwindcss-dark-mode": "^1.1.7"
+    "tailwindcss-dark-mode": "^1.1.7",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.3",

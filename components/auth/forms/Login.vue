@@ -6,7 +6,10 @@
     @submit.prevent="login(formId)"
   >
     <!-- login error message, show this alert when error occured while authenticating user -->
-    <div v-if="loginErr" class="login-error-message">
+    <div
+      v-if="loginErr"
+      class="login-error-message"
+    >
       {{ loginErrMessage }}
     </div>
 
@@ -44,7 +47,10 @@
       {{ $t('forgotPassword') }}
     </div>
 
-    <button type="submit" class="w-full mt-4 primary-button">
+    <button
+      type="submit"
+      class="w-full mt-4 primary-button"
+    >
       {{ $t('logins.login').toUpperCase() }}
     </button>
   </form>

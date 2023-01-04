@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div 
+      <div
         class="mt-2"
         :class="[
           'w-full',
@@ -49,15 +49,15 @@
 
     <!-- <BottomNavigation /> -->
 
-    <LayoutsFooter 
-      v-if="withFooter" 
-      :with-footer="withFooter" 
+    <LayoutsFooter
+      v-if="withFooter"
+      :with-footer="withFooter"
     />
   </div>
 </template>
 
 <script setup>
-defineProps ({
+defineProps({
   withFooter: {
     type: Boolean,
     default: false

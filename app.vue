@@ -33,8 +33,8 @@
 </template>
 
 <script setup>
-import { initApp } from './utils/init-app'
 import { useI18n } from 'vue-i18n'
+import { initApp } from './utils/init-app'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -48,7 +48,7 @@ const { t } = useI18n()
 /**
  * @meta
  */
-useHead ({
+useHead({
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} - ` + t('meta.title.app') : t('meta.title.app')
   }
@@ -61,7 +61,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
-onBeforeMount (async () => {
+onBeforeMount(async () => {
   if (auth.loggedIn && auth.user.id) {
     const tokenValid = await authApi.checkTokenValidity()
 

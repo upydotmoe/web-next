@@ -94,7 +94,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       const collections: any = data.data.collections
       const pagination: any = data.data.pagination
 
-      let showLoadMore: boolean = true
+      let showLoadMore = true
       if (pagination.current_page === pagination.total_page) {
         showLoadMore = false
       }
@@ -128,7 +128,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
       const pagination: any = data.data.pagination
       
-      let showLoadMore: boolean = true
+      let showLoadMore = true
       if (pagination.current_page === pagination.total_page) {
         showLoadMore = false
       }

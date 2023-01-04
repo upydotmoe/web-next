@@ -1,6 +1,6 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
     :fullscreen="true"
@@ -16,42 +16,45 @@
         <div class="buttons">
           <!-- Filter by tags -->
           <div class="filter-buttons">
-            <button 
+            <button
               class="px-3 rounded-md button-item"
               :class="filterTagsCount ? 'button' : 'theme-color'"
-              @click="openTagsFilterSelection" 
+              @click="openTagsFilterSelection"
             >
               {{ filterTagsCount }} {{ $t('tagsApplied') }}
             </button>
           </div>
 
           <!-- Filter explicit content -->
-          <div 
-            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
+          <div
+            v-if="auth.loggedIn && auth.user.user_settings.show_explicit"
             class="filter-buttons"
           >
-            <p 
-              class="rounded-l-md button-item" 
+            <p
+              class="rounded-l-md button-item"
               :class="[explicitMode === undefined ? 'button' : 'theme-color']"
               @click="changeExplicitMode(undefined)"
             >
               {{ $t('default') }}
             </p>
 
-            <p 
-              class="button-item" 
+            <p
+              class="button-item"
               :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('safe')"
             >
               {{ $t('safe') }}
             </p>
-            
-            <p 
-              class="rounded-r-md button-item" 
+
+            <p
+              class="rounded-r-md button-item"
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
-              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
+              <Icon
+                :name="'i-material-symbols-explicit-outline'"
+                :class="{ 'text-white': explicitMode === 'explicit' }"
+              />
               {{ $t('explicit') }}
             </p>
           </div>
@@ -67,8 +70,11 @@
       />
 
       <!-- Artwork list -->
-      <div v-show="!loading" class="mt-4">
-        <WorkList 
+      <div
+        v-show="!loading"
+        class="mt-4"
+      >
+        <WorkList
           v-show="!isEmpty"
           :section-class="'work-grid'"
           :works="works"
@@ -76,10 +82,10 @@
         />
 
         <!-- Load more button -->
-        <div 
-          v-show="showLoadMoreButton" 
+        <div
+          v-show="showLoadMoreButton"
           class="w-full primary-button"
-          :class="loadMoreOptions.delay ? 'animate-pulse' : ''" 
+          :class="loadMoreOptions.delay ? 'animate-pulse' : ''"
           @click="loadMore"
         >
           {{ $t('loadMore') }}
@@ -87,11 +93,11 @@
       </div>
 
       <!-- Artwork modal view -->
-      <div 
+      <div
         id="recent-modal"
-        class="modal work-view" 
+        class="modal work-view"
       >
-        <ModalView 
+        <ModalView
           v-show="!loading"
           ref="recentModalViewRef"
           section="recent"
@@ -99,7 +105,7 @@
       </div>
 
       <!-- Tag filter selection modal -->
-      <TagFilterSelection 
+      <TagFilterSelection
         v-show="!loading"
         id="tag-filter-selection-modal"
         ref="tagFilterSelectionModalRef"
@@ -126,7 +132,7 @@ import TagFilterSelection from '~/components/globals/TagFilterSelection.vue'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-defineProps ({
+defineProps({
   browseMode: {
     type: Boolean,
     default: false
@@ -136,7 +142,7 @@ defineProps ({
 const auth = authStore()
 
 /** Before mount, fetch first rows */
-onBeforeMount (() => {
+onBeforeMount(() => {
   fetchTop()
 })
 
@@ -164,7 +170,7 @@ const filterTagsCount = ref(0)
 const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
   previousSelectedTags.value = selectedTags
   filterTags.value = selectedTagsJoined
-  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0  
+  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
   pagination.value.page = 0
 
   // close tag selection modal and refetch the list
@@ -173,14 +179,14 @@ const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
 }
 
 /** Fetch first row */
-watch (async () => previousSelectedTags.value, _ => {
+watch(async () => previousSelectedTags.value, (_) => {
   fetchTop()
 })
 
 const works = ref([])
 const fetchTop = async () => {
   resetBeforeFetch()
-  
+
   const { works: dataWorks, pagination: dataPagination } = await fetch()
 
   if (dataWorks.length && dataPagination.record_total) {
@@ -206,9 +212,9 @@ const fetch = async () => {
     explicitMode: explicitMode.value,
     tags: filterTags.value
   })
-  
+
   loading.value = false
-  
+
   // hide load more button if there is no more artwork to load
   if (!data.pagination.next_previous.next_page) {
     showLoadMoreButton.value = false

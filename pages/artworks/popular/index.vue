@@ -1,6 +1,6 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
     :fullscreen="true"
@@ -17,31 +17,31 @@
         <div class="buttons">
           <!-- Filter by tags -->
           <div class="filter-buttons">
-            <button 
+            <button
               class="px-3 rounded-md button-item"
               :class="filterTagsCount ? 'button' : 'theme-color'"
-              @click="openTagsFilterSelection" 
+              @click="openTagsFilterSelection"
             >
               {{ filterTagsCount }} {{ $t('tagsApplied') }}
             </button>
           </div>
 
           <div class="filter-buttons">
-            <p 
+            <p
               class="rounded-l-md button-item"
               :class="[popularityRange === 'daily' ? 'button' : 'theme-color']"
               @click="changePopularityRange('daily')"
             >
               {{ $t('daily') }}
             </p>
-            <p 
-              class="button-item" 
+            <p
+              class="button-item"
               :class="[popularityRange === 'weekly' ? 'button' : 'theme-color']"
               @click="changePopularityRange('weekly')"
             >
               {{ $t('weekly') }}
             </p>
-            <p 
+            <p
               :class="[
                 'button-item',
                 popularityRange === 'monthly' ? 'button' : 'theme-color',
@@ -68,7 +68,11 @@
               <button class="flex items-center py-2 px-3 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color hover:button focus:outline-none">
                 <span class="flex-1 pr-1">{{ sortBy === 'views' ? $t('mostViewed') : sortByTitle }}</span>
                 <span>
-                  <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <svg
+                    class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 </span>
@@ -80,10 +84,13 @@
                     'flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent',
                     { 'button': sortBy === 'views' },
                     { 'rounded-b-md': !auth.loggedIn }
-                  ]" 
+                  ]"
                   @click="changeSort('views', $t('mostViewed'))"
                 >
-                  <Icon :name="'i-mi-eye'" :class="{ 'text-white': sortBy === 'views' }" />
+                  <Icon
+                    :name="'i-mi-eye'"
+                    :class="{ 'text-white': sortBy === 'views' }"
+                  />
                   {{ $t('mostViewed') }}
                 </li>
                 <li
@@ -91,10 +98,13 @@
                   :class="[
                     'flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent',
                     { 'button': sortBy === 'likes' }
-                  ]" 
+                  ]"
                   @click="changeSort('likes', $t('mostLiked'))"
                 >
-                  <Icon :name="'i-ri-heart-3-line'" :class="{ 'text-white': sortBy === 'likes' }" />
+                  <Icon
+                    :name="'i-ri-heart-3-line'"
+                    :class="{ 'text-white': sortBy === 'likes' }"
+                  />
                   {{ $t('mostLiked') }}
                 </li>
                 <li
@@ -105,7 +115,10 @@
                   ]"
                   @click="changeSort('comments', $t('mostCommented'))"
                 >
-                  <Icon :name="'i-mdi-comment-multiple-outline'" :class="{ 'text-white': sortBy === 'comments' }" />
+                  <Icon
+                    :name="'i-mdi-comment-multiple-outline'"
+                    :class="{ 'text-white': sortBy === 'comments' }"
+                  />
                   {{ $t('mostCommented') }}
                 </li>
               </ul>
@@ -113,32 +126,35 @@
           </div>
 
           <!-- Filter explicit content -->
-          <div 
-            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
+          <div
+            v-if="auth.loggedIn && auth.user.user_settings.show_explicit"
             class="filter-buttons"
           >
-            <p 
-              class="rounded-l-md button-item" 
+            <p
+              class="rounded-l-md button-item"
               :class="[explicitMode === undefined ? 'button' : 'theme-color']"
               @click="changeExplicitMode(undefined)"
             >
               {{ $t('default') }}
             </p>
 
-            <p 
-              class="button-item" 
+            <p
+              class="button-item"
               :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('safe')"
             >
               {{ $t('safe') }}
             </p>
-            
-            <p 
-              class="rounded-r-md button-item" 
+
+            <p
+              class="rounded-r-md button-item"
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
-              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
+              <Icon
+                :name="'i-material-symbols-explicit-outline'"
+                :class="{ 'text-white': explicitMode === 'explicit' }"
+              />
               {{ $t('explicit') }}
             </p>
           </div>
@@ -154,8 +170,11 @@
       />
 
       <!-- List area -->
-      <div v-show="!loading" class="mt-4">
-        <WorkList 
+      <div
+        v-show="!loading"
+        class="mt-4"
+      >
+        <WorkList
           v-show="!isEmpty"
           :section-class="'work-grid'"
           :works="works"
@@ -164,8 +183,11 @@
       </div>
 
       <!-- Paging control -->
-      <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
-        <button 
+      <div
+        v-if="!loading && !isEmpty && !isError"
+        class="art-list-view-paging-control"
+      >
+        <button
           :class="[
             config.pagination.enablePrev ? 'primary-button' : 'disabled-button'
           ]"
@@ -174,27 +196,27 @@
           <Icon :name="'i-ion-chevron-back-outline'" />
           {{ $t('pagination.previous') }}
         </button>
-        <button 
+        <button
           :class="[
             config.pagination.enableNext ? 'primary-button' : 'disabled-button'
           ]"
           @click="movePage('next')"
         >
           {{ $t('pagination.next') }}
-          <Icon 
-            :name="'i-ion-chevron-forward-outline'" 
+          <Icon
+            :name="'i-ion-chevron-forward-outline'"
             class="md:ml-2"
-            style="margin-right: 0 !important" 
+            style="margin-right: 0 !important"
           />
         </button>
       </div>
 
       <!-- Artwork modal view -->
-      <div 
+      <div
         id="popular-modal"
-        class="modal work-view" 
+        class="modal work-view"
       >
-        <ModalView 
+        <ModalView
           v-show="!loading"
           ref="popularModalViewRef"
           section="popular"
@@ -202,7 +224,7 @@
       </div>
 
       <!-- Tag filter selection modal -->
-      <TagFilterSelection 
+      <TagFilterSelection
         v-show="!loading"
         id="tag-filter-selection-modal"
         ref="tagFilterSelectionModalRef"
@@ -235,7 +257,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 /** Before mount, fetch first rows */
-onBeforeMount (() => {
+onBeforeMount(() => {
   fetchTop()
 })
 
@@ -272,7 +294,7 @@ const filterTagsCount = ref(0)
 const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
   previousSelectedTags.value = selectedTags
   filterTags.value = selectedTagsJoined
-  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0  
+  filterTagsCount.value = selectedTagsJoined !== '' ? selectedTagsJoined.split(',').length : 0
   pagination.page = 0
 
   // close tag selection modal and refetch the list
@@ -281,7 +303,7 @@ const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
 }
 
 /** Fetch first row */
-watch (async () => previousSelectedTags.value, _ => {
+watch(async () => previousSelectedTags.value, (_) => {
   fetchTop()
 })
 
@@ -304,7 +326,7 @@ const fetchTop = async () => {
     showEmpty()
   } else {
     works.value = dataWorks
-  
+
     if (dataPagination.next_previous.next_page === null) {
       config.value.pagination.enableNext = false
     } else {

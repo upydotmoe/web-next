@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Profile 
+    <Profile
       v-if="userId"
       :id="userId"
     />
@@ -20,7 +20,7 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const route = useRoute()
 
-onBeforeMount (() => {
+onBeforeMount(() => {
   getUserId()
 })
 

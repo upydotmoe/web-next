@@ -1,6 +1,6 @@
 <template>
-  <Layout 
-    :with-footer="false" 
+  <Layout
+    :with-footer="false"
     :hide-side="true"
     :no-right-side="true"
   >

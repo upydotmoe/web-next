@@ -18,7 +18,10 @@
         ]" 
         @click="!canLoadMore ? null : loadMore()"
       >
-        {{ $t('loadMore') }}<ProBadge v-if="!canLoadMore" class="ml-2" />
+        {{ $t('loadMore') }}<ProBadge
+          v-if="!canLoadMore"
+          class="ml-2"
+        />
       </div>
     </div>
 

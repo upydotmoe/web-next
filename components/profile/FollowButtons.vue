@@ -38,13 +38,19 @@
     >
       <!-- if not following -->
       <button v-show="!followingData.isFollowing">
-        <Icon :name="'i-ri-user-add-fill'" :text-size="'text-base'" />
+        <Icon
+          :name="'i-ri-user-add-fill'"
+          :text-size="'text-base'"
+        />
         {{ $t('follow') }}
       </button>
 
       <!-- if following -->
       <button v-show="followingData.isFollowing">
-        <Icon :name="unfollowIcon" :text-size="'text-base'" />
+        <Icon
+          :name="unfollowIcon"
+          :text-size="'text-base'"
+        />
         {{ unfollowText === null ? $t('followings.following') : unfollowText }}
       </button>
     </div>
@@ -58,8 +64,15 @@
         for="follow-privately"
         @click="auth.i502p00r0 ? (followingData.isPrivate ? follow(userInfo.id, false) : follow(userInfo.id, true)) : null"
       >
-        <Icon v-if="!followingData.isPrivate" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-        <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+        <Icon
+          v-if="!followingData.isPrivate"
+          :name="'i-fluent-checkbox-unchecked-20-regular'"
+        />
+        <Icon
+          v-else
+          :name="'i-ic-outline-check'"
+          class="text-green-500"
+        />
 
         <span>{{ $t('followings.followPrivately') }}</span>
         
@@ -75,6 +88,7 @@ import useAuthStore from '@/stores/auth.store'
 
 // composables
 import useUser from '~/composables/users/useUser'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // components
 import Icon from '~/components/globals/Icon.vue'

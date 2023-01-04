@@ -6,7 +6,10 @@
       </div>
       <span class="font-medium cursor-pointer link-color hover:underline"><a href="/">{{ $t('goToHome') }}</a></span>
       or
-      <span class="font-medium cursor-pointer link-color hover:underline" @click="openModal('auth-modal')">{{ $t('logins.login') }}</span>
+      <span
+        class="font-medium cursor-pointer link-color hover:underline"
+        @click="openModal('auth-modal')"
+      >{{ $t('logins.login') }}</span>
     </div>
   </Layout>
 </template>

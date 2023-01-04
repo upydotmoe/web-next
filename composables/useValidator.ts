@@ -16,7 +16,7 @@ export default function() {
     clear()
 
     // rule alerts
-    let ruleAlerts = []
+    const ruleAlerts = []
 
     // add error message to each input that has a validation error to var 'ruleAlerts'
     const addAlert = (fieldName: string, ruleName: string) => {

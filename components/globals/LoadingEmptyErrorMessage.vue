@@ -23,7 +23,10 @@
       class="inline-flex flex-row gap-2 justify-center w-full"
     >
       <b v-if="emptyMessage === ''">(ㆆ_ㆆ)</b>
-      <Icon v-if="emptyIcon" :name="emptyIcon" />
+      <Icon
+        v-if="emptyIcon"
+        :name="emptyIcon"
+      />
       {{ emptyMessage !== '' ? emptyMessage : $t('nothingToShow') }}
     </div>
     
@@ -31,7 +34,10 @@
     <span v-show="error && !loading">
       <b>(T_T)</b> 
       {{ $t('errors.somethingWentWrong') }} 
-      <b class="cursor-pointer" @click="fetch">{{ $t('tryAgain') }}</b>
+      <b
+        class="cursor-pointer"
+        @click="fetch"
+      >{{ $t('tryAgain') }}</b>
     </span>
   </div>
 </template>

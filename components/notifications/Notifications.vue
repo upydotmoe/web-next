@@ -10,10 +10,20 @@
           @click.prevent="currentSection = 'likes'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'likes'" :name="'i-ri-heart-3-line'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'likes'" :name="'i-ri-heart-3-line'" class="md:mr-2" />
+            <Icon
+              v-show="currentSection === 'likes'"
+              :name="'i-ri-heart-3-line'"
+              class="text-white md:mr-2"
+            />
+            <Icon
+              v-show="currentSection !== 'likes'"
+              :name="'i-ri-heart-3-line'"
+              class="md:mr-2"
+            />
 
-            <div class="hidden-md-flex">{{ $t('notifications.likes') }}</div>
+            <div class="hidden-md-flex">
+              {{ $t('notifications.likes') }}
+            </div>
           </div>
 
           <div 
@@ -32,10 +42,20 @@
           @click.prevent="currentSection = 'comments'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'comments'" :name="'i-mdi-comment-multiple-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'comments'" :name="'i-mdi-comment-multiple-outline'" class="md:mr-2" />
+            <Icon
+              v-show="currentSection === 'comments'"
+              :name="'i-mdi-comment-multiple-outline'"
+              class="text-white md:mr-2"
+            />
+            <Icon
+              v-show="currentSection !== 'comments'"
+              :name="'i-mdi-comment-multiple-outline'"
+              class="md:mr-2"
+            />
 
-            <div class="hidden-md-flex">{{ $t('notifications.comments') }}</div>
+            <div class="hidden-md-flex">
+              {{ $t('notifications.comments') }}
+            </div>
           </div>
 
           <div 
@@ -54,10 +74,20 @@
           @click.prevent="currentSection = 'follows'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'follows'" :name="'i-fluent-people-checkmark-24-regular'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'follows'" :name="'i-fluent-people-checkmark-24-regular'" class="md:mr-2" />
+            <Icon
+              v-show="currentSection === 'follows'"
+              :name="'i-fluent-people-checkmark-24-regular'"
+              class="text-white md:mr-2"
+            />
+            <Icon
+              v-show="currentSection !== 'follows'"
+              :name="'i-fluent-people-checkmark-24-regular'"
+              class="md:mr-2"
+            />
 
-            <div class="hidden-md-flex">{{ $t('notifications.follows') }}</div>
+            <div class="hidden-md-flex">
+              {{ $t('notifications.follows') }}
+            </div>
           </div>
 
           <div 
@@ -76,10 +106,20 @@
           @click.prevent="currentSection = 'feeds'"
         >
           <div class="flex flex-row justify-start">
-            <Icon v-show="currentSection === 'feeds'" :name="'i-ion-newspaper-outline'" class="text-white md:mr-2" />
-            <Icon v-show="currentSection !== 'feeds'" :name="'i-ion-newspaper-outline'" class="md:mr-2" />
+            <Icon
+              v-show="currentSection === 'feeds'"
+              :name="'i-ion-newspaper-outline'"
+              class="text-white md:mr-2"
+            />
+            <Icon
+              v-show="currentSection !== 'feeds'"
+              :name="'i-ion-newspaper-outline'"
+              class="md:mr-2"
+            />
 
-            <div class="hidden-md-flex">{{ $t('notifications.feeds') }}</div>
+            <div class="hidden-md-flex">
+              {{ $t('notifications.feeds') }}
+            </div>
           </div>
 
           <div 

@@ -1,5 +1,5 @@
 <template>
-  <Layout 
+  <Layout
     :hide-side="true"
     :with-footer="true"
     :no-right-side="true"
@@ -8,54 +8,89 @@
       <!-- tabs -->
       <div class="mr-2 md:mr-4 lg:w-1/5">
         <nuxt-link
-          :to="'/profile'" 
+          :to="'/profile'"
           class="mb-6 w-full light-bordered-button"
         >
-          <Icon :name="'i-typcn-arrow-back'" class="text-lg text-white lg:mr-2 hover:text-white" />
+          <Icon
+            :name="'i-typcn-arrow-back'"
+            class="text-lg text-white lg:mr-2 hover:text-white"
+          />
 
           <span class="hidden-lg-flex">{{ $t('settings.backToProfile') }}</span>
         </nuxt-link>
 
-        <div 
+        <div
           class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
           :class="{ 'button-color text-white': config.currentState === 'profile' }"
           @click="changeCurrentState('profile')"
         >
-          <Icon v-show="config.currentState === 'profile'" :name="'i-fluent-person-32-regular'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'profile'" :name="'i-fluent-person-32-regular'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon
+            v-show="config.currentState === 'profile'"
+            :name="'i-fluent-person-32-regular'"
+            class="text-lg text-white lg:mr-2 hover:text-white"
+          />
+          <Icon
+            v-show="config.currentState !== 'profile'"
+            :name="'i-fluent-person-32-regular'"
+            class="text-lg lg:mr-2 hover:text-white"
+          />
 
           <span class="hidden-lg-flex">{{ $t('settings.profile') }}</span>
         </div>
-        
-        <div 
+
+        <div
           class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
           :class="{ 'button-color text-white': config.currentState === 'social' }"
           @click="changeCurrentState('social')"
         >
-          <Icon v-show="config.currentState === 'social'" :name="'i-ion-share-social-outline'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'social'" :name="'i-ion-share-social-outline'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon
+            v-show="config.currentState === 'social'"
+            :name="'i-ion-share-social-outline'"
+            class="text-lg text-white lg:mr-2 hover:text-white"
+          />
+          <Icon
+            v-show="config.currentState !== 'social'"
+            :name="'i-ion-share-social-outline'"
+            class="text-lg lg:mr-2 hover:text-white"
+          />
 
           <span class="hidden-lg-flex">{{ $t('settings.social') }}</span>
         </div>
-        
-        <div 
+
+        <div
           class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
           :class="{ 'button-color text-white': config.currentState === 'password' }"
           @click="changeCurrentState('password')"
         >
-          <Icon v-show="config.currentState === 'password'" :name="'i-material-symbols-key-outline-rounded'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'password'" :name="'i-material-symbols-key-outline-rounded'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon
+            v-show="config.currentState === 'password'"
+            :name="'i-material-symbols-key-outline-rounded'"
+            class="text-lg text-white lg:mr-2 hover:text-white"
+          />
+          <Icon
+            v-show="config.currentState !== 'password'"
+            :name="'i-material-symbols-key-outline-rounded'"
+            class="text-lg lg:mr-2 hover:text-white"
+          />
 
           <span class="hidden-lg-flex">{{ $t('settings.password') }}</span>
         </div>
-        
-        <div 
+
+        <div
           class="flex flex-row py-3 px-4 mb-2 font-medium leading-5 rounded ring-offset-2 transition-all duration-200 cursor-pointer left-menu-link parent-icon theme-color hover:button hover:text-white"
           :class="{ 'button-color text-white': config.currentState === 'settings' }"
           @click="changeCurrentState('settings')"
         >
-          <Icon v-show="config.currentState === 'settings'" :name="'i-ph-gear-six'" class="text-lg text-white lg:mr-2 hover:text-white" />
-          <Icon v-show="config.currentState !== 'settings'" :name="'i-ph-gear-six'" class="text-lg lg:mr-2 hover:text-white" />
+          <Icon
+            v-show="config.currentState === 'settings'"
+            :name="'i-ph-gear-six'"
+            class="text-lg text-white lg:mr-2 hover:text-white"
+          />
+          <Icon
+            v-show="config.currentState !== 'settings'"
+            :name="'i-ph-gear-six'"
+            class="text-lg lg:mr-2 hover:text-white"
+          />
 
           <span class="hidden-lg-flex">{{ $t('settings.settings') }}</span>
         </div>
@@ -63,19 +98,19 @@
 
       <!-- content -->
       <div class="w-full">
-        <Information 
+        <Information
           v-if="config.currentState === 'profile'"
         />
 
-        <Social 
+        <Social
           v-if="config.currentState === 'social'"
         />
 
-        <Settings 
+        <Settings
           v-if="config.currentState === 'settings'"
         />
 
-        <Password 
+        <Password
           v-if="config.currentState === 'password'"
         />
       </div>
@@ -100,7 +135,7 @@ const { t } = useI18n()
  * @meta
  */
 const metaTitle = ref(t('meta.title.profile.profile'))
-useHead ({
+useHead({
   title: computed(() => metaTitle.value)
 })
 

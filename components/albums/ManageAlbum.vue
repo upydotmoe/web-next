@@ -6,8 +6,14 @@
           <span class="title">{{ $t('albums.selectAlbums') }}</span>
           
           <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
-            <div class="modal-close" @click="cancel()">
-              <Icon :name="'close'" class="text-2xl" />
+            <div
+              class="modal-close"
+              @click="cancel()"
+            >
+              <Icon
+                :name="'close'"
+                class="text-2xl"
+              />
             </div>
           </div>
         </div>
@@ -42,19 +48,31 @@
                   class="flex flex-row mt-2 w-full"
                 >
                   <ProBadge class="mr-1" />
-                  <p class="leading-6">{{ $t('albums.maxItemLimitReached') }}</p>
+                  <p class="leading-6">
+                    {{ $t('albums.maxItemLimitReached') }}
+                  </p>
                 </div>
               </div>
             </div>
-            <div v-show="config.showLoadMore" class="mt-2 primary-button" @click="loadMore()">
+            <div
+              v-show="config.showLoadMore"
+              class="mt-2 primary-button"
+              @click="loadMore()"
+            >
               Load More
             </div>
 
             <div class="flex float-right flex-row gap-2 mt-4">
-              <button class="cancel-button" @click="cancel()">
+              <button
+                class="cancel-button"
+                @click="cancel()"
+              >
                 {{ $t('cancel') }}
               </button>
-              <button class="primary-button" @click="save()">
+              <button
+                class="primary-button"
+                @click="save()"
+              >
                 {{ $t('save') }}
               </button>
             </div>
@@ -74,6 +92,8 @@
 </template>
 
 <script setup>
+import { POST_TYPES } from '~/utils/constants'
+
 // stores
 import authStore from '@/stores/auth.store'
 
@@ -153,7 +173,7 @@ const fetchAlbums = async () => {
 
   const [data, showLoadMore, error] = await albumApi.fetchAlbums(
     auth.user.id,
-    'artwork',
+    POST_TYPES.ARTWORK,
     config.value.pagination.page === 0 ? config.value.pagination.firstLoad : config.value.pagination.perPage,
     config.value.pagination.page
   )
@@ -192,7 +212,7 @@ const fetchCurrentSaved = async () => {
   unselectedAlbums.value = []
 
   const [data, error] = await albumApi.getCurrentSaveInfo(
-    'artwork',
+    POST_TYPES.ARTWORK,
     props.workId
   )
   
@@ -231,7 +251,7 @@ const selectUnselect = (albumId) => {
 const save = async () => {
   const [success, error] = await albumApi.addItems({
     albumIds: selectedAlbums.value,
-    type: 'artwork',
+    type: POST_TYPES.ARTWORK,
     workIds: props.workIds.length ? props.workIds : [props.workId]
   })
 

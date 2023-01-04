@@ -13,8 +13,8 @@
       <a
         v-if="!isHref && !isMiniList"
         :href="'/a/'+work.id"
-        @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
         class="w-full h-full theme-color-bg"
+        @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
       >
         <div class="overflow-hidden relative text-center rounded-md">
           <div class="flex flex-row gap-1 mini-icon">
@@ -58,7 +58,10 @@
           </div>
 
           <!-- explicit content filter -->
-          <span v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">
+          <span
+            v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
+            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
+          >
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
           
@@ -68,14 +71,14 @@
               { 'animate-wigglefast': manageMode }
             ]"
           >
-            <!-- test --> <nuxt-img
+            <nuxt-img
               preload
               loading="lazy"
               :src="
                 ((!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit)) && work.is_explicit)
-                || ((!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_gore)) && work.is_gore) 
+                  || ((!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_gore)) && work.is_gore) 
                   ? 'https://via.placeholder.com/150'
-                    : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+                  : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'w-full h-full unselectable',
                 { 'object-cover': !isUncropped },
@@ -127,25 +130,28 @@
           </div>
 
           <!-- explicit content filter -->
-          <span v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg">
+          <span
+            v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
+            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
+          >
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
           
           <a 
             :href="'/a/'+work.id"
-            @click.prevent="void"
             :class="[
               { 'animate-wigglefast': manageMode }
             ]"
+            @click.prevent="null"
           >
-            <!-- test --> <nuxt-img
+            <nuxt-img
               preload
               loading="lazy"
               :src="
                 ((!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit)) && work.is_explicit)
-                || ((!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_gore)) && work.is_gore) 
+                  || ((!auth.loggedIn || (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_gore)) && work.is_gore) 
                   ? 'https://via.placeholder.com/150'
-                    : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
+                  : artworkThumb(work.artwork_assets[0].bucket, work.artwork_assets[0].filename, 'thumbnail', isUncropped)"
               :class="[
                 'object-cover w-full h-full unselectable',
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }

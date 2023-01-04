@@ -3,12 +3,12 @@
     :hide-side="true"
   >
     <form action="">
-      <input 
+      <input
         v-model="input.emailUsername"
         type="text"
       >
 
-      <input 
+      <input
         v-model="input.password"
         type="password"
       >
@@ -24,16 +24,16 @@
 </template>
 
 <script setup lang="ts">
-  const input = ref({
-    emailUsername: null,
-    password: null
-  })
+const input = ref({
+  emailUsername: null,
+  password: null
+})
 
-  const login = async () => {
-    try {
-      // console.log('login successful');
-    } catch (error) {
-      // console.log('login error:', error);
-    }
+const login = async () => {
+  try {
+    // console.log('login successful');
+  } catch (error) {
+    // console.log('login error:', error);
   }
+}
 </script>

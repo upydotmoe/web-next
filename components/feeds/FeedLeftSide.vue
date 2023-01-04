@@ -1,33 +1,33 @@
 <template>
   <div class="feed__left-buttons">
     <button
-      @click="changeView('feed')"
       :class="[
         'left-button',
         currentView == 'feed' ? 'theme-colored' : 'theme-color'
       ]"
+      @click="changeView('feed')"
     >
       <Icon :name="'i-akar-icons-home'" />
       <span class="hidden ml-3 lg:block">{{ $t('feeds.all') }}</span>
     </button>
 
     <button
-      @click="changeView('text')"
       :class="[
         'left-button',
         currentView == 'text' ? 'theme-colored' : 'theme-color'
       ]"
+      @click="changeView('text')"
     >
       <Icon :name="'i-ion-text-sharp'" />
       <span class="hidden ml-3 lg:block">{{ $t('feeds.textOnly') }}</span>
     </button>
 
     <button
-      @click="changeView('artwork')"
       :class="[
         'left-button',
-        currentView == 'artwork' ? 'theme-colored' : 'theme-color'
+        currentView == POST_TYPES.ARTWORK ? 'theme-colored' : 'theme-color'
       ]"
+      @click="changeView(POST_TYPES.ARTWORK)"
     >
       <Icon :name="'i-gg-image'" />
       <span class="hidden ml-3 lg:block">{{ $t('feeds.artworkOnly') }}</span>
@@ -36,6 +36,8 @@
 </template>
 
 <script setup>
+import { POST_TYPES } from '~/utils/constants'
+
 // stores
 import useAuthStore from '@/stores/auth.store'
 

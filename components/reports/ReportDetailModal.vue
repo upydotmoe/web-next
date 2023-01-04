@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button class="hidden" @click="view()" />
+    <button
+      class="hidden"
+      @click="view()"
+    />
     
     <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
       <div class="flex flex-row justify-between w-full">
@@ -14,7 +17,10 @@
         :error="isError"
       />
 
-      <div v-show="!loading" class="report_detail">
+      <div
+        v-show="!loading"
+        class="report_detail"
+      >
         <div class="report_detail__badge">
           <span
             :class="reportDetail.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'"
@@ -49,10 +55,13 @@
             <div>
               <label>{{ $t('reports.reportedPost') }}</label>
               <div>
-                <span v-show="reportDetail.is_removed" class="italic">{{ $t('reports.postRemoved') }}</span>
+                <span
+                  v-show="reportDetail.is_removed"
+                  class="italic"
+                >{{ $t('reports.postRemoved') }}</span>
                 <a 
                   v-show="!reportDetail.is_removed" 
-                  :href="(reportDetail.type === 'artwork' ? '/a/' : '/feed/') + reportDetail.post_id" 
+                  :href="(reportDetail.type === POST_TYPES.ARTWORK ? '/a/' : '/feed/') + reportDetail.post_id" 
                   target="blank" 
                   class="href"
                 >
@@ -71,7 +80,10 @@
             <div>
               <label>{{ $t('reports.selectedReasons') }}</label>
               <div class="tags">
-                <span v-for="reason in selectedReasons" class="tag">
+                <span
+                  v-for="reason in selectedReasons"
+                  class="tag"
+                >
                   {{ $t('reports.reasons.' + reason) }}
                 </span>
               </div>
@@ -91,7 +103,11 @@
                 :class="{ 'bg-green-500 text-white': decisionInputs.response === 0 }"
                 @click="decisionInputs.response = 0"
               >
-                <Icon v-show="decisionInputs.response === 0" :name="'i-ion-checkmark-outline'" class="mr-2 font-bold text-white" />
+                <Icon
+                  v-show="decisionInputs.response === 0"
+                  :name="'i-ion-checkmark-outline'"
+                  class="mr-2 font-bold text-white"
+                />
                 {{ $t('reports.decisions.doNotRemove') }}
               </span>
               <span 
@@ -99,7 +115,11 @@
                 :class="{ 'bg-red-500 text-white': decisionInputs.response === 1 }"
                 @click="decisionInputs.response = 1"
               >
-                <Icon v-show="decisionInputs.response === 1" :name="'i-ion-checkmark-outline'" class="mr-2 font-bold text-white" />
+                <Icon
+                  v-show="decisionInputs.response === 1"
+                  :name="'i-ion-checkmark-outline'"
+                  class="mr-2 font-bold text-white"
+                />
                 {{ $t('reports.decisions.remove') }}
               </span>
             </div>
@@ -128,7 +148,10 @@
             <div>
               <label>{{ $t('reports.decision') }}</label>
               <div>
-                <span class="font-bold uppercase" :class="reportDetail.response ? 'text-green-500' : 'text-red-500'">
+                <span
+                  class="font-bold uppercase"
+                  :class="reportDetail.response ? 'text-green-500' : 'text-red-500'"
+                >
                   {{ reportDetail.response ? 'Removed' : 'Not removed' }}
                 </span>
               </div>
@@ -155,6 +178,8 @@
 </template>
 
 <script setup>
+import { POST_TYPES } from '~/utils/constants'
+
 // stores
 import useAuthStore from '@/stores/auth.store'
 

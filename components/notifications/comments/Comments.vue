@@ -51,7 +51,7 @@
         </template>
 
         <template #no-more>
-          <p></p>
+          <p />
         </template>
       </InfiniteLoading>
     </client-only>

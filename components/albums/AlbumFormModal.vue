@@ -32,15 +32,35 @@
           />
 
           <!-- is public radio button -->
-          <label :for="inputData.isPublic ? 'checked' : 'unchecked'" class="inline-flex items-center">
-            <span class="relative cursor-pointer" @click="auth.i502p00r0 ? inputData.isPublic = !inputData.isPublic : inputData.isPublic = true">
+          <label
+            :for="inputData.isPublic ? 'checked' : 'unchecked'"
+            class="inline-flex items-center"
+          >
+            <span
+              class="relative cursor-pointer"
+              @click="auth.i502p00r0 ? inputData.isPublic = !inputData.isPublic : inputData.isPublic = true"
+            >
               <span class="block w-10 h-6 bg-gray-300 rounded-full shadow-inner" />
-              <span v-if="inputData.isPublic" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline">
-                <input id="unchecked" type="checkbox" class="absolute w-0 h-0 opacity-0">
+              <span
+                v-if="inputData.isPublic"
+                class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ease-in-out focus-within:shadow-outline"
+              >
+                <input
+                  id="unchecked"
+                  type="checkbox"
+                  class="absolute w-0 h-0 opacity-0"
+                >
               </span>
               
-              <span v-if="!inputData.isPublic" class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out transform translate-x-full focus-within:shadow-outline button-color">
-                <input id="checked" type="checkbox" class="absolute w-0 h-0 opacity-0">
+              <span
+                v-if="!inputData.isPublic"
+                class="block absolute inset-y-0 left-0 mt-1 ml-1 w-4 h-4 rounded-full shadow transition-transform duration-300 ease-in-out transform translate-x-full focus-within:shadow-outline button-color"
+              >
+                <input
+                  id="checked"
+                  type="checkbox"
+                  class="absolute w-0 h-0 opacity-0"
+                >
               </span>
             </span>
             
@@ -59,10 +79,16 @@
           </label>
 
           <div class="flex flex-row gap-2 justify-end mt-2">
-            <button class="cancel-button" @click.prevent="closeModal(modalId)">
+            <button
+              class="cancel-button"
+              @click.prevent="closeModal(modalId)"
+            >
               {{ $t('cancel') }}
             </button>
-            <button type="submit" class="primary-button">
+            <button
+              type="submit"
+              class="primary-button"
+            >
               {{ $t('create') }}
             </button>
           </div>
@@ -74,6 +100,8 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+
+import { POST_TYPES } from '~/utils/constants'
 
 // stores
 import useAuthStore from '~/stores/auth.store'
@@ -97,7 +125,7 @@ const emits = defineEmits ('created')
 const props = defineProps ({
   category: {
     type: String,
-    default: 'artwork'
+    default: POST_TYPES.ARTWORK
   },
   modalId: {
     type: String,
@@ -110,7 +138,7 @@ const inputData = ref({
   title: '',
   description: '',
   isPublic: 1,
-  category: 'artwork'
+  category: POST_TYPES.ARTWORK
 })
 
 /** Save new album */

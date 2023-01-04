@@ -1,6 +1,9 @@
 <template>
   <section class="flex-col info">
-    <div v-if="artworkDetail.users" class="user-info">
+    <div
+      v-if="artworkDetail.users"
+      class="user-info"
+    >
       <div class="flex flex-row gap-2 w-full">
         <nuxt-link :to="'/u/' + artworkDetail.users.username">
           <img
@@ -12,10 +15,16 @@
         <div class="w-full name">
           <div class="flex flex-row justify-between">
             <div class="flex flex-col">
-              <nuxt-link :to="'/u/' + artworkDetail.users.username" class="fullname">
+              <nuxt-link
+                :to="'/u/' + artworkDetail.users.username"
+                class="fullname"
+              >
                 {{ artworkDetail.users.name }} <ProBadge v-if="artworkDetail.users.isPro" />
               </nuxt-link>
-              <nuxt-link :to="'/u/' + artworkDetail.users.username" class="username">
+              <nuxt-link
+                :to="'/u/' + artworkDetail.users.username"
+                class="username"
+              >
                 @{{ artworkDetail.users.username }}
               </nuxt-link>
             </div>
@@ -38,7 +47,10 @@
       {{ artworkDetail.title }}
     </div>
 
-    <div v-if="artworkDetail.description" class="mb-4">
+    <div
+      v-if="artworkDetail.description"
+      class="mb-4"
+    >
       <span
         :id="'mview-'+isDesktop+'-description-'+artworkDetail.id"
         v-html="artworkDetail.description.length > 300 ? `${artworkDetail.description.slice(0, 300)}...` : artworkDetail.description"
@@ -54,16 +66,21 @@
     </div>
 
     <div class="mb-4">
-      <span :class="[
-        'italic text-color-secondary',
-        { 'font-bold text-red-400': previewMode }
-      ]">
+      <span
+        :class="[
+          'italic text-color-secondary',
+          { 'font-bold text-red-400': previewMode }
+        ]"
+      >
         {{ !previewMode ? $t('publishedOn') : $t('willBePublishedOn') }}
       </span> {{ formatDate(artworkDetail.scheduled_post) }}
     </div>
 
     <!-- tags -->
-    <div v-if="artworkDetail.artwork_has_tags && artworkDetail.artwork_has_tags.length" class="tags">
+    <div
+      v-if="artworkDetail.artwork_has_tags && artworkDetail.artwork_has_tags.length"
+      class="tags"
+    >
       <span 
         v-for="tag in artworkDetail.artwork_has_tags" 
         :key="tag.artwork_tags.id" 

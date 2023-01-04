@@ -1,10 +1,19 @@
 <template>
-  <div v-show="showForm || directMode" class="w-full">
-    <div v-show="!isVerified" class="mb-2 text-base">
+  <div
+    v-show="showForm || directMode"
+    class="w-full"
+  >
+    <div
+      v-show="!isVerified"
+      class="mb-2 text-base"
+    >
       {{ $t('accountRecovery.form.pleaseInputRecoveryPassphrase') }}
     </div>
     
-    <div v-if="error.isError" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
+    <div
+      v-if="error.isError"
+      class="p-2 mb-2 w-full text-white bg-red-500 rounded-md"
+    >
       {{ error.message }}
     </div>
 
@@ -126,8 +135,8 @@
       {{ $t('accountRecovery.accountRecovered') }}
       
       <div
-        @click="authFormStore.reset()"
         class="mt-4 href"
+        @click="authFormStore.reset()"
       >
         {{ $t('logins.login').toUpperCase() }}
       </div>

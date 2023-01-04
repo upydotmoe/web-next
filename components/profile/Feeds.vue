@@ -1,10 +1,16 @@
 <template>
   <div class="left-0 w-full md:w-2/3">
-    <div v-for="(feed, feedIdx) in feeds" :key="feed.id">
+    <div
+      v-for="(feed, feedIdx) in feeds"
+      :key="feed.id"
+    >
       <div class="flex flex-row mb-2 rounded-lg border-none shadow-none theme-color-secondary">
         <!-- Images -->
         <div class="w-full">
-          <div v-if="feed.users" class="p-4 user-info">
+          <div
+            v-if="feed.users"
+            class="p-4 user-info"
+          >
             <nuxt-link :to="'/u/' + feed.users.username">
               <img
                 class="avatar"
@@ -52,9 +58,15 @@
             </a>
 
             <!-- shared artwork post detail -->
-            <div v-if="feed.artworks" class="my-2 w-full rounded-md theme-color">
+            <div
+              v-if="feed.artworks"
+              class="my-2 w-full rounded-md theme-color"
+            >
               <!-- creator information -->
-              <div v-if="feed.artworks.users" class="p-2 md:p-4 user-info">
+              <div
+                v-if="feed.artworks.users"
+                class="p-2 md:p-4 user-info"
+              >
                 <nuxt-link :to="'/u/' + feed.artworks.users.username">
                   <img
                     class="avatar"
@@ -79,7 +91,10 @@
                   
                   <span class="mx-1">·</span>
                   
-                  <nuxt-link :to="'/a/' + feed.artworks.id" class="hover:underline text-xxs">
+                  <nuxt-link
+                    :to="'/a/' + feed.artworks.id"
+                    class="hover:underline text-xxs"
+                  >
                     {{ formatDate(feed.artworks.scheduled_post ? feed.artworks.scheduled_post : feed.artworks.created_at, true) }}
                   </nuxt-link>
                 </div>
@@ -130,9 +145,14 @@
                     />
 
                     <!-- filter message -->
-                    <div v-if="feed.artworks.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                    <div
+                      v-if="feed.artworks.apply_explicit_filter"
+                      class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color"
+                    >
                       <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                      <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                      <button class="mx-auto mt-2 primary-button">
+                        {{ $t('explicitShowMeThisContent') }}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -141,8 +161,8 @@
                 <nuxt-link
                   v-if="isMobile()"
                   :to="feed.artworks.apply_explicit_filter ? null : '/a/'+feed.artworks.id"
-                  @click.prevent="viewArtwork(feed.artworks.id, feed.artworks.apply_explicit_filter, feedIdx)"
                   class="cursor-pointer"
+                  @click.prevent="viewArtwork(feed.artworks.id, feed.artworks.apply_explicit_filter, feedIdx)"
                 >
                   <div
                     :class="[
@@ -159,9 +179,14 @@
                     />
 
                     <!-- filter message -->
-                    <div v-if="feed.artworks.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                    <div
+                      v-if="feed.artworks.apply_explicit_filter"
+                      class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color"
+                    >
                       <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                      <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                      <button class="mx-auto mt-2 primary-button">
+                        {{ $t('explicitShowMeThisContent') }}
+                      </button>
                     </div>
                   </div>
                 </nuxt-link>
@@ -172,7 +197,10 @@
           <!-- Intereaction area -->
           <div class="float-right mx-4 mt-2 interactions">
             <!-- Reactions -->
-            <div v-if="auth.loggedIn" class="reactions">
+            <div
+              v-if="auth.loggedIn"
+              class="reactions"
+            >
               <!-- Like -->
               <span 
                 class="leading-8" 
@@ -233,14 +261,20 @@
                         :to="'/feed/'+feed.id"
                         class="flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                       >
-                        <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
+                        <Icon
+                          :name="'i-fluent-arrow-enter-20-filled'"
+                          class="mr-2 text-base"
+                        /> {{ $t('open') }}
                       </nuxt-link>
                       <nuxt-link 
                         :to="'/feed/'+feed.id"
                         target="_blank" 
                         class="flex z-20 py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white"
                       >
-                        <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                        <Icon
+                          :name="'i-ci-external-link'"
+                          class="mr-2 text-base"
+                        /> {{ $t('openInNewTab') }}
                       </nuxt-link>
 
                       <!-- <div class="custom-divider" /> -->
@@ -262,7 +296,10 @@
                         <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
                       </a> -->
 
-                      <div v-if="auth.loggedIn && feed.user_id && auth.user.id === feed.user_id" class="custom-divider" />
+                      <div
+                        v-if="auth.loggedIn && feed.user_id && auth.user.id === feed.user_id"
+                        class="custom-divider"
+                      />
 
                       <div 
                         v-if="auth.loggedIn && feed.user_id && auth.user.id === feed.user_id" 
@@ -270,7 +307,10 @@
                         class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
                         @click="openModal('profile-feed-deletion-confirm-modal')"
                       >
-                        <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                        <Icon
+                          :name="'i-ion-trash-outline'"
+                          class="mr-2 text-base"
+                        /> {{ $t('delete') }}
                       </div>
                     </div>
                   </div>
@@ -288,8 +328,13 @@
     >
       <template #loading>
         <div class="loading-empty-error-message">
-          <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
-          <div class="mt-2 text-tiny">Currently making magic..</div>
+          <Icon
+            :name="'i-line-md-loading-twotone-loop'"
+            class="text-3xl"
+          />
+          <div class="mt-2 text-tiny">
+            Currently making magic..
+          </div>
         </div>
       </template>
       
@@ -324,7 +369,7 @@
     >
       <ModalView 
         ref="artworkModalViewRef"
-        :section="'artwork'"
+        :section="POST_TYPES.ARTWORK"
       />
     </div>
     
@@ -334,13 +379,15 @@
       :modal-id="'profile-feed-deletion-confirm-modal'"
       :message="`${$t('alert.areYouSure')} ${$t('alert.youCannotUndoThisAction')}`"
       class="modal"
-      @onAccept="removeFeed()"
+      @on-accept="removeFeed()"
     />
   </div>
 </template>
 
 <script setup>
 import { VueEternalLoading as InfiniteLoading } from '@ts-pro/vue-eternal-loading'
+
+import { POST_TYPES } from '~/utils/constants'
 
 // stores
 import useAuthStore from '@/stores/auth.store'

@@ -6,17 +6,26 @@
     
     <!-- message & alert -->
     <div>
-      <div v-show="posted" class="alert-success">
+      <div
+        v-show="posted"
+        class="alert-success"
+      >
         {{ $t('feeds.form.posted') }}
         <span class="italic">{{ $t('feeds.form.successRedirect') }}</span>
       </div>
 
-      <div v-show="posting" class="flex flex-row p-2 mb-2 text-white rounded-md button-color">
+      <div
+        v-show="posting"
+        class="flex flex-row p-2 mb-2 text-white rounded-md button-color"
+      >
         <Spinner class="mr-2" />
         {{ $t('feeds.form.postingYourUpdate') }}
       </div>
 
-      <div v-show="isError" class="alert-danger">
+      <div
+        v-show="isError"
+        class="alert-danger"
+      >
         {{ $t('feeds.form.postFailure') }}
       </div>
     </div>
@@ -27,7 +36,7 @@
       <div class="flex flex-col gap-2 mb-4">
         <VueEditor
           v-model="feedInput"
-          :editorToolbar="quillOptions"
+          :editor-toolbar="quillOptions"
           :placeholder="$t('typeSomething')"
         />
       </div>

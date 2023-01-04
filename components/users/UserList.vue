@@ -27,7 +27,7 @@
             user.artworks.length ? 'rounded-bl-none' : 'rounded-bl-md',
           ]"
         >
-          <!-- test --> <nuxt-img
+          <nuxt-img
             preload
             loading="lazy"
             class="avatar"
@@ -43,14 +43,20 @@
 
             <div class="flex flex-row w-full">
               <!-- user follow status, not appeared if the user is current login user -->
-              <div v-if="auth.loggedIn && user.id !== auth.user.id" class="flex flex-row">
+              <div
+                v-if="auth.loggedIn && user.id !== auth.user.id"
+                class="flex flex-row"
+              >
                 <!-- follow -->
                 <div 
                   v-show="!user.is_following"
                   class="flex flex-row"
                   @click.prevent="followUser(index, user.id)"
                 >
-                  <Icon :name="'i-ri-user-add-fill'" class="text-gray-300 hover:text-white" />
+                  <Icon
+                    :name="'i-ri-user-add-fill'"
+                    class="text-gray-300 hover:text-white"
+                  />
                 </div>
                 
                 <div 
@@ -61,10 +67,18 @@
                   @click.prevent="unfollowUser(index, user.id)"
                 >
                   <!-- following -->
-                  <Icon v-show="showUnfollow !== user.id" :name="'i-ri-user-follow-fill'" class="text-green-400" />
+                  <Icon
+                    v-show="showUnfollow !== user.id"
+                    :name="'i-ri-user-follow-fill'"
+                    class="text-green-400"
+                  />
 
                   <!-- unfollow -->
-                  <Icon v-show="showUnfollow && showUnfollow === user.id" :name="'i-ri-user-unfollow-fill'" class="text-red-400 hover:text-red-400" />
+                  <Icon
+                    v-show="showUnfollow && showUnfollow === user.id"
+                    :name="'i-ri-user-unfollow-fill'"
+                    class="text-red-400 hover:text-red-400"
+                  />
                 </div>
               </div>
             </div>
@@ -94,7 +108,10 @@
                 { 'rounded-br-md': workIndex == 2 }
               ]"
             >
-              <span v-if="applyExplicitFilter(auth, latestArtwork.is_explicit, latestArtwork.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+              <span
+                v-if="applyExplicitFilter(auth, latestArtwork.is_explicit, latestArtwork.is_gore)"
+                class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2"
+              >{{ $t('explicitContent') }}</span>
               
               <a 
                 :href="'/a/'+latestArtwork.id"
@@ -102,7 +119,7 @@
                   { 'animate-wigglefast': manageMode }
                 ]"
               >
-                <!-- test --> <nuxt-img
+                <nuxt-img
                   preload
                   loading="lazy"
                   :class="[

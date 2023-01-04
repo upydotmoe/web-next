@@ -6,10 +6,20 @@
 
       <div class="mt-2">
         <!-- show current avatar when user doesn't pick new avatar file yet -->
-        <img v-show="!previewNewAvatar" :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)" class="avatar" @error="defaultCoverImage">
+        <img
+          v-show="!previewNewAvatar"
+          :src="avatarCoverUrl(auth.user.avatar_bucket, auth.user.avatar_filename)"
+          class="avatar"
+          @error="defaultCoverImage"
+        >
 
         <!-- display selected file everytime the user selected new file -->
-        <img v-show="previewNewAvatar" :src="previewNewAvatar" class="avatar" :class="avatarFileTooLargeAlert || updateAvatarError ? 'border-2 border-red-400' : 'border-none'">
+        <img
+          v-show="previewNewAvatar"
+          :src="previewNewAvatar"
+          class="avatar"
+          :class="avatarFileTooLargeAlert || updateAvatarError ? 'border-2 border-red-400' : 'border-none'"
+        >
         
         <!-- avatar file input -->
         <input
@@ -25,8 +35,12 @@
           class="flex flex-col mt-2 w-full text-center primary-button"
           @click="selectNewAvatarButton()"
         >
-          <div class="w-full">{{ $t('profile.forms.update.chooseNewAvatar') }}</div>
-          <div class="w-full">.jpg/.jpeg</div>
+          <div class="w-full">
+            {{ $t('profile.forms.update.chooseNewAvatar') }}
+          </div>
+          <div class="w-full">
+            .jpg/.jpeg
+          </div>
         </button>
 
         <!-- submit button -->
@@ -35,23 +49,35 @@
           :class="[selectedNewAvatarFile ? 'primary-button cursor-pointer' : 'disabled-button cursor-not-allowed', !changingAvatarLoading ? 'primary-button cursor-pointer' : 'disabled-button cursor-not-allowed']"
           @click="selectNewAvatarButton && !changingAvatarLoading ? updateAvatar() : null"
         >
-          <Spinner v-show="changingAvatarLoading" class="mr-2" />
+          <Spinner
+            v-show="changingAvatarLoading"
+            class="mr-2"
+          />
           {{ changingAvatarLoading ? $t('updating') : $t('update') }}
         </button>
 
         <!-- if selected file size is larger than accepted size -->
-        <div v-show="avatarFileTooLargeAlert" class="mt-2 w-full text-center text-failure">
+        <div
+          v-show="avatarFileTooLargeAlert"
+          class="mt-2 w-full text-center text-failure"
+        >
           {{ $t('profile.forms.update.fileTooLarge') }}
           <br>
           {{ $t('profile.forms.update.avatarMaxAllowedFileSize') }}
         </div>
 
-        <div v-show="updateAvatarError != ''" class="mt-2 w-full text-center text-failure">
+        <div
+          v-show="updateAvatarError != ''"
+          class="mt-2 w-full text-center text-failure"
+        >
           {{ updateAvatarError }}
         </div>
 
         <!-- on avatar successfully changed -->
-        <div v-show="avatarChanged" class="mt-2 w-full text-center text-success">
+        <div
+          v-show="avatarChanged"
+          class="mt-2 w-full text-center text-success"
+        >
           {{ $t('updated') }}
         </div>
       </div>
@@ -103,24 +129,36 @@
             :class="[selectedNewCoverFile ? 'primary-button cursor-pointer' : 'disabled-button cursor-not-allowed', !changingCoverLoading ? 'primary-button cursor-pointer' : 'disabled-button cursor-not-allowed']"
             @click="selectNewCoverButton && !changingCoverLoading ? updateCover() : null"
           >
-            <Spinner v-show="changingCoverLoading" class="mr-2" />
+            <Spinner
+              v-show="changingCoverLoading"
+              class="mr-2"
+            />
             {{ changingCoverLoading ? $t('updating') : $t('update') }}
           </button>
         </div>
 
         <!-- if selected file size is larger than accepted size -->
-        <div v-show="coverFileTooLargeAlert" class="mt-2 w-full text-center text-failure">
+        <div
+          v-show="coverFileTooLargeAlert"
+          class="mt-2 w-full text-center text-failure"
+        >
           {{ $t('profile.forms.update.fileTooLarge') }}
           <br>
           {{ $t('profile.forms.update.coverMaxAllowedFileSize') }}
         </div>
 
-        <div v-show="updateCoverError != ''" class="mt-2 w-full text-center text-failure">
+        <div
+          v-show="updateCoverError != ''"
+          class="mt-2 w-full text-center text-failure"
+        >
           {{ updateCoverError }}
         </div>
 
         <!-- on cover successfully changed -->
-        <div v-show="coverChanged" class="mt-2 w-full text-center text-success">
+        <div
+          v-show="coverChanged"
+          class="mt-2 w-full text-center text-success"
+        >
           {{ $t('updated') }}
         </div>
       </div>
@@ -184,7 +222,7 @@
             <client-only>
               <VueEditor
                 v-model="inputData.bio"
-                :editorToolbar="quillOptions"
+                :editor-toolbar="quillOptions"
               />
             </client-only>
             <!-- <textarea 
@@ -220,7 +258,10 @@
             v-show="saving.basic.loading || saving.basic.success" 
             class="flex flex-row text-success"
           >
-            <Spinner v-show="saving.basic.loading" class="mr-2" />
+            <Spinner
+              v-show="saving.basic.loading"
+              class="mr-2"
+            />
             {{ saving.basic.loading ? $t('updating') : $t('updated') }}
           </span>
         </div>
@@ -276,9 +317,15 @@
       </div>
 
       <!-- submit button -->
-      <div class="flex flex-row justify-between w-full" :class="{ 'cursor-not-allowed': usernameUsedAlert }">
+      <div
+        class="flex flex-row justify-between w-full"
+        :class="{ 'cursor-not-allowed': usernameUsedAlert }"
+      >
         <div>
-          <span v-show="saving.username.loading || saving.username.success" class="text-success">
+          <span
+            v-show="saving.username.loading || saving.username.success"
+            class="text-success"
+          >
             {{ saving.username.loading ? $t('profile.forms.update.changingYourUsername') : $t('profile.forms.update.usernameChanged') }}
           </span>
         </div>

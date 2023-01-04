@@ -1,6 +1,6 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
     :fullscreen="true"
@@ -15,32 +15,35 @@
         <!-- Options -->
         <div class="buttons">
           <!-- Filter explicit content -->
-          <div 
-            v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
+          <div
+            v-if="auth.loggedIn && auth.user.user_settings.show_explicit"
             class="filter-buttons"
           >
-            <p 
-              class="rounded-l-md button-item" 
+            <p
+              class="rounded-l-md button-item"
               :class="[explicitMode === undefined ? 'button' : 'theme-color']"
               @click="changeExplicitMode(undefined)"
             >
               {{ $t('default') }}
             </p>
 
-            <p 
-              class="button-item" 
+            <p
+              class="button-item"
               :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('safe')"
             >
               {{ $t('safe') }}
             </p>
-            
-            <p 
-              class="rounded-r-md button-item" 
+
+            <p
+              class="rounded-r-md button-item"
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
-              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
+              <Icon
+                :name="'i-material-symbols-explicit-outline'"
+                :class="{ 'text-white': explicitMode === 'explicit' }"
+              />
               {{ $t('explicit') }}
             </p>
           </div>
@@ -56,8 +59,11 @@
       />
 
       <!-- List area -->
-      <div v-show="!loading" class="mt-4">
-        <WorkList 
+      <div
+        v-show="!loading"
+        class="mt-4"
+      >
+        <WorkList
           v-show="!isEmpty"
           :section-class="'work-grid'"
           :works="works"
@@ -66,8 +72,11 @@
       </div>
 
       <!-- Paging control -->
-      <div v-if="!loading && !isEmpty && !isError" class="art-list-view-paging-control">
-        <button 
+      <div
+        v-if="!loading && !isEmpty && !isError"
+        class="art-list-view-paging-control"
+      >
+        <button
           :class="[
             config.pagination.enablePrev ? 'primary-button' : 'disabled-button'
           ]"
@@ -76,27 +85,27 @@
           <Icon :name="'i-ion-chevron-back-outline'" />
           {{ $t('pagination.previous') }}
         </button>
-        <button 
+        <button
           :class="[
             config.pagination.enableNext ? 'primary-button' : 'disabled-button'
           ]"
           @click="movePage('next')"
         >
           {{ $t('pagination.next') }}
-          <Icon 
-            :name="'i-ion-chevron-forward-outline'" 
+          <Icon
+            :name="'i-ion-chevron-forward-outline'"
             class="md:ml-2"
-            style="margin-right: 0 !important" 
+            style="margin-right: 0 !important"
           />
         </button>
       </div>
 
       <!-- Artwork modal view -->
-      <div 
+      <div
         id="recent-modal"
-        class="modal work-view" 
+        class="modal work-view"
       >
-        <ModalView 
+        <ModalView
           v-show="!loading"
           ref="recentModalViewRef"
           section="recent"
@@ -127,7 +136,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const { $router } = useNuxtApp()
 
 /** Before mount, fetch first rows */
-onBeforeMount (() => {
+onBeforeMount(() => {
   if (!auth.loggedIn) {
     $router.push('/')
   }
@@ -163,7 +172,7 @@ const fetchTop = async () => {
     showEmpty()
   } else {
     works.value = dataWorks
-  
+
     if (dataPagination.next_previous.next_page === null) {
       config.value.pagination.enableNext = false
     } else {

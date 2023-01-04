@@ -1,34 +1,58 @@
 <template>
-  <div id="auth-modal" class="modal animated faster fadeIn">
+  <div
+    id="auth-modal"
+    class="modal animated faster fadeIn"
+  >
     <div class="modal-container theme-color w-full md:w-1/2 lg:w-2/5 xl:2/6 2xl:w-1/4 mx-auto rounded-md shadow-lg z-50 overflow-y-auto">
       <div class="modal-content py-4 px-6 md:py-10 md:px-12 text-left">
         <div class="flex justify-between items-center mb-6">
           <!-- back button -->
-          <div v-if="!showLogin" @click="resetVisibility">
-            <Icon :name="'i-ion-chevron-back-outline'" class="text-base icon-color cursor-pointer align-middle" />
+          <div
+            v-if="!showLogin"
+            @click="resetVisibility"
+          >
+            <Icon
+              :name="'i-ion-chevron-back-outline'"
+              class="text-base icon-color cursor-pointer align-middle"
+            />
           </div>
 
           <!-- title -->
-          <p v-show="!showAccountRecovery && !showRegistrationSuccessDialog && !showRecoveryLinkSentDialog" class="back-button">
+          <p
+            v-show="!showAccountRecovery && !showRegistrationSuccessDialog && !showRecoveryLinkSentDialog"
+            class="back-button"
+          >
             {{ showLogin ? $t('loginHead') : $t('registerHead') }}
           </p>
 
-          <p v-show="showAccountRecovery && !showRegistrationSuccessDialog && !showRecoveryLinkSentDialog" class="back-button">
+          <p
+            v-show="showAccountRecovery && !showRegistrationSuccessDialog && !showRecoveryLinkSentDialog"
+            class="back-button"
+          >
             {{ $t('resetPassword') }}
           </p>
 
           <!-- notification on account successfully created -->
-          <p v-show="showRegistrationSuccessDialog" class="back-button">
+          <p
+            v-show="showRegistrationSuccessDialog"
+            class="back-button"
+          >
             {{ $t('accountCreated') }}
           </p>
 
           <!-- notification on account recovery link successfully sent -->
-          <p v-show="showRecoveryLinkSentDialog" class="back-button">
+          <p
+            v-show="showRecoveryLinkSentDialog"
+            class="back-button"
+          >
             {{ $t('accountRecovery.form.recoveryLinkSent') }}
           </p>
 
           <!-- close button -->
-          <div class="modal-close cursor-pointer z-50 icon-color" @click="closeModal('auth-modal')">
+          <div
+            class="modal-close cursor-pointer z-50 icon-color"
+            @click="closeModal('auth-modal')"
+          >
             <svg
               class="fill-current"
               xmlns="http://www.w3.org/2000/svg"
@@ -50,8 +74,14 @@
           <AccountRecoveryForm />
         </div>
 
-        <div v-if="showLogin" class="w-full text-center mt-4">
-          {{ $t('dontHaveAnAccount') }} <span class="font-medium cursor-pointer icon-color" @click="toggleLoginRegister">{{ $t('registration.register') }}</span>
+        <div
+          v-if="showLogin"
+          class="w-full text-center mt-4"
+        >
+          {{ $t('dontHaveAnAccount') }} <span
+            class="font-medium cursor-pointer icon-color"
+            @click="toggleLoginRegister"
+          >{{ $t('registration.register') }}</span>
         </div>
       </div>
     </div>

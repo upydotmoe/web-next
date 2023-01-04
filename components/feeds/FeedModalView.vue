@@ -19,7 +19,10 @@
       >
         <!-- user info -->
         <div class="flex flex-row justify-between w-full">
-          <div v-if="feedDetail.users" class="user-info">
+          <div
+            v-if="feedDetail.users"
+            class="user-info"
+          >
             <nuxt-link :to="'/u/' + feedDetail.users.username">
               <img
                 class="avatar"
@@ -28,11 +31,17 @@
               >
             </nuxt-link>
             <div class="name">
-              <nuxt-link :to="'/u/' + feedDetail.users.username" class="fullname">
+              <nuxt-link
+                :to="'/u/' + feedDetail.users.username"
+                class="fullname"
+              >
                 {{ feedDetail.users.name }}
               </nuxt-link>
               <br>
-              <nuxt-link :to="'/u/' + feedDetail.users.username" class="username">
+              <nuxt-link
+                :to="'/u/' + feedDetail.users.username"
+                class="username"
+              >
                 @{{ feedDetail.users.username }}
               </nuxt-link>
 
@@ -44,9 +53,18 @@
             </div>
           </div>
 
-          <div v-if="isModal" class="flex float-right flex-row gap-2 mb-4 cursor-pointer">
-            <div class="modal-close" @click="closeModal(section + '-modal')">
-              <Icon :name="'i-ion-close'" class="text-2xl" />
+          <div
+            v-if="isModal"
+            class="flex float-right flex-row gap-2 mb-4 cursor-pointer"
+          >
+            <div
+              class="modal-close"
+              @click="closeModal(section + '-modal')"
+            >
+              <Icon
+                :name="'i-ion-close'"
+                class="text-2xl"
+              />
             </div>
           </div>
         </div>
@@ -63,7 +81,10 @@
           class="mt-4 rounded-md theme-color-secondary"
         >
           <!-- creator information -->
-          <div v-if="feedDetail.artworks.users" class="p-2 md:p-4 user-info">
+          <div
+            v-if="feedDetail.artworks.users"
+            class="p-2 md:p-4 user-info"
+          >
             <nuxt-link :to="'/u/' + feedDetail.artworks.users.username">
               <img
                 class="avatar"
@@ -88,7 +109,10 @@
               
               <span class="mx-1">·</span>
               
-              <nuxt-link :to="'/a/' + feedDetail.artworks.id" class="hover:underline text-xxs">
+              <nuxt-link
+                :to="'/a/' + feedDetail.artworks.id"
+                class="hover:underline text-xxs"
+              >
                 {{ formatDate(feedDetail.artworks.scheduled_post ? feedDetail.artworks.scheduled_post : feedDetail.artworks.created_at, true) }}
               </nuxt-link>
             </div>
@@ -138,9 +162,14 @@
                 />
 
                 <!-- filter message -->
-                <div v-if="feedDetail.artworks.apply_explicit_filter" class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color">
+                <div
+                  v-if="feedDetail.artworks.apply_explicit_filter"
+                  class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color"
+                >
                   <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                  <button class="mx-auto mt-2 primary-button">{{ $t('explicitShowMeThisContent') }}</button>
+                  <button class="mx-auto mt-2 primary-button">
+                    {{ $t('explicitShowMeThisContent') }}
+                  </button>
                 </div>
               </div>
             </div>
@@ -154,15 +183,24 @@
       </div>
 
       <!-- reactions -->
-      <div v-if="feedDetail._count" class="flex flex-row justify-between">
+      <div
+        v-if="feedDetail._count"
+        class="flex flex-row justify-between"
+      >
         <div v-if="feedDetail._count.feed_comments">
           <b>{{ thousand(feedDetail._count.feed_comments) }}</b> {{ feedDetail._count.feed_comments > 1 ? $t('count.comments') : $t('count.comment') }}
         </div>
         <div v-if="!feedDetail._count.feed_comments" />
 
-        <div v-if="auth.loggedIn" class="flex flex-row gap-x-2">
+        <div
+          v-if="auth.loggedIn"
+          class="flex flex-row gap-x-2"
+        >
           <!-- Like -->
-          <div class="flex flex-row" @click="liked ? unlike() : like()">
+          <div
+            class="flex flex-row"
+            @click="liked ? unlike() : like()"
+          >
             <Icon 
               v-show="liked"
               :id="'feedLikeButton'+feedDetail.id"
@@ -209,7 +247,10 @@
                   class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
                   @click="openModal('feed-deletion-confirm-modal')"
                 >
-                  <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                  <Icon
+                    :name="'i-ion-trash-outline'"
+                    class="mr-2 text-base"
+                  /> {{ $t('delete') }}
                 </div>
               </div>
             </div>
@@ -220,7 +261,10 @@
       <!-- comment section -->
       <!-- comment input -->
       <div class="mt-6 mb-2">
-        <div v-if="auth.loggedIn" class="comment-box">
+        <div
+          v-if="auth.loggedIn"
+          class="comment-box"
+        >
           <div class="flex flex-col">
             <div class="flex relative flex-col">
               <textarea
@@ -240,7 +284,10 @@
               >
                 {{ commentCharLeft }}
               </span>
-              <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
+              <span
+                class="absolute right-2 bottom-5 py-1 px-2"
+                @click.prevent="submitComment()"
+              >
                 <Icon 
                   v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
                   :name="'i-carbon-send-filled'" 
@@ -253,7 +300,10 @@
         </div>
 
         <!-- if user not logged in, hide comment input and show this instead -->
-        <div v-if="!auth.loggedIn" class="p-4 mb-4 text-center rounded-md theme-color-secondary">
+        <div
+          v-if="!auth.loggedIn"
+          class="p-4 mb-4 text-center rounded-md theme-color-secondary"
+        >
           {{ $t('comments.loginOrRegisterToLeaveComment') }}
         </div>
       </div>
@@ -267,12 +317,15 @@
         ]"
       >
         <div 
-          v-auto-animate
-          v-for="comment in comments" 
+          v-for="comment in comments"
           :key="comment.id" 
+          v-auto-animate 
           class="comment-item"
         >
-          <nuxt-link class="mr-2" :to="'/u/' + comment.users.username">
+          <nuxt-link
+            class="mr-2"
+            :to="'/u/' + comment.users.username"
+          >
             <img
               class="w-10 h-10 avatar"
               :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
@@ -286,7 +339,10 @@
               :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
             >
               <div class="flex justify-between">
-                <nuxt-link :to="'/u/' + comment.users.username" class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold">
+                <nuxt-link
+                  :to="'/u/' + comment.users.username"
+                  class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold"
+                >
                   {{ comment.users.name }}
                 </nuxt-link>
                 <div class="comment-time">
@@ -298,7 +354,10 @@
                 {{ comment.comment }}
               </div>
 
-              <div v-if="auth.loggedIn" class="hidden reactions">
+              <div
+                v-if="auth.loggedIn"
+                class="hidden reactions"
+              >
                 <div class="flex flex-row">
                   <!-- <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
                     <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
@@ -359,11 +418,17 @@
           {{ $t('comments.loadOlder') }}
         </div>
 
-        <div v-show="comments.length && !showLoadOlderComments" class="w-full text-xs italic text-center">
+        <div
+          v-show="comments.length && !showLoadOlderComments"
+          class="w-full text-xs italic text-center"
+        >
           {{ $t('comments.reachedTheEnd') }}
         </div>
 
-        <div v-if="auth.loggedIn && !comments.length" class="mt-4 w-full text-xs italic text-center">
+        <div
+          v-if="auth.loggedIn && !comments.length"
+          class="mt-4 w-full text-xs italic text-center"
+        >
           {{ $t('comments.noCommentYet') }}
         </div>
       </div>

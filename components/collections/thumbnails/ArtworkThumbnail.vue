@@ -1,13 +1,19 @@
 <template>
   <div class="mb-2">
     <div v-if="!collection.collection_has_artworks || collection._count.collection_has_artworks === 0">
-      <img :src="folderIcon" class="rounded">
+      <img
+        :src="folderIcon"
+        class="rounded"
+      >
     </div>
 
     <!-- 1 image -->
     <div v-if="collection.collection_has_artworks && collection._count.collection_has_artworks === 1">
       <div class="relative text-center">
-        <span v-if="applyExplicitFilter(auth, collection.collection_has_artworks[0].artworks.is_explicit, collection.collection_has_artworks[0].artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+        <span
+          v-if="applyExplicitFilter(auth, collection.collection_has_artworks[0].artworks.is_explicit, collection.collection_has_artworks[0].artworks.is_gore)"
+          class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2"
+        >{{ $t('explicitContent') }}</span>
         
         <div class="overflow-hidden rounded-md">
           <img 
@@ -33,7 +39,10 @@
         :class="imGridClass[2][index]"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <span
+            v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)"
+            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2"
+          >{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
@@ -61,7 +70,10 @@
         :class="imGridClass[3][index]"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2">{{ $t('explicitContent') }}</span>
+          <span
+            v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)"
+            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2"
+          >{{ $t('explicitContent') }}</span>
 
           <div class="overflow-hidden rounded-md">
             <img 
@@ -85,7 +97,10 @@
         :key="index"
       >
         <div class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
+          <span
+            v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)"
+            class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny"
+          >{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 
@@ -108,8 +123,14 @@
         v-for="(image, index) in collection.collection_has_artworks"
         :key="index"
       >
-        <div v-if="index < 3" class="relative text-center">
-          <span v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)" class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny">{{ $t('explicitContent') }}</span>
+        <div
+          v-if="index < 3"
+          class="relative text-center"
+        >
+          <span
+            v-if="applyExplicitFilter(auth, image.artworks.is_explicit, image.artworks.is_gore)"
+            class="absolute top-1/2 left-1/2 z-10 font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 text-tiny"
+          >{{ $t('explicitContent') }}</span>
           
           <div class="overflow-hidden rounded-md">
             <img 

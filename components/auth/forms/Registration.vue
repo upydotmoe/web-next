@@ -1,6 +1,12 @@
 <template>
-  <div v-show="showForm" class="w-full">
-    <div v-if="registerAlert.active" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
+  <div
+    v-show="showForm"
+    class="w-full"
+  >
+    <div
+      v-if="registerAlert.active"
+      class="p-2 mb-2 w-full text-white bg-red-500 rounded-md"
+    >
       {{ registerAlert.message }}
     </div>
 
@@ -65,12 +71,19 @@
         >
       </n-validate>
 
-      <button type="submit" class="float-right mt-4 w-full primary-button">
+      <button
+        type="submit"
+        class="float-right mt-4 w-full primary-button"
+      >
         {{ $t('registration.register').toUpperCase() }}
       </button>
     </form>
 
-    <div v-show="showRegistrationSuccessDialog" id="success-dialog" class="w-full text-center">
+    <div
+      v-show="showRegistrationSuccessDialog"
+      id="success-dialog"
+      class="w-full text-center"
+    >
       <div class="mb-4">
         <!-- {{ $t('registration.form.registered.accountCreatedInfo') }} -->
 
@@ -81,7 +94,10 @@
 
           <div class="mt-6">
             <div class="flex flex-row justify-end w-full">
-              <button @click="copyData('all')" class="inline-flex flex-row gap-2">
+              <button
+                class="inline-flex flex-row gap-2"
+                @click="copyData('all')"
+              >
                 {{ $t('copyAll') }} <Icon :name="'i-icon-park-outline-copy'" />
               </button>
             </div>
@@ -94,9 +110,9 @@
                 </div>
                 <div class="flex flex-col justify-center">
                   <Icon
-                    @click="copyData('username')"
                     :name="'i-icon-park-outline-copy'"
                     class="cursor-pointer"
+                    @click="copyData('username')"
                   />
                 </div>
               </div>
@@ -107,9 +123,9 @@
                 </div>
                 <div class="flex flex-col justify-center">
                   <Icon
-                    @click="copyData('email')"
                     :name="'i-icon-park-outline-copy'"
                     class="cursor-pointer"
+                    @click="copyData('email')"
                   />
                 </div>
               </div>
@@ -120,9 +136,9 @@
                 </div>
                 <div class="flex flex-col justify-center">
                   <Icon
-                    @click="copyData('passphrase')"
                     :name="'i-icon-park-outline-copy'"
                     class="cursor-pointer"
+                    @click="copyData('passphrase')"
                   />
                 </div>
               </div>
@@ -132,8 +148,8 @@
       </div>
 
       <div
-        @click="authFormStore.toggleLoginRegister()"
         class="href"
+        @click="authFormStore.toggleLoginRegister()"
       >
         {{ $t('logins.login').toUpperCase() }}
       </div>
@@ -270,3 +286,7 @@ const copyData = (target) => {
 //   }
 // }
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/css/tailwind.scss';
+</style>

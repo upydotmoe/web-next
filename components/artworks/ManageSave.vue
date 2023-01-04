@@ -6,12 +6,21 @@
           <span class="title">{{ $t('collections.addItem.form.title') }}</span>
           
           <div class="flex float-right flex-row gap-2 mb-2 cursor-pointer">
-            <div class="modal-close" @click="cancel()">
-              <Icon :name="'i-majesticons-close'" class="text-2xl" />
+            <div
+              class="modal-close"
+              @click="cancel()"
+            >
+              <Icon
+                :name="'i-majesticons-close'"
+                class="text-2xl"
+              />
             </div>
           </div>
         </div>
-        <div v-show="!config.loading && !isError && !isEmpty" class="list">
+        <div
+          v-show="!config.loading && !isError && !isEmpty"
+          class="list"
+        >
           <div class="overflow-y-scroll pr-2 max-h-60">
             <div 
               v-for="(collection, index) in collections"
@@ -33,27 +42,45 @@
                       selectedCollections.includes(collection.id) ? 'text-white' : 'text-colored'
                     ]"
                   >
-                      {{ collection._count.collection_has_artworks }}
-                    </span>
+                    {{ collection._count.collection_has_artworks }}
+                  </span>
                 </div>
               </div>
 
-              <div v-if="!collection.is_can_add_more" class="flex flex-row mt-2 w-full">
+              <div
+                v-if="!collection.is_can_add_more"
+                class="flex flex-row mt-2 w-full"
+              >
                 <ProBadge class="mr-1" />
-                <p class="leading-6">{{ $t('collections.maxItemLimitReached') }}</p>
+                <p class="leading-6">
+                  {{ $t('collections.maxItemLimitReached') }}
+                </p>
               </div>
             </div>
           </div>
-          <div v-show="showLoadMoreButton" class="mt-2 primary-button" @click="loadMore()">
-            <Icon :name="'chevron-down-outline'" class="mr-2" />
+          <div
+            v-show="showLoadMoreButton"
+            class="mt-2 primary-button"
+            @click="loadMore()"
+          >
+            <Icon
+              :name="'chevron-down-outline'"
+              class="mr-2"
+            />
             {{ $t('loadMore') }}
           </div>
 
           <div class="flex float-right flex-row gap-2 mt-4">
-            <button class="cancel-button" @click="cancel()">
+            <button
+              class="cancel-button"
+              @click="cancel()"
+            >
               {{ $t('cancel') }}
             </button>
-            <button class="primary-button" @click="save()">
+            <button
+              class="primary-button"
+              @click="save()"
+            >
               {{ $t('save') }}
             </button>
           </div>
@@ -86,7 +113,10 @@
               @click="isCanCreateCollection ? create() : null"
             >
               <span :class="{ 'leading-6': !isCanCreateCollection }">{{ $t('create') }}</span>
-              <ProBadge v-if="!isCanCreateCollection" class="ml-1" />
+              <ProBadge
+                v-if="!isCanCreateCollection"
+                class="ml-1"
+              />
             </button>
           </div>
         </div>
@@ -123,6 +153,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'
+import { POST_TYPES } from '~/utils/constants'
 
 /**
  * @stores
@@ -164,7 +195,7 @@ const isUserCanCreateCollection = async () => {
     isCanCreateCollection.value = true
   } else {
     const [isCanCreate, error] = await collectionApi.proCanCreateCollection({
-      type: 'artwork'
+      type: POST_TYPES.ARTWORK
     })
 
     if (error) {
@@ -197,7 +228,7 @@ const fetchCollection = async (isLoadMore = false) => {
 
   const [data, showLoadMore, error] = await collectionApi.fetchCollections({
     userId: auth.user.id,
-    type: 'artwork',
+    type: POST_TYPES.ARTWORK,
     pagination: {
       page: config.value.pagination.page,
       perPage: config.value.pagination.perPage
@@ -238,7 +269,7 @@ const fetchCurrentSaved = async () => {
 
   await setTimeout(async () => {
     const [data, error] = await collectionApi.getCurrentSaveInfo(
-      'artwork',
+      POST_TYPES.ARTWORK,
       props.workId
     )
 
@@ -288,7 +319,7 @@ const save = async () => {
     for (const collectionId of selectedCollections.value) {
       await collectionApi.addItem({
         collectionId,
-        type: 'artwork',
+        type: POST_TYPES.ARTWORK,
         workId: props.workId
       })
     }
@@ -298,7 +329,7 @@ const save = async () => {
       for (const collectionId of unselectedCollections.value) {
         await collectionApi.removeItem({
           collectionId,
-          type: 'artwork',
+          type: POST_TYPES.ARTWORK,
           workId: props.workId
         })
       }
@@ -323,7 +354,7 @@ const create = async () => {
   createCollectionFailureAlert.value = false
 
   const [success, data, error] = await collectionApi.createCollection(
-    'artwork',
+    POST_TYPES.ARTWORK,
     {
       title: newCollectionInput.value,
       isPublic: 1,

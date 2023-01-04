@@ -1,3 +1,12 @@
+import { UnionType } from './'
+
+export const FETCH_MODES = {
+  FEED: 'feed',
+  TEXT: 'text',
+  ARTWORK: 'artwork'
+} as const
+export type TFetchModes = UnionType<keyof typeof FETCH_MODES, typeof FETCH_MODES>
+
 export const newUserWelcomeMenus = [
   {
     icon: 'i-fluent-person-32-regular',

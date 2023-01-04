@@ -1,6 +1,6 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
     :fullscreen="true"
@@ -21,87 +21,100 @@
           <div class="buttons">
             <!-- Filter by tags -->
             <div class="filter-buttons">
-              <button 
+              <button
                 class="px-3 rounded-md button-item"
                 :class="filterTagsCount ? 'button' : 'theme-color'"
-                @click="openTagsFilterSelection" 
+                @click="openTagsFilterSelection"
               >
                 {{ filterTagsCount }} {{ $t('tagsApplied') }}
               </button>
             </div>
 
             <!-- Following only -->
-            <div v-show="auth.loggedIn" class="filter-buttons">
-              <button 
+            <div
+              v-show="auth.loggedIn"
+              class="filter-buttons"
+            >
+              <button
                 class="px-3 rounded-md button-item"
                 :class="followingOnly ? 'button' : 'theme-color'"
-                @click="toggleFollowingOnlyFilter()" 
+                @click="toggleFollowingOnlyFilter()"
               >
-                <Icon v-show="followingOnly" :name="'i-fluent-people-checkmark-24-regular'" class="text-white" />
-                <Icon v-show="!followingOnly" :name="'i-fluent-people-checkmark-24-regular'" /> 
-                
+                <Icon
+                  v-show="followingOnly"
+                  :name="'i-fluent-people-checkmark-24-regular'"
+                  class="text-white"
+                />
+                <Icon
+                  v-show="!followingOnly"
+                  :name="'i-fluent-people-checkmark-24-regular'"
+                />
+
                 {{ $t('followingOnly') }}
               </button>
             </div>
 
             <!-- Toggle list by latest or popularity -->
             <div class="filter-buttons">
-              <p 
+              <p
                 class="rounded-l-md button-item"
                 :class="[listMode === 'recent' ? 'button' : 'theme-color']"
                 @click="changeListMode('recent')"
               >
                 {{ $t('artworks.newest') }}
               </p>
-              <p 
+              <p
                 class="rounded-r-md button-item"
                 :class="[listMode === 'popularity' ? 'button' : 'theme-color']"
                 @click="changeListMode('popularity')"
               >
-                <Icon 
+                <Icon
                   :name="'i-icon-park-outline-oval-love-two'"
                   :class="[
                     { 'text-white': listMode === 'popularity' }
                   ]"
-                /> 
+                />
                 {{ $t('artworks.mostPopular') }}
               </p>
             </div>
 
             <!-- Filter explicit content -->
-            <div 
-              v-if="auth.loggedIn && auth.user.user_settings.show_explicit" 
+            <div
+              v-if="auth.loggedIn && auth.user.user_settings.show_explicit"
               class="filter-buttons"
             >
-              <p 
-                class="rounded-l-md button-item" 
+              <p
+                class="rounded-l-md button-item"
                 :class="[explicitMode === undefined ? 'button' : 'theme-color']"
                 @click="changeExplicitMode(undefined)"
               >
                 {{ $t('default') }}
               </p>
 
-              <p 
-                class="button-item" 
+              <p
+                class="button-item"
                 :class="[explicitMode === 'safe' ? 'button' : 'theme-color']"
                 @click="changeExplicitMode('safe')"
               >
                 {{ $t('safe') }}
               </p>
-              
-              <p 
-                class="rounded-r-md button-item" 
+
+              <p
+                class="rounded-r-md button-item"
                 :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
                 @click="changeExplicitMode('explicit')"
               >
-                <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
+                <Icon
+                  :name="'i-material-symbols-explicit-outline'"
+                  :class="{ 'text-white': explicitMode === 'explicit' }"
+                />
                 {{ $t('explicit') }}
               </p>
             </div>
           </div>
         </div>
 
-        <div 
+        <div
           :class="[
             'navigations',
             listMode === 'popularity' ? '-mt-2' : '-mt-4'
@@ -109,22 +122,25 @@
         >
           <div class="hidden md:flex" />
           <div class="buttons">
-            <div v-show="listMode === 'popularity'" class="filter-buttons">
-              <p 
+            <div
+              v-show="listMode === 'popularity'"
+              class="filter-buttons"
+            >
+              <p
                 class="rounded-l-md button-item"
                 :class="[popularityRange === 'daily' ? 'button' : 'theme-color']"
                 @click="changePopularityRange('daily')"
               >
                 {{ $t('daily') }}
               </p>
-              <p 
-                class="button-item" 
+              <p
+                class="button-item"
                 :class="[popularityRange === 'weekly' ? 'button' : 'theme-color']"
                 @click="changePopularityRange('weekly')"
               >
                 {{ $t('weekly') }}
               </p>
-              <p 
+              <p
                 :class="[
                   'button-item',
                   popularityRange === 'monthly' ? 'button' : 'theme-color',
@@ -146,27 +162,43 @@
               </p>
             </div>
 
-            <div v-show="listMode === 'popularity'" class="filter-buttons">
+            <div
+              v-show="listMode === 'popularity'"
+              class="filter-buttons"
+            >
               <div class="inline-block w-full group md:w-52">
-                <button class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color hover:button" @click="togglePopularOrderStatus()">
+                <button
+                  class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color hover:button"
+                  @click="togglePopularOrderStatus()"
+                >
                   <span class="flex-1 pr-1">{{ sortBy === 'views' ? $t('mostViewed') : sortByTitle }}</span>
                   <span>
-                    <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <svg
+                      class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
                       <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                   </span>
                 </button>
-                <ul id="popular-order-options" class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100">
+                <ul
+                  id="popular-order-options"
+                  class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100"
+                >
                   <!-- <li class="py-2 px-3 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li> -->
                   <li
                     :class="[
                       'flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent',
                       { 'button': sortBy === 'views' },
                       { 'rounded-b-md': !auth.loggedIn }
-                    ]" 
+                    ]"
                     @click="changeSort('views', $t('mostViewed'))"
                   >
-                    <Icon :name="'i-mi-eye'" :class="{ 'text-white': sortBy === 'views' }" />
+                    <Icon
+                      :name="'i-mi-eye'"
+                      :class="{ 'text-white': sortBy === 'views' }"
+                    />
                     {{ $t('mostViewed') }}
                   </li>
                   <li
@@ -174,10 +206,13 @@
                     :class="[
                       'flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent',
                       { 'button': sortBy === 'likes' }
-                    ]" 
+                    ]"
                     @click="changeSort('likes', $t('mostLiked'))"
                   >
-                    <Icon :name="'i-ri-heart-3-line'" :class="{ 'text-white': sortBy === 'likes' }" />
+                    <Icon
+                      :name="'i-ri-heart-3-line'"
+                      :class="{ 'text-white': sortBy === 'likes' }"
+                    />
                     {{ $t('mostLiked') }}
                   </li>
                   <li
@@ -188,7 +223,10 @@
                     ]"
                     @click="changeSort('comments', $t('mostCommented'))"
                   >
-                    <Icon :name="'i-mdi-comment-multiple-outline'" :class="{ 'text-white': sortBy === 'comments' }" />
+                    <Icon
+                      :name="'i-mdi-comment-multiple-outline'"
+                      :class="{ 'text-white': sortBy === 'comments' }"
+                    />
                     {{ $t('mostCommented') }}
                   </li>
                 </ul>
@@ -208,7 +246,7 @@
 
       <!-- Artwork list -->
       <div v-show="!loading">
-        <WorkList 
+        <WorkList
           v-show="!isEmpty"
           :section-class="'work-grid'"
           :works="works"
@@ -216,10 +254,10 @@
         />
 
         <!-- Load more button -->
-        <div 
-          v-show="showLoadMoreButton" 
+        <div
+          v-show="showLoadMoreButton"
           class="w-full primary-button"
-          :class="loadMoreOptions.delay ? 'animate-pulse' : ''" 
+          :class="loadMoreOptions.delay ? 'animate-pulse' : ''"
           @click="loadMore"
         >
           {{ $t('loadMore') }}
@@ -227,11 +265,11 @@
       </div>
 
       <!-- Artwork modal view -->
-      <div 
+      <div
         id="browse-modal"
-        class="modal work-view" 
+        class="modal work-view"
       >
-        <ModalView 
+        <ModalView
           v-show="!loading"
           ref="popularModalViewRef"
           section="browse"
@@ -269,60 +307,60 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-useHead ({
+useHead({
   title: useI18n().tl('meta.title.browse')
 })
 
 const route = useRoute()
 const { tags } = route.query
 
-watch (() => route.query, () => {
+watch(() => route.query, () => {
   // close modal on changing route or going back to previous page
   closeArtworkModals()
 })
 
-watch (() => route.query.tags, newTag => {
+watch(() => route.query.tags, (newTag) => {
   if (newTag) {
     filterTags.value = newTag
     applyTagOnMount(newTag)
   }
-  
+
   if (newTag && newTag !== '') {
     fetchTop()
   }
 })
 
 /** Before mount, fetch first rows */
-onMounted (() => {
+onMounted(() => {
   if (tags) {
     applyTagOnMount()
   }
-  
+
   fetchTop()
   addClassToStickyOptionsElement()
 })
 
 const addClassToStickyOptionsElement = () => {
-  var newEl = document.createElement("div")
-  newEl.classList.add("myObserver")
-  var optionsEl = document.querySelector("#options")
-  insertBefore(newEl, optionsEl);
-  function insertBefore(el, referenceNode) {
+  const newEl = document.createElement('div')
+  newEl.classList.add('myObserver')
+  const optionsEl = document.querySelector('#options')
+  insertBefore(newEl, optionsEl)
+  function insertBefore (el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode)
   }
 
-  var observer = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     function (entries) {
       if (entries[0].intersectionRatio === 0) {
-        document.querySelector("#options").classList.add("md:pt-4", "md:pb-1", "md:theme-color-secondary", "md:rounded-b-md", "md:px-6", "md:mt-2", "md:border-color-button-color", "md:border-2", "md:border-t-0")
+        document.querySelector('#options').classList.add('md:pt-4', 'md:pb-1', 'md:theme-color-secondary', 'md:rounded-b-md', 'md:px-6', 'md:mt-2', 'md:border-color-button-color', 'md:border-2', 'md:border-t-0')
       } else if (entries[0].intersectionRatio === 1) {
-        document.querySelector("#options").classList.remove("md:pt-4", "md:pb-1", "md:theme-color-secondary", "md:rounded-b-md", "md:px-6", "md:mt-2", "md:border-color-button-color", "md:border-2", "md:border-t-0")
+        document.querySelector('#options').classList.remove('md:pt-4', 'md:pb-1', 'md:theme-color-secondary', 'md:rounded-b-md', 'md:px-6', 'md:mt-2', 'md:border-color-button-color', 'md:border-2', 'md:border-t-0')
       }
     },
     { threshold: [0, 1] }
-  );
+  )
 
-  observer.observe(document.querySelector(".myObserver"))
+  observer.observe(document.querySelector('.myObserver'))
 }
 
 const closeArtworkModals = () => {
@@ -397,7 +435,7 @@ const applyTagOnMount = async (routeTag) => {
     previousSelectedTags.value = tagWithKeys
     await applyTagFilter(tagWithKeys, tagKeyword)
   }
-  
+
   initTagsLoading.value = false
 }
 
@@ -424,7 +462,7 @@ const applyTagFilter = async (selectedTags, selectedTagsJoined) => {
 }
 
 /** Fetch first row */
-watch (async () => previousSelectedTags.value, _ => {
+watch(async () => previousSelectedTags.value, (_) => {
   fetchTop()
 })
 
@@ -479,9 +517,9 @@ const fetch = async () => {
       followingOnly: followingOnly.value
     })
   }
-  
+
   loading.value = false
-  
+
   // hide load more button if there is no more artwork to load
   if (!data.pagination.next_previous.next_page) {
     showLoadMoreButton.value = false

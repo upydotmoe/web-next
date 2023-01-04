@@ -13,14 +13,24 @@
         <!-- Filter popularity range by Daily/Weekly/Monthly or All-time -->
         <div class="buttons">
           <!-- Following only -->
-          <div v-show="auth.loggedIn" class="filter-buttons">
+          <div
+            v-show="auth.loggedIn"
+            class="filter-buttons"
+          >
             <button 
               class="px-3 rounded-md button-item"
               :class="followingOnly ? 'button' : 'theme-color'"
               @click="toggleFollowingOnlyFilter()" 
             >
-              <Icon v-show="followingOnly" :name="'i-fluent-people-checkmark-24-regular'" class="text-white" />
-              <Icon v-show="!followingOnly" :name="'i-fluent-people-checkmark-24-regular'" /> 
+              <Icon
+                v-show="followingOnly"
+                :name="'i-fluent-people-checkmark-24-regular'"
+                class="text-white"
+              />
+              <Icon
+                v-show="!followingOnly"
+                :name="'i-fluent-people-checkmark-24-regular'"
+              /> 
               
               {{ $t('followingOnly') }}
             </button>
@@ -76,7 +86,10 @@
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
-              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
+              <Icon
+                :name="'i-material-symbols-explicit-outline'"
+                :class="{ 'text-white': explicitMode === 'explicit' }"
+              />
               {{ $t('explicit') }}
             </p>
           </div>
@@ -125,23 +138,48 @@
               <button class="flex items-center py-2 px-3 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color hover:button focus:outline-none">
                 <span class="flex-1 pr-1">{{ sortBy === 'views' ? $t('mostViewed') : sortByTitle }}</span>
                 <span>
-                  <svg class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                  <svg
+                    class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 </span>
               </button>
               <ul class="absolute z-10 mt-1 w-full text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100">
                 <!-- <li class="py-2 px-3 rounded-t-md cursor-pointer hover:button" :class="{ 'button': sortBy === 'none' }" @click="changeSort('none', $t('default'))">{{ $t('default') }}</li> -->
-                <li class="flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent" :class="{ 'button': sortBy === 'views' }" @click="changeSort('views', $t('mostViewed'))">
-                  <Icon :name="'i-mi-eye'" :class="{ 'text-white': sortBy === 'views' }" />
+                <li
+                  class="flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent"
+                  :class="{ 'button': sortBy === 'views' }"
+                  @click="changeSort('views', $t('mostViewed'))"
+                >
+                  <Icon
+                    :name="'i-mi-eye'"
+                    :class="{ 'text-white': sortBy === 'views' }"
+                  />
                   {{ $t('mostViewed') }}
                 </li>
-                <li class="flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent" :class="{ 'button': sortBy === 'likes' }" @click="changeSort('likes', $t('mostLiked'))">
-                  <Icon :name="'i-ri-heart-3-line'" :class="{ 'text-white': sortBy === 'likes' }" />
+                <li
+                  class="flex flex-row justify-between py-2 px-3 cursor-pointer hover:button icon-hover-parent"
+                  :class="{ 'button': sortBy === 'likes' }"
+                  @click="changeSort('likes', $t('mostLiked'))"
+                >
+                  <Icon
+                    :name="'i-ri-heart-3-line'"
+                    :class="{ 'text-white': sortBy === 'likes' }"
+                  />
                   {{ $t('mostLiked') }}
                 </li>
-                <li class="flex flex-row justify-between py-2 px-3 rounded-b-md cursor-pointer hover:button icon-hover-parent" :class="{ 'button': sortBy === 'comments' }" @click="changeSort('comments', $t('mostCommented'))">
-                  <Icon :name="'i-mdi-comment-multiple-outline'" :class="{ 'text-white': sortBy === 'comments' }" />
+                <li
+                  class="flex flex-row justify-between py-2 px-3 rounded-b-md cursor-pointer hover:button icon-hover-parent"
+                  :class="{ 'button': sortBy === 'comments' }"
+                  @click="changeSort('comments', $t('mostCommented'))"
+                >
+                  <Icon
+                    :name="'i-mdi-comment-multiple-outline'"
+                    :class="{ 'text-white': sortBy === 'comments' }"
+                  />
                   {{ $t('mostCommented') }}
                 </li>
               </ul>
@@ -160,7 +198,10 @@
     />
 
     <!-- Artwork list -->
-    <div v-show="!loading" class="mt-4">
+    <div
+      v-show="!loading"
+      class="mt-4"
+    >
       <WorkList 
         v-show="!isEmpty"
         :section-class="'work-grid'"

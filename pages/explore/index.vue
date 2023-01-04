@@ -1,13 +1,16 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
     :fullscreen="true"
   >
     <div class="flex flex-col mt-2 w-full">
       <Recent class="mb-10" />
-      <Following v-if="auth.loggedIn && isFollowingSomeone" class="mb-10" />
+      <Following
+        v-if="auth.loggedIn && isFollowingSomeone"
+        class="mb-10"
+      />
       <Popular />
     </div>
   </Layout>
@@ -35,18 +38,18 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
-useHead ({
+useHead({
   title: t('explore')
 })
 
-onMounted (() => {
+onMounted(() => {
   if (auth.loggedIn) {
     countFollowing()
   }
 })
 
 const route = useRoute()
-watch (() => route.query, _ => {
+watch(() => route.query, (_) => {
   setTimeout(() => {
     // close all artwork modal
     useModal().closeModal('recent-modal')
@@ -61,7 +64,7 @@ watch (() => route.query, _ => {
 
     // close report modal
     useModal().closeModal('report-modal')
-  }, 50);
+  }, 50)
 })
 
 const isFollowingSomeone = ref(false)

@@ -4,7 +4,7 @@
     :no-right-side="true"
   >
     <div class="reports">
-      <div class="reports__title">        
+      <div class="reports__title">
         {{ auth.user.is_admin || auth.user.is_moderator ? $t('reports.reports') : $t('reports.yourReports') }}
       </div>
 
@@ -19,10 +19,18 @@
           <!-- report data -->
           <!-- on desktop: show table view -->
           <div class="hidden-md-flex">
-            <table class="reports__table" cellspacing="0" cellpadding="0">
+            <table
+              class="reports__table"
+              cellspacing="0"
+              cellpadding="0"
+            >
               <thead>
                 <tr>
-                  <th><div class="rounded-l-md">{{ $t('reports.reportId') }}</div></th>
+                  <th>
+                    <div class="rounded-l-md">
+                      {{ $t('reports.reportId') }}
+                    </div>
+                  </th>
                   <th><div>{{ $t('reports.reportDate') }}</div></th>
                   <th v-show="auth.user.is_moderator && auth.user.is_admin">
                     <div>{{ $t('reports.user') }}</div>
@@ -31,14 +39,24 @@
                   <th><div>{{ $t('reports.description') }}</div></th>
                   <th><div>{{ $t('reports.status') }}</div></th>
                   <th><div>{{ $t('reports.decision') }}</div></th>
-                  <th><div class="rounded-r-md">&nbsp;</div></th>
+                  <th>
+                    <div class="rounded-r-md">
+&nbsp;
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="report in reports" :key="report.id">
+                <tr
+                  v-for="report in reports"
+                  :key="report.id"
+                >
                   <td>
                     <div class="rounded-l-md">
-                      <a class="font-bold hover:underline href" @click.prevent="viewReportDetail(report.id)">
+                      <a
+                        class="font-bold hover:underline href"
+                        @click.prevent="viewReportDetail(report.id)"
+                      >
                         #{{ report.id }}
                       </a>
                     </div>
@@ -48,15 +66,27 @@
                   </td>
                   <td v-show="auth.user.is_moderator && auth.user.is_admin">
                     <div>
-                      <a :href="'/u/' + report.user_reported.username" target="blank" class="font-bold href">
+                      <a
+                        :href="'/u/' + report.user_reported.username"
+                        target="blank"
+                        class="font-bold href"
+                      >
                         {{ report.user_reported.username }}
                       </a>
                     </div>
                   </td>
                   <td>
                     <div>
-                      <span v-show="report.is_removed" class="italic">{{ $t('reports.postRemoved') }}</span>
-                      <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/a/' : '/feed/') + report.post_id" target="blank" class="href">
+                      <span
+                        v-show="report.is_removed"
+                        class="italic"
+                      >{{ $t('reports.postRemoved') }}</span>
+                      <a
+                        v-show="!report.is_removed"
+                        :href="(report.type === POST_TYPES.ARTWORK ? '/a/' : '/feed/') + report.post_id"
+                        target="blank"
+                        class="href"
+                      >
                         {{ $t('reports.viewPost') }}
                       </a>
                     </div>
@@ -66,21 +96,23 @@
                   </td>
                   <td class="font-bold uppercase">
                     <div>
-                      <span :class="[
-                        'text-white uppercase badge text-xxs',
-                        report.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
-                      ]">
+                      <span
+                        :class="[
+                          'text-white uppercase badge text-xxs',
+                          report.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
+                        ]"
+                      >
                         {{ report.status }}
                       </span>
                     </div>
                   </td>
                   <td>
-                    <div 
+                    <div
                       class="font-bold uppercase"
                     >
                       <span v-show="report.status === 'pending'">-</span>
-                      <span 
-                        v-show="report.status === 'closed'" 
+                      <span
+                        v-show="report.status === 'closed'"
                         :class="[
                           'text-white uppercase badge text-xxs',
                           report.response ? 'bg-green-500' : 'bg-red-500'
@@ -92,7 +124,10 @@
                   </td>
                   <td class="rounded-r-md">
                     <div>
-                      <a class="underline href" @click.prevent="viewReportDetail(report.id)">
+                      <a
+                        class="underline href"
+                        @click.prevent="viewReportDetail(report.id)"
+                      >
                         {{ $t('reports.moreInfo') }}
                       </a>
                     </div>
@@ -103,11 +138,19 @@
           </div>
 
           <!-- on mobile or smaller device: show card view -->
-          <div v-for="report in reports" :key="report.id" class="reports__cards">
+          <div
+            v-for="report in reports"
+            :key="report.id"
+            class="reports__cards"
+          >
             <div>
               <label>{{ $t('reports.user') }}</label>
               <div>
-                <a :href="'/u/' + report.user_reported.username" target="blank" class="font-bold href">
+                <a
+                  :href="'/u/' + report.user_reported.username"
+                  target="blank"
+                  class="font-bold href"
+                >
                   {{ report.user_reported.username }}
                 </a>
               </div>
@@ -130,7 +173,7 @@
             <div>
               <label>{{ $t('reports.status') }}</label>
               <div class="font-bold uppercase">
-                <div 
+                <div
                   :class="[
                     'text-white uppercase badge text-xxs',
                     report.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
@@ -144,10 +187,12 @@
             <div>
               <label>{{ $t('reports.decision') }}</label>
               <div class="font-bold uppercase">
-                <span :class="[
-                  'text-white uppercase badge text-xxs',
-                  report.response ? 'bg-green-500' : 'bg-red-500'
-                ]">
+                <span
+                  :class="[
+                    'text-white uppercase badge text-xxs',
+                    report.response ? 'bg-green-500' : 'bg-red-500'
+                  ]"
+                >
                   {{ report.response ? 'Removed' : 'Not removed' }}
                 </span>
               </div>
@@ -156,11 +201,22 @@
             <div>
               <label>&nbsp;</label>
               <div>
-                <span v-show="report.is_removed" class="mr-2 italic">{{ $t('reports.postRemoved') }}</span>
-                <a v-show="!report.is_removed" :href="(report.type === 'artwork' ? '/a/' : '/feed/') + report.post_id" target="blank" class="mr-2 underline href">
+                <span
+                  v-show="report.is_removed"
+                  class="mr-2 italic"
+                >{{ $t('reports.postRemoved') }}</span>
+                <a
+                  v-show="!report.is_removed"
+                  :href="(report.type === POST_TYPES.ARTWORK ? '/a/' : '/feed/') + report.post_id"
+                  target="blank"
+                  class="mr-2 underline href"
+                >
                   {{ $t('reports.viewReportedPost') }}
                 </a>
-                <div class="underline href" @click="viewReportDetail(report.id)">
+                <div
+                  class="underline href"
+                  @click="viewReportDetail(report.id)"
+                >
                   {{ $t('reports.moreInfo') }}
                 </div>
               </div>
@@ -168,16 +224,19 @@
           </div>
 
           <!-- pagination controller -->
-          <div v-show="reportPagination.total_page > 0" class="reports__pagination">
-            <button 
+          <div
+            v-show="reportPagination.total_page > 0"
+            class="reports__pagination"
+          >
+            <button
               :class="reportPagination.next_previous && reportPagination.next_previous.prev_page !== null ? 'primary-button' : 'disabled-button'"
-              @click="nextPrev('prev')" 
+              @click="nextPrev('prev')"
             >
               {{ $t('pagination.previous') }}
             </button>
-            <button 
+            <button
               :class="reportPagination.next_previous && reportPagination.next_previous.next_page !== null ? 'primary-button' : 'disabled-button'"
-              @click="nextPrev('next')" 
+              @click="nextPrev('next')"
             >
               {{ $t('pagination.next') }}
             </button>
@@ -206,6 +265,8 @@
 </template>
 
 <script setup>
+import { POST_TYPES } from '~/utils/constants'
+
 // stores
 import useAuthStore from '@/stores/auth.store'
 
@@ -224,7 +285,7 @@ const reportApi = useReport(oApiConfiguration, fetchOptions())
 /**
  * @meta
  */
-useHead ({
+useHead({
   title: auth.user.is_admin || auth.user.is_moderator ? useI18n().tl('reports.reports') : useI18n().tl('reports.yourReports')
 })
 

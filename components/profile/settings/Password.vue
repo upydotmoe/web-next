@@ -18,13 +18,19 @@
             :readonly="isVerified"
             :placeholder="$t('profile.forms.update.password.currentPassword')"
           >
-          <div v-show="verifyError !== ''" class="error-message">
+          <div
+            v-show="verifyError !== ''"
+            class="error-message"
+          >
             {{ verifyError }}
           </div>
         </div>
       </div>
 
-      <div v-show="!isVerified" class="flex flex-row justify-end">
+      <div
+        v-show="!isVerified"
+        class="flex flex-row justify-end"
+      >
         <button
           :class="[
             verifyPassword === '' ? 'disabled-button pointer-events-none cursor-not-allowed' : 'primary-button cursor-pointer'
@@ -55,7 +61,10 @@
             :readonly="saving.settings.loading"
             :placeholder="$t('profile.forms.update.password.newPassword')"
           >
-          <div v-show="savingError !== ''" class="error-message">
+          <div
+            v-show="savingError !== ''"
+            class="error-message"
+          >
             {{ savingError }}
           </div>
         </div>
@@ -64,7 +73,10 @@
       <!-- submit button -->
       <div class="flex flex-row justify-between w-full">
         <div>
-          <span v-show="saving.settings.loading || saving.settings.success" class="text-success">
+          <span
+            v-show="saving.settings.loading || saving.settings.success"
+            class="text-success"
+          >
             {{ saving.settings.loading ? $t('updating') : '' }}
           </span>
         </div>

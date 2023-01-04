@@ -31,13 +31,19 @@
           />
         </div>
 
-        <div v-if="previewMode && !deleteSuccess" class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary">
+        <div
+          v-if="previewMode && !deleteSuccess"
+          class="p-4 mb-4 w-full text-center text-black bg-yellow-200 rounded-md theme-color-secondary"
+        >
           <div class="flex flex-row justify-center mb-2">
             <Icon :name="'i-ion-alert-outline'" />
             <div>{{ $t('artworks.previewModeMessage') }}</div>
           </div>
           <div class="font-bold cursor-pointer">
-            <span class="text-red-500" @click="deleteConfirmationDialog = true">
+            <span
+              class="text-red-500"
+              @click="deleteConfirmationDialog = true"
+            >
               {{ $t('artworks.deleteArtwork') }}
             </span>
 
@@ -47,17 +53,26 @@
                 {{ $t('alert.areYouSure') }} <span class="italic">({{ $t('alert.youCannotUndoThisAction') }})</span>
               </span>
 
-              <span class="mr-2 text-red-500 hover:underline" @click="deleteWork(artworkDetail.id)">
+              <span
+                class="mr-2 text-red-500 hover:underline"
+                @click="deleteWork(artworkDetail.id)"
+              >
                 {{ $t('yes') }}
               </span>
-              <span class="hover:underline" @click="deleteConfirmationDialog = false">
+              <span
+                class="hover:underline"
+                @click="deleteConfirmationDialog = false"
+              >
                 {{ $t('no') }}
               </span>
             </div>
           </div>
         </div>
 
-        <div v-if="deleteSuccess" class="alert-success">
+        <div
+          v-if="deleteSuccess"
+          class="alert-success"
+        >
           {{ $t('artworks.successDelete') }}
         </div>
 
@@ -68,10 +83,19 @@
             artworkDetail.is_gore ? 'bg-red-200' : 'bg-yellow-200'
           ]"
         >
-          <span v-if="artworkDetail.is_explicit && !artworkDetail.is_gore" class="mr-4">{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</span>
-          <span v-if="artworkDetail.is_gore" class="mr-4">{{ auth.loggedIn ? $t('goreContentAlert') : $t('goreContentAlertForGuest') }}</span>
+          <span
+            v-if="artworkDetail.is_explicit && !artworkDetail.is_gore"
+            class="mr-4"
+          >{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</span>
+          <span
+            v-if="artworkDetail.is_gore"
+            class="mr-4"
+          >{{ auth.loggedIn ? $t('goreContentAlert') : $t('goreContentAlertForGuest') }}</span>
 
-          <button class="light-bordered-button" @click.prevent="removeFilter()">
+          <button
+            class="light-bordered-button"
+            @click.prevent="removeFilter()"
+          >
             {{ $t('show') }}
           </button>
         </div>
@@ -87,13 +111,13 @@
               :to="'/a/'+originalArtwork.id"
               class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
             >
-              <!-- test --> <nuxt-img
-                preload
-                loading="lazy"
-                class="inline-block mr-2 w-8 rounded-md"
-                :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-                @error="imageLoadError"
-              />
+              <nuxt-img
+                              preload
+                              loading="lazy"
+                              class="inline-block mr-2 w-8 rounded-md"
+                              :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+                              @error="imageLoadError"
+                            />
               <span class="font-bold">
                 {{ originalArtwork.title.length > redrawBreadcrumbTitleMaxLength ? originalArtwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : originalArtwork.title }}
               </span>
@@ -106,13 +130,13 @@
                 isModal ? 'theme-color-secondary' : 'theme-color'
               ]"
             >
-              <!-- test --> <nuxt-img
-                preload
-                loading="lazy"
-                class="inline-block mr-2 w-8 rounded-md"
-                :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
-                @error="imageLoadError"
-              />
+              <nuxt-img
+                              preload
+                              loading="lazy"
+                              class="inline-block mr-2 w-8 rounded-md"
+                              :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
+                              @error="imageLoadError"
+                            />
               <span class="font-bold">
                 {{ artworkDetail.title.length > redrawBreadcrumbTitleMaxLength ? artworkDetail.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : artworkDetail.title }}
               </span>
@@ -128,7 +152,7 @@
               <div class="sticky top-0">
                 <a
                   v-for="(src, index) in images"
-                  :key="image"
+                  :key="index"
                   :href="'#image_' + index"
                   class="cursor-pointer"
                 >
@@ -136,9 +160,9 @@
                     preload
                     loading="lazy"
                     :src="src.thumbnail"
-                    @error="imageLoadError"
                     class="mb-2 rounded-md hover:shadow-md"
-                  />
+                    @error="imageLoadError"
+                  >
                 </a>
               </div>
             </div>
@@ -152,15 +176,15 @@
               class="overflow-hidden w-full rounded-md"
             >
               <template 
-                @click.prevent="null"
                 v-for="(src, index) in images"
                 :key="src.thumbnail"
+                @click.prevent="null"
               >
-                <!-- test --> <nuxt-img
+                <nuxt-img
                   :id="'image_' + index"
+                  v-lazy="src.thumbnail"
                   preload
                   loading="lazy"
-                  v-lazy="src.thumbnail"
                   :src="src.thumbnail"
                   :data-source="src.source"
                   :class="[
@@ -195,8 +219,14 @@
             G
           </div>
 
-          <div v-if="artworkDetail.is_original_character" class="flex flex-row p-2 rounded-full theme-colored">
-            <Icon :name="'i-clarity-cursor-hand-click-line'" :text-size="'text-sm'" />&nbsp;
+          <div
+            v-if="artworkDetail.is_original_character"
+            class="flex flex-row p-2 rounded-full theme-colored"
+          >
+            <Icon
+              :name="'i-clarity-cursor-hand-click-line'"
+              :text-size="'text-sm'"
+            />&nbsp;
             {{ $t('artworks.originalCharacter') }}
           </div>
         </div>
@@ -220,8 +250,8 @@
             <span 
               v-if="artworkDetail._count"
               v-show="artworkDetail._count.artwork_likes > 0"
-              @click="showUserLikedModal()"
               class="counter hover:href hover:underline"
+              @click="showUserLikedModal()"
             >
               <b>{{ thousand(artworkDetail._count.artwork_likes) }}</b> {{ artworkDetail._count.artwork_likes > 1 ? $t('count.likes') : $t('count.like') }}
             </span>
@@ -230,8 +260,8 @@
             <span 
               v-if="artworkDetail._count"
               v-show="artworkDetail._count.feeds > 0"
-              @click="showUserSharedModal()"
               class="counter hover:href hover:underline"
+              @click="showUserSharedModal()"
             >
               <b>{{ thousand(artworkDetail._count.feeds) }}</b> {{ $t('count.share') }}
             </span>
@@ -257,7 +287,10 @@
           </div>
 
           <!-- Reactions -->
-          <div v-if="!previewMode" class="reactions">
+          <div
+            v-if="!previewMode"
+            class="reactions"
+          >
             <!-- Like -->
             <span v-if="auth.loggedIn">
               <span @click="liked ? unlike() : like()">
@@ -321,8 +354,8 @@
             <span v-if="auth.loggedIn">
               <Icon 
                 :name="'i-uil-share'"
-                @click="showShareToFeedModal()"
                 class="hover:text-blue-500"
+                @click="showShareToFeedModal()"
               />
             </span>
 
@@ -354,7 +387,10 @@
                     :to="'/a/'+artworkDetail.id" 
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                   >
-                    <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-2 text-base" /> {{ $t('open') }}
+                    <Icon
+                      :name="'i-fluent-arrow-enter-20-filled'"
+                      class="mr-2 text-base"
+                    /> {{ $t('open') }}
                   </nuxt-link>
                   <nuxt-link 
                     v-if="isModal" 
@@ -362,10 +398,16 @@
                     target="_blank" 
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                   >
-                    <Icon :name="'i-ci-external-link'" class="mr-2 text-base" /> {{ $t('openInNewTab') }}
+                    <Icon
+                      :name="'i-ci-external-link'"
+                      class="mr-2 text-base"
+                    /> {{ $t('openInNewTab') }}
                   </nuxt-link>
                   
-                  <div v-if="isModal" class="custom-divider" />
+                  <div
+                    v-if="isModal"
+                    class="custom-divider"
+                  />
 
                   <div
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id != artworkDetail.users.id && !auth.user.is_admin && !auth.user.is_moderator"
@@ -374,24 +416,36 @@
                     :class="{ 'rounded-t-md': !isModal }"
                     @click="showReportModal()"
                   >
-                    <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
+                    <Icon
+                      :name="'i-akar-icons-flag'"
+                      class="mr-2 text-base"
+                    /> {{ $t('report') }}
                   </div>
 
                   <div
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer theme-color hover:button-color parent-icon hover:text-white"
                     @click="copyLink('/a/'+artworkDetail.id)" 
                   >
-                    <Icon :name="'i-icon-park-outline-copy'" class="mr-2 text-base" /> {{ $t('copySharableLink') }}
+                    <Icon
+                      :name="'i-icon-park-outline-copy'"
+                      class="mr-2 text-base"
+                    /> {{ $t('copySharableLink') }}
                   </div>
 
-                  <div v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id" class="custom-divider" />
+                  <div
+                    v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
+                    class="custom-divider"
+                  />
 
                   <nuxt-link 
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
                     :to="'/artworks/update/'+artworkDetail.id"
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                   >
-                    <Icon :name="'i-ion-settings-outline'" class="mr-2 text-base" /> {{ $t('update') }}
+                    <Icon
+                      :name="'i-ion-settings-outline'"
+                      class="mr-2 text-base"
+                    /> {{ $t('update') }}
                   </nuxt-link>
                   <!-- <div
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
@@ -407,7 +461,10 @@
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
                     @click="openModal('work-deletion-confirm-modal')"
                   >
-                    <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                    <Icon
+                      :name="'i-ion-trash-outline'"
+                      class="mr-2 text-base"
+                    /> {{ $t('delete') }}
                   </div>
                 </div>
               </div>
@@ -462,10 +519,15 @@
 
         <!-- Show this if the artwork is a redraw of other artwork -->
         <div v-if="artworkDetail.redraw_of">
-          <div class="mb-2 italic title">{{ $t('artworks.originalArtwork') }}</div>
+          <div class="mb-2 italic title">
+            {{ $t('artworks.originalArtwork') }}
+          </div>
           
           <!-- Loading -->
-          <div v-if="originalArtworkLoading" class="flex flex-row gap-2">
+          <div
+            v-if="originalArtworkLoading"
+            class="flex flex-row gap-2"
+          >
             <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
           </div>
 
@@ -477,7 +539,7 @@
             class="flex flex-row gap-2 w-full"
           >
             <div v-if="originalArtwork.artwork_assets">
-              <!-- test --> <nuxt-img
+              <nuxt-img
                 preload
                 loading="lazy"
                 class="w-40 rounded-md"
@@ -493,15 +555,24 @@
           </a>
         </div>
 
-        <div v-if="artworkDetail.allow_redraw" class="custom-divider" />
+        <div
+          v-if="artworkDetail.allow_redraw"
+          class="custom-divider"
+        />
 
-        <div v-if="artworkDetail.allow_redraw || (artworkRedraws.data && artworkRedraws.data.length)" class="flex flex-col gap-4">
+        <div
+          v-if="artworkDetail.allow_redraw || (artworkRedraws.data && artworkRedraws.data.length)"
+          class="flex flex-col gap-4"
+        >
           <span class="section-title">
             {{ $t('artworks.redraws') }} 
             ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
           </span>
 
-          <div v-if="auth.loggedIn && !myRedraw" class="flex flex-row gap-2 justify-between w-full">
+          <div
+            v-if="auth.loggedIn && !myRedraw"
+            class="flex flex-row gap-2 justify-between w-full"
+          >
             <nuxt-link
               :to="'/post?redrawWorkId='+artworkDetail.id"
               :class="[
@@ -531,7 +602,10 @@
               :to="'/a/'+artworkDetail.id+'/redraws'"
               class="mt-2 primary-button"
             >
-              <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
+              <Icon
+                :name="'i-fluent-arrow-enter-20-filled'"
+                class="mr-1 text-white hover:text-white"
+              />
               {{ $t('seeMore') }}
             </nuxt-link>
           </div>
@@ -546,8 +620,11 @@
               :to="'/a/'+myRedraw.id"
               class="flex flex-row gap-2 mt-2 w-full"
             >
-              <div class="w-1/3" v-if="myRedraw.artwork_assets">
-                <!-- test --> <nuxt-img
+              <div
+                v-if="myRedraw.artwork_assets"
+                class="w-1/3"
+              >
+                <nuxt-img
                   preload
                   loading="lazy"
                   class="w-40 rounded-md"
@@ -559,8 +636,8 @@
               <div class="w-2/3">
                 <span class="title">{{ myRedraw.title }}</span>
                 <p
-                  v-html="myRedraw.description ? (myRedraw.description.length > 100 ? myRedraw.description.slice(0, 100) + '..' : originalArtwork.description) : $t('artworks.noDescription')"
                   class="mb-2"
+                  v-html="myRedraw.description ? (myRedraw.description.length > 100 ? myRedraw.description.slice(0, 100) + '..' : originalArtwork.description) : $t('artworks.noDescription')"
                 />
 
                 <span class="italic">{{ formatDate(myRedraw.scheduled_post) }}</span>
@@ -574,7 +651,10 @@
         <!-- comment section -->
         <section class="comments">
           <!-- comment text box -->
-          <div v-if="auth.loggedIn && !previewMode" class="comment-box">
+          <div
+            v-if="auth.loggedIn && !previewMode"
+            class="comment-box"
+          >
             <div class="flex flex-col">
               <div class="flex relative flex-col">
                 <textarea
@@ -597,7 +677,10 @@
                 >
                   {{ commentCharLeft }}
                 </span>
-                <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitComment()">
+                <span
+                  class="absolute right-2 bottom-5 py-1 px-2"
+                  @click.prevent="submitComment()"
+                >
                   <Icon 
                     v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
                     :name="'i-carbon-send-filled'" 
@@ -610,12 +693,18 @@
           </div>
 
           <!-- if user not logged in, can't comment -->
-          <div v-if="!auth.loggedIn" class="p-4 mb-4 text-center rounded-md theme-color-secondary">
+          <div
+            v-if="!auth.loggedIn"
+            class="p-4 mb-4 text-center rounded-md theme-color-secondary"
+          >
             {{ $t('comments.loginOrRegisterToLeaveComment') }}
           </div>
 
           <!-- comment list -->
-          <div id="comments" class="comment-content">
+          <div
+            id="comments"
+            class="comment-content"
+          >
             <div class="flex flex-row justify-end mb-2">
               <div v-if="artworkDetail._count && artworkDetail._count.artwork_comments">
                 <b>{{ thousand(artworkDetail._count.artwork_comments) }}</b> {{ artworkDetail._count.artwork_comments > 1 ? $t('count.comments') : $t('count.comment') }}
@@ -623,12 +712,15 @@
             </div>
 
             <div 
-              v-auto-animate
-              v-for="comment in comments" 
+              v-for="comment in comments"
               :key="comment.id" 
+              v-auto-animate 
               class="flex flex-row w-full comment-item"
             >
-              <nuxt-link class="mr-2" :to="'/u/' + comment.users.username">
+              <nuxt-link
+                class="mr-2"
+                :to="'/u/' + comment.users.username"
+              >
                 <img
                   class="w-10 h-10 avatar"
                   :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
@@ -642,7 +734,10 @@
                 >
                   <!-- profile info -->
                   <div class="flex justify-between">
-                    <nuxt-link :to="'/u/' + comment.users.username" class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer">
+                    <nuxt-link
+                      :to="'/u/' + comment.users.username"
+                      class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer"
+                    >
                       {{ comment.users.name }}
                     </nuxt-link>
                     <div class="comment-time">
@@ -668,17 +763,38 @@
                     </div>
 
                     <!-- right side: interaction buttons -->
-                    <div v-if="auth.loggedIn" class="flex flex-row">
+                    <div
+                      v-if="auth.loggedIn"
+                      class="flex flex-row"
+                    >
                       <!-- like a comment button -->
-                      <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
-                        <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
-                        <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
+                      <span
+                        class="reaction"
+                        @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)"
+                      >
+                        <Icon
+                          v-show="!likedComments.includes(comment.id)"
+                          :name="'i-ri-heart-3-line'"
+                          class="text-gray-500 hover:text-red-500"
+                        />
+                        <Icon
+                          v-show="likedComments.includes(comment.id)"
+                          :id="'comment-like-button-'+comment.id"
+                          :name="'i-ion-heart'"
+                          class="text-red-500 hover:text-red-500"
+                        />
                         {{ shortNumber(comment._count.artwork_comment_has_likes) }}
                       </span>
 
                       <!-- reply a comment button -->
-                      <span class="reaction" @click="showReplyInput(comment.id)">
-                        <Icon :name="'i-quill-reply'" class="text-gray-500 hover:text-blue-500" />
+                      <span
+                        class="reaction"
+                        @click="showReplyInput(comment.id)"
+                      >
+                        <Icon
+                          :name="'i-quill-reply'"
+                          class="text-gray-500 hover:text-blue-500"
+                        />
                       </span>
 
                       <!-- Other comment interaction buttons -->
@@ -712,7 +828,10 @@
                               class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click.prevent 
                             >
-                              <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
+                              <Icon
+                                :name="'i-fluent-person-32-regular'"
+                                class="mr-2 text-base"
+                              /> {{ $t('viewProfile') }}
                             </nuxt-link>
 
                             <!-- delete comment -->
@@ -721,7 +840,10 @@
                               class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                               @click="deleteComment(comment.id)"
                             >
-                              <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                              <Icon
+                                :name="'i-ion-trash-outline'"
+                                class="mr-2 text-base"
+                              /> {{ $t('delete') }}
                             </div>
 
                             <!-- report -->
@@ -766,7 +888,10 @@
                       >
                         {{ replyCharLeft }}
                       </span>
-                      <span class="absolute right-2 bottom-5 py-1 px-2" @click.prevent="submitReply(comment.id)">
+                      <span
+                        class="absolute right-2 bottom-5 py-1 px-2"
+                        @click.prevent="submitReply(comment.id)"
+                      >
                         <Icon 
                           v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
                           :name="'i-carbon-send-filled'" 
@@ -804,7 +929,10 @@
                     <div 
                       class="flex flex-row justify-between"
                     >
-                      <nuxt-link :to="'/u/' + reply.users.username" class="flex flex-row leading-6">
+                      <nuxt-link
+                        :to="'/u/' + reply.users.username"
+                        class="flex flex-row leading-6"
+                      >
                         <img
                           class="mr-2 w-6 h-6 rounded-full"
                           :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)"
@@ -823,12 +951,27 @@
                     </div>
 
                     <!-- Reactions -->
-                    <div v-if="auth.loggedIn" class="mt-2 reactions">
+                    <div
+                      v-if="auth.loggedIn"
+                      class="mt-2 reactions"
+                    >
                       <span />
                       <div class="flex flex-row">
-                        <span class="reaction" @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
-                          <Icon v-show="likedReplies.includes(reply.id)" :id="'reply-like-button-'+reply.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
-                          <Icon v-show="!likedReplies.includes(reply.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
+                        <span
+                          class="reaction"
+                          @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)"
+                        >
+                          <Icon
+                            v-show="likedReplies.includes(reply.id)"
+                            :id="'reply-like-button-'+reply.id"
+                            :name="'i-ion-heart'"
+                            class="text-red-500 hover:text-red-500"
+                          />
+                          <Icon
+                            v-show="!likedReplies.includes(reply.id)"
+                            :name="'i-ri-heart-3-line'"
+                            class="text-gray-500 hover:text-red-500"
+                          />
                           {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
                         </span>
                         
@@ -860,7 +1003,10 @@
                                 class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                                 @click.prevent 
                               >
-                                <Icon :name="'i-fluent-person-32-regular'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
+                                <Icon
+                                  :name="'i-fluent-person-32-regular'"
+                                  class="mr-2 text-base"
+                                /> {{ $t('viewProfile') }}
                               </nuxt-link>
 
                               <!-- delete reply -->
@@ -869,7 +1015,10 @@
                                 class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                                 @click="deleteReply(comment.id, reply.id)"
                               >
-                                <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
+                                <Icon
+                                  :name="'i-ion-trash-outline'"
+                                  class="mr-2 text-base"
+                                /> {{ $t('delete') }}
                               </div>
 
                               <!-- report -->
@@ -908,11 +1057,17 @@
             {{ $t('comments.loadOlder') }}
           </div>
 
-          <div v-show="comments.length && !showLoadOlderComments" class="w-full text-xs italic text-center">
+          <div
+            v-show="comments.length && !showLoadOlderComments"
+            class="w-full text-xs italic text-center"
+          >
             {{ $t('comments.reachedTheEnd') }}
           </div>
 
-          <div v-if="auth.loggedIn && !comments.length && !previewMode" class="mt-4 w-full text-xs italic text-center">
+          <div
+            v-if="auth.loggedIn && !comments.length && !previewMode"
+            class="mt-4 w-full text-xs italic text-center"
+          >
             {{ $t('comments.noCommentYet') }}
           </div>
         </section>
@@ -924,7 +1079,9 @@
 
     <!-- related artworks -->
     <div class="mt-4 w-full">
-      <div class="section-title">Similar Artworks</div>
+      <div class="section-title">
+        Similar Artworks
+      </div>
 
       <RelatedArtworks
         v-if="!loading"
@@ -938,8 +1095,8 @@
     <ManageSave 
       v-if="!loading"
       id="collection-selection-modal"
-      :modal-id="'collection-selection-modal'"
       ref="collectionSelectionModalRef"
+      :modal-id="'collection-selection-modal'"
       :work-id="artworkDetail.id"
       class="modal"
       @save="save"
@@ -962,7 +1119,7 @@
       class="modal"
       :modal-id="'work-deletion-confirm-modal'"
       :message="`${$t('alert.areYouSure')} ${$t('alert.youCannotUndoThisAction')}`"
-      @onAccept="deleteWork(artworkDetail.id)"
+      @on-accept="deleteWork(artworkDetail.id)"
     />
 
     <!-- Report modal -->
@@ -970,7 +1127,7 @@
       id="report-modal"
       ref="reportModalRef"
       class="modal"
-      :type="'artwork'"
+      :type="POST_TYPES.ARTWORK"
       :post-id="artworkDetail.id"
       :report-status="reportStatus"
     />
@@ -1009,8 +1166,9 @@
 
 <script setup>
 import 'viewerjs/dist/viewer.css'
-
 import { useClipboard } from '@vueuse/core'
+
+import { POST_TYPES } from '~/utils/constants'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -1229,7 +1387,7 @@ const view = async (selectedWorkId) => {
 const reportStatus = ref({})
 const getReportStatus = async (workId) => {
   const [report, error] = await reportApi.getReportStatus({
-    type: 'artwork',
+    type: POST_TYPES.ARTWORK,
     postId: workId
   })
 

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { ReportsApi } from '~/api/api'
+import { TReportType } from '~~/utils/constants/report'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   /**
@@ -84,7 +85,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
    *            - error: any - The error returned by the API
    */
   const createNewReport = async (params: {
-    type: 'artwork' | 'feed' | 'comment' | 'comment_reply',
+    type: TReportType,
     postId: number,
     reasons: string,
     description: string
@@ -150,7 +151,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
    *            - error: any - The error returned by the API
    */
   const getReportStatus = async (params: {
-    type: 'artwork' | 'feed' | 'comment' | 'comment_reply',
+    type: TReportType,
     postId: number
   }) => {
     try {

@@ -14,7 +14,7 @@
         class="object-contain w-full rounded"
         style="max-height: 1000px;"
         @error="imageLoadError"
-      />
+      >
     </div>
     <!-- <div
       v-if="work.artwork_assets.length === 1"
@@ -41,7 +41,7 @@
         :class="imGridClass[2][index]"
         :src="src" 
         @error="imageLoadError"
-      />
+      >
     </div>
 
     <!-- 3 images -->
@@ -58,7 +58,7 @@
         :class="imGridClass[3][index]"
         :src="src" 
         @error="imageLoadError"
-      />
+      >
     </div>
 
     <!-- 4 images -->
@@ -74,7 +74,7 @@
         :key="src" 
         :src="src" 
         @error="imageLoadError"
-      />
+      >
     </div>
 
     <!-- more than 4 images -->
@@ -93,7 +93,7 @@
           v-if="index < 3"
           :src="image" 
           @error="imageLoadError"
-        />
+        >
 
         <!-- add filter on 4th image -->
         <div
@@ -107,7 +107,7 @@
             :src="image" 
             class="z-0 brightness-50"
             @error="imageLoadError"
-          />
+          >
         </div>
       </div>
     </div>

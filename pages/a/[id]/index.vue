@@ -12,10 +12,10 @@
       v-show="loading || empty || error"
       :loading="loading"
       :empty="empty"
-      :emptyMessage="$t('artworks.notFound')"
+      :empty-message="$t('artworks.notFound')"
       :error="error"
     />
-    
+
     <ModalView
       v-show="!loading && !empty && !error"
       :id="id"
@@ -33,7 +33,7 @@ import ModalView from '~/components/artworks/views/ModalView.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 const setMeta = (meta) => {
-  useHead ({
+  useHead({
     title: meta.title
   })
 }

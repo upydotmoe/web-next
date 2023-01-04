@@ -106,7 +106,7 @@
   "premium": "Premium",
   "logout": "Keluar",
   "home": "Halaman utama",
-  "feed": "Beranda",
+  "feed": "Umpan",
   "feeds": {
     "newUser": {
       "welcomingMenus": {
@@ -116,11 +116,11 @@
         "followSomeone": "Ikuti seseorang"
       },
       "welcome": "Selamat Datang di Upy",
-      "suggestedUsers": "Pengguna yang Disarankan untuk Diikuti"
+      "suggestedUsers": "Pengguna yang disarankan untuk diikuti"
     },
     "suggestedUsers": "Pengguna yang Disarankan",
     "all": "Semua",
-    "textOnly": "Hany Text",
+    "textOnly": "Hanya Text",
     "artworkOnly": "Hanya Artwork",
     "notFound": "Feed tidak ditemukan atau sudah dihapus",
     "haventPostedAnyUpdate": "User ini belum memposting update",
@@ -141,7 +141,7 @@
     "nothingToShow": "Ikuti seseorang untuk mendapat update",
     "followMorePeople": "Ikuti lebih banyak orang untuk mendapat update lainnya"
   },
-  "explore": "Eksplorasi",
+  "explore": "Jelajahi",
   "explores": {
     "noFollowing": "Ikuti seseorang untuk mendapat update"
   },
@@ -156,7 +156,7 @@
   "monthly": "Bulanan",
   "allTime": "Semua waktu",
   "email": "Email",
-  "loadMore": "Lebih banyak",
+  "loadMore": "Lebih Banyak",
   "loginHead": "Masuk ke akun yang sudah ada",
   "registerHead": "Bergabung dengan komunitas",
   "accountCreated": "Akun berhasil dibuat",
@@ -176,7 +176,7 @@
     "followPrivately": "Ikuti secara privat",
     "followingsHidden": "User ini menyembunyikan orang yang dia ikuti.",
     "hideMyFollowings": "Sembunyikan orang yang ku ikuti",
-    "followingOnly": "Diikuti",
+    "followingOnly": "Mengikuti",
     "global": "Global"
   },
   "followingOnly": "Hanya Mengikuti",

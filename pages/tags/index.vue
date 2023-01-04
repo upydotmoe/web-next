@@ -6,14 +6,14 @@
   >
     <div class="flex flex-row gap-2 justify-center mb-4 w-full">
       <button
-        @click="tags.options.data.orderBy = undefined"
         :class="tags.options.data.orderBy == undefined ? 'primary-button' : 'light-button'"
+        @click="tags.options.data.orderBy = undefined"
       >
         A-Z
       </button>
       <button
-        @click="tags.options.data.orderBy = 'count'"
         :class="tags.options.data.orderBy == 'count' ? 'primary-button' : 'light-button'"
+        @click="tags.options.data.orderBy = 'count'"
       >
         {{ $t('tags.artworkCount') }}
       </button>
@@ -54,13 +54,13 @@ const tagsApi = useTags(oApiConfiguration, fetchOptions())
 
 const router = useRouter()
 
-onBeforeMount (() => {
+onBeforeMount(() => {
   if (!auth.loggedIn) {
     router.push('/')
   }
 })
 
-onMounted (() => {
+onMounted(() => {
   fetch()
 })
 
@@ -90,7 +90,7 @@ const fetch = async () => {
 /**
  * Watch for order mode change
  */
-watch (() => tags.value.options.data.orderBy, () => {
+watch(() => tags.value.options.data.orderBy, () => {
   sort()
 })
 

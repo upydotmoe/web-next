@@ -35,7 +35,7 @@
         @click="openNotification(notification, index)"
       >
         <!-- follower avatar -->
-        <!-- test --> <nuxt-img
+        <nuxt-img
           preload
           loading="lazy"
           class="object-cover w-12 h-12 rounded unselectable"
@@ -57,7 +57,10 @@
       <InfiniteLoading :load="fetch">
         <template #loading>
           <div class="mx-auto text-center">
-            <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
+            <Icon
+              :name="'i-line-md-loading-twotone-loop'"
+              class="text-3xl"
+            />
           </div>
         </template>
 
@@ -68,7 +71,7 @@
         </template>
 
         <template #no-more>
-          <p></p>
+          <p />
         </template>
       </InfiniteLoading>
     </div>

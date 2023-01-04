@@ -1,16 +1,21 @@
 <template>
   <div>
-    <div class="hidden" @click="init()" />
+    <div
+      class="hidden"
+      @click="init()"
+    />
 
     <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
       <div>
-        <h1 class="mb-2 text-sm">{{ $t('pickUpToTags') }}</h1>
+        <h1 class="mb-2 text-sm">
+          {{ $t('pickUpToTags') }}
+        </h1>
 
         <div class="input-block">
           <client-only>
             <tags-input 
-              v-model="tags"
               :key="tagKey"
+              v-model="tags"
               :placeholder="$t('tagsInputPlaceholder')"
               :typeahead="true"
               :limit="10"
@@ -27,13 +32,19 @@
         </div>
         
         <div class="flex float-right flex-row gap-2 mt-4">
-          <button class="cancel-button" @click="closeModal('tag-filter-selection-modal')">
+          <button
+            class="cancel-button"
+            @click="closeModal('tag-filter-selection-modal')"
+          >
             {{ $t('cancel') }}
           </button>
           <!-- <button class="cancel-button" @click="clearSelectedTags()">
             {{ $t('clear') }}
           </button> -->
-          <button class="primary-button" @click="applyTags()">
+          <button
+            class="primary-button"
+            @click="applyTags()"
+          >
             {{ $t('apply') }}
           </button>
         </div>

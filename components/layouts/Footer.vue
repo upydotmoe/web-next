@@ -1,7 +1,10 @@
 <template>
-  <footer v-show="withFooter" class="hidden p-3 mt-10 leading-8 text-center md:block theme-text-color">
+  <footer
+    v-show="withFooter"
+    class="hidden p-3 mt-10 leading-8 text-center md:block theme-text-color"
+  >
     <div class="mx-auto w-10 h-10">
-      <img :src="$colorMode.preference == 'dark' ? logoWhite : logo" />
+      <img :src="$colorMode.preference == 'dark' ? logoWhite : logo">
     </div>
     <!-- <span class="mx-3 hover:underline">
       <nuxt-link :to="'/terms'">{{ $t('terms') }}</nuxt-link>
@@ -14,13 +17,22 @@
     </span> -->
     <br>
     <span class="mx-3 hover:underline">
-      <a target="_blank" href="https://github.com/upydotmoe">Github</a>
+      <a
+        target="_blank"
+        href="https://github.com/upydotmoe"
+      >Github</a>
     </span>
     <span class="mx-3 hover:underline">
-      <a target="_blank" href="https://instagram.com/upy.moe">Instagram</a>
+      <a
+        target="_blank"
+        href="https://instagram.com/upy.moe"
+      >Instagram</a>
     </span>
     <span class="mx-3 hover:underline">
-      <a target="_blank" href="https://twitter.com/messages/compose?recipient_id=xxx">Contact Us</a>
+      <a
+        target="_blank"
+        href="https://twitter.com/messages/compose?recipient_id=xxx"
+      >Contact Us</a>
     </span>
     <span class="mx-3 hover:underline">
       <nuxt-link :to="'/support-us'">{{ $t('supportUs') }}</nuxt-link>
@@ -35,7 +47,7 @@
 import logo from '~/static/logo/logo.png'
 import logoWhite from '~/static/logo/logo-white.png'
 
-defineProps ({
+defineProps({
   withFooter: {
     type: Boolean,
     default: false

@@ -1,5 +1,5 @@
 <template>
-  <Profile 
+  <Profile
     :id="userId"
   />
 </template>

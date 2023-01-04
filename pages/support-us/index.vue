@@ -24,7 +24,10 @@
         <div class="grid gap-3 mt-4 grid-cols">
           <!-- support the team -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-fluent-people-checkmark-24-regular'" class="text-4xl" />
+            <Icon
+              :name="'i-fluent-people-checkmark-24-regular'"
+              class="text-4xl"
+            />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Support the team</span>
               <div class="mt-1">
@@ -35,7 +38,10 @@
 
           <!-- server -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-ion-server-outline'" class="text-4xl" />
+            <Icon
+              :name="'i-ion-server-outline'"
+              class="text-4xl"
+            />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Server and other bills</span>
               <div class="mt-1">
@@ -68,7 +74,10 @@
 
           <!-- make the platform better -->
           <div class="flex flex-col p-6 w-full text-center rounded-md shadow-sm hover:shadow-xl theme-color">
-            <Icon :name="'i-ion-hand-right-outline'" class="text-4xl" />
+            <Icon
+              :name="'i-ion-hand-right-outline'"
+              class="text-4xl"
+            />
             <div class="mt-4 text-left">
               <span class="text-base font-bold">Make the platform even better</span>
               <div class="mt-1">
@@ -84,32 +93,67 @@
 
         <div class="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2 lg:grid-cols-3">
           <!-- PayPal -->
-          <a :href="'https://paypal.me/noric1902'" target="_blank" class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color">
-            <img class="mx-auto mb-4 w-14 h-14" src="https://cdn.iconscout.com/icon/free/png-256/paypal-1527455-1298285.png">
+          <a
+            :href="'https://paypal.me/noric1902'"
+            target="_blank"
+            class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
+          >
+            <img
+              class="mx-auto mb-4 w-14 h-14"
+              src="https://cdn.iconscout.com/icon/free/png-256/paypal-1527455-1298285.png"
+            >
             <span class="mx-auto text-lg font-bold">PayPal</span>
           </a>
 
           <!-- patreon -->
-          <a :href="'https://patreon.com/upydotmoe'" target="_blank" class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color">
-            <img class="mx-auto mb-4 w-14 h-14" src="https://cdn.iconscout.com/icon/free/png-256/patreon-282262.png">
+          <a
+            :href="'https://patreon.com/upyapp'"
+            target="_blank"
+            class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
+          >
+            <img
+              class="mx-auto mb-4 w-14 h-14"
+              src="https://cdn.iconscout.com/icon/free/png-256/patreon-282262.png"
+            >
             <span class="mx-auto text-lg font-bold">Patreon</span>
           </a>
 
           <!-- ko-fi -->
-          <a :href="'https://ko-fi.com/upydotmoe'" target="_blank" class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color">
-            <img class="mx-auto mb-4 w-14 h-14" src="https://cdn.iconscout.com/icon/free/png-256/ko-fi-3628878-3030018.png">
+          <a
+            :href="'https://ko-fi.com/upyapp'"
+            target="_blank"
+            class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
+          >
+            <img
+              class="mx-auto mb-4 w-14 h-14"
+              src="https://cdn.iconscout.com/icon/free/png-256/ko-fi-3628878-3030018.png"
+            >
             <span class="mx-auto text-lg font-bold">ko-fi</span>
           </a>
 
           <!-- saweria -->
-          <a :href="'https://saweria.co/upydotmoe'" target="_blank" class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color">
-            <img class="mx-auto mb-4 w-14 h-14" src="https://d1fdloi71mui9q.cloudfront.net/vqAU6rLS5ySXzmBdFaaU_saweria%20icon.png">
+          <a
+            :href="'https://saweria.co/upyapp'"
+            target="_blank"
+            class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
+          >
+            <img
+              class="mx-auto mb-4 w-14 h-14"
+              src="https://d1fdloi71mui9q.cloudfront.net/vqAU6rLS5ySXzmBdFaaU_saweria%20icon.png"
+            >
             <span class="mx-auto text-lg font-bold">saweria</span>
           </a>
 
           <!-- github sponsor -->
-          <a :href="'https://github.com/sponsors/uuppyy'" target="_blank" class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color">
-            <img class="mx-auto mb-4 w-14 h-14" src="/others/gh-sponsor.png">
+          <a
+            :href="'https://github.com/sponsors/upyapp'"
+            target="_blank"
+            class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
+          >
+            <img
+              class="mx-auto mb-4 w-14 h-14"
+              src="/others/gh-sponsor.png"
+            >
             <span class="mx-auto text-lg font-bold">Github Sponsor</span>
           </a>
         </div>

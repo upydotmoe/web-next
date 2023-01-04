@@ -3,8 +3,8 @@
     <!-- guidelines -->
     <div class="p-4 mb-6 w-full rounded-md theme-color">
       <div
-        @click="showContentGuidelines = !showContentGuidelines"
         class="flex flex-row justify-between w-full cursor-pointer title"
+        @click="showContentGuidelines = !showContentGuidelines"
       >
         {{ $t('guidelines.title') }}
 
@@ -13,8 +13,8 @@
 
       <div
         v-if="showContentGuidelines"
-        v-html="$t('guidelines.content')"
         class="guidelines"
+        v-html="$t('guidelines.content')"
       />
     </div>
 
@@ -24,12 +24,20 @@
     </div>
 
     <!-- redrawed artwork detail -->
-    <div v-if="redrawWorkId" class="p-2 mb-4 rounded-md theme-color hover:theme-colored">
+    <div
+      v-if="redrawWorkId"
+      class="p-2 mb-4 rounded-md theme-color hover:theme-colored"
+    >
       <div>
-        <div class="mb-2 title">{{ $t('artworks.originalArtwork') }}</div>
+        <div class="mb-2 title">
+          {{ $t('artworks.originalArtwork') }}
+        </div>
 
         <!-- Loading -->
-        <div v-if="redrawedArtworkLoading" class="flex flex-row gap-2">
+        <div
+          v-if="redrawedArtworkLoading"
+          class="flex flex-row gap-2"
+        >
           <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
         </div>
 
@@ -44,7 +52,7 @@
             v-if="redrawedArtwork.artwork_assets"
             class="w-1/5"
           >
-            <!-- test --> <nuxt-img
+            <nuxt-img
               preload
               loading="lazy"
               class="w-full rounded-md"
@@ -55,7 +63,7 @@
 
           <div class="flex flex-col gap-2 w-3/4">
             <span class="title">{{ redrawedArtwork.title }}</span>
-            <p v-html="redrawedArtwork.description.length > 300 ? redrawedArtwork.description.slice(0, 300) + '..' : redrawedArtwork.description"/>
+            <p v-html="redrawedArtwork.description.length > 300 ? redrawedArtwork.description.slice(0, 300) + '..' : redrawedArtwork.description" />
           </div>
         </a>
       </div>
@@ -64,24 +72,36 @@
     <!-- error and alert message -->
     <div>
       <!-- messages -->
-      <div v-if="uploadError" class="p-2 mb-2 w-full text-white bg-red-500 rounded-md">
+      <div
+        v-if="uploadError"
+        class="p-2 mb-2 w-full text-white bg-red-500 rounded-md"
+      >
         {{ uploadErrorMessage }}
       </div>
       
       <!-- success message -->
-      <div v-show="uploadSuccess" class="alert-success">
+      <div
+        v-show="uploadSuccess"
+        class="alert-success"
+      >
         {{ $t('artworks.add.form.uploadSuccess') }}
         <span class="italic">{{ $t('artworks.add.form.successRedirect') }}</span>
       </div>
 
       <!-- loading status -->
-      <div v-show="uploading" class="flex flex-row p-2 mb-2 text-white rounded-md button-color">
+      <div
+        v-show="uploading"
+        class="flex flex-row p-2 mb-2 text-white rounded-md button-color"
+      >
         <Spinner class="mr-1" />
         {{ $t('artworks.add.form.uploading') }}
       </div>
 
       <!-- error message -->
-      <div v-show="isError" class="alert-danger">
+      <div
+        v-show="isError"
+        class="alert-danger"
+      >
         {{ $t('artworks.add.form.uploadFailure') }}
       </div>
     </div>
@@ -117,7 +137,7 @@
       <div class="-mt-2 input-block">
         <VueEditor
           v-model="inputData.description"
-          :editorToolbar="quillOptions"
+          :editor-toolbar="quillOptions"
           :class="[
             { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
           ]"
@@ -135,13 +155,15 @@
       </div>
 
       <div class="input-block">
-        <div v-show="alert.showFileTooBig" class="p-2 mb-2 text-xs text-white bg-red-400 rounded-md shadow-md">
+        <div
+          v-show="alert.showFileTooBig"
+          class="p-2 mb-2 text-xs text-white bg-red-400 rounded-md shadow-md"
+        >
           {{ $t('artworks.add.form.fileTooBig') }} {{ maxFileSize }}MB.
         </div>
         <client-only>
           <file-pond
             ref="pond"
-            @updatefiles="handleFilePondUpdateFile"
             :label-idle="labelIdleText"
             :max-files="redrawWorkId ? 1 : maxFileCount"
             :max-file-size="maxFileSize*1000000"
@@ -157,6 +179,7 @@
             credits="false"
             name="files[]"
             instant-upload="false"
+            @updatefiles="handleFilePondUpdateFile"
           />
         </client-only>
       </div>
@@ -199,22 +222,33 @@
         </div>
         
         <!-- publish time -->
-        <input v-model="inputData.publishTime" type="time" class="mb-0 form-input input">
+        <input
+          v-model="inputData.publishTime"
+          type="time"
+          class="mb-0 form-input input"
+        >
       </div>
       
       <!-- explicit toggler -->
       <div class="grid grid-cols-1 gap-2 input-block md:grid-cols-2">
         <!-- explicit toggler -->
         <div
-          @click.prevent="toggleExplicit()"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isExplicit }
           ]"
+          @click.prevent="toggleExplicit()"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isExplicit" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isExplicit"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -228,15 +262,22 @@
         <!-- explicit+gore toggler -->
         <div
           v-if="inputData.isExplicit"
-          @click.prevent="inputData.isGore = !inputData.isGore"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isGore }
           ]"
+          @click.prevent="inputData.isGore = !inputData.isGore"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isGore" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isGore"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -258,15 +299,22 @@
         <!-- original character toggler -->
         <div
           v-if="!redrawWorkId"
-          @click.prevent="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isOriginalCharacter }
           ]"
+          @click.prevent="inputData.isOriginalCharacter = !inputData.isOriginalCharacter"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isOriginalCharacter" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isOriginalCharacter"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -280,15 +328,22 @@
         <!-- original character toggler -->
         <div
           v-if="!redrawWorkId"
-          @click.prevent="inputData.isAllowRedraw = !inputData.isAllowRedraw"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isAllowRedraw }
           ]"
+          @click.prevent="inputData.isAllowRedraw = !inputData.isAllowRedraw"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isAllowRedraw" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isAllowRedraw"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -302,15 +357,22 @@
         <!-- redraw in my style toggler -->
         <div
           v-if="redrawWorkId"
-          @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
           :class="[
             'toggler-box',
             { 'toggler-box__active': inputData.isredrawInMyStyle }
           ]"
+          @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
         >
           <div class="toggler-box__icons">
-            <Icon v-if="!inputData.isredrawInMyStyle" :name="'i-fluent-checkbox-unchecked-20-regular'" />
-            <Icon v-else :name="'i-ic-outline-check'" class="text-green-500" />
+            <Icon
+              v-if="!inputData.isredrawInMyStyle"
+              :name="'i-fluent-checkbox-unchecked-20-regular'"
+            />
+            <Icon
+              v-else
+              :name="'i-ic-outline-check'"
+              class="text-green-500"
+            />
           </div>
 
           <div class="toggler-box__description">
@@ -339,7 +401,10 @@
           ]"
         >
           <div class="flex flex-row">
-            <Spinner v-if="uploading" class="mr-2" />
+            <Spinner
+              v-if="uploading"
+              class="mr-2"
+            />
             {{ !uploading ? $t('artworks.add.form.post').toUpperCase() : $t('artworks.add.form.uploadingButton') }}
           </div>
         </button>

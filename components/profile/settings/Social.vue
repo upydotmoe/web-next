@@ -128,7 +128,10 @@
         <label class="font-semibold">{{ $t('profile.forms.update.socials.picarto') }}</label>
         <div class="field">
           <div class="flex flex-row">            
-            <Icon :name="'i-cib-picarto-tv'" :icon-color="'bg-green-600'" />
+            <Icon
+              :name="'i-cib-picarto-tv'"
+              :icon-color="'bg-green-600'"
+            />
             <input 
               v-model="inputData.picarto"
               type="text" 
@@ -178,7 +181,10 @@
       <!-- submit button -->
       <div class="flex flex-row justify-between mt-2 w-full">
         <div>
-          <span v-show="saving.socials.loading || saving.socials.success" class="text-success">
+          <span
+            v-show="saving.socials.loading || saving.socials.success"
+            class="text-success"
+          >
             {{ saving.socials.loading ? $t('updating') : $t('updated') }}
           </span>
         </div>

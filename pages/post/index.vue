@@ -1,40 +1,60 @@
 <template>
-  <Layout 
-    :with-footer="false" 
+  <Layout
+    :with-footer="false"
     :hide-side="false"
   >
     <div class="mb-20">
       <!-- post category -->
       <div class="categories">
-        <div 
+        <div
           class="category"
           :class="[mode === 'feed' ? 'button' : 'theme-color']"
-          @click="mode = 'feed'" 
+          @click="mode = 'feed'"
         >
-          <Icon v-show="mode != 'feed'" :name="'i-ion-text-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl" />
-          <Icon v-show="mode == 'feed'" :name="'i-ion-text-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl text-white" />
+          <Icon
+            v-show="mode != 'feed'"
+            :name="'i-ion-text-outline'"
+            :text-size="'texl-xl'"
+            class="mr-3 text-2xl"
+          />
+          <Icon
+            v-show="mode == 'feed'"
+            :name="'i-ion-text-outline'"
+            :text-size="'texl-xl'"
+            class="mr-3 text-2xl text-white"
+          />
           <span class="text-sm leading-6">{{ $t('feed') }}</span>
         </div>
-        <div 
+        <div
           class="category"
-          :class="[mode === 'artwork' ? 'button' : 'theme-color']"
-          @click="mode = 'artwork'" 
+          :class="[mode === POST_TYPES.ARTWORK ? 'button' : 'theme-color']"
+          @click="mode = POST_TYPES.ARTWORK"
         >
-          <Icon v-show="mode != 'artwork'" :name="'i-ion-images-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl" />
-          <Icon v-show="mode == 'artwork'" :name="'i-ion-images-outline'" :text-size="'texl-xl'" class="mr-3 text-2xl text-white" />
+          <Icon
+            v-show="mode != POST_TYPES.ARTWORK"
+            :name="'i-ion-images-outline'"
+            :text-size="'texl-xl'"
+            class="mr-3 text-2xl"
+          />
+          <Icon
+            v-show="mode == POST_TYPES.ARTWORK"
+            :name="'i-ion-images-outline'"
+            :text-size="'texl-xl'"
+            class="mr-3 text-2xl text-white"
+          />
           <span class="text-sm leading-6">{{ $t('artworks.artwork') }}</span>
         </div>
-        <!-- <div 
+        <!-- <div
           class="category"
           :class="{ 'button-active': mode === 'comic' }"
-          @click="mode = 'comic'" 
+          @click="mode = 'comic'"
         >
           Comic
         </div>
-        <div 
+        <div
           class="category"
           :class="{ 'button-active': mode === 'tutorial' }"
-          @click="mode = 'tutorial'" 
+          @click="mode = 'tutorial'"
         >
           Tutorial
         </div> -->
@@ -45,7 +65,10 @@
         <FeedForm v-show="mode === 'feed'" />
 
         <!-- artwork -->
-        <ArtworkForm v-show="mode === 'artwork'" class="artwork" />
+        <ArtworkForm
+          v-show="mode === POST_TYPES.ARTWORK"
+          class="artwork"
+        />
       </div>
     </div>
   </Layout>
@@ -59,21 +82,22 @@ import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
 import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
 import FeedForm from '~/components/feeds/forms/FeedForm.vue'
+import { POST_TYPES } from '~/utils/constants'
 
 const { t } = useI18n()
 
-const mode = ref('artwork')
+const mode = ref(POST_TYPES.ARTWORK)
 
 /**
  * @meta
  */
-useHead ({
-  title: mode.value === 'artwork' ? t('meta.title.artwork.post') : t('meta.title.feed.post')
+useHead({
+  title: mode.value === POST_TYPES.ARTWORK ? t('meta.title.artwork.post') : t('meta.title.feed.post')
 })
 
-watch (() => mode.value, () => {
-  useHead ({
-    title: mode.value === 'artwork' ? t('meta.title.artwork.post') : t('meta.title.feed.post')
+watch(() => mode.value, () => {
+  useHead({
+    title: mode.value === POST_TYPES.ARTWORK ? t('meta.title.artwork.post') : t('meta.title.feed.post')
   })
 })
 </script>
@@ -90,6 +114,6 @@ watch (() => mode.value, () => {
 }
 
 .forms {
-  
+
 }
 </style>

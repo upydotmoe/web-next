@@ -1,22 +1,33 @@
 <template>
   <div>
     <div class="flex flex-row justify-between">
-      <div class="section-title">{{ $t('followings.followings') }}</div>
+      <div class="section-title">
+        {{ $t('followings.followings') }}
+      </div>
 
       <div class="inline-flex flex-row gap-4">
         <div class="flex flex-col justify-center align-middle">
           <div
             v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id == userId"
-            @click="fetchTop(privateOnlyFollowing ? false : true)"
             :class="[
               'flex flex-row cursor-pointer href',
               { 'font-bold': privateOnlyFollowing }
             ]"
+            @click="fetchTop(privateOnlyFollowing ? false : true)"
           >
-            <Icon v-show="privateOnlyFollowing" :name="'i-mdi-eye-check'" />
+            <Icon
+              v-show="privateOnlyFollowing"
+              :name="'i-mdi-eye-check'"
+            />
             <div class="mr-1">
-              <Icon v-show="!privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-regular'" />
-              <Icon v-show="privateOnlyFollowing" :name="'i-fluent-inprivate-account-16-filled'" />
+              <Icon
+                v-show="!privateOnlyFollowing"
+                :name="'i-fluent-inprivate-account-16-regular'"
+              />
+              <Icon
+                v-show="privateOnlyFollowing"
+                :name="'i-fluent-inprivate-account-16-filled'"
+              />
             </div>
             <span>{{ $t('privateFollow') }}</span>
           </div>
@@ -25,9 +36,9 @@
         <!-- hide following list toggle -->
         <label 
           v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id === userId"
-          @click.prevent="toggleFollowingVisibility()"
           for="hide-following-toggle"
           class="inline-flex relative flex-row justify-center items-center cursor-pointer"
+          @click.prevent="toggleFollowingVisibility()"
         >
           <input 
             id="hide-following-toggle" 
@@ -45,7 +56,10 @@
           />
           <span class="ml-2">{{ $t('followings.hideMyFollowings') }}</span>
           
-          <ProBadge v-if="!auth.i502p00r0" class="ml-1" />
+          <ProBadge
+            v-if="!auth.i502p00r0"
+            class="ml-1"
+          />
         </label>
       </div>
     </div>
@@ -57,7 +71,11 @@
         :column-type="3"
       />
 
-      <div v-show="showLoadMore" class="mt-4 primary-button" @click="fetch(false)">
+      <div
+        v-show="showLoadMore"
+        class="mt-4 primary-button"
+        @click="fetch(false)"
+      >
         {{ $t('loadMore') }}
       </div>
     </div>

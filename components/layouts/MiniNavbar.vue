@@ -25,9 +25,9 @@
       </nuxt-link>
       <a
         v-if="artworkAvailabity > 1 && auth.loggedIn"
-        @click="random()"
         href="#"
         class="uppercase"
+        @click="random()"
       >
         {{ $t('random') }}
       </a>
@@ -62,8 +62,8 @@ onMounted(async () => {
 
 /**
  * Check if there is artwork that can be displayed to the currently visiting user.
- * 
- * This needs to be done because there are some explicit artworks, 
+ *
+ * This needs to be done because there are some explicit artworks,
  * and they cannot be displayed to visitor/guest or users who don't enable explicit mode.
  */
 const artworkAvailabity = ref(0)
@@ -86,7 +86,7 @@ const random = async () => {
   } else {
     // navigate user to randomly selected artwork ID
     router.push({
-      path: '/a/'+randomWorkId,
+      path: '/a/' + randomWorkId,
       replace: true,
       force: true
     })

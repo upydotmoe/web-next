@@ -1,6 +1,6 @@
 <template>
-  <Layout 
-    :with-footer="true" 
+  <Layout
+    :with-footer="true"
     :hide-side="true"
     :no-right-side="true"
   >
@@ -12,46 +12,57 @@
     >
       <!-- search box -->
       <span class="search">
-        <input v-model="searchKeyword" type="text" name="search" :placeholder="$t('search.search')" @keyup.enter="search()">
-        <span class="search-button" @click="search()">
+        <input
+          v-model="searchKeyword"
+          type="text"
+          name="search"
+          :placeholder="$t('search.search')"
+          @keyup.enter="search()"
+        >
+        <span
+          class="search-button"
+          @click="search()"
+        >
           <Icon :name="'i-ion-search'" />
         </span>
       </span>
 
       <div class="flex flex-row mb-6 w-full">
-        <div 
+        <div
           class="rounded-lg profile-category-button left-menu-link theme-color-secondary"
-          :class="{ 'button-color text-white': activeSection === 'artworks' }"
-          @click="activeSection = 'artworks'" 
+          :class="{ 'button-color text-white': activeSection === POST_TYPES.ARTWORK }"
+          @click="activeSection = POST_TYPES.ARTWORK"
         >
-          <Icon :name="'i-majesticons-image'"
+          <Icon
+            :name="'i-majesticons-image'"
             :class="[
               'mr-2',
-              { 'text-white': activeSection === 'artworks' }
+              { 'text-white': activeSection === POST_TYPES.ARTWORK }
             ]"
           />
           {{ $t('artworks.artworks') }}
-          <span 
+          <span
             class="px-1 ml-2 rounded"
-            :class="activeSection === 'artworks' ? 'theme-color' : 'bg-gray-600 text-white'"
+            :class="activeSection === POST_TYPES.ARTWORK ? 'theme-color' : 'bg-gray-600 text-white'"
           >
             {{ artworkFound }}
           </span>
         </div>
-        
-        <div 
+
+        <div
           class="rounded-lg profile-category-button left-menu-link theme-color-secondary"
           :class="{ 'button-color text-white': activeSection === 'users' }"
-          @click="activeSection = 'users'" 
+          @click="activeSection = 'users'"
         >
-          <Icon :name="'i-fluent-person-32-regular'"
+          <Icon
+            :name="'i-fluent-person-32-regular'"
             :class="[
               'mr-2',
               { 'text-white': activeSection === 'users' }
             ]"
           />
           {{ $t('users.users') }}
-          <span 
+          <span
             class="px-1 ml-2 rounded"
             :class="activeSection === 'users' ? 'theme-color' : 'bg-gray-600 text-white'"
           >
@@ -61,8 +72,8 @@
       </div>
 
       <!-- Top navigations -->
-      <div v-show="activeSection === 'artworks'">
-        <Artworks 
+      <div v-show="activeSection === POST_TYPES.ARTWORK">
+        <Artworks
           @countArtworks="countArtworks"
         />
       </div>
@@ -78,6 +89,8 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
+
+import { POST_TYPES } from '~/utils/constants'
 
 // stores
 import useAuthStore from '@/stores/auth.store'
@@ -100,16 +113,16 @@ const route = useRoute()
 /**
  * @meta
  */
-useHead ({
+useHead({
   title: t('search.search') + (route.query.q ? ` "${route.query.q}"` : '')
 })
 
 const searchKeyword = ref('')
-onMounted (() => {
+onMounted(() => {
   searchKeyword.value = route.query.q
 })
 
-const activeSection = ref(route.query.t ?? 'artworks')
+const activeSection = ref(route.query.t ?? POST_TYPES.ARTWORK)
 
 const artworkFound = ref(0)
 const countArtworks = (foundRows) => {
@@ -127,10 +140,10 @@ const countUsers = (foundRows) => {
 /**
  * SEARCH
  */
-watch (() => route.query, ({ q }) => {
+watch(() => route.query, ({ q }) => {
   searchKeyword.value = q
 
-  useHead ({
+  useHead({
     title: t('search.search') + (searchKeyword.value ? ` "${searchKeyword.value}"` : route.query.q)
   })
 })

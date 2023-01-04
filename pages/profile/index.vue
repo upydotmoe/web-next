@@ -1,5 +1,5 @@
 <template>
-  <Profile 
+  <Profile
     :user-logon="true"
     @setMeta="setMeta"
   />
@@ -20,11 +20,11 @@ const router = useRouter()
 /**
  * @meta
  */
-useHead ({
+useHead({
   title: useI18n().tl('profile.profile')
 })
 
-onBeforeMount (() => {
+onBeforeMount(() => {
   if (!auth.loggedIn) {
     router.push({
       path: '/',

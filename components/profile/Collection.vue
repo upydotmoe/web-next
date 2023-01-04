@@ -2,15 +2,21 @@
   <div>
     <!-- top buttons -->
     <div class="mb-2 w-full">
-      <div v-if="!selectedCollection" class="flex flex-row justify-between">
+      <div
+        v-if="!selectedCollection"
+        class="flex flex-row justify-between"
+      >
         <div class="flex flex-row">
           <div 
             class="ml-0 primary-button theme-color-secondary"
-            :class="{ 'button-color text-white': activeType === 'artwork' }"
-            @click="activeType = 'artwork'" 
+            :class="{ 'button-color text-white': activeType === POST_TYPES.ARTWORK }"
+            @click="activeType = POST_TYPES.ARTWORK" 
           >
             {{ $t('artworks.artwork') }}
-            <span class="px-1 ml-2 font-normal rounded" :class="activeType === 'artwork' ? 'theme-color' : 'button-color text-white'">{{ thousand(counter.artwork) }}</span>
+            <span
+              class="px-1 ml-2 font-normal rounded"
+              :class="activeType === POST_TYPES.ARTWORK ? 'theme-color' : 'button-color text-white'"
+            >{{ thousand(counter.artwork) }}</span>
           </div>
           <!-- <div 
             class="primary-button theme-color-secondary"
@@ -29,15 +35,24 @@
         </div>
 
         <div v-if="auth.loggedIn && auth.user.id === userId">
-          <div class="flex flex-row icon-button" @click="isCanCreateCollection ? openModal('collection-form-modal') : null">
+          <div
+            class="flex flex-row icon-button"
+            @click="isCanCreateCollection ? openModal('collection-form-modal') : null"
+          >
             <Icon :name="'i-ion-add-outline'" />
-            <ProBadge v-if="!isCanCreateCollection" class="ml-1" />
+            <ProBadge
+              v-if="!isCanCreateCollection"
+              class="ml-1"
+            />
           </div>
         </div>
       </div>
 
       <!-- back button from collection list view -->
-      <div v-if="selectedCollection" class="flex flex-row justify-between">
+      <div
+        v-if="selectedCollection"
+        class="flex flex-row justify-between"
+      >
         <!-- left side -->
         <div>
           <div 
@@ -51,7 +66,10 @@
         <!-- right side -->
         <div class="flex flex-row">
           <!-- manage items -->
-          <div v-show="auth.loggedIn && (auth.user.id === userId) && config.showManageButton" class="flex flex-row gap-2">
+          <div
+            v-show="auth.loggedIn && (auth.user.id === userId) && config.showManageButton"
+            class="flex flex-row gap-2"
+          >
             <button
               :class="[
                 'action-button',
@@ -68,22 +86,31 @@
             </button>
             <button 
               v-show="config.manageMode"
-              @click="selectedItems.length > 0 ? openModal('item-deletion-confirm-modal') : null"
               :class="[
                 'flex flex-row',
                 selectedItems.length > 0 ? 'danger-button' : 'disabled-button cursor-not-allowed'
               ]"
+              @click="selectedItems.length > 0 ? openModal('item-deletion-confirm-modal') : null"
             >
               <Icon :name="'i-akar-icons-trash-bin'" />
               {{ $t('collections.removeSelected') }}
             </button>
           </div>
 
-          <div v-show="auth.loggedIn && (auth.user.id === userId) && !config.manageMode" class="flex flex-row gap-2">
-            <button class="icon-button" @click="editCollection()">
+          <div
+            v-show="auth.loggedIn && (auth.user.id === userId) && !config.manageMode"
+            class="flex flex-row gap-2"
+          >
+            <button
+              class="icon-button"
+              @click="editCollection()"
+            >
               <Icon :name="'i-ph-gear-six'" />
             </button>
-            <button class="danger-button-color b-button" @click="openModal('collection-deletion-confirm-modal')">
+            <button
+              class="danger-button-color b-button"
+              @click="openModal('collection-deletion-confirm-modal')"
+            >
               <Icon :name="'i-akar-icons-trash-bin'" />
             </button>
           </div>
@@ -91,13 +118,19 @@
       </div>
 
       <!-- manage mode message -->
-      <div v-show="config.manageMode" class="p-2 mt-4 text-black bg-yellow-200 rounded-md">
+      <div
+        v-show="config.manageMode"
+        class="p-2 mt-4 text-black bg-yellow-200 rounded-md"
+      >
         {{ $t('collections.manageModeActiveMessage') }}
       </div>
     </div>
 
     <!-- content -->
-    <div v-if="!selectedCollection" class="grid grid-cols-2 gap-4 sm:grid-cols-4">
+    <div
+      v-if="!selectedCollection"
+      class="grid grid-cols-2 gap-4 sm:grid-cols-4"
+    >
       <div
         v-for="collection in collections"
         :key="collection.id"
@@ -107,18 +140,26 @@
       >
         <!-- if selected collection type is an artwork -->
         <ArtworkThumbnail
-          v-if="collection.type === 'artwork'"
+          v-if="collection.type === POST_TYPES.ARTWORK"
           :collection="collection"
         />
         
         <div class="flex flex-row pb-1 mt-4 font-bold">
-          <Icon v-if="!collection.is_public" :name="'i-radix-icons-lock-closed'" class="mr-2 cursor-default" />
+          <Icon
+            v-if="!collection.is_public"
+            :name="'i-radix-icons-lock-closed'"
+            class="mr-2 cursor-default"
+          />
           <span class="text-xs font-normal">{{ collection.name }}</span>
         </div>
       </div>
     </div>
 
-    <div v-if="config.showLoadMore && !selectedCollection" class="mt-4 w-full primary-button" @click="loadMore">
+    <div
+      v-if="config.showLoadMore && !selectedCollection"
+      class="mt-4 w-full primary-button"
+      @click="loadMore"
+    >
       {{ $t('loadMore') }}
     </div>
 
@@ -204,6 +245,7 @@ import ProBadge from '~/components/globals/ProBadge.vue'
 
 // composables
 import useCollection from '~/composables/users/useCollection'
+import { POST_TYPES } from '~/utils/constants'
 
 const auth = useAuthStore()
 
@@ -227,7 +269,7 @@ onBeforeMount (() => {
 })
 
 const loading = ref(true)
-const activeType = ref('artwork')
+const activeType = ref(POST_TYPES.ARTWORK)
 const selectedCollection = ref(0)
 
 // free user collection creation limitation

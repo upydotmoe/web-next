@@ -6,9 +6,15 @@
         <div class="title hidden-md-flex">
           {{ title }}
         </div>
-        <nuxt-link :to="discoverRoute" class="flex flex-row justify-between title md:hidden">
+        <nuxt-link
+          :to="discoverRoute"
+          class="flex flex-row justify-between title md:hidden"
+        >
           {{ title }}
-          <Icon :name="'i-fluent-arrow-enter-20-filled'" class="text-xl text-colored" />
+          <Icon
+            :name="'i-fluent-arrow-enter-20-filled'"
+            class="text-xl text-colored"
+          />
         </nuxt-link>
 
         <div class="buttons">
@@ -37,12 +43,18 @@
               :class="[explicitMode === 'explicit' ? 'button' : 'theme-color']"
               @click="changeExplicitMode('explicit')"
             >
-              <Icon :name="'i-material-symbols-explicit-outline'" :class="{ 'text-white': explicitMode === 'explicit' }" />
+              <Icon
+                :name="'i-material-symbols-explicit-outline'"
+                :class="{ 'text-white': explicitMode === 'explicit' }"
+              />
               {{ $t('explicit') }}
             </p>
           </div>
           <div class="hidden-md-flex">
-            <nuxt-link class="discover-button" :to="discoverRoute">
+            <nuxt-link
+              class="discover-button"
+              :to="discoverRoute"
+            >
               {{ $t('seeMore') }}
             </nuxt-link>
           </div>
@@ -83,7 +95,10 @@
             :to="'/artworks/' + section"
             class="w-full primary-button"
           >
-            <Icon :name="'i-fluent-arrow-enter-20-filled'" class="mr-1 text-white hover:text-white" />
+            <Icon
+              :name="'i-fluent-arrow-enter-20-filled'"
+              class="mr-1 text-white hover:text-white"
+            />
             {{ $t('seeMore') }}
           </nuxt-link>
         </div>
