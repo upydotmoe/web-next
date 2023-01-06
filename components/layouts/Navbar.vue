@@ -183,7 +183,7 @@
           <!-- user logged in -->
           <div
             v-if="auth.loggedIn"
-            class="ml-4 profile dropdown"
+            class="z-50 ml-4 profile dropdown"
           >
             <button
               class="thumbnail"

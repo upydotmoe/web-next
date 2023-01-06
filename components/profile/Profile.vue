@@ -581,7 +581,7 @@
               <FollowerList
                 v-if="!loading"
                 :user-id="userInfo.id"
-                :hide="auth.loggedIn ? (userInfo.id !== auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_follower_list"
+                :hide="auth.loggedIn ? (userInfo.id === auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_follower_list"
                 :user-hide-follower-list-status="!!userInfo.user_settings.hide_follower_list"
               />
             </div>
@@ -591,7 +591,7 @@
               <FollowingList
                 v-if="!loading"
                 :user-id="userInfo.id"
-                :hide="auth.loggedIn ? (userInfo.id !== auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_following_list"
+                :hide="isHideFollowingList"
                 :user-hide-following-list-status="!!userInfo.user_settings.hide_following_list"
               />
             </div>
@@ -726,6 +726,12 @@ const followingData = ref({
   isPrivate: false,
   followingSince: ''
 })
+const isHideFollowingList = computed(() => {
+  const proHide = userInfo.value.is_pro && userInfo.value.user_settings.hide_following_list
+
+  return ((!auth.loggedIn && proHide) || (auth.loggedIn && auth.user.id !== userInfo.value.id && proHide))
+})
+console.log('is hide following list:', isHideFollowingList.value)
 const fetchUserInfo = async () => {
   loading.value = true
 
@@ -852,8 +858,7 @@ const visitExternalWebsite = () => {
 @import '~/assets/css/tailwind.scss';
 
 .avatar {
-  @apply object-cover rounded-md shadow-lg;
-  aspect-ratio: 1/1;
+  @apply shadow-lg shadow-gray-300;
 }
 
 .profile-navigation {

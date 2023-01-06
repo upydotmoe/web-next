@@ -291,7 +291,11 @@
                         'p-2',
                         { 'cursor-pointer': !feed.apply_explicit_filter || feed.apply_gore_filter }
                       ]"
-                      @click.prevent="view(feed.artwork_share_info.id, feed.apply_explicit_filter ? feed.apply_gore_filter : feed.apply_explicit_filter, feedIdx)"
+                      @click.prevent="view(
+                        feed.artwork_share_info.id,
+                        feed.apply_gore_filter ? feed.apply_gore_filter : feed.apply_explicit_filter,
+                        feedIdx
+                      )"
                     >
                       <div
                         :class="[
@@ -491,7 +495,7 @@
             <div class="loading-empty-error-message">
               <Icon
                 :name="'i-line-md-loading-twotone-loop'"
-                class="text-3xl"
+                :text-size="'text-3xl'"
               />
               <div class="justify-center mt-2 text-tiny hidden-md-flex">
                 Currently making magic..
@@ -558,7 +562,7 @@
     <template #right-side>
       <FeedSide />
       <!-- suggested users -->
-      <div v-if="feeds.length">
+      <div v-if="feeds.length && suggestedUsersToFollow.length">
         <div class="title">
           {{ $t('feeds.suggestedUsers') }}
         </div>

@@ -8,7 +8,7 @@
     <div id="lists">
       <div
         id="options"
-        class="md:z-20 md:sticky md:top-0"
+        class="md:z-10 md:sticky md:top-0"
       >
         <!-- Top navigations -->
         <div class="navigations">

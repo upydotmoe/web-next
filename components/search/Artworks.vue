@@ -2,7 +2,7 @@
   <div>
     <div
       id="options"
-      class="md:z-20 md:sticky md:top-0"
+      class="md:z-10 md:sticky md:top-0"
     >
       <div class="navigations">
         <div class="title">

@@ -19,20 +19,26 @@
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
-        href="https://github.com/upydotmoe"
+        href="https://github.com/upyapp"
       >Github</a>
-    </span>
-    <span class="mx-3 hover:underline">
-      <a
-        target="_blank"
-        href="https://instagram.com/upy.moe"
-      >Instagram</a>
     </span>
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
         href="https://twitter.com/messages/compose?recipient_id=xxx"
       >Contact Us</a>
+    </span>
+    <span class="mx-3 hover:underline">
+      <a
+        target="_blank"
+        href="https://upy.betteruptime.com/"
+      >Server Status</a>
+    </span>
+    <span class="mx-3 hover:underline">
+      <a
+        target="_blank"
+        href="https://github.com/sponsors/upyapp"
+      >Sponsor</a>
     </span>
     <span class="mx-3 hover:underline">
       <nuxt-link :to="'/support-us'">{{ $t('supportUs') }}</nuxt-link>

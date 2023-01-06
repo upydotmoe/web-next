@@ -330,7 +330,7 @@
         <div class="loading-empty-error-message">
           <Icon
             :name="'i-line-md-loading-twotone-loop'"
-            class="text-3xl"
+            :text-size="'text-3xl'"
           />
           <div class="mt-2 text-tiny">
             Currently making magic..
