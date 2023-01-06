@@ -126,6 +126,7 @@
     "haventPostedAnyUpdate": "This user hasn't posted any update yet",
     "form": {
       "title": "Post Feed Update",
+      "feed": "Feed",
       "posted": "Feed update successfully posted!",
       "posting": "Posting..",
       "postingYourUpdate": "Posting your update",
@@ -214,7 +215,8 @@
     "backToProfile": "Back to Profile",
     "profile": "Profile",
     "social": "Social",
-    "password": "Password"
+    "password": "Password",
+    "security": "Security"
   },
   "report": "Report",
   "reports": {
@@ -403,10 +405,11 @@
         "chooseCountry": "Choose a Country",
         "city": "City",
         "chooseCity": "Choose a City",
+        "profileUpdated": "Profile successfully updated!",
         "username": "Username",
         "changeUsername": "Change username",
         "changingYourUsername": "Changing your username..",
-        "usernameChanged": "Username changed!",
+        "usernameChanged": "Username successfully changed!",
         "penName": "Pen Name",
         "usernameTaken": "Username is taken",
         "penNameTaken": "Pen Name is taken",
@@ -417,10 +420,12 @@
         "chooseNewAvatar": "Choose new avatar",
         "fileTooLarge": "File too large",
         "avatarMaxAllowedFileSize": "Max allowed size is 500 Kb",
+        "avatarChanged": "Avatar succesfully changed!",
         "cover": "Cover",
         "changeCover": "Change cover",
         "chooseNewCover": "Choose new cover",
         "coverMaxAllowedFileSize": "Max allowed size is 500 Kb",
+        "coverChanged": "Cover successfully changed!",
         "password": {
           "currentPasswordLabel": "Input your current password to verify that you are the account owner.",
           "currentPassword": "Current Password",

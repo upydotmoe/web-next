@@ -38,7 +38,10 @@ export default function() {
       
       const fieldName = nValidate.getAttribute('for')
       
-      const input = nValidate.getElementsByTagName('input')[0]
+      let input = nValidate.getElementsByTagName('input')[0]
+      if (!input) {
+        input = nValidate.getElementsByTagName('textarea')[0]
+      }
 
       const rulesAttribute = input.getAttribute('rules')
 

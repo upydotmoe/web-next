@@ -47,7 +47,7 @@
 import Spinner from '~/components/globals/Spinner.vue'
 import Icon from './Icon.vue'
 
-defineProps ({
+defineProps({
   loading: {
     type: Boolean,
     default: false

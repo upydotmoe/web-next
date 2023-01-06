@@ -92,6 +92,7 @@ form {
 */
 .filepond--root, .filepond--hopper, .filepond--panel, .filepond--panel-root {
   @apply rounded-md;
+  margin-bottom: 0px !important;
 }
 
 .filepond--panel .filepond--panel-root {

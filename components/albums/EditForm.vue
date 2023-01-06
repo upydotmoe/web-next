@@ -1,16 +1,21 @@
 <template>
   <div>
     <div class="w-full modal-layer xl:w-1/4 lg:w-2/5">
-      <div>
-        <span class="title">{{ $t('albums.edit.form.title') }}</span>
+      <section id="update-album-form">
+        <h2 class="title">
+          {{ $t('albums.edit.form.title') }}
+        </h2>
 
-        <form 
+        <form
           v-if="!loading"
           :id="formId"
-          class="mt-2"
-          @submit.prevent="save(formId)"
+          @submit.prevent="save()"
         >
-          <!-- title input -->
+          <ErrorMessage
+            :is-error="error.isError"
+            :error-message="error.message"
+          />
+
           <n-validate 
             for="title" 
             :name="$t('title')"
@@ -18,21 +23,24 @@
             <input 
               v-model="inputData.name"
               type="text"
-              class="form-input theme-color-secondary"
               rules="required"
               :placeholder="$t('title')"
             >
           </n-validate>
 
-          <!-- description input -->
-          <textarea
-            v-model="inputData.description"
-            class="form-input theme-color-secondary"
-            :placeholder="$t('description')"
-            data-gramm="false"
-          />
+          <n-validate
+            for="description"
+            :name="$t('description')"
+          >
+            <textarea
+              v-model="inputData.description"
+              :placeholder="$t('description')"
+              rules=""
+              data-gramm="false"
+            />
+          </n-validate>
 
-          <!-- is public radio button -->
+          <!-- album privacy -->
           <label
             :for="inputData.isPublic ? 'checked' : 'unchecked'"
             class="inline-flex items-center"
@@ -79,27 +87,27 @@
             </div>
           </label>
 
-          <div class="flex flex-row gap-2 justify-end mt-2">
+          <div class="buttons">
             <button
-              class="cancel-button"
+              class="cancel"
               @click.prevent="closeModal(modalId)"
             >
               {{ $t('cancel') }}
             </button>
             <button
               type="submit"
-              class="primary-button"
+              class="submit"
             >
               {{ $t('save') }}
             </button>
           </div>
         </form>
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 
 // stores
@@ -110,6 +118,7 @@ import useAlbum from '~/composables/users/useAlbum'
 
 // components
 import ProBadge from '~/components/globals/ProBadge.vue'
+import ErrorMessage from '~/components/auth/forms/ErrorMessage.vue'
 
 // stores
 const auth = useAuthStore()
@@ -120,8 +129,8 @@ const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
-const emits = defineEmits ('updated')
-const props = defineProps ({
+const emits = defineEmits(['updated'])
+const props = defineProps({
   albumId: {
     type: Number,
     default: 0
@@ -134,7 +143,7 @@ const props = defineProps ({
 
 const loading = ref(true)
 
-const fetch = async (albumId) => {
+const fetch = async (albumId: number) => {
   if (albumId) {
     reset()
     loading.value = true
@@ -157,21 +166,26 @@ const inputData = ref({
   id: 0,
   name: '',
   description: '',
-  isPublic: false
+  isPublic: true
 })
+
 const save = async () => {
-  // validate input before going to the next step
+  hideError()
   useValidator().validate(formId, t)
 
-  const [success, error] = await albumApi.update({
+  const [success, apiError] = await albumApi.update({
     id: inputData.value.id,
     name: inputData.value.name,
     description: inputData.value.description,
-    isPublic: inputData.value.isPublic ? 1 : 0
+    isPublic: inputData.value.isPublic
   })
 
-  if (error) {
-    // todo: handle error
+  if (apiError) {
+    console.log('api error:', apiError)
+    error.value = {
+      isError: true,
+      message: apiError
+    }
   } else {
     useModal().closeModal(props.modalId)
     emits('updated', inputData.value)
@@ -180,19 +194,34 @@ const save = async () => {
   }
 }
 
+const error = ref({
+  isError: false,
+  message: ''
+})
+const hideError = () => {
+  error.value = {
+    isError: false,
+    message: ''
+  }
+}
+
 const reset = () => {
   inputData.value = {
     id: 0,
     name: '',
     description: '',
-    isPublic: 0
+    isPublic: true
   }
 }
 
-/**
- * @expose
- */
+// expose functions
 defineExpose({
   fetch
 })
 </script>
+
+<style scoped>
+input, textarea {
+  @apply theme-color-secondary;
+}
+</style>

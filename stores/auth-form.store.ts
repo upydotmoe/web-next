@@ -5,7 +5,7 @@ export default defineStore('auth-form', () => {
   const showRegistration = ref(false)
   const showAccountRecovery = ref(false)
 
-  const loginErr = ref(false)
+  // const loginErr = ref(false)
   const registerAlert = ref(false)
   const accountRecoveryErr = ref(false)
 
@@ -29,7 +29,7 @@ export default defineStore('auth-form', () => {
     showLogin.value = true
     showRegistration.value = false
     showAccountRecovery.value = false
-    loginErr.value = false
+    // loginErr.value = false
     registerAlert.value = false
     accountRecoveryErr.value = false
     showRegistrationSuccessDialog.value = false
@@ -37,14 +37,14 @@ export default defineStore('auth-form', () => {
   }
 
   // errors
-  const triggerLoginErr = () => {
-    loginErr.value = true
-  }
+  // const triggerLoginErr = () => {
+  //   loginErr.value = true
+  // }
   const triggerRegisterAlert = () => {
     registerAlert.value = true
   }
   const resetErr = () => {
-    loginErr.value = false
+    // loginErr.value = false
     registerAlert.value = false
     accountRecoveryErr.value = false
     showRegistrationSuccessDialog.value = false
@@ -70,7 +70,7 @@ export default defineStore('auth-form', () => {
     showLogin,
     showRegistration,
     showAccountRecovery,
-    loginErr,
+    // loginErr,
     registerAlert,
     accountRecoveryErr,
     showRegistrationSuccessDialog,
@@ -80,7 +80,7 @@ export default defineStore('auth-form', () => {
     toggleRegistrationForm,
     toggleAccountRecovery,
     reset,
-    triggerLoginErr,
+    // triggerLoginErr,
     triggerRegisterAlert,
     resetErr,
     toggleSuccessDialog,

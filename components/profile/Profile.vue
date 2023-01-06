@@ -668,8 +668,8 @@ const album = useAlbum(oApiConfiguration, fetchOptions())
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emit = defineEmits (['setMeta'])
-const props = defineProps ({
+const emit = defineEmits(['setMeta'])
+const props = defineProps({
   id: {
     type: Number,
     default: 0

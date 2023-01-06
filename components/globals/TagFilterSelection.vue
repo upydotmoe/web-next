@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-const emits = defineEmits (['apply'])
+const emits = defineEmits(['apply'])
 
 const rConfig = useRuntimeConfig()
 const apiUrl = rConfig.public.apiUrl

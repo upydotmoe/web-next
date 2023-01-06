@@ -4,9 +4,9 @@
     :with-footer="true"
     :no-right-side="true"
   >
-    <div class="flex flex-row w-full">
+    <div class="flex flex-row gap-4 w-full md:gap-6">
       <!-- tabs -->
-      <div class="mr-2 md:mr-4 lg:w-1/5">
+      <div class="lg:w-1/5">
         <nuxt-link
           :to="'/profile'"
           class="mb-6 w-full light-bordered-button"
@@ -73,7 +73,7 @@
             class="text-lg lg:mr-2 hover:text-white"
           />
 
-          <span class="hidden-lg-flex">{{ $t('settings.password') }}</span>
+          <span class="hidden-lg-flex">{{ $t('settings.security') }}</span>
         </div>
 
         <div
@@ -97,23 +97,26 @@
       </div>
 
       <!-- content -->
-      <div class="w-full">
-        <Information
+      <section
+        id="setting-content"
+        class="w-full"
+      >
+        <ProfileInformationSetting
           v-if="config.currentState === 'profile'"
         />
 
-        <Social
+        <ProfileSocialSetting
           v-if="config.currentState === 'social'"
         />
 
-        <Settings
+        <ProfileSettings
           v-if="config.currentState === 'settings'"
         />
 
-        <Password
+        <ProfileSecuritySetting
           v-if="config.currentState === 'password'"
         />
-      </div>
+      </section>
     </div>
   </Layout>
 </template>
@@ -124,16 +127,14 @@ import { useI18n } from 'vue-i18n'
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
-import Information from '~/components/profile/settings/Information.vue'
-import Social from '~/components/profile/settings/Social.vue'
-import Settings from '~/components/profile/settings/Settings.vue'
-import Password from '~/components/profile/settings/Password.vue'
+import ProfileInformationSetting from '~/components/profile/settings/ProfileInformationSetting.vue'
+import ProfileSocialSetting from '~/components/profile/settings/ProfileSocialSetting.vue'
+import ProfileSettings from '~/components/profile/settings/ProfileSettings.vue'
+import ProfileSecuritySetting from '~/components/profile/settings/ProfileSecuritySetting.vue'
 
 const { t } = useI18n()
 
-/**
- * @meta
- */
+// define page meta
 const metaTitle = ref(t('meta.title.profile.profile'))
 useHead({
   title: computed(() => metaTitle.value)

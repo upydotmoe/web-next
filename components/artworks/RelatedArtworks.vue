@@ -40,7 +40,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const props = defineProps ({
+const props = defineProps({
   workId: {
     type: Number,
     default: 0

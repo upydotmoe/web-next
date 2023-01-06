@@ -564,7 +564,7 @@
           v-if="artworkDetail.allow_redraw || (artworkRedraws.data && artworkRedraws.data.length)"
           class="flex flex-col gap-4"
         >
-          <span class="section-title">
+          <span class="title">
             {{ $t('artworks.redraws') }} 
             ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
           </span>
@@ -1079,7 +1079,7 @@
 
     <!-- related artworks -->
     <div class="mt-4 w-full">
-      <div class="section-title">
+      <div class="title">
         Similar Artworks
       </div>
 
@@ -1200,7 +1200,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
 const emit = defineEmits(['setMeta', 'stopLoading', 'showEmpty', 'showError'])
-const props = defineProps ({
+const props = defineProps({
   id: {
     type: Number,
     default: 0

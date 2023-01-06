@@ -11,34 +11,7 @@
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
   }
 
-  // .readex {
-  //   font-family: 'Readex Pro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-  // }
-
-  // .quicksand {
-  //   font-family: 'Quicksand', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-  // }
-
-  // .nunito {
-  //   font-family: 'Nunito', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
-  // }
-  
-  html {
-    scroll-behavior: smooth;
-    -webkit-touch-callout: none;
-    // -webkit-user-select: none;
-    // -khtml-user-select: none;
-    // -moz-user-select: none;
-    // -ms-user-select: none;
-    // user-select: none;
-  }
-  
-  body {
-    @apply p-0 m-0 h-screen antialiased;
-    background: var(--bg);
-    color: var(--theme-text-color)
-  }
-
+  // scrollbar style
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -69,29 +42,73 @@
   ::-webkit-scrollbar-corner {
     @apply bg-transparent;
   }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-touch-callout: none;
+    // -webkit-user-select: none;
+    // -khtml-user-select: none;
+    // -moz-user-select: none;
+    // -ms-user-select: none;
+    // user-select: none;
+  }
+  
+  body {
+    @apply p-0 m-0 h-screen antialiased;
+    background: var(--bg);
+    color: var(--theme-text-color)
+  }
 
-  input {
-    @apply text-xs focus:ring-transparent;
+  section {
+    @apply flex flex-col gap-2;
+  }
+  
+  form {
+    @apply flex flex-col gap-2 w-full;
+
+    n-validate {
+      label {
+        @apply inline-block mt-2 mb-2 title-tiny;
+      }
+
+      input, textarea {
+        @apply p-3 w-full text-xs rounded border-none focus:ring-transparent input-bg focus:outline-none;
+      }
+
+      .input-error {
+        @apply -mt-3 bg-red-500 input-alert;
+      }
+    }
+
+    input[type=submit] {
+      @apply mt-2 w-full primary-button;
+    }
+
+    .buttons {
+      @apply flex flex-row gap-2 justify-between md:justify-end;
+
+      .reset {
+        @apply flex flex-row w-full light-button md:w-auto;
+      }
+
+      .cancel {
+        @apply flex flex-row w-full cancel-button md:w-auto;
+      }
+
+      .submit {
+        @apply flex flex-row gap-2 w-full md:w-auto primary-button;
+      }
+    }
+  }
+
+  input, textarea {
+    @apply focus:outline-none;
   }
 
   p {
     a {
       @apply href;
     }
-  }
-  
-  form {
-    .input-block {
-      @apply mb-2;
-
-      .field {
-        @apply mt-2;
-      }
-    }
-  }
-
-  .flatpickr-current-month {
-    font-size: 8px !important;
   }
 }
 
@@ -209,7 +226,7 @@
   }
 
   .icon {
-    // @apply text-base;
+    @apply cursor-pointer;
   }
   .icon-color {
     color: var(--icon);
@@ -238,11 +255,10 @@
   }
 
   .title {
-    @apply font-bold text-tiny;
-  }
-
-  .section-title {
     @apply text-base font-bold;
+  }
+  .title-tiny {
+    @apply font-semibold text-tiny;
   }
 
   .b-button {
@@ -308,10 +324,6 @@
     .icon {
       @apply mr-2;
     }
-  }
-
-  .success-button-close {
-    @apply font-bold border-2 border-green-400 b-button theme-color hover:bg-green-400 hover:text-white;
   }
 
   .disabled-button {
@@ -380,9 +392,6 @@
   .input-alert {
     @apply px-3 pt-5 pb-2 mb-2 -mt-5 w-full text-white rounded-b border-none;
   }
-  .input-error {
-    @apply bg-red-500 input-alert;
-  }
   .input-success {
     @apply bg-green-500 input-alert;
   }
@@ -398,10 +407,6 @@
   /** Loading, empty or error occured */
   .loading-empty-error-message {
     @apply p-4 w-full text-center rounded-md;
-  }
-
-  .error-message {
-    @apply p-2 mb-2 w-full text-white bg-red-500 rounded-md;
   }
 
   .login-button {
@@ -612,6 +617,7 @@
   // vue tags-input custom
   .tags-input {
     @apply form-input theme-color;
+    margin-bottom: 0px !important;
 
     .tags-input-badge-pill {
       @apply my-1 rounded theme-color-secondary;

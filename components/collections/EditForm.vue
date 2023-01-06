@@ -5,35 +5,44 @@
       @click="fetch(0)"
     />
     <div class="w-full modal-layer xl:w-1/4 lg:w-2/5">
-      <div>
+      <section id="update-collection-form">
         <span class="title">{{ $t('collections.edit.form.title') }}</span>
 
         <form
           v-if="!loading"
           :id="formId"
-          class="mt-2"
           @submit.prevent="save(formId)"
         >
-          <!-- title input -->
-          <n-validate>
+          <ErrorMessage
+            :is-error="error.isError"
+            :error-message="error.message"
+          />
+
+          <n-validate
+            for="title"
+            :name="$t('title')"
+          >
             <input 
               v-model="inputData.name"
               type="text"
-              class="form-input theme-color-secondary"
               rules="required"
               :placeholder="$t('title')"
             >
           </n-validate>
 
-          <!-- description input -->
-          <textarea
-            v-model="inputData.description"
-            class="form-input theme-color-secondary"
-            :placeholder="$t('description')"
-            data-gramm="false"
-          />
+          <n-validate
+            for="description"
+            :name="$t('description')"
+          >
+            <textarea
+              v-model="inputData.description"
+              :placeholder="$t('description')"
+              rules=""
+              data-gramm="false"
+            />
+          </n-validate>
 
-          <!-- is public radio button -->
+          <!-- privacy -->
           <label
             :for="inputData.isPublic ? 'checked' : 'unchecked'"
             class="inline-flex items-center"
@@ -80,22 +89,22 @@
             </div>
           </label>
 
-          <div class="flex flex-row gap-2 justify-end mt-2">
+          <div class="buttons">
             <button
-              class="cancel-button"
+              class="cancel"
               @click.prevent="closeModal(modalId)"
             >
               {{ $t('cancel') }}
             </button>
             <button
               type="submit"
-              class="primary-button"
+              class="submit"
             >
               {{ $t('save') }}
             </button>
           </div>
         </form>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -110,6 +119,9 @@ import useAuthStore from '~/stores/auth.store'
 import useCollection from '~/composables/users/useCollection'
 import ProBadge from '~/components/globals/ProBadge.vue'
 
+// components
+import ErrorMessage from '~/components/auth/forms/ErrorMessage.vue'
+
 // stores
 const auth = useAuthStore()
 
@@ -119,8 +131,8 @@ const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
-const emits = defineEmits ('updated')
-const props = defineProps ({
+const emits = defineEmits(['updated'])
+const props = defineProps({
   collectionId: {
     type: Number,
     default: 0
@@ -160,20 +172,24 @@ const inputData = ref({
   id: 0,
   name: '',
   description: '',
-  isPublic: false
+  isPublic: true
 })
 const save = async () => {
+  hideError()
   useValidator().validate(formId, t)
 
-  const [success, error] = await collectionApi.update({
+  const [success, apiError] = await collectionApi.update({
     id: inputData.value.id,
     name: inputData.value.name,
     description: inputData.value.description,
     isPublic: inputData.value.isPublic ? 1 : 0
   })
 
-  if (error) {
-    // todo: handle error
+  if (apiError) {
+    error.value = {
+      isError: true,
+      message: apiError
+    }
   } else {
     useModal().closeModal(props.modalId)
     emits('updated', inputData.value)
@@ -182,19 +198,34 @@ const save = async () => {
   }
 }
 
+const error = ref({
+  isError: false,
+  message: ''
+})
+const hideError = () => {
+  error.value = {
+    isError: false,
+    message: ''
+  }
+}
+
 const reset = () => {
   inputData.value = {
     id: 0,
     name: '',
     description: '',
-    isPublic: 0
+    isPublic: true
   }
 }
 
-/**
- * @expose
- */
+// expose functions
 defineExpose ({
   fetch
 })
 </script>
+
+<style scoped>
+input, textarea {
+  @apply theme-color-secondary;
+}
+</style>

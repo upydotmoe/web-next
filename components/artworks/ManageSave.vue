@@ -164,8 +164,8 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits (['save'])
-const props = defineProps ({
+const emits = defineEmits(['save'])
+const props = defineProps({
   modalId: {
     type: String,
     default: 'collection-selection-modal'
@@ -398,9 +398,7 @@ const cancel = () => {
   clear()
 }
 
-/**
- * @expose
- */
+// expose functions
 defineExpose ({
   fetchCollection,
   fetchCurrentSaved

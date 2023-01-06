@@ -407,7 +407,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 const { generateArtworkThumb } = useUpyImage()
 
-const props = defineProps ({
+const props = defineProps({
   userId: {
     type: Number,
     default: 0

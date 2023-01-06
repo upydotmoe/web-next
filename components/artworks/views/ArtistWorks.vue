@@ -69,7 +69,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 /**
  * @props
  */
-const props = defineProps ({
+const props = defineProps({
   artworkDetail: {
     type: Object,
     default() {

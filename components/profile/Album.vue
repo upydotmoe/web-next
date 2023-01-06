@@ -254,7 +254,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
-const props = defineProps ({
+const props = defineProps({
   userId: {
     type: Number,
     default: 0

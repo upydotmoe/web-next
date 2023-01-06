@@ -160,7 +160,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const props = defineProps ({
+const props = defineProps({
   users: {
     type: Array,
     default: () => {}

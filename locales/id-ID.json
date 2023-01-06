@@ -214,7 +214,8 @@
     "backToProfile": "Kembali ke Profil",
     "profile": "Profil",
     "social": "Sosial",
-    "password": "Kata Sandi"
+    "password": "Kata Sandi",
+    "security": "Keamanan"
   },
   "report": "Laporkan",
   "reports": {
@@ -403,10 +404,11 @@
         "chooseCountry": "Pilih Negara",
         "city": "Kota",
         "chooseCity": "Pilih Kota",
+        "profileUpdated": "Profil berhasil diubah!",
         "username": "Username",
         "changeUsername": "Ubah username",
         "changingYourUsername": "Mengubah usernamemu..",
-        "usernameChanged": "Username berhasil dirubah!",
+        "usernameChanged": "Username berhasil diubah!",
         "penName": "Nama Pena",
         "usernameTaken": "Username sudah terpakai",
         "penNameTaken": "Nama pensil sudah terpakai",
@@ -417,15 +419,17 @@
         "chooseNewAvatar": "Pilih avatar baru",
         "fileTooLarge": "File terlalu besar",
         "avatarMaxAllowedFileSize": "Maksimal ukuran file yang diperbolehkan adalah 5MB",
+        "avatarChanged": "Avatar berhasil diubah!",
         "cover": "Cover",
         "changeCover": "Ubah cover",
         "chooseNewCover": "Pilih cover baru",
         "coverMaxAllowedFileSize": "Maksimal ukuran file yang diperbolehkan adalah 5MB",
+        "coverChanged": "Cover berhasil diubah!",
         "password": {
           "currentPasswordLabel": "Masukan kata sandimu yang sekarang untuk memverifikasi bahwa kamu adalah pemilik akun.",
           "currentPassword": "Kata Sandi Sekarang",
           "newPassword": "Kata Sandi Baru",
-          "success": "Password berhasil dirubah! Sekarang kamu dapat login menggunakan password barumu."
+          "success": "Password berhasil diubah! Sekarang kamu dapat login menggunakan password barumu."
         },
         "socials": {
           "facebook": "Facebook",

@@ -195,7 +195,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits (['refresh'])
+const emits = defineEmits(['refresh'])
 
 /**
  * @detail
@@ -253,9 +253,7 @@ const submitDecision = async () => {
  * @decisionForm
  */
 
-/**
- * @expose
- */
+// expose functions
 defineExpose ({
   view
 })

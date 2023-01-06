@@ -25,17 +25,12 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'dns-prefetch', href: `//${process.env.BUNNY_CDN_URL}` },
         { rel: 'dns-prefetch', href: `//${process.env.CDN_DOMAIN}` },
-        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/themes/airbnb.min.css' },
-        { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
+        // { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
       ],
       script: [
         {
           type: 'module',
           src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js',
-          body: true
-        },
-        { 
-          src: 'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js',
           body: true
         },
         {
@@ -46,7 +41,7 @@ export default defineNuxtConfig({
           async: 'true',
           'data-website-id': 'a41fcb1f-d44e-447a-abcc-33468b840da8'
         },
-        { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
+        // { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
       ]
     },
   },
@@ -114,8 +109,7 @@ export default defineNuxtConfig({
     '~/plugins/auth-modal.client.js',
     '~/plugins/work-modal.client.js',
     '~/plugins/image-viewer.client.js',
-    '~/plugins/auto-animate.js',
-    // '~/plugins/flowbite.js'
+    '~/plugins/auto-animate.js'
   ],
 
   build: {
@@ -126,7 +120,7 @@ export default defineNuxtConfig({
 
   vue: {
     compilerOptions: {
-      isCustomElement: tag => ['ion-icon', 'n-validate'].includes(tag)
+      isCustomElement: tag => ['ion-icon', 'n-validate', 'title'].includes(tag)
     }
   },
 

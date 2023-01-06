@@ -173,7 +173,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const notificationApi = useNotification(oApiConfiguration, fetchOptions())
 
-const props = defineProps ({
+const props = defineProps({
   isNavbar: {
     type: Boolean,
     default: false

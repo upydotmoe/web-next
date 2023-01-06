@@ -249,7 +249,7 @@ import { POST_TYPES } from '~/utils/constants'
 
 const auth = useAuthStore()
 
-const props = defineProps ({
+const props = defineProps({
   userId: {
     type: Number,
     default: 0

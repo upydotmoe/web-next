@@ -64,7 +64,7 @@
 import VueTagsInput from '@sipec/vue3-tags-input'
 import axios from 'axios';
 
-const emits = defineEmits (['apply'])
+const emits = defineEmits(['apply'])
 
 const rConfig = useRuntimeConfig()
 const apiUrl = rConfig.public.apiUrl

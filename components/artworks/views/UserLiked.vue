@@ -88,7 +88,7 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 /**
  * @props
  */
-const props = defineProps ({
+const props = defineProps({
   modalId: {
     type: String,
     default: 'user-liked-modal'

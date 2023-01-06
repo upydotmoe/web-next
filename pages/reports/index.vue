@@ -404,7 +404,7 @@ const viewReportDetail = (reportId) => {
   @apply w-full;
 
   .reports__title {
-    @apply section-title;
+    @apply title;
   }
 
   .reports__filters {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex flex-row justify-between">
-      <div class="section-title">
+      <div class="title">
         {{ $t('followings.followings') }}
       </div>
 
@@ -116,7 +116,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const props = defineProps ({
+const props = defineProps({
   userId: {
     type: Number,
     default: 0

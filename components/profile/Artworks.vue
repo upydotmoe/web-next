@@ -53,8 +53,8 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits (['feedSelectedItems', 'onEmpty'])
-const props = defineProps ({
+const emits = defineEmits(['feedSelectedItems', 'onEmpty'])
+const props = defineProps({
   userId: {
     type: Number,
     default: 0

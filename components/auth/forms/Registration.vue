@@ -3,94 +3,87 @@
     v-show="showForm"
     class="w-full"
   >
-    <div
-      v-if="registerAlert.active"
-      class="p-2 mb-2 w-full text-white bg-red-500 rounded-md"
-    >
-      {{ registerAlert.message }}
-    </div>
-
-    <form
-      v-show="!showRegistrationSuccessDialog"
-      :id="formId"
-      @submit.prevent="proceed(formId)"
-    >
-      <n-validate 
-        for="email"
-        :name="$t('registration.form.email')"
+    <!-- step 1: registartion form -->
+    <section id="registration-form">
+      <form
+        v-show="!showRegistrationSuccessDialog"
+        :id="formId"
+        @submit.prevent="proceed(formId)"
       >
-        <input
-          v-model="formData.email"
-          type="text"
-          autocomplete="off"
-          rules="required|email"
-          class="form-input theme-color-secondary"
-          :placeholder="$t('registration.form.email')"
+        <ErrorMessage
+          :is-error="registerAlert.active"
+          :error-message="registerAlert.message"
+        />
+
+        <n-validate 
+          for="email"
+          :name="$t('registration.form.email')"
         >
-      </n-validate>
+          <input
+            v-model="formData.email"
+            type="text"
+            autocomplete="off"
+            rules="required|email"
+            :placeholder="$t('registration.form.email')"
+          >
+        </n-validate>
 
-      <n-validate 
-        for="username"
-        :name="$t('registration.form.username')"
-      >
-        <input
-          v-model="formData.username"
-          type="text"
-          autocomplete="off"
-          rules="required|min:4|max:12"
-          class="form-input theme-color-secondary"
-          :placeholder="$t('registration.form.username')"
+        <n-validate 
+          for="username"
+          :name="$t('registration.form.username')"
         >
-      </n-validate>
+          <input
+            v-model="formData.username"
+            type="text"
+            autocomplete="off"
+            rules="required|min:4|max:12"
+            :placeholder="$t('registration.form.username')"
+          >
+        </n-validate>
 
-      <n-validate 
-        for="name"
-        :name="$t('registration.form.name')"
-      >
-        <input
-          v-model="formData.name"
-          type="text"
-          autocomplete="off"
-          rules="required"
-          class="form-input theme-color-secondary"
-          :placeholder="$t('registration.form.name')"
+        <n-validate 
+          for="name"
+          :name="$t('registration.form.name')"
         >
-      </n-validate>
+          <input
+            v-model="formData.name"
+            type="text"
+            autocomplete="off"
+            rules="required"
+            :placeholder="$t('registration.form.name')"
+          >
+        </n-validate>
 
-      <n-validate 
-        for="password"
-        :name="$t('registration.form.password')" 
-      >
-        <input
-          v-model="formData.password"
-          type="password"
-          autocomplete="off"
-          rules="required|containNumber|containSymbol"
-          class="form-input theme-color-secondary"
-          :placeholder="$t('registration.form.password')"
+        <n-validate 
+          for="password"
+          :name="$t('registration.form.password')" 
         >
-      </n-validate>
+          <input
+            v-model="formData.password"
+            type="password"
+            autocomplete="off"
+            rules="required|containNumber|containSymbol"
+            :placeholder="$t('registration.form.password')"
+          >
+        </n-validate>
 
-      <button
-        type="submit"
-        class="float-right mt-4 w-full primary-button"
-      >
-        {{ $t('registration.register').toUpperCase() }}
-      </button>
-    </form>
+        <input
+          type="submit"
+          :value="$t('registration.register').toUpperCase()"
+        >
+      </form>
+    </section>
 
-    <div
-      v-show="showRegistrationSuccessDialog"
+    <!-- step 2: show generated passphrase along with the email and the username -->
+    <section
+      v-if="showRegistrationSuccessDialog"
       id="success-dialog"
       class="w-full text-center"
     >
       <div class="mb-4">
         <!-- {{ $t('registration.form.registered.accountCreatedInfo') }} -->
-
         <div class="mx-auto w-full">
-          <div>
-            {{ $t('registration.form.registered.passphraseCopyAlert') }}
-          </div>
+          <p>{{ $t('registration.form.registered.passphraseCopyAlert') }}</p>
 
           <div class="mt-6">
             <div class="flex flex-row justify-end w-full">
@@ -102,42 +95,39 @@
               </button>
             </div>
 
-            <div class="flex flex-col gap-4 p-2 mt-2 text-left rounded-md theme-color-secondary">
-              <div class="flex flex-row justify-between align-middle">
-                <div class="flex flex-col">
-                  <span class="font-semibold">USERNAME</span>
-                  <span>{{ passphraseInfo.username }}</span>
+            <div class="passphrase">
+              <div class="passphrase__item">
+                <div class="passphrase__item-section">
+                  <span>USERNAME</span>
+                  <p>{{ passphraseInfo.username }}</p>
                 </div>
-                <div class="flex flex-col justify-center">
+                <div class="passphrase__copy">
                   <Icon
                     :name="'i-icon-park-outline-copy'"
-                    class="cursor-pointer"
                     @click="copyData('username')"
                   />
                 </div>
               </div>
-              <div class="flex flex-row justify-between align-middle">
-                <div class="flex flex-col">
-                  <span class="font-semibold">EMAIL</span>
-                  <span>{{ passphraseInfo.email }}</span>
+              <div class="passphrase__item">
+                <div class="passphrase__item-section">
+                  <span>EMAIL</span>
+                  <p>{{ passphraseInfo.email }}</p>
                 </div>
-                <div class="flex flex-col justify-center">
+                <div class="passphrase__copy">
                   <Icon
                     :name="'i-icon-park-outline-copy'"
-                    class="cursor-pointer"
                     @click="copyData('email')"
                   />
                 </div>
               </div>
-              <div class="flex flex-row justify-between align-middle">
-                <div class="flex flex-col">
-                  <span class="font-semibold">PASSPHRASE</span>
-                  <span>{{ passphraseInfo.passphrase }}</span>
+              <div class="passphrase__item">
+                <div class="passphrase__item-section">
+                  <span>PASSPHRASE</span>
+                  <p>{{ passphraseInfo.passphrase }}</p>
                 </div>
-                <div class="flex flex-col justify-center">
+                <div class="passphrase__copy">
                   <Icon
                     :name="'i-icon-park-outline-copy'"
-                    class="cursor-pointer"
                     @click="copyData('passphrase')"
                   />
                 </div>
@@ -147,12 +137,12 @@
         </div>
       </div>
 
-      <div
+      <button
         class="href"
         @click="authFormStore.toggleLoginRegister()"
       >
         {{ $t('logins.login').toUpperCase() }}
-      </div>
+      </button>
       <!-- <div>
         {{ $t('registration.form.registered.didNotReceiveVerificationLink') }}
         <span class="font-medium cursor-pointer link-color" @click="resendEmailActivationInstruction()">Resend</span>
@@ -161,7 +151,7 @@
       <!-- <div v-show="showResendNotification" class="p-2 mt-4 w-full text-white bg-green-500 rounded-md">
         {{ $t('registration.form.registered.verificationLinkSent') }}
       </div> -->
-    </div>
+    </section>
     
     <!-- Passphrase copied notification -->
     <SplashAlert 
@@ -182,6 +172,7 @@ import useAuthFormStore from '@/stores/auth-form.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import SplashAlert from '~/components/globals/SplashAlert.vue'
+import ErrorMessage from './ErrorMessage.vue';
 
 // stores
 const authFormStore = useAuthFormStore()
@@ -288,5 +279,27 @@ const copyData = (target) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/tailwind.scss';
+input {
+  @apply theme-color-secondary;
+}
+
+.passphrase {
+  @apply flex flex-col gap-4 p-2 mt-2 text-left rounded-md theme-color-secondary;
+
+  &__item {
+    @apply flex flex-row justify-between align-middle;
+
+    &-section {
+      @apply flex flex-col;
+
+      span {
+        @apply font-semibold;
+      }
+    }
+  }
+
+  &__copy {
+    @apply flex flex-col justify-center;
+  }
+}
 </style>

@@ -1,15 +1,20 @@
 <template>
   <div>
     <div class="w-full modal-layer xl:w-1/4 lg:w-2/5">
-      <div>
-        <span class="title">{{ $t('albums.create.form.title') }}</span>
+      <section id="crate-album-form">
+        <h2 class="title">
+          {{ $t('albums.create.form.title') }}
+        </h2>
 
-        <form 
+        <form
           :id="formId"
-          class="mt-2"
-          @submit.prevent="save(formId)"
+          @submit.prevent="save()"
         >
-          <!-- title input -->
+          <ErrorMessage
+            :is-error="error.isError"
+            :error-message="error.message"
+          />
+
           <n-validate 
             for="title" 
             :name="$t('title')"
@@ -17,21 +22,24 @@
             <input 
               v-model="inputData.title"
               type="text"
-              class="form-input theme-color-secondary"
               rules="required"
               :placeholder="$t('title')"
             >
           </n-validate>
 
-          <!-- description input -->
-          <textarea
-            v-model="inputData.description"
-            class="form-input theme-color-secondary"
-            :placeholder="$t('description')"
-            data-gramm="false"
-          />
+          <n-validate
+            for="description"
+            :name="$t('description')"
+          >
+            <textarea
+              v-model="inputData.description"
+              :placeholder="$t('description')"
+              rules=""
+              data-gramm="false"
+            />
+          </n-validate>
 
-          <!-- is public radio button -->
+          <!-- privacy -->
           <label
             :for="inputData.isPublic ? 'checked' : 'unchecked'"
             class="inline-flex items-center"
@@ -78,27 +86,27 @@
             </div>
           </label>
 
-          <div class="flex flex-row gap-2 justify-end mt-2">
+          <div class="buttons">
             <button
-              class="cancel-button"
+              class="cancel"
               @click.prevent="closeModal(modalId)"
             >
               {{ $t('cancel') }}
             </button>
             <button
               type="submit"
-              class="primary-button"
+              class="submit"
             >
               {{ $t('create') }}
             </button>
           </div>
         </form>
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 
 import { POST_TYPES } from '~/utils/constants'
@@ -111,64 +119,71 @@ import useAlbum from '~/composables/users/useAlbum'
 
 // components
 import ProBadge from '~/components/globals/ProBadge.vue'
+import ErrorMessage from '../auth/forms/ErrorMessage.vue'
 
 // stores
 const auth = useAuthStore()
-
-const { t } = useI18n()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits ('created')
-const props = defineProps ({
+const emits = defineEmits(['created'])
+const props = defineProps({
   category: {
     type: String,
     default: POST_TYPES.ARTWORK
   },
   modalId: {
     type: String,
-    default: ''
+    default: 'create-album-form-modal'
   }
 })
+
+const { t } = useI18n()
 
 const formId = 'create-album-form'
 const inputData = ref({
   title: '',
   description: '',
-  isPublic: 1,
-  category: POST_TYPES.ARTWORK
+  isPublic: true,
+})
+const error = ref({
+  isError: false,
+  message: ''
 })
 
-/** Save new album */
 const save = async () => {
-  // validate input before going to the next step
+  hideError()
   useValidator().validate(formId, t)
 
-  try {
-    let created = false
-    let newAlbumData = {}
+  let newAlbumData = {}
+  const [success, data, apiError] = await albumApi.createAlbum(
+    props.category,
+    inputData.value
+  )
 
-    // call API to create new album
-    if (props.category) {
-      const [success, data, error] = await albumApi.createAlbum(props.category, inputData.value)
-
-      created = success
-      newAlbumData = data
+  if (apiError) {
+    error.value = {
+      isError: true,
+      message: apiError
     }
+  } else {
+    useModal().closeModal(props.modalId)
+    emits('created', data)
+  }
+}
 
-    if (created) {
-      useModal().closeModal(props.modalId)
-      emits('created', newAlbumData)
-    }
-  } catch (error) {
-    // 
+const hideError = () => {
+  error.value = {
+    isError: false,
+    message: ''
   }
 }
 </script>
 
-<style lang="scss">
-// @import '~/assets/css/tailwind.scss';
-
+<style lang="scss" scoped>
+input, textarea {
+  @apply theme-color-secondary;
+}
 </style>

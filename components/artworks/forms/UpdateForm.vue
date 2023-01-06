@@ -270,7 +270,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const props = defineProps ({
+const props = defineProps({
   id: {
     type: String,
     default: ''

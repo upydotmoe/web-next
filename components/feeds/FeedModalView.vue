@@ -474,8 +474,8 @@ import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
  */
 const auth = useAuthStore()
 
-const emit = defineEmits (['setMeta', 'showEmpty', 'showError'])
-const props = defineProps ({
+const emit = defineEmits(['setMeta', 'showEmpty', 'showError'])
+const props = defineProps({
   id: {
     type: Number,
     default: 0
@@ -775,9 +775,7 @@ const removeFeed = async (feedId) => {
   }
 }
 
-/**
- * @expose
- */
+// expose functions
 defineExpose ({
   view
 })

@@ -31,7 +31,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     inputData: {
       title: string,
       description: string,
-      isPublic: boolean | 0 | 1
+      isPublic: boolean
     }
   ) => {
     try {
@@ -153,7 +153,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     id: number,
     name: string,
     description?: string,
-    isPublic: 0 | 1
+    isPublic: boolean
   }) => {
     try {
       const { data } = await new AlbumsApi(oApiConfiguration)
@@ -162,7 +162,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
             id: inputData.id,
             name: inputData.name,
             description: inputData.description,
-            is_public: inputData.isPublic
+            is_public: inputData.isPublic ? 1 : 0
           },
           fetchOptions
         )

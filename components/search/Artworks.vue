@@ -251,7 +251,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits ([
+const emits = defineEmits([
   'countArtworks'
 ])
 

@@ -114,8 +114,8 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits (['addedToAlbum'])
-const props = defineProps ({
+const emits = defineEmits(['addedToAlbum'])
+const props = defineProps({
   modalId: {
     type: String,
     default: 'album-selection-modal'

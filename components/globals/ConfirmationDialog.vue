@@ -25,8 +25,8 @@
 </template>
 
 <script setup>
-const emits = defineEmits ('onAccept')
-const props = defineProps ({
+const emits = defineEmits('onAccept')
+const props = defineProps({
   modalId: {
     type: String,
     default: 'confirmation-dialog-modal'

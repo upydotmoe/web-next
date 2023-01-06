@@ -45,7 +45,7 @@
 
     <!-- redraw list -->
     <div>
-      <div class="section-title">
+      <div class="title">
         {{ $t('artworks.redraws') }}
       </div>
 

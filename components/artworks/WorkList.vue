@@ -177,8 +177,8 @@ import Icon from '~/components/globals/Icon.vue'
 // stores
 const auth = authStore()
 
-const emits = defineEmits ('feedManageList')
-const props = defineProps ({
+const emits = defineEmits('feedManageList')
+const props = defineProps({
   works: {
     type: Array,
     default: () => []

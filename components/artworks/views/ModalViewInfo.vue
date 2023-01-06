@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div class="mb-2 section-title">
+    <div class="title">
       {{ artworkDetail.title }}
     </div>
 
@@ -109,7 +109,7 @@ import useReadMore from '~/composables/useReadMore'
 import Icon from '~/components/globals/Icon.vue'
 import ProBadge from '~/components/globals/ProBadge.vue'
 
-defineProps ({
+defineProps({
   section: {
     type: String,
     default: ''

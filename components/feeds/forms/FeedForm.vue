@@ -1,102 +1,106 @@
 <template>
-  <div>
-    <div class="mb-4 section-title">
+  <section>
+    <h2 class="title">
       {{ $t('feeds.form.title') }}
-    </div>
-    
-    <!-- message & alert -->
-    <div>
-      <div
-        v-show="posted"
-        class="alert-success"
-      >
-        {{ $t('feeds.form.posted') }}
-        <span class="italic">{{ $t('feeds.form.successRedirect') }}</span>
-      </div>
+    </h2>
 
-      <div
-        v-show="posting"
-        class="flex flex-row p-2 mb-2 text-white rounded-md button-color"
-      >
-        <Spinner class="mr-2" />
-        {{ $t('feeds.form.postingYourUpdate') }}
-      </div>
+    <form
+      :id="formId"
+      @submit.prevent="post()"
+    >
+      <ErrorMessage
+        v-if="state.isPosting | state.isError | state.isPosted"
+        :is-loading="state.isPosting"
+        :loading-message="$t('feeds.form.postingYourUpdate')"
+        :is-success="state.isPosted"
+        :success-message="`${$t('feeds.form.posted')} ${$t('feeds.form.successRedirect')}`"
+        :is-error="state.isError"
+        :error-message="$t('feeds.form.postFailure')"
+      />
 
-      <div
-        v-show="isError"
-        class="alert-danger"
+      <n-validate
+        for="text"
+        :name="$t('feeds.form.feed')"
       >
-        {{ $t('feeds.form.postFailure') }}
-      </div>
-    </div>
-
-    <!-- form -->
-    <div>
-      <!-- inputs -->
-      <div class="flex flex-col gap-2 mb-4">
         <VueEditor
           v-model="feedInput"
           :editor-toolbar="quillOptions"
           :placeholder="$t('typeSomething')"
         />
-      </div>
+      </n-validate>
 
-      <div class="flex flex-row gap-2 justify-between md:justify-end">
+      <div class="buttons">
         <button
-          class="w-full light-button md:w-auto"
-          @click="feedInput = ''"
+          type="reset"
+          class="reset"
+          @click.prevent="feedInput = ''"
         >
           {{ $t('reset') }}
         </button>
-        <button 
-          class="flex flex-row gap-2 w-full md:w-auto" 
-          :class="[feedInput !== '' ? 'primary-button' : 'disabled-button']"
-          @click.prevent="feedInput !== '' ? postFeed() : null"
+        <button
+          :class="[
+            'submit',
+            { '!disabled-button': !feedInput }
+          ]"
+          @click.prevent="feedInput !== '' ? post() : null"
         >
-          <Spinner v-show="posting" />
+          <Spinner v-if="posting" />
           <span>{{ posting ? $t('posting') : $t('post').toUpperCase() }}</span>
         </button>
       </div>
-    </div>
-  </div>
+    </form>
+  </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import { VueEditor } from 'vue3-editor'
 import { quillOptions } from '~/utils/constants/text-editor'
 
 // components
 import Spinner from '~/components/globals/Spinner.vue'
+import ErrorMessage from '~~/components/auth/forms/ErrorMessage.vue';
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 
-const { $router } = useNuxtApp()
+const router = useRouter()
+const { t } = useI18n()
 
-const feedInput = ref('')
-const posting = ref(false)
-const posted = ref(false)
-const isError = ref(false)
-const postFeed = async () => {
-  posting.value = true
+const formId = 'feed-form'
+const feedInput = ref<string>('')
+const state = ref({
+  isPosting: false,
+  isPosted: false,
+  isError: false
+})
+const post = async () => {
+  useValidator().validate(formId, t)
+
+  state.value.isPosting = true
 
   const [success, data, error] = await feedApi.postFeed({
-    text: feedInput.value
+    text: feedInput.value,
+    visibility: 'public',
+    whoCanReply: 'public'
   })
 
-  if (success) {
-    posting.value = false
-    posted.value = true
+  if (error) {
+    state.value.isError = true
+  } else {
+    state.value = {
+      isPosting: false,
+      isPosted: true,
+      isError: false
+    }
     
     const feedId = data.id
     setTimeout(() => {
-      $router.push(`/feed/${feedId}`)
+      router.push(`/feed/${feedId}`)
     }, 1000)
-  } else {
-    isError.value = true
   }
 
-  posting.value = false
+  state.value.isPosting = false
 }
 </script>

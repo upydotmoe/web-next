@@ -2,18 +2,13 @@
   <form
     v-show="showForm"
     :id="formId"
-    class="auth-form"
     @submit.prevent="login(formId)"
   >
-    <!-- login error message, show this alert when error occured while authenticating user -->
-    <div
-      v-if="loginErr"
-      class="login-error-message"
-    >
-      {{ loginErrMessage }}
-    </div>
+    <ErrorMessage
+      :is-error="error ? true : false"
+      :error-message="error"
+    />
 
-    <!-- username -->
     <n-validate 
       for="username"
       :name="$t('logins.form.username')"
@@ -21,12 +16,11 @@
       <input 
         v-model="inputs.username"
         type="text"
-        rules="required"
+        rules="required|min:4|max:12"
         :placeholder="$t('logins.form.username')"
       >
     </n-validate>
 
-    <!-- password -->
     <n-validate 
       for="password" 
       :name="$t('logins.form.password')"
@@ -41,18 +35,16 @@
     </n-validate>
 
     <div 
-      class="w-full text-right font-medium cursor-pointer icon-color"
+      class="w-full font-medium text-right cursor-pointer icon-color"
       @click="toggleAccountRecoveryForm"
     >
       {{ $t('forgotPassword') }}
     </div>
 
-    <button
+    <input
       type="submit"
-      class="w-full mt-4 primary-button"
+      :value="$t('logins.login').toUpperCase()"
     >
-      {{ $t('logins.login').toUpperCase() }}
-    </button>
   </form>
 </template>
 
@@ -62,28 +54,28 @@ import { useI18n } from 'vue-i18n'
 // stores
 import useAuthStore from '@/stores/auth-form.store'
 
+// components
+import ErrorMessage from './ErrorMessage.vue'
+
 // stores
-const authForm = useAuthStore()
+const authStore = useAuthStore()
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const authApi = useAuth(oApiConfiguration, fetchOptions())
 
+const router = useRouter()
 const { t } = useI18n()
 
-const { $router } = useNuxtApp()
+const showForm = computed(() => authStore.showLogin)
+watch (() => authStore.showLogin, () => {
+  reset()
+})
 
-/**
- * @visiblity
- * Visiblity function to show and hide the login form or switching to other form like Registration form or Account Recovery form.
- */
 const toggleAccountRecoveryForm = async () => {
-  await authForm.toggleAccountRecovery()
+  await authStore.toggleAccountRecovery()
   useValidator().clear()
 }
-/**
- * @visibility
- */
 
 /**
  * @form
@@ -93,67 +85,37 @@ const inputs = ref({
   username: '',
   password: ''
 })
+const error = ref('')
 
-/**
- * Authenticate user input and redirect to dashboard if success
- */
 const login = async () => {
-  // clear previous error message
-  authForm.resetErr()
-  loginErrMessage.value = ''
+  error.value = ''
 
   // validate input before going to the next step
   useValidator().validate(formId, t)
 
   // proceed to validate user login information
-  const [success, error] = await authApi.authenticate({
+  const [success, authError] = await authApi.authenticate({
     username: inputs.value.username,
     password: inputs.value.password
   })
 
-  if (success) {
-    useModal().closeModal('auth-modal')
-
-    $router.push('/feed')
+  if (authError) {
+    error.value = authError
   } else {
-    triggerLoginError(error)
+    useModal().closeModal('auth-modal')
+    router.push('/feed')
   }
 }
 
-/**
- * @login
- */
-
-/**
- * @errorHandling
- */
-const loginErr = computed(() => authForm.loginErr)
-const loginErrMessage = ref('')
-const triggerLoginError = async (message) => {
-  await authForm.triggerLoginErr()
-  loginErrMessage.value = message
-}
-/**
- * @errorHandling
- */
-
-/**
- * Watch for form show/hide changes, if it's switched then reset the form value
- */
-const showForm = computed(() => authForm.showLogin)
-watch (() => authForm.showLogin, () => {
-  resetForm()
-})
-
-/**
- * Reset login form inputs
- */
-const resetForm = () => {
+const reset = () => {
   inputs.value.username = ''
   inputs.value.password = ''
+  error.value = ''
 }
 </script>
 
-<style lang="scss" scoped>
-@import '~/assets/css/auth-form.scss';
+<style scoped>
+input {
+  @apply theme-color-secondary;
+}
 </style>

@@ -67,8 +67,8 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 // composables
 import useAlbum from '~/composables/users/useAlbum'
 
-const emits = defineEmits (['onAlbumEmpty', 'feedManageList'])
-const props = defineProps ({
+const emits = defineEmits(['onAlbumEmpty', 'feedManageList'])
+const props = defineProps({
   id: {
     type: Number,
     default: 0
@@ -184,9 +184,7 @@ const view = (workId, keepArtistPageNumber = false) => {
   useModal().openModal(modalName.value + '-modal')
 }
 
-/**
- * @expose
- */
+// expose functions
 defineExpose ({
   fetchInfo,
   removeItems

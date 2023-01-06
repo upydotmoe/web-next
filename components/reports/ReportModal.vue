@@ -132,7 +132,7 @@ const reportApi = useReport(oApiConfiguration, fetchOptions())
 /**
  * @props
  */
-const props = defineProps ({
+const props = defineProps({
   type: {
     type: String,
     default: ''

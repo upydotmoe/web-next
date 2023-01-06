@@ -1,146 +1,133 @@
 <template>
   <div
-    v-show="showForm || directMode"
+    v-if="showForm || directMode"
     class="w-full"
   >
-    <div
-      v-show="!isVerified"
-      class="mb-2 text-base"
-    >
-      {{ $t('accountRecovery.form.pleaseInputRecoveryPassphrase') }}
-    </div>
-    
-    <div
-      v-if="error.isError"
-      class="p-2 mb-2 w-full text-white bg-red-500 rounded-md"
-    >
-      {{ error.message }}
-    </div>
-
-    <!-- Verify Pasphrase Form -->
-    <form
-      v-if="!isVerified"
-      :id="formId"
-      @submit.prevent="verify(formId)"
-    >
-      <n-validate
-        for="username"
-        :name="$t('accountRecovery.form.username')"
+    <section id="passphrase-and-password-recovery">
+      <h2
+        v-if="!isVerified"
+        class="title-tiny"
       >
-        <input 
-          v-model="inputData.username" 
-          type="text" 
-          rules="required"
-          :class="[
-            'form-input',
-            { 'theme-color-secondary': !directMode }
-          ]"
-          :placeholder="$t('accountRecovery.form.username')"
+        {{ $t('accountRecovery.form.pleaseInputRecoveryPassphrase') }}
+      </h2>
+
+      <!-- step 1: verify account passphrase -->
+      <section id="passphrase-verification">
+        <form
+          v-if="!isVerified"
+          :id="formId"
+          @submit.prevent="verify(formId)"
         >
-      </n-validate>
+          <ErrorMessage
+            :is-error="error.isError"
+            :error-message="error.message"
+          />
 
-      <n-validate
-        for="email"
-        :name="$t('accountRecovery.form.email')"
-      >
-        <input 
-          v-model="inputData.email" 
-          type="email" 
-          rules="required|email"
-          :class="[
-            'form-input',
-            { 'theme-color-secondary': !directMode }
-          ]"
-          :placeholder="$t('accountRecovery.form.email')"
+          <n-validate
+            for="username"
+            :name="$t('accountRecovery.form.username')"
+          >
+            <input 
+              v-model="inputData.username" 
+              type="text" 
+              rules="required|min:4|max:12"
+              :placeholder="$t('accountRecovery.form.username')"
+            >
+          </n-validate>
+
+          <n-validate
+            for="email"
+            :name="$t('accountRecovery.form.email')"
+          >
+            <input 
+              v-model="inputData.email" 
+              type="email" 
+              rules="required|email"
+              :placeholder="$t('accountRecovery.form.email')"
+            >
+          </n-validate>
+
+          <n-validate
+            for="passphrase"
+            :name="$t('accountRecovery.form.passphrase')"
+          >
+            <input 
+              v-model="inputData.passphrase" 
+              type="text" 
+              rules="required|min:6|max:6"
+              minLength="6"
+              maxlength="6"
+              :placeholder="$t('accountRecovery.form.passphrase')"
+            >
+          </n-validate>
+
+          <input
+            type="submit"
+            :value="$t('next')"
+          >
+        </form>
+      </section>
+
+      <!-- step 2: if passphrase verified, change the password -->
+      <section id="password-change">
+        <form
+          v-if="isVerified && !accountRecovered"
+          :id="accountRecoveryFormId"
+          @submit.prevent="changeAccountPassword(formId)"
         >
-      </n-validate>
+          <ErrorMessage
+            :is-error="error.isError"
+            :error-message="error.message"
+          />
+          
+          <n-validate
+            for="new-password"
+            :name="$t('accountRecovery.form.passphrase')"
+          >
+            <input 
+              v-model="newPasswordInput.new" 
+              type="password"
+              rules="required|min:6|containNumber|containSymbol"
+              :placeholder="$t('accountRecovery.form.newPassword')"
+            >
+          </n-validate>
+          
+          <n-validate
+            for="verify-new-password"
+            :name="$t('accountRecovery.form.passphrase')"
+          >
+            <input 
+              v-model="newPasswordInput.verify" 
+              type="password"
+              rules="required|min:6|containNumber|containSymbol"
+              :placeholder="$t('accountRecovery.form.retypeNewPassword')"
+            >
+          </n-validate>
 
-      <n-validate
-        for="passphrase"
-        :name="$t('accountRecovery.form.passphrase')"
-      >
-        <input 
-          v-model="inputData.passphrase" 
-          type="text" 
-          rules="required|min:6|max:6"
-          minLength="6"
-          maxlength="6"
-          :class="[
-            'form-input',
-            { 'theme-color-secondary': !directMode }
-          ]"
-          :placeholder="$t('accountRecovery.form.passphrase')"
-        >
-      </n-validate>
-
-      <button
-        type="submit"
-        class="float-right mt-2 primary-button"
-      >
-        {{ $t('next') }}
-      </button>
-    </form>
-
-    <!-- Change Passowrd Form -->
-    <form
-      v-if="isVerified && !accountRecovered"
-      :id="accountRecoveryFormId"
-      @submit.prevent="changeAccountPassword(formId)"
-    >
-      <n-validate
-        for="new-password"
-        :name="$t('accountRecovery.form.passphrase')"
-      >
-        <input 
-          v-model="newPasswordInput.new" 
-          type="password"
-          rules="required|min:6|containNumber|containSymbol"
-          :class="[
-            'form-input',
-            { 'theme-color-secondary': !directMode }
-          ]"
-          :placeholder="$t('accountRecovery.form.newPassword')"
-        >
-      </n-validate>
-      
-      <n-validate
-        for="verify-new-password"
-        :name="$t('accountRecovery.form.passphrase')"
-      >
-        <input 
-          v-model="newPasswordInput.verify" 
-          type="password"
-          rules="required|min:6|containNumber|containSymbol"
-          :class="[
-            'form-input',
-            { 'theme-color-secondary': !directMode }
-          ]"
-          :placeholder="$t('accountRecovery.form.retypeNewPassword')"
-        >
-      </n-validate>
-
-      <button
-        type="submit"
-        class="float-right mt-2 primary-button"
-      >
-        {{ $t('accountRecovery.resetPassword') }}
-      </button>
-    </form>
+          <input
+            type="submit"
+            :value="$t('accountRecovery.resetPassword')"
+          >
+        </form>
+      </section>
+    </section>
 
     <!-- Account Recovered Message -->
-    <div
-      v-if="isVerified && accountRecovered"
-      class="w-full text-center"
-    >
-      {{ $t('accountRecovery.accountRecovered') }}
-      
+    <section id="success">
       <div
-        class="mt-4 href"
-        @click="authFormStore.reset()"
+        v-if="isVerified && accountRecovered"
+        class="w-full text-center"
       >
-        {{ $t('logins.login').toUpperCase() }}
+        <p>{{ $t('accountRecovery.accountRecovered') }}</p>
+        
+        <button
+          class="mt-4 href"
+          @click="authFormStore.reset()"
+        >
+          {{ $t('logins.login').toUpperCase() }}
+        </button>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -153,6 +140,9 @@ import { IVerifyAccountPassphrase, IVerifyAccountPassphraseNewPassword } from '~
 // stores
 import useAuthFormStore from '@/stores/auth-form.store'
 
+// components
+import ErrorMessage from './ErrorMessage.vue'
+
 // stores
 const authFormStore = useAuthFormStore()
 
@@ -162,7 +152,7 @@ const authApi = useAuth(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
-const props = defineProps ({
+const props = defineProps({
   directMode: {
     type: Boolean,
     default: false
@@ -245,3 +235,9 @@ const resetErrorMessage = () => {
   }
 }
 </script>
+
+<style scoped>
+input {
+  @apply theme-color-secondary;
+}
+</style>

@@ -2,7 +2,16 @@ module.exports = {
   mode: 'jit',
   darkMode: 'class', // or 'media' or 'class'
   content: [
-    './node_modules/flowbite/**/*.js'
+    './components/**/*.{vue,js,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './composables/**/*.{js,ts}',
+    './plugins/**/*.{js,ts}',
+    './App.{js,ts,vue}',
+    './app.{js,ts,vue}',
+    './Error.{js,ts,vue}',
+    './error.{js,ts,vue}',
+    // './node_modules/flowbite/**/*.js',
   ],
   theme: {
     darkSelector: '.dark-mode',
@@ -49,6 +58,6 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-dark-mode')(),
-    require('flowbite/plugin')
+    // require('flowbite/plugin')
   ]
 }

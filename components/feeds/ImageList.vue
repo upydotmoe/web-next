@@ -115,7 +115,7 @@
 </template>
 
 <script setup>
-defineProps ({
+defineProps({
   work: {
     type: Object,
     default: () => {}

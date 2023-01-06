@@ -41,7 +41,7 @@
       >
         <!-- Welcome -->
         <div>
-          <h1 class="section-title">
+          <h1 class="title">
             {{ $t('feeds.newUser.welcome') }}
           </h1>
 
@@ -67,7 +67,7 @@
           v-if="suggestedUsersToFollow && suggestedUsersToFollow.length"
           class="mt-14"
         >
-          <div class="section-title">
+          <div class="title">
             {{ $t('feeds.newUser.suggestedUsers') }}
           </div>
 
@@ -559,7 +559,7 @@
       <FeedSide />
       <!-- suggested users -->
       <div v-if="feeds.length">
-        <div class="section-title">
+        <div class="title">
           {{ $t('feeds.suggestedUsers') }}
         </div>
 

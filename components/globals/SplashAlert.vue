@@ -13,7 +13,7 @@
 <script setup>
 import Icon from '~/components/globals/Icon.vue'
 
-defineProps ({
+defineProps({
   text: {
     type: String,
     default: ''

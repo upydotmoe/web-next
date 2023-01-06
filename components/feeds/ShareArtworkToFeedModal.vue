@@ -96,7 +96,7 @@ const feedApi = useFeed(oApiConfiguration, fetchOptions())
 
 const runtimeConfig = useRuntimeConfig()
 
-const props = defineProps ({
+const props = defineProps({
   postId: {
     type: Number,
     default: 0
