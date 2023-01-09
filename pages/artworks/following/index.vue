@@ -100,7 +100,7 @@
         </button>
       </div>
 
-      <!-- Artwork modal view -->
+      <!-- artwork modal view component -->
       <div
         id="recent-modal"
         class="modal work-view"

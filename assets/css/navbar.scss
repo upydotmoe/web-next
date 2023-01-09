@@ -86,7 +86,7 @@
   }
 }
 
-.profile {
+.ellipsis-nav {
   @apply inline relative z-20 justify-end;
 
   .thumbnail {
@@ -97,7 +97,7 @@
     }
   }
 
-  .profile-dropdown {
+  .ellipsis-nav-content {
     @apply flex invisible z-20 flex-col opacity-0 transition-all duration-300 transform origin-top-right scale-95;
 
     .toggler {

@@ -34,7 +34,7 @@
       :background-color="'theme-color-secondary'"
     />
 
-    <!-- Artwork modal view -->
+    <!-- artwork modal view component -->
     <div 
       v-if="!loading"
       :id="modalName+'-modal'"

@@ -748,6 +748,34 @@
     @apply w-9 h-5 dark:border-gray-600 rounded-full after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all;
     background: var(--toggle-background-color);
   }
+
+  .ellipsis-menus {
+    @apply inline-block relative z-30;
+
+    button {
+      @apply p-0 m-0;
+
+      .icon {
+        @apply icon-color;
+      }
+
+      img {
+        @apply object-cover w-9 h-9 rounded-md shadow-lg;
+      }
+    }
+    
+    &__content {
+      @apply invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2;
+  
+      &__wrapper {
+        @apply absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right outline-none theme-color;
+  
+        a {
+          @apply flex py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white;
+        }
+      }
+    }
+  }
 }
 
 @layer utilities {}

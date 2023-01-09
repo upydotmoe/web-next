@@ -112,12 +112,12 @@
               class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-full theme-colored hover:cursor-pointer"
             >
               <nuxt-img
-                              preload
-                              loading="lazy"
-                              class="inline-block mr-2 w-8 rounded-md"
-                              :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-                              @error="imageLoadError"
-                            />
+                preload
+                loading="lazy"
+                class="inline-block mr-2 w-8 rounded-md redraw-mini-preview"
+                :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
+                @error="imageLoadError"
+              />
               <span class="font-bold">
                 {{ originalArtwork.title.length > redrawBreadcrumbTitleMaxLength ? originalArtwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : originalArtwork.title }}
               </span>
@@ -131,12 +131,12 @@
               ]"
             >
               <nuxt-img
-                              preload
-                              loading="lazy"
-                              class="inline-block mr-2 w-8 rounded-md"
-                              :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
-                              @error="imageLoadError"
-                            />
+                preload
+                loading="lazy"
+                class="inline-block mr-2 w-8 rounded-md redraw-mini-preview"
+                :src="artworkThumb(artworkDetail.artwork_assets[0].bucket, artworkDetail.artwork_assets[0].filename, 'thumbnail', false)"
+                @error="imageLoadError"
+              />
               <span class="font-bold">
                 {{ artworkDetail.title.length > redrawBreadcrumbTitleMaxLength ? artworkDetail.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : artworkDetail.title }}
               </span>
@@ -1953,4 +1953,8 @@ defineExpose({
 @import "~/assets/css/artworks/view.scss";
 @import '~/assets/css/artworks/list-6.scss';
 
+.redraw-mini-preview {
+  @apply object-cover rounded-md;
+  aspect-ratio: 1/1;
+}
 </style>

@@ -362,7 +362,7 @@
       />
     </div>
 
-    <!-- Artwork Modal View -->
+    <!-- artwork modal view component -->
     <div 
       :id="'artwork-modal'"
       class="modal work-view" 

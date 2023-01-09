@@ -220,7 +220,7 @@
       </div>
     </div>
 
-    <!-- Artwork modal view -->
+    <!-- artwork modal view component -->
     <div 
       id="popular-modal"
       class="modal work-view" 

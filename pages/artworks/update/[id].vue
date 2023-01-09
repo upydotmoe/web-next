@@ -1,7 +1,6 @@
 <template>
   <Layout
     :with-footer="true"
-    :h-screen="true"
   >
     <UpdateForm
       :id="id"

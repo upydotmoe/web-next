@@ -264,7 +264,7 @@
         </div>
       </div>
 
-      <!-- Artwork modal view -->
+      <!-- artwork modal view component -->
       <div
         id="browse-modal"
         class="modal work-view"

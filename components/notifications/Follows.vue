@@ -5,18 +5,19 @@
       route.name == 'notifications' && !props.isNavbar ? (isMobile() ? 'max-h-screen' : 'h-full') : 'h-auto'
     ]"
   >
-    <div class="mb-3 w-full text-right">
+    <div class="flex flex-row justify-end mb-3 w-full text-right">
       <button 
-        class="py-1 px-2 rounded theme-color-secondary hover:button-color hover:text-white mr-1" 
+        class="py-1 px-2 mr-1 rounded theme-color-secondary hover:button-color hover:text-white" 
         @click.prevent="markAllAsRead()"
       >
         Mark all as read
       </button>
 
       <button 
-        class="py-1 px-2 rounded theme-color-secondary hover:button-color hover:text-white" 
+        class="inline-flex flex-row gap-1 py-1 px-2 rounded theme-color-secondary hover:button-color hover:text-white" 
         @click.prevent="clearNotifs()"
       >
+        <Icon :name="'i-material-symbols-clear-all-rounded'" />
         Clear
       </button>
     </div>

@@ -78,9 +78,8 @@
           </div>
 
           <!-- language selection -->
-          <div class="profile dropdown nav-icon">
+          <div class="ellipsis-menus dropdown nav-icon">
             <button
-              class="thumbnail"
               aria-haspopup="true"
               aria-expanded="true"
               aria-controls="language-group"
@@ -89,10 +88,10 @@
               <Icon :name="'i-fa-language'" />
             </button>
 
-            <div class="profile-dropdown dropdown-menu">
+            <div class="ellipsis-menus__content dropdown-menu">
               <div
                 id="language-group"
-                class="px-2 w-52 toggler"
+                class="ellipsis-menus__content__wrapper"
                 aria-labelledby="language-selection-buttons"
                 role="menu"
               >
@@ -111,14 +110,6 @@
                     /> {{ locale.name }}
                   </div>
                 </div>
-
-                <!-- <div class="custom-divider" />
-
-                <nuxt-link :to="'/'" class="rounded-md">
-                  <div class="px-2 item">
-                    <span class="mx-auto">{{ $t('language.request') }}</span>
-                  </div>
-                </nuxt-link> -->
               </div>
             </div>
           </div>
@@ -127,10 +118,11 @@
           <div class="hidden-md-flex">
             <div
               v-if="auth.loggedIn"
-              class="inline-block relative profile dropdown nav-icon"
+              class="ellipsis-nav dropdown nav-icon"
               @click="clearNotificationCounter()"
             >
               <button
+                type="button"
                 aria-haspopup="true"
                 aria-expanded="true"
                 aria-controls="notification-group"
@@ -145,7 +137,7 @@
                 </span>
               </button>
 
-              <div class="text-xs profile-dropdown dropdown-menu">
+              <div class="ellipsis-nav-content dropdown-menu">
                 <div
                   id="notification-group"
                   class="toggler"
@@ -183,7 +175,7 @@
           <!-- user logged in -->
           <div
             v-if="auth.loggedIn"
-            class="z-50 ml-4 profile dropdown"
+            class="z-50 ml-4 ellipsis-nav dropdown"
           >
             <button
               class="thumbnail"
@@ -197,7 +189,7 @@
               >
             </button>
 
-            <div class="profile-dropdown dropdown-menu">
+            <div class="ellipsis-nav-content dropdown-menu">
               <div
                 id="profile-dropdown-items"
                 class="w-52 toggler"

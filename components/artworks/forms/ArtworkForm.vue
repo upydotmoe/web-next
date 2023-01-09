@@ -165,7 +165,7 @@
 
         <!-- planned publish date -->
         <n-validate
-          v-if="!redrawWorkId"
+          v-show="!redrawWorkId"
           class="flex flex-row gap-x-2"
         >
           <div class="relative w-full">

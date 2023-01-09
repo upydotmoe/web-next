@@ -249,16 +249,18 @@ const fetchUserInfo = async () => {
     if (error) {
       // todo: handle error
     } else {
-      inputData.value.facebook = data.user_socials.facebook
-      inputData.value.twitter = data.user_socials.twitter
-      inputData.value.instagram = data.user_socials.instagram
-      inputData.value.patreon = data.user_socials.patreon
-      inputData.value.youtube = data.user_socials.youtube
-      inputData.value.twitch = data.user_socials.twitch
-      inputData.value.discord = data.user_socials.discord
-      inputData.value.picarto = data.user_socials.picarto
-      inputData.value.gumroad = data.user_socials.gumroad
-      inputData.value.site = data.user_socials.personal_website
+      inputData.value = {
+        facebook: data.user_socials.facebook,
+        twitter: data.user_socials.twitter,
+        instagram: data.user_socials.instagram,
+        patreon: data.user_socials.patreon,
+        youtube: data.user_socials.youtube,
+        twitch: data.user_socials.twitch,
+        discord: data.user_socials.discord,
+        picarto: data.user_socials.picarto,
+        gumroad: data.user_socials.gumroad,
+        site: data.user_socials.personal_website,
+      }
     }
   } else {
     // todo: handle unauthenticated user

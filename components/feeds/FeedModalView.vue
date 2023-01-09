@@ -434,7 +434,7 @@
       </div>
     </div>
 
-    <!-- Artwork Modal View -->
+    <!-- artwork modal view component -->
     <div 
       :id="'chronological-modal'"
       class="modal work-view" 

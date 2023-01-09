@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-row justify-between w-full cursor-default md:p-2">
+    <div class="flex flex-row justify-between w-full text-xs cursor-default md:p-2">
       <!-- notification content -->
       <div class="flex flex-col md:mr-2 md:w-6/12">
         <!-- artwork likes -->
