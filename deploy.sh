@@ -1,5 +1,5 @@
 #!/bin/bash
-npm install --loglevel verbose --no-audit --legacy-peer-deps
+npm install --no-audit --legacy-peer-deps
 
 echo "Building app.."
 npm run build
