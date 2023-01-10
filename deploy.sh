@@ -1,10 +1,11 @@
 #!/bin/bash
-npm install --no-audit --legacy-peer-deps
+npm i -g yarn
+yarn install
 
 echo "Building app.."
-npm run build
+yarn build
 
 echo "Restarting PM2.."
-npm run pm2:reload
+yarn pm2:reload
 
 echo "Deployed successfully!"
