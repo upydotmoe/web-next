@@ -1,8 +1,11 @@
 <template>
   <section
-    v-if="feed.type === 'feed'"
+    v-if="bypass || feed.type === 'feed'"
     id="text-feed"
-    class="px-2 md:px-4"
+    :class="[
+      'px-2 mb-2 md:px-4',
+      { '!p-0': isModal }
+    ]"
   >
     <p
       v-if="feed.text"
@@ -22,6 +25,7 @@
     <!-- shared artwork post detail -->
     <SharedArtworkDetail
       :feed="feed"
+      :color-reversed="colorReversed"
       @read-more="readMore"
       @view="view"
     />
@@ -31,7 +35,6 @@
 <script setup>
 // stores
 import useAuthStore from '@/stores/auth.store'
-import ArtistDetail from './ArtistDetail.vue';
 import SharedArtworkDetail from './SharedArtworkDetail.vue';
 
 // stores
@@ -39,6 +42,18 @@ const auth = useAuthStore()
 
 defineEmits(['readMore', 'view'])
 defineProps({
+  bypass: {
+    type: Boolean,
+    default: false
+  },
+  isModal: {
+    type: Boolean,
+    default: false
+  },
+  colorReversed: {
+    type: Boolean,
+    default: false
+  },
   feed: {
     type: Object,
     default: () => {}

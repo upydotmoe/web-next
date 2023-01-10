@@ -5,7 +5,7 @@
     :no-right-side="!empty && !error ? false : true"
     :with-footer="true"
   >
-    <div class="mx-auto w-full lg:w-10/12">
+    <div class="mx-auto w-full">
       <LoadingEmptyErrorMessage
         v-show="empty || error"
         :empty="empty"
@@ -16,9 +16,9 @@
       <FeedModalView
         v-show="!empty && !error"
         :id="id"
-        @showEmpty="showEmpty"
-        @showError="showError"
-        @setMeta="setMeta"
+        @show-empty="showEmpty"
+        @show-error="showError"
+        @set-meta="setMeta"
       />
     </div>
   </Layout>

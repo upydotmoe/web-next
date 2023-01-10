@@ -57,118 +57,109 @@
 
       <!-- intereaction buttons -->
       <section
-        id="interaction-buttons"
-        class="feeds__interactions"
+        id="interaction-button-section"
+        class="interactions !px-4"
       >
-        <!-- like button -->
-        <div
-          class="feeds__interactions__item"
-          @click="
-            feed.type === POST_TYPES.ARTWORK ?
-              likedIds.includes('a-'+feed.id) ? unlike('a-'+feed.id, feed.type) : like('a-'+feed.id, feed.type) :
-              likedIds.includes('f-'+feed.id) ? unlike('f-'+feed.id, feed.type) : like('f-'+feed.id, feed.type)
-          "
-        >
-          <Icon
-            v-show="feed.type === POST_TYPES.ARTWORK ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
-            :id="'feed-like-button-'+feed.type+'-'+feed.id"
-            :name="'i-ion-heart'"
-            class="text-red-500 hover:text-red-500"
-          />
-          <Icon
-            v-show="feed.type === POST_TYPES.ARTWORK ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
-            :name="'i-ri-heart-3-line'"
-            class="icon-color hover:text-red-500"
-          />
-          {{ thousand(feed._count.likes) }}
-        </div>
+        <div />
 
-        <!-- comment button (open modal detail modal to show the comment section) -->
-        <div
-          class="feeds__interactions__item"
-          @click.prevent="feed.type === POST_TYPES.ARTWORK ? view(feed.id) : viewFeed(feed.id)"
-        >
-          <Icon
-            :name="'i-mdi-comment-multiple-outline'"
-            class="icon-color hover:text-blue-500"
-          />
-          {{ thousand(feed._count.comments) }}
-        </div>
-
-        <!-- save to collection button (only show for feed type artwork) -->
-        <div
-          v-if="feed.type === POST_TYPES.ARTWORK"
-          class="feeds__interactions__item"
-          @click="showCollectionSelectionModal(feed.id)"
-        >
-          <Icon
-            v-show="savedIds.includes(feed.id)"
-            :id="'save-to-collection-button-'+feed.id"
-            :name="'i-ion-bookmark'"
-            class="text-blue-500 hover:text-blue-500"
-          />
-          <Icon
-            v-show="!savedIds.includes(feed.id)"
-            :name="'i-majesticons-bookmark-line'"
-            class="icon-color hover:text-blue-500"
-          />
-        </div>
-
-        <!-- option buttons -->
-        <section class="ellipsis-menus dropdown">
-          <button 
-            type="button" 
-            aria-haspopup="true" 
-            aria-expanded="true" 
-            aria-controls="headlessui-menu-items-feed-more-options"
+        <div class="interactions__items">
+          <!-- like button -->
+          <div
+            class="interactions__item"
+            @click="
+              feed.type === POST_TYPES.ARTWORK ?
+                likedIds.includes('a-'+feed.id) ? unlike('a-'+feed.id, feed.type) : like('a-'+feed.id, feed.type) :
+                likedIds.includes('f-'+feed.id) ? unlike('f-'+feed.id, feed.type) : like('f-'+feed.id, feed.type)
+            "
           >
             <Icon
-              :name="'i-ion-ellipsis-vertical-outline'" 
-              class="ellipsis-menus__icon"
+              v-show="feed.type === POST_TYPES.ARTWORK ? likedIds.includes('a-'+feed.id) : likedIds.includes('f-'+feed.id)"
+              :id="'feed-like-button-'+feed.type+'-'+feed.id"
+              :name="'i-ion-heart'"
+              class="text-red-500 hover:text-red-500"
             />
-          </button>
+            <Icon
+              v-show="feed.type === POST_TYPES.ARTWORK ? !likedIds.includes('a-'+feed.id) : !likedIds.includes('f-'+feed.id)"
+              :name="'i-ri-heart-3-line'"
+              class="icon-color hover:text-red-500"
+            />
+            {{ thousand(feed._count.likes) }}
+          </div>
 
-          <div class="ellipsis-menus__content dropdown-menu">
-            <div 
-              id="headlessui-menu-items-feed-more-options"
-              class="ellipsis-menus__content__wrapper"
-              aria-labelledby="headlessui-menu-button-1" 
-              role="menu"
+          <!-- comment button (open modal detail modal to show the comment section) -->
+          <div
+            class="interactions__item"
+            @click.prevent="feed.type === POST_TYPES.ARTWORK ? view(feed.id) : viewFeed(feed.id)"
+          >
+            <Icon
+              :name="'i-mdi-comment-multiple-outline'"
+              class="icon-color hover:text-blue-500"
+            />
+            {{ thousand(feed._count.comments) }}
+          </div>
+
+          <!-- save to collection button (only show for feed type artwork) -->
+          <div
+            v-if="feed.type === POST_TYPES.ARTWORK"
+            class="interactions__item"
+            @click="showCollectionSelectionModal(feed.id)"
+          >
+            <Icon
+              v-show="savedIds.includes(feed.id)"
+              :id="'save-to-collection-button-'+feed.id"
+              :name="'i-ion-bookmark'"
+              class="text-blue-500 hover:text-blue-500"
+            />
+            <Icon
+              v-show="!savedIds.includes(feed.id)"
+              :name="'i-majesticons-bookmark-line'"
+              class="icon-color hover:text-blue-500"
+            />
+          </div>
+
+          <!-- option buttons -->
+          <div class="ellipsis-menus dropdown">
+            <button 
+              type="button" 
+              aria-haspopup="true" 
+              aria-expanded="true" 
+              aria-controls="ellipsis-menus"
             >
-              <nuxt-link
-                :to="feed.type === POST_TYPES.ARTWORK ? '/a/'+feed.id : '/feed/'+feed.id"
+              <Icon :name="'i-uit-ellipsis-v'" />
+            </button>
+
+            <div class="ellipsis-menus__content dropdown-menu">
+              <div 
+                id="ellipsis-menus"
+                class="ellipsis-menus__content__wrapper"
+                aria-labelledby="headlessui-menu-button-1" 
+                role="menu"
               >
-                <Icon
-                  :name="'i-fluent-arrow-enter-20-filled'"
-                  class="mr-2 text-base"
-                /> {{ $t('open') }}
-              </nuxt-link>
+                <nuxt-link :to="feed.type === POST_TYPES.ARTWORK ? '/a/'+feed.id : '/feed/'+feed.id">
+                  <Icon :name="'i-fluent-arrow-enter-20-filled'" />
+                  {{ $t('open') }}
+                </nuxt-link>
 
-              <nuxt-link
-                :to="feed.type === POST_TYPES.ARTWORK ? '/a/'+feed.id : '/feed/'+feed.id"
-                target="_blank"
-              >
-                <Icon
-                  :name="'i-ci-external-link'"
-                  class="mr-2 text-base"
-                /> {{ $t('openInNewTab') }}
-              </nuxt-link>
-
-              <div class="custom-divider" />
-
-              <div>
-                <a
-                  @click="copyLink(feed.type === POST_TYPES.ARTWORK ? '/a/'+feed.id : '/feed/'+feed.id)"
+                <nuxt-link
+                  :to="feed.type === POST_TYPES.ARTWORK ? '/a/'+feed.id : '/feed/'+feed.id"
+                  target="_blank"
                 >
-                  <Icon
-                    :name="'i-icon-park-outline-copy'"
-                    class="mr-2 text-base"
-                  /> {{ $t('copySharableLink') }}
-                </a>
+                  <Icon :name="'i-ci-external-link'" />
+                  {{ $t('openInNewTab') }}
+                </nuxt-link>
+
+                <div class="custom-divider" />
+
+                <div>
+                  <a @click="copyLink(feed.type === POST_TYPES.ARTWORK ? '/a/'+feed.id : '/feed/'+feed.id)">
+                    <Icon :name="'i-icon-park-outline-copy'" />
+                    {{ $t('copySharableLink') }}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </section>
     </section>
 
@@ -455,7 +446,6 @@ const viewFeed = (feedId) => {
 }
 
 const readMore = (description, workId, selectorElId, descriptionElid) => {
-  console.log(readMore, description)
   useReadMore().readMore(description, workId, selectorElId, descriptionElid)
 }
 
@@ -590,18 +580,6 @@ defineExpose({
 
   &__list {
     @apply flex relative flex-col rounded-md lg:mx-6 theme-color;
-  }
-
-  &__interactions {
-    @apply inline-flex flex-row justify-end mb-6 mr-4 mt-2 gap-4;
-
-    &__item {
-      @apply whitespace-nowrap inline-flex flex-row gap-2;
-
-      .icon {
-        @apply text-xl align-middle transition-all cursor-pointer;
-      }
-    }
   }
 }
 

@@ -2,7 +2,10 @@
   <section
     v-if="feed.users"
     id="artist-info"
-    class="feeds__artist"
+    :class="[
+      'feeds__artist',
+      { '!px-0': isModal }
+    ]"
   >
     <nuxt-link
       class="feeds__artist__avatar"
@@ -51,6 +54,10 @@ defineProps({
   feed: {
     type: Object,
     default: () => {}
+  },
+  isModal: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

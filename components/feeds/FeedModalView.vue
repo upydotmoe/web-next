@@ -2,9 +2,20 @@
   <div 
     :class="[
       'z-40 work-container work-view mx-auto',
-      { 'w-full md:w-2/3 lg:w-6/12 xl:w-4/12 py-4 pl-4 md:p-6 theme-color': isModal }
+      { 'w-full md:w-2/3 lg:w-6/12 xl:w-4/12 py-4 pl-4 md:p-4 theme-color': isModal }
     ]"
   >
+    <div
+      v-if="isModal"
+      class="text-right"
+    >
+      <Icon
+        :name="'i-ion-close-outline'"
+        :text-size="'text-2xl'"
+        @click="closeModal('chronological-feed-modal')"
+      />
+    </div>
+  
     <div
       :class="[
         'w-full',
@@ -13,425 +24,214 @@
     >
       <div
         :class="[
-          'mb-4 rounded-md theme-color',
-          { 'p-4': !isModal },
+          'mb-2 rounded-md theme-color pb-2',
         ]"
       >
-        <!-- user info -->
-        <div class="flex flex-row justify-between w-full">
-          <div
-            v-if="feedDetail.users"
-            class="user-info"
-          >
-            <nuxt-link :to="'/u/' + feedDetail.users.username">
-              <img
-                class="avatar"
-                :src="avatarCoverUrl(feedDetail.users.avatar_bucket, feedDetail.users.avatar_filename)"
-                @error="defaultCoverImage"
-              >
-            </nuxt-link>
-            <div class="name">
-              <nuxt-link
-                :to="'/u/' + feedDetail.users.username"
-                class="fullname"
-              >
-                {{ feedDetail.users.name }}
-              </nuxt-link>
-              <br>
-              <nuxt-link
-                :to="'/u/' + feedDetail.users.username"
-                class="username"
-              >
-                @{{ feedDetail.users.username }}
-              </nuxt-link>
-
-              <span class="mx-1">·</span>
-                    
-              <span class="text-xxs">
-                {{ formatDate(feedDetail.created_at, true) }}
-              </span>
-            </div>
-          </div>
-
-          <div
-            v-if="isModal"
-            class="flex float-right flex-row gap-2 mb-4 cursor-pointer"
-          >
-            <div
-              class="modal-close"
-              @click="closeModal(section + '-modal')"
-            >
-              <Icon
-                :name="'i-ion-close'"
-                class="text-2xl"
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- feed text -->
-        <div 
-          v-if="feedDetail.text"
-          v-html="feedDetail.text"
+        <ArtistDetail
+          :feed="feedDetail"
+          :is-modal="isModal"
         />
 
-        <!-- shared artwork post detail -->
-        <div
-          v-if="feedDetail.artworks"
-          class="mt-4 rounded-md theme-color-secondary"
-        >
-          <!-- creator information -->
-          <div
-            v-if="feedDetail.artworks.users"
-            class="p-2 md:p-4 user-info"
-          >
-            <nuxt-link :to="'/u/' + feedDetail.artworks.users.username">
-              <img
-                class="avatar"
-                :src="avatarCoverUrl(feedDetail.artworks.users.avatar_bucket, feedDetail.artworks.users.avatar_filename)"
-                @error="defaultCoverImage"
-              >
-            </nuxt-link>
-            <div class="name">
-              <nuxt-link 
-                :to="'/u/' + feedDetail.artworks.users.username" 
-                class="fullname hover:href"
-              >
-                {{ feedDetail.artworks.users.name }}
-              </nuxt-link>
-              <br>
-              <nuxt-link 
-                :to="'/u/' + feedDetail.artworks.users.username" 
-                class="hover:underline text-xxs"
-              >
-                @{{ feedDetail.artworks.users.username }}
-              </nuxt-link>
-              
-              <span class="mx-1">·</span>
-              
-              <nuxt-link
-                :to="'/a/' + feedDetail.artworks.id"
-                class="hover:underline text-xxs"
-              >
-                {{ formatDate(feedDetail.artworks.scheduled_post ? feedDetail.artworks.scheduled_post : feedDetail.artworks.created_at, true) }}
-              </nuxt-link>
-            </div>
-          </div>
-
-          <!-- title & description of shared artwork -->
-          <div class="px-2 md:px-4">
-            <span class="text-xs font-semibold">{{ feedDetail.artworks.title }}</span>
-            <p v-show="feedDetail.artworks.description">
-              <span :id="'feed-description-'+feedDetail.artworks.id">
-                {{ feedDetail.artworks.description.length > 300 ? `${feedDetail.artworks.description.slice(0, 300)}...` : feedDetail.artworks.description }}
-              </span>
-              <a 
-                v-if="feedDetail.artworks.description.length > 300" 
-                :id="'feed-read-more-'+feedDetail.artworks.id" 
-                class="href" 
-                @click.prevent="readMore(feedDetail.artworks.description, feedDetail.artworks.id, 'feed-read-more-', 'feed-description-')"
-              >
-                {{ $t('readMore') }}
-              </a>
-            </p>
-          </div>
-
-          <!-- the artwork(s) -->
-          <div class="px-2">
-            <!-- Image view on Desktop -->
-            <div
-              v-if="feedDetail.artworks"
-              class="cursor-pointer"
-              @click.prevent="viewArtwork(feedDetail.artworks.id, feedDetail.artworks.apply_explicit_filter)"
-            >
-              <!-- <ImageList class="p-2 md:p-4" :work="feedDetail.artworks" /> -->
-              <div
-                :class="[
-                  'overflow-hidden relative rounded-md',
-                  !isMobile() ? 'p-2' : 'pt-2',
-                  { 'm-2': feedDetail.artworks.apply_explicit_filter }
-                ]"
-              >
-                <ImageList
-                  :class="[
-                    'mb-2',
-                    { 'blur-3xl unclickable': feedDetail.artworks.apply_explicit_filter },
-                    feedDetail.artworks.apply_explicit_filter ? 'brightness-50' : 'brightness-100'
-                  ]"
-                  :work="feedDetail.artworks"
-                />
-
-                <!-- filter message -->
-                <div
-                  v-if="feedDetail.artworks.apply_explicit_filter"
-                  class="p-2 mx-auto w-full text-center rounded-md opacity-90 theme-color"
-                >
-                  <div>{{ auth.loggedIn ? $t('explicitContentAlert') : $t('explicitContentAlertForGuest') }}</div>
-                  <button class="mx-auto mt-2 primary-button">
-                    {{ $t('explicitShowMeThisContent') }}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Image view on mobile or smaller device -->
-            <!-- <nuxt-link v-if="feedDetail.artworks && isMobile()" :to="'/a/'+feedDetail.id" class="cursor-pointer">
-              <ImageList class="p-2" :work="feedDetail.artworks" />
-            </nuxt-link> -->
-          </div>
-        </div>
+        <TextPostDetail
+          :bypass="true"
+          :is-modal="isModal"
+          :feed="feedDetail"
+          :read-more="readMore"
+          :view="view"
+          @read-more="readMore"
+          @view="view"
+        />
       </div>
 
       <!-- reactions -->
-      <div
+      <section
         v-if="feedDetail._count"
-        class="flex flex-row justify-between"
+        id="interaction-buttons"
+        class="interactions !px-4"
       >
-        <div v-if="feedDetail._count.feed_comments">
-          <b>{{ thousand(feedDetail._count.feed_comments) }}</b> {{ feedDetail._count.feed_comments > 1 ? $t('count.comments') : $t('count.comment') }}
+        <div>
+          <div v-if="feedDetail._count.feed_comments">
+            <b>{{ thousand(feedDetail._count.feed_comments) }}</b> {{ feedDetail._count.feed_comments > 1 ? $t('count.comments') : $t('count.comment') }}
+          </div>
+          <div v-if="!feedDetail._count.feed_comments" />
         </div>
-        <div v-if="!feedDetail._count.feed_comments" />
 
-        <div
-          v-if="auth.loggedIn"
-          class="flex flex-row gap-x-2"
-        >
-          <!-- Like -->
+        <div class="interactions__items">
+          <!-- like button -->
           <div
-            class="flex flex-row"
+            v-if="auth.loggedIn"
+            class="interactions__item"
             @click="liked ? unlike() : like()"
           >
             <Icon 
               v-show="liked"
               :id="'feedLikeButton'+feedDetail.id"
               :name="'i-ion-heart'" 
-              class="mr-2 text-xl text-red-500 cursor-pointer hover:text-red-500"
+              class="text-red-500 hover:text-red-500"
             />
             <Icon 
               v-show="!liked"
               :name="'i-ri-heart-3-line'" 
-              class="mr-2 text-xl cursor-pointer hover:text-red-500"
+              class="hover:text-red-500"
             />
-
-            <span>{{ thousand(feedDetail._count.feed_likes) }}</span>
+            {{ thousand(feedDetail._count.feed_likes) }}
           </div>
 
-          <!-- ellipsis other interaction -->
+          <!-- option buttons -->
           <div
-            v-if="!feedDetail.artworks"
-            class="inline-block relative z-30 dropdown"
+            v-if="!feedDetail.artworks && (auth.loggedIn && feedDetail.user_id && auth.user.id === feedDetail.user_id)"
+            class="ellipsis-menus dropdown"
           >
             <button 
               type="button" 
               aria-haspopup="true" 
               aria-expanded="true" 
-              aria-controls="headlessui-menu-items-feed-more-options"
+              aria-controls="ellipsis-menus"
             >
               <span>
-                <Icon
-                  :name="'i-ion-ellipsis-vertical-outline'" 
-                  class="align-middle icon icon-color"
-                />
+                <Icon :name="'i-uit-ellipsis-v'" />
               </span>
             </button>
-            <div class="invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 dropdown-menu">
+
+            <div class="ellipsis-menus__content dropdown-menu">
               <div 
-                id="headlessui-menu-items-feed-more-options"
-                class="absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right outline-none theme-color"
+                id="ellipsis-menus"
+                class="ellipsis-menus__content__wrapper"
                 aria-labelledby="headlessui-menu-button-1" 
                 role="menu"
               >
-                <div 
-                  v-if="auth.loggedIn && feedDetail.user_id && auth.user.id === feedDetail.user_id" 
-                  :to="'/feed/'+feedDetail.id" 
-                  class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 cursor-pointer bg-danger hover:button-color parent-icon hover:text-white"
-                  @click="openModal('feed-deletion-confirm-modal')"
-                >
-                  <Icon
-                    :name="'i-ion-trash-outline'"
-                    class="mr-2 text-base"
-                  /> {{ $t('delete') }}
+                <div v-if="auth.loggedIn && feedDetail.user_id && auth.user.id === feedDetail.user_id">
+                  <a @click="openModal('feed-deletion-confirm-modal')">
+                    <Icon :name="'i-ion-trash-outline'" />
+                    {{ $t('delete') }}
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- comment section -->
-      <!-- comment input -->
-      <div class="mt-6 mb-2">
-        <div
-          v-if="auth.loggedIn"
-          class="comment-box"
-        >
-          <div class="flex flex-col">
-            <div class="flex relative flex-col">
-              <textarea
-                v-model="commentInput"
-                class="input form-input"
-                :class="[{ 'cursor-not-allowed': submitCommentLoading }, { 'theme-color-secondary textarea': isModal }]"
-                :readonly="submitCommentLoading"
-                cols="20"
-                :rows="commentInput != null && commentInput != '' ? '4' : '0'"
-                :placeholder="$t('comments.inputPlaceholder')"
-                :maxlength="commentMaxChar"
-                data-gramm="false"
-              />
-              <span 
-                v-show="commentInput != null && commentInput != ''" 
-                class="absolute left-4 bottom-6 py-1 px-2 text-white rounded-md button-color"
-              >
-                {{ commentCharLeft }}
-              </span>
-              <span
-                class="absolute right-2 bottom-5 py-1 px-2"
-                @click.prevent="submitComment()"
-              >
-                <Icon 
-                  v-show="commentInput != null && commentInput != '' && !submitCommentLoading"
-                  :name="'i-carbon-send-filled'" 
-                  class="text-xl transition-all duration-100 cursor-pointer text-colored"
+      <section
+        id="comment-section"
+        class=""
+      >
+        <section id="comment-input-section">
+          <div v-if="auth.loggedIn">
+            <div class="flex flex-col">
+              <div class="comments__comment-box">
+                <textarea
+                  ref="commentInputRef"
+                  v-model="commentInput"
+                  :class="[{ 'cursor-not-allowed': submitCommentLoading }, { 'theme-color-secondary textarea': isModal }]"
+                  :readonly="submitCommentLoading"
+                  cols="20"
+                  :rows="commentInput != '' ? '6' : '0'"
+                  :placeholder="$t('comments.inputPlaceholder')"
+                  :maxlength="commentMaxChar"
+                  data-gramm="false"
                 />
-                <Spinner v-show="submitCommentLoading" />
-              </span>
+
+                <span 
+                  v-show="commentInput != ''" 
+                  class="comments__str-left-counter"  
+                >
+                  {{ commentCharLeft }}
+                </span>
+
+                <button
+                  class="comments__submit"
+                  @click.prevent="submitComment()"
+                >
+                  <Icon
+                    v-show="commentInput != '' && !submitCommentLoading"
+                    :name="'i-carbon-send-filled'"
+                  />
+                  <Spinner v-show="submitCommentLoading" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- if user not logged in, hide comment input and show this instead -->
-        <div
-          v-if="!auth.loggedIn"
-          class="p-4 mb-4 text-center rounded-md theme-color-secondary"
-        >
-          {{ $t('comments.loginOrRegisterToLeaveComment') }}
-        </div>
-      </div>
-
-      <!-- comments -->
-      <div 
-        class="comment-content"
-        :class="[
-          { 'overflow-x-hidden': isModal },
-          { 'mb-20': !isModal }
-        ]"
-      >
-        <div 
-          v-for="comment in comments"
-          :key="comment.id" 
-          v-auto-animate 
-          class="comment-item"
-        >
-          <nuxt-link
-            class="mr-2"
-            :to="'/u/' + comment.users.username"
+          <!-- if user not logged in, hide comment input and show this alert instead -->
+          <div
+            v-if="!auth.loggedIn"
+            class="must-login-alert"
           >
-            <img
-              class="w-10 h-10 avatar"
-              :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
-              @error="defaultCoverImage"
-            >
-          </nuxt-link>
+            {{ $t('comments.loginOrRegisterToLeaveComment') }}
+          </div>
+        </section>
 
-          <div class="w-full">
+        <!-- comments -->
+        <div 
+          class="comments__items"
+          :class="[
+            { 'overflow-x-hidden': isModal },
+            { 'mb-20': !isModal }
+          ]"
+        >
+          <div 
+            v-for="comment in comments"
+            :key="comment.id" 
+            v-auto-animate 
+            class="comments__item"
+          >
+            <nuxt-link
+              class="comments__item__user-avatar"
+              :to="'/u/' + comment.users.username"
+            >
+              <img
+                :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
+                @error="defaultCoverImage"
+              >
+            </nuxt-link>
+
             <div 
-              class="p-4 w-full rounded-md"
+              class="comments__item__info"
               :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
             >
-              <div class="flex justify-between">
-                <nuxt-link
-                  :to="'/u/' + comment.users.username"
-                  class="mb-2 text-xs font-medium transition-all duration-150 cursor-pointer hover:font-bold"
-                >
+              <div class="comments__item__info__head">
+                <nuxt-link :to="'/u/' + comment.users.username">
                   {{ comment.users.name }}
                 </nuxt-link>
-                <div class="comment-time">
+                <div class="time">
                   {{ formatDate(comment.created_at, true) }}
                 </div>
               </div>
 
-              <div>
-                {{ comment.comment }}
-              </div>
-
-              <div
-                v-if="auth.loggedIn"
-                class="hidden reactions"
-              >
-                <div class="flex flex-row">
-                  <!-- <span class="reaction" @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
-                    <Icon v-show="!likedComments.includes(comment.id)" :name="'i-ri-heart-3-line'" class="text-gray-500 hover:text-red-500" />
-                    <Icon v-show="likedComments.includes(comment.id)" :id="'comment-like-button-'+comment.id" :name="'i-ion-heart'" class="text-red-500 hover:text-red-500" />
-                    {{ comment._count.artwork_comment_has_likes }}
-                  </span>
-                  <span class="reaction" @click="showReplyInput(comment.id) && showReplies(comment.id)">
-                    <Icon :name="'i-ion-arrow-undo-outline'" class="text-gray-500 hover:text-blue-500" />
-                    {{ comment._count.artwork_comment_has_replies }}
-                  </span> -->
-
-                  <!-- Other comment interaction buttons -->
-                  <!-- <div class="inline-block relative ml-2 dropdown">
-                    <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
-                      <div 
-                        id="headlessui-menu-items-feed-more-options" 
-                        class="absolute right-0 z-50 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
-                        aria-labelledby="headlessui-menu-button-1" 
-                        role="menu"
-                      >
-                        <nuxt-link 
-                          :to="'/u/' + comment.users.username" 
-                          class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                          @click.prevent 
-                        >
-                          <Icon :name="'i-ri-user-follow-fill'" class="mr-2 text-base" /> {{ $t('viewProfile') }}
-                        </nuxt-link>
-                        <div
-                          v-if="auth.loggedIn && auth.user.id === comment.users.id"
-                          class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                          @click="deleteComment(comment.id)"
-                        >
-                          <Icon :name="'i-ion-trash-outline'" class="mr-2 text-base" /> {{ $t('delete') }}
-                        </div>
-                        <nuxt-link 
-                          v-if="auth.loggedIn && auth.user.id !== comment.users.id"
-                          :to="'#'" 
-                          class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                          @click.prevent 
-                        >
-                          <Icon :name="'i-akar-icons-flag'" class="mr-2 text-base" /> {{ $t('report') }}
-                        </nuxt-link>
-                      </div>
-                    </div>
-                  </div> -->
-                </div>
-              </div>
+              <p>{{ comment.comment }}</p>
             </div>
           </div>
-        </div>
 
-        <div
-          v-if="feedDetail._count"
-          v-show="feedDetail._count.feed_comments > commentPagination.perPage && showLoadOlderComments"
-          class="mx-auto w-full md:w-fit primary-button"
-          @click.prevent="loadMoreComments(feedDetail.id)"
-        >
-          {{ $t('comments.loadOlder') }}
-        </div>
+          <!-- load more comments -->
+          <div
+            v-if="feedDetail._count"
+            v-show="feedDetail._count.feed_comments > commentPagination.perPage && showLoadOlderComments"
+            class="comments__load-more-button"
+            @click.prevent="loadMoreComments(feedDetail.id)"
+          >
+            <Spinner v-if="loadingOlderComment" />
+            {{ $t('comments.loadOlder') }}
+          </div>
 
-        <div
-          v-show="comments.length && !showLoadOlderComments"
-          class="w-full text-xs italic text-center"
-        >
-          {{ $t('comments.reachedTheEnd') }}
-        </div>
+          <!-- have reached the end message -->
+          <div
+            v-show="comments.length && !showLoadOlderComments"
+            class="comments__no-more-item"
+          >
+            {{ $t('comments.reachedTheEnd') }}
+          </div>
 
-        <div
-          v-if="auth.loggedIn && !comments.length"
-          class="mt-4 w-full text-xs italic text-center"
-        >
-          {{ $t('comments.noCommentYet') }}
+          <!-- no comment message -->
+          <div
+            v-if="auth.loggedIn && !comments.length"
+            class="comments__no-comment"
+          >
+            {{ $t('comments.noCommentYet') }}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- artwork modal view component -->
@@ -451,7 +251,7 @@
       :modal-id="'feed-deletion-confirm-modal'"
       :message="`${$t('alert.areYouSure')} ${$t('alert.youCannotUndoThisAction')}`"
       class="modal"
-      @onAccept="removeFeed(feedDetail.id)"
+      @on-accept="removeFeed(feedDetail.id)"
     />
   </div>
 </template>
@@ -465,13 +265,12 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
-import ImageList from './ImageList.vue'
 import ModalView from '~/components/artworks/views/ModalView.vue'
 import ConfirmationDialog from '~/components/globals/ConfirmationDialog.vue'
+import ArtistDetail from '~/components/feeds/index/ArtistDetail.vue'
+import TextPostDetail from '~/components/feeds/index/TextPostDetail.vue'
 
-/**
- * @stores
- */
+// stores
 const auth = useAuthStore()
 
 const emit = defineEmits(['setMeta', 'showEmpty', 'showError'])
@@ -493,6 +292,8 @@ const { $router } = useNuxtApp()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 const { generateArtworkThumb } = useUpyImage()
+
+const commentInputRef = ref(null)
 
 onMounted (() => {
   if (props.id !== 0) {
@@ -518,6 +319,10 @@ const loading = ref(true)
 
 const feedDetail = ref({})
 const liked = ref(false)
+
+const readMore = (description, workId, selectorElId, descriptionElid) => {
+  useReadMore().readMore(description, workId, selectorElId, descriptionElid)
+}
 
 const view = async (selectedFeedId) => {
   loading.value = true
@@ -665,18 +470,19 @@ const getComments = async (feedId) => {
 
 /** Load more comments (comment pagination) */
 const showLoadOlderComments = ref(false)
+const loadingOlderComment = ref(false)
 const loadMoreComments = async (feedId) => {
-  try {
-    commentPagination.value.page += 1
-    const moreComments = await fetchComments(feedId)
+  loadingOlderComment.value = true
 
-    moreComments.forEach(comment => comments.value.push(comment))
-  } catch (error) {
-    // 
-  }
+  commentPagination.value.page += 1
+  const moreComments = await fetchComments(feedId)
+
+  moreComments.forEach(comment => comments.value.push(comment))
+  
+  loadingOlderComment.value = false
 }
 
-const commentInput = ref()
+const commentInput = ref('')
 const commentMaxChar = 200
 const commentCharLeft = computed(() => (commentInput.value != null && commentInput.value !== '') ? commentMaxChar - commentInput.value.length : commentMaxChar)
 
@@ -784,54 +590,78 @@ defineExpose ({
 <style lang="scss" scoped>
 @import "~/assets/css/artworks/view.scss";
 
-.user-info {
-  @apply flex flex-row mb-4;
+.comments {
+  @apply px-4 mt-4 md:p-0;
 
-  .avatar {
-    @apply mr-3 w-10 h-10 rounded-md object-cover;
-    aspect-ratio: 1/1;
-  }
+  &__comment-box {
+    @apply flex relative flex-col;
 
-  .name {
-    .fullname {
-      @apply font-bold text-tiny;
-    }
-    .username {
-      @apply text-xs;
-    }
-  }
-}
-
-.comment-content {
-  @apply flex flex-col gap-4;
-
-  .comment-order {
-    @apply flex justify-end mb-4 w-full;
-
-    button {
-      @apply py-2 px-3 underline rounded-sm cursor-pointer;
+    textarea {
+      @apply input form-input;
     }
   }
 
-  .comment-item {
-    @apply flex flex-row w-full;
+  &__str-left-counter {
+    @apply absolute left-3 bottom-6 py-1 px-2 text-white rounded-md button-color;
+  }
 
-    .comment-time {
-      @apply italic text-xxs;
-      color: var(--link);
+  &__submit {
+    @apply absolute right-2 bottom-5 py-1 px-2;
+
+    .icon {
+      @apply text-xl transition-all duration-100 cursor-pointer text-gray-500 hover:text-colored;
+    }
+  }
+
+  &__items {
+    @apply flex flex-col gap-2;
+
+    .comment-order {
+      @apply flex justify-end mb-4 w-full;
+
+      button {
+        @apply py-2 px-3 underline rounded-sm cursor-pointer;
+      }
+    }
+  }
+
+  &__item {
+    @apply flex flex-row w-full gap-2;
+
+    &__user-avatar {
+      img {
+        @apply w-10 h-10 avatar;
+      }
     }
 
-    .reactions {
-      @apply flex flex-row justify-between w-full;
+    &__info {
+      @apply p-3 w-full rounded-md;
 
-      .reaction {
-        @apply flex ml-3 leading-5;
+      &__head {
+        @apply flex flex-row justify-between;
 
-        .icon {
-          @apply mr-1 text-xl cursor-pointer;
+        a {
+          @apply mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer hover:font-bold;
+        }
+
+        > .time {
+          @apply italic text-xxs;
+          color: var(--link);
         }
       }
     }
+  }
+
+  &__load-more-button {
+    @apply flex flex-row gap-2 href mx-auto lowercase;
+  }
+
+  &__no-more-item {
+    @apply w-full text-xs italic text-center;
+  }
+
+  &__no-comment {
+    @apply w-full text-xs italic text-center;
   }
 }
 </style>

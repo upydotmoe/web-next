@@ -28,8 +28,8 @@
         v-show="!showSuggestedUsers"
         ref="feedRef"
         :fetch-mode="fetchMode"
-        @updateFeedLength="updateFeedLength"
-        @updateShowSuggestedUsers="updateShowSuggestedUsers"
+        @update-feed-length="updateFeedLength"
+        @update-show-suggested-users="updateShowSuggestedUsers"
       />
     </section>
 

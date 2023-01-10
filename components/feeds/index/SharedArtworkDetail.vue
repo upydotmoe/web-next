@@ -2,10 +2,13 @@
   <section
     v-if="feed.artwork_share_info"
     id="shared-artwork-info"
-    class="my-2 w-full rounded-md theme-color-secondary"
+    :class="[
+      'my-2 w-full rounded-md',
+      colorReversed ? 'theme-color' : 'theme-color-secondary'
+    ]"
   >
     <ArtistDetail
-      :feed="feed"
+      :feed="feed.artwork_share_info"
     />
 
     <!-- title & description of shared artwork -->
@@ -82,6 +85,10 @@ const auth = useAuthStore()
 
 defineEmits(['readMore', 'view'])
 defineProps({
+  colorReversed: {
+    type: Boolean,
+    default: false
+  },
   feed: {
     type: Object,
     default: () => {}

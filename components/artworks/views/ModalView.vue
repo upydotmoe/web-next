@@ -369,7 +369,7 @@
               >
                 <span>
                   <Icon
-                    :name="'i-ion-ellipsis-vertical-outline'" 
+                    :name="'i-uit-ellipsis-v'" 
                     class="align-middle icon icon-color"
                   />
                 </span>
@@ -808,7 +808,7 @@
                         >
                           <span>
                             <Icon
-                              :name="'i-ion-ellipsis-vertical-outline'" 
+                              :name="'i-uit-ellipsis-v'" 
                               class="align-middle icon icon-color"
                             />
                           </span>
@@ -985,7 +985,7 @@
                           >
                             <span>
                               <Icon
-                                :name="'i-ion-ellipsis-vertical-outline'" 
+                                :name="'i-uit-ellipsis-v'" 
                                 class="align-middle icon icon-color"
                               />
                             </span>

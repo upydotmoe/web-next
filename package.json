@@ -7,7 +7,7 @@
     "start:docker": "pm2-runtime ecosystem.config.js",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "pm2:start": "pm2 start ./.output/server/index.mjs --name upy-web && pm2 save",
+    "pm2:start": "pm2 start -f ./.output/server/index.mjs --name upy-web && pm2 save",
     "pm2:reload": "npm run pm2:start && pm2 reload upy-web",
     "pm2:stop": "pm2 delete upy-web",
     "lint": "eslint .",

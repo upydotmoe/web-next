@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal-layer xl:w-3/12 lg:w-2/5">
+    <div class="w-full modal-layer xl:w-3/12 lg:w-2/5">
       <div class="flex flex-col justify-center w-full text-center">
         <div class="mb-6">
           <div class="flex flex-row justify-center mb-4 w-full text-base font-bold text-green-600">

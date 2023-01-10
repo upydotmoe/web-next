@@ -24,7 +24,7 @@
     </div>
 
     <div
-      v-if="suggestedUsersToFollow"
+      v-if="suggestedUsersToFollow && suggestedUsersToFollow.length"
       class="middle__welcome__follow-suggestions"
     >
       <div class="title">
@@ -44,6 +44,9 @@
 // constants
 import { newUserWelcomeMenus } from '~/utils/constants/feed'
 
+// components
+import Icon from '~/components/globals/Icon.vue'
+
 defineProps({
   suggestedUsersToFollow: {
     type: Array,
@@ -56,14 +59,14 @@ defineProps({
 .middle__welcome {
   @apply h-screen;
 
-  .middle__welcome__title {
+  &__title {
     @apply title;
   }
   
-  .middle__welcome__menus {
+  &__menus {
     @apply grid grid-cols-4 gap-4 mx-auto mt-6 text-center;
 
-    nuxt-link {
+    a {
       @apply flex flex-col gap-3 p-4 w-full text-center rounded-md theme-color hover:shadow-md hover:theme-colored;
 
       .icon {
@@ -72,7 +75,7 @@ defineProps({
     }
   }
 
-  .middle__welcome__follow-suggestions {
+  &__follow-suggestions {
     @apply mt-14;
   }
 }

@@ -5,10 +5,11 @@
     <div
       :class="[
         'flex mx-auto w-full md:px-4',
-        { 'p-2': route.name != 'feed' },
+        { 'p-2': !['feed'].includes(route.name) },
         { '2xl:w-8/12': !fullscreen }
       ]"
     >
+      <!-- left side -->
       <div
         v-if="!hideSide"
         :class="[
@@ -21,7 +22,8 @@
         </div>
       </div>
 
-      <div
+      <!-- main content -->
+      <main
         class="mt-2"
         :class="[
           'w-full',
@@ -32,8 +34,9 @@
         ]"
       >
         <slot />
-      </div>
+      </main>
 
+      <!-- right side -->
       <div
         v-if="!noRightSide"
         :class="[
@@ -94,6 +97,10 @@ const currentRoute = route.name
 // todo: future feature, custom color theme configured by user
 // document.documentElement.style.setProperty('--button', '#FF0000')
 </script>
+
+<style lang="scss">
+@import '~/assets/css/tailwind.scss';
+</style>
 
 <style lang="scss" scoped>
 // @import '~/assets/css/wavy-bg.scss';
