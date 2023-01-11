@@ -2,8 +2,9 @@
   <Layout
     :with-footer="true"
   >
-    <UpdateForm
+    <ArtworkForm
       :id="id"
+      :is-update="true"
     />
   </Layout>
 </template>
@@ -14,7 +15,7 @@ import useAuthStore from '@/stores/auth.store'
 
 // components
 import Layout from '~/components/layouts/Layout.vue'
-import UpdateForm from '~/components/artworks/forms/UpdateForm'
+import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
 
 // stores
 const auth = useAuthStore()

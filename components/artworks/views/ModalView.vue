@@ -437,16 +437,16 @@
                     class="custom-divider"
                   />
 
-                  <nuxt-link 
+                  <a
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
-                    :to="'/artworks/update/'+artworkDetail.id"
+                    :href="'/artworks/update/'+artworkDetail.id"
                     class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
                   >
                     <Icon
                       :name="'i-ion-settings-outline'"
                       class="mr-2 text-base"
                     /> {{ $t('update') }}
-                  </nuxt-link>
+                  </a>
                   <!-- <div
                     v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id"
                     :to="'/artworks/update/'+artworkDetail.id"

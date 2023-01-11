@@ -23,13 +23,28 @@
     </section>
 
     <section id="artwork-form">
-      <h2 class="title">
+      <h2
+        v-if="!isUpdate"
+        class="title"
+      >
         {{ !redrawWorkId ? $t('artworks.add.form.title') : $t('artworks.add.form.titleRedraw') }}
       </h2>
 
+      <div
+        v-if="isUpdate"
+        class="mb-4 text-base font-bold"
+      >
+        {{ $t('artworks.update.form.title') }} 
+        <span class="text-xs italic font-bold href">
+          <nuxt-link :to="'/a/'+id">
+            (ID: {{ id }})
+          </nuxt-link>
+        </span>
+      </div>
+
       <!-- redrawed artwork detail -->
       <section 
-        v-if="redrawWorkId"
+        v-if="!isUpdate && redrawWorkId"
         id="redrawed-artwork-info"
         class="p-2 mb-4 rounded-md theme-color hover:theme-colored"
       >
@@ -67,7 +82,7 @@
             </div>
 
             <div class="flex flex-col gap-2 w-3/4">
-              <span class="title">{{ redrawedArtwork.title }}</span>
+              <span class="title-tiny">{{ redrawedArtwork.title }}</span>
               <p v-html="redrawedArtwork.description.length > 300 ? redrawedArtwork.description.slice(0, 300) + '..' : redrawedArtwork.description" />
             </div>
           </a>
@@ -75,17 +90,18 @@
       </section>
 
       <form
+        v-if="isUpdate ? !isErrorFetching : true"
         :id="formId"
         enctype="multipart/form-data"
-        @submit.prevent="storeArtwork(formId)"
+        @submit.prevent="!isUpdate ? storeArtwork() : update()"
       >
         <ErrorMessage
-          :is-loading="uploading"
+          :is-loading="saving"
           :loading-message="$t('artworks.add.form.uploading')"
           :is-error="uploadError"
           :error-message="uploadErrorMessage"
-          :is-success="uploadSuccess"
-          :success-message="`${$t('artworks.add.form.uploadSuccess')} ${$t('artworks.add.form.successRedirect')}`"
+          :is-success="saved"
+          :success-message="!isUpdate ? `${$t('artworks.add.form.uploadSuccess')} ${$t('artworks.add.form.successRedirect')}` : `${$t('artworks.update.form.updated')} ${$t('artworks.update.form.successRedirect')}`"
         />
         
         <n-validate 
@@ -97,7 +113,7 @@
             type="text"
             rules="required|max:100"
             :class="[
-              { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
+              { 'pointer-events-none cursor-not-allowed': saving || saved }
             ]"
             :placeholder="$t('title')"
           >
@@ -109,13 +125,13 @@
             v-model="inputData.description"
             :editor-toolbar="quillOptions"
             :class="[
-              { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }
+              { 'pointer-events-none cursor-not-allowed': saving || saved }
             ]"
             :placeholder="$t('description')"
           />
         </n-validate>
 
-        <n-validate>
+        <n-validate v-if="!isUpdate">
           <div
             v-show="alert.showFileTooBig"
             class="p-2 text-xs text-white bg-red-400 rounded-md shadow-md"
@@ -131,7 +147,7 @@
               :max-file-size="maxFileSize*1000000"
               :class="[
                 'bg-transparent rounded-sm',
-                { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess },
+                { 'pointer-events-none cursor-not-allowed': saving || saved },
               ]"
               accepted-file-types="image/jpeg, image/png"
               allow-multiple="true"
@@ -148,7 +164,7 @@
 
         <n-validate>
           <tags-input
-            v-if="!initTagsLoading"
+            v-if="!isUpdate ? !initTagsLoading : true"
             v-model="tags"
             :placeholder="$t('tagsInputPlaceholder')"
             :typeahead="true"
@@ -158,14 +174,14 @@
             :typeahead-hide-discard="true"
             :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"
             :add-tags-on-comma="true"
-            :class="{ 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }"
+            :class="{ 'pointer-events-none cursor-not-allowed': saving || saved }"
             :initial-value="!redrawWorkId && !initTagsLoading ? [] : initTags"
           />
         </n-validate>
 
         <!-- planned publish date -->
         <n-validate
-          v-show="!redrawWorkId"
+          v-if="!isUpdate && !redrawWorkId"
           class="flex flex-row gap-x-2"
         >
           <div class="relative w-full">
@@ -262,7 +278,7 @@
         >
           <!-- original character toggler -->
           <div
-            v-if="!redrawWorkId"
+            v-if="!redrawWorkId && !isARedraw"
             :class="[
               'toggler-box',
               { 'toggler-box__active': inputData.isOriginalCharacter }
@@ -291,7 +307,7 @@
 
           <!-- original character toggler -->
           <div
-            v-if="!redrawWorkId"
+            v-if="!redrawWorkId && !isARedraw"
             :class="[
               'toggler-box',
               { 'toggler-box__active': inputData.isAllowRedraw }
@@ -320,16 +336,16 @@
 
           <!-- redraw in my style toggler -->
           <div
-            v-if="redrawWorkId"
+            v-if="redrawWorkId || isARedraw"
             :class="[
               'toggler-box',
-              { 'toggler-box__active': inputData.isredrawInMyStyle }
+              { 'toggler-box__active': inputData.isRedrawInMyStyle }
             ]"
-            @click.prevent="inputData.isredrawInMyStyle = !inputData.isredrawInMyStyle"
+            @click.prevent="inputData.isRedrawInMyStyle = !inputData.isRedrawInMyStyle"
           >
             <div class="toggler-box__icons">
               <Icon
-                v-if="!inputData.isredrawInMyStyle"
+                v-if="!inputData.isRedrawInMyStyle"
                 :name="'i-fluent-checkbox-unchecked-20-regular'"
               />
               <Icon
@@ -359,16 +375,20 @@
           <button
             :class="[
               'submit',
-              { 'pointer-events-none cursor-not-allowed': uploading || uploadSuccess }, 
+              { 'pointer-events-none cursor-not-allowed': saving || saved }, 
               { '!disabled-button': !inputData.title }
             ]"
           >
             <div class="flex flex-row">
               <Spinner
-                v-if="uploading"
+                v-if="saving"
                 class="mr-2"
               />
-              {{ !uploading ? $t('artworks.add.form.post').toUpperCase() : $t('artworks.add.form.uploadingButton') }}
+              {{ 
+                !saving ? 
+                  (!isUpdate ? $t('artworks.add.form.post').toUpperCase() : $t('save')) :
+                  (!isUpdate ? $t('artworks.add.form.uploadingButton') : $t('saving'))
+              }}
             </div>
           </button>
         </div>
@@ -402,14 +422,15 @@ import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
 import ErrorMessage from '~/components/auth/forms/ErrorMessage.vue'
 
-/**
- * Vue FilePond
- */
-const FilePond = vueFilePond(
-  FilePondPluginFileValidateType,
-  FilePondPluginFileValidateSize,
-  FilePondPluginImagePreview
-)
+// vue filepond (file picker)
+let FilePond = null
+if (!props.isUpdate) {
+  FilePond = vueFilePond(
+    FilePondPluginFileValidateType,
+    FilePondPluginFileValidateSize,
+    FilePondPluginImagePreview
+  )
+}
 
 // stores
 const auth = useAuthStore()
@@ -422,12 +443,23 @@ definePageMeta ({
   keepalive: false
 })
 
+const props = defineProps({
+  id: {
+    type: String,
+    default: ''
+  },
+  isUpdate: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const { t } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 const apiUrl = runtimeConfig.public.apiUrl
 
 const route = useRoute()
-const { $router } = useNuxtApp()
+const router = useRouter()
 
 const showContentGuidelines = ref(false)
 
@@ -435,32 +467,34 @@ const redrawWorkId = computed(() => route.query.redrawWorkId)
 
 onMounted (() => {
   if (!auth.loggedIn) {
-    $router.push('/')
+    router.push('/')
   }
 
-  fetchSetting()
+  if (!props.isUpdate) {
+    fetchSetting()
 
-  if (redrawWorkId.value) {
-    fetchRedrawedArtworkInfo()
+    if (redrawWorkId.value) {
+      fetchRedrawedArtworkInfo()
+    } else {
+      initTagsLoading.value = false
+      
+      // datepicker plugin
+      const today = moment().add(1, 'day').format('DD/MM/yyyy')
+
+      const datepickerEl = document.getElementById('publishDate')
+      new Datepicker(datepickerEl, {
+        autohide: true,
+        todayHighlight: true,
+        format: 'dd/mm/yyyy',
+        minDate: today
+      })
+    }
   } else {
-    initTagsLoading.value = false
+    fetchWorkInfo()
   }
-
-  /**
-   * Init datepicker for artwork scheduled post purpose
-   */
-  const today = moment().add(1, 'day').format('DD/MM/yyyy')
-
-  const datepickerEl = document.getElementById('publishDate')
-  new Datepicker(datepickerEl, {
-    autohide: true,
-    todayHighlight: true,
-    format: 'dd/mm/yyyy',
-    minDate: today
-  })
 })
 
-watch (() => $router.query, () => {
+watch (() => router.query, () => {
   resetForm()
 })
 
@@ -492,6 +526,35 @@ const fetchSetting = async () => {
   labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'
 }
 
+// if it's update form, fetch current artwork detail
+const isARedraw = ref(false)
+const fetchWorkInfo = async () => {
+  const [data, error] = await artworkApi.getWorkById(props.id)
+
+  if (error) {
+    isErrorFetching.value = true
+  } else {
+    isARedraw.value = data.redraw_of
+
+    inputData.value = {
+      title: data.title,
+      description: data.description.split('<br><br>').join(' \n').split('<br>').join(''),
+      isExplicit: !!data.is_explicit,
+      isGore: !!data.is_gore,
+      isOriginalCharacter: !!data.is_original_character,
+      isAllowRedraw: !!data.allow_redraw,
+      isRedrawInMyStyle: !!data.redraw_in_your_style
+    }
+
+    data.artwork_has_tags.forEach((tag) => {
+      tags.value.push({
+        key: tag.artwork_tags.id,
+        value: tag.artwork_tags.tag
+      })
+    })
+  }
+}
+
 // 
 const labelIdleText = ref('')
 const artworkFiles = ref([])
@@ -509,7 +572,7 @@ const inputData = ref({
   isGore: false,
   isOriginalCharacter: false,
   isAllowRedraw: false,
-  isredrawInMyStyle: false,
+  isRedrawInMyStyle: false,
   publishDate: null,
   publishTime: null
 })
@@ -522,8 +585,8 @@ const alert = ref({
 
 const maxFileSize = ref(5)
 const maxFileCount = ref(1)
-const uploading = ref(false)
-const uploadSuccess = ref(false)
+const saving = ref(false)
+const saved = ref(false)
 const uploadError = ref(false)
 const uploadErrorMessage = ref('')
 const storeArtwork = async () => {
@@ -532,20 +595,23 @@ const storeArtwork = async () => {
   // reset related state before re/attemping to upload the artwork
   reset()
 
-  // change publish date format
-  const publishDateEl = document.getElementById('publishDate')
+  // init publish date only if it's a new artwork (not a redraw)
   let publishDate = null
-  if (publishDateEl.value) {
-    const newDateSplitted = publishDateEl.value.split('/')
-    const formattedPublishDate = `${newDateSplitted[2]}-${newDateSplitted[1]}-${newDateSplitted[0]}`
-    
-    // publish time
-    let publishTime = '00:00:00'
-    if (inputData.value.publishTime) {
-      publishTime = `${inputData.value.publishTime}:00`
-    }
+  if (!redrawWorkId.value) {
+    // change publish date format
+    const publishDateEl = document.getElementById('publishDate')
+    if (publishDateEl.value) {
+      const newDateSplitted = publishDateEl.value.split('/')
+      const formattedPublishDate = `${newDateSplitted[2]}-${newDateSplitted[1]}-${newDateSplitted[0]}`
+      
+      // publish time
+      let publishTime = '00:00:00'
+      if (inputData.value.publishTime) {
+        publishTime = `${inputData.value.publishTime}:00`
+      }
 
-    publishDate = `${formattedPublishDate} ${publishTime}`
+      publishDate = `${formattedPublishDate} ${publishTime}`
+    }
   }
 
   // collect picked tags and convert to acceptable API format
@@ -563,13 +629,18 @@ const storeArtwork = async () => {
   formData.append('is_gore', inputData.value.isGore ? 1 : 0)
   formData.append('is_original_character', inputData.value.isOriginalCharacter ? 1 : 0)
   formData.append('allow_redraw', inputData.value.isAllowRedraw ? 1 : 0)
-  formData.append('redraw_in_your_style', inputData.value.isredrawInMyStyle ? 1 : 0)
+  formData.append('redraw_in_your_style', inputData.value.isRedrawInMyStyle ? 1 : 0)
   if (redrawWorkId.value) {
     formData.append('redraw_of', redrawWorkId.value)
   }
-  formData.append('scheduled_post', 
-    !['', null].includes(publishDate) ?? useDate().formatDateToApi(publishDate) !== 'Invalid Date' ? useDate().formatDateToApi(publishDate) : null
-  )
+  if (!redrawWorkId.value) {
+    formData.append('scheduled_post', 
+      !['', null].includes(publishDate) ?? 
+        useDate().formatDateToApi(publishDate) !== 'Invalid Date' ? 
+          useDate().formatDateToApi(publishDate) : 
+          null
+    )
+  }
 
   // check if size is exceeded max file size restriction
   for (let i = 0; i < artworkFiles.value.length; i++) {
@@ -588,8 +659,8 @@ const storeArtwork = async () => {
 
   if (!alert.value.showFileTooBig) {
     // proceed to send data to API
-    uploading.value = true
-    uploadSuccess.value = false
+    saving.value = true
+    saved.value = false
 
     await axios.post(
       apiUrl + '/artworks/post',
@@ -604,9 +675,9 @@ const storeArtwork = async () => {
       if (data.success) {
         const workId = data.data.id
 
-        uploadSuccess.value = true
+        saved.value = true
         setTimeout(() => {
-          $router.push('/a/'+workId)
+          router.push('/a/'+workId)
         }, 1000)
       } else {
         showError()
@@ -616,7 +687,45 @@ const storeArtwork = async () => {
     })
   }
 
-  uploading.value = false
+  saving.value = false
+}
+
+const update = async () => {
+  useValidator().validate(formId, t)
+
+  reset()
+
+  // collect picked tags and convert to acceptable API format
+  const tagValues = []
+  tags.value.forEach((tag) => {
+    tagValues.push(tag.value)
+  })
+
+  const [success, error] = await artworkApi.updateInfo({
+    id: props.id,
+    title: inputData.value.title,
+    description: inputData.value.description,
+    isExplicit: inputData.value.isExplicit,
+    isGore: inputData.value.isGore,
+    tags: tagValues.toString(),
+    isOriginalCharacter: inputData.value.isOriginalCharacter,
+    allowRedraw: inputData.value.isAllowRedraw,
+    redrawInYourStyle: inputData.value.isRedrawInMyStyle,
+  })
+
+  if (error) {
+    showError()
+  } else {
+    saved.value = true
+    setTimeout(() => {
+      router.push({
+        path: `/a/${props.id}`,
+        replace: true
+      })
+    }, 1000)
+  }
+
+  saving.value = false
 }
 
 const isError = ref(false)
@@ -631,8 +740,8 @@ const toggleExplicit = () => {
 
 const reset = () => {
   isError.value = false
-  uploading.value = false
-  uploadSuccess.value = false
+  saving.value = false
+  saved.value = false
   uploadError.value = false
   uploadErrorMessage.value = ''
 }

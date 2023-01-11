@@ -63,15 +63,6 @@
           ]"
           :placeholder="$t('description')"
         />
-        <!-- <textarea 
-          v-model="inputData.description" 
-          class="form-input input" 
-          :class="{ 'pointer-events-none cursor-not-allowed': saving || updated }"
-          rows="8"
-          cols="0"
-          :placeholder="$t('description')"
-          data-gramm="false"
-        /> -->
       </div>
 
       <div class="input-block">
