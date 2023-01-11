@@ -14,19 +14,13 @@
 /**
  * 
  * @export
- * @interface InlineResponse20052Data
+ * @interface InlineResponse20053Data
  */
-export interface InlineResponse20052Data {
+export interface InlineResponse20053Data {
     /**
      * 
      * @type {boolean}
-     * @memberof InlineResponse20052Data
+     * @memberof InlineResponse20053Data
      */
     isPro?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20052Data
-     */
-    until?: string;
 }

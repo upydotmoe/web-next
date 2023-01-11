@@ -19,10 +19,40 @@
 export interface InlineResponse20051Data {
     /**
      * 
-     * @type {boolean}
+     * @type {number}
      * @memberof InlineResponse20051Data
      */
-    isPro?: boolean;
+    id?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051Data
+     */
+    userId?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Data
+     */
+    amount?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Data
+     */
+    paymentType?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Data
+     */
+    orderData?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20051Data
+     */
+    createdAt?: string;
     /**
      * 
      * @type {string}

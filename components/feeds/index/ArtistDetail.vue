@@ -7,48 +7,60 @@
       { '!px-0': isModal }
     ]"
   >
-    <nuxt-link
-      class="feeds__artist__avatar"
-      :to="'/u/' + feed.users.username"
-    >
-      <img
-        :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)"
-        @error="defaultCoverImage"
-      >
-    </nuxt-link>
-
-    <div class="feeds__artist__name-username">
+    <div class="flex flex-row gap-2">
       <nuxt-link
+        class="feeds__artist__avatar"
         :to="'/u/' + feed.users.username"
-        class="name"
       >
-        {{ feed.users.name }}
+        <img
+          :src="avatarCoverUrl(feed.users.avatar_bucket, feed.users.avatar_filename)"
+          @error="defaultCoverImage"
+        >
       </nuxt-link>
+
+      <div class="feeds__artist__name-username">
+        <nuxt-link
+          :to="'/u/' + feed.users.username"
+          class="name"
+        >
+          {{ feed.users.name }}
+        </nuxt-link>
       
-      <br>
+        <br>
 
-      <nuxt-link
-        :to="'/u/' + feed.users.username"
-        class="username"
-      >
-        @{{ feed.users.username }}
-      </nuxt-link>
+        <nuxt-link
+          :to="'/u/' + feed.users.username"
+          class="username"
+        >
+          @{{ feed.users.username }}
+        </nuxt-link>
 
-      <span class="dot-divider">·</span>
+        <span class="dot-divider">·</span>
 
-      <nuxt-link
-        :to="(feed.type === POST_TYPES.ARTWORK ? '/a/' : '/feed/') + feed.id"
-        class="post-date"
-      >
-        {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
-      </nuxt-link>
+        <nuxt-link
+          :to="(feed.type === POST_TYPES.ARTWORK ? '/a/' : '/feed/') + feed.id"
+          class="post-date"
+        >
+          {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
+        </nuxt-link>
+      </div>
     </div>
+
+    <Icon
+      v-if="showCloseButton"
+      :name="'i-ion-close-outline'"
+      :text-size="'text-2xl'"
+      @click="closeModal(closeModalTarget)"
+    />
   </section>
 </template>
 
 <script setup>
 // constants
 import { POST_TYPES } from '~/utils/constants'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
 
 defineProps({
   feed: {
@@ -58,13 +70,21 @@ defineProps({
   isModal: {
     type: Boolean,
     default: false
+  },
+  showCloseButton: {
+    type: Boolean,
+    default: false
+  },
+  closeModalTarget: {
+    type: String,
+    default: ''
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .feeds__artist {
-  @apply flex flex-row p-2 md:p-4;
+  @apply flex flex-row justify-between p-2 md:p-4;
 
   &__avatar {
     img {

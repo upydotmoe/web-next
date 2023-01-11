@@ -188,6 +188,17 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const removeComment = async (commentId: number) => {
+    try {
+      const { data } = await new FeedsApi(oApiConfiguration)
+        .removeFeedComment(commentId, fetchOptions)
+
+      return [data.success, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   /**
    * Remove/delete a feed
    */
@@ -218,6 +229,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
 
     fetchComments,
     comment,
+    removeComment,
 
     remove
   }

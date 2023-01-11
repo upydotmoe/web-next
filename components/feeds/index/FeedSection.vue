@@ -441,8 +441,9 @@ const view = (workId, isExplicitFilterApplied, feedIdx) => {
 const chronologicalFeedModalViewRef = ref(null)
 const viewFeed = (feedId) => {
   chronologicalFeedModalViewRef.value.view(feedId)
-
   useModal().openModal('chronological-feed-modal')
+
+  chronologicalFeedModalViewRef.value.onLoad()
 }
 
 const readMore = (description, workId, selectorElId, descriptionElid) => {

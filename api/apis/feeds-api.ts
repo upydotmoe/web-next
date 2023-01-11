@@ -11,22 +11,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import globalAxios, { AxiosResponse, AxiosInstance, AxiosRequestConfig } from 'axios';
-import { Configuration } from '../configuration';
+import globalAxios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { FeedsCommentBody } from '../models';
-import { FeedsCreateBody } from '../models';
-import { FeedsUpdateBody } from '../models';
-import { InlineResponse20037 } from '../models';
-import { InlineResponse20044 } from '../models';
-import { InlineResponse20045 } from '../models';
-import { InlineResponse20046 } from '../models';
-import { InlineResponse20047 } from '../models';
-import { InlineResponse2016 } from '../models';
-import { InlineResponse2017 } from '../models';
-import { SuccessMessageModel } from '../models';
+import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base'
+import { Configuration } from '../configuration'
+import {
+    FeedsCommentBody, FeedsCreateBody, FeedsUpdateBody, InlineResponse20037, InlineResponse20044,
+    InlineResponse20045, InlineResponse20046, InlineResponse20047, InlineResponse20048,
+    InlineResponse2016, InlineResponse2017, SuccessMessageModel
+} from '../models'
+
 /**
  * FeedsApi - axios parameter creator
  * @export
@@ -592,6 +588,47 @@ export const FeedsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {number} commentId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeFeedComment: async (commentId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'commentId' is not null or undefined
+            if (commentId === null || commentId === undefined) {
+                throw new RequiredError('commentId','Required parameter commentId was null or undefined when calling removeFeedComment.');
+            }
+            const localVarPath = `/feeds/comment/{commentId}`
+                .replace(`{${"commentId"}}`, encodeURIComponent(String(commentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Unlike a liked feed post
          * @param {number} feedId 
          * @param {*} [options] Override http request option.
@@ -822,7 +859,7 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20044>>> {
+        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20048>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).getFeedsByUserId(userId, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -880,8 +917,21 @@ export const FeedsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20037>>> {
+        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
             const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).likeFeedComment(commentId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @param {number} commentId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+            const localVarAxiosArgs = await FeedsApiAxiosParamCreator(configuration).removeFeedComment(commentId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1012,7 +1062,7 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20044>> {
+        async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20048>> {
             return FeedsApiFp(configuration).getFeedsByUserId(userId, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1054,8 +1104,17 @@ export const FeedsApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20037>> {
+        async likeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
             return FeedsApiFp(configuration).likeFeedComment(commentId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} commentId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeFeedComment(commentId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+            return FeedsApiFp(configuration).removeFeedComment(commentId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1178,7 +1237,7 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20044>> {
+    public async getFeedsByUserId(userId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20048>> {
         return FeedsApiFp(this.configuration).getFeedsByUserId(userId, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1224,8 +1283,18 @@ export class FeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FeedsApi
      */
-    public async likeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20037>> {
+    public async likeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
         return FeedsApiFp(this.configuration).likeFeedComment(commentId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @param {number} commentId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FeedsApi
+     */
+    public async removeFeedComment(commentId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+        return FeedsApiFp(this.configuration).removeFeedComment(commentId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

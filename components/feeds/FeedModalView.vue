@@ -4,18 +4,7 @@
       'z-40 work-container work-view mx-auto',
       { 'w-full md:w-2/3 lg:w-6/12 xl:w-4/12 py-4 pl-4 md:p-4 theme-color': isModal }
     ]"
-  >
-    <div
-      v-if="isModal"
-      class="text-right"
-    >
-      <Icon
-        :name="'i-ion-close-outline'"
-        :text-size="'text-2xl'"
-        @click="closeModal('chronological-feed-modal')"
-      />
-    </div>
-  
+  > 
     <div
       :class="[
         'w-full',
@@ -30,6 +19,11 @@
         <ArtistDetail
           :feed="feedDetail"
           :is-modal="isModal"
+          :show-close-button="true"
+          :close-modal-target="'chronological-feed-modal'"
+          :class="[
+            { '!-mt-2': isModal }
+          ]"
         />
 
         <TextPostDetail
@@ -37,6 +31,7 @@
           :is-modal="isModal"
           :feed="feedDetail"
           :read-more="readMore"
+          :read-more-selector="readMoreSelector"
           :view="view"
           @read-more="readMore"
           @view="view"
@@ -201,6 +196,17 @@
               </div>
 
               <p>{{ comment.comment }}</p>
+
+              <div
+                v-if="comment.users.id === auth.user.id"
+                class="delete-button"
+                @click="removeComment(comment.id)"
+              >
+                <Icon
+                  :name="'i-akar-icons-trash-bin'"
+                  :text-size="'text-base'"
+                />
+              </div>
             </div>
           </div>
 
@@ -312,6 +318,14 @@ onMounted (() => {
   })
 })
 
+const feedId = computed(() => feedDetail.value.id)
+const onLoad = () => {
+  const readMoreButtonEl = document.getElementById('el-'+readMoreSelector+feedId.value)
+  if (readMoreButtonEl) {
+    readMoreButtonEl.classList.remove('hidden')
+  }
+}
+
 const isModal = props.id === 0
 
 /** Open the modal view function */
@@ -320,6 +334,7 @@ const loading = ref(true)
 const feedDetail = ref({})
 const liked = ref(false)
 
+const readMoreSelector = 'feed-per-id-text-'
 const readMore = (description, workId, selectorElId, descriptionElid) => {
   useReadMore().readMore(description, workId, selectorElId, descriptionElid)
 }
@@ -513,19 +528,16 @@ const submitComment = async () => {
   submitCommentLoading.value = false
 }
 
-const deleteComment = async (commentId) => {
-  try {
-    // const { success } = await new ArtworkCommentsApi(oApiConfiguration).removeComment(commentId, fetchOptions())
+const removeComment = async (commentId) => {
+  const [success, error] = await feedApi.removeComment(commentId)
 
-    // // remove deleted comment from `comments` ref
-    // if (success) {
-    //   const indexOfIdToRemove = commentIndexes.value.indexOf(commentId)
-    //   comments.value.splice(indexOfIdToRemove, 1)
+  if (error) {
+    // todo: handle error
+  } else {
+    const indexOfIdToRemove = commentIndexes.value.indexOf(commentId)
 
-    //   commentIndexes.value.splice(indexOfIdToRemove, 1)
-    // }
-  } catch (error) {
-    // 
+    comments.value.splice(indexOfIdToRemove, 1)
+    commentIndexes.value.splice(indexOfIdToRemove, 1)
   }
 }
 
@@ -583,7 +595,8 @@ const removeFeed = async (feedId) => {
 
 // expose functions
 defineExpose ({
-  view
+  view,
+  onLoad
 })
 </script>
 
@@ -647,6 +660,14 @@ defineExpose ({
         > .time {
           @apply italic text-xxs;
           color: var(--link);
+        }
+      }
+
+      > .delete-button {
+        @apply mt-2 text-right;
+
+        .icon {
+          @apply hover:bg-red-400;
         }
       }
     }

@@ -9,15 +9,15 @@
   >
     <p
       v-if="feed.text"
-      :id="'feed-text-'+feed.id"
+      :id="readMoreSelector+feed.id"
       v-html="feed.text.length > 500 ? `${feed.text.slice(0, 500)}...` : feed.text"
     />
 
     <a
       v-if="feed.text && feed.text.length > 500"
-      :id="'feed-read-more-'+feed.id"
-      class="href"
-      @click.prevent="$emit('readMore', feed.text, feed.id, 'feed-read-more-', 'feed-text-')"
+      :id="'el-'+readMoreSelector+feed.id"
+      class="href read-more-button"
+      @click.prevent="$emit('readMore', feed.text, feed.id, 'el-'+readMoreSelector, readMoreSelector)"
     >
       {{ $t('readMore') }}
     </a>
@@ -65,6 +65,10 @@ defineProps({
   readMore: {
     type: Function,
     default: () => {}
+  },
+  readMoreSelector: {
+    type: String,
+    default: 'feed-text-'
   },
   view: {
     type: Function,
