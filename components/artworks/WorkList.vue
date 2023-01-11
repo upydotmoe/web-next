@@ -17,7 +17,7 @@
         @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
       >
         <div class="overflow-hidden relative text-center rounded-md">
-          <div class="flex flex-row gap-1 mini-icon">
+          <div class="mini-icon">
             <!-- image count -->
             <p
               v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
@@ -126,6 +126,14 @@
                 :name="'i-fluent-draw-image-20-regular'"
                 class="text-white"
               />
+            </p>
+
+            <!-- is a gore content -->
+            <p
+              v-if="work.is_gore"
+              class="gore"
+            >
+              G
             </p>
           </div>
 

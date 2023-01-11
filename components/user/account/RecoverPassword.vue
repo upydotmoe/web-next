@@ -76,7 +76,7 @@
 import { useI18n } from 'vue-i18n'
 
 // composables
-import useUser from '~~/composables/users/useUser'
+import useUser from '~/composables/users/useUser'
 
 // components
 import Layout from '~/components/layouts/Layout.vue'

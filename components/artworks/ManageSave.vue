@@ -164,7 +164,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['save'])
+const emit = defineEmits(['save'])
 const props = defineProps({
   modalId: {
     type: String,
@@ -342,7 +342,7 @@ const save = async () => {
 
     await fetchCurrentSaved()
     useModal().closeModal(props.modalId)
-    emits('save', unsaved)
+    emit('save', unsaved)
   } catch (error) {
     // todo: handle error when failed to save
   }

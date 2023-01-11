@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ReportsApi } from '~/api/api'
-import { TReportType } from '~~/utils/constants/report'
+import { TReportType } from '~/utils/constants/report'
 
 export default function (oApiConfiguration: any, fetchOptions: any) {
   /**

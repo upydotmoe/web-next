@@ -284,7 +284,7 @@
   "count": {
     "view": "view",
     "views": "views",
-    "like": "likes",
+    "like": "like",
     "likes": "likes",
     "comment": "comment",
     "comments": "comments",
@@ -342,6 +342,7 @@
     "itemRemoved": "Selected item(s) successfully removed from album.",
     "manageModeActiveMessage": "You are currently in manage mode, you can select multiple items to remove them from this album.",
     "addToAlbum": "Add to album",
+    "empty": "You don't have album yet, please create a new album in your profile page",
     "create": {
       "form": {
         "title": "Create new Album"

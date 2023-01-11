@@ -53,7 +53,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['feedSelectedItems', 'onEmpty'])
+const emit = defineEmits(['feedSelectedItems', 'onEmpty'])
 const props = defineProps({
   userId: {
     type: Number,
@@ -176,7 +176,7 @@ const isEmpty = ref(false)
 const showEmpty = () => {
   isEmpty.value = true
   hideLoadMoreButton()
-  emits('onEmpty')
+  emit('onEmpty')
 }
 
 /** Show error message when error occured while trying to fetch artworks */
@@ -196,7 +196,7 @@ const view = (workId, keepArtistPageNumber = false) => {
 
 /** Listen to manage item changes */
 const feedManageList = (selectedItems) => {
-  emits('feedSelectedItems', selectedItems)
+  emit('feedSelectedItems', selectedItems)
 }
 
 // const closeModal = () => {

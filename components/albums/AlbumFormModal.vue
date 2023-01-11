@@ -72,7 +72,7 @@
               </span>
             </span>
             
-            <div class="flex flex-row gap-x-1">
+            <div class="flex flex-row gap-x-2">
               <span
                 :class="[
                   'ml-2 inline-block',
@@ -128,7 +128,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['created'])
+const emit = defineEmits(['created'])
 const props = defineProps({
   category: {
     type: String,
@@ -170,7 +170,7 @@ const save = async () => {
     }
   } else {
     useModal().closeModal(props.modalId)
-    emits('created', data)
+    emit('created', data)
   }
 }
 

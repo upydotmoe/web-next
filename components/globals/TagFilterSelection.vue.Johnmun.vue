@@ -64,7 +64,7 @@
 import VueTagsInput from '@sipec/vue3-tags-input'
 import axios from 'axios';
 
-const emits = defineEmits(['apply'])
+const emit = defineEmits(['apply'])
 
 const rConfig = useRuntimeConfig()
 const apiUrl = rConfig.public.apiUrl
@@ -126,7 +126,7 @@ const applyTags = () => {
   tags.value.forEach((tag) => {
     selectedTags.push(tag.text)
   })
-  emits('apply', tags.value, selectedTags.join(','))
+  emit('apply', tags.value, selectedTags.join(','))
 }
 
 const clearSelectedTags = () => {

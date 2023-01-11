@@ -9,11 +9,11 @@
           v-if="isPro"
           class="text-xl font-bold"
         >
-          <p class="flex flex-row gap-2 justify-center text-yellow-400">
+          <p class="flex flex-row gap-2 justify-center text-fuchsia-500">
             <Icon
               :name="'i-fluent-star-emphasis-24-regular'"
               :text-size="'text-3xl'"
-              class="text-yellow-400"
+              class="text-fuchsia-500"
             />
             PRO version active
           </p>

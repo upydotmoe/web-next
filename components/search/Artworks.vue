@@ -251,7 +251,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits([
+const emit = defineEmits([
   'countArtworks'
 ])
 
@@ -357,7 +357,7 @@ const fetchTop = async () => {
     works.value = dataWorks
   }
 
-  emits('countArtworks', dataPagination.record_total)
+  emit('countArtworks', dataPagination.record_total)
 }
 
 /**

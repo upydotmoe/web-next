@@ -581,7 +581,7 @@
               <FollowerList
                 v-if="!loading"
                 :user-id="userInfo.id"
-                :hide="auth.loggedIn ? (userInfo.id === auth.user.id) : userInfo.is_pro && !!userInfo.user_settings.hide_follower_list"
+                :hide="isHideFollowerList"
                 :user-hide-follower-list-status="!!userInfo.user_settings.hide_follower_list"
               />
             </div>
@@ -726,12 +726,19 @@ const followingData = ref({
   isPrivate: false,
   followingSince: ''
 })
+
+const isHideFollowerList = computed(() => {
+  const proHide = userInfo.value.is_pro && userInfo.value.user_settings.hide_follower_list
+
+  return ((!auth.loggedIn && proHide) || (auth.loggedIn && auth.user.id !== userInfo.value.id && proHide))
+})
+
 const isHideFollowingList = computed(() => {
   const proHide = userInfo.value.is_pro && userInfo.value.user_settings.hide_following_list
 
   return ((!auth.loggedIn && proHide) || (auth.loggedIn && auth.user.id !== userInfo.value.id && proHide))
 })
-console.log('is hide following list:', isHideFollowingList.value)
+
 const fetchUserInfo = async () => {
   loading.value = true
 
@@ -858,7 +865,7 @@ const visitExternalWebsite = () => {
 @import '~/assets/css/tailwind.scss';
 
 .avatar {
-  @apply shadow-lg shadow-gray-300;
+  @apply shadow-lg;
 }
 
 .profile-navigation {

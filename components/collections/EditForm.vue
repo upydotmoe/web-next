@@ -75,7 +75,7 @@
               </span>
             </span>
 
-            <div class="flex flex-row gap-x-1">
+            <div class="flex flex-row gap-x-2">
               <span
                 :class="[
                   'ml-2',
@@ -131,7 +131,7 @@ const collectionApi = useCollection(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
 
-const emits = defineEmits(['updated'])
+const emit = defineEmits(['updated'])
 const props = defineProps({
   collectionId: {
     type: Number,
@@ -192,7 +192,7 @@ const save = async () => {
     }
   } else {
     useModal().closeModal(props.modalId)
-    emits('updated', inputData.value)
+    emit('updated', inputData.value)
 
     reset()
   }

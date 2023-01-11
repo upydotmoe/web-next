@@ -195,7 +195,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const reportApi = useReport(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['refresh'])
+const emit = defineEmits(['refresh'])
 
 /**
  * @detail
@@ -246,7 +246,7 @@ const submitDecision = async () => {
   } else {
     await view(reportDetail.value.id)
     useModal().closeModal('report-detail-modal')
-    emits('refresh')
+    emit('refresh')
   }
 }
 /**

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-const emits = defineEmits('onAccept')
+const emit = defineEmits('onAccept')
 const props = defineProps({
   modalId: {
     type: String,
@@ -43,7 +43,7 @@ const props = defineProps({
 
 const close = (accept) => {
   if (accept) {
-    emits('onAccept', true)
+    emit('onAccept', true)
   }
 
   useModal().closeModal(props.modalId)

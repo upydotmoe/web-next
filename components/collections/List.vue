@@ -67,7 +67,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 // composables
 import useCollection from '~/composables/users/useCollection'
 
-const emits = defineEmits(['onCollectionEmpty', 'feedManageList'])
+const emit = defineEmits(['onCollectionEmpty', 'feedManageList'])
 const props = defineProps({
   id: {
     type: Number,
@@ -147,10 +147,10 @@ const fetchItems = async () => {
       collection.value.list.push(item.artworks)
     })
 
-    emits('onCollectionEmpty', false)
+    emit('onCollectionEmpty', false)
   } else {
     collection.value.empty = true
-    emits('onCollectionEmpty', true)
+    emit('onCollectionEmpty', true)
   }
 }
 
@@ -165,7 +165,7 @@ const selectedItems = ref([])
 const feedManageList = (workList) => {
   selectedItems.value = workList
 
-  emits('feedManageList', workList)
+  emit('feedManageList', workList)
 }
 
 const isItemsRemoved = ref(false)
@@ -184,7 +184,7 @@ const removeItem = async () => {
     reset()
     await fetch()
     
-    emits('feedManageList', [])
+    emit('feedManageList', [])
   }
 }
 

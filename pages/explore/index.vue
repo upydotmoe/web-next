@@ -27,7 +27,7 @@ import Following from '~/components/artworks/index/Following.vue'
 import Popular from '~/components/artworks/index/Popular.vue'
 
 // composables
-import useUser from '~~/composables/users/useUser'
+import useUser from '~/composables/users/useUser'
 
 // stores
 const auth = useAuthStore()

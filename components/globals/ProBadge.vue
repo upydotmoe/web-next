@@ -4,9 +4,9 @@
     class="inline-flex flex-row gap-1 py-1 px-2 font-bold text-white align-middle bg-fuchsia-500 rounded-md hover:bg-fuchsia-600 text-xxs"
   >
     <Icon
-      :name="'i-mdi-heart-multiple-outline'"
+      :name="'i-fluent-star-emphasis-24-regular'"
       :text-size="'text-sm'"
-      class="text-white"
+      class="text-white hover:text-white"
     />
     PRO
   </nuxt-link>

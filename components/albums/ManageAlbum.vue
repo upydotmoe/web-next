@@ -11,7 +11,7 @@
               @click="cancel()"
             >
               <Icon
-                :name="'close'"
+                :name="'i-ion-close-outline'"
                 class="text-2xl"
               />
             </div>
@@ -84,6 +84,7 @@
       <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
+        :empty-message="$t('albums.empty')"
         :error="isError"
         :fetch="fetchTop"
       />
@@ -114,7 +115,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const albumApi = useAlbum(oApiConfiguration, fetchOptions())
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['addedToAlbum'])
+const emit = defineEmits(['addedToAlbum'])
 const props = defineProps({
   modalId: {
     type: String,
@@ -277,7 +278,7 @@ const save = async () => {
     
     clear()
     useModal().closeModal(props.modalId)
-    emits('addedToAlbum', props.workIds.length ? true : unsaved)
+    emit('addedToAlbum', props.workIds.length ? true : unsaved)
   } else {
     // todo: handle error
   }

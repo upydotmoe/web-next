@@ -118,7 +118,7 @@ import useUser from '~/composables/users/useUser'
 
 // components
 import SuccessMessageModal from '~/components/globals/SuccessMessageModal.vue'
-import ErrorMessage from '~~/components/auth/forms/ErrorMessage.vue'
+import ErrorMessage from '~/components/auth/forms/ErrorMessage.vue'
 
 // stores
 const auth = useAuthStore()

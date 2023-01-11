@@ -59,7 +59,7 @@ import { quillOptions } from '~/utils/constants/text-editor'
 
 // components
 import Spinner from '~/components/globals/Spinner.vue'
-import ErrorMessage from '~~/components/auth/forms/ErrorMessage.vue';
+import ErrorMessage from '~/components/auth/forms/ErrorMessage.vue';
 
 // composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()

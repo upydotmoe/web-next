@@ -341,6 +341,7 @@
     "itemRemoved": "Item yang dipilih berhasil dihapus dari album.",
     "manageModeActiveMessage": "Kamu sedang dalam mode kelola, kamu dapat memilih lebih dari satu item untuk dihapus dari album.",
     "addToAlbum": "Tambah ke album",
+    "empty": "Kamu belum punya album, buat album baru di halaman profilmu",
     "create": {
       "form": {
         "title": "Buat Album"

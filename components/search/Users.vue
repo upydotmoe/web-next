@@ -52,7 +52,7 @@ import useUser from '~/composables/users/useUser'
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
-const emits = defineEmits(['countUsers'])
+const emit = defineEmits(['countUsers'])
 
 const route = useRoute()
 const { q } = route.query
@@ -84,7 +84,7 @@ const fetchTop = async () => {
     users.value = dataUsers
   }
 
-  emits('countUsers', dataPagination.record_total)
+  emit('countUsers', dataPagination.record_total)
 }
 
 /** Fetch */

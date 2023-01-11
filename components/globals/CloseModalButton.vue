@@ -16,9 +16,9 @@
 // components
 import Icon from '~/components/globals/Icon.vue'
 
-const emits = defineEmits(['close'])
+const emit = defineEmits(['close'])
 
 const close = () => {
-  emits('close')
+  emit('close')
 }
 </script>

@@ -92,7 +92,7 @@
           v-for="(latestArtwork, workIndex) in user.artworks"
           :key="latestArtwork.id"
           :class="[
-            'work-thumbnail theme-color-bg',
+            'work-thumbnail-user-list theme-color-bg',
             latestArtwork._count.artwork_assets > 1 && currentWorkId != latestArtwork.id ? 'work-multiple' : ''
           ]"
         >
@@ -110,8 +110,10 @@
             >
               <span
                 v-if="applyExplicitFilter(auth, latestArtwork.is_explicit, latestArtwork.is_gore)"
-                class="absolute top-1/2 left-1/2 z-10 text-xl font-semibold text-white transform -translate-x-1/2 -translate-y-1/2"
-              >{{ $t('explicitContent') }}</span>
+                class="absolute top-1/2 left-1/2 z-10 text-sm font-semibold text-white transform -translate-x-1/2 -translate-y-1/2"
+              >
+                {{ $t('explicitContent') }}
+              </span>
               
               <a 
                 :href="'/a/'+latestArtwork.id"
@@ -208,18 +210,14 @@ const unfollowUser = async (index, userToUnfollow) => {
 }
 
 .work-grid {
-  @apply grid z-0 grid-cols-3 theme-color w-full rounded-b-md;
+  @apply grid z-0 grid-cols-3 theme-color-secondary w-full rounded-b-md;
 
-  .work-thumbnail {
-    @apply object-cover shadow-lg transition-all duration-200 cursor-pointer;
+  .work-thumbnail-user-list {
+    @apply object-cover cursor-pointer;
   
     a {
-      p {
-        @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
-      }
       img {
         @apply w-full theme-color;
-        // object-cover object-top 
         aspect-ratio: 1/1;
       }
     }

@@ -24,34 +24,6 @@
       //   @apply mx-auto w-full rounded shadow-none;
       // }
     }
-    
-    .interactions {
-      @apply flex flex-row justify-between mb-6;
-
-      .reaction-counters {
-        .counter {
-          @apply mr-3 whitespace-nowrap;
-
-          .icon {
-            @apply mr-1 text-lg text-gray-400 align-middle transition-all hover:text-gray-400;
-          }
-
-          span {
-            @apply align-middle;
-          }
-        }
-      }
-
-      .reactions {
-        span {
-          @apply ml-2 whitespace-nowrap;
-
-          .icon {
-            @apply ml-1 text-xl align-middle transition-all cursor-pointer;
-          }
-        }
-      }
-    }
   }
 
   .right-side {
@@ -117,25 +89,6 @@
 
   .works {
     @apply grid w-full;
-
-    .work-thumbnail {
-      @apply object-cover mt-2 shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
-    
-      a {
-        p {
-          @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
-        }
-        img {
-          @apply object-cover object-top w-full rounded-md;
-          aspect-ratio: 1/1;
-        }
-    
-        .related {
-          @apply object-cover object-top w-full rounded-md;
-          aspect-ratio: 1/1;
-        }
-      }
-    }
   }
 
   .pagination-controller {
@@ -157,25 +110,6 @@
 
 .redraw-works {
   @apply grid grid-cols-4 gap-2 w-full;
-
-  .work-thumbnail {
-    @apply object-cover shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
-  
-    a {
-      p {
-        @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
-      }
-      img {
-        @apply object-cover object-top w-full rounded-md;
-        aspect-ratio: 1/1;
-      }
-  
-      .related {
-        @apply object-cover object-top w-full rounded-md;
-        aspect-ratio: 1/1;
-      }
-    }
-  }
 }
 
 .info {

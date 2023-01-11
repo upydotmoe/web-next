@@ -67,7 +67,7 @@ import SplashAlert from '~/components/globals/SplashAlert.vue'
 // composables
 import useAlbum from '~/composables/users/useAlbum'
 
-const emits = defineEmits(['onAlbumEmpty', 'feedManageList'])
+const emit = defineEmits(['onAlbumEmpty', 'feedManageList'])
 const props = defineProps({
   id: {
     type: Number,
@@ -143,10 +143,10 @@ const fetchItems = async () => {
       albumData.value.list.push(item.artworks)
     })
 
-    emits('onAlbumEmpty', false)
+    emit('onAlbumEmpty', false)
   } else {
     albumData.value.empty = true
-    emits('onAlbumEmpty', true)
+    emit('onAlbumEmpty', true)
   }
 }
 
@@ -161,7 +161,7 @@ const selectedItems = ref([])
 const feedManageList = (workList) => {
   selectedItems.value = workList
 
-  emits('feedManageList', workList)
+  emit('feedManageList', workList)
 }
 
 const isItemsRemoved = ref(false)

@@ -187,7 +187,7 @@ const showEmpty = () => {
   isEmpty.value = true
   loading.value = false
   hideLoadMoreButton()
-  emits('onEmpty')
+  emit('onEmpty')
 }
 
 /** Show error message when error occured while trying to fetch artworks */

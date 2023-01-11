@@ -47,7 +47,7 @@ import Icon from '~/components/globals/Icon.vue'
 // stores
 const auth = useAuthStore()
 
-const emits = defineEmits(['refetch'])
+const emit = defineEmits(['refetch'])
 const props = defineProps({
   currentView: {
     type: String,
@@ -56,7 +56,7 @@ const props = defineProps({
 })
 
 const changeView = (mode) => {
-  emits('refetch', mode)
+  emit('refetch', mode)
 }
 </script>
 

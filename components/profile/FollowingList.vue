@@ -234,20 +234,5 @@ const toggleFollowingVisibility = async () => {
 
 .work-grid {
   @apply grid z-0 grid-cols-3;
-
-  .work-thumbnail {
-    @apply object-cover shadow-lg transition-all duration-200 cursor-pointer;
-  
-    a {
-      p {
-        @apply absolute m-2 w-5 h-5 text-center text-white align-middle bg-gray-600 bg-opacity-70 rounded-sm;
-      }
-      img {
-        @apply w-full theme-color;
-        // object-cover object-top 
-        aspect-ratio: 1/1;
-      }
-    }
-  }
 }
 </style>
