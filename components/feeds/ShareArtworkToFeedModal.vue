@@ -155,3 +155,7 @@ const copyLink = (link) => {
   useSplash().splash(splashInterval, copied, 'copy-alert')
 }
 </script>
+
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+</style>

@@ -17,9 +17,8 @@
       :bypass="true"
     />
 
-    <!-- artwork images -->
+    <!-- artwork image(s) -->
     <div>
-      <!-- desktop -->
       <div
         :class="[
           'p-2',
@@ -51,7 +50,7 @@
             v-if="feed.apply_explicit_filter || feed.apply_gore_filter"
             :class="[
               'p-2 mx-auto w-full text-center rounded-md opacity-90',
-              feed.apply_gore_filter ? 'bg-red-200' : 'bg-yellow-200'
+              feed.apply_gore_filter ? 'bg-red-500 text-white' : 'bg-yellow-300 text-black'
             ]"
           >
             <div v-if="feed.apply_explicit_filter && !feed.apply_gore_filter">
@@ -61,7 +60,7 @@
               {{ auth.loggedIn ? $t('goreContentAlert') : $t('goreContentAlertForGuest') }}
             </div>
 
-            <button class="mx-auto mt-2 light-bordered-button">
+            <button class="mx-auto mt-2 primary-button">
               {{ $t('explicitShowMeThisContent') }}
             </button>
           </div>
@@ -92,6 +91,10 @@ defineProps({
   feed: {
     type: Object,
     default: () => {}
+  },
+  feedIdx: {
+    type: Number,
+    default: () => 0
   }
 })
 </script>

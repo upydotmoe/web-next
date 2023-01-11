@@ -49,6 +49,7 @@
       <TextPostDetail
         v-if="feed.type === POST_TYPES.FEED"
         :feed="feed"
+        :feed-idx="feedIdx"
         :read-more="readMore"
         :view="view"
         @read-more="readMore"
@@ -429,11 +430,11 @@ const refetch = () => {
 const chronologicalModalViewRef = ref(null)
 const view = (workId, isExplicitFilterApplied, feedIdx) => {
   if (isExplicitFilterApplied) {
+    console.log([workId, isExplicitFilterApplied, feedIdx])
     feeds.value[feedIdx].apply_explicit_filter = false
     feeds.value[feedIdx].apply_gore_filter = false
   } else {
     chronologicalModalViewRef.value.view(workId)
-
     useModal().openModal('chronological-modal')
   }
 }

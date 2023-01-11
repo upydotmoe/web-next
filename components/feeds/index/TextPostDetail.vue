@@ -26,6 +26,7 @@
     <SharedArtworkDetail
       :feed="feed"
       :color-reversed="colorReversed"
+      :feed-idx="feedIdx"
       @read-more="readMore"
       @view="view"
     />
