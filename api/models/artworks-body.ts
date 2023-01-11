@@ -43,6 +43,12 @@ export interface ArtworksBody {
     isExplicit?: ArtworksBodyIsExplicitEnum;
     /**
      * 
+     * @type {number}
+     * @memberof ArtworksBody
+     */
+    isGore?: ArtworksBodyIsGoreEnum;
+    /**
+     * 
      * @type {string}
      * @memberof ArtworksBody
      */
@@ -78,6 +84,14 @@ export interface ArtworksBody {
     * @enum {string}
     */
 export enum ArtworksBodyIsExplicitEnum {
+    NUMBER_0 = 0,
+    NUMBER_1 = 1
+}
+/**
+    * @export
+    * @enum {string}
+    */
+export enum ArtworksBodyIsGoreEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1
 }

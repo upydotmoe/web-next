@@ -285,16 +285,20 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
   }) => {
     try {
       const { data } = await new ArtworkCRUDApi(oApiConfiguration)
-        .updateWork({
-          id: Number(params.id),
-          title: params.title,
-          description: params.description,
-          is_explicit: params.isExplicit ? 1 : 0,
-          tags: params.tags,
-          is_original_character: params.isOriginalCharacter ? 1 : 0,
-          allow_redraw: params.allowRedraw ? 1 : 0,
-          redraw_in_your_style: params.redrawInYourStyle ? 1 : 0,
-        }, fetchOptions)
+        .updateWork(
+          {
+            id: Number(params.id),
+            title: params.title,
+            description: params.description,
+            is_explicit: params.isExplicit ? 1 : 0,
+            is_gore: params.isGore ? 1 : 0,
+            is_original_character: params.isOriginalCharacter ? 1 : 0,
+            allow_redraw: params.allowRedraw ? 1 : 0,
+            redraw_in_your_style: params.redrawInYourStyle ? 1 : 0,
+            tags: params.tags,
+          },
+          fetchOptions
+        )
 
       return [data.success, null]
     } catch (error) {

@@ -11,18 +11,23 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import globalAxios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-
+import globalAxios, { AxiosResponse, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { BASE_PATH, BaseAPI, RequestArgs, RequiredError } from '../base'
-import { Configuration } from '../configuration'
-import {
-    FeedsCommentBody, FeedsCreateBody, FeedsUpdateBody, InlineResponse20037, InlineResponse20044,
-    InlineResponse20045, InlineResponse20046, InlineResponse20047, InlineResponse20048,
-    InlineResponse2016, InlineResponse2017, SuccessMessageModel
-} from '../models'
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
+import { FeedsCommentBody } from '../models';
+import { FeedsCreateBody } from '../models';
+import { FeedsUpdateBody } from '../models';
+import { InlineResponse20037 } from '../models';
+import { InlineResponse20044 } from '../models';
+import { InlineResponse20045 } from '../models';
+import { InlineResponse20046 } from '../models';
+import { InlineResponse20047 } from '../models';
+import { InlineResponse20048 } from '../models';
+import { InlineResponse2016 } from '../models';
+import { InlineResponse2017 } from '../models';
+import { SuccessMessageModel } from '../models';
 /**
  * FeedsApi - axios parameter creator
  * @export
