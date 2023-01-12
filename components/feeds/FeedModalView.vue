@@ -31,7 +31,6 @@
           :is-modal="isModal"
           :feed="feedDetail"
           :read-more="readMore"
-          :read-more-selector="readMoreSelector"
           :view="view"
           @read-more="readMore"
           @view="view"
@@ -319,12 +318,6 @@ onMounted (() => {
 })
 
 const feedId = computed(() => feedDetail.value.id)
-const onLoad = () => {
-  const readMoreButtonEl = document.getElementById('el-'+readMoreSelector+feedId.value)
-  if (readMoreButtonEl) {
-    readMoreButtonEl.classList.remove('hidden')
-  }
-}
 
 const isModal = props.id === 0
 
@@ -334,7 +327,6 @@ const loading = ref(true)
 const feedDetail = ref({})
 const liked = ref(false)
 
-const readMoreSelector = 'feed-per-id-text-'
 const readMore = (description, workId, selectorElId, descriptionElid) => {
   useReadMore().readMore(description, workId, selectorElId, descriptionElid)
 }
@@ -595,8 +587,7 @@ const removeFeed = async (feedId) => {
 
 // expose functions
 defineExpose ({
-  view,
-  onLoad
+  view
 })
 </script>
 

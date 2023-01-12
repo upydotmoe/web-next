@@ -150,11 +150,8 @@ const updateAvatar = async () => {
       avatarChanged.value = true
       useModal().openModal('change-avatar-success-modal')
     } catch (error) {
-      console.log('error:', error)
       const errorResponse = error.response
 
-      console.log(errorResponse)
-      console.log(errorResponse.data)
       if (errorResponse.data.error === 'File too large') {
         avatarFileTooLargeAlert.value = true
       } else {

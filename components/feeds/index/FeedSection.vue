@@ -430,7 +430,6 @@ const refetch = () => {
 const chronologicalModalViewRef = ref(null)
 const view = (workId, isExplicitFilterApplied, feedIdx) => {
   if (isExplicitFilterApplied) {
-    console.log([workId, isExplicitFilterApplied, feedIdx])
     feeds.value[feedIdx].apply_explicit_filter = false
     feeds.value[feedIdx].apply_gore_filter = false
   } else {
@@ -443,8 +442,6 @@ const chronologicalFeedModalViewRef = ref(null)
 const viewFeed = (feedId) => {
   chronologicalFeedModalViewRef.value.view(feedId)
   useModal().openModal('chronological-feed-modal')
-
-  chronologicalFeedModalViewRef.value.onLoad()
 }
 
 const readMore = (description, workId, selectorElId, descriptionElid) => {

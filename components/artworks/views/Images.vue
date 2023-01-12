@@ -143,7 +143,6 @@ const images = ref([])
 const transformImages = () => {
   images.value = []
 
-  console.log(props.artwork.artwork_assets)
   if (props.artwork.artwork_assets) {
     props.artwork.artwork_assets.forEach((asset) => {
       images.value.push({

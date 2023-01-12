@@ -9,12 +9,15 @@
   >
     <ArtistDetail
       :feed="feed.artwork_share_info"
+      :is-artwork="true"
     />
 
     <!-- title & description of shared artwork -->
     <ArtworkMetadata
       :feed="feed.artwork_share_info"
       :bypass="true"
+      :is-modal="isModal"
+      @read-more="readMore"
     />
 
     <!-- artwork image(s) -->
@@ -95,6 +98,14 @@ defineProps({
   feedIdx: {
     type: Number,
     default: () => 0
+  },
+  readMore: {
+    type: Function,
+    default: () => ({})
+  },
+  isModal: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

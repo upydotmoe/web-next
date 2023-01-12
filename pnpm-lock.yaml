@@ -6,7 +6,6 @@ specifiers:
   '@heroicons/vue': ^1.0.6
   '@iconify/json': ^2.1.84
   '@intlify/nuxt3': ^0.2.3
-  '@nor1c/vue-tagsinput': http://github.com/nor1c/vue-tagsinput
   '@nuxt/image-edge': ^1.0.0-27840416.dc1ed65
   '@nuxtjs/color-mode': ^3.1.4
   '@nuxtjs/critters': ^0.4.0
@@ -34,6 +33,7 @@ specifiers:
   flowbite: ^1.5.3
   isomorphic-fetch: ^3.0.0
   moment: latest
+  n-vue-tagsinput: 3.0.1
   number-shortener: ^1.0.1
   nuxt: ^3.0.0
   nuxt-security: ^0.8.0
@@ -52,7 +52,6 @@ dependencies:
   '@formkit/auto-animate': 1.0.0-beta.5
   '@headlessui/vue': 1.7.7
   '@heroicons/vue': 1.0.6
-  '@nor1c/vue-tagsinput': github.com/nor1c/vue-tagsinput/b9b8153b9b8a0371ae52644ccc0d30ae9911e23e
   '@nuxtjs/color-mode': 3.2.0
   '@nuxtjs/critters': 0.4.0
   '@nuxtjs/tailwindcss': 6.2.0
@@ -70,6 +69,7 @@ dependencies:
   flowbite: 1.6.0
   isomorphic-fetch: 3.0.0
   moment: 2.29.4
+  n-vue-tagsinput: 3.0.1
   number-shortener: 1.0.1
   nuxt-security: 0.8.0
   pinia-plugin-persistedstate: 1.6.3
@@ -655,8 +655,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.3.0-beta.12
-      '@intlify/shared': 9.3.0-beta.12
+      '@intlify/message-compiler': 9.3.0-beta.14
+      '@intlify/shared': 9.3.0-beta.14
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.2.2
@@ -688,11 +688,11 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /@intlify/message-compiler/9.3.0-beta.12:
-    resolution: {integrity: sha512-A8/s7pb3v8nf6HG77qFPJntxgQKI9GXxGnkn7aO+b03/X/GkF/4WceDSAIk3i+yLeIgszeBn9GZ23tSg4sTEHA==}
+  /@intlify/message-compiler/9.3.0-beta.14:
+    resolution: {integrity: sha512-PlZ3pl+YYuql54Nq+26wv6ohIa8Ig6ALrvQI+f2zZKUtkupb49M4wyVN3bDQbFlgYVE7/u3n19BJSY8lEuX5Eg==}
     engines: {node: '>= 14'}
     dependencies:
-      '@intlify/shared': 9.3.0-beta.11
+      '@intlify/shared': 9.3.0-beta.14
       source-map: 0.6.1
     dev: true
 
@@ -724,13 +724,8 @@ packages:
     engines: {node: '>= 14'}
     dev: true
 
-  /@intlify/shared/9.3.0-beta.11:
-    resolution: {integrity: sha512-CtbotesxTRiC3bRyXyv1NG39fkqJ790f8z8xFaeIXSZpOdiyxoh5BIyypCzSFQZDGLwz0Q9gyWbW1XpxQJm68Q==}
-    engines: {node: '>= 14'}
-    dev: true
-
-  /@intlify/shared/9.3.0-beta.12:
-    resolution: {integrity: sha512-WsmaS54sA8xuwezPKpa/OMoaX1v2VF2fCgAmYS6prDr2ir0CkUFWPm9A8ilmxzv4nkS61/v8+vf4lGGkn5uBdA==}
+  /@intlify/shared/9.3.0-beta.14:
+    resolution: {integrity: sha512-mJ/rFan+4uVsBAQSCAJnpQaPvSjQ49mJMNmGelTUbTDAmgf0oexYxwqtKOlFFyY3hmQ8lUDYaGQKuYrFgRuHnA==}
     engines: {node: '>= 14'}
     dev: true
 
@@ -748,7 +743,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 3.4.0_vue-i18n@9.2.2
-      '@intlify/shared': 9.3.0-beta.12
+      '@intlify/shared': 9.3.0-beta.14
       '@rollup/pluginutils': 4.2.1
       debug: 4.3.4
       fast-glob: 3.2.12
@@ -780,7 +775,7 @@ packages:
         optional: true
     dependencies:
       '@intlify/bundle-utils': 3.4.0_vue-i18n@9.2.2
-      '@intlify/shared': 9.3.0-beta.12
+      '@intlify/shared': 9.3.0-beta.14
       js-yaml: 4.1.0
       json5: 2.2.3
       loader-utils: 2.0.4
@@ -5138,6 +5133,12 @@ packages:
   /mute-stream/0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
 
+  /n-vue-tagsinput/3.0.1:
+    resolution: {integrity: sha512-NdTlEFnRG1GFh/IKKxJEiYB7zv65DNjTauRum7gdFkXforEDRLZFkyTDT8ToZ9oYVI32bd7keORmJM4US0Y1OQ==}
+    dependencies:
+      vue: 3.2.45
+    dev: false
+
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -7913,11 +7914,3 @@ packages:
       archiver-utils: 2.1.0
       compress-commons: 4.1.1
       readable-stream: 3.6.0
-
-  github.com/nor1c/vue-tagsinput/b9b8153b9b8a0371ae52644ccc0d30ae9911e23e:
-    resolution: {tarball: https://codeload.github.com/nor1c/vue-tagsinput/tar.gz/b9b8153b9b8a0371ae52644ccc0d30ae9911e23e}
-    name: '@nor1c/vue-tagsinput'
-    version: 3.0.1
-    dependencies:
-      vue: 3.2.45
-    dev: false

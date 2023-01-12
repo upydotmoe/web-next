@@ -38,7 +38,7 @@
         <span class="dot-divider">·</span>
 
         <nuxt-link
-          :to="(feed.type === POST_TYPES.ARTWORK ? '/a/' : '/feed/') + feed.id"
+          :to="(feed.type === POST_TYPES.ARTWORK || isArtwork ? '/a/' : '/feed/') + feed.id"
           class="post-date"
         >
           {{ formatDate(feed.scheduled_post ? feed.scheduled_post : feed.created_at, true) }}
@@ -78,6 +78,10 @@ defineProps({
   closeModalTarget: {
     type: String,
     default: ''
+  },
+  isArtwork: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

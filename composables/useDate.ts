@@ -20,7 +20,6 @@ export default function useDate() {
 
   const formatDateToApi = (date: string): string => {
     const utcDate = new Date(moment(date).format('Y-MM-DD HH:mm:ss')).toUTCString()
-    console.log([date, utcDate])
     return utcDate
   }
 

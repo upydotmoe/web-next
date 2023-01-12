@@ -11,13 +11,20 @@ export default {
       return imgSrc
     },
     avatarCoverUrl (bucketName, fileName) {
-      let url
+      /**
+       * This following code is currently disabled because we don't see that we will use statically/cloudflare as CDN for image service
+       */
       // if (this.$config.activeCdn === 'cloudflare') {
       //   url = `${this.$config.staticallyCdn}/${this.$config.cloudflareUrl}/file/${bucketName}/${fileName}`
       // } else {
-      // url = `https://${this.$config.cdnUrl}/${bucketName}/${fileName}`
-      url = `https://${this.$config.cdnUrl}/${fileName}`
+      //   url = `https://${this.$config.cdnUrl}/${bucketName}/${fileName}`
       // }
+
+      let url = 'http://notfound.com/neverexist.jpg'
+
+      if (fileName !== null) {
+        url = `https://${this.$config.cdnUrl}/${fileName}`
+      }
 
       return url
     },

@@ -34,6 +34,7 @@
     </section>
 
     <template #right-side>
+      <div />
       <!-- suggested users -->
       <div v-if="feedLength && suggestedUsersToFollow">
         <div class="title">
@@ -85,7 +86,6 @@ const showSuggestedUsers = ref(false)
 const suggestedUsersToFollow = ref([])
 const getSuggestedUsersToFollow = async () => {
   const [suggestions, error] = await userApi.getSuggestedUsersToFollow()
-  console.log(suggestions)
 
   if (suggestions.length) {
     suggestedUsersToFollow.value = suggestions

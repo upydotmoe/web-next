@@ -181,7 +181,6 @@ const save = async () => {
   })
 
   if (apiError) {
-    console.log('api error:', apiError)
     error.value = {
       isError: true,
       message: apiError

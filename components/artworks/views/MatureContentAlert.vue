@@ -4,7 +4,7 @@
     id="explicit-and-gore-alert-section"
     :class="[
       'flex flex-row justify-between p-3 align-middle rounded',
-      isGore ? 'bg-red-500 text-white' : 'bg-yellow-500 text-black'
+      isGore ? 'bg-red-500 text-white' : 'bg-yellow-300 text-black'
     ]"
   >
     <p

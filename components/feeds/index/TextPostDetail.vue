@@ -9,15 +9,15 @@
   >
     <p
       v-if="feed.text"
-      :id="readMoreSelector+feed.id"
+      :id="`${isModal}feed-text-`+feed.id"
       v-html="feed.text.length > 500 ? `${feed.text.slice(0, 500)}...` : feed.text"
     />
 
     <a
       v-if="feed.text && feed.text.length > 500"
-      :id="'el-'+readMoreSelector+feed.id"
+      :id="`${isModal}feed-text-read-more-`+feed.id"
       class="href read-more-button"
-      @click.prevent="$emit('readMore', feed.text, feed.id, 'el-'+readMoreSelector, readMoreSelector)"
+      @click.prevent="$emit('readMore', feed.text, feed.id, `${isModal}feed-text-read-more-`, `${isModal}feed-text-`)"
     >
       {{ $t('readMore') }}
     </a>
@@ -27,6 +27,8 @@
       :feed="feed"
       :color-reversed="colorReversed"
       :feed-idx="feedIdx"
+      :read-more="readMore"
+      :is-modal="isModal"
       @read-more="readMore"
       @view="view"
     />
@@ -66,10 +68,6 @@ defineProps({
   readMore: {
     type: Function,
     default: () => {}
-  },
-  readMoreSelector: {
-    type: String,
-    default: 'feed-text-'
   },
   view: {
     type: Function,
