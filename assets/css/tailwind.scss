@@ -845,6 +845,10 @@
   .must-login-alert {
     @apply p-4 w-full text-center rounded-md theme-color-secondary;
   }
+
+  .text-left-counter {
+    @apply absolute left-3 bottom-6 py-1 px-2 text-white rounded-md button-color;
+  }
 }
 
 @layer utilities {}

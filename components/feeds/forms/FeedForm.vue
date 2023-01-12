@@ -26,8 +26,15 @@
           v-model="feedInput"
           :editor-toolbar="quillOptions"
           :placeholder="$t('typeSomething')"
+          v-on:ready="quill => editorQuill = quill"
         />
       </n-validate>
+
+      <div class="relative">
+        <div class="text-left-counter">
+          {{ feedInputCharLeft }}
+        </div>
+      </div>
 
       <div class="buttons">
         <button
@@ -65,11 +72,33 @@ import ErrorMessage from '~/components/auth/forms/ErrorMessage.vue';
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const feedApi = useFeed(oApiConfiguration, fetchOptions())
 
+let feedInputEditor: HTMLElement | null
+onMounted(() => {
+  feedInputEditor = document.getElementById(formId)?.getElementsByClassName('ql-editor')[0] as HTMLElement | null
+})
+
 const router = useRouter()
 const { t } = useI18n()
 
 const formId = 'feed-form'
+const editorQuill = ref(null)
+
 const feedInput = ref<string>('')
+const feedMaxLength = 2000
+const feedInputLength = ref(1)
+const feedInputCharLeft = computed(() => {
+  if (editorQuill) {
+    // const feedInputLength = feedInput.value.replace(/<[^>]*>?/gm, '').length
+    return feedMaxLength-(feedInputLength.value-1)
+  }
+})
+watch(() => feedInput.value, (_, currentValue) => {
+  feedInputLength.value = editorQuill.value.getLength()
+  if (editorQuill.value.getLength() > feedMaxLength) {
+    editorQuill.value.deleteText(feedMaxLength, editorQuill.value.getLength())
+  }
+})
+
 const state = ref({
   isPosting: false,
   isPosted: false,

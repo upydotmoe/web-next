@@ -168,6 +168,7 @@ form {
 }
 
 .ql-editor {
+  @apply mb-10;
   font-size: 12px !important;
 }
 .ql-editor.ql-blank::before {

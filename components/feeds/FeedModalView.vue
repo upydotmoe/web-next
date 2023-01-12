@@ -606,7 +606,7 @@ defineExpose ({
   }
 
   &__str-left-counter {
-    @apply absolute left-3 bottom-6 py-1 px-2 text-white rounded-md button-color;
+    @apply text-left-counter;
   }
 
   &__submit {
