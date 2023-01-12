@@ -85,8 +85,8 @@
       class="mt-2"
       :loading="loading"
       :empty="isEmpty"
-      :empty-message="hideFollowings ? $t('followings.followingsHidden') : null"
-      :empty-icon="'i-ri-eye-close-fill'"
+      :empty-message="hide ? $t('followings.followingsHidden') : ''"
+      :empty-icon="hide ? 'i-ri-eye-close-fill' : ''"
       :error="isError"
       :fetch="fetchTop"
       :background-color="'theme-color-secondary'"
@@ -132,7 +132,6 @@ const props = defineProps({
 })
 
 const hideFollowingListToggle = ref(false)
-const hideFollowings = ref(false)
 
 onMounted (() => {
   hideFollowingListToggle.value = props.userHideFollowingListStatus
@@ -143,7 +142,6 @@ onMounted (() => {
     loading.value = false
     
     isEmpty.value = true
-    hideFollowings.value = true
   }
 })
 

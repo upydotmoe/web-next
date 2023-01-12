@@ -59,8 +59,8 @@
       class="mt-2"
       :loading="loading"
       :empty="isEmpty"
-      :empty-message="hideFollowers ? $t('followers.followersHidden') : null"
-      :empty-icon="'i-ri-eye-close-fill'"
+      :empty-message="hide ? $t('followers.followersHidden') : ''"
+      :empty-icon="hide ? 'i-ri-eye-close-fill' : ''"
       :error="isError"
       :fetch="fetch"
       :background-color="'theme-color-secondary'"
@@ -102,7 +102,6 @@ const props = defineProps({
   }
 })
 
-const hideFollowers = ref(false)
 const hideFollowerListToggle = ref(false)
 
 onMounted (() => {
@@ -114,7 +113,6 @@ onMounted (() => {
     loading.value = false
     
     isEmpty.value = true
-    hideFollowers.value = true
   }
 })
 
