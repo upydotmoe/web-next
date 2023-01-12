@@ -19,7 +19,7 @@
         <ArtistDetail
           :feed="feedDetail"
           :is-modal="isModal"
-          :show-close-button="true"
+          :show-close-button="isModal"
           :close-modal-target="'chronological-feed-modal'"
           :class="[
             { '!-mt-2': isModal }
@@ -287,6 +287,10 @@ const props = defineProps({
   section: {
     type: String,
     default: ''
+  },
+  isModal: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -318,8 +322,6 @@ onMounted (() => {
 })
 
 const feedId = computed(() => feedDetail.value.id)
-
-const isModal = props.id === 0
 
 /** Open the modal view function */
 const loading = ref(true)
@@ -370,7 +372,7 @@ const view = async (selectedFeedId) => {
 
     await getComments(selectedFeedId)
 
-    if (!isModal) {
+    if (!props.isModal) {
       emit('setMeta', {
         title: data.feed.text.length > 20 ? `${data.feed.text.substring(0, 20)}..` : data.feed.text
       })

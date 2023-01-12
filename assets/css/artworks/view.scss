@@ -28,51 +28,6 @@
 
   .right-side {
     @apply overscroll-none pb-10 mb-10 w-full lg:w-7/12 md:mb-0;
-
-    .comments {
-      @apply overscroll-none mt-4;
-
-      .comment-box {
-        @apply mb-2;
-
-        textarea {
-          @apply w-full border-none appearance-none form-input focus:outline-none focus:appearance-none focus:border-none;
-        }
-      }
-
-      .comment-content {
-        @apply z-0;
-
-        .comment-order {
-          @apply flex justify-end mb-4 w-full;
-
-          button {
-            @apply py-2 px-3 underline rounded-sm cursor-pointer;
-          }
-        }
-
-        .comment-item {
-          @apply mb-2 hover:z-10;
-
-          .comment-time {
-            @apply italic text-xxs;
-            color: var(--link);
-          }
-
-          .reactions {
-            @apply flex z-50 flex-row justify-between w-full;
-
-            .reaction {
-              @apply flex ml-3 leading-5;
-
-              .icon {
-                @apply mr-1 text-xl cursor-pointer;
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 

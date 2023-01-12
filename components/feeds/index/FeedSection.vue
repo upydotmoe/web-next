@@ -215,6 +215,7 @@
       <FeedModalView
         ref="chronologicalFeedModalViewRef"
         :section="'chronological-feed'"
+        :is-modal="true"
       />
     </div>
 

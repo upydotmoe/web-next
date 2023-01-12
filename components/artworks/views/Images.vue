@@ -2,49 +2,7 @@
   <section
     id="artwork-data-section"
     class="image-list"
-  >
-    <section
-      v-if="artwork.redraw_of"
-      id="redraw-info-section"
-      class="flex flex-row mb-2"
-    >
-      <!-- original -->
-      <nuxt-link
-        :to="'/a/'+originalArtwork.id"
-        class="inline-block z-10 flex-row gap-2 p-1 pr-6 rounded-l-md rounded-r-lg theme-colored hover:cursor-pointer"
-      >
-        <nuxt-img
-          preload
-          loading="lazy"
-          class="inline-block mr-2 w-8 rounded-md redraw-mini-preview"
-          :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-          @error="imageLoadError"
-        />
-        <span class="font-bold">
-          {{ originalArtwork.title.length > redrawBreadcrumbTitleMaxLength ? originalArtwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : originalArtwork.title }}
-        </span>
-      </nuxt-link>
-
-      <!-- redraw version (current) -->
-      <div
-        :class="[
-          'inline-block flex-row gap-2 p-1 pr-2 pl-6 -ml-4 rounded-lg',
-          isModal ? 'theme-color-secondary' : 'theme-color'
-        ]"
-      >
-        <nuxt-img
-          preload
-          loading="lazy"
-          class="inline-block mr-2 w-8 rounded-md redraw-mini-preview"
-          :src="artworkThumb(artwork.artwork_assets[0].bucket, artwork.artwork_assets[0].filename, 'thumbnail', false)"
-          @error="imageLoadError"
-        />
-        <span class="font-bold">
-          {{ artwork.title.length > redrawBreadcrumbTitleMaxLength ? artwork.title.slice(0, redrawBreadcrumbTitleMaxLength) + '..' : artwork.title }}
-        </span>
-      </div>
-    </section>
-    
+  > 
     <!-- artwork image section -->
     <section
       id="artwork-image-section"
@@ -52,7 +10,7 @@
     >
       <!-- mini thumbnail/preview -->
       <section
-        v-if="!isModal && !showExplicitAlert"
+        v-if="!isModal && !showExplicitAlert && images.length"
         id="mini-thumbnail-section"
         class="sticky top-0 flex-col gap-2 w-1/6 hidden-md-flex"
       >
@@ -76,6 +34,7 @@
 
       <!-- artwork image list -->
       <viewer
+        v-if="images.length"
         :options="{
           url: 'data-source'
         }"
@@ -123,14 +82,6 @@ const props = defineProps({
   showExplicitAlert: {
     type: Boolean,
     default: false
-  },
-  images: {
-    type: Array,
-    default: () => []
-  },
-  originalArtwork: {
-    type: Object,
-    default: () => {}
   }
 })
 
