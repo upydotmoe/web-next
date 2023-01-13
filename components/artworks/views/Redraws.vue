@@ -57,7 +57,7 @@
 
     <!-- redraw button -->
     <div
-      v-if="auth.loggedIn && !myRedraw"
+      v-if="auth.loggedIn && !myRedraw.id"
       class="flex flex-row gap-2 justify-between w-full"
     >
       <nuxt-link
@@ -102,7 +102,7 @@
           
     <!-- my redraw/current user submission (show only if user has redrawed this artwork) -->
     <section
-      v-if="auth.loggedIn && myRedraw"
+      v-if="auth.loggedIn && myRedraw.id"
       id="my-redraw-section"
     >
       <h2 class="title-tiny">

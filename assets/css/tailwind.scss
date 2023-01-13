@@ -833,7 +833,7 @@
       @apply invisible rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2;
   
       &__wrapper {
-        @apply absolute right-0 p-1 mt-2 w-56 rounded-md shadow-lg origin-top-right cursor-pointer outline-none theme-color;
+        @apply absolute right-0 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right cursor-pointer outline-none theme-color border-color-primary;
   
         a {
           @apply flex flex-row gap-2 justify-start py-2 px-3 w-full rounded-md transition-all duration-150 hover:button-color parent-icon hover:text-white;

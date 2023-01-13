@@ -171,6 +171,7 @@
             v-auto-animate 
             class="comments__item"
           >
+            <!-- commenter avatar -->
             <nuxt-link
               class="comments__item__user-avatar"
               :to="'/u/' + comment.users.username"
@@ -181,30 +182,42 @@
               >
             </nuxt-link>
 
-            <div 
-              class="comments__item__info"
-              :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
+            <div
+              :class="[
+                'comments__item__comment',
+                !isModal ? 'theme-color' : 'theme-color-secondary'
+              ]"
             >
-              <div class="comments__item__info__head">
+              <!-- commenter user info and comment time -->
+              <div class="comments__item__comment__user-info">
                 <nuxt-link :to="'/u/' + comment.users.username">
-                  {{ comment.users.name }}
+                  <b>{{ comment.users.name }}</b>&nbsp;
+                  <span class="hover:underline">@{{ comment.users.username }}</span>
                 </nuxt-link>
                 <div class="time">
                   {{ formatDate(comment.created_at, true) }}
                 </div>
               </div>
 
+              <!-- the comment -->
               <p>{{ comment.comment }}</p>
 
-              <div
-                v-if="comment.users.id === auth.user.id"
-                class="delete-button"
-                @click="removeComment(comment.id)"
-              >
-                <Icon
-                  :name="'i-akar-icons-trash-bin'"
-                  :text-size="'text-base'"
-                />
+              <!-- item buttons -->
+              <div class="comments__item__comment__buttons">
+                <div />
+
+                <div class="comments__item__comment__buttons__item">
+                  <button
+                    v-if="comment.users.id === auth.user.id"
+                    @click="removeComment(comment.id)"
+                  >
+                    <Icon
+                      :name="'i-akar-icons-trash-bin'"
+                      :text-size="'text-base'"
+                      class="hover:bg-red-400"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -373,8 +386,9 @@ const view = async (selectedFeedId) => {
     await getComments(selectedFeedId)
 
     if (!props.isModal) {
+      const strippedText = data.feed.text.replace(/<[^>]*>?/gm, '')
       emit('setMeta', {
-        title: data.feed.text.length > 20 ? `${data.feed.text.substring(0, 20)}..` : data.feed.text
+        title: strippedText > 20 ? `${strippedText.substring(0, 20)}..` : strippedText
       })
     }
   }
@@ -430,7 +444,7 @@ const unlike = async () => {
 // comments
 const comments = ref([])
 const commentPagination = ref({
-  perPage: 10,
+  perPage: 5,
   page: 0
 })
 const commentIndexes = ref([])
@@ -595,87 +609,5 @@ defineExpose ({
 
 <style lang="scss" scoped>
 @import "~/assets/css/artworks/view.scss";
-
-.comments {
-  @apply px-4 mt-4 md:p-0;
-
-  &__comment-box {
-    @apply flex relative flex-col;
-
-    textarea {
-      @apply input form-input;
-    }
-  }
-
-  &__str-left-counter {
-    @apply text-left-counter;
-  }
-
-  &__submit {
-    @apply absolute right-2 bottom-5 py-1 px-2;
-
-    .icon {
-      @apply text-xl transition-all duration-100 cursor-pointer text-gray-500 hover:text-colored;
-    }
-  }
-
-  &__items {
-    @apply flex flex-col gap-2;
-
-    .comment-order {
-      @apply flex justify-end mb-4 w-full;
-
-      button {
-        @apply py-2 px-3 underline rounded-sm cursor-pointer;
-      }
-    }
-  }
-
-  &__item {
-    @apply flex flex-row w-full gap-2;
-
-    &__user-avatar {
-      img {
-        @apply w-10 h-10 avatar;
-      }
-    }
-
-    &__info {
-      @apply p-3 w-full rounded-md;
-
-      &__head {
-        @apply flex flex-row justify-between;
-
-        a {
-          @apply mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer hover:font-bold;
-        }
-
-        > .time {
-          @apply italic text-xxs;
-          color: var(--link);
-        }
-      }
-
-      > .delete-button {
-        @apply mt-2 text-right;
-
-        .icon {
-          @apply hover:bg-red-400;
-        }
-      }
-    }
-  }
-
-  &__load-more-button {
-    @apply flex flex-row gap-2 href mx-auto lowercase;
-  }
-
-  &__no-more-item {
-    @apply w-full text-xs italic text-center;
-  }
-
-  &__no-comment {
-    @apply w-full text-xs italic text-center;
-  }
-}
+@import '~/assets/css/comments.scss';
 </style>

@@ -1,0 +1,90 @@
+.comments {
+  @apply px-4 mt-4 md:p-0;
+
+  &__comment-box {
+    @apply flex relative flex-col;
+
+    textarea {
+      @apply input form-input;
+    }
+  }
+
+  &__str-left-counter {
+    @apply text-left-counter;
+  }
+
+  &__submit {
+    @apply absolute right-2 bottom-5 py-1 px-2;
+
+    .icon {
+      @apply text-xl text-gray-500 transition-all duration-100 cursor-pointer hover:text-colored;
+    }
+  }
+
+  &__items {
+    @apply flex flex-col gap-2;
+
+    .comment-order {
+      @apply flex justify-end mb-4 w-full;
+
+      button {
+        @apply py-2 px-3 underline rounded-sm cursor-pointer;
+      }
+    }
+  }
+
+  &__item {
+    @apply flex flex-row gap-2;
+
+    &__user-avatar {
+      img {
+        @apply w-10 h-10 avatar;
+      }
+    }
+
+    &__wrapper {
+      @apply flex flex-col gap-2 w-full;
+    }
+
+    &__comment {
+      @apply flex flex-col gap-2 p-3 w-full rounded-md;
+
+      &__user-info {
+        @apply flex flex-row justify-between;
+  
+        a {
+          @apply mb-2 text-xs transition-all duration-150 cursor-pointer;
+        }
+  
+        > .time {
+          @apply italic text-xxs;
+          color: var(--link);
+        }
+      }
+  
+      &__buttons {
+        @apply flex flex-row gap-2 justify-between mt-2;
+  
+        &__item {
+          @apply flex flex-row gap-2;
+
+          button {
+            @apply inline-flex flex-row gap-1;
+          }
+        }
+      }
+    }
+  }
+
+  &__load-more-button {
+    @apply flex flex-row gap-2 mx-auto lowercase href;
+  }
+
+  &__no-more-item {
+    @apply w-full text-xs italic text-center;
+  }
+
+  &__no-comment {
+    @apply w-full text-xs italic text-center;
+  }
+}

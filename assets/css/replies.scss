@@ -1,0 +1,46 @@
+.replies {
+  &__reply-box {
+    @apply flex relative flex-col;
+
+    textarea {
+      @apply input form-input;
+    }
+
+    &__str-left-counter {
+      @apply comments__str-left-counter;
+    }
+
+    button {
+      @apply absolute right-2 bottom-5 py-1 px-2;
+
+      .icon {
+        @apply text-xl transition-all duration-100 cursor-pointer text-colored;
+      }
+    }
+  }
+
+  &__items {
+    @apply flex-col;
+
+    &__hide {
+      @apply flex flex-row justify-between w-full text-xs;
+    }
+
+    &__item {
+      @apply gap-2 p-3 mb-2 w-full rounded-md border-l-4;
+
+      &__user-info {
+        @apply inline-flex flex-row justify-between w-full;
+
+        > .time {
+          @apply italic text-xxs;
+          color: var(--link);
+        }
+      }
+
+      &__avatar {
+        @apply flex flex-row gap-2 comments__item__user-avatar;
+      }
+    }
+  }
+}

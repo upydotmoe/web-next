@@ -53,10 +53,10 @@
       {{ $t('comments.loginOrRegisterToLeaveComment') }}
     </div>
 
-    <!-- comment list -->
-    <div
-      id="comments"
-      class="comment-content"
+    <!-- comment section -->
+    <section
+      id="comment-section"
+      class="comments__items"
     >
       <div class="flex flex-row justify-end mb-2">
         <div v-if="artwork._count && artwork._count.artwork_comments">
@@ -68,43 +68,47 @@
         v-for="comment in comments"
         :key="comment.id" 
         v-auto-animate 
-        class="flex flex-row w-full comment-item"
+        class="comments__item"
       >
+        <!-- commenter avatar -->
         <nuxt-link
-          class="mr-2"
+          class="comments__item__user-avatar"
           :to="'/u/' + comment.users.username"
         >
           <img
-            class="w-10 h-10 avatar"
             :src="avatarCoverUrl(comment.users.avatar_bucket, comment.users.avatar_filename)"
             @error="defaultCoverImage"
           >
         </nuxt-link>
-        <div class="w-full">
-          <div 
-            class="p-3 w-full rounded-md"
-            :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
+        
+        <div class="comments__item__wrapper">
+          <div
+            :class="[
+              'comments__item__comment',
+              !isModal ? 'theme-color' : 'theme-color-secondary'
+            ]"
           >
-            <!-- profile info -->
-            <div class="flex justify-between">
-              <nuxt-link
-                :to="'/u/' + comment.users.username"
-                class="mb-2 text-xs font-semibold transition-all duration-150 cursor-pointer"
-              >
-                {{ comment.users.name }}
+            <!-- commenter username & comment time -->
+            <div class="comments__item__comment__user-info">
+              <nuxt-link :to="'/u/' + comment.users.username">
+                <b>{{ comment.users.name }}</b>&nbsp;
+                <span class="hover:underline">@{{ comment.users.username }}</span>
               </nuxt-link>
-              <div class="comment-time">
+
+              <div class="time">
                 {{ formatDate(comment.created_at, true) }}
               </div>
             </div>
                   
-            <div>
-              {{ comment.comment }}
-            </div>
+            <!-- the comment -->
+            <p>{{ comment.comment }}</p>
 
-            <!-- comment reactions -->
-            <div class="mt-4 reactions">
-              <!-- left side: X replies -->
+            <!-- interaction & option buttons -->
+            <div class="comments__item__comment__buttons">
+              <!--
+                left side: 
+                  - show X reply/ie(s)
+              -->
               <div 
                 class="cursor-pointer hover:underline"
                 @click="activeReplyTray == comment.id ? hideReplies(comment.id) : showReplies(comment.id)"
@@ -115,16 +119,13 @@
                 </span>
               </div>
 
-              <!-- right side: interaction buttons -->
+              <!-- right side: interaction & option buttons -->
               <div
                 v-if="auth.loggedIn"
-                class="flex flex-row"
+                class="comments__item__comment__buttons__item"
               >
                 <!-- like a comment button -->
-                <span
-                  class="reaction"
-                  @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)"
-                >
+                <button @click="likedComments.includes(comment.id) ? unlikeComment(comment.id) : likeComment(comment.id)">
                   <Icon
                     v-show="!likedComments.includes(comment.id)"
                     :name="'i-ri-heart-3-line'"
@@ -137,21 +138,18 @@
                     class="text-red-500 hover:text-red-500"
                   />
                   {{ shortNumber(comment._count.artwork_comment_has_likes) }}
-                </span>
+                </button>
 
                 <!-- reply a comment button -->
-                <span
-                  class="reaction"
-                  @click="showReplyInput(comment.id)"
-                >
+                <button @click="showReplyInput(comment.id)">
                   <Icon
                     :name="'i-quill-reply'"
                     class="text-gray-500 hover:text-blue-500"
                   />
-                </span>
+                </button>
 
-                <!-- Other comment interaction buttons -->
-                <div class="inline-block relative ml-2 dropdown">
+                <!-- option buttons -->
+                <div class="ellipsis-menus dropdown">
                   <button 
                     type="button" 
                     aria-haspopup="true" 
@@ -160,31 +158,23 @@
                     @click="showReplyInputId = 0"
                   >
                     <span>
-                      <Icon
-                        :name="'i-uit-ellipsis-v'" 
-                        class="align-middle icon icon-color"
-                      />
+                      <Icon :name="'i-uit-ellipsis-v'" />
                     </span>
                   </button>
 
-                  <!-- ellipsis element -->
-                  <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
+                  <div class="ellipsis-menus__content dropdown-menu">
                     <div 
                       id="ellipsis-menus"
-                      class="absolute right-0 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
+                      class="ellipsis-menus__content__wrapper"
                       aria-labelledby="headlessui-menu-button-1"
                       role="menu"
                     >
-                      <!-- delete comment -->
-                      <div
-                        v-if="auth.loggedIn && auth.user.id === comment.users.id"
-                        class="flex py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                        @click="deleteComment(comment.id)"
-                      >
-                        <Icon
-                          :name="'i-ion-trash-outline'"
-                          class="mr-2 text-base"
-                        /> {{ $t('delete') }}
+                      <!-- delete comment button -->
+                      <div v-if="auth.loggedIn && auth.user.id === comment.users.id">
+                        <a @click="deleteComment(comment.id)">
+                          <Icon :name="'i-ion-trash-outline'" />
+                          {{ $t('delete') }}
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -192,188 +182,188 @@
               </div>
             </div>
           </div>
-
-          <!-- reply input -->
-          <section 
-            v-if="auth.loggedIn" 
-            v-show="showReplyInputId === comment.id"
-            id="reply-input-section"
-            class="-mb-4 comment-box"
-          >
-            <div class="flex flex-col">
-              <div class="flex relative flex-col">
-                <textarea
-                  :id="'reply-'+comment.id"
-                  v-model="replyInput"
-                  class="mt-2 w-full input form-input"
-                  :class="[{ 'cursor-not-allowed': submitReplyLoading }, { 'theme-color-secondary textarea': isModal }]"
-                  :readonly="submitReplyLoading"
-                  cols="30"
-                  :rows="replyInput != null && replyInput != '' ? '4' : '0'"
-                  :placeholder="$t('comments.replies.write')"
-                  :maxlength="replyMaxChar"
-                  data-gramm="false"
-                />
-                <span 
-                  v-show="replyInput != null && replyInput != ''" 
-                  class="absolute left-4 bottom-6 py-1 px-2 text-white rounded-md button-color"
-                >
-                  {{ replyCharLeft }}
-                </span>
-                <span
-                  class="absolute right-2 bottom-5 py-1 px-2"
-                  @click.prevent="submitReply(comment.id)"
-                >
-                  <Icon 
-                    v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
-                    :name="'i-carbon-send-filled'" 
-                    class="text-xl transition-all duration-100 cursor-pointer text-colored"
-                  />
-                  <Spinner v-show="submitReplyLoading" />
-                </span>
-              </div>
-            </div>
-          </section>
-                
-          <!-- Comment replies -->
+          
+          <!-- comment replies -->
           <section
-            :id="'comment-replies-'+comment.id"
-            class="hidden flex-col mt-2"
-          > 
-            <div 
-              v-if="commentReplies[comment.id] && commentReplies[comment.id].length"
-              class="w-full"
+            id="replies-section"
+            class="replies"
+          >
+            <section 
+              v-if="auth.loggedIn" 
+              v-show="showReplyInputId === comment.id"
+              id="reply-input-section"
+              class="replies__reply-box"
             >
-              <span class="float-left mb-2 text-xs italic text-color-secondary">{{ $t('comments.replies.replies') }}</span>
-              <span 
-                class="float-right text-xs cursor-pointer hover:font-semibold"
-                @click="hideReplies(comment.id)" 
+              <textarea
+                :id="'reply-'+comment.id"
+                v-model="replyInput"
+                cols="30"
+                data-gramm="false"
+                :class="[
+                  { '!cursor-not-allowed': submitReplyLoading },
+                  { 'theme-color-secondary textarea': isModal }
+                ]"
+                :readonly="submitReplyLoading"
+                :rows="replyInput != null && replyInput != '' ? '4' : '0'"
+                :placeholder="$t('comments.replies.write')"
+                :maxlength="replyMaxChar"
+              />
+              
+              <div
+                v-show="replyInput != null && replyInput != ''" 
+                class="replies__reply-box__str-left-counter"
               >
-                {{ $t('hide') }}
-              </span>
-            </div>
-            <div 
-              v-for="reply in commentReplies[comment.id]"
-              :key="reply.id"
-              class="p-3 mb-2 w-full rounded-md border-l-4"
-              :class="!isModal ? 'theme-color' : 'theme-color-secondary'"
+                {{ replyCharLeft }}
+              </div>
+
+              <button @click.prevent="submitReply(comment.id)">
+                <Icon 
+                  v-show="replyInput != null && replyInput != '' && !submitReplyLoading"
+                  :name="'i-carbon-send-filled'" 
+                />
+                <Spinner v-show="submitReplyLoading" />
+              </button>
+            </section>
+                
+            <section
+              :id="'comment-replies-'+comment.id"
+              class="hidden replies__items"
             >
+              <!-- hide button -->
               <div 
-                class="flex flex-row justify-between"
+                v-if="commentReplies[comment.id] && commentReplies[comment.id].length"
+                class="replies__items__hide"
               >
-                <nuxt-link
-                  :to="'/u/' + reply.users.username"
-                  class="flex flex-row leading-6"
+                <span class="italic text-color-secondary">{{ $t('comments.replies.replies') }}</span>
+
+                <span
+                  class="cursor-pointer hover:font-semibold"
+                  @click="hideReplies(comment.id)" 
                 >
-                  <img
-                    class="mr-2 w-6 h-6 rounded-full"
-                    :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)"
-                    @error="defaultCoverImage"
-                  >
-                  <span class="transition-all duration-150 cursor-pointer hover:font-bold">{{ reply.users.name }}</span>
-                </nuxt-link>
-                <span class="leading-6 comment-time">
-                  {{ formatDate(reply.created_at, true) }}
+                  {{ $t('hide') }}
                 </span>
               </div>
 
-              <!-- The reply -->
-              <div class="mt-2">
-                {{ reply.content }}
-              </div>
-
-              <!-- Reactions -->
+              <!-- reply list -->
               <div
-                v-if="auth.loggedIn"
-                class="mt-2 reactions"
+                v-for="reply in commentReplies[comment.id]"
+                :key="reply.id"
+                :class="[
+                  'replies__items__item',
+                  !isModal ? 'theme-color' : 'theme-color-secondary'
+                ]"
               >
-                <span />
-                <div class="flex flex-row">
-                  <span
-                    class="reaction"
-                    @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)"
+                <div class="replies__items__item__user-info">
+                  <nuxt-link
+                    :to="'/u/' + reply.users.username"
+                    class="replies__items__item__avatar"
                   >
-                    <Icon
-                      v-show="likedReplies.includes(reply.id)"
-                      :id="'reply-like-button-'+reply.id"
-                      :name="'i-ion-heart'"
-                      class="text-red-500 hover:text-red-500"
-                    />
-                    <Icon
-                      v-show="!likedReplies.includes(reply.id)"
-                      :name="'i-ri-heart-3-line'"
-                      class="text-gray-500 hover:text-red-500"
-                    />
-                    {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
-                  </span>
-                        
-                  <!-- Other reply interaction buttons -->
-                  <div class="inline-block relative ml-2 dropdown">
-                    <button 
-                      type="button" 
-                      aria-haspopup="true" 
-                      aria-expanded="true" 
-                      aria-controls="ellipsis-menus"
+                    <img
+                      class="!w-6 !h-6"
+                      :src="avatarCoverUrl(reply.users.avatar_bucket, reply.users.avatar_filename)"
+                      @error="defaultCoverImage"
                     >
-                      <span>
-                        <Icon
-                          :name="'i-uit-ellipsis-v'" 
-                          class="align-middle icon icon-color"
-                        />
-                      </span>
-                    </button>
-                    <div class="invisible z-50 rounded-md opacity-0 transition-all duration-300 transform origin-top-right scale-95 -translate-y-2 cursor-pointer dropdown-menu">
-                      <div 
-                        id="ellipsis-menus" 
-                        class="absolute right-0 z-50 p-1 mt-2 w-56 rounded-md border shadow-lg origin-top-right outline-none border-color theme-color"
-                        aria-labelledby="headlessui-menu-button-1" 
-                        role="menu"
-                      >
-                        <!-- view profile -->
-                        <nuxt-link 
-                          :to="'/u/' + reply.users.id" 
-                          class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                          @click.prevent 
-                        >
-                          <Icon
-                            :name="'i-fluent-person-32-regular'"
-                            class="mr-2 text-base"
-                          /> {{ $t('viewProfile') }}
-                        </nuxt-link>
+                    <span class="transition-all duration-150 cursor-pointer hover:font-bold">{{ reply.users.name }}</span>
+                  </nuxt-link>
 
-                        <!-- delete reply -->
-                        <div
-                          v-if="auth.loggedIn && auth.user.id === reply.users.id"
-                          class="flex z-50 py-2 px-3 w-full rounded-md transition-all duration-150 theme-color hover:button-color parent-icon hover:text-white"
-                          @click="deleteReply(comment.id, reply.id)"
+                  <span class="time">
+                    {{ formatDate(reply.created_at, true) }}
+                  </span>
+                </div>
+
+                <!-- the reply -->
+                <p>{{ reply.content }}</p>
+
+                <!-- interaction & option buttons -->
+                <div
+                  v-if="auth.loggedIn"
+                  class="comments__item__comment__buttons"
+                >
+                  <div />
+
+                  <!-- right side: interaction & option buttons -->
+                  <div class="comments__item__comment__buttons__item">
+                    <button @click="likedReplies.includes(reply.id) ? unlikeReply(reply.id) : likeReply(reply.id)">
+                      <Icon
+                        v-show="likedReplies.includes(reply.id)"
+                        :id="'reply-like-button-'+reply.id"
+                        :name="'i-ion-heart'"
+                        class="text-red-500 hover:text-red-500"
+                      />
+                      <Icon
+                        v-show="!likedReplies.includes(reply.id)"
+                        :name="'i-ri-heart-3-line'"
+                        class="text-gray-500 hover:text-red-500"
+                      />
+                      {{ shortNumber(reply._count.artwork_comment_reply_has_likes) }}
+                    </button>
+                        
+                    <!-- Other reply interaction buttons -->
+                    <div class="ellipsis-menus dropdown">
+                      <button 
+                        type="button" 
+                        aria-haspopup="true" 
+                        aria-expanded="true" 
+                        aria-controls="ellipsis-menus"
+                      >
+                        <span>
+                          <Icon :name="'i-uit-ellipsis-v'" />
+                        </span>
+                      </button>
+
+                      <!-- option buttons -->
+                      <div class="ellipsis-menus__content dropdown-menu">
+                        <div 
+                          id="ellipsis-menus" 
+                          class="ellipsis-menus__content__wrapper"
+                          aria-labelledby="headlessui-menu-button-1" 
+                          role="menu"
                         >
-                          <Icon
-                            :name="'i-ion-trash-outline'"
-                            class="mr-2 text-base"
-                          /> {{ $t('delete') }}
+                          <!-- view profile -->
+                          <nuxt-link
+                            :to="'/u/' + reply.users.id" 
+                            @click.prevent 
+                          >
+                            <Icon
+                              :name="'i-fluent-person-32-regular'"
+                              class="mr-2 text-base"
+                            /> {{ $t('viewProfile') }}
+                          </nuxt-link>
+
+                          <!-- delete reply -->
+                          <div v-if="auth.loggedIn && auth.user.id === reply.users.id">
+                            <a @click="deleteReply(comment.id, reply.id)">
+                              <Icon
+                                :name="'i-ion-trash-outline'"
+                                class="mr-2 text-base"
+                              />
+                              {{ $t('delete') }}
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div 
-              v-if="commentReplies[comment.id] && showLoadMoreReplies" 
-              class="mb-1 text-center transition ease-in-out delay-75 cursor-pointer hover:font-semibold hover:underline text-color-secondary href"
-              @click="loadMoreReplies(comment.id)"
-            >
-              {{ $t('comments.replies.loadMore') }}
-            </div>
+
+              <div 
+                v-if="commentReplies[comment.id] && showLoadMoreReplies" 
+                class="mb-1 text-center transition ease-in-out delay-75 cursor-pointer hover:font-semibold hover:underline text-color-secondary href"
+                @click="loadMoreReplies(comment.id)"
+              >
+                {{ $t('comments.replies.loadMore') }}
+              </div>
+            </section>
           </section>
         </div>
       </div>
-    </div>
+    </section>
 
     <div
       v-if="artwork._count"
       v-show="artwork._count.artwork_comments > 3 && showLoadOlderComments"
-      class="text-center capitalize href"
+      class="comments__load-more-button"
       @click.prevent="loadMoreComments(artwork.id)"
     >
       {{ $t('comments.loadOlder') }}
@@ -381,14 +371,14 @@
 
     <div
       v-show="comments.length && !showLoadOlderComments"
-      class="w-full text-xs italic text-center"
+      class="comments__no-more-item"
     >
       {{ $t('comments.reachedTheEnd') }}
     </div>
 
     <div
       v-if="auth.loggedIn && !comments.length"
-      class="mt-4 w-full text-xs italic text-center"
+      class="comments__no-comment"
     >
       {{ $t('comments.noCommentYet') }}
     </div>
@@ -758,48 +748,6 @@ const unlikeReply = async (replyId) => {
 </script>
 
 <style lang="scss" scoped>
-.comments {
-  @apply overscroll-none mt-4;
-
-  .comment-box {
-    @apply mb-2;
-
-    textarea {
-      @apply w-full border-none appearance-none form-input focus:outline-none focus:appearance-none focus:border-none;
-    }
-  }
-
-  .comment-content {
-    @apply z-0;
-
-    .comment-order {
-      @apply flex justify-end mb-4 w-full;
-
-      button {
-        @apply py-2 px-3 underline rounded-sm cursor-pointer;
-      }
-    }
-
-    .comment-item {
-      @apply mb-2 hover:z-10;
-
-      .comment-time {
-        @apply italic text-xxs;
-        color: var(--link);
-      }
-
-      .reactions {
-        @apply flex z-50 flex-row justify-between w-full;
-
-        .reaction {
-          @apply flex ml-3 leading-5;
-
-          .icon {
-            @apply mr-1 text-xl cursor-pointer;
-          }
-        }
-      }
-    }
-  }
-}
+@import '~/assets/css/comments.scss';
+@import '~/assets/css/replies.scss';
 </style>

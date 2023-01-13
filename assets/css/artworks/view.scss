@@ -12,7 +12,7 @@
 }
 
 .work-container {
-  @apply flex flex-col justify-between h-full text-left rounded-md md:overscroll-none;
+  @apply flex flex-col justify-between w-full h-full text-left rounded-md md:overscroll-none;
 
   .left-side {
     @apply overscroll-none w-full lg:pr-6;
