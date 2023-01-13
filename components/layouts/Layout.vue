@@ -15,6 +15,7 @@
         :class="[
           'hidden md:mr-2',
           fullscreen ? '2xl:w-2/12' : (noRightSide ? 'lg:w-4/12 md:block' : 'lg:w-4/12 md:block'),
+          { '!mt-36': isNoData }
         ]"
       >
         <div class="sticky top-36 w-full">
@@ -31,6 +32,7 @@
           { '2xl:w-8/12': !hideSide || !noRightSide },
           { 'h-screen': hScreen },
           { 'md:mt-36': fixedNavbarRoutes().includes(currentRoute) && !isMobileDevice() },
+          { '!mt-36': isNoData }
         ]"
       >
         <slot />
@@ -88,6 +90,10 @@ defineProps({
   centerClass: {
     type: String,
     default: ''
+  },
+  isNoData: {
+    type: Boolean,
+    default: false
   }
 })
 

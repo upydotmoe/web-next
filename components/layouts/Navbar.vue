@@ -1,6 +1,6 @@
 <template>
   <div
-    class="z-20 w-full theme-color"
+    class="z-30 w-full theme-color"
     :class="[
       { 'md:fixed': fixedNavbarRoutes().includes(currentRoute) && !isMobileDevice() }
     ]"

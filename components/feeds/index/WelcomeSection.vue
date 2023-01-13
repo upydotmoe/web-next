@@ -46,6 +46,7 @@ import { newUserWelcomeMenus } from '~/utils/constants/feed'
 
 // components
 import Icon from '~/components/globals/Icon.vue'
+import UserList from '~/components/users/UserList.vue'
 
 defineProps({
   suggestedUsersToFollow: {

@@ -42,7 +42,7 @@
 
     <!-- Pagination controller -->
     <div
-      v-if="artworkDetail.users"
+      v-if="artworkDetail.users && showPaginationController"
       v-show="!loading"
       class="pagination-controller"
     >
@@ -120,6 +120,7 @@ const pagination = reactive({
     disableArtistPrevButton: true
   }
 })
+const showPaginationController = ref(true)
 const nextPrevByArtist = async (userId, mode) => {
   loading.value = true
   pagination.options.nextPrevLoading = true
@@ -147,6 +148,10 @@ const nextPrevByArtist = async (userId, mode) => {
     loading.value = false
     showError()
   } else {
+    if (workPagination.total_page === 0) {
+      showPaginationController.value = false
+    }
+
     if (workPagination.next_previous.prev_page === null || workPagination.next_previous.prev_page === undefined) {
       pagination.options.disableArtistPrevButton = true
     } else {

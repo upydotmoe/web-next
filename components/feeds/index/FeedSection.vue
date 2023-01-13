@@ -270,7 +270,7 @@ useHead({
   title: useI18n().tl('meta.title.feed.feed')
 })
 
-const emit = defineEmits(['updateFeedLength', 'updateShowSuggestedUsers'])
+const emit = defineEmits(['updateFeedLength', 'updateShowSuggestedUsers', 'noData'])
 const props = defineProps({
   fetchMode: {
     type: String,
@@ -363,6 +363,10 @@ const fetch = async ({ loaded }) => {
   // if no feeds returned, get suggested users to follow
   if (!data.feeds.length) {
     emit('updateShowSuggestedUsers', true)
+
+    if (isInitial.value) {
+      emit('noData')
+    }
   }
 
   options.value.pagination.page += 1

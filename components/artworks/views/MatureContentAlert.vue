@@ -3,7 +3,7 @@
     v-if="show"
     id="explicit-and-gore-alert-section"
     :class="[
-      'flex flex-row justify-between p-3 align-middle rounded',
+      'flex flex-col md:flex-row justify-between p-3 align-middle rounded',
       isGore ? 'bg-red-500 text-white' : 'bg-yellow-300 text-black'
     ]"
   >
