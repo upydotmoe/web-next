@@ -169,6 +169,15 @@
                       aria-labelledby="headlessui-menu-button-1"
                       role="menu"
                     >
+                      <!-- view profile -->
+                      <nuxt-link :to="'/u/' + comment.users.id">
+                        <Icon
+                          :name="'i-fluent-person-32-regular'"
+                          class="mr-2 text-base"
+                        />
+                        {{ $t('viewProfile') }}
+                      </nuxt-link>
+
                       <!-- delete comment button -->
                       <div v-if="auth.loggedIn && auth.user.id === comment.users.id">
                         <a @click="deleteComment(comment.id)">
@@ -748,6 +757,7 @@ const unlikeReply = async (replyId) => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
 @import '~/assets/css/comments.scss';
 @import '~/assets/css/replies.scss';
 </style>

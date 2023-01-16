@@ -47,6 +47,8 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .feed__info {
   @apply px-2 md:px-4;
 

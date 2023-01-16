@@ -1,5 +1,5 @@
 .comments {
-  @apply px-4 mt-4 md:p-0;
+  @apply mt-4 md:p-0;
 
   &__comment-box {
     @apply flex relative flex-col;
@@ -37,8 +37,10 @@
     @apply flex flex-row gap-2;
 
     &__user-avatar {
+      @apply w-10;
+
       img {
-        @apply w-10 h-10 avatar;
+        @apply avatar;
       }
     }
 

@@ -114,7 +114,9 @@ const reset = () => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 input {
   @apply theme-color-secondary;
 }

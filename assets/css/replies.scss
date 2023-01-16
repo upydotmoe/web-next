@@ -27,10 +27,10 @@
     }
 
     &__item {
-      @apply gap-2 p-3 mb-2 w-full rounded-md border-l-4;
+      @apply flex flex-col gap-2 p-3 mb-2 w-full rounded-md border-l-4;
 
       &__user-info {
-        @apply inline-flex flex-row justify-between w-full;
+        @apply flex flex-row justify-between w-full;
 
         > .time {
           @apply italic text-xxs;
@@ -39,7 +39,11 @@
       }
 
       &__avatar {
-        @apply flex flex-row gap-2 comments__item__user-avatar;
+        @apply flex flex-row gap-2 whitespace-nowrap comments__item__user-avatar;
+        
+        span {
+          @apply leading-6;
+        }
       }
     }
   }

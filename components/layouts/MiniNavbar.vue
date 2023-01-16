@@ -1,7 +1,7 @@
 <template>
   <div
     id="as"
-    class="flex flex-row justify-center items-center py-2 px-4 mx-auto mt-0 w-full text-white rounded-none border-none md:justify-between md:px-6 2xl:w-8/12"
+    class="flex overflow-hidden flex-row justify-center items-center py-2 px-4 mx-auto mt-0 w-full text-white rounded-none border-none md:justify-between md:px-6 2xl:w-8/12"
   >
     <div class="menus">
       <nuxt-link
@@ -38,6 +38,13 @@
       >
         {{ $t('tags.tags') }}
       </nuxt-link>
+      <a
+        href="https://github.com/upyapp/issues"
+        target="_blank"
+        class="uppercase"
+      >
+        {{ $t('reportIssue') }}
+      </a>
     </div>
   </div>
 </template>
@@ -98,7 +105,7 @@ const random = async () => {
 // @import '~/assets/css/tailwind.scss';
 
 .menus {
-  @apply flex flex-row md:justify-between;
+  @apply flex flex-row md:justify-between overflow-x-scroll whitespace-nowrap md:overflow-x-hidden px-2 pb-1 md:pb-0 -ml-2;
 
   a {
     @apply mr-3 text-gray-200 font-bold text-xxs px-2 py-1 -ml-2;
@@ -112,4 +119,18 @@ const random = async () => {
     @apply text-gray-800 bg-gray-100 rounded;
   }
 }
+
+.menus::-webkit-scrollbar {
+  height: 4px;
+}
+.menus::-webkit-scrollbar-track {
+  background: var(--button);
+}
+.menus::-webkit-scrollbar-thumb {
+  background: var(--theme-color-secondary);
+}
+
+// .menus::-webkit-scrollbar {
+//   display: none;
+// }
 </style>

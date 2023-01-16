@@ -49,7 +49,7 @@
         class="p-2 mb-4 rounded-md theme-color hover:theme-colored"
       >
         <div>
-          <div class="mb-2 title">
+          <div class="mb-2 title-tiny">
             {{ $t('artworks.originalArtwork') }}
           </div>
 
@@ -512,9 +512,11 @@ const fetchSetting = async () => {
     let settingMaxFileCount = 1
     
     if (auth.i502p00r0) {
-      settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads_pro')
+      const [maxFileCount, error] = await settingApi.getSetting('artwork_max_uploads_pro')
+      settingMaxFileCount = maxFileCount
     } else {
-      settingMaxFileCount = await settingApi.getSetting('artwork_max_uploads')
+      const [maxFileCount, error] = await settingApi.getSetting('artwork_max_uploads')
+      settingMaxFileCount = maxFileCount
     }
     
     maxFileCount.value = settingMaxFileCount

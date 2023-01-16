@@ -87,7 +87,7 @@ onBeforeMount (() => {
 })
 
 const fetchMaxFree = async () => {
-  const maxFreeItemLimit = await settingApi.getSetting('max_free_liked_artworks')
+  const [maxFreeItemLimit, error] = await settingApi.getSetting('max_free_liked_artworks')
   maxFreeItems.value = Number(maxFreeItemLimit)
 }
 

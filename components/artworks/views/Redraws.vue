@@ -51,25 +51,9 @@
     class="flex flex-col gap-4"
   >
     <h2 class="title">
-      {{ $t('artworks.redraws') }} 
+      {{ $t('artworks.redraws') }}
       ({{ artworkRedraws.pagination && artworkRedraws.pagination.record_total ? artworkRedraws.pagination.record_total : 0 }})
     </h2>
-
-    <!-- redraw button -->
-    <div
-      v-if="auth.loggedIn && !myRedraw.id"
-      class="flex flex-row gap-2 justify-between w-full"
-    >
-      <nuxt-link
-        :to="'/post?redrawWorkId='+artwork.id"
-        :class="[
-          !isModal ? 'light-button' : 'secondary-button'
-        ]"
-      >
-        <Icon :name="'i-typcn-brush'" />
-        {{ $t('artworks.redrawThisArtwork') }}
-      </nuxt-link>
-    </div>
 
     <!-- redraw list -->
     <section
@@ -99,6 +83,22 @@
         {{ $t('seeMore') }}
       </nuxt-link>
     </section>
+
+    <!-- redraw button -->
+    <div
+      v-if="auth.loggedIn && !myRedraw.id"
+      class="flex flex-row gap-2 justify-between w-full"
+    >
+      <nuxt-link
+        :to="'/post?redrawWorkId='+artwork.id"
+        :class="[
+          !isModal ? 'light-button' : 'secondary-button'
+        ]"
+      >
+        <Icon :name="'i-typcn-brush'" />
+        {{ $t('artworks.redrawThisArtwork') }}
+      </nuxt-link>
+    </div>
           
     <!-- my redraw/current user submission (show only if user has redrawed this artwork) -->
     <section
@@ -112,7 +112,7 @@
       <!-- current user redraw image, title, description, etc. -->
       <nuxt-link
         :to="'/a/'+myRedraw.id"
-        class="flex flex-row gap-2 mt-2 w-full"
+        class="flex flex-row gap-2 w-full"
       >
         <div
           v-if="myRedraw.artwork_assets"
@@ -148,6 +148,7 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
+import WorkList from '~/components/artworks/WorkList.vue'
 
 // stores
 const auth = useAuthStore()

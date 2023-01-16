@@ -1,12 +1,12 @@
 <template>
   <div class="artist-works">
     <div class="heading">
-      <span>
+      <span class="title">
         {{ $t('artworks.moreArtworkBy') }}
         <nuxt-link
           v-if="artworkDetail.users"
           :to="'/u/' + artworkDetail.users.username"
-          class="text-colored"
+          class="text-color-bright"
         >
           @{{ artworkDetail.users.username }} &#60;{{ artworkDetail.users.name }}&#62;
         </nuxt-link>
@@ -30,7 +30,7 @@
     <!-- User artwork's list -->
     <WorkList 
       v-show="!loading && !isError"
-      class="gap-2 md:gap-4"
+      class="gap-2 mt-4 md:gap-4"
       :class="[ pagination.options.nextPrevLoading ? 'animate-pulse' : '', paginationPerPage === 6 ? 'grid-cols-6' : 'grid-cols-4' ]"
       :section-class="'works'"
       :works="worksByArtist"

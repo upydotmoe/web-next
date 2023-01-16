@@ -14,6 +14,7 @@
   --theme-text-color-secondary: #4d4d4d;
   --theme-text-color-reverse: #ffffff;
   --text-color-dimmed: #a2a2a2;
+  --text-color-bright: #7865F8;
   --danger-color: #ffe0e0;
 
   --button: #7865F8;
@@ -67,6 +68,7 @@
   --theme-text-color-secondary: #bfbfbf;
   --theme-text-color-reverse: #000000;
   --text-color-dimmed: #bababa;
+  --text-color-bright: #9ac1ff;
   --danger-color: #982626;
 
   --button: #3b82f6;

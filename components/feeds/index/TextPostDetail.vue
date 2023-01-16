@@ -3,7 +3,7 @@
     v-if="bypass || feed.type === 'feed'"
     id="text-feed"
     :class="[
-      'px-2 mb-2 md:px-4',
+      'px-2 mb-2 mx-0 md:px-4',
       { '!p-0': isModal }
     ]"
   >

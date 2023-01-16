@@ -443,7 +443,7 @@
       class="mt-4 w-full"
     >
       <div class="title">
-        Similar Artworks
+        {{ $t('artworks.similarArtworks') }}
       </div>
 
       <RelatedArtworks

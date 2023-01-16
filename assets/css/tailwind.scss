@@ -23,12 +23,12 @@
     @apply rounded-full border-none;
     background: var(--button);
   }
-  ::-webkit-scrollbar-thumb:hover {
-    // @apply bg-white;
-  }
-  ::-webkit-scrollbar-thumb:active {
-    // @apply bg-black;
-  }
+  // ::-webkit-scrollbar-thumb:hover {
+  //   @apply bg-white;
+  // }
+  // ::-webkit-scrollbar-thumb:active {
+  //   @apply bg-black;
+  // }
   ::-webkit-scrollbar-track {
     @apply rounded-full border-none;
     background: var(--theme-color-secondary);
@@ -36,9 +36,9 @@
   ::-webkit-scrollbar-track:hover {
     background: var(--theme-color-secondary);
   }
-  ::-webkit-scrollbar-track:active {
-    // @apply bg-gray-700;
-  }
+  // ::-webkit-scrollbar-track:active {
+  //   @apply bg-gray-700;
+  // }
   ::-webkit-scrollbar-corner {
     @apply bg-transparent;
   }
@@ -112,7 +112,7 @@
   }
 
   .work-thumbnail {
-    @apply object-cover mt-2 shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
+    @apply object-cover shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
   
     a {
       .mini-icon {
@@ -209,6 +209,9 @@
   .text-colored {
     color: var(--button);
   }
+  .text-color-bright {
+    color: var(--text-color-bright)
+  }
 
   .text-color-reverse {
     color: var(--theme-text-color-reverse);
@@ -300,6 +303,13 @@
   }
   .title-tiny {
     @apply font-semibold text-tiny;
+  }
+  .title-styled {
+    @apply py-2 px-3 text-xs font-semibold rounded-md shadow-md origin-bottom w-fit;
+    background: var(--button-light);
+    box-shadow: 4px 4px 0px 0px var(--button) !important;
+    -webkit-box-shadow: 4px 4px 0px 0px var(--button) !important;
+    -moz-box-shadow: 4px 4px 0px 0px var(--button) !important;
   }
 
   .b-button {

@@ -575,6 +575,8 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .feeds {
   @apply grid grid-cols-1 gap-1 mx-auto md:gap-4 lg:w-5/6 xl:w-full;
 

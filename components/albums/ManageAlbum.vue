@@ -144,7 +144,7 @@ onMounted (() => {
 
 const maxAlbumItems = ref(999)
 const getMaxAlbumItemLimit = async () => {
-  const maxAlbumItemLimit = await settingApi.getSetting('max_free_album_items')
+  const [maxAlbumItemLimit, error] = await settingApi.getSetting('max_free_album_items')
   maxAlbumItems.value = maxAlbumItemLimit
 }
 

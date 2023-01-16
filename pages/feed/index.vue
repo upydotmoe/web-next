@@ -18,21 +18,23 @@
     <section
       id="middle"
     >
-      <!-- welcome message, show this only if users haven't followed any users yet -->
-      <WelcomeSection
-        v-if="isFollowingSomeone ? showSuggestedUsers : !isFollowingSomeone"
-        :suggested-users-to-follow="suggestedUsersToFollow"
-      />
+      <div v-if="!isFetchingFollowingData">
+        <!-- welcome message, show this only if users haven't followed any users yet -->
+        <WelcomeSection
+          v-if="isFollowingSomeone ? showSuggestedUsers : !isFollowingSomeone"
+          :suggested-users-to-follow="suggestedUsersToFollow"
+        />
 
-      <!-- feeds, show this only if user has followed other users -->
-      <FeedSection
-        v-show="isFollowingSomeone"
-        ref="feedRef"
-        :fetch-mode="fetchMode"
-        @update-feed-length="updateFeedLength"
-        @update-show-suggested-users="updateShowSuggestedUsers"
-        @no-data="showNoData"
-      />
+        <!-- feeds, show this only if user has followed other users -->
+        <FeedSection
+          v-show="isFollowingSomeone"
+          ref="feedRef"
+          :fetch-mode="fetchMode"
+          @update-feed-length="updateFeedLength"
+          @update-show-suggested-users="updateShowSuggestedUsers"
+          @no-data="showNoData"
+        />
+      </div>
     </section>
 
     <template #right-side>
@@ -47,7 +49,7 @@
         <UserList
           :users="suggestedUsersToFollow"
           :column-type="1"
-          class="mt-2"
+          class="mt-4"
         />
       </div>
     </template>
@@ -86,6 +88,7 @@ onMounted(async () => {
   }
 })
 
+const isFetchingFollowingData = ref(true)
 const isFollowingSomeone = ref(false)
 const countFollowing = async () => {
   // reset current state
@@ -98,6 +101,8 @@ const countFollowing = async () => {
   } else {
     isFollowingSomeone.value = totalFollowing > 0
   }
+
+  isFetchingFollowingData.value = false
 }
 
 const showSuggestedUsers = ref(false)
@@ -123,7 +128,6 @@ const changeFetchMode = (mode) => {
 
 const feedLength = ref(0)
 const updateFeedLength = (foundFeedCount) => {
-  console.log('feed count:', foundFeedCount)
   feedLength.value = foundFeedCount
 }
 
@@ -137,7 +141,6 @@ watch (() => feedLength.value, () => {
 
 const isNoData = ref(false)
 const showNoData = () => {
-  console.log('fired');
   isNoData.value = true
 }
 </script>

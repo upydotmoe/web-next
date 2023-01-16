@@ -57,6 +57,8 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .middle__welcome {
   @apply h-screen;
 

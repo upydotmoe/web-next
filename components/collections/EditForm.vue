@@ -224,7 +224,7 @@ defineExpose ({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 input, textarea {
   @apply theme-color-secondary;
 }
