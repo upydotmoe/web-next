@@ -195,10 +195,10 @@ import Icon from '~/components/globals/Icon.vue'
 // stores
 const auth = useAuthStore()
 
-// composition
+// composables
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const proApi = usePro(oApiConfiguration, fetchOptions())
-const settingAPi = useSetting(oApiConfiguration, fetchOptions())
+const settingApi = useSetting(oApiConfiguration, fetchOptions())
 
 onBeforeMount(async () => {
   await checkPaymentStatus()
@@ -210,7 +210,7 @@ onBeforeMount(async () => {
  */
 const isPaymentActive = ref(false)
 const checkPaymentStatus = async () => {
-  const [data, error] = await settingAPi.getSetting('is_payment_active')
+  const [data, error] = await settingApi.getSetting('is_payment_active')
 
   if (error) {
     isPaymentActive.value = false
@@ -234,13 +234,26 @@ const checkCurrentSubscriptionStatus = async () => {
   }
 }
 
-onMounted(() => {
+const isSandboxMode = true
+onMounted(async () => {
   const script = document.createElement('script')
-  // real client id
-  // script.src = "https://www.paypal.com/sdk/js?client-id=ATTFj4gsmCdfLUnnyO-3DYHvaFYfcgJIo14g9rrA_DuAKGvb1UzHhicZ_16NbJja9l3hmcMrmBZr70-8&enable-funding=venmo&currency=USD"
 
-  // sandbox client id:
-  script.src = 'https://www.paypal.com/sdk/js?client-id=AbFZEy35RTD5A3oCINCJ0m6gfaofU2B95o8gOMRq7ry8C58Uw9hfVNEeVejkXLDjqHOt0ueQ_GoswZei&enable-funding=venmo&currency=USD'
+  if (isSandboxMode) {
+    console.log('is sandbox mode true');
+    // sandbox client id:
+    script.src = "https://www.paypal.com/sdk/js?client-id=AbFZEy35RTD5A3oCINCJ0m6gfaofU2B95o8gOMRq7ry8C58Uw9hfVNEeVejkXLDjqHOt0ueQ_GoswZei&enable-funding=venmo&currency=USD"
+  } else {
+    // get paypal client ID from app setting
+    const [paypalClientId, error] = await settingApi.getSetting('paypal_client_id')
+
+    if (error) {
+      isPaymentActive.value = false
+    } else {
+      // real client id
+      script.src = paypalClientId
+    }
+  }
+
   script.addEventListener('load', initPaypal)
   document.body.appendChild(script)
 })
