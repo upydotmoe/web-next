@@ -51,9 +51,8 @@
         :feed="feed"
         :feed-idx="feedIdx"
         :read-more="readMore"
-        :view="view"
+        :view-artwork="view"
         @read-more="readMore"
-        @view="view"
       />
 
       <!-- intereaction buttons -->
@@ -445,7 +444,7 @@ const view = (workId, isExplicitFilterApplied, feedIdx) => {
 
 const chronologicalFeedModalViewRef = ref(null)
 const viewFeed = (feedId) => {
-  chronologicalFeedModalViewRef.value.view(feedId)
+  chronologicalFeedModalViewRef.value.viewFeed(feedId)
   useModal().openModal('chronological-feed-modal')
 }
 

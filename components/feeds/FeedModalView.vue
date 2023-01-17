@@ -32,6 +32,7 @@
           :feed="feedDetail"
           :read-more="readMore"
           :view="view"
+          :view-artwork="viewArtwork"
           @read-more="readMore"
           @view="view"
         />
@@ -254,12 +255,12 @@
 
     <!-- artwork modal view component -->
     <div 
-      :id="'chronological-modal'"
+      :id="'shared-artwork-modal'"
       class="modal work-view" 
     >
       <ModalView 
         ref="sharedWorkModalViewRef"
-        :section="'chronological'"
+        :section="'shared-artwork'"
       />
     </div>
 
@@ -346,7 +347,7 @@ const readMore = (description, workId, selectorElId, descriptionElid) => {
   useReadMore().readMore(description, workId, selectorElId, descriptionElid)
 }
 
-const view = async (selectedFeedId) => {
+const viewFeed = async (selectedFeedId) => {
   loading.value = true
 
   // reset comment data and options
@@ -402,7 +403,7 @@ const viewArtwork = async (workId, isExplicitFilterApplied) => {
     feedDetail.value.artworks.apply_explicit_filter = false
   } else {
     sharedWorkModalViewRef.value.view(workId)
-    useModal().openModal('chronological-modal')
+    useModal().openModal('shared-artwork-modal')
   }
 }
 
@@ -603,7 +604,7 @@ const removeFeed = async (feedId) => {
 
 // expose functions
 defineExpose ({
-  view
+  viewFeed
 })
 </script>
 

@@ -30,7 +30,7 @@
       :read-more="readMore"
       :is-modal="isModal"
       @read-more="readMore"
-      @view="view"
+      @view="viewArtwork"
     />
   </section>
 </template>
@@ -43,7 +43,7 @@ import SharedArtworkDetail from './SharedArtworkDetail.vue';
 // stores
 const auth = useAuthStore()
 
-defineEmits(['readMore', 'view'])
+defineEmits(['readMore'])
 defineProps({
   bypass: {
     type: Boolean,
@@ -67,11 +67,11 @@ defineProps({
   },
   readMore: {
     type: Function,
-    default: () => {}
+    default: () => ({})
   },
-  view: {
+  viewArtwork: {
     type: Function,
-    default: () => {}
+    default: () => ({})
   }
 })
 </script>
