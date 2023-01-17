@@ -36,51 +36,54 @@
           />
 
           <div class="flex flex-col justify-between p-3 w-full text-white">
-            <div class="flex flex-col">
-              <span class="font-bold">{{ user.name }}</span>
+            <div class="flex flex-col gap-1">
+              <span class="font-bold">{{ user.name.length > 20 ? `${user.name.slice(0, 20)}..` : user.name }}</span>
               <span class="text-xxs">@{{ user.username }}</span>
             </div>
 
-            <div class="flex flex-row w-full">
-              <!-- user follow status, not appeared if the user is current login user -->
-              <div
-                v-if="auth.loggedIn && user.id !== auth.user.id"
-                class="flex flex-row"
-              >
-                <!-- follow -->
-                <div 
-                  v-show="!user.is_following"
+            <div class="flex flex-row justify-between">
+              <div class="flex flex-row w-full">
+                <!-- user follow status, not appeared if the user is current login user -->
+                <div
+                  v-if="auth.loggedIn && user.id !== auth.user.id"
                   class="flex flex-row"
-                  @click.prevent="followUser(index, user.id)"
                 >
-                  <Icon
-                    :name="'i-ri-user-add-fill'"
-                    class="text-gray-300 hover:text-white"
-                  />
-                </div>
-                
-                <div 
-                  v-show="user.is_following"
-                  class="flex flex-row" 
-                  @mouseover="showUnfollow = user.id" 
-                  @mouseout="showUnfollow = 0"
-                  @click.prevent="unfollowUser(index, user.id)"
-                >
-                  <!-- following -->
-                  <Icon
-                    v-show="showUnfollow !== user.id"
-                    :name="'i-ri-user-follow-fill'"
-                    class="text-green-400"
-                  />
+                  <!-- follow -->
+                  <div 
+                    v-show="!user.is_following"
+                    class="flex flex-row"
+                    @click.prevent="followUser(index, user.id)"
+                  >
+                    <Icon
+                      :name="'i-ri-user-add-fill'"
+                      class="text-gray-300 hover:text-white"
+                    />
+                  </div>
+                  
+                  <div 
+                    v-show="user.is_following"
+                    class="flex flex-row" 
+                    @mouseover="showUnfollow = user.id" 
+                    @mouseout="showUnfollow = 0"
+                    @click.prevent="unfollowUser(index, user.id)"
+                  >
+                    <!-- following -->
+                    <Icon
+                      v-show="showUnfollow !== user.id"
+                      :name="'i-ri-user-follow-fill'"
+                      class="text-green-400"
+                    />
 
-                  <!-- unfollow -->
-                  <Icon
-                    v-show="showUnfollow && showUnfollow === user.id"
-                    :name="'i-ri-user-unfollow-fill'"
-                    class="text-red-400 hover:text-red-400"
-                  />
+                    <!-- unfollow -->
+                    <Icon
+                      v-show="showUnfollow && showUnfollow === user.id"
+                      :name="'i-ri-user-unfollow-fill'"
+                      class="text-red-400 hover:text-red-400"
+                    />
+                  </div>
                 </div>
               </div>
+              <ProBadge v-if="user.is_pro" />
             </div>
           </div>
         </div>
@@ -152,11 +155,12 @@ import abstractImgUrl from '~/static/bg-abstract.png'
 // stores
 import useAuthStore from '@/stores/auth.store'
 
-// components
-import Icon from '~/components/globals/Icon.vue'
-
 // composables
 import useUser from '~/composables/users/useUser'
+
+// components
+import Icon from '~/components/globals/Icon.vue'
+import ProBadge from '~/components/globals/ProBadge.vue'
 
 // stores
 const auth = useAuthStore()

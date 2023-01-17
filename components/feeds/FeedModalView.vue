@@ -320,7 +320,7 @@ const commentInputRef = ref(null)
 
 onMounted (() => {
   if (props.id !== 0) {
-    view(props.id)
+    viewFeed(props.id)
   }
 
   window.addEventListener('keydown', (e) => {

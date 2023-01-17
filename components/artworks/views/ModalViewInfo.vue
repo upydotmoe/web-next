@@ -17,9 +17,10 @@
             <div class="flex flex-col">
               <nuxt-link
                 :to="'/u/' + artworkDetail.users.username"
-                class="fullname"
+                class="flex flex-row gap-2 fullname"
               >
-                {{ artworkDetail.users.name }} <ProBadge v-if="artworkDetail.users.isPro" />
+                {{ artworkDetail.users.name }}
+                <ProBadge v-if="artworkDetail.users.is_pro" />
               </nuxt-link>
               <nuxt-link
                 :to="'/u/' + artworkDetail.users.username"
