@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 import { ArtworkAssetsModel } from './artwork-assets-model';
-import { ArtworkLiteModelCount } from './artwork-lite-model-count';
+import { ArtworkListModelCount } from './artwork-list-model-count';
 import { UserLiteModel } from './user-lite-model';
 /**
  * 
@@ -112,10 +112,10 @@ export interface ArtworkLiteModel {
     saved?: boolean;
     /**
      * 
-     * @type {ArtworkLiteModelCount}
+     * @type {ArtworkListModelCount}
      * @memberof ArtworkLiteModel
      */
-    count?: ArtworkLiteModelCount;
+    count?: ArtworkListModelCount;
 }
 
 /**

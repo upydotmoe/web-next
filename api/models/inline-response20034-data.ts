@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20034DataTags } from './inline-response20034-data-tags';
 /**
  * 
  * @export
@@ -19,8 +20,8 @@
 export interface InlineResponse20034Data {
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse20034DataTags>}
      * @memberof InlineResponse20034Data
      */
-    value?: string;
+    tags?: Array<InlineResponse20034DataTags>;
 }

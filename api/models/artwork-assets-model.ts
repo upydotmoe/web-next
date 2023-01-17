@@ -28,12 +28,6 @@ export interface ArtworkAssetsModel {
      * @type {string}
      * @memberof ArtworkAssetsModel
      */
-    name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ArtworkAssetsModel
-     */
     driver?: string;
     /**
      * 
@@ -41,12 +35,6 @@ export interface ArtworkAssetsModel {
      * @memberof ArtworkAssetsModel
      */
     bucket?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ArtworkAssetsModel
-     */
-    b2FileId?: string;
     /**
      * 
      * @type {string}

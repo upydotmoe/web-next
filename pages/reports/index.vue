@@ -41,7 +41,7 @@
                   <th><div>{{ $t('reports.decision') }}</div></th>
                   <th>
                     <div class="rounded-r-md">
-&nbsp;
+                      &nbsp;
                     </div>
                   </th>
                 </tr>

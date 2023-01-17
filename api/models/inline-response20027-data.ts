@@ -24,7 +24,7 @@ export interface InlineResponse20027Data {
      * @type {Array<ArtworkLiteModel>}
      * @memberof InlineResponse20027Data
      */
-    redraws?: Array<ArtworkLiteModel>;
+    works?: Array<ArtworkLiteModel>;
     /**
      * 
      * @type {PaginationModel}

@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { UserLiteModel } from './user-lite-model';
+import { InlineResponse20010DataData } from './inline-response20010-data-data';
 /**
  * 
  * @export
@@ -20,14 +20,8 @@ import { UserLiteModel } from './user-lite-model';
 export interface InlineResponse20010Data {
     /**
      * 
-     * @type {boolean}
+     * @type {InlineResponse20010DataData}
      * @memberof InlineResponse20010Data
      */
-    success?: boolean;
-    /**
-     * 
-     * @type {Array<UserLiteModel & any>}
-     * @memberof InlineResponse20010Data
-     */
-    suggestions?: Array<UserLiteModel & any>;
+    data?: InlineResponse20010DataData;
 }

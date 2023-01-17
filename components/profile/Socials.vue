@@ -151,6 +151,7 @@ const socialCategories = [
     href: props.socials.personal_website,
     icon: 'i-ph-link-simple-break-bold',
     color: 'gray',
+    hex: '#333333',
     show: props.socials.personal_website && props.socials.personal_website != '' ? true : false,
     modalId: 'external-website-visit-confirmation-modal'
   },

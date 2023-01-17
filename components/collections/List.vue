@@ -1,7 +1,7 @@
 <template>
   <div id="lists">    
     <div class="p-4 mb-4 w-full rounded-md theme-color-secondary">
-      <div class="text-base font-bold mb-2">{{ collection.info.name }}</div>
+      <div class="mb-2 text-base font-bold">{{ collection.info.name }}</div>
       <div class="mb-2">{{ collection.info.description }}</div>
       <div><b>{{ $t('private') }}:</b> <span class="italic">{{ collection.info.is_public ? $t('no') : $t('yes') }}</span></div>
       <div><b>{{ $t('createdAt') }}</b> {{ formatDate(collection.info.created_at) }}</div>
@@ -19,7 +19,7 @@
 
       <div 
         v-show="collection.loadMore" 
-        class="primary-button"
+        class="w-full primary-button"
         @click="fetchItems()"
       >
         {{ $t('loadMore') }}

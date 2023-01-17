@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20049 } from '../models';
-import { InlineResponse20050 } from '../models';
+import { InlineResponse20051 } from '../models';
+import { InlineResponse20052 } from '../models';
 import { InlineResponse2018 } from '../models';
 import { ReportsBody } from '../models';
 import { ReportsReviewBody } from '../models';
@@ -324,7 +324,7 @@ export const ReportsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReportStatus(type: string, postId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20050>>> {
+        async getReportStatus(type: string, postId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20052>>> {
             const localVarAxiosArgs = await ReportsApiAxiosParamCreator(configuration).getReportStatus(type, postId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -344,7 +344,7 @@ export const ReportsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReports(page: number, perPage: number, status?: string, createdAtFrom?: string, createdAtTo?: string, userId?: number, reasons?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20049>>> {
+        async getReports(page: number, perPage: number, status?: string, createdAtFrom?: string, createdAtTo?: string, userId?: number, reasons?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20051>>> {
             const localVarAxiosArgs = await ReportsApiAxiosParamCreator(configuration).getReports(page, perPage, status, createdAtFrom, createdAtTo, userId, reasons, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -402,7 +402,7 @@ export const ReportsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReportStatus(type: string, postId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20050>> {
+        async getReportStatus(type: string, postId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20052>> {
             return ReportsApiFp(configuration).getReportStatus(type, postId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -418,7 +418,7 @@ export const ReportsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getReports(page: number, perPage: number, status?: string, createdAtFrom?: string, createdAtTo?: string, userId?: number, reasons?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20049>> {
+        async getReports(page: number, perPage: number, status?: string, createdAtFrom?: string, createdAtTo?: string, userId?: number, reasons?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20051>> {
             return ReportsApiFp(configuration).getReports(page, perPage, status, createdAtFrom, createdAtTo, userId, reasons, options).then((request) => request(axios, basePath));
         },
         /**
@@ -472,7 +472,7 @@ export class ReportsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ReportsApi
      */
-    public async getReportStatus(type: string, postId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20050>> {
+    public async getReportStatus(type: string, postId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20052>> {
         return ReportsApiFp(this.configuration).getReportStatus(type, postId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -489,7 +489,7 @@ export class ReportsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ReportsApi
      */
-    public async getReports(page: number, perPage: number, status?: string, createdAtFrom?: string, createdAtTo?: string, userId?: number, reasons?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20049>> {
+    public async getReports(page: number, perPage: number, status?: string, createdAtFrom?: string, createdAtTo?: string, userId?: number, reasons?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20051>> {
         return ReportsApiFp(this.configuration).getReports(page, perPage, status, createdAtFrom, createdAtTo, userId, reasons, options).then((request) => request(this.axios, this.basePath));
     }
     /**

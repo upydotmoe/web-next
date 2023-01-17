@@ -20,6 +20,12 @@ import { InlineResponse20031DataTags } from './inline-response20031-data-tags';
 export interface InlineResponse20031Data {
     /**
      * 
+     * @type {number}
+     * @memberof InlineResponse20031Data
+     */
+    count?: number;
+    /**
+     * 
      * @type {Array<InlineResponse20031DataTags>}
      * @memberof InlineResponse20031Data
      */

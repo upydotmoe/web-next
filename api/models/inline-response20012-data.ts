@@ -11,8 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CollectionHasArtworksModel } from './collection-has-artworks-model';
-import { PaginationModel } from './pagination-model';
 /**
  * 
  * @export
@@ -21,14 +19,8 @@ import { PaginationModel } from './pagination-model';
 export interface InlineResponse20012Data {
     /**
      * 
-     * @type {Array<CollectionHasArtworksModel>}
+     * @type {boolean}
      * @memberof InlineResponse20012Data
      */
-    items?: Array<CollectionHasArtworksModel>;
-    /**
-     * 
-     * @type {PaginationModel}
-     * @memberof InlineResponse20012Data
-     */
-    pagination?: PaginationModel;
+    isCanCreate?: boolean;
 }

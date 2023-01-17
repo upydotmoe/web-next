@@ -53,4 +53,34 @@ export interface UserSocialModel {
      * @memberof UserSocialModel
      */
     youtube?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserSocialModel
+     */
+    twitch?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserSocialModel
+     */
+    discord?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserSocialModel
+     */
+    gumroad?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserSocialModel
+     */
+    personalWebsite?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserSocialModel
+     */
+    picarto?: string;
 }

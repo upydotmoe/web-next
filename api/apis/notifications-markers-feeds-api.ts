@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20019 } from '../models';
+import { InlineResponse20020 } from '../models';
 /**
  * NotificationsMarkersFeedsApi - axios parameter creator
  * @export
@@ -74,7 +74,7 @@ export const NotificationsMarkersFeedsApiFp = function(configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countFeedNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20019>>> {
+        async countFeedNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20020>>> {
             const localVarAxiosArgs = await NotificationsMarkersFeedsApiAxiosParamCreator(configuration).countFeedNotifications(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -96,7 +96,7 @@ export const NotificationsMarkersFeedsApiFactory = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countFeedNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20019>> {
+        async countFeedNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20020>> {
             return NotificationsMarkersFeedsApiFp(configuration).countFeedNotifications(options).then((request) => request(axios, basePath));
         },
     };
@@ -116,7 +116,7 @@ export class NotificationsMarkersFeedsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsMarkersFeedsApi
      */
-    public async countFeedNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20019>> {
+    public async countFeedNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20020>> {
         return NotificationsMarkersFeedsApiFp(this.configuration).countFeedNotifications(options).then((request) => request(this.axios, this.basePath));
     }
 }

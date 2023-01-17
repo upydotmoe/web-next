@@ -11,8 +11,6 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20036DataNotifications } from './inline-response20036-data-notifications';
-import { PaginationModel } from './pagination-model';
 /**
  * 
  * @export
@@ -21,14 +19,8 @@ import { PaginationModel } from './pagination-model';
 export interface InlineResponse20036Data {
     /**
      * 
-     * @type {Array<InlineResponse20036DataNotifications>}
+     * @type {string}
      * @memberof InlineResponse20036Data
      */
-    notifications?: Array<InlineResponse20036DataNotifications>;
-    /**
-     * 
-     * @type {PaginationModel}
-     * @memberof InlineResponse20036Data
-     */
-    pagination?: PaginationModel;
+    value?: string;
 }

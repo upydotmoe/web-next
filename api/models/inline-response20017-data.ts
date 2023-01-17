@@ -11,6 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20017DataUsers } from './inline-response20017-data-users';
+import { PaginationModel } from './pagination-model';
 /**
  * 
  * @export
@@ -19,20 +21,14 @@
 export interface InlineResponse20017Data {
     /**
      * 
-     * @type {number}
+     * @type {Array<InlineResponse20017DataUsers>}
      * @memberof InlineResponse20017Data
      */
-    albumId?: number;
+    users?: Array<InlineResponse20017DataUsers>;
     /**
      * 
-     * @type {number}
+     * @type {PaginationModel}
      * @memberof InlineResponse20017Data
      */
-    workId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20017Data
-     */
-    createdAt?: string;
+    pagination?: PaginationModel;
 }

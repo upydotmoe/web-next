@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20034 } from '../models';
+import { InlineResponse20036 } from '../models';
 /**
  * SettingsApi - axios parameter creator
  * @export
@@ -84,7 +84,7 @@ export const SettingsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSetting(key: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20034>>> {
+        async getSetting(key: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
             const localVarAxiosArgs = await SettingsApiAxiosParamCreator(configuration).getSetting(key, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -107,7 +107,7 @@ export const SettingsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSetting(key: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20034>> {
+        async getSetting(key: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
             return SettingsApiFp(configuration).getSetting(key, options).then((request) => request(axios, basePath));
         },
     };
@@ -128,7 +128,7 @@ export class SettingsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SettingsApi
      */
-    public async getSetting(key: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20034>> {
+    public async getSetting(key: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
         return SettingsApiFp(this.configuration).getSetting(key, options).then((request) => request(this.axios, this.basePath));
     }
 }

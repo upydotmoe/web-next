@@ -87,7 +87,10 @@
       </nuxt-link>
 
       <!-- latest 3 artworks -->
-      <div class="work-grid">
+      <div 
+        v-if="user.artworks"
+        class="work-grid"
+      >
         <div
           v-for="(latestArtwork, workIndex) in user.artworks"
           :key="latestArtwork.id"

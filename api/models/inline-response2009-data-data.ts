@@ -24,7 +24,7 @@ export interface InlineResponse2009DataData {
      * @type {Array<UserLiteModel & any>}
      * @memberof InlineResponse2009DataData
      */
-    followers?: Array<UserLiteModel & any>;
+    followings?: Array<UserLiteModel & any>;
     /**
      * 
      * @type {PaginationModel}

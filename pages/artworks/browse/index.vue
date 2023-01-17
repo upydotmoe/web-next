@@ -582,6 +582,6 @@ const changeSort = async (key, text) => {
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
+@import '~/assets/css/tailwind.scss';
 @import '~/assets/css/artworks/list.scss';
 </style>

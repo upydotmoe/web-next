@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { UserAllModel } from './user-all-model';
+import { InlineResponse2003Data } from './inline-response2003-data';
 /**
  * 
  * @export
@@ -26,8 +26,8 @@ export interface InlineResponse2003 {
     success?: boolean;
     /**
      * 
-     * @type {UserAllModel}
+     * @type {InlineResponse2003Data}
      * @memberof InlineResponse2003
      */
-    data?: UserAllModel;
+    data?: InlineResponse2003Data;
 }

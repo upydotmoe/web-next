@@ -20,7 +20,6 @@ import { AuthAuthenticateBody } from '../models';
 import { AuthRefreshBody } from '../models';
 import { InlineResponse200 } from '../models';
 import { InlineResponse2001 } from '../models';
-import { SuccessMessageModel } from '../models';
 /**
  * AuthServiceAuthenticationApi - axios parameter creator
  * @export

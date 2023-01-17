@@ -44,7 +44,7 @@
                 </div>
 
                 <div
-                  v-if="!album.is_can_add_more || (!auth.i502p00r0 && album._count.album_has_artworks+props.workIds.length > maxAlbumItems)"
+                  v-if="!auth.i502p00r0 && !album.is_can_add_more || (!auth.i502p00r0 && album._count.album_has_artworks > maxAlbumItems)"
                   class="flex flex-row mt-2 w-full"
                 >
                   <ProBadge class="mr-1" />

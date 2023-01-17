@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20036 } from '../models';
-import { InlineResponse20037 } from '../models';
+import { InlineResponse20038 } from '../models';
+import { InlineResponse20039 } from '../models';
 /**
  * NotificationsArtworksLikesApi - axios parameter creator
  * @export
@@ -216,7 +216,7 @@ export const NotificationsArtworksLikesApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20037>>> {
+        async clearAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20039>>> {
             const localVarAxiosArgs = await NotificationsArtworksLikesApiAxiosParamCreator(configuration).clearAllArtworkLikeNotifications(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -232,7 +232,7 @@ export const NotificationsArtworksLikesApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkLikedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20036>>> {
+        async getArtworkLikedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20038>>> {
             const localVarAxiosArgs = await NotificationsArtworksLikesApiAxiosParamCreator(configuration).getArtworkLikedNotifications(showLimit, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -246,7 +246,7 @@ export const NotificationsArtworksLikesApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async markArtworkLikeNotificationAsRead(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20037>>> {
+        async markArtworkLikeNotificationAsRead(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20039>>> {
             const localVarAxiosArgs = await NotificationsArtworksLikesApiAxiosParamCreator(configuration).markArtworkLikeNotificationAsRead(workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -259,7 +259,7 @@ export const NotificationsArtworksLikesApiFp = function(configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async readAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20037>>> {
+        async readAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20039>>> {
             const localVarAxiosArgs = await NotificationsArtworksLikesApiAxiosParamCreator(configuration).readAllArtworkLikeNotifications(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -281,7 +281,7 @@ export const NotificationsArtworksLikesApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20037>> {
+        async clearAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20039>> {
             return NotificationsArtworksLikesApiFp(configuration).clearAllArtworkLikeNotifications(options).then((request) => request(axios, basePath));
         },
         /**
@@ -293,7 +293,7 @@ export const NotificationsArtworksLikesApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getArtworkLikedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20036>> {
+        async getArtworkLikedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20038>> {
             return NotificationsArtworksLikesApiFp(configuration).getArtworkLikedNotifications(showLimit, page, perPage, options).then((request) => request(axios, basePath));
         },
         /**
@@ -303,7 +303,7 @@ export const NotificationsArtworksLikesApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async markArtworkLikeNotificationAsRead(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20037>> {
+        async markArtworkLikeNotificationAsRead(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20039>> {
             return NotificationsArtworksLikesApiFp(configuration).markArtworkLikeNotificationAsRead(workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -312,7 +312,7 @@ export const NotificationsArtworksLikesApiFactory = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async readAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20037>> {
+        async readAllArtworkLikeNotifications(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20039>> {
             return NotificationsArtworksLikesApiFp(configuration).readAllArtworkLikeNotifications(options).then((request) => request(axios, basePath));
         },
     };
@@ -332,7 +332,7 @@ export class NotificationsArtworksLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsArtworksLikesApi
      */
-    public async clearAllArtworkLikeNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20037>> {
+    public async clearAllArtworkLikeNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20039>> {
         return NotificationsArtworksLikesApiFp(this.configuration).clearAllArtworkLikeNotifications(options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -345,7 +345,7 @@ export class NotificationsArtworksLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsArtworksLikesApi
      */
-    public async getArtworkLikedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20036>> {
+    public async getArtworkLikedNotifications(showLimit: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20038>> {
         return NotificationsArtworksLikesApiFp(this.configuration).getArtworkLikedNotifications(showLimit, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -356,7 +356,7 @@ export class NotificationsArtworksLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsArtworksLikesApi
      */
-    public async markArtworkLikeNotificationAsRead(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20037>> {
+    public async markArtworkLikeNotificationAsRead(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20039>> {
         return NotificationsArtworksLikesApiFp(this.configuration).markArtworkLikeNotificationAsRead(workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -366,7 +366,7 @@ export class NotificationsArtworksLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotificationsArtworksLikesApi
      */
-    public async readAllArtworkLikeNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20037>> {
+    public async readAllArtworkLikeNotifications(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20039>> {
         return NotificationsArtworksLikesApiFp(this.configuration).readAllArtworkLikeNotifications(options).then((request) => request(this.axios, this.basePath));
     }
 }

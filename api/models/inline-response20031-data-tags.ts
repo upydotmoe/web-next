@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20031DataCount } from './inline-response20031-data-count';
 /**
  * 
  * @export
@@ -19,14 +20,20 @@
 export interface InlineResponse20031DataTags {
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof InlineResponse20031DataTags
      */
-    key?: string;
+    id?: number;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse20031DataTags
      */
     tag?: string;
+    /**
+     * 
+     * @type {InlineResponse20031DataCount}
+     * @memberof InlineResponse20031DataTags
+     */
+    count?: InlineResponse20031DataCount;
 }

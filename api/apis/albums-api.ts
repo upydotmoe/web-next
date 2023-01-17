@@ -22,11 +22,11 @@ import { AlbumsBody } from '../models';
 import { AlbumsCountBody } from '../models';
 import { AlbumsCreateBody } from '../models';
 import { CreatePermissionBody1 } from '../models';
-import { InlineResponse20011 } from '../models';
 import { InlineResponse20012 } from '../models';
-import { InlineResponse20017 } from '../models';
-import { InlineResponse20020 } from '../models';
+import { InlineResponse20013 } from '../models';
+import { InlineResponse20018 } from '../models';
 import { InlineResponse20021 } from '../models';
+import { InlineResponse20022 } from '../models';
 import { InlineResponse2013 } from '../models';
 import { PostTypes } from '../models';
 import { SuccessMessageModel } from '../models';
@@ -574,7 +574,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20012>>> {
+        async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20013>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).countUserAlbumsByType(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -632,7 +632,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20020>>> {
+        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20021>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).getAlbumItems(id, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -647,7 +647,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
+        async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20018>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).getCurrentAlbumSaveInfo(type, workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -664,7 +664,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20021>>> {
+        async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20022>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).listUserAlbums(userId, perPage, page, type, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -678,7 +678,7 @@ export const AlbumsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20011>>> {
+        async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20012>>> {
             const localVarAxiosArgs = await AlbumsApiAxiosParamCreator(configuration).proLimitIsCanCreateAlbum(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -739,7 +739,7 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20012>> {
+        async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20013>> {
             return AlbumsApiFp(configuration).countUserAlbumsByType(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -781,7 +781,7 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20020>> {
+        async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20021>> {
             return AlbumsApiFp(configuration).getAlbumItems(id, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -792,7 +792,7 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
+        async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20018>> {
             return AlbumsApiFp(configuration).getCurrentAlbumSaveInfo(type, workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -805,7 +805,7 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20021>> {
+        async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20022>> {
             return AlbumsApiFp(configuration).listUserAlbums(userId, perPage, page, type, options).then((request) => request(axios, basePath));
         },
         /**
@@ -815,7 +815,7 @@ export const AlbumsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20011>> {
+        async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20012>> {
             return AlbumsApiFp(configuration).proLimitIsCanCreateAlbum(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -867,7 +867,7 @@ export class AlbumsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20012>> {
+    public async countUserAlbumsByType(body?: AlbumsCountBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20013>> {
         return AlbumsApiFp(this.configuration).countUserAlbumsByType(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -913,7 +913,7 @@ export class AlbumsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20020>> {
+    public async getAlbumItems(id: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20021>> {
         return AlbumsApiFp(this.configuration).getAlbumItems(id, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -925,7 +925,7 @@ export class AlbumsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
+    public async getCurrentAlbumSaveInfo(type: PostTypes, workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20018>> {
         return AlbumsApiFp(this.configuration).getCurrentAlbumSaveInfo(type, workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -939,7 +939,7 @@ export class AlbumsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20021>> {
+    public async listUserAlbums(userId: number, perPage: number, page: number, type: PostTypes, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20022>> {
         return AlbumsApiFp(this.configuration).listUserAlbums(userId, perPage, page, type, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -950,7 +950,7 @@ export class AlbumsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AlbumsApi
      */
-    public async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20011>> {
+    public async proLimitIsCanCreateAlbum(body?: CreatePermissionBody1, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20012>> {
         return AlbumsApiFp(this.configuration).proLimitIsCanCreateAlbum(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

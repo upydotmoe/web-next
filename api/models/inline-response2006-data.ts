@@ -22,5 +22,5 @@ export interface InlineResponse2006Data {
      * @type {string}
      * @memberof InlineResponse2006Data
      */
-    cover?: string;
+    avatar?: string;
 }

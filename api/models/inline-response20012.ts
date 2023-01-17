@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { CounterModelData } from './counter-model-data';
+import { InlineResponse20012Data } from './inline-response20012-data';
 /**
  * 
  * @export
@@ -26,8 +26,8 @@ export interface InlineResponse20012 {
     success?: boolean;
     /**
      * 
-     * @type {CounterModelData}
+     * @type {InlineResponse20012Data}
      * @memberof InlineResponse20012
      */
-    data?: CounterModelData;
+    data?: InlineResponse20012Data;
 }

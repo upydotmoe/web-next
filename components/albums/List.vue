@@ -19,7 +19,7 @@
 
       <div 
         v-show="albumData.loadMore" 
-        class="primary-button"
+        class="primary-button w-full"
         @click="fetchItems()"
       >
         {{ $t('loadMore') }}
@@ -192,6 +192,6 @@ defineExpose ({
 </script>
 
 <style lang="scss" scoped>
-// @import '~/assets/css/tailwind.scss';
+@import '~/assets/css/tailwind.scss';
 @import '~/assets/css/artworks/list-6.scss';
 </style>

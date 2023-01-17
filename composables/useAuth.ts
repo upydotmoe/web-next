@@ -122,8 +122,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
       }
 
       // try {
-        const { data } = await new UserApi(oApiConfiguration)
-          .getCurrentUserInfo(fetchOptions)
+        const { data } = await new UserApi(oApiConfiguration).getAuthenticatedUserMetadata(fetchOptions)
 
         if (!data.success) {
           // auth.logout()
@@ -132,8 +131,7 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
           auth.user = data.data
 
           // refresh pro subscription status
-          const proData = await new ProApi(oApiConfiguration)
-            .getProStatus(fetchOptions)
+          const proData = await new ProApi(oApiConfiguration).getProStatus(fetchOptions)
           
           auth.i502p00r0 = proData.data.data.is_pro
 

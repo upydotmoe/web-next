@@ -18,6 +18,7 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { InlineResponse2003 } from '../models';
 import { InlineResponse2004 } from '../models';
+import { InlineResponse2005 } from '../models';
 import { SuccessMessageModel } from '../models';
 import { UserAllModel } from '../models';
 /**
@@ -63,13 +64,13 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get current authenticated user information based on token given on header
-         * @summary Get current authenticated user info
+         * 
+         * @summary Get currently authenticated user metadata
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCurrentUserInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/user/info`;
+        getAuthenticatedUserMetadata: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/user/metadata`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -281,7 +282,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountPassphrase(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2004>>> {
+        async getAccountPassphrase(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2005>>> {
             const localVarAxiosArgs = await UserApiAxiosParamCreator(configuration).getAccountPassphrase(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -289,13 +290,13 @@ export const UserApiFp = function(configuration?: Configuration) {
             };
         },
         /**
-         * Get current authenticated user information based on token given on header
-         * @summary Get current authenticated user info
+         * 
+         * @summary Get currently authenticated user metadata
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentUserInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2003>>> {
-            const localVarAxiosArgs = await UserApiAxiosParamCreator(configuration).getCurrentUserInfo(options);
+        async getAuthenticatedUserMetadata(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2003>>> {
+            const localVarAxiosArgs = await UserApiAxiosParamCreator(configuration).getAuthenticatedUserMetadata(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -308,7 +309,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserInfoById(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2003>>> {
+        async getUserInfoById(userId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2004>>> {
             const localVarAxiosArgs = await UserApiAxiosParamCreator(configuration).getUserInfoById(userId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -336,7 +337,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2003>>> {
+        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2004>>> {
             const localVarAxiosArgs = await UserApiAxiosParamCreator(configuration).getUserInfoByUsername(username, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -372,17 +373,17 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountPassphrase(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2004>> {
+        async getAccountPassphrase(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2005>> {
             return UserApiFp(configuration).getAccountPassphrase(options).then((request) => request(axios, basePath));
         },
         /**
-         * Get current authenticated user information based on token given on header
-         * @summary Get current authenticated user info
+         * 
+         * @summary Get currently authenticated user metadata
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCurrentUserInfo(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2003>> {
-            return UserApiFp(configuration).getCurrentUserInfo(options).then((request) => request(axios, basePath));
+        async getAuthenticatedUserMetadata(options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2003>> {
+            return UserApiFp(configuration).getAuthenticatedUserMetadata(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -391,7 +392,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserInfoById(userId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2003>> {
+        async getUserInfoById(userId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2004>> {
             return UserApiFp(configuration).getUserInfoById(userId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -411,7 +412,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2003>> {
+        async getUserInfoByUsername(username: string, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2004>> {
             return UserApiFp(configuration).getUserInfoByUsername(username, options).then((request) => request(axios, basePath));
         },
         /**
@@ -441,18 +442,18 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public async getAccountPassphrase(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2004>> {
+    public async getAccountPassphrase(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2005>> {
         return UserApiFp(this.configuration).getAccountPassphrase(options).then((request) => request(this.axios, this.basePath));
     }
     /**
-     * Get current authenticated user information based on token given on header
-     * @summary Get current authenticated user info
+     * 
+     * @summary Get currently authenticated user metadata
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public async getCurrentUserInfo(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2003>> {
-        return UserApiFp(this.configuration).getCurrentUserInfo(options).then((request) => request(this.axios, this.basePath));
+    public async getAuthenticatedUserMetadata(options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2003>> {
+        return UserApiFp(this.configuration).getAuthenticatedUserMetadata(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -462,7 +463,7 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public async getUserInfoById(userId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2003>> {
+    public async getUserInfoById(userId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2004>> {
         return UserApiFp(this.configuration).getUserInfoById(userId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -484,7 +485,7 @@ export class UserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserApi
      */
-    public async getUserInfoByUsername(username: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2003>> {
+    public async getUserInfoByUsername(username: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2004>> {
         return UserApiFp(this.configuration).getUserInfoByUsername(username, options).then((request) => request(this.axios, this.basePath));
     }
     /**

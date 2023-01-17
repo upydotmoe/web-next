@@ -34,6 +34,6 @@
 
   /** Works list */
   .work-grid {
-    @apply grid z-0 grid-cols-2 gap-2 mt-2 md:gap-4 md:grid-cols-5 xl:grid-cols-10;
+    @apply grid z-0 grid-cols-2 gap-2 mt-2 mb-4 md:gap-4 md:grid-cols-5 xl:grid-cols-10;
   }
 }

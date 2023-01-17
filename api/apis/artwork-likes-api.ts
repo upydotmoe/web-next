@@ -18,8 +18,8 @@ import { Configuration } from '../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { ArtworksLikeBody } from '../models';
 import { ArtworksUnlikeBody } from '../models';
-import { InlineResponse20012 } from '../models';
-import { InlineResponse20016 } from '../models';
+import { InlineResponse20013 } from '../models';
+import { InlineResponse20017 } from '../models';
 import { SuccessMessageModel } from '../models';
 /**
  * ArtworkLikesApi - axios parameter creator
@@ -227,7 +227,7 @@ export const ArtworkLikesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countLikes(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20012>>> {
+        async countLikes(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20013>>> {
             const localVarAxiosArgs = await ArtworkLikesApiAxiosParamCreator(configuration).countLikes(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -243,7 +243,7 @@ export const ArtworkLikesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsersLikedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20016>>> {
+        async getUsersLikedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
             const localVarAxiosArgs = await ArtworkLikesApiAxiosParamCreator(configuration).getUsersLikedAnArtwork(workId, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -294,7 +294,7 @@ export const ArtworkLikesApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countLikes(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20012>> {
+        async countLikes(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20013>> {
             return ArtworkLikesApiFp(configuration).countLikes(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -306,7 +306,7 @@ export const ArtworkLikesApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsersLikedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20016>> {
+        async getUsersLikedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
             return ArtworkLikesApiFp(configuration).getUsersLikedAnArtwork(workId, perPage, page, options).then((request) => request(axios, basePath));
         },
         /**
@@ -347,7 +347,7 @@ export class ArtworkLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkLikesApi
      */
-    public async countLikes(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20012>> {
+    public async countLikes(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20013>> {
         return ArtworkLikesApiFp(this.configuration).countLikes(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -360,7 +360,7 @@ export class ArtworkLikesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkLikesApi
      */
-    public async getUsersLikedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20016>> {
+    public async getUsersLikedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
         return ArtworkLikesApiFp(this.configuration).getUsersLikedAnArtwork(workId, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
     /**
