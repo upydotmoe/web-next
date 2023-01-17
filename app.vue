@@ -6,7 +6,7 @@
   />
 
   <!-- floating buttons -->
-  <div class="float-right fixed right-2 bottom-2 z-30 md:right-6 md:bottom-6">
+  <div class="float-right fixed right-2 bottom-2 z-30 flex-md-hidden md:right-6 md:bottom-6">
     <div class="flex flex-col gap-y-2">
       <a
         v-if="auth.loggedIn"
@@ -78,6 +78,12 @@ onBeforeMount(async () => {
 const route = useRoute()
 </script>
 
+<!-- chat bro (https://www.chatbro.com/en/edit/98kjU/) -->
+<script id="chatBroEmbedCode">
+function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}
+ChatbroLoader({encodedChatId: '98kjU'});
+</script>
+
 <style lang="scss">
 @import '~/assets/css/tailwind.scss';
 
@@ -85,6 +91,11 @@ form {
   .input-block {
     @apply mb-4;
   }
+}
+
+.chatbro_chat .chatbro_movable_chat .chatbro_opacity, .chatbro_minimized_chat, .chatbro_chat {
+  left: auto;
+  right: 60px !important;
 }
 
 /**

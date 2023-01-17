@@ -73,8 +73,11 @@
 
       <div
         v-show="showLoadMore"
-        class="mt-4 primary-button"
-        @click="fetch(false)"
+        :class="[
+          'w-full primary-button',
+          loadMoreLoading ? 'animate-pulse' : ''
+        ]" 
+        @click="fetch()"
       >
         {{ $t('loadMore') }}
       </div>
@@ -137,7 +140,7 @@ onMounted (() => {
   hideFollowingListToggle.value = props.userHideFollowingListStatus
   
   if (!props.hide) {
-    fetch(false)
+    fetch(false, true)
   } else {
     loading.value = false
     
@@ -150,11 +153,12 @@ const fetchTop = async (isPrivateOnly) => {
   followingList.value = []
   pagination.value.page = 0
   privateOnlyFollowing.value = isPrivateOnly
-  await fetch(isPrivateOnly)
+  await fetch(isPrivateOnly, true)
 }
 
 const followingList = ref([])
 const loading = ref(true)
+const loadMoreLoading = ref(false)
 const pagination = ref({
   page: 0,
   perPage: 12
@@ -162,9 +166,13 @@ const pagination = ref({
 const isError = ref(false)
 const isEmpty = ref(false)
 const showLoadMore = ref(false)
-const fetch = async (isPrivateOnly) => {
+const fetch = async (isPrivateOnly = false, firstLoad = false) => {
   resetLoadingEmptyErrorMessage()
-  loading.value = true
+  if (firstLoad) {
+    loading.value = true
+  } else {
+    loadMoreLoading.value = true
+  }
 
   const [data, error] = await userApi.getFollowingList({
     userId: props.userId,
@@ -195,6 +203,7 @@ const fetch = async (isPrivateOnly) => {
   }
 
   loading.value = false
+  loadMoreLoading.value = false
 }
 
 const resetLoadingEmptyErrorMessage = () => {

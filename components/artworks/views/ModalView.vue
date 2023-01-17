@@ -439,6 +439,7 @@
 
     <!-- related artworks -->
     <section
+      v-if="isPublished"
       id="related-artworks-section"
       class="mt-4 w-full"
     >
@@ -447,7 +448,7 @@
       </div>
 
       <RelatedArtworks
-        v-if="!loading"
+        v-if="!loading && isPublished"
         :work-id="artworkDetail.id"
         :is-modal="isModal"
         :view="view"
@@ -647,6 +648,8 @@ const previewMode = ref(false)
 const loading = ref(true)
 
 const artworkDetail = ref({})
+const isPublished = ref(false)
+
 const liked = ref(false)
 const saved = ref(false)
 const inAlbum = ref(false)
@@ -685,8 +688,8 @@ const view = async (selectedWorkId) => {
     inAlbum.value = data.in_album
 
     // get publish status, if it's not published yet, redirect non-authorized user to homepage, otherwise show the artwork
-    const isPublished = useDate().formatApiToWeb(data.scheduled_post) < useDate().currentUtcTime()
-    if (!isPublished) {
+    isPublished.value = useDate().formatApiToWeb(data.scheduled_post) < useDate().currentUtcTime()
+    if (!isPublished.value) {
       if (auth.user.id !== data.users.id) {
         router.push('/')
       } else {
@@ -837,6 +840,8 @@ const save = (unsaved) => {
 const albumSelectionModalRef = ref(null)
 const showAlbumSelectionModal = () => {
   useModal().openModal('album-selection-modal')
+
+  albumSelectionModalRef.value.fetchTop()
   albumSelectionModalRef.value.fetchCurrentSaved()
 }
 

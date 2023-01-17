@@ -219,7 +219,7 @@ const reset = () => {
 }
 
 // expose functions
-defineExpose ({
+defineExpose({
   fetch
 })
 </script>

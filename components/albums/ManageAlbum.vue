@@ -56,10 +56,10 @@
             </div>
             <div
               v-show="config.showLoadMore"
-              class="mt-2 primary-button"
+              class="mt-2 text-center href"
               @click="loadMore()"
             >
-              Load More
+              {{ $t('loadMore').toLowerCase() }}
             </div>
 
             <div class="flex float-right flex-row gap-2 mt-4">
@@ -135,12 +135,12 @@ onBeforeMount (async () => {
   await getMaxAlbumItemLimit()
 })
 
-onMounted (() => {
-  fetchAlbums()
-  if (!props.workIds.length) {
-    fetchCurrentSaved()
-  }
-})
+// onMounted (() => {
+//   fetchAlbums()
+//   if (!props.workIds.length) {
+//     fetchCurrentSaved()
+//   }
+// })
 
 const maxAlbumItems = ref(999)
 const getMaxAlbumItemLimit = async () => {
@@ -293,9 +293,9 @@ const cancel = () => {
   clear()
 }
 
-defineExpose ({
-  fetchCurrentSaved,
-  fetchAlbums
+defineExpose({
+  fetchTop,
+  fetchCurrentSaved
 })
 </script>
 

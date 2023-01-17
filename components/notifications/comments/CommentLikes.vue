@@ -139,7 +139,7 @@ const openUserProfile = (username) => {
   $router.push('/u/' + username)
 }
 
-defineExpose ({
+defineExpose({
   markAllAsRead,
   clear
 })

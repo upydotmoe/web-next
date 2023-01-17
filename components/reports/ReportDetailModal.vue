@@ -254,7 +254,7 @@ const submitDecision = async () => {
  */
 
 // expose functions
-defineExpose ({
+defineExpose({
   view
 })
 </script>

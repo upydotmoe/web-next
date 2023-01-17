@@ -60,17 +60,13 @@
           </div>
           <div
             v-show="showLoadMoreButton"
-            class="mt-2 primary-button"
+            class="mt-2 text-center href"
             @click="loadMore()"
           >
-            <Icon
-              :name="'chevron-down-outline'"
-              class="mr-2"
-            />
-            {{ $t('loadMore') }}
+            {{ $t('loadMore').toLowerCase() }}
           </div>
 
-          <div class="flex float-right flex-row gap-2 mt-4">
+          <div class="flex float-right flex-row gap-2 mt-4 w-full md:w-auto">
             <button
               class="cancel-button"
               @click="cancel()"
@@ -180,10 +176,10 @@ onBeforeMount (() => {
   isUserCanCreateCollection()
 })
 
-onMounted (() => {
-  fetchCollection()
-  fetchCurrentSaved()
-})
+// onMounted (() => {
+//   fetchCollection()
+//   fetchCurrentSaved()
+// })
 
 /**
  * @methods
@@ -219,8 +215,6 @@ const isEmpty = ref(false)
 const collections = ref([])
 const fetchCollection = async (isLoadMore = false) => {
   await isUserCanCreateCollection()
-
-  collections.value = []
 
   if (!isLoadMore) {
     config.value.loading = true
@@ -399,7 +393,7 @@ const cancel = () => {
 }
 
 // expose functions
-defineExpose ({
+defineExpose({
   fetchCollection,
   fetchCurrentSaved
 })

@@ -23,14 +23,16 @@
       >
         <div
           :class="[
-            'flex flex-row w-full',
-            user.artworks.length ? 'rounded-bl-none' : 'rounded-bl-md',
+            'flex flex-row w-full'
           ]"
         >
           <nuxt-img
             preload
             loading="lazy"
-            class="avatar"
+            :class="[
+              'avatar',
+              user.artworks.length ? 'rounded-bl-none' : 'rounded-bl-md',
+            ]"
             :src="avatarCoverUrl(user.avatar_bucket, user.avatar_filename)" 
             @error="defaultCoverImage"
           />
@@ -98,7 +100,7 @@
           v-for="(latestArtwork, workIndex) in user.artworks"
           :key="latestArtwork.id"
           :class="[
-            'work-thumbnail-user-list theme-color-bg',
+            'work-thumbnail-user-list bg-transparent rounded-md',
             latestArtwork._count.artwork_assets > 1 && currentWorkId != latestArtwork.id ? 'work-multiple' : ''
           ]"
         >
@@ -212,7 +214,7 @@ const unfollowUser = async (index, userToUnfollow) => {
 @import '~/assets/css/tailwind.scss';
 
 .avatar {
-  @apply object-cover h-24 rounded-none rounded-tl-md;
+  @apply object-cover h-24 rounded-tl-md;
   aspect-ratio: 1/1;
 }
 

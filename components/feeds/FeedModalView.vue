@@ -603,7 +603,7 @@ const removeFeed = async (feedId) => {
 }
 
 // expose functions
-defineExpose ({
+defineExpose({
   viewFeed
 })
 </script>

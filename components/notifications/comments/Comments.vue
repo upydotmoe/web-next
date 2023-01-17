@@ -133,7 +133,7 @@ const openUserProfile = (username) => {
   redirect('/u/' + username)
 }
 
-defineExpose ({
+defineExpose({
   markAllAsRead,
   clear
 })
