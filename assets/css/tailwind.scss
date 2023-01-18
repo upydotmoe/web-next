@@ -611,7 +611,7 @@
   }
 
   .href {
-    color: var(--read-more-color);
+    color: var(--read-more-color) !important;
     @apply cursor-pointer;
   }
 

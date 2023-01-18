@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-col gap-4 md:justify-between md:flex-row md:gap-0">
       <div class="title">
         {{ $t('followings.followings') }}
       </div>
 
-      <div class="inline-flex flex-row gap-4">
+      <div class="inline-flex flex-row gap-4 justify-between">
         <div class="flex flex-col justify-center align-middle">
           <div
             v-if="auth.loggedIn && auth.i502p00r0 && auth.user.id == userId"

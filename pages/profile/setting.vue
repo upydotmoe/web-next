@@ -4,7 +4,7 @@
     :with-footer="true"
     :no-right-side="true"
   >
-    <div class="flex flex-row gap-4 w-full md:gap-6">
+    <div class="flex flex-row gap-2 w-full md:gap-6">
       <!-- tabs -->
       <div class="lg:w-1/5">
         <nuxt-link

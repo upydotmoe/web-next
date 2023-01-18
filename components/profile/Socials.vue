@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="socials"
-    class="flex flex-row flex-wrap gap-2 justify-center mt-4 md:justify-start"
+    class="flex flex-row flex-wrap gap-2 justify-center md:justify-start"
   >
     <span
       v-for="social in socialCategories"

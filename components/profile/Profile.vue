@@ -115,18 +115,19 @@
             <Socials
               v-if="userInfo.user_socials"
               :socials="userInfo.user_socials"
+              class="mt-4"
             />
           </div>
         </div>
       </div>
 
       <!-- user info: for mobile or smaller device -->
-      <div class="flex flex-col text-center md:hidden">
+      <div class="flex-col text-center flex-md-hidden">
         <!-- avatar -->
         <nuxt-img
           preload
           loading="lazy"
-          class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar md:hidden"
+          class="flex mx-auto -mt-14 w-2/6 sm:-mt-16 sm:w-1/5 avatar flex-md-hidden"
           :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)" 
           @error="defaultCoverImage"
         />
@@ -190,13 +191,13 @@
       <!-- MOBILE: social links -->
       <Socials
         v-if="userInfo.user_socials"
-        class="mb-6 md:hidden"
+        class="mt-4 mb-0 md:mt-0 mb:mb-6 md:hidden"
         :socials="userInfo.user_socials"
       />
 
       <div class="mt-2">
-        <!-- mobile or smaller device navigation -->
-        <div class="flex flex-row gap-x-2 justify-center md:hidden">
+        <!-- MOBILE: profile navigation -->
+        <div class="flex flex-row gap-x-2 justify-center mt-6 md:hidden">
           <!-- dashboard -->
           <div 
             class="profile-navigation__mobile theme-color-secondary"
@@ -382,7 +383,7 @@
           </div>
 
           <!-- START OF: CONTENT -->
-          <div class="w-full md:ml-6">
+          <div class="mt-2 w-full md:ml-6">
             <!-- view mode: dashboard -->
             <div v-if="currentState === 'dashboard'">
               <div class="flex flex-row w-full">
@@ -417,7 +418,7 @@
 
               <div 
                 v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === POST_TYPES.ARTWORK && config.showManageMode" 
-                class="flex flex-row gap-2 justify-between mt-4 w-full"
+                class="flex flex-row gap-2 justify-between mt-2 w-full"
               >
                 <!-- left side: artwork sort -->
                 <div class="w-full md:w-auto">
@@ -583,6 +584,7 @@
                 :user-id="userInfo.id"
                 :hide="isHideFollowerList"
                 :user-hide-follower-list-status="!!userInfo.user_settings.hide_follower_list"
+                class="mt-2 md:mt-0"
               />
             </div>
 
@@ -593,6 +595,7 @@
                 :user-id="userInfo.id"
                 :hide="isHideFollowingList"
                 :user-hide-following-list-status="!!userInfo.user_settings.hide_following_list"
+                class="mt-2 md:mt-0"
               />
             </div>
           </div>
@@ -885,7 +888,7 @@ const visitExternalWebsite = () => {
 }
 
 .profile-navigation__mobile {
-  @apply flex flex-col py-2 px-3 w-full text-center rounded md:hidden hover:button hover:text-white;
+  @apply flex flex-col py-2 px-3 w-full text-center rounded flex-md-hidden hover:button hover:text-white;
 
   .icon {
     @apply mb-1 mt-1 w-full text-lg text-center hover:text-white;

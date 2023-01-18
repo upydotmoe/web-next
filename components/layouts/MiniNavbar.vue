@@ -105,7 +105,7 @@ const random = async () => {
 // @import '~/assets/css/tailwind.scss';
 
 .menus {
-  @apply flex flex-row md:justify-between overflow-x-scroll whitespace-nowrap md:overflow-x-hidden px-2 pb-1 md:pb-0 -ml-2;
+  @apply flex flex-row md:justify-between overflow-x-auto whitespace-nowrap md:overflow-x-hidden px-2 pb-1 md:pb-0 -ml-2;
 
   a {
     @apply mr-3 text-gray-200 font-bold text-xxs px-2 py-1 -ml-2;
