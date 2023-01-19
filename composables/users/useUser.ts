@@ -447,6 +447,17 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     }
   }
 
+  const getUserPassphrase = async () => {
+    try {
+      const { data } = await new UserApi(oApiConfiguration)
+        .getAccountPassphrase(fetchOptions)
+
+      return [data.data?.passphrase, null]
+    } catch (error) {
+      return [null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   return {
     checkUsernameAvailability,
     checkPenNameAvailability,
@@ -478,6 +489,8 @@ export default function (oApiConfiguration: any, fetchOptions: any) {
     checkCurrentPassword,
     updateCurrentPassword,
     checkResetPasswordTokenValidity,
-    resetPassword
+    resetPassword,
+
+    getUserPassphrase
   }
 }

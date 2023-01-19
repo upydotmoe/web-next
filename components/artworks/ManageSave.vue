@@ -68,13 +68,13 @@
 
           <div class="flex float-right flex-row gap-2 mt-4 w-full md:w-auto">
             <button
-              class="cancel-button"
+              class="cancel-button w-full"
               @click="cancel()"
             >
               {{ $t('cancel') }}
             </button>
             <button
-              class="primary-button"
+              class="primary-button w-full"
               @click="save()"
             >
               {{ $t('save') }}
@@ -217,6 +217,7 @@ const fetchCollection = async (isLoadMore = false) => {
   await isUserCanCreateCollection()
 
   if (!isLoadMore) {
+    collections.value = []
     config.value.loading = true
   }
 

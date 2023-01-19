@@ -16,7 +16,7 @@
         "password": "Ubah Password",
         "settings": "Preferensi"
       },
-      "browse": "Jelajahi"
+      "browse": "Browse"
     }
   },
   "all": "Semua",
@@ -31,12 +31,13 @@
   "artworks": {
     "artwork": "Artwork",
     "artworks": "Artwork",
+    "noArtworkYet": "Belum ada artwork, jadilah yang pertama yang menggunggah artworkmu",
     "notFound": "Artwork tidak ditemukan atau sudah dihapus",
     "latestArtworks": "Artwork terbaru",
     "newest": "Terbaru",
     "popularArtworks": "Populer",
     "mostPopular": "Paling Populer",
-    "dailyPopular": "Populer Harian",
+    "dailyPopular": "Populer Hari ini",
     "deleteArtwork": "Batal dan hapus karya ini",
     "successDelete": "Karya berhasil dihapus, mengalihkanmu ke halaman utama..",
     "moreArtworkBy": "Lainnya dari",
@@ -63,7 +64,7 @@
         "uploading": "Menggunggah artworkmu, harap tunggu..",
         "fileTooBig": "Salah satu dari file yang kamu pilih ukurannya terlalu besar, mohon pilih file yang kurang dari",
         "prohibitChildExplicitContent": "Semua yang berhubungan dengan pelecehan anak-anak dan pornografi anak tidak diizinkan di sini. Kami akan memberikan sanksi yang berat kepada semua yang melanggar peraturan ini.",
-        "uploadingButton": "Sedang mengunggah",
+        "uploadingButton": "Mengunggah",
         "post": "Unggah",
         "publishDate": "Rencana tanggal publikasi",
         "allowRedraw": "Izinkan redraw",
@@ -103,7 +104,7 @@
   "popularUsers": "User terpopuler",
   "discover": "Jelajahi",
   "seeMore": "Lihat Lebih banyak",
-  "browse": "Jelajahi",
+  "browse": "Browse",
   "premium": "Premium",
   "logout": "Keluar",
   "home": "Halaman utama",
@@ -146,9 +147,9 @@
   "explores": {
     "noFollowing": "Ikuti seseorang untuk mendapat update"
   },
-  "random": "Acak",
+  "random": "Random",
   "communities": "Komunitas",
-  "shuffle": "Acak",
+  "shuffle": "Random",
   "day": "Hari",
   "daily": "Harian",
   "week": "Minggu",
@@ -196,17 +197,19 @@
   "mostCommented": "Paling banyak dikomentari",
   "safe": "Mode aman",
   "explicit": "Mode eksplisit",
+  "containExplicit": "Mengandung Unsur Eksplisit",
   "explicitContent": "Konten Eksplisit",
   "explicitContentAlert": "Mengandung konten eksplisit, kami menerapkan filter ini karena kamu tidak mengaktifkan opsi untuk konten eksplisit di pengaturan profilmu.",
   "explicitContentAlertForGuest": "Mengandung konten eksplisit, kami menerapkan filter ini karena kamu mengakses halaman ini sebagai tamu.",
   "explicitShowMeThisContent": "Tunjukkan konten ini",
   "gore": "Mode gore",
+  "containGore": "Mengandung Unsur Gore",
   "goreContent": "Konten Gore",
   "goreContentAlert": "Mengandung konten grafis dan kekerasan, kami menerapkan filter ini karna kamu tidak mengaktifkan opsi untuk jenis konten ini di pengaturan profilmu.",
   "goreContentAlertForGuest": "Mengandung konten grafis dan kekerasan, kami menerapkan filter ini karna kamu mengakses halaman ini sebagai tamu.",
   "goreShowMeThisContent": "Tunjukkan konten ini",
   "apply": "Terapkan",
-  "hide": "Sembunyikan",
+  "hide": "Tutup",
   "filters": "Saring",
   "readMore": "baca lebih banyak",
   "delete": "Hapus",
@@ -216,7 +219,8 @@
     "profile": "Profil",
     "social": "Sosial",
     "password": "Kata Sandi",
-    "security": "Keamanan"
+    "security": "Keamanan",
+    "preference": "Preferensi"
   },
   "report": "Laporkan",
   "reports": {
@@ -291,10 +295,12 @@
     "share": "dibagikan"
   },
   "notifications": {
-    "likes": "Likes",
-    "comments": "Comments",
-    "follows": "Follows",
-    "feeds": "Feeds"
+    "likes": "Disukai",
+    "comments": "Komentar",
+    "follows": "Pengikut",
+    "feeds": "Umpan",
+    "markAllAsRead": "Tandai semua sebagai dibaca",
+    "clear": "Bersihkan"
   },
   "back": "Kembali",
   "edit": "Edit",
@@ -312,13 +318,13 @@
   "description": "Deskripsi",
   "tags": {
     "tags": "Tags",
-    "artworkCount": "Jumlah Karya"
+    "artworkCount": "Jumlah Artwork"
   },
   "tagsInputPlaceholder": "Tags (Tekan enter atau koma untuk menambah tag baru)",
   "tagsApplied": "tag dipilih",
   "pickUpToTags": "Pilih hingga 10 tag",
-  "update": "Update",
-  "updated": "Diupdate",
+  "update": "Simpan",
+  "updated": "Disimpan",
   "updating": "Memperbarui..",
   "success": "Sukses",
   "close": "Tutup",
@@ -453,7 +459,7 @@
           "gumroad": "Gumroad",
           "gumroadPlaceholder": "Username Gumroad-mu (https://<username-disini>.gumroad.com)",
           "personalWebsite": "Website Personal",
-          "personalWebsitePlaceholder": "Link website personal kamu"
+          "personalWebsitePlaceholder": "Link website personalmu"
         }
       }
     }
@@ -479,7 +485,7 @@
       "name": "Nama",
       "password": "Password",
       "registered": {
-        "passphraseCopyAlert": "Tolong simpan data ini di tempat yang aman, kamu akan ditanyakan mengenai data ini jika kamu ingin memulihkan akunmu.",
+        "passphraseCopyAlert": "Tolong simpan data ini di tempat yang aman atau kamu dapat menemukan data ini di pengaturan keamanan profil, kamu akan ditanyakan mengenai data ini jika kamu ingin memulihkan akunmu.",
         "didNotReceiveVerificationLink": "Kamu tidak menerima link verifikasi?",
         "verificationLinkSent": "Link verifikasi telah dikirim ke email kamu.",
         "accountCreatedInfo": "Akun kamu telah dibuat. Silahkan cek email kamu untuk melakukan verifikasi.",
@@ -510,11 +516,11 @@
     "noCommentYet": "Belum ada komentar.",
     "reachedTheEnd": "Tidak ada lagi yang bisa dimuat.",
     "send": "Kirim",
-    "inputPlaceholder": "Tulis komentarmu disini",
+    "inputPlaceholder": "Tulis komentarmu",
     "loginOrRegisterToLeaveComment": "Masuk atau daftar untuk mengirim komentar.",
     "loadOlder": "Muat komentar lainnya",
     "replies": {
-      "reply": "Balas",
+      "reply": "Balasan",
       "replies": "Balasan",
       "loadMore": "Muat balasan sebelumnya",
       "write": "Balas"
@@ -544,5 +550,10 @@
   },
   "copyAll": "Salin semua",
   "copied": "Tersalin",
-  "reportIssue": "Report Issue"
+  "games": "Games",
+  "artTrades": {
+    "artTrade": "Art Trade",
+    "host": "Host Art Trade Baru"
+  },
+  "reportIssue": "Laporkan Masalah"
 }

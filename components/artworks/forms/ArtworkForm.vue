@@ -231,7 +231,7 @@
             </div>
 
             <div class="toggler-box__description">
-              <b>{{ $t('explicitContent') }}</b>
+              <b>{{ $t('containExplicit') }}</b>
               <span>
                 {{ $t('artworks.form.options.explicitMark') }}
               </span>
@@ -260,7 +260,7 @@
             </div>
 
             <div class="toggler-box__description">
-              <b>Contain Gore</b>
+              <b>{{ $t('containGore') }}</b>
               <span>
                 {{ $t('artworks.form.options.goreMark') }}
               </span>

@@ -27,10 +27,12 @@
         </span>
       </span>
 
-      <div class="flex flex-row mb-6 w-full">
+      <div class="flex flex-row gap-2 mb-6 w-full">
         <div
-          class="rounded-lg profile-category-button left-menu-link theme-color-secondary"
-          :class="{ 'button-color text-white': activeSection === POST_TYPES.ARTWORK }"
+          :class="[
+            'px-2 rounded-lg',
+            activeSection === POST_TYPES.ARTWORK ? 'primary-button' : 'light-bordered-button'
+          ]"
           @click="activeSection = POST_TYPES.ARTWORK"
         >
           <Icon
@@ -50,8 +52,10 @@
         </div>
 
         <div
-          class="rounded-lg profile-category-button left-menu-link theme-color-secondary"
-          :class="{ 'button-color text-white': activeSection === 'users' }"
+          :class="[
+            'px-2 rounded-lg',
+            activeSection === 'users' ? 'primary-button' : 'light-bordered-button'
+          ]"
           @click="activeSection = 'users'"
         >
           <Icon

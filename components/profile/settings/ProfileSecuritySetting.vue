@@ -94,7 +94,7 @@
     >
       <label class="title-tiny">Your Passphrase</label>
       <div class="p-4 text-base tracking-widest rounded-md theme-color w-fit">
-        AWDWAA
+        {{ accountPassphrase }}
       </div>
     </section>
 
@@ -163,6 +163,19 @@ const verifyCurrentPassword = async () => {
     verifyError.value = error
   } else {
     isVerified.value = true
+
+    await getAccountPassphrase()
+  }
+}
+
+const accountPassphrase = ref('')
+const getAccountPassphrase = async () => {
+  const [passphrase, error] = await userApi.getUserPassphrase()
+
+  if (error) {
+    // todo: handle error
+  } else {
+    accountPassphrase.value = passphrase
   }
 }
 

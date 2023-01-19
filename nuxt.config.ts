@@ -37,9 +37,9 @@ export default defineNuxtConfig({
           src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js'
         },
         {
-          src: 'https://umami.upy.moe/umami.js',
+          src: 'https://analytics.umami.is/script.js',
           async: 'true',
-          'data-website-id': 'a41fcb1f-d44e-447a-abcc-33468b840da8'
+          'data-website-id': '21a8fc7f-ef65-4bce-a18b-0045df800e75'
         },
         // { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
       ]

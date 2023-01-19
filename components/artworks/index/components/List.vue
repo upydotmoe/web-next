@@ -65,7 +65,7 @@
       <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
-        :empty-message="'No artwork yet, be the first one to upload your artwork here.'"
+        :empty-message="$t('artworks.noArtworkYet')"
         :error="isError"
         :fetch="fetchTop"
       />

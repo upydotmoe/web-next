@@ -44,6 +44,14 @@
   }
   
   html {
+    // @screen sm {
+    //   @apply text-xxs;
+    // }
+
+    // @screen md {
+    //   @apply text-xs;
+    // }
+
     scroll-behavior: smooth;
     -webkit-touch-callout: none;
     // -webkit-user-select: none;
@@ -112,7 +120,7 @@
   }
 
   .work-thumbnail {
-    @apply object-cover shadow-lg transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
+    @apply object-cover transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
   
     a {
       .mini-icon {

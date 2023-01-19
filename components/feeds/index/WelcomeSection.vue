@@ -34,7 +34,7 @@
       <UserList
         :users="suggestedUsersToFollow"
         :column-type="2"
-        class="mt-6"
+        class="mt-4"
       />
     </div>
   </section>
@@ -60,14 +60,14 @@ defineProps({
 @import '~/assets/css/tailwind.scss';
 
 .middle__welcome {
-  @apply h-screen;
+  @apply h-screen mt-4 md:mt-auto mx-4 w-auto md:w-2/3 lg:w-4/5 md:mx-auto;
 
   &__title {
     @apply title;
   }
   
   &__menus {
-    @apply grid grid-cols-4 gap-4 mx-auto mt-6 text-center;
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto mt-6 text-center;
 
     a {
       @apply flex flex-col gap-3 p-4 w-full text-center rounded-md theme-color hover:shadow-md hover:theme-colored;

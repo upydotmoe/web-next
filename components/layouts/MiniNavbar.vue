@@ -31,6 +31,13 @@
       >
         {{ $t('random') }}
       </a>
+      <!-- <nuxt-link
+        v-if="auth.loggedIn"
+        :to="'/art-trade'"
+        class="uppercase"
+      >
+        {{ $t('artTrades.artTrade') }}
+      </nuxt-link> -->
       <nuxt-link
         v-if="auth.loggedIn"
         :to="'/tags'"

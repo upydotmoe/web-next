@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'grid grid-cols-1 gap-4 mb-4 w-full md:grid-cols-2',
+      'grid grid-cols-1 gap-4 mb-4 w-full sm:grid-cols-2',
       columnType == 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4',
       { 'lg:grid-cols-2': columnType == 2 },
       { 'lg:grid-cols-1': columnType == 1 },

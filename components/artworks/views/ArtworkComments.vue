@@ -171,10 +171,7 @@
                     >
                       <!-- view profile -->
                       <nuxt-link :to="'/u/' + comment.users.id">
-                        <Icon
-                          :name="'i-fluent-person-32-regular'"
-                          class="mr-2 text-base"
-                        />
+                        <Icon :name="'i-fluent-person-32-regular'" />
                         {{ $t('viewProfile') }}
                       </nuxt-link>
 
@@ -333,19 +330,14 @@
                             :to="'/u/' + reply.users.id" 
                             @click.prevent 
                           >
-                            <Icon
-                              :name="'i-fluent-person-32-regular'"
-                              class="mr-2 text-base"
-                            /> {{ $t('viewProfile') }}
+                            <Icon :name="'i-fluent-person-32-regular'" />
+                            {{ $t('viewProfile') }}
                           </nuxt-link>
 
                           <!-- delete reply -->
                           <div v-if="auth.loggedIn && auth.user.id === reply.users.id">
                             <a @click="deleteReply(comment.id, reply.id)">
-                              <Icon
-                                :name="'i-ion-trash-outline'"
-                                class="mr-2 text-base"
-                              />
+                              <Icon :name="'i-ion-trash-outline'" />
                               {{ $t('delete') }}
                             </a>
                           </div>

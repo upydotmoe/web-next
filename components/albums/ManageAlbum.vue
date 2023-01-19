@@ -64,13 +64,13 @@
 
             <div class="flex float-right flex-row gap-2 mt-4">
               <button
-                class="cancel-button"
+                class="cancel-button w-full"
                 @click="cancel()"
               >
                 {{ $t('cancel') }}
               </button>
               <button
-                class="primary-button"
+                class="primary-button w-full"
                 @click="save()"
               >
                 {{ $t('save') }}

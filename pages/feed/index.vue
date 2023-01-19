@@ -1,7 +1,7 @@
 <template>
   <Layout
     :with-footer="true"
-    :hide-side="isMobileDevice()"
+    :hide-side="isShowWelcomeSection && isMobile() ? true : isMobileDevice()"
     :no-right-side="isMobile()"
     :is-no-data="isNoData"
   >
@@ -21,7 +21,7 @@
       <div v-if="!isFetchingFollowingData">
         <!-- welcome message, show this only if users haven't followed any users yet -->
         <WelcomeSection
-          v-if="isFollowingSomeone ? showSuggestedUsers : !isFollowingSomeone"
+          v-if="isShowWelcomeSection"
           :suggested-users-to-follow="suggestedUsersToFollow"
         />
 
@@ -87,6 +87,8 @@ onMounted(async () => {
     router.push('/explore')
   }
 })
+
+const isShowWelcomeSection = computed(() => isFollowingSomeone.value ? showSuggestedUsers.value : !isFollowingSomeone.value)
 
 const isFetchingFollowingData = ref(true)
 const isFollowingSomeone = ref(false)

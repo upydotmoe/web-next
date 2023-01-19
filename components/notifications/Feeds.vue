@@ -10,7 +10,7 @@
         class="py-1 px-2 mr-1 rounded theme-color-secondary hover:button-color hover:text-white" 
         @click.prevent="markAllAsRead()"
       >
-        Mark all as read
+        {{ $t('notifications.markAllAsRead') }}
       </button>
 
       <button 
@@ -18,7 +18,7 @@
         @click.prevent="clearNotifs()"
       >
         <Icon :name="'i-material-symbols-clear-all-rounded'" />
-        Clear
+        {{ $t('notifications.clear') }}
       </button>
     </div>
 
@@ -37,7 +37,7 @@
       >
         <!-- artwork mini thumbnail -->
         <img
-          :src="artworkThumb(notification.users[0].avatar_bucket, notification.users[0].avatar_filename, 'thumbnail')"
+          :src="avatarCoverUrl(notification.users[0].avatar_bucket, notification.users[0].avatar_filename)"
           class="object-cover w-12 h-12 rounded unselectable"
           @error="imageLoadError"
         >

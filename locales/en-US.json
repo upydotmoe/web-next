@@ -31,6 +31,7 @@
   "artworks": {
     "artwork": "Artwork",
     "artworks": "Artworks",
+    "noArtworkYet": "No artwork yet, be the first one to upload your artwork here.",
     "notFound": "Artwork not found or has been removed.",
     "latestArtworks": "Latest Artworks",
     "newest": "Newest",
@@ -197,11 +198,13 @@
   "mostCommented": "Most commented",
   "safe": "Safe",
   "explicit": "Explicit",
+  "containExplicit": "Contain Explicit Content",
   "explicitContent": "Explicit Content",
   "explicitContentAlert": "Containing explicit content, we applied this filter because you did not enable the option for explicit content in your profile settings.",
   "explicitContentAlertForGuest": "Containing explicit content, we applied this filter because you accessed this page as a guest.",
   "explicitShowMeThisContent": "Show me this content",
   "gore": "Gore",
+  "containGore": "Contain Gore",
   "goreContent": "Gore Content",
   "goreContentAlert": "Containing graphic and violent content, we applied this filter because you did not enable the option for this type of content in your profile settings.",
   "goreContentAlertForGuest": "Containing graphic and violent content, we applied this filter because you accessed this page as a guest.",
@@ -217,7 +220,8 @@
     "profile": "Profile",
     "social": "Social",
     "password": "Password",
-    "security": "Security"
+    "security": "Security",
+    "preference": "Preference"
   },
   "report": "Report",
   "reports": {
@@ -295,7 +299,9 @@
     "likes": "Likes",
     "comments": "Comments",
     "follows": "Follows",
-    "feeds": "Feeds"
+    "feeds": "Feeds",
+    "markAllAsRead": "Mark all as read",
+    "clear": "Clear"
   },
   "back": "Back",
   "edit": "Edit",
@@ -480,7 +486,7 @@
       "name": "Name",
       "password": "Password",
       "registered": {
-        "passphraseCopyAlert": "Please save this data in a safe place, you will be asked for these data when you want to restore your account.",
+        "passphraseCopyAlert": "Please save this data in a safe place or you can found this on your profile security settings, you will be asked for these data when you want to restore your account.",
         "didNotReceiveVerificationLink": "Didn't receive the verification link?",
         "verificationLinkSent": "Verification link sent.",
         "accountCreatedInfo": "Account created, please verify your email address.",
@@ -546,5 +552,10 @@
   },
   "copyAll": "Copy all",
   "copied": "Copied",
+  "games": "Games",
+  "artTrades": {
+    "artTrade": "Art Trade",
+    "host": "Host New Art Trade"
+  },
   "reportIssue": "Report Issue"
 }

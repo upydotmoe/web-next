@@ -92,7 +92,7 @@
             class="text-lg lg:mr-2 hover:text-white"
           />
 
-          <span class="hidden-lg-flex">{{ $t('settings.settings') }}</span>
+          <span class="hidden-lg-flex">{{ $t('settings.preference') }}</span>
         </div>
       </div>
 
