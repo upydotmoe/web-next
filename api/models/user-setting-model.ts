@@ -41,4 +41,16 @@ export interface UserSettingModel {
      * @memberof UserSettingModel
      */
     showGore?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserSettingModel
+     */
+    hideFollowerList?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserSettingModel
+     */
+    hideFollowingList?: number;
 }

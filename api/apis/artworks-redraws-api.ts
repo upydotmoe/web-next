@@ -16,9 +16,9 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20020 } from '../models';
-import { InlineResponse20029 } from '../models';
+import { InlineResponse20021 } from '../models';
 import { InlineResponse20030 } from '../models';
+import { InlineResponse20031 } from '../models';
 /**
  * ArtworksRedrawsApi - axios parameter creator
  * @export
@@ -185,7 +185,7 @@ export const ArtworksRedrawsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countRedraws(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20020>>> {
+        async countRedraws(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20021>>> {
             const localVarAxiosArgs = await ArtworksRedrawsApiAxiosParamCreator(configuration).countRedraws(workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -199,7 +199,7 @@ export const ArtworksRedrawsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMyRedraw(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20030>>> {
+        async getMyRedraw(workId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20031>>> {
             const localVarAxiosArgs = await ArtworksRedrawsApiAxiosParamCreator(configuration).getMyRedraw(workId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -215,7 +215,7 @@ export const ArtworksRedrawsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRedraws(workId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20029>>> {
+        async getRedraws(workId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20030>>> {
             const localVarAxiosArgs = await ArtworksRedrawsApiAxiosParamCreator(configuration).getRedraws(workId, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -238,7 +238,7 @@ export const ArtworksRedrawsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async countRedraws(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20020>> {
+        async countRedraws(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20021>> {
             return ArtworksRedrawsApiFp(configuration).countRedraws(workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -248,7 +248,7 @@ export const ArtworksRedrawsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMyRedraw(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20030>> {
+        async getMyRedraw(workId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20031>> {
             return ArtworksRedrawsApiFp(configuration).getMyRedraw(workId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -260,7 +260,7 @@ export const ArtworksRedrawsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getRedraws(workId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20029>> {
+        async getRedraws(workId: number, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20030>> {
             return ArtworksRedrawsApiFp(configuration).getRedraws(workId, page, perPage, options).then((request) => request(axios, basePath));
         },
     };
@@ -281,7 +281,7 @@ export class ArtworksRedrawsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworksRedrawsApi
      */
-    public async countRedraws(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20020>> {
+    public async countRedraws(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20021>> {
         return ArtworksRedrawsApiFp(this.configuration).countRedraws(workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -292,7 +292,7 @@ export class ArtworksRedrawsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworksRedrawsApi
      */
-    public async getMyRedraw(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20030>> {
+    public async getMyRedraw(workId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20031>> {
         return ArtworksRedrawsApiFp(this.configuration).getMyRedraw(workId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -305,7 +305,7 @@ export class ArtworksRedrawsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworksRedrawsApi
      */
-    public async getRedraws(workId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20029>> {
+    public async getRedraws(workId: number, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20030>> {
         return ArtworksRedrawsApiFp(this.configuration).getRedraws(workId, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
 }

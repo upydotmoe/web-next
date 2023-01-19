@@ -11,6 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ArtworkListModel } from './artwork-list-model';
+import { PaginationModel } from './pagination-model';
 /**
  * 
  * @export
@@ -19,8 +21,14 @@
 export interface InlineResponse20020Data {
     /**
      * 
-     * @type {number}
+     * @type {Array<ArtworkListModel>}
      * @memberof InlineResponse20020Data
      */
-    count?: number;
+    works?: Array<ArtworkListModel>;
+    /**
+     * 
+     * @type {PaginationModel}
+     * @memberof InlineResponse20020Data
+     */
+    pagination?: PaginationModel;
 }

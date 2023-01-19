@@ -16,7 +16,7 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse20017 } from '../models';
+import { InlineResponse20018 } from '../models';
 /**
  * ArtworkSharesApi - axios parameter creator
  * @export
@@ -101,7 +101,7 @@ export const ArtworkSharesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsersSharedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20017>>> {
+        async getUsersSharedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20018>>> {
             const localVarAxiosArgs = await ArtworkSharesApiAxiosParamCreator(configuration).getUsersSharedAnArtwork(workId, perPage, page, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -126,7 +126,7 @@ export const ArtworkSharesApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsersSharedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20017>> {
+        async getUsersSharedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20018>> {
             return ArtworkSharesApiFp(configuration).getUsersSharedAnArtwork(workId, perPage, page, options).then((request) => request(axios, basePath));
         },
     };
@@ -149,7 +149,7 @@ export class ArtworkSharesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworkSharesApi
      */
-    public async getUsersSharedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20017>> {
+    public async getUsersSharedAnArtwork(workId: number, perPage: number, page: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20018>> {
         return ArtworkSharesApiFp(this.configuration).getUsersSharedAnArtwork(workId, perPage, page, options).then((request) => request(this.axios, this.basePath));
     }
 }

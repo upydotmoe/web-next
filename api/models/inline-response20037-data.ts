@@ -11,8 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20037DataLatestTrades } from './inline-response20037-data-latest-trades';
 import { PaginationModel } from './pagination-model';
-import { UserModel } from './user-model';
 /**
  * 
  * @export
@@ -21,10 +21,10 @@ import { UserModel } from './user-model';
 export interface InlineResponse20037Data {
     /**
      * 
-     * @type {Array<UserModel & any>}
+     * @type {Array<InlineResponse20037DataLatestTrades>}
      * @memberof InlineResponse20037Data
      */
-    users?: Array<UserModel & any>;
+    latestTrades?: Array<InlineResponse20037DataLatestTrades>;
     /**
      * 
      * @type {PaginationModel}

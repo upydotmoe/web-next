@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { UserSettingModel } from './user-setting-model';
 /**
  * 
  * @export
@@ -19,8 +20,8 @@
 export interface InlineResponse2004Data {
     /**
      * 
-     * @type {string}
+     * @type {UserSettingModel}
      * @memberof InlineResponse2004Data
      */
-    avatar?: string;
+    settings?: UserSettingModel;
 }

@@ -19,20 +19,14 @@
 export interface InlineResponse20034DataTags {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof InlineResponse20034DataTags
      */
-    id?: number;
+    key?: string;
     /**
      * 
      * @type {string}
      * @memberof InlineResponse20034DataTags
      */
     tag?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20034DataTags
-     */
-    count?: number;
 }

@@ -16,8 +16,8 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { InlineResponse2006 } from '../models';
 import { InlineResponse2007 } from '../models';
+import { InlineResponse2008 } from '../models';
 /**
  * UserChangeUserMediaApi - axios parameter creator
  * @export
@@ -130,7 +130,7 @@ export const UserChangeUserMediaApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateAvatarForm(avatar?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2006>>> {
+        async updateAvatarForm(avatar?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2007>>> {
             const localVarAxiosArgs = await UserChangeUserMediaApiAxiosParamCreator(configuration).updateAvatarForm(avatar, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -144,7 +144,7 @@ export const UserChangeUserMediaApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCoverForm(cover?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2007>>> {
+        async updateCoverForm(cover?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2008>>> {
             const localVarAxiosArgs = await UserChangeUserMediaApiAxiosParamCreator(configuration).updateCoverForm(cover, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -167,7 +167,7 @@ export const UserChangeUserMediaApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateAvatarForm(avatar?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2006>> {
+        async updateAvatarForm(avatar?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2007>> {
             return UserChangeUserMediaApiFp(configuration).updateAvatarForm(avatar, options).then((request) => request(axios, basePath));
         },
         /**
@@ -177,7 +177,7 @@ export const UserChangeUserMediaApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCoverForm(cover?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2007>> {
+        async updateCoverForm(cover?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2008>> {
             return UserChangeUserMediaApiFp(configuration).updateCoverForm(cover, options).then((request) => request(axios, basePath));
         },
     };
@@ -198,7 +198,7 @@ export class UserChangeUserMediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserChangeUserMediaApi
      */
-    public async updateAvatarForm(avatar?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2006>> {
+    public async updateAvatarForm(avatar?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
         return UserChangeUserMediaApiFp(this.configuration).updateAvatarForm(avatar, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -209,7 +209,7 @@ export class UserChangeUserMediaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UserChangeUserMediaApi
      */
-    public async updateCoverForm(cover?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2007>> {
+    public async updateCoverForm(cover?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2008>> {
         return UserChangeUserMediaApiFp(this.configuration).updateCoverForm(cover, options).then((request) => request(this.axios, this.basePath));
     }
 }

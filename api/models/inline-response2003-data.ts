@@ -56,6 +56,18 @@ export interface InlineResponse2003Data {
     name?: string;
     /**
      * 
+     * @type {boolean}
+     * @memberof InlineResponse2003Data
+     */
+    isModerator?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof InlineResponse2003Data
+     */
+    isAdmin?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof InlineResponse2003Data
      */

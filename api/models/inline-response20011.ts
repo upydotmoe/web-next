@@ -20,6 +20,12 @@ import { InlineResponse20011Data } from './inline-response20011-data';
 export interface InlineResponse20011 {
     /**
      * 
+     * @type {boolean}
+     * @memberof InlineResponse20011
+     */
+    success?: boolean;
+    /**
+     * 
      * @type {InlineResponse20011Data}
      * @memberof InlineResponse20011
      */

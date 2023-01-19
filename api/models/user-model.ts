@@ -54,4 +54,10 @@ export interface UserModel extends UserLiteModel {
      * @memberof UserModel
      */
     createdAt?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UserModel
+     */
+    isPro?: boolean;
 }
