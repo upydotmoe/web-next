@@ -2,14 +2,15 @@ module.exports = {
   apps: [
     {
       name: 'upy-web',
-      script: './.output/server/index.mjs',
-      watch: false,
+      port: '3000',
       exec_mode: 'cluster',
       instances: 'max',
+      script: './.output/server/index.mjs',
+      watch: false,
       args: 'start',
-      max_memory_restart: '512M',
+      max_memory_restart: '4G',
       listen_timeout: 3000,
-      kill_timeout: 6000,
+      kill_timeout: 8000,
       combine_logs: true
     }
   ]
