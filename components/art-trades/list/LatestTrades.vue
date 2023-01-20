@@ -125,7 +125,6 @@ const fetch = async (firstLoad = false) => {
   })
 
   if (error) {
-    console.log('errro', error)
     options.value.isError = true
   } else {
     if (!paginationData.record_total) {

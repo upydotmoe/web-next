@@ -495,7 +495,6 @@ const commentCharLeft = computed(() => (commentInput.value != null && commentInp
 /** Submit a comment */
 const submitCommentLoading = ref(false)
 const submitComment = async () => {
-  console.log('submitting comment..')
   submitCommentLoading.value = true
 
   try {

@@ -372,15 +372,17 @@
           other artowrks by artist list
           (show this only on desktop device or wider device screen)
         -->
-        <ArtistWorks
-          v-if="!loading"
-          class="mb-6 hidden-md-flex"
-          :artwork-detail="artworkDetail"
-          :view="view"
-          :is-href="!isModal"
-          :keep-artist-page-number="true"
-          :pagination-per-page="isModal ? 4 : 4"
-        />
+        <keep-alive>
+          <ArtistWorks
+            v-if="!loading"
+            class="mb-6 hidden-md-flex"
+            :artwork-detail="artworkDetail"
+            :view="view"
+            :is-href="!isModal"
+            :keep-artist-page-number="true"
+            :pagination-per-page="isModal ? 4 : 4"
+          />
+        </keep-alive>
       </section>
 
       <!-- Right side: artwork information, comment section -->

@@ -6,7 +6,7 @@
   />
 
   <!-- floating buttons -->
-  <div class="float-right fixed right-2 bottom-2 z-30 flex-md-hidden md:right-6 md:bottom-6">
+  <div class="float-right fixed right-2 bottom-2 z-30 md:right-6 md:bottom-6">
     <div class="flex flex-col gap-y-2">
       <a
         v-if="auth.loggedIn"
@@ -19,7 +19,10 @@
           :text-size="'text-2xl'"
         />
       </a>
-      <a href="#" class="p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color">
+      <a
+        href="#"
+        class="p-2 w-10 h-10 text-xs text-white align-middle rounded-full shadow-xl button-color"
+      >
         <Icon
           class="text-white hover:text-white"
           :name="'i-material-symbols-keyboard-arrow-up-rounded'"
@@ -93,9 +96,13 @@ form {
   }
 }
 
+.chatbro_container {
+  @apply hidden md:block;
+}
+
 .chatbro_chat .chatbro_movable_chat .chatbro_opacity, .chatbro_minimized_chat, .chatbro_chat {
   left: auto;
-  right: 60px !important;
+  right: 80px !important;
 }
 
 /**

@@ -103,18 +103,6 @@
           </nuxt-link>
         </div>
       </div>
-
-      <!-- artwork modal view component -->
-      <div 
-        :id="section+'-modal'"
-        class="modal work-view" 
-      >
-        <ModalView 
-          v-show="!loading"
-          :ref="section+'ModalViewRef'"
-          :section="section"
-        />
-      </div>
     </div>
   </div>
 </template>
@@ -126,7 +114,6 @@ import useAuthStore from '@/stores/auth.store'
 // components
 import Icon from '~/components/globals/Icon.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
-import ModalView from '~/components/artworks/views/ModalView.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
 // stores
@@ -136,6 +123,7 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
+const emit = defineEmits(['view'])
 const props = defineProps({
   title: {
     type: String,
@@ -330,24 +318,9 @@ const changeExplicitMode = (mode) => {
   fetchTop()
 }
 
-/** Artwork viewer, open a modal */
-const recentModalViewRef = ref(null)
-const followingModalViewRef = ref(null)
-const popularModalViewRef = ref(null)
-const view = (workId, keepArtistPageNumber = false) => {
-  if (props.section === 'recent') {
-    recentModalViewRef.value.view(workId, keepArtistPageNumber)
-  }
-
-  if (props.section === 'following') {
-    followingModalViewRef.value.view(workId, keepArtistPageNumber)
-  }
-
-  if (props.section === 'popular') {
-    popularModalViewRef.value.view(workId, keepArtistPageNumber)
-  }
-
-  useModal().openModal(`${props.section}-modal`)
+// open artwork modal
+const view = (workId) => {
+  emit('view', workId)
 }
 </script>
 
