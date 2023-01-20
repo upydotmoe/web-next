@@ -26,6 +26,7 @@
               v-model="inputData.name"
               type="text"
               rules="required"
+              class="input-color-secondary"
               :placeholder="$t('title')"
             >
           </n-validate>
@@ -36,9 +37,10 @@
           >
             <textarea
               v-model="inputData.description"
-              :placeholder="$t('description')"
               rules=""
               data-gramm="false"
+              class="input-color-secondary"
+              :placeholder="$t('description')"
             />
           </n-validate>
 
@@ -223,9 +225,3 @@ defineExpose({
   fetch
 })
 </script>
-
-<style lang="scss" scoped>
-input, textarea {
-  @apply theme-color-secondary;
-}
-</style>

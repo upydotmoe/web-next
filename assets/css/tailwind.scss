@@ -447,6 +447,9 @@
   .input-bg {
     background: var(--input-bg);
   }
+  .input-color-secondary {
+    @apply theme-color-secondary;
+  }
 
   .input-alert {
     @apply px-3 pt-5 pb-2 mb-2 -mt-5 w-full text-white rounded-b border-none;

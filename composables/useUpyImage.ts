@@ -22,6 +22,7 @@ export default function() {
           break
         case 'thumbnail':
           format = uncropped !== undefined && !uncropped ? '?class=thumbnail' : '?class=thumbnailUncropped'
+          console.log(format)
           break
       }
 

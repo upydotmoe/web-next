@@ -819,7 +819,7 @@ const onEmpty = () => {
 const albumSelectionModalRef = ref(null)
 const openAlbumSelectionModal = () => {
   useModal().openModal('album-selection-modal')
-  // albumSelectionModalRef.value.fetchAlbums()
+  albumSelectionModalRef.value.fetchTop()
 }
 
 /**
