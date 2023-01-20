@@ -24,6 +24,7 @@
             type="text"
             autocomplete="off"
             rules="required|email"
+            class="input-color-secondary"
             :placeholder="$t('registration.form.email')"
           >
         </n-validate>
@@ -37,6 +38,7 @@
             type="text"
             autocomplete="off"
             rules="required|min:4|max:12"
+            class="input-color-secondary"
             :placeholder="$t('registration.form.username')"
           >
         </n-validate>
@@ -50,6 +52,7 @@
             type="text"
             autocomplete="off"
             rules="required"
+            class="input-color-secondary"
             :placeholder="$t('registration.form.name')"
           >
         </n-validate>
@@ -63,6 +66,7 @@
             type="password"
             autocomplete="off"
             rules="required|containNumber|containSymbol"
+            class="input-color-secondary"
             :placeholder="$t('registration.form.password')"
           >
         </n-validate>
@@ -279,6 +283,8 @@ const copyData = (target) => {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/tailwind.scss';
+
 input {
   @apply theme-color-secondary;
 }

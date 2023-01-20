@@ -234,11 +234,13 @@ const checkCurrentSubscriptionStatus = async () => {
   }
 }
 
-const isSandboxMode = false
 onMounted(async () => {
+  const isSandboxMode = false
+
   const script = document.createElement('script')
 
   if (isSandboxMode) {
+    console.log('on sandbox mode')
     // sandbox client id:
     script.src = "https://www.paypal.com/sdk/js?client-id=AbFZEy35RTD5A3oCINCJ0m6gfaofU2B95o8gOMRq7ry8C58Uw9hfVNEeVejkXLDjqHOt0ueQ_GoswZei&enable-funding=venmo&currency=USD"
   } else {

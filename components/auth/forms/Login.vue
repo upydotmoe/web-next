@@ -17,6 +17,7 @@
         v-model="inputs.username"
         type="text"
         rules="required|min:4|max:12"
+        class="input-color-secondary"
         :placeholder="$t('logins.form.username')"
       >
     </n-validate>
@@ -30,6 +31,7 @@
         type="password"
         autocomplete="off"
         rules="required|min:6|containNumber|containSymbol"
+        class="input-color-secondary"
         :placeholder="$t('logins.form.password')"
       >
     </n-validate>
@@ -113,9 +115,3 @@ const reset = () => {
   error.value = ''
 }
 </script>
-
-<style lang="scss" scoped>
-input {
-  @apply theme-color-secondary;
-}
-</style>

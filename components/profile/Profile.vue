@@ -383,222 +383,224 @@
           </div>
 
           <!-- START OF: CONTENT -->
-          <div class="mt-2 w-full md:ml-6">
-            <!-- view mode: dashboard -->
-            <div v-if="currentState === 'dashboard'">
-              <div class="flex flex-row w-full">
-                <div 
-                  class="flex flex-row justify-between w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
-                  :class="{ 'button-color text-white': activeDashboard === 'feed' }"
-                  @click="activeDashboard = 'feed'" 
-                >
-                  {{ $t('feed') }}
-                  <span 
-                    class="px-1 ml-2 rounded" 
-                    :class="activeDashboard === 'feed' ? 'theme-color' : 'button-color text-white'"
+          <keep-alive>
+            <div class="mt-2 w-full md:ml-6">
+              <!-- view mode: dashboard -->
+              <div v-if="currentState === 'dashboard'">
+                <div class="flex flex-row w-full">
+                  <div 
+                    class="flex flex-row justify-between w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
+                    :class="{ 'button-color text-white': activeDashboard === 'feed' }"
+                    @click="activeDashboard = 'feed'" 
                   >
-                    {{ thousand(counter.feed) }}
-                  </span>
-                </div>
+                    {{ $t('feed') }}
+                    <span 
+                      class="px-1 ml-2 rounded" 
+                      :class="activeDashboard === 'feed' ? 'theme-color' : 'button-color text-white'"
+                    >
+                      {{ thousand(counter.feed) }}
+                    </span>
+                  </div>
 
-                <div 
-                  class="flex flex-row justify-between mr-0 w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
-                  :class="{ 'button-color text-white': activeDashboard === POST_TYPES.ARTWORK }"
-                  @click="activeDashboard = POST_TYPES.ARTWORK" 
-                >
-                  {{ $t('artworks.artwork') }}
-                  <span 
-                    class="px-1 ml-2 rounded" 
-                    :class="activeDashboard === POST_TYPES.ARTWORK ? 'theme-color' : 'button-color text-white'"
+                  <div 
+                    class="flex flex-row justify-between mr-0 w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
+                    :class="{ 'button-color text-white': activeDashboard === POST_TYPES.ARTWORK }"
+                    @click="activeDashboard = POST_TYPES.ARTWORK" 
                   >
-                    {{ thousand(counter.artwork) }}
-                  </span>
-                </div>
-              </div>
-
-              <div 
-                v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === POST_TYPES.ARTWORK && config.showManageMode" 
-                class="flex flex-row gap-2 justify-between mt-2 w-full"
-              >
-                <!-- left side: artwork sort -->
-                <div class="w-full md:w-auto">
-                  <div class="inline-block w-full group md:w-52">
-                    <button
-                      class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color-secondary hover:button"
-                      @click="togglePopularOrderStatus()"
+                    {{ $t('artworks.artwork') }}
+                    <span 
+                      class="px-1 ml-2 rounded" 
+                      :class="activeDashboard === POST_TYPES.ARTWORK ? 'theme-color' : 'button-color text-white'"
                     >
-                      <span class="flex-1 pr-1">{{ sortBy === 'latest' ? $t('profile.artworks.sorter.latest') : sortByTitle }}</span>
-                      <span>
-                        <svg
-                          class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                      </span>
-                    </button>
-                    <ul
-                      id="profile-artwork-order" 
-                      class="absolute z-50 mt-1 w-6/12 text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100"
-                    >
-                      <li
-                        :class="[
-                          { 'button': sortBy === 'latest' },
-                          { 'rounded-b-md': !auth.loggedIn }
-                        ]" 
-                        @click="changeSort('latest', $t('profile.artworks.sorter.latest'))"
-                      >
-                        <Icon
-                          :name="'i-material-symbols-fiber-new'"
-                          :class="{ 'text-white': sortBy === 'latest' }"
-                        />
-                        Latest
-                      </li>
-
-                      <li
-                        :class="[
-                          { 'button': sortBy === 'popular' },
-                          { 'rounded-b-md': !auth.loggedIn }
-                        ]" 
-                        @click="changeSort('popular', $t('profile.artworks.sorter.popular'))"
-                      >
-                        <Icon
-                          :name="'i-ic-twotone-star'"
-                          :class="{ 'text-white': sortBy === 'popular' }"
-                        />
-                        Popular
-                      </li>
-
-                      <li
-                        :class="[
-                          { 'button': sortBy === 'oldest' },
-                          { 'rounded-b-md': !auth.loggedIn }
-                        ]" 
-                        @click="changeSort('oldest', $t('profile.artworks.sorter.oldest'))"
-                      >
-                        <Icon
-                          :name="'i-ic-baseline-update'"
-                          :class="{ 'text-white': sortBy === 'oldest' }"
-                        />
-                        Oldest
-                      </li>
-                    </ul>
+                      {{ thousand(counter.artwork) }}
+                    </span>
                   </div>
                 </div>
 
-                <!-- right side: manage button -->
-                <div class="flex flex-row gap-x-2 w-full md:w-auto">
-                  <button
-                    :class="[
-                      'w-full action-button md:w-auto md:mt-0',
-                      config.manageMode ? 'danger-button' : 'secondary-button'
-                    ]"
-                    @click="config.manageMode = !config.manageMode"
-                  >
-                    <Icon 
-                      :name="config.manageMode ? 
-                        'i-ion-close-outline' : 
-                        'i-material-symbols-library-add-check-outline-rounded'"
-                    />
-                    {{ config.manageMode ? $t('quit') : $t('manage') }}
-                  </button>
+                <div 
+                  v-show="!loading && auth.loggedIn && (auth.user.id === userInfo.id) && activeDashboard === POST_TYPES.ARTWORK && config.showManageMode" 
+                  class="flex flex-row gap-2 justify-between mt-2 w-full"
+                >
+                  <!-- left side: artwork sort -->
+                  <div class="w-full md:w-auto">
+                    <div class="inline-block w-full group md:w-52">
+                      <button
+                        class="flex items-center py-2 w-full rounded-md border-2 border-transparent outline-none md:w-52 theme-color-secondary hover:button"
+                        @click="togglePopularOrderStatus()"
+                      >
+                        <span class="flex-1 pr-1">{{ sortBy === 'latest' ? $t('profile.artworks.sorter.latest') : sortByTitle }}</span>
+                        <span>
+                          <svg
+                            class="w-4 h-4 transition duration-150 ease-in-out transform fill-current group-hover:-rotate-180"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                          </svg>
+                        </span>
+                      </button>
+                      <ul
+                        id="profile-artwork-order" 
+                        class="absolute z-50 mt-1 w-6/12 text-center rounded-md transition duration-150 ease-in-out transform origin-top scale-0 md:w-52 theme-color group-hover:scale-100"
+                      >
+                        <li
+                          :class="[
+                            { 'button': sortBy === 'latest' },
+                            { 'rounded-b-md': !auth.loggedIn }
+                          ]" 
+                          @click="changeSort('latest', $t('profile.artworks.sorter.latest'))"
+                        >
+                          <Icon
+                            :name="'i-material-symbols-fiber-new'"
+                            :class="{ 'text-white': sortBy === 'latest' }"
+                          />
+                          Latest
+                        </li>
 
-                  <button
-                    v-show="config.manageMode"
-                    class="w-full primary-button md:w-auto"
-                    @click="openAlbumSelectionModal()"
-                  >
-                    <Icon :name="'i-ion-add-outline'" />
-                    {{ $t('albums.addToAlbum') }}
-                  </button>
+                        <li
+                          :class="[
+                            { 'button': sortBy === 'popular' },
+                            { 'rounded-b-md': !auth.loggedIn }
+                          ]" 
+                          @click="changeSort('popular', $t('profile.artworks.sorter.popular'))"
+                        >
+                          <Icon
+                            :name="'i-ic-twotone-star'"
+                            :class="{ 'text-white': sortBy === 'popular' }"
+                          />
+                          Popular
+                        </li>
+
+                        <li
+                          :class="[
+                            { 'button': sortBy === 'oldest' },
+                            { 'rounded-b-md': !auth.loggedIn }
+                          ]" 
+                          @click="changeSort('oldest', $t('profile.artworks.sorter.oldest'))"
+                        >
+                          <Icon
+                            :name="'i-ic-baseline-update'"
+                            :class="{ 'text-white': sortBy === 'oldest' }"
+                          />
+                          Oldest
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- right side: manage button -->
+                  <div class="flex flex-row gap-x-2 w-full md:w-auto">
+                    <button
+                      :class="[
+                        'w-full action-button md:w-auto md:mt-0',
+                        config.manageMode ? 'danger-button' : 'secondary-button'
+                      ]"
+                      @click="config.manageMode = !config.manageMode"
+                    >
+                      <Icon 
+                        :name="config.manageMode ? 
+                          'i-ion-close-outline' : 
+                          'i-material-symbols-library-add-check-outline-rounded'"
+                      />
+                      {{ config.manageMode ? $t('quit') : $t('manage') }}
+                    </button>
+
+                    <button
+                      v-show="config.manageMode"
+                      class="w-full primary-button md:w-auto"
+                      @click="openAlbumSelectionModal()"
+                    >
+                      <Icon :name="'i-ion-add-outline'" />
+                      {{ $t('albums.addToAlbum') }}
+                    </button>
+                  </div>
+                </div>
+
+                <LoadingEmptyErrorMessage
+                  class="mt-2"
+                  :loading="loading"
+                  :background-color="'theme-color-secondary'"
+                />
+              
+                <!-- manage mode message -->
+                <div
+                  v-show="config.manageMode"
+                  class="p-2 mt-2 text-black bg-yellow-200 rounded-md"
+                >
+                  {{ $t('profile.manageModeActiveMessage') }}
+                </div>
+              
+                <!-- content -->
+                <div class="mt-2">
+                  <!-- feeds -->
+                  <Feeds
+                    v-if="activeDashboard === 'feed'"
+                    ref="feedListRef"
+                    :user-id="userInfo.id"
+                  />
+
+                  <!-- artworks -->
+                  <Artworks
+                    v-if="!loading && activeDashboard === POST_TYPES.ARTWORK"
+                    ref="artworkListRef"
+                    :key="artworkListKey"
+                    :user-id="userInfo.id"
+                    :manage-mode="config.manageMode"
+                    :sort-by="sortBy"
+                    @feedSelectedItems="feedSelectedItems"
+                    @onEmpty="onEmpty"
+                  />
                 </div>
               </div>
 
-              <LoadingEmptyErrorMessage
-                class="mt-2"
-                :loading="loading"
-                :background-color="'theme-color-secondary'"
-              />
-              
-              <!-- manage mode message -->
-              <div
-                v-show="config.manageMode"
-                class="p-2 mt-2 text-black bg-yellow-200 rounded-md"
-              >
-                {{ $t('profile.manageModeActiveMessage') }}
-              </div>
-              
-              <!-- content -->
-              <div class="mt-2">
-                <!-- feeds -->
-                <Feeds
-                  v-if="activeDashboard === 'feed'"
-                  ref="feedListRef"
+              <!-- view mode: albums -->
+              <div v-if="currentState === 'albums'">
+                <Album
+                  v-if="!loading"
                   :user-id="userInfo.id"
                 />
+              </div>
 
-                <!-- artworks -->
-                <Artworks
-                  v-if="!loading && activeDashboard === POST_TYPES.ARTWORK"
-                  ref="artworkListRef"
-                  :key="artworkListKey"
+              <!-- view mode: collections -->
+              <div v-if="currentState === 'collections'">
+                <Collection
+                  v-if="!loading"
                   :user-id="userInfo.id"
-                  :manage-mode="config.manageMode"
-                  :sort-by="sortBy"
-                  @feedSelectedItems="feedSelectedItems"
+                />
+              </div>
+
+              <!-- view mode: liked artworks -->
+              <div v-if="auth.loggedIn && auth.user.id === userInfo.id && currentState === 'liked'">
+                <Liked
+                  v-if="!loading"
+                  :user-id="userInfo.id"
                   @onEmpty="onEmpty"
                 />
               </div>
-            </div>
 
-            <!-- view mode: albums -->
-            <div v-if="currentState === 'albums'">
-              <Album
-                v-if="!loading"
-                :user-id="userInfo.id"
-              />
-            </div>
+              <!-- view mode: follower list -->
+              <div v-if="currentState === 'followerList'">
+                <FollowerList
+                  v-if="!loading"
+                  :user-id="userInfo.id"
+                  :hide="isHideFollowerList"
+                  :user-hide-follower-list-status="!!userInfo.user_settings.hide_follower_list"
+                  class="mt-2 md:mt-0"
+                />
+              </div>
 
-            <!-- view mode: collections -->
-            <div v-if="currentState === 'collections'">
-              <Collection
-                v-if="!loading"
-                :user-id="userInfo.id"
-              />
+              <!-- view mode: following list -->
+              <div v-if="currentState === 'followingList'">
+                <FollowingList
+                  v-if="!loading"
+                  :user-id="userInfo.id"
+                  :hide="isHideFollowingList"
+                  :user-hide-following-list-status="!!userInfo.user_settings.hide_following_list"
+                  class="mt-2 md:mt-0"
+                />
+              </div>
             </div>
-
-            <!-- view mode: liked artworks -->
-            <div v-if="auth.loggedIn && auth.user.id === userInfo.id && currentState === 'liked'">
-              <Liked
-                v-if="!loading"
-                :user-id="userInfo.id"
-                @onEmpty="onEmpty"
-              />
-            </div>
-
-            <!-- view mode: follower list -->
-            <div v-if="currentState === 'followerList'">
-              <FollowerList
-                v-if="!loading"
-                :user-id="userInfo.id"
-                :hide="isHideFollowerList"
-                :user-hide-follower-list-status="!!userInfo.user_settings.hide_follower_list"
-                class="mt-2 md:mt-0"
-              />
-            </div>
-
-            <!-- view mode: following list -->
-            <div v-if="currentState === 'followingList'">
-              <FollowingList
-                v-if="!loading"
-                :user-id="userInfo.id"
-                :hide="isHideFollowingList"
-                :user-hide-following-list-status="!!userInfo.user_settings.hide_following_list"
-                class="mt-2 md:mt-0"
-              />
-            </div>
-          </div>
+          </keep-alive>
           <!-- END OF: CONTENT -->
         </div>
       </div>

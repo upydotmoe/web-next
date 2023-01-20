@@ -170,7 +170,7 @@
                       role="menu"
                     >
                       <!-- view profile -->
-                      <nuxt-link :to="'/u/' + comment.users.id">
+                      <nuxt-link :to="'/u/' + comment.users.username">
                         <Icon :name="'i-fluent-person-32-regular'" />
                         {{ $t('viewProfile') }}
                       </nuxt-link>
@@ -327,7 +327,7 @@
                         >
                           <!-- view profile -->
                           <nuxt-link
-                            :to="'/u/' + reply.users.id" 
+                            :to="'/u/' + reply.users.username" 
                             @click.prevent 
                           >
                             <Icon :name="'i-fluent-person-32-regular'" />

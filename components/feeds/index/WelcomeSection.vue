@@ -60,7 +60,7 @@ defineProps({
 @import '~/assets/css/tailwind.scss';
 
 .middle__welcome {
-  @apply h-screen mt-4 md:mt-auto mx-4 w-auto md:w-2/3 lg:w-4/5 md:mx-auto;
+  @apply h-screen mt-4 md:mt-auto mx-4 w-auto md:w-2/3 lg:w-full md:mx-auto;
 
   &__title {
     @apply title;
