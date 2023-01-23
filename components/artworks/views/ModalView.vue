@@ -1,4 +1,9 @@
 <template>
+  <button
+    class="hidden"
+    @click="view"
+  />
+
   <!-- loading -->
   <div
     v-show="loading && isModal"

@@ -105,7 +105,11 @@ const login = async () => {
     error.value = authError
   } else {
     useModal().closeModal('auth-modal')
-    router.push('/feed')
+    router.push({
+      path: '/feed',
+      replace: true,
+      force: true
+    })
   }
 }
 

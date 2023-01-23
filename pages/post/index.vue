@@ -1,6 +1,6 @@
 <template>
   <Layout
-    :with-footer="false"
+    :with-footer="true"
     :hide-side="false"
   >
     <div class="mb-20">

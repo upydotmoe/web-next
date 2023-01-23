@@ -15,6 +15,5 @@ jobs:
             cd ~/upy/web
             chmod +x ./pull.sh
             ./pull.sh
-
-# chmod +x ./deploy.sh
-# ./deploy.sh
+            chmod +x ./deploy.sh
+            ./deploy.sh

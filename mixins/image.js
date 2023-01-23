@@ -7,7 +7,6 @@ export default {
       return useUpyImage().generateSemiCompressedArtworkUrl(bucketName, fileName, viewMode)
     },
     artworkThumb (bucketName, fileName, mode, uncropped) {
-      console.log('uncropped?', uncropped)
       const imgSrc = useUpyImage().generateArtworkThumb(bucketName, fileName, mode, uncropped)
       return imgSrc
     },

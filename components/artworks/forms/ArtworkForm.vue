@@ -522,7 +522,7 @@ const fetchSetting = async () => {
     maxFileCount.value = settingMaxFileCount
   }
 
-  const settingMaxFileSize = await settingApi.getSetting('artwork_max_file_size')
+  const [settingMaxFileSize, getSettingMaxFileSizeError] = await settingApi.getSetting('artwork_max_file_size')
   maxFileSize.value = settingMaxFileSize
 
   labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'

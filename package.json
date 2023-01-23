@@ -3,10 +3,11 @@
   "scripts": {
     "dev": "nuxt dev",
     "cleanup": "rm -rf .output .nuxt",
-    "build": "npm run cleanup && nuxt build",
-    "start:docker": "pm2-runtime ecosystem.config.js",
     "generate": "nuxt generate",
+    "build": "npm run cleanup && nuxt build",
     "preview": "nuxt preview",
+    "build:preview": "npm run build && npm run preview",
+    "start:docker": "pm2-runtime ecosystem.config.js",
     "pm2:start": "pm2 start ./.output/server/index.mjs --name upy-web && pm2 save",
     "pm2:stop": "pm2 delete upy-web",
     "lint": "eslint .",

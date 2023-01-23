@@ -1,7 +1,7 @@
 <template>
   <div id="lists">
     <LoadingEmptyErrorMessage
-      :loading="relatedArtworks.loadings.first"
+      :loading="relatedArtworks.loadings.loading"
       :empty="relatedArtworks.options.isEmpty"
       :error="relatedArtworks.options.isError"
       :fetch="getRelatedArtworks"
@@ -113,6 +113,7 @@ const getRelatedArtworks = async () => {
   if (relatedArtworks.value.options.paginations.page == 1) {
     relatedArtworks.value.loadings.first = false
   }
+
   relatedArtworks.value.loadings.loading = false
 }
 
