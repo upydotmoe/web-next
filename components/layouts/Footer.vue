@@ -16,7 +16,7 @@
       <nuxt-link :to="'/docs'">{{ $t('docs') }}</nuxt-link>
     </span> -->
     <br>
-    <nuxt-link to="content-guidelines">
+    <nuxt-link to="community-guidelines">
       {{ $t('guidelines.title') }}
     </nuxt-link>
     <span class="mx-3 hover:underline">

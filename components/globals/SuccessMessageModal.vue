@@ -49,7 +49,9 @@ const close = () => {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .success-button-close {
   @apply font-bold border-2 border-green-600 b-button theme-color hover:bg-green-600 hover:text-white;
 }
