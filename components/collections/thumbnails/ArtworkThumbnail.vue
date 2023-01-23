@@ -2,7 +2,7 @@
   <div class="mb-2">
     <div v-if="!collection.collection_has_artworks || collection._count.collection_has_artworks === 0">
       <img
-        :src="folderIcon"
+        :src="folderIcon()"
         class="rounded"
       >
     </div>
@@ -163,9 +163,6 @@
 </template>
 
 <script setup>
-// assets
-import folderIcon from '~/static/folder.png'
-
 // stores
 import authStore from '@/stores/auth.store'
 

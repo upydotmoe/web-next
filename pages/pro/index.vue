@@ -307,6 +307,8 @@ const initPaypal = () => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .features-grid {
   @apply flex flex-col;
 
