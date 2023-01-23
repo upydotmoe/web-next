@@ -71,6 +71,16 @@
           >
         </n-validate>
 
+        <!-- CF turnstile captcha -->
+        <div class="flex flex-row justify-center mt-2 w-full">
+          <Turnstile
+            v-model="token"
+            :options="{
+              theme: 'dark'
+            }"
+          />
+        </div>
+
         <input
           type="submit"
           :value="$t('registration.register').toUpperCase()"

@@ -43,7 +43,8 @@
       {{ $t('forgotPassword') }}
     </div>
 
-    <div class="flex flex-row justify-center w-full">
+    <!-- CF turnstile captcha -->
+    <div class="flex flex-row justify-center mt-2 w-full">
       <Turnstile
         v-model="token"
         :options="{
@@ -51,6 +52,7 @@
         }"
       />
     </div>
+
     <input
       type="submit"
       :value="$t('logins.login').toUpperCase()"
