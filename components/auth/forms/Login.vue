@@ -43,6 +43,14 @@
       {{ $t('forgotPassword') }}
     </div>
 
+    <div class="flex flex-row justify-center w-full">
+      <Turnstile
+        v-model="token"
+        :options="{
+          theme: 'dark'
+        }"
+      />
+    </div>
     <input
       type="submit"
       :value="$t('logins.login').toUpperCase()"

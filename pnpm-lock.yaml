@@ -12,6 +12,7 @@ specifiers:
   '@nuxtjs/eslint-config-typescript': ^12.0.0
   '@nuxtjs/google-fonts': ^3.0.0-0
   '@nuxtjs/tailwindcss': ^6.2.0
+  '@nuxtjs/turnstile': ^0.1.2
   '@pinia/nuxt': ^0.4.3
   '@themesberg/tailwind-datepicker': ^1.1.0
   '@ts-pro/vue-eternal-loading': ^1.2.0
@@ -87,6 +88,7 @@ devDependencies:
   '@nuxt/image-edge': 1.0.0-27840416.dc1ed65
   '@nuxtjs/eslint-config-typescript': 12.0.0_iukboom6ndih5an6iafl45j2fe
   '@nuxtjs/google-fonts': 3.0.0-1
+  '@nuxtjs/turnstile': 0.1.2
   '@typescript-eslint/eslint-plugin': 5.48.0_k73wpmdolxikpyqun3p36akaaq
   '@typescript-eslint/parser': 5.48.0_iukboom6ndih5an6iafl45j2fe
   '@unocss/nuxt': 0.44.7
@@ -1195,6 +1197,17 @@ packages:
       - ts-node
       - webpack
     dev: false
+
+  /@nuxtjs/turnstile/0.1.2:
+    resolution: {integrity: sha512-/qNAdA6XS+ABO3Ib6SomHtKcmIOq2S7ERzvz/GKjFxUAYkfCMqY/1sElTU5/vVuHVl45OSIKKMOalReXf8fOhA==}
+    dependencies:
+      '@nuxt/kit': 3.0.0
+      defu: 6.1.1
+      pathe: 1.0.0
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+    dev: true
 
   /@pinia/nuxt/0.4.6_typescript@4.9.4:
     resolution: {integrity: sha512-HjrYEfLdFpmsjhicPJgL36jVhzHWukIQPFFHGTSF84Cplu+f2nY2XHKqe9ToHzE9rLee2RjLOwAzOnXa/I/u6A==}

@@ -41,6 +41,11 @@ export default defineNuxtConfig({
           async: 'true',
           'data-website-id': '21a8fc7f-ef65-4bce-a18b-0045df800e75'
         },
+        {
+          src: 'https://challenges.cloudflare.com/turnstile/v0/api.js',
+          async: 'true',
+          defer: 'true'
+        }
         // { src: 'https://unpkg.com/flowbite@1.4.5/dist/flowbite.js' }
       ]
     },
@@ -56,7 +61,10 @@ export default defineNuxtConfig({
       cdnUrl: process.env.CDN_DOMAIN,
       staticallyCdn: process.env.STATICALLY_CDN_URL
     },
-    app: {}
+    app: {},
+    turnstile: {
+      secretKey: process.env.CF_TURNSTILE_SECRET_KEY || '',
+    }
   },
 
   serverHandlers: [
@@ -99,6 +107,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/image-edge',
     '@nuxtjs/critters',
+    '@nuxtjs/turnstile'
     // 'nuxt-security' // temporary disabled due to cors issue with image CDN
   ],
 
@@ -116,6 +125,10 @@ export default defineNuxtConfig({
     transpile: [
       'ion-icon'
     ]
+  },
+
+  turnstile: {
+    siteKey: '0x4AAAAAAACGxbW2K6rB0xho'
   },
 
   vue: {
