@@ -307,6 +307,7 @@ const counter = ref({
   artwork: 0
 })
 const fetch = async () => {
+  console.log([config.value.pagination.firstLoad, config.value.pagination.page, config.value.pagination.perPage])
   loading.value = true
 
   const [data, showLoadMore, error] = await albumApi.fetchAlbums(
@@ -328,7 +329,8 @@ const fetch = async () => {
       albums.value.push(album)
     })
 
-    config.value.pagination.page += (config.value.pagination.firstLoad / config.value.pagination.perPage)
+    config.value.pagination.page += 1
+    
     config.value.showLoadMore = showLoadMore
 
     // count artwork albums

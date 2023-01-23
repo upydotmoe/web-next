@@ -49,3 +49,7 @@ const close = (accept) => {
   useModal().closeModal(props.modalId)
 }
 </script>
+
+<style lang="scss">
+@import '~/assets/css/tailwind.scss';
+</style>

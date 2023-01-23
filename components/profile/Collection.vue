@@ -328,7 +328,8 @@ const fetch = async () => {
       collections.value.push(collection)
     })
 
-    config.value.pagination.page += (config.value.pagination.firstLoad / config.value.pagination.perPage)
+    config.value.pagination.page += 1
+    
     config.value.showLoadMore = showLoadMore
 
     // count artwork collections
