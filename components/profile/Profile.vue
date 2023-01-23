@@ -284,7 +284,7 @@
           </div>
         </div>
 
-        <div class="flex flex-row justify-between mt-2 md:mt-6">
+        <div class="flex flex-row justify-between mt-2 md:mt-4">
           <!-- left side -->
           <div class="hidden flex-col lg:w-1/5 md:flex">
             <div 
@@ -384,7 +384,7 @@
 
           <!-- START OF: CONTENT -->
           <keep-alive>
-            <div class="mt-2 w-full md:ml-6">
+            <div class="mt-2 w-full md:mt-0 md:ml-6">
               <!-- view mode: dashboard -->
               <div v-if="currentState === 'dashboard'">
                 <div class="flex flex-row w-full">
