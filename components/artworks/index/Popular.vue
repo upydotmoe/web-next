@@ -15,7 +15,6 @@
     class="modal work-view" 
   >
     <ModalView
-      v-if="!loading"
       ref="popularModalViewRef"
       section="popular"
     />
