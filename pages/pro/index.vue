@@ -248,7 +248,7 @@ const checkCurrentSubscriptionStatus = async () => {
 }
 
 onMounted(async () => {
-  const isSandboxMode = true
+  const isSandboxMode = false
 
   const script = document.createElement('script')
 
