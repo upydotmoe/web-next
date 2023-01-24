@@ -4,88 +4,90 @@
     :hide-side="true"
     :no-right-side="true"
   >
-    <LoginMessage v-if="!auth.loggedIn" />
+    <div class="mx-2">
+      <LoginMessage v-if="!auth.loggedIn" />
 
-    <div
-      v-else
-      id="lists"
-    >
-      <!-- search box -->
-      <span class="search">
-        <input
-          v-model="searchKeyword"
-          type="text"
-          name="search"
-          :placeholder="$t('search.search')"
-          @keyup.enter="search()"
-        >
-        <span
-          class="search-button"
-          @click="search()"
-        >
-          <Icon :name="'i-ion-search'" />
+      <div
+        v-else
+        id="lists"
+      >
+        <!-- search box -->
+        <span class="search">
+          <input
+            v-model="searchKeyword"
+            type="text"
+            name="search"
+            :placeholder="$t('search.search')"
+            @keyup.enter="search()"
+          >
+          <span
+            class="search-button"
+            @click="search()"
+          >
+            <Icon :name="'i-ion-search'" />
+          </span>
         </span>
-      </span>
 
-      <div class="flex flex-row gap-2 mb-6 w-full">
-        <div
-          :class="[
-            'px-2 rounded-lg',
-            activeSection === POST_TYPES.ARTWORK ? 'primary-button' : 'light-bordered-button'
-          ]"
-          @click="activeSection = POST_TYPES.ARTWORK"
-        >
-          <Icon
-            :name="'i-majesticons-image'"
+        <div class="flex flex-row gap-2 mb-6 w-full">
+          <div
             :class="[
-              'mr-2',
-              { 'text-white': activeSection === POST_TYPES.ARTWORK }
+              'px-2 rounded-lg',
+              activeSection === POST_TYPES.ARTWORK ? 'primary-button' : 'light-bordered-button'
             ]"
-          />
-          {{ $t('artworks.artworks') }}
-          <span
-            class="px-1 ml-2 rounded"
-            :class="activeSection === POST_TYPES.ARTWORK ? 'theme-color' : 'bg-gray-600 text-white'"
+            @click="activeSection = POST_TYPES.ARTWORK"
           >
-            {{ artworkFound }}
-          </span>
+            <Icon
+              :name="'i-majesticons-image'"
+              :class="[
+                'mr-2',
+                { 'text-white': activeSection === POST_TYPES.ARTWORK }
+              ]"
+            />
+            {{ $t('artworks.artworks') }}
+            <span
+              class="px-1 ml-2 rounded"
+              :class="activeSection === POST_TYPES.ARTWORK ? 'theme-color' : 'bg-gray-600 text-white'"
+            >
+              {{ artworkFound }}
+            </span>
+          </div>
+
+          <div
+            :class="[
+              'px-2 rounded-lg',
+              activeSection === 'users' ? 'primary-button' : 'light-bordered-button'
+            ]"
+            @click="activeSection = 'users'"
+          >
+            <Icon
+              :name="'i-fluent-person-32-regular'"
+              :class="[
+                'mr-2',
+                { 'text-white': activeSection === 'users' }
+              ]"
+            />
+            {{ $t('users.users') }}
+            <span
+              class="px-1 ml-2 rounded"
+              :class="activeSection === 'users' ? 'theme-color' : 'bg-gray-600 text-white'"
+            >
+              {{ userFound }}
+            </span>
+          </div>
         </div>
 
-        <div
-          :class="[
-            'px-2 rounded-lg',
-            activeSection === 'users' ? 'primary-button' : 'light-bordered-button'
-          ]"
-          @click="activeSection = 'users'"
-        >
-          <Icon
-            :name="'i-fluent-person-32-regular'"
-            :class="[
-              'mr-2',
-              { 'text-white': activeSection === 'users' }
-            ]"
+        <!-- Top navigations -->
+        <div v-show="activeSection === POST_TYPES.ARTWORK">
+          <Artworks
+            @countArtworks="countArtworks"
           />
-          {{ $t('users.users') }}
-          <span
-            class="px-1 ml-2 rounded"
-            :class="activeSection === 'users' ? 'theme-color' : 'bg-gray-600 text-white'"
-          >
-            {{ userFound }}
-          </span>
         </div>
-      </div>
 
-      <!-- Top navigations -->
-      <div v-show="activeSection === POST_TYPES.ARTWORK">
-        <Artworks
-          @countArtworks="countArtworks"
-        />
-      </div>
-
-      <div v-show="activeSection === 'users'">
-        <Users
-          @countUsers="countUsers"
-        />
+        <div v-show="activeSection === 'users'">
+          <Users
+            @countUsers="countUsers"
+          />
+        </div>
       </div>
     </div>
   </Layout>

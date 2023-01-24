@@ -1,11 +1,11 @@
 @import '~/assets/css/tailwind.scss';
 
 #lists {
-  @apply mx-2 mb-4;
+  @apply mb-4;
 
   /** Top navigation such as discover button or show explicit buttons */
   .navigations {
-    @apply flex flex-col justify-between mb-0 md:mb-4 md:flex-row;
+    @apply flex flex-col justify-between mb-4 md:flex-row;
 
     .title {
       @apply mb-2 font-semibold align-middle md:mt-1 default-heading-text-size md:mb-0;

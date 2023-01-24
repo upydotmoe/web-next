@@ -20,7 +20,7 @@
     </div>
 
     <div
-      class="grid grid-flow-col gap-3"
+      class="grid grid-flow-col gap-3 mx-2"
       :style="[
         'grid-template-rows: repeat('+ Math.round(tags.total/(!isMobile() ? 4 : (!isMobileDevice() ? 2 : 1))) +', minmax(0, 1fr))'
       ]"

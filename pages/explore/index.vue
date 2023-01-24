@@ -5,7 +5,7 @@
     :no-right-side="true"
     :fullscreen="true"
   >
-    <div class="flex flex-col gap-12 mt-2 w-full">
+    <div class="flex flex-col gap-12 px-2 mt-2 w-full">
       <Recent />
       <Following v-if="auth.loggedIn && isFollowingSomeone" />
       <Popular />
