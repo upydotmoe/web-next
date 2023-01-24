@@ -1,6 +1,7 @@
 <template>
   <div>
     <section
+      v-if="!isArtTrade"
       id="guidelines"
       class="p-4 mb-6 w-full rounded-md theme-color"
     >
@@ -22,9 +23,10 @@
       />
     </section>
 
+    <!--  -->
     <section id="artwork-form">
       <h2
-        v-if="!isUpdate"
+        v-if="!isArtTrade && !isUpdate"
         class="title"
       >
         {{ !redrawWorkId ? $t('artworks.add.form.title') : $t('artworks.add.form.titleRedraw') }}
@@ -101,7 +103,13 @@
           :is-error="uploadError"
           :error-message="uploadErrorMessage"
           :is-success="saved"
-          :success-message="!isUpdate ? `${$t('artworks.add.form.uploadSuccess')} ${$t('artworks.add.form.successRedirect')}` : `${$t('artworks.update.form.updated')} ${$t('artworks.update.form.successRedirect')}`"
+          :success-message="
+            isArtTrade ?
+              `${$t('artTrades.form.artwork.uploaded')}` :
+              !isUpdate ?
+                `${$t('artworks.add.form.uploadSuccess')} ${$t('artworks.add.form.successRedirect')}` :
+                `${$t('artworks.update.form.updated')} ${$t('artworks.update.form.successRedirect')}`
+          "
         />
         
         <n-validate 
@@ -143,7 +151,7 @@
             <file-pond
               ref="pond"
               :label-idle="labelIdleText"
-              :max-files="redrawWorkId ? 1 : maxFileCount"
+              :max-files="isArtTrade && redrawWorkId ? 1 : maxFileCount"
               :max-file-size="maxFileSize*1000000"
               :class="[
                 'bg-transparent rounded-sm',
@@ -443,10 +451,15 @@ definePageMeta ({
   keepalive: false
 })
 
+const emit = defineEmits(['sendUploadedWorkId'])
 const props = defineProps({
   id: {
     type: String,
     default: ''
+  },
+  isArtTrade: {
+    type: Boolean,
+    default: false
   },
   isUpdate: {
     type: Boolean,
@@ -678,9 +691,14 @@ const storeArtwork = async () => {
         const workId = data.data.id
 
         saved.value = true
-        setTimeout(() => {
-          router.push('/a/'+workId)
-        }, 1000)
+
+        if (props.isArtTrade) {
+          emit('sendUploadedWorkId', workId)
+        } else {
+          setTimeout(() => {
+            router.push('/a/'+workId)
+          }, 1000)
+        }
       } else {
         showError()
       }

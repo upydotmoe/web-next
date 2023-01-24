@@ -401,6 +401,14 @@
       @apply mr-2;
     }
   }
+  
+  .success-button {
+    @apply text-white bg-green-500 b-button;
+
+    .icon {
+      @apply mr-2;
+    }
+  }
 
   .action-button {
     @apply flex flex-row border-2 border-transparent parent-icon hover:text-white;

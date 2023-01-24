@@ -22,7 +22,28 @@ export default function (oApiConfiguration: Configuration, fetchOptions: any) {
     }
   }
 
+  const host = async (params: {
+    title: string,
+    workId: number
+  }) => {
+    try {
+      const { data } = await new ArtworksArtTradesApi(oApiConfiguration)
+        .hostNewTrade(
+          {
+            title: params.title,
+            host_work_id: params.workId
+          },
+          fetchOptions
+        )
+      
+      return [data.success, data.data?.trade, null]
+    } catch (error) {
+      return [null, null, useApiFetch().consumeReadableStreamError(error)]
+    }
+  }
+
   return {
-    getLatestTrades
+    getLatestTrades,
+    host,
   }
 }

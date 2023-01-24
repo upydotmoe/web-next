@@ -17,6 +17,7 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { InlineResponse20037 } from '../models';
+import { InlineResponse2016 } from '../models';
 import { SuccessMessageModel } from '../models';
 import { TradesHostBody } from '../models';
 import { TradesParticipateBody } from '../models';
@@ -284,7 +285,7 @@ export const ArtworksArtTradesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hostNewTrade(body?: TradesHostBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<SuccessMessageModel>>> {
+        async hostNewTrade(body?: TradesHostBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse2016>>> {
             const localVarAxiosArgs = await ArtworksArtTradesApiAxiosParamCreator(configuration).hostNewTrade(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -355,7 +356,7 @@ export const ArtworksArtTradesApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hostNewTrade(body?: TradesHostBody, options?: AxiosRequestConfig): Promise<AxiosResponse<SuccessMessageModel>> {
+        async hostNewTrade(body?: TradesHostBody, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse2016>> {
             return ArtworksArtTradesApiFp(configuration).hostNewTrade(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -418,7 +419,7 @@ export class ArtworksArtTradesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ArtworksArtTradesApi
      */
-    public async hostNewTrade(body?: TradesHostBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<SuccessMessageModel>> {
+    public async hostNewTrade(body?: TradesHostBody, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse2016>> {
         return ArtworksArtTradesApiFp(this.configuration).hostNewTrade(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

@@ -32,6 +32,7 @@
     "artwork": "Artwork",
     "artworks": "Artwork",
     "noArtworkYet": "Belum ada artwork, jadilah yang pertama yang menggunggah artworkmu",
+    "youDontHaveArtworkYet": "Kamu belum mempunyai karya",
     "notFound": "Artwork tidak ditemukan atau sudah dihapus",
     "latestArtworks": "Artwork terbaru",
     "newest": "Terbaru",
@@ -127,6 +128,7 @@
     "notFound": "Feed tidak ditemukan atau sudah dihapus",
     "haventPostedAnyUpdate": "User ini belum memposting update",
     "form": {
+      "feed": "Umpan",
       "title": "Posting status",
       "posted": "Status update berhasil diposting!",
       "posting": "Memposting..",
@@ -506,7 +508,8 @@
       "resend": "Kirim ulang",
       "recoverYourPassword": "Pulihkan passwordmu",
       "newPassword": "Password baru",
-      "retypeNewPassword": "Ulangi password baru"
+      "retypeNewPassword": "Ulangi password baru",
+      "retypeNewPasswordError": "Konfirmasi password tidak valid"
     },
     "resetPassword": "Reset password",
     "accountRecovered": "Akun kamu berhasil dipulihkan."
@@ -553,7 +556,20 @@
   "games": "Games",
   "artTrades": {
     "artTrade": "Art Trade",
-    "host": "Host Art Trade Baru"
+    "host": "Host",
+    "form": {
+      "title": "Trade Title",
+      "host": "Buat",
+      "hosting": "Membuat..",
+      "submitted": "Ruang trade berhasil dibuat!",
+      "selectedWork": "Artworkmu",
+      "artwork": {
+        "title": "Pilih atau Upload Artwork Baru",
+        "new": "Artwork Baru",
+        "existing": "Pilih dari Galeri",
+        "uploaded": "Artwork berhasil diupload!"
+      }
+    }
   },
   "reportIssue": "Laporkan Masalah"
 }

@@ -32,6 +32,7 @@
     "artwork": "Artwork",
     "artworks": "Artworks",
     "noArtworkYet": "No artwork yet, be the first one to upload your artwork here.",
+    "youDontHaveArtworkYet": "You don't have artwork yet",
     "notFound": "Artwork not found or has been removed.",
     "latestArtworks": "Latest Artworks",
     "newest": "Newest",
@@ -555,7 +556,20 @@
   "games": "Games",
   "artTrades": {
     "artTrade": "Art Trade",
-    "host": "Host New Art Trade"
+    "host": "Host",
+    "form": {
+      "title": "Trade Title",
+      "host": "Host",
+      "hosting": "Hosting..",
+      "submitted": "Trade room created!",
+      "selectedWork": "Your Artwork",
+      "artwork": {
+        "title": "Select or Upload New Artwork",
+        "new": "New Artwork",
+        "existing": "Pick from Gallery",
+        "uploaded": "Artwork submitted!"
+      }
+    }
   },
   "reportIssue": "Report Issue"
 }

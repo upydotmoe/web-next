@@ -7,6 +7,7 @@
       {{ $t('artworks.originalArtwork') }}
     </h2>
           
+    <!-- original artwork info -->
     <!-- loading screen -->
     <div
       v-if="originalArtworkLoading"
@@ -15,28 +16,12 @@
       <Spinner /> {{ $t('artworks.redrawOriginalLoading') }}
     </div>
 
-    <!-- original artwork image, title and description -->
-    <a
+    <!-- mini preview of original artwork -->
+    <MiniArtworkPreview
       v-else
-      :href="'/a/'+artwork.redraw_of"
-      target="_blank"
-      class="flex flex-row gap-2 w-full"
-    >
-      <div v-if="originalArtwork.artwork_assets">
-        <nuxt-img
-          preload
-          loading="lazy"
-          class="w-40 rounded-md"
-          :src="artworkThumb(originalArtwork.artwork_assets[0].bucket, originalArtwork.artwork_assets[0].filename, 'thumbnail', false)"
-          @error="imageLoadError"
-        />
-      </div>
-
-      <div class="w-2/3">
-        <span class="title">{{ originalArtwork.title }}</span>
-        <p v-html="originalArtwork.description.length > 200 ? originalArtwork.description.slice(0, 200) + '..' : originalArtwork.description" />
-      </div>
-    </a>
+      :data="originalArtwork"
+      :work-id="artwork.redraw_of"
+    />
   </section>
 
   <div
@@ -149,6 +134,7 @@ import useAuthStore from '@/stores/auth.store'
 import Icon from '~/components/globals/Icon.vue'
 import Spinner from '~/components/globals/Spinner.vue'
 import WorkList from '~/components/artworks/WorkList.vue'
+import MiniArtworkPreview from './MiniArtworkPreview.vue'
 
 // stores
 const auth = useAuthStore()

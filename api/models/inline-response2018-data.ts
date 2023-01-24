@@ -11,7 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ReportModel } from './report-model';
+import { UserLiteModel } from './user-lite-model';
 /**
  * 
  * @export
@@ -20,8 +20,26 @@ import { ReportModel } from './report-model';
 export interface InlineResponse2018Data {
     /**
      * 
-     * @type {ReportModel}
+     * @type {number}
      * @memberof InlineResponse2018Data
      */
-    report?: ReportModel;
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2018Data
+     */
+    comment?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2018Data
+     */
+    createdAt?: string;
+    /**
+     * 
+     * @type {UserLiteModel}
+     * @memberof InlineResponse2018Data
+     */
+    users?: UserLiteModel;
 }

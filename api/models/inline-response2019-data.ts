@@ -11,17 +11,17 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ArtTradeModel } from './art-trade-model';
+import { ReportModel } from './report-model';
 /**
  * 
  * @export
- * @interface InlineResponse2016Data
+ * @interface InlineResponse2019Data
  */
-export interface InlineResponse2016Data {
+export interface InlineResponse2019Data {
     /**
      * 
-     * @type {ArtTradeModel}
-     * @memberof InlineResponse2016Data
+     * @type {ReportModel}
+     * @memberof InlineResponse2019Data
      */
-    trade?: ArtTradeModel;
+    report?: ReportModel;
 }

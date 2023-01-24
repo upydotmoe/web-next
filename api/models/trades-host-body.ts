@@ -19,6 +19,12 @@
 export interface TradesHostBody {
     /**
      * 
+     * @type {string}
+     * @memberof TradesHostBody
+     */
+    title?: string;
+    /**
+     * 
      * @type {number}
      * @memberof TradesHostBody
      */

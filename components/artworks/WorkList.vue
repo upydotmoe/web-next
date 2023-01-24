@@ -6,7 +6,7 @@
       :class="[
         'work-thumbnail theme-color-bg rounded-lg',
         work._count.artwork_assets > 1 && currentWorkId != work.id ? 'work-multiple' : '',
-        { 'border-4 border-yellow-400': manageList.includes(work.id) || currentWorkId == work.id }
+        { 'border-4 border-yellow-400': manageList.includes(work.id) || currentWorkId == work.id || pickerModeSelected == work.id },
       ]"
     >
       <!-- Desktop -->
@@ -14,7 +14,13 @@
         v-if="!isHref && !isMiniList"
         :href="'/a/'+work.id"
         class="w-full h-full theme-color-bg"
-        @click.prevent="manageMode ? addToManageList(work.id) : view(work.id)"
+        @click.prevent="
+          manageMode ? 
+            addToManageList(work.id) :
+            isPickerMode ?
+              changePickedArtwork(work.id) :
+              view(work.id)
+        "
       >
         <div class="overflow-hidden relative text-center rounded-md">
           <div class="mini-icon">
@@ -94,7 +100,13 @@
       <!-- Mobile or smaller device -->
       <nuxt-link
         v-else
-        @click="manageMode ? addToManageList(work.id) : open(work.id)"
+        @click="
+          manageMode ? 
+            addToManageList(work.id) :
+            isPickerMode ?
+              changePickedArtwork(work.id) :
+              view(work.id)
+        "
       >
         <div class="overflow-hidden relative text-center rounded-md">
           <div class="mini-icon">
@@ -185,7 +197,7 @@ import Icon from '~/components/globals/Icon.vue'
 // stores
 const auth = authStore()
 
-const emits = defineEmits('feedManageList')
+const emit = defineEmits(['feedManageList', 'pickerModeChangeSelected'])
 const props = defineProps({
   works: {
     type: Array,
@@ -200,6 +212,10 @@ const props = defineProps({
     default: ''
   },
   isHref: {
+    type: Boolean,
+    default: false
+  },
+  isPickerMode: {
     type: Boolean,
     default: false
   },
@@ -267,7 +283,7 @@ const addToManageList = (workId) => {
     manageList.value.push(workId)
   }
 
-  emits('feedManageList', manageList.value)
+  emit('feedManageList', manageList.value)
 }
 
 watch (() => props.manageMode, (currentState) => {
@@ -275,6 +291,13 @@ watch (() => props.manageMode, (currentState) => {
     manageList.value = []
   }
 })
+
+// picker mode
+const pickerModeSelected = ref(0)
+const changePickedArtwork = (workId) => {
+  pickerModeSelected.value = workId
+  emit('pickerModeChangeSelected', workId)
+}
 </script>
 
 <style lang="scss" scoped>

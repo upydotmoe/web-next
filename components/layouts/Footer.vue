@@ -16,7 +16,7 @@
       <nuxt-link :to="'/docs'">{{ $t('docs') }}</nuxt-link>
     </span> -->
     <br>
-    <nuxt-link to="community-guidelines">
+    <nuxt-link to="/community-guidelines">
       {{ $t('guidelines.title') }}
     </nuxt-link>
     <span class="mx-3 hover:underline">
@@ -31,23 +31,23 @@
         href="https://twitter.com/messages/compose?recipient_id=xxx"
       >Contact Us</a>
     </span>
-    <span class="mx-3 hover:underline">
+    <!-- <span class="mx-3 hover:underline">
       <a
         target="_blank"
         href="https://upy.betteruptime.com/"
       >Server Status</a>
-    </span>
+    </span> -->
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
         href="https://github.com/sponsors/upyapp"
-      >Sponsor</a>
+      >Sponsor Us</a>
     </span>
     <span class="mx-3 hover:underline">
       <nuxt-link :to="'/support-us'">{{ $t('supportUs') }}</nuxt-link>
     </span>
     <br>
-    <span class="mx-3 text-gray-400">&copy; 2021 - {{ currentDate() }} Upy</span>
+    <span class="mx-3 text-gray-400">&copy; 2023 - {{ currentDate() }} Upy</span>
   </footer>
 </template>
 

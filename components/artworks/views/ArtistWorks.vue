@@ -1,6 +1,9 @@
 <template>
   <div class="artist-works">
-    <div class="heading">
+    <div
+      v-if="withTitle"
+      class="heading"
+    >
       <span class="title">
         {{ $t('artworks.moreArtworkBy') }}
         <nuxt-link
@@ -24,12 +27,14 @@
     <LoadingEmptyErrorMessage 
       :loading="loading"
       :error="isError"
+      :empty="isEmpty"
+      :empty-message="$t('artworks.youDontHaveArtworkYet')"
       class="mt-2"
     />
 
     <!-- User artwork's list -->
     <WorkList 
-      v-show="!loading && !isError"
+      v-show="!loading && !isEmpty && !isError"
       class="gap-2 mt-4 md:gap-4"
       :class="[ pagination.options.nextPrevLoading ? 'animate-pulse' : '', paginationPerPage === 6 ? 'grid-cols-6' : 'grid-cols-4' ]"
       :section-class="'works'"
@@ -38,11 +43,13 @@
       :is-href="isHref"
       :is-mini-list="true"
       :current-work-id="artworkDetail.id"
+      :is-picker-mode="isPickerMode"
+      @pickerModeChangeSelected="pickerModeChangeSelected"
     />
 
     <!-- Pagination controller -->
     <div
-      v-if="artworkDetail.users && showPaginationController"
+      v-if="artworkDetail.users && showPaginationController && !isEmpty && !isError"
       v-show="!loading"
       class="pagination-controller"
     >
@@ -66,10 +73,16 @@ import WorkList from '~/components/artworks/WorkList.vue'
 import Icon from '~/components/globals/Icon.vue'
 import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMessage.vue'
 
-/**
- * @props
- */
+const emit = defineEmits(['pickerModeChangeSelected'])
 const props = defineProps({
+  withTitle: {
+    type: Boolean,
+    default: true
+  },
+  isPickerMode: {
+    type: Boolean,
+    default: false
+  },
   artworkDetail: {
     type: Object,
     default() {
@@ -80,7 +93,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  view: Function,
+  view: {
+    type: Function,
+    default: () => ({})
+  },
   isHref: {
     type: Boolean,
     default: false
@@ -147,6 +163,8 @@ const nextPrevByArtist = async (userId, mode) => {
   if (error) {
     loading.value = false
     showError()
+  } else if (workPagination.record_total === 0) {
+    isEmpty.value = true
   } else {
     if (workPagination.total_page === 0) {
       showPaginationController.value = false
@@ -171,10 +189,17 @@ const nextPrevByArtist = async (userId, mode) => {
   loading.value = false
 }
 
-/** When error occured while trying to fetch user's artworks */
+const isEmpty = ref(false)
+
+// If error occured while trying to fetch user's artworks
 const isError = ref(false)
 const showError = () => {
   isError.value = true
+}
+
+// picker mode
+const pickerModeChangeSelected = (workId) => {
+  emit('pickerModeChangeSelected', workId)
 }
 </script>
 
