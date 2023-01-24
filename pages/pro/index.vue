@@ -175,7 +175,7 @@
             id="smart-button-container"
             class="mx-auto w-4/6"
           >
-            <div style="te3h-36-align: center;">
+            <div style="text-align: center;">
               <div
                 id="paypalRef"
                 ref="paypalRef"
