@@ -5,12 +5,9 @@
     :no-right-side="true"
     :fullscreen="true"
   >
-    <div class="flex flex-col mt-2 w-full">
-      <Recent class="mb-10" />
-      <Following
-        v-if="auth.loggedIn && isFollowingSomeone"
-        class="mb-10"
-      />
+    <div class="flex flex-col gap-12 mt-2 w-full">
+      <Recent />
+      <Following v-if="auth.loggedIn && isFollowingSomeone" />
       <Popular />
     </div>
   </Layout>
@@ -37,6 +34,10 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const { t } = useI18n()
+
+definePageMeta({
+  keepalive: false
+})
 
 useHead({
   title: t('explore')

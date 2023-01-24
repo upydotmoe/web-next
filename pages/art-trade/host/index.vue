@@ -144,7 +144,7 @@ const tradeApi = useArtTrade(oApiConfiguration, fetchOptions())
 const router = useRouter()
 const { t } = useI18n()
 
-onMounted(() => {
+onBeforeMount(() => {
   if (!auth.loggedIn) {
     router.push('/')
   }

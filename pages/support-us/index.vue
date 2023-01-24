@@ -2,7 +2,7 @@
   <Layout
     :with-footer="true"
   >
-    <div class="lg:mt-5">
+    <div class="px-2 lg:mt-5">
       <div class="w-full">
         <span class="text-lg text-center">Hi, thank you for visiting this page! <b>(๑‵●‿●‵๑)</b></span>
 

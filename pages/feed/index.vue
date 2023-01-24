@@ -79,6 +79,12 @@ const userApi = useUser(oApiConfiguration, fetchOptions())
 
 const router = useRouter()
 
+onBeforeMount(() => {
+  if (!auth.loggedIn) {
+    router.push('/explore')
+  }
+})
+
 onMounted(async () => {
   if (auth.loggedIn) {
     await getSuggestedUsersToFollow()

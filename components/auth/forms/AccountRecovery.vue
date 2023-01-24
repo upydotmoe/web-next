@@ -31,6 +31,7 @@
               v-model="inputData.username" 
               type="text" 
               rules="required|min:4|max:12"
+              class="input-color-secondary"
               :placeholder="$t('accountRecovery.form.username')"
             >
           </n-validate>
@@ -43,6 +44,7 @@
               v-model="inputData.email" 
               type="email" 
               rules="required|email"
+              class="input-color-secondary"
               :placeholder="$t('accountRecovery.form.email')"
             >
           </n-validate>
@@ -57,6 +59,7 @@
               rules="required|min:6|max:6"
               minLength="6"
               maxlength="6"
+              class="input-color-secondary"
               :placeholder="$t('accountRecovery.form.passphrase')"
             >
           </n-validate>
@@ -235,9 +238,3 @@ const resetErrorMessage = () => {
   }
 }
 </script>
-
-<style scoped>
-input {
-  @apply theme-color-secondary;
-}
-</style>

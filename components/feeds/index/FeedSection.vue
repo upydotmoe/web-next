@@ -187,7 +187,7 @@
       </template>
 
       <template #no-more>
-        <div class="mx-auto text-center">
+        <div class="mx-auto mt-4 text-center">
           {{ $t('youHaveReachedTheEnd') }}
           <br>
           {{ $t('feeds.followMorePeople') }}
@@ -361,7 +361,7 @@ const fetch = async ({ loaded }) => {
 
   // if no feeds returned, get suggested users to follow
   if (!data.feeds.length) {
-    emit('updateShowSuggestedUsers', true)
+    // emit('updateShowSuggestedUsers', true)
 
     if (isInitial.value) {
       emit('noData')
@@ -577,14 +577,14 @@ defineExpose({
 @import '~/assets/css/tailwind.scss';
 
 .feeds {
-  @apply grid grid-cols-1 gap-1 mx-auto md:gap-4 lg:w-5/6 xl:w-full;
+  @apply grid grid-cols-1 gap-2 mx-auto md:gap-4 lg:w-5/6 xl:w-full;
 
   &__global-following-switch {
     @apply flex flex-row gap-x-2 justify-center mb-2;
   }
 
   &__list {
-    @apply flex relative flex-col rounded-md lg:mx-6 theme-color;
+    @apply flex relative flex-col rounded-md lg:mx-6 theme-color px-2 pt-2;
   }
 }
 

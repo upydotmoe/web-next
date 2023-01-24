@@ -77,6 +77,9 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
+// stores
+import useAuthStore from '@/stores/auth.store'
+
 // components
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
@@ -84,13 +87,14 @@ import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
 import FeedForm from '~/components/feeds/forms/FeedForm.vue'
 import { POST_TYPES } from '~/utils/constants'
 
+// stores
+const auth = useAuthStore()
+
 const { t } = useI18n()
+const router = useRouter()
 
 const mode = ref(POST_TYPES.ARTWORK)
 
-/**
- * @meta
- */
 useHead({
   title: mode.value === POST_TYPES.ARTWORK ? t('meta.title.artwork.post') : t('meta.title.feed.post')
 })
@@ -99,6 +103,12 @@ watch(() => mode.value, () => {
   useHead({
     title: mode.value === POST_TYPES.ARTWORK ? t('meta.title.artwork.post') : t('meta.title.feed.post')
   })
+})
+
+onBeforeMount(() => {
+  if (!auth.loggedIn) {
+    router.push('/explore')
+  }
 })
 </script>
 

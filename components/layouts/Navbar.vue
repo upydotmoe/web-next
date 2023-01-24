@@ -293,7 +293,7 @@
 
         <button
           v-if="!auth.loggedIn"
-          class="hidden ml-2 primary-button md:flex"
+          class="hidden ml-4 primary-button md:flex"
           @click="openModal('auth-modal')"
         >
           {{ $t('logins.login').toUpperCase() }}

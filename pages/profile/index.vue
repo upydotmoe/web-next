@@ -27,7 +27,7 @@ useHead({
 onBeforeMount(() => {
   if (!auth.loggedIn) {
     router.push({
-      path: '/',
+      path: '/explore',
       force: true
     })
   }

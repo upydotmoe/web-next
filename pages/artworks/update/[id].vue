@@ -30,6 +30,10 @@ const router = useRouter()
 const { id } = $router.currentRoute.value.params
 
 onBeforeMount(async () => {
+  if (!auth.loggedIn) {
+    $router.push('/')
+  }
+  
   await checkAuthority()
 })
 

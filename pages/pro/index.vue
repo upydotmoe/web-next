@@ -2,7 +2,7 @@
   <Layout
     :with-footer="true"
   >
-    <div class="flex flex-col gap-20">
+    <div class="flex flex-col gap-16 px-2">
       <!-- header -->
       <div class="flex flex-col p-10 w-full text-xl text-center rounded-md theme-color">
         <div
@@ -46,138 +46,141 @@
         </div>
       </div>
 
-      <div class="flex flex-row justify-center text-lg italic text-center">
-        <Icon
-          class="mr-2"
-          :name="'i-twemoji-thinking-face'"
-          :text-size="'text-4xl'"
-        />
-        <span class="mt-1">What features will be unlocked?</span>
-      </div>
+      <div>
+        <div class="flex flex-row justify-center mb-4 text-lg italic text-center">
+          <Icon
+            class="mr-2"
+            :name="'i-twemoji-thinking-face'"
+            :text-size="'text-4xl'"
+          />
+          <span class="mt-1">What features will you get?</span>
+        </div>
 
-      <div class="features-grid">
-        <!-- Multiple Image Upload -->
-        <div class="flex-col feature md:flex-row-reverse">
-          <img src="/pro/upload-multiple-images.png">
-          <div>
-            <h1>More Image in One Post</h1>
-            Break the limit and upload more images at once.
+        <div class="features-grid">
+          <!-- Multiple Image Upload -->
+          <div class="flex-col feature md:flex-row-reverse">
+            <img src="/pro/upload-multiple-images.png">
+            <div>
+              <h1>More Image in One Post</h1>
+              Break the limit and upload bigger image and more images in one post.
+            </div>
           </div>
-        </div>
 
-        <!-- Private Collection -->
-        <div class="flex-col feature md:flex-row">
-          <img src="/pro/private-collection.png">
-          <div>
-            <h1>Private Collection</h1>
-            Hide your "secret" ( ͡º ͜ʖ ͡º) collections from public so no one can see the artworks you saved inside but yourself.
+          <!-- Private Collection -->
+          <div class="flex-col feature md:flex-row">
+            <img src="/pro/private-collection.png">
+            <div>
+              <h1>Private Collection</h1>
+              Hide your "secret" ( ͡º ͜ʖ ͡º) collections from public so no one can see the artworks you saved inside but yourself.
+            </div>
           </div>
-        </div>
 
-        <!-- Unlimited Collections -->
-        <div class="flex-col feature md:flex-row-reverse">
-          <img src="/pro/unlimited-collections.png">
-          <div>
-            <h1>Unlimited Collection</h1>
-            Break the limit and create as many collections as you want.
+          <!-- Unlimited Collections -->
+          <div class="flex-col feature md:flex-row-reverse">
+            <img src="/pro/unlimited-collections.png">
+            <div>
+              <h1>Unlimited Collection</h1>
+              Break the limit and create as many collections as you want.
+            </div>
           </div>
-        </div>
 
-        <!-- Unlimited Collection Items -->
-        <div class="flex-col feature md:flex-row">
-          <img src="/pro/unlimited-collection-items.png">
-          <div>
-            <h1>Unlimited Collection Items</h1>
-            Break the limit and add as many artworks you want to your collections.
+          <!-- Unlimited Collection Items -->
+          <div class="flex-col feature md:flex-row">
+            <img src="/pro/unlimited-collection-items.png">
+            <div>
+              <h1>Unlimited Collection Items</h1>
+              Break the limit and add as many artworks you want to your collections.
+            </div>
           </div>
-        </div>
 
-        <!-- Private Album -->
-        <div class="flex-col feature md:flex-row-reverse">
-          <img src="/pro/private-album.png">
-          <div>
-            <h1>Private Album</h1>
-            Create a private album and add your work to it.
+          <!-- Private Album -->
+          <div class="flex-col feature md:flex-row-reverse">
+            <img src="/pro/private-album.png">
+            <div>
+              <h1>Private Album</h1>
+              Create a private album and add your work to it.
+            </div>
           </div>
-        </div>
 
-        <!-- Unlimited Album -->
-        <div class="flex-col feature md:flex-row">
-          <img src="/pro/private-album.png">
-          <div>
-            <h1>Unlimited Albums</h1>
-            Break the limit and create as many albums as you want.
+          <!-- Unlimited Album -->
+          <div class="flex-col feature md:flex-row">
+            <img src="/pro/private-album.png">
+            <div>
+              <h1>Unlimited Albums</h1>
+              Break the limit and create as many albums as you want.
+            </div>
           </div>
-        </div>
 
-        <!-- Unlimited Album Items -->
-        <div class="flex-col feature md:flex-row-reverse">
-          <img src="/pro/private-album.png">
-          <div>
-            <h1>Unlimited Album Items</h1>
-            Break the limit and add as many artworks as you want to your albums.
+          <!-- Unlimited Album Items -->
+          <div class="flex-col feature md:flex-row-reverse">
+            <img src="/pro/private-album.png">
+            <div>
+              <h1>Unlimited Album Items</h1>
+              Break the limit and add as many artworks as you want to your albums.
+            </div>
           </div>
-        </div>
 
-        <!-- Follow Privately -->
-        <div class="flex-col feature md:flex-row">
-          <img src="/pro/follow-privately.png">
-          <div>
-            <h1>Follow Someone Privately</h1>
-            Follow people privately and hide them from the following list, so no one knows you're following them.
+          <!-- Follow Privately -->
+          <div class="flex-col feature md:flex-row">
+            <img src="/pro/follow-privately.png">
+            <div>
+              <h1>Follow Someone Privately</h1>
+              Follow people privately and hide them from the following list, so no one knows you're following them.
+            </div>
           </div>
-        </div>
 
-        <!-- Hide My Followings -->
-        <div class="flex-col feature md:flex-row-reverse">
-          <img src="/pro/hide-followings.png">
-          <div>
-            <h1>Hide Who You Follow</h1>
-            Hide who you follow so your friends, your family or anyone else doesn't know whoever you follow.
+          <!-- Hide My Followings -->
+          <div class="flex-col feature md:flex-row-reverse">
+            <img src="/pro/hide-followings.png">
+            <div>
+              <h1>Hide Who You Follow</h1>
+              Hide who you follow so your friends, your family or anyone else doesn't know whoever you follow.
+            </div>
           </div>
-        </div>
 
-        <!-- Hide My Followers -->
-        <div class="flex-col feature md:flex-row">
-          <img src="/pro/hide-followers.png">
-          <div>
-            <h1>Hide Who Following You</h1>
-            Hide your followers from the public so no one knows who follows you.
+          <!-- Hide My Followers -->
+          <div class="flex-col feature md:flex-row">
+            <img src="/pro/hide-followers.png">
+            <div>
+              <h1>Hide Who Following You</h1>
+              Hide your followers from the public so no one knows who follows you.
+            </div>
           </div>
-        </div>
 
-        <!-- List All My Liked Artworks -->
-        <div class="flex-col feature md:flex-row-reverse">
-          <img src="/pro/list-all-my-liked-arts.png">
-          <div>
-            <h1>List All My Liked Artworks</h1>
-            Break the limit and see more of the art you loved in the past.
+          <!-- List All My Liked Artworks -->
+          <div class="flex-col feature md:flex-row-reverse">
+            <img src="/pro/list-all-my-liked-arts.png">
+            <div>
+              <h1>List All My Liked Artworks</h1>
+              Break the limit and see more of the art you loved in the past.
+            </div>
           </div>
-        </div>
 
-        <div class="text-base italic font-bold text-center">
-          and many more features to come..
-        </div>
-      </div>
-
-      <div
-        v-if="!isPro && isPaymentActive"
-        id="pay"
-        class="p-10 w-full text-center rounded-md theme-color"
-      >
-        <div class="mb-4 text-lg font-bold">
-          Get PRO version for only ${{ amount }}/month
+          <!-- <div class="text-base italic font-bold text-center">
+            and many more features to come..
+          </div> -->
         </div>
 
         <div
-          id="smart-button-container"
-          class="mx-auto w-4/6"
+          v-if="!isPro && isPaymentActive"
+          id="pay"
+          class="p-10 w-full text-center rounded-md theme-color"
         >
-          <div style="te3h-36-align: center;">
-            <div
-              id="paypalRef"
-              ref="paypalRef"
-            />
+          <div class="mb-4 text-lg font-bold">
+            Get PRO version for only ${{ amount }}/month
+          </div>
+
+          <div
+            v-if="auth.loggedIn"
+            id="smart-button-container"
+            class="mx-auto w-4/6"
+          >
+            <div style="te3h-36-align: center;">
+              <div
+                id="paypalRef"
+                ref="paypalRef"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -200,7 +203,17 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const proApi = usePro(oApiConfiguration, fetchOptions())
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 
+const router = useRouter()
+
 onBeforeMount(async () => {
+  if (!auth.loggedIn) {
+    route.push({
+      path: '/explore',
+      force: true,
+      replace: true
+    })
+  }
+
   await checkPaymentStatus()
   await checkCurrentSubscriptionStatus()
 })
@@ -235,7 +248,7 @@ const checkCurrentSubscriptionStatus = async () => {
 }
 
 onMounted(async () => {
-  const isSandboxMode = false
+  const isSandboxMode = true
 
   const script = document.createElement('script')
 
@@ -292,6 +305,14 @@ const initPaypal = () => {
             isPro.value = true
             validUntil.value = data.until
             window.scrollTo(0, 0)
+
+            if (isMobile()) {
+              router.push({
+                path: '/pro',
+                replace: true,
+                force: true
+              })
+            }
           } else {
             console.error('something went wrong!', error)
           }

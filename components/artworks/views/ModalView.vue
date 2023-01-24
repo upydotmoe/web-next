@@ -792,8 +792,12 @@ const deleteWork = async (workId) => {
     deleteSuccess.value = true
 
     setTimeout(() => {
-      router.push('/')
-    }, 1500)
+      router.push({
+        path: '/',
+        replace: true,
+        force: true
+      })
+    }, 1000)
   } else {
     // todo: handle error
   }
