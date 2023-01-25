@@ -14,25 +14,31 @@
 /**
  * 
  * @export
- * @interface InlineResponse20041DataUserLiked
+ * @interface InlineResponse20043DataUsers
  */
-export interface InlineResponse20041DataUserLiked {
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20041DataUserLiked
-     */
-    id?: number;
+export interface InlineResponse20043DataUsers {
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20041DataUserLiked
+     * @memberof InlineResponse20043DataUsers
      */
     name?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20041DataUserLiked
+     * @memberof InlineResponse20043DataUsers
      */
     username?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20043DataUsers
+     */
+    avatarBucket?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20043DataUsers
+     */
+    avatarFilename?: string;
 }

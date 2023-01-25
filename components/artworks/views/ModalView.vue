@@ -348,7 +348,7 @@
                   <div v-if="auth.loggedIn && artworkDetail.users && auth.user.id === artworkDetail.users.id">
                     <a @click.prevent="openModal('work-deletion-confirm-modal')">
                       <Icon
-                        :name="'i-ion-trash-outline'"
+                        :name="'i-akar-icons-trash-bin'"
                         class="mr-2 text-base"
                       />
                       {{ $t('delete') }}

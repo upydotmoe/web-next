@@ -14,19 +14,25 @@
 /**
  * 
  * @export
- * @interface InlineResponse20057Data
+ * @interface InlineResponse20051DataCount
  */
-export interface InlineResponse20057Data {
+export interface InlineResponse20051DataCount {
     /**
      * 
-     * @type {boolean}
-     * @memberof InlineResponse20057Data
+     * @type {number}
+     * @memberof InlineResponse20051DataCount
      */
-    isPro?: boolean;
+    artworkAssets?: number;
     /**
      * 
-     * @type {string}
-     * @memberof InlineResponse20057Data
+     * @type {number}
+     * @memberof InlineResponse20051DataCount
      */
-    until?: string;
+    likes?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20051DataCount
+     */
+    comments?: number;
 }

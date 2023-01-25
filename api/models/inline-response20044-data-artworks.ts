@@ -15,13 +15,19 @@ import { InlineResponse20043DataArtworksArtworkAssets } from './inline-response2
 /**
  * 
  * @export
- * @interface InlineResponse20043DataArtworks
+ * @interface InlineResponse20044DataArtworks
  */
-export interface InlineResponse20043DataArtworks {
+export interface InlineResponse20044DataArtworks {
     /**
      * 
-     * @type {Array<InlineResponse20043DataArtworksArtworkAssets>}
-     * @memberof InlineResponse20043DataArtworks
+     * @type {number}
+     * @memberof InlineResponse20044DataArtworks
      */
-    artworkAssets?: Array<InlineResponse20043DataArtworksArtworkAssets>;
+    id?: number;
+    /**
+     * 
+     * @type {InlineResponse20043DataArtworksArtworkAssets}
+     * @memberof InlineResponse20044DataArtworks
+     */
+    assets?: InlineResponse20043DataArtworksArtworkAssets;
 }

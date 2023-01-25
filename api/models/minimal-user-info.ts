@@ -14,49 +14,55 @@
 /**
  * 
  * @export
- * @interface InlineResponse20056Data
+ * @interface MinimalUserInfo
  */
-export interface InlineResponse20056Data {
+export interface MinimalUserInfo {
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20056Data
+     * @memberof MinimalUserInfo
      */
     id?: number;
     /**
      * 
-     * @type {number}
-     * @memberof InlineResponse20056Data
+     * @type {string}
+     * @memberof MinimalUserInfo
      */
-    userId?: number;
+    username?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof MinimalUserInfo
      */
-    amount?: string;
+    penName?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof MinimalUserInfo
      */
-    paymentType?: string;
+    name?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof MinimalUserInfo
      */
-    orderData?: string;
+    location?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof MinimalUserInfo
      */
-    createdAt?: string;
+    avatarDriver?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof MinimalUserInfo
      */
-    until?: string;
+    avatarBucket?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MinimalUserInfo
+     */
+    avatarFilename?: string;
 }

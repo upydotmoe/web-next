@@ -17,7 +17,7 @@ import { Configuration } from '../configuration';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 import { InlineResponse20028 } from '../models';
-import { InlineResponse20039 } from '../models';
+import { InlineResponse20040 } from '../models';
 /**
  * SearchApi - axios parameter creator
  * @export
@@ -226,7 +226,7 @@ export const SearchApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20039>>> {
+        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<InlineResponse20040>>> {
             const localVarAxiosArgs = await SearchApiAxiosParamCreator(configuration).searchUsers(keyword, page, perPage, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -268,7 +268,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20039>> {
+        async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig): Promise<AxiosResponse<InlineResponse20040>> {
             return SearchApiFp(configuration).searchUsers(keyword, page, perPage, options).then((request) => request(axios, basePath));
         },
     };
@@ -309,7 +309,7 @@ export class SearchApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20039>> {
+    public async searchUsers(keyword: string, page: number, perPage: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<InlineResponse20040>> {
         return SearchApiFp(this.configuration).searchUsers(keyword, page, perPage, options).then((request) => request(this.axios, this.basePath));
     }
 }

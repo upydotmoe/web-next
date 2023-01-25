@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20038DataTrade } from './inline-response20038-data-trade';
 /**
  * 
  * @export
@@ -19,8 +20,8 @@
 export interface InlineResponse20038Data {
     /**
      * 
-     * @type {string}
+     * @type {InlineResponse20038DataTrade}
      * @memberof InlineResponse20038Data
      */
-    value?: string;
+    trade?: InlineResponse20038DataTrade;
 }

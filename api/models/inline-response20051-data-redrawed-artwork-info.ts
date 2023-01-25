@@ -11,22 +11,23 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { ArtworkAssetsModel } from './artwork-assets-model';
 /**
  * 
  * @export
- * @interface InlineResponse20057Data
+ * @interface InlineResponse20051DataRedrawedArtworkInfo
  */
-export interface InlineResponse20057Data {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20057Data
-     */
-    isPro?: boolean;
+export interface InlineResponse20051DataRedrawedArtworkInfo {
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20057Data
+     * @memberof InlineResponse20051DataRedrawedArtworkInfo
      */
-    until?: string;
+    title?: string;
+    /**
+     * 
+     * @type {ArtworkAssetsModel}
+     * @memberof InlineResponse20051DataRedrawedArtworkInfo
+     */
+    artworkAssets?: ArtworkAssetsModel;
 }

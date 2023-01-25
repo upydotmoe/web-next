@@ -14,19 +14,19 @@
 /**
  * 
  * @export
- * @interface InlineResponse20057Data
+ * @interface InlineResponse20043DataArtworksArtworkAssets
  */
-export interface InlineResponse20057Data {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20057Data
-     */
-    isPro?: boolean;
+export interface InlineResponse20043DataArtworksArtworkAssets {
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20057Data
+     * @memberof InlineResponse20043DataArtworksArtworkAssets
      */
-    until?: string;
+    bucket?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20043DataArtworksArtworkAssets
+     */
+    filename?: string;
 }

@@ -557,12 +557,16 @@
   "artTrades": {
     "artTrade": "Art Trade",
     "host": "Host",
+    "participantHost": "HOST",
+    "viewDetail": "View Detail",
+    "notSubmittedYet": "Not Submitted Yet",
+    "notSubmittedDesc": "Share this URL to your friend so they can submit their submission.",
     "form": {
       "title": "Trade Title",
       "host": "Host",
       "hosting": "Hosting..",
       "submitted": "Trade room created!",
-      "selectedWork": "Your Artwork",
+      "selectedWork": "Your Submission",
       "artwork": {
         "title": "Select or Upload New Artwork",
         "new": "New Artwork",

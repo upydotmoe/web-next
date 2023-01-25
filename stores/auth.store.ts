@@ -13,7 +13,7 @@ export default defineStore('auth', () => {
   const loggedIn = ref(false)
   const a4ht0jen = ref(null)
   const r43f0rt3jen = ref(null)
-  const user = ref({})
+  const user: any = ref({})
   const i502p00r0 = ref(false)
 
   /**

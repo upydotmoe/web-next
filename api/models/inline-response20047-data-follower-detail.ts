@@ -14,49 +14,37 @@
 /**
  * 
  * @export
- * @interface InlineResponse20056Data
+ * @interface InlineResponse20047DataFollowerDetail
  */
-export interface InlineResponse20056Data {
+export interface InlineResponse20047DataFollowerDetail {
     /**
      * 
      * @type {number}
-     * @memberof InlineResponse20056Data
+     * @memberof InlineResponse20047DataFollowerDetail
      */
     id?: number;
     /**
      * 
-     * @type {number}
-     * @memberof InlineResponse20056Data
+     * @type {string}
+     * @memberof InlineResponse20047DataFollowerDetail
      */
-    userId?: number;
+    name?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof InlineResponse20047DataFollowerDetail
      */
-    amount?: string;
+    username?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof InlineResponse20047DataFollowerDetail
      */
-    paymentType?: string;
+    avatarBucket?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20056Data
+     * @memberof InlineResponse20047DataFollowerDetail
      */
-    orderData?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20056Data
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20056Data
-     */
-    until?: string;
+    avatarFilename?: string;
 }

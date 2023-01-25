@@ -82,7 +82,7 @@
         <!-- selected artwork detail -->
         <div
           v-if="artworkData.show"
-          class="mt-2"
+          class="p-4 my-2 rounded-md theme-color"
         >
           <h2 class="mb-2 title">
             {{ $t('artTrades.form.selectedWork') }}

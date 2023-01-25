@@ -14,19 +14,19 @@
 /**
  * 
  * @export
- * @interface InlineResponse20057Data
+ * @interface InlineResponse20052FeedCount
  */
-export interface InlineResponse20057Data {
+export interface InlineResponse20052FeedCount {
     /**
      * 
-     * @type {boolean}
-     * @memberof InlineResponse20057Data
+     * @type {number}
+     * @memberof InlineResponse20052FeedCount
      */
-    isPro?: boolean;
+    feedComments?: number;
     /**
      * 
-     * @type {string}
-     * @memberof InlineResponse20057Data
+     * @type {number}
+     * @memberof InlineResponse20052FeedCount
      */
-    until?: string;
+    feedLikes?: number;
 }

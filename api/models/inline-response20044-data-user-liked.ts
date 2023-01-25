@@ -14,19 +14,25 @@
 /**
  * 
  * @export
- * @interface InlineResponse20057Data
+ * @interface InlineResponse20044DataUserLiked
  */
-export interface InlineResponse20057Data {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof InlineResponse20057Data
-     */
-    isPro?: boolean;
+export interface InlineResponse20044DataUserLiked {
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse20057Data
+     * @memberof InlineResponse20044DataUserLiked
      */
-    until?: string;
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20044DataUserLiked
+     */
+    avatarBucket?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20044DataUserLiked
+     */
+    avatarFilename?: string;
 }
