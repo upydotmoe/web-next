@@ -12,7 +12,7 @@
       <nuxt-link
         v-for="trade in data"
         :key="trade.id"
-        :to="'/trade/'+trade.id"
+        :to="'/art-trade/view/'+trade.id"
         class="grid grid-cols-11 gap-2 p-2 rounded-md theme-color hover:shadow-lg trade-item"
       >
         <div class="overflow-hidden relative col-span-5 rounded-md">

@@ -3,13 +3,13 @@
     v-if="feed.users"
     id="artist-info"
     :class="[
-      'feeds__artist',
+      'mini__artist',
       { '!px-0': isModal }
     ]"
   >
     <div class="flex flex-row gap-2">
       <nuxt-link
-        class="feeds__artist__avatar"
+        class="mini__artist__avatar"
         :to="'/u/' + feed.users.username"
       >
         <img
@@ -18,7 +18,7 @@
         >
       </nuxt-link>
 
-      <div class="feeds__artist__name-username">
+      <div class="mini__artist__name-username">
         <nuxt-link
           :to="'/u/' + feed.users.username"
           class="name"
@@ -87,31 +87,5 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.feeds__artist {
-  @apply flex flex-row justify-between p-2 md:p-4;
-
-  &__avatar {
-    img {
-      @apply w-10 h-10 rounded-md;
-    }
-  }
-
-  &__name-username {
-    .name {
-      @apply text-tiny font-semibold hover:href;
-    }
-
-    .username {
-      @apply hover:underline text-xxs;
-    }
-
-    .dot-divider {
-      @apply mx-1;
-    }
-
-    .post-date {
-      @apply hover:underline text-xxs;
-    }
-  }
-}
+@import '~/assets/css/mini-artist-info.scss';
 </style>

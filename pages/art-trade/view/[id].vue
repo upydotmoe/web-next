@@ -54,13 +54,34 @@
           >
             <div class="flex flex-col gap-2 p-4 my-2 rounded-md theme-color">
               <div class="flex flex-row justify-between">
-                <div class="inline-flex flex-row gap-2">
-                  <h2 class="mb-2 title">
-                    {{ trade.host.name }}'s Submission
-                    <nuxt-link :to="'/profile/' + trade.host.username">
-                      @{{ trade.host.username }}
+                <!-- host detail -->
+                <div class="flex flex-row gap-2">
+                  <section class="mini__artist !p-0">
+                    <nuxt-link
+                      class="mini__artist__avatar"
+                      :to="'/u/' + trade.host.username"
+                    >
+                      <img
+                        :src="avatarCoverUrl(trade.host.avatar_bucket, trade.host.avatar_filename)"
+                        @error="defaultCoverImage"
+                      >
                     </nuxt-link>
-                  </h2>
+
+                    <div class="flex flex-col mini__artist__name-username">
+                      <nuxt-link
+                        :to="'/u/' + trade.host.username"
+                        class="name"
+                      >
+                        {{ trade.host.name }}
+                      </nuxt-link>
+                      <nuxt-link
+                        :to="'/u/' + trade.host.username"
+                        class="font-normal username"
+                      >
+                        @{{ trade.host.username }}
+                      </nuxt-link>
+                    </div>
+                  </section>
 
                   <span class="badge text-xxs button-color h-fit">
                     {{ $t('artTrades.participantHost') }}
@@ -101,40 +122,33 @@
           >
             <div class="flex flex-col gap-2 p-4 my-2 rounded-md theme-color">
               <div class="flex flex-row justify-between">
-                <div class="inline-flex flex-row gap-2">
-                  <h2 class="mb-2 title">
-                    <!-- profile detail -->
-                    <section class="flex flex-row gap-2">
-                      <nuxt-link
-                        class="feeds__artist__avatar"
-                        :to="'/u/' + trade.host.username"
-                      >
-                        <img
-                          :src="avatarCoverUrl(trade.host.avatar_bucket, trade.host.avatar_filename)"
-                          @error="defaultCoverImage"
-                        >
-                      </nuxt-link>
+                <!-- participant detail -->
+                <section class="mini__artist !p-0">
+                  <nuxt-link
+                    class="mini__artist__avatar"
+                    :to="'/u/' + trade.participant.username"
+                  >
+                    <img
+                      :src="avatarCoverUrl(trade.participant.avatar_bucket, trade.participant.avatar_filename)"
+                      @error="defaultCoverImage"
+                    >
+                  </nuxt-link>
 
-                      <div class="feeds__artist__name-username">
-                        <nuxt-link
-                          :to="'/u/' + trade.host.username"
-                          class="name"
-                        >
-                          {{ trade.host.name }}
-                        </nuxt-link>
-      
-                        <br>
-
-                        <nuxt-link
-                          :to="'/u/' + trade.host.username"
-                          class="username"
-                        >
-                          @{{ trade.host.username }}
-                        </nuxt-link>
-                      </div>
-                    </section>
-                  </h2>
-                </div>
+                  <div class="flex flex-col mini__artist__name-username">
+                    <nuxt-link
+                      :to="'/u/' + trade.participant.username"
+                      class="name"
+                    >
+                      {{ trade.participant.name }}
+                    </nuxt-link>
+                    <nuxt-link
+                      :to="'/u/' + trade.participant.username"
+                      class="font-normal username"
+                    >
+                      @{{ trade.participant.username }}
+                    </nuxt-link>
+                  </div>
+                </section>
 
                 <span class="italic">{{ formatDate(trade.updated_at) }}</span>
               </div>
@@ -429,6 +443,8 @@ const participate = async () => {
 </script>
 
 <style lang="scss" scoped>
+@import '~/assets/css/mini-artist-info.scss';
+
 .submission {
   @apply w-full;
   aspect-ratio: 1/1;

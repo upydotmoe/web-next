@@ -281,7 +281,7 @@
           id="additional-properties"
           :class="[
             'grid grid-cols-1 gap-2',
-            redrawWorkId ? 'md:grid-cols-3' : 'md:grid-cols-2'
+            redrawWorkId ? 'md:grid-cols-1' : 'md:grid-cols-2'
           ]"
         >
           <!-- original character toggler -->

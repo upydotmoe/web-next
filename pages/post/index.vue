@@ -95,6 +95,10 @@ const router = useRouter()
 
 const mode = ref(POST_TYPES.ARTWORK)
 
+definePageMeta({
+  keepalive: false
+})
+
 useHead({
   title: mode.value === POST_TYPES.ARTWORK ? t('meta.title.artwork.post') : t('meta.title.feed.post')
 })
