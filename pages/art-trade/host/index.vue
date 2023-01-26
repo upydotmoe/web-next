@@ -3,7 +3,7 @@
     :with-footer="true"
     :hide-side="false"
   >
-    <div>
+    <div class="mx-2">
       <form
         :id="formId"
         @submit.prevent="createNewTradeRoom()"
@@ -62,9 +62,8 @@
               <ArtistWorks
                 v-if="options.currentActiveArtworkSelector === 'existing'"
                 :with-title="false"
-                class="mb-6 hidden-md-flex"
                 :artwork-detail="{ users: { id: auth.user.id } }"
-                :pagination-per-page="isModal ? 4 : 4"
+                :pagination-per-page="isMobile() ? 3 : 4"
                 :is-picker-mode="true"
                 @pickerModeChangeSelected="changeSelected"
               />
@@ -98,7 +97,7 @@
             :class="[
               'submit',
               { 'pointer-events-none cursor-not-allowed': options.submitting || options.submitted }, 
-              { '!disabled-button': !inputData.title && !inputData.workId },
+              { '!disabled-button': !inputData.title && !inputData.workId || options.submitting },
               { '!success-button': options.submitted }
             ]"
           >
@@ -109,7 +108,7 @@
               />
               {{
                 !options.submitted ?
-                  (options.submitting ? $t('artTrades.form.hosting') : $t('artTrades.form.host')) :
+                  (options.submitting ? $t('artTrades.form.hosting').toUpperCase() : $t('artTrades.form.host').toUpperCase()) :
                   $('artTrades.form.submitted')
               }}
             </div>
@@ -140,6 +139,10 @@ const auth = useAuthStore()
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const tradeApi = useArtTrade(oApiConfiguration, fetchOptions())
+
+definePageMeta({
+  keepalive: false
+})
 
 const router = useRouter()
 const { t } = useI18n()

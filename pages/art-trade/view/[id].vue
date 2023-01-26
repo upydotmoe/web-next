@@ -4,7 +4,7 @@
     :hide-side="true"
     :no-right-side="true"
   >
-    <div class="flex flex-row justify-center mx-auto w-full">
+    <div class="flex flex-row justify-center px-2 mx-auto w-full">
       <LoadingEmptyErrorMessage
         :loading="options.isLoading"
         :error="options.isError"
@@ -22,17 +22,17 @@
           >
             <Icon
               :name="'i-typcn-arrow-back'"
-              class="text-lg text-white lg:mr-2 hover:text-white"
+              class="text-lg text-white hover:text-white"
             />
 
-            <span class="hidden-lg-flex">{{ $t('back') }}</span>
+            <span>{{ $t('back') }}</span>
           </nuxt-link>
           
           <div />
         </div>
 
-        <div class="flex flex-row justify-between w-full">
-          <h2 class="title">
+        <div class="flex flex-col gap-2 justify-between w-full md:flex-row">
+          <h2 class="w-auto text-center title md:text-left md:w-auto">
             {{ trade.title }}
           </h2>
 
@@ -46,7 +46,7 @@
           </button>
         </div>
 
-        <div class="flex flex-row gap-6 w-full h-fit">
+        <div class="flex flex-col gap-2 w-full md:gap-6 md:flex-row h-fit">
           <!-- host submission -->
           <section
             id="host-submission"
@@ -83,12 +83,19 @@
                     </div>
                   </section>
 
-                  <span class="badge text-xxs button-color h-fit">
+                  <span class="badge text-xxs button-color h-fit hidden-md-flex">
                     {{ $t('artTrades.participantHost') }}
                   </span>
                 </div>
 
-                <span class="italic">{{ formatDate(trade.created_at) }}</span>
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-row justify-end">
+                    <span class="badge text-xxs button-color w-fit h-fit flex-md-hidden">
+                      {{ $t('artTrades.participantHost') }}
+                    </span>
+                  </div>
+                  <span class="italic">{{ formatDate(trade.created_at) }}</span>
+                </div>
               </div>
 
               <div class="flex flex-col justify-center submission">
@@ -105,7 +112,7 @@
                 <a
                   :href="'/a/'+trade.host_submission.id"
                   target="_blank"
-                  class="text-right light-bordered-button w-fit"
+                  class="w-full text-right light-bordered-button md:w-fit"
                 >
                   <Icon :name="'i-ci-external-link'" />
                   {{ $t('artTrades.viewDetail') }}
@@ -167,7 +174,7 @@
                 <a
                   :href="'/a/'+trade.participant_submission.id"
                   target="_blank"
-                  class="text-right light-bordered-button w-fit"
+                  class="w-full text-right light-bordered-button md:w-fit"
                 >
                   <Icon :name="'i-ci-external-link'" />
                   {{ $t('artTrades.viewDetail') }}
@@ -258,9 +265,8 @@
                   <ArtistWorks
                     v-if="options.currentActiveArtworkSelector === 'existing'"
                     :with-title="false"
-                    class="mb-6 hidden-md-flex"
                     :artwork-detail="{ users: { id: auth.user.id } }"
-                    :pagination-per-page="4"
+                    :pagination-per-page="isMobile() ? 3 : 4"
                     :is-picker-mode="true"
                     @pickerModeChangeSelected="changeSelected"
                   />
@@ -289,12 +295,22 @@
               />
             </div>
 
-            <div
-              class="flex flex-row justify-end"
-              @click="participate()"
-            >
-              <button class="primary-button">
-                Submit Your Submission
+            <div class="form-buttons">
+              <button
+                :class="[
+                  'submit',
+                  { 'pointer-events-none cursor-not-allowed': options.submitting }, 
+                  { '!disabled-button': !selectedArtworkId || options.submitting }
+                ]"
+                @click.prevent="participate()"
+              >
+                <div class="flex flex-row">
+                  <Spinner
+                    v-if="options.submitting"
+                    class="mr-2"
+                  />
+                  {{ options.submitting ? $t('artTrades.form.submitting').toUpperCase() : $t('artTrades.form.submitYourSubmission').toUpperCase() }}
+                </div>
               </button>
             </div>
           </section>
@@ -349,7 +365,8 @@ onMounted(() => {
 const options = ref({
   isError: false,
   isLoading: true,
-  currentActiveArtworkSelector: 'new'
+  currentActiveArtworkSelector: 'new',
+  submitting: false
 })
 const trade = ref({})
 
@@ -395,6 +412,8 @@ const copyLink = (link) => {
 // upload new artwork listener
 const selectedArtworkId = ref(0)
 const acceptUploadedWorkId = async (workId) => {
+  console.log('accepted!')
+  console.log(workId)
   selectedArtworkId.value = workId
 
   await fetchUploadedArtworkInfo()
@@ -429,6 +448,8 @@ const changeSelected = async (workId) => {
 }
 
 const participate = async () => {
+  options.value.submitting = true
+
   const [success, error] = await tradeApi.participate({
     roomId: Number(id),
     workId: selectedArtworkId.value
@@ -439,6 +460,8 @@ const participate = async () => {
   } else {
     window.location.reload(true)
   }
+
+  options.value.submitting = false
 }
 </script>
 
@@ -446,7 +469,6 @@ const participate = async () => {
 @import '~/assets/css/mini-artist-info.scss';
 
 .submission {
-  @apply w-full;
-  aspect-ratio: 1/1;
+  @apply w-full md:aspect-square;
 }
 </style>

@@ -157,7 +157,7 @@
                 'bg-transparent rounded-sm',
                 { 'pointer-events-none cursor-not-allowed': saving || saved },
               ]"
-              accepted-file-types="image/jpeg, image/png"
+              accepted-file-types="image/jpeg, image/jpg"
               allow-multiple="true"
               allow-drop="true"
               allow-reorder="true"
@@ -544,7 +544,7 @@ const fetchSetting = async () => {
     maxFileSize.value = settingMaxFileSize
   }
 
-  labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'
+  labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
 }
 
 // if it's update form, fetch current artwork detail

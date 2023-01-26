@@ -5,7 +5,10 @@
     :no-right-side="true"
     :fullscreen="true"
   >
-    <div id="lists">
+    <div
+      id="lists"
+      class="px-2"
+    >
       <div
         id="options"
         class="md:z-10 md:sticky md:top-0"

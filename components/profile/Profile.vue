@@ -131,6 +131,10 @@
           :src="avatarCoverUrl(userInfo.avatar_bucket, userInfo.avatar_filename)" 
           @error="defaultCoverImage"
         />
+        
+        <div v-if="userInfo.is_pro" class="flex flex-row justify-center mt-2">
+          <ProBadge />
+        </div>
 
         <!-- user info -->
         <div class="mt-4 text-base font-semibold">

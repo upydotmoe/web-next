@@ -28,14 +28,14 @@ export default defineNuxtConfig({
         // { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
       ],
       script: [
-        {
-          type: 'module',
-          src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js',
-          body: true
-        },
-        {
-          src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js'
-        },
+        // {
+        //   type: 'module',
+        //   src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js',
+        //   body: true
+        // },
+        // {
+        //   src: 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js'
+        // },
         {
           src: 'https://analytics.umami.is/script.js',
           async: 'true',

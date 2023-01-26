@@ -151,7 +151,9 @@ const loadMore = () => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+
 .trade-item {
   img {
     aspect-ratio: 1/1;
