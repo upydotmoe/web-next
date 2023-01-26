@@ -178,7 +178,7 @@
                       <!-- delete comment button -->
                       <div v-if="auth.loggedIn && auth.user.id === comment.users.id">
                         <a @click="deleteComment(comment.id)">
-                          <Icon :name="'i-ion-trash-outline'" />
+                          <Icon :name="'i-akar-icons-trash-bin'" />
                           {{ $t('delete') }}
                         </a>
                       </div>
@@ -337,7 +337,7 @@
                           <!-- delete reply -->
                           <div v-if="auth.loggedIn && auth.user.id === reply.users.id">
                             <a @click="deleteReply(comment.id, reply.id)">
-                              <Icon :name="'i-ion-trash-outline'" />
+                              <Icon :name="'i-akar-icons-trash-bin'" />
                               {{ $t('delete') }}
                             </a>
                           </div>

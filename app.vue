@@ -82,10 +82,10 @@ const route = useRoute()
 </script>
 
 <!-- chat bro (https://www.chatbro.com/en/edit/98kjU/) -->
-<script id="chatBroEmbedCode">
+<!-- <script id="chatBroEmbedCode">
 function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}
 ChatbroLoader({encodedChatId: '98kjU'});
-</script>
+</script> -->
 
 <style lang="scss">
 @import '~/assets/css/tailwind.scss';

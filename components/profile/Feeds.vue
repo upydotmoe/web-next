@@ -106,7 +106,7 @@
 
                     <div v-if="auth.loggedIn && feed.user_id && auth.user.id === feed.user_id">
                       <a @click="openModal('profile-feed-deletion-confirm-modal')">
-                        <Icon :name="'i-ion-trash-outline'" />
+                        <Icon :name="'i-akar-icons-trash-bin'" />
                         {{ $t('delete') }}
                       </a>
                     </div>

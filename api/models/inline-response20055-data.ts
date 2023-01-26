@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { InlineResponse20055DataReport } from './inline-response20055-data-report';
 /**
  * 
  * @export
@@ -19,44 +20,8 @@
 export interface InlineResponse20055Data {
     /**
      * 
-     * @type {number}
+     * @type {InlineResponse20055DataReport}
      * @memberof InlineResponse20055Data
      */
-    id?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof InlineResponse20055Data
-     */
-    userId?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20055Data
-     */
-    amount?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20055Data
-     */
-    paymentType?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20055Data
-     */
-    orderData?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20055Data
-     */
-    createdAt?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20055Data
-     */
-    until?: string;
+    report?: InlineResponse20055DataReport;
 }

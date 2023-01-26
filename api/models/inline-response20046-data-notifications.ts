@@ -11,7 +11,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { InlineResponse20046DataFollowerDetail } from './inline-response20046-data-follower-detail';
+import { InlineResponse20041DataUserLiked } from './inline-response20041-data-user-liked';
+import { InlineResponse20044DataArtworks } from './inline-response20044-data-artworks';
 /**
  * 
  * @export
@@ -23,13 +24,37 @@ export interface InlineResponse20046DataNotifications {
      * @type {number}
      * @memberof InlineResponse20046DataNotifications
      */
-    isRead?: number;
+    id?: number;
     /**
      * 
-     * @type {Array<InlineResponse20046DataFollowerDetail>}
+     * @type {string}
      * @memberof InlineResponse20046DataNotifications
      */
-    followerDetail?: Array<InlineResponse20046DataFollowerDetail>;
+    content?: string;
+    /**
+     * 
+     * @type {Array<InlineResponse20041DataUserLiked>}
+     * @memberof InlineResponse20046DataNotifications
+     */
+    userLiked?: Array<InlineResponse20041DataUserLiked>;
+    /**
+     * 
+     * @type {InlineResponse20044DataArtworks}
+     * @memberof InlineResponse20046DataNotifications
+     */
+    artworks?: InlineResponse20044DataArtworks;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20046DataNotifications
+     */
+    totalLiked?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse20046DataNotifications
+     */
+    restTotalLiked?: number;
     /**
      * 
      * @type {string}

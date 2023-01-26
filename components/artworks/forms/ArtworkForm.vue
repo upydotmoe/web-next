@@ -189,7 +189,7 @@
 
         <!-- planned publish date -->
         <n-validate
-          v-if="!isUpdate && !redrawWorkId"
+          v-if="!isUpdate && !isArtTrade && !redrawWorkId"
           class="flex flex-row gap-x-2"
         >
           <div class="relative w-full">
@@ -281,12 +281,12 @@
           id="additional-properties"
           :class="[
             'grid grid-cols-1 gap-2',
-            redrawWorkId ? 'md:grid-cols-3' : 'md:grid-cols-2'
+            redrawWorkId ? 'md:grid-cols-1' : 'md:grid-cols-2'
           ]"
         >
           <!-- original character toggler -->
           <div
-            v-if="!redrawWorkId && !isARedraw"
+            v-if="!redrawWorkId && !isArtTrade && !isARedraw"
             :class="[
               'toggler-box',
               { 'toggler-box__active': inputData.isOriginalCharacter }
@@ -485,12 +485,13 @@ onMounted (() => {
 
   if (!props.isUpdate) {
     fetchSetting()
+    initTagsLoading.value = false
 
     if (redrawWorkId.value) {
       fetchRedrawedArtworkInfo()
-    } else {
-      initTagsLoading.value = false
-      
+    }
+
+    if (!redrawWorkId.value && !props.isArtTrade) {
       // datepicker plugin
       const today = moment().add(1, 'day').format('DD/MM/yyyy')
 
@@ -521,7 +522,7 @@ const resetForm = () => {
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 const fetchSetting = async () => {
   // get allowed max file count to upload
-  if (!redrawWorkId.value) {
+  if (!props.isArtTrade && !redrawWorkId.value) {
     let settingMaxFileCount = 1
     
     if (auth.i502p00r0) {
@@ -535,8 +536,13 @@ const fetchSetting = async () => {
     maxFileCount.value = settingMaxFileCount
   }
 
-  const [settingMaxFileSize, getSettingMaxFileSizeError] = await settingApi.getSetting('artwork_max_file_size')
-  maxFileSize.value = settingMaxFileSize
+  if (auth.i502p00r0) {
+    const [settingMaxFileSize, getSettingMaxFileSizeError] = await settingApi.getSetting('artwork_max_file_size_pro')
+    maxFileSize.value = settingMaxFileSize
+  } else {
+    const [settingMaxFileSize, getSettingMaxFileSizeError] = await settingApi.getSetting('artwork_max_file_size')
+    maxFileSize.value = settingMaxFileSize
+  }
 
   labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPG up to ' + maxFileSize.value + 'MB</div></div>'
 }
@@ -612,7 +618,7 @@ const storeArtwork = async () => {
 
   // init publish date only if it's a new artwork (not a redraw)
   let publishDate = null
-  if (!redrawWorkId.value) {
+  if (!redrawWorkId.value && !props.isArtTrade) {
     // change publish date format
     const publishDateEl = document.getElementById('publishDate')
     if (publishDateEl.value) {

@@ -15,7 +15,10 @@
       />
     </div>
 
-    <div class="w-2/3">
+    <div
+      v-if="data.title"
+      class="w-2/3"
+    >
       <h2 class="title-tiny">
         {{ data.title }}
       </h2>

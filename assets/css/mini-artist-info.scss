@@ -1,0 +1,27 @@
+.mini__artist {
+  @apply flex flex-row justify-between p-2 md:p-4;
+
+  &__avatar {
+    img {
+      @apply w-10 h-10 rounded-md;
+    }
+  }
+
+  &__name-username {
+    .name {
+      @apply text-tiny font-semibold hover:href;
+    }
+
+    .username {
+      @apply hover:underline text-xxs;
+    }
+
+    .dot-divider {
+      @apply mx-1;
+    }
+
+    .post-date {
+      @apply hover:underline text-xxs;
+    }
+  }
+}

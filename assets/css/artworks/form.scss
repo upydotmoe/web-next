@@ -6,11 +6,11 @@
   }
 
   &__icons {
-    @apply w-1/12;
+    @apply w-fit;
   }
 
   &__description {
-    @apply flex flex-col gap-1 w-full;
+    @apply flex flex-col gap-1 w-full text-left;
 
     span {
       @apply text-color-secondary;

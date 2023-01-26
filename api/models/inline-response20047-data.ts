@@ -21,10 +21,10 @@ import { PaginationModel } from './pagination-model';
 export interface InlineResponse20047Data {
     /**
      * 
-     * @type {InlineResponse20047DataNotifications}
+     * @type {Array<InlineResponse20047DataNotifications>}
      * @memberof InlineResponse20047Data
      */
-    notifications?: InlineResponse20047DataNotifications;
+    notifications?: Array<InlineResponse20047DataNotifications>;
     /**
      * 
      * @type {PaginationModel}
