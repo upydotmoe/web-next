@@ -1,5 +1,8 @@
 name: Automated Deployment
-on: [push]
+on:
+  push:
+    branches:
+      - "main"
 jobs:
   build:
     name: Run automated Deployment
