@@ -36,7 +36,11 @@
     <WorkList 
       v-show="!loading && !isEmpty && !isError"
       class="gap-2 mt-4 md:gap-4"
-      :class="[ pagination.options.nextPrevLoading ? 'animate-pulse' : '', paginationPerPage === 6 ? 'grid-cols-6' : 'grid-cols-4' ]"
+      :class="[
+        pagination.options.nextPrevLoading ? 'animate-pulse' : '',
+        // paginationPerPage === 6 ? 'grid-cols-6' : 'grid-cols-4'
+        'grid-cols-'+paginationPerPage
+      ]"
       :section-class="'works'"
       :works="worksByArtist"
       :view="view"

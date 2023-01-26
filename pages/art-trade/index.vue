@@ -4,21 +4,27 @@
     :hide-side="true"
     :no-right-side="true"
   >
-    <div class="flex flex-row justify-between">
-      <h2 class="title">
-        {{ $t('artTrades.artTrade') }}
-      </h2>
+    <div class="px-2">
+      <LoginMessage v-if="!auth.loggedIn" />
 
-      <nuxt-link
-        :to="'/art-trade/host'"
-        class="flex flex-row primary-button"
-      >
-        <Icon :name="'i-ion-add'" />
-        {{ $t('artTrades.host') }}
-      </nuxt-link>
+      <div v-else>
+        <div class="flex flex-row justify-between">
+          <h2 class="mt-2 title">
+            {{ $t('artTrades.artTrade') }}
+          </h2>
+
+          <nuxt-link
+            :to="'/art-trade/host'"
+            class="flex flex-row primary-button"
+          >
+            <Icon :name="'i-ion-add'" />
+            {{ $t('artTrades.host') }}
+          </nuxt-link>
+        </div>
+
+        <LatestTrades />
+      </div>
     </div>
-
-    <LatestTrades />
   </Layout>
 </template>
 
@@ -30,6 +36,7 @@ import useAuthStore from '@/stores/auth.store'
 import Layout from '~/components/layouts/Layout.vue'
 import LatestTrades from '~/components/art-trades/list/LatestTrades.vue'
 import Icon from '~/components/globals/Icon.vue'
+import LoginMessage from '~~/components/globals/LoginMessage.vue'
 
 // stores
 const auth = useAuthStore()
@@ -37,3 +44,7 @@ const auth = useAuthStore()
 // compositions
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 </script>
+
+<style lang="scss" scoped>
+@import '~/assets/css/tailwind.scss';
+</style>

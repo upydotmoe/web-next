@@ -92,7 +92,7 @@
   },
   "search": {
     "search": "Search",
-    "loginMessage": "Please login first to use this feature"
+    "loginMessage": "Please login first to access this feature"
   },
   "users": {
     "user": "User",
@@ -565,8 +565,10 @@
       "title": "Trade Title",
       "host": "Host",
       "hosting": "Hosting..",
+      "submitting": "Submitting..",
       "submitted": "Trade room created!",
       "selectedWork": "Your Submission",
+      "submitYourSubmission": "Submit Your Submission",
       "artwork": {
         "title": "Select or Upload New Artwork",
         "new": "New Artwork",
