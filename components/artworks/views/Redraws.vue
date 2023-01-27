@@ -71,7 +71,7 @@
 
     <!-- redraw button -->
     <div
-      v-if="auth.loggedIn && !myRedraw.id"
+      v-if="auth.loggedIn && !myRedraw"
       class="flex flex-row gap-2 justify-between w-full"
     >
       <nuxt-link
@@ -87,7 +87,7 @@
           
     <!-- my redraw/current user submission (show only if user has redrawed this artwork) -->
     <section
-      v-if="auth.loggedIn && myRedraw.id"
+      v-if="auth.loggedIn && myRedraw && myRedraw.id"
       id="my-redraw-section"
     >
       <h2 class="title-tiny">
@@ -213,7 +213,7 @@ const fetchRedraws = async (workId) => {
   }
 }
 
-const myRedraw = ref({})
+const myRedraw = ref(null)
 const fetchMyRedraw = async (workId) => {
   const [redraw, error] = await artworkApi.getMyRedraw({
     workId
@@ -221,6 +221,8 @@ const fetchMyRedraw = async (workId) => {
 
   if (!error) {
     myRedraw.value = redraw
+  } else {
+    myRedraw.value = null
   }
 }
 </script>

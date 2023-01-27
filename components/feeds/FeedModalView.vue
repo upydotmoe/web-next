@@ -201,7 +201,9 @@
               </div>
 
               <!-- the comment -->
-              <p>{{ comment.comment }}</p>
+              <p class="break-words">
+                {{ comment.comment }}
+              </p>
 
               <!-- item buttons -->
               <div class="comments__item__comment__buttons">

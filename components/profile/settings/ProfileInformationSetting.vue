@@ -115,7 +115,7 @@
             :class="[
               { '!pointer-events-none !cursor-not-allowed': saving.username.loading }
             ]"
-            rules="required|min:5"
+            rules="required|min:3|max:12"
             :placeholder="$t('profile.forms.update.username')"
             @input="checkUsernameAvailability()"
             @keydown.space.prevent

@@ -37,7 +37,7 @@
             v-model="formData.username"
             type="text"
             autocomplete="off"
-            rules="required|min:4|max:12"
+            rules="required|min:3|max:12"
             class="input-color-secondary"
             :placeholder="$t('registration.form.username')"
           >
@@ -65,7 +65,7 @@
             v-model="formData.password"
             type="password"
             autocomplete="off"
-            rules="required|containNumber|containSymbol"
+            rules="required|min:6|containNumber|containSymbol"
             class="input-color-secondary"
             :placeholder="$t('registration.form.password')"
           >
