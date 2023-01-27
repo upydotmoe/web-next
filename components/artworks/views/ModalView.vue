@@ -662,6 +662,7 @@ const saved = ref(false)
 const inAlbum = ref(false)
 
 const view = async (selectedWorkId) => {
+  previewMode.value = false
   loading.value = true
 
   // fetch artwork detail

@@ -45,7 +45,7 @@
     }
 
     &__wrapper {
-      @apply flex flex-col gap-2 w-full;
+      @apply flex flex-col gap-2 w-full max-w-xs md:max-w-none lg:max-w-sm;
     }
 
     &__comment {

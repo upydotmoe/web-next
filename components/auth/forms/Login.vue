@@ -16,7 +16,7 @@
       <input 
         v-model="inputs.username"
         type="text"
-        rules="required|min:4|max:12"
+        rules="required|min:3|max:12"
         class="input-color-secondary"
         :placeholder="$t('logins.form.username')"
       >

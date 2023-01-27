@@ -101,7 +101,9 @@
             </div>
                   
             <!-- the comment -->
-            <p>{{ comment.comment }}</p>
+            <p class="break-words">
+              {{ comment.comment }}
+            </p>
 
             <!-- interaction & option buttons -->
             <div class="comments__item__comment__buttons">
@@ -278,7 +280,9 @@
                 </div>
 
                 <!-- the reply -->
-                <p>{{ reply.content }}</p>
+                <p class="break-words">
+                  {{ reply.content }}
+                </p>
 
                 <!-- interaction & option buttons -->
                 <div

@@ -21,7 +21,7 @@
               :limit="10"
               :hide-input-on-limit="true"
               :typeahead-style="'dropdown'"
-              :typeahead-activation-threshold="3"
+              :typeahead-activation-threshold="2"
               :typeahead-show-on-focus="true"
               :typeahead-hide-discard="true"
               :typeahead-url="apiUrl+'/artworks/tags/search?keyword=:search'"

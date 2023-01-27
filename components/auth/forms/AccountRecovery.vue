@@ -91,6 +91,7 @@
               v-model="newPasswordInput.new" 
               type="password"
               rules="required|min:6|containNumber|containSymbol"
+              class="input-color-secondary"
               :placeholder="$t('accountRecovery.form.newPassword')"
             >
           </n-validate>
@@ -103,6 +104,7 @@
               v-model="newPasswordInput.verify" 
               type="password"
               rules="required|min:6|containNumber|containSymbol"
+              class="input-color-secondary"
               :placeholder="$t('accountRecovery.form.retypeNewPassword')"
             >
           </n-validate>
