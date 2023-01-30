@@ -1,5 +1,6 @@
-// import blankImage from '~/static/blank.png'
-// import defaultCover from '~/static/bg-abstract.png'
+import blankImage from '~/static/blank.png'
+import defaultCover from '~/static/bg-abstract.png'
+import folder from '~/static/folder.png'
 
 export default {
   methods: {
@@ -29,19 +30,33 @@ export default {
       return url
     },
     imageLoadError(e) {
-      // e.target.src = blankImage
-      e.target.src = `https://${this.$config.cdnUrl}/static/blank.png`
+      // blank image source from static file
+      e.target.src = blankImage
+      
+      // blank image source from cloud storage
+      // e.target.src = `https://${this.$config.cdnUrl}/static/blank.png`
+
       e.target.parentElement.href = 'javascript:void(0)'
       e.target.classList.remove('hover:-translate-y-1')
     },
     defaultCoverImage(e) {
-      // e.target.src = defaultCover
-      e.target.src = `https://${this.$config.cdnUrl}/static/bg-abstract.png?width=500&quality=70`
+      // default cover source from static file
+      e.target.src = defaultCover
+      
+      // default cover source from cloud storage
+      // e.target.src = `https://${this.$config.cdnUrl}/static/bg-abstract.png?width=500&quality=70`
+
       e.target.parentElement.href = 'javascript:void(0)'
       e.target.classList.remove('hover:-translate-y-1')
     },
     folderIcon() {
-      return `https://${this.$config.cdnUrl}/static/folder.png`
+      // folder cover source from static file
+      const folderSrc = folder
+
+      // folder cover source from cloud storage
+      // const folderSrc = `https://${this.$config.cdnUrl}/static/folder.png`
+
+      return folderSrc
     }
   }
 }
