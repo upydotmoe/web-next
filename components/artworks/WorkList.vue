@@ -66,7 +66,7 @@
           <!-- explicit content filter -->
           <span
             v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
-            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
+            class="absolute top-1/2 left-1/2 z-0 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
           >
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
@@ -152,7 +152,7 @@
           <!-- explicit content filter -->
           <span
             v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
-            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
+            class="absolute top-1/2 left-1/2 z-0 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
           >
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>

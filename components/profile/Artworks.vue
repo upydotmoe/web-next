@@ -3,7 +3,7 @@
     <div v-show="!loading">
       <WorkList 
         v-show="!isEmpty"
-        :section-class="'work-grid'"
+        :section-class="'work-grid-6'"
         :works="works"
         :view="view"
         :manage-mode="manageMode"
@@ -207,6 +207,6 @@ const feedManageList = (selectedItems) => {
 
 <style lang="scss" scoped>
 // @import '~/assets/css/tailwind.scss';
-@import '~/assets/css/artworks/list-6.scss';
+// @import '~/assets/css/artworks/list-6.scss';
 
 </style>

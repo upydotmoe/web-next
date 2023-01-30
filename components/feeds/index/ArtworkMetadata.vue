@@ -10,15 +10,15 @@
       class="feed__info__description"
     >
       <p
-        :id="`${isModal}feed-description-`+feed.id"
+        :id="`${shareIdentifier}-${isModal}-feed-description-`+feed.id"
         class="feed-description"
         v-html="feed.description.length > 300 ? `${feed.description.slice(0, 300)}...` : feed.description"
       />
 
       <a
         v-if="feed.description.length > 300"
-        :id="`${isModal}feed-read-more-`+feed.id"
-        @click.prevent="$emit('readMore', feed.description, feed.id, `${isModal}feed-read-more-`, `${isModal}feed-description-`)"
+        :id="`${shareIdentifier}-${isModal}-feed-read-more-`+feed.id"
+        @click.prevent="$emit('readMore', feed.description, feed.id, `${shareIdentifier}-${isModal}-feed-read-more-`, `${shareIdentifier}-${isModal}-feed-description-`)"
       >
         {{ $t('readMore') }}
       </a>
@@ -42,6 +42,10 @@ defineProps({
   isModal: {
     type: Boolean,
     default: false
+  },
+  shareIdentifier: {
+    type: Number,
+    default: 0
   }
 })
 </script>

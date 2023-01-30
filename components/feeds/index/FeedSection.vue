@@ -41,7 +41,7 @@
         v-if="feed.type === POST_TYPES.ARTWORK"
         :feed="feed"
         :feed-idx="feedIdx"
-        @read-more="readMore"
+        :read-more="readMore"
         @view="view"
       />
 
@@ -449,6 +449,7 @@ const viewFeed = (feedId) => {
 }
 
 const readMore = (description, workId, selectorElId, descriptionElid) => {
+  console.log('reading description of work ID:', workId)
   useReadMore().readMore(description, workId, selectorElId, descriptionElid)
 }
 

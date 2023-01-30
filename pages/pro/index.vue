@@ -272,7 +272,7 @@ onMounted(async () => {
   document.body.appendChild(script)
 })
 
-const amount = ref('2.99')
+const amount = ref('2.50')
 const paypalRef = ref('paypalRef')
 const initPaypal = () => {
   window.paypal.Buttons({

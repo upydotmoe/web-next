@@ -5,6 +5,7 @@
   >
     <ArtworkMetadata
       :feed="feed"
+      @readMore="readMore"
     />
 
     <!-- if artwork is a redraw of someone's artwork then show the original artwork information -->
@@ -60,11 +61,15 @@ import { POST_TYPES } from '~/utils/constants'
 import ImageList from '~/components/feeds/ImageList.vue'
 import ArtworkMetadata from './ArtworkMetadata.vue'
 
-defineEmits(['readMore', 'view'])
+defineEmits(['view'])
 defineProps({
   feed: {
     type: Object,
     default: () => {}
+  },
+  readMore: {
+    type: Function,
+    default: () => ({})
   }
 })
 </script>

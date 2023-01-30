@@ -14,6 +14,7 @@
 
     <!-- title & description of shared artwork -->
     <ArtworkMetadata
+      :share-identifier="feed.id"
       :feed="feed.artwork_share_info"
       :bypass="true"
       :is-modal="isModal"
