@@ -608,6 +608,8 @@ const fetchReplies = async (commentId) => {
 
 const activeReplyTray = ref(0)
 const showReplies = async (commentId) => {
+  commentReplies.value = []
+  commentReplyPagination.page = 0
   showLoadMoreReplies.value = true
   commentReplyIndexes.value = []
 
