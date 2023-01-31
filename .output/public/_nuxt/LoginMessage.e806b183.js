@@ -1,1 +1,0 @@
-import{_ as o}from"./_plugin-vue_export-helper.a1a6add7.js";import{o as s,q as t,t as r}from"./entry.e59d1677.js";const c={},n={class:"p-4 w-full text-center rounded-md theme-color-secondary"};function a(e,i){return s(),t("div",n,r(e.$t("search.loginMessage")),1)}const d=o(c,[["render",a]]);export{d as L};
