@@ -1,6 +1,6 @@
 #!/bin/bash
 npm i -g yarn@latest
-yarn i --ignore-engines
+yarn install --ignore-engines
 
 # echo "Building app.."
 # yarn build
