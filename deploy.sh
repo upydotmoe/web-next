@@ -1,12 +1,12 @@
 #!/bin/bash
-npm i -g pnpm@latest
-pnpm i
+npm i -g yarn@latest
+yarn i --ignore-engines
 
 # echo "Building app.."
 # yarn build
 
 echo "Restarting PM2.."
-pnpm run pm2:stop
-pnpm run pm2:start
+yarn pm2:stop
+yarn pm2:start
 
 echo "Deployed successfully!"
