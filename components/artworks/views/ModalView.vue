@@ -385,7 +385,7 @@
             :view="view"
             :is-href="!isModal"
             :keep-artist-page-number="true"
-            :pagination-per-page="isModal ? 4 : 4"
+            :pagination-per-page="isMobile() ? 4 : 4"
           />
         </keep-alive>
       </section>
@@ -419,7 +419,7 @@
           :view="view"
           :is-href="!isModal"
           :keep-artist-page-number="true"
-          :pagination-per-page="isModal ? 4 : 4"
+          :pagination-per-page="isMobile() ? 4 : 4"
         />
 
         <!-- 

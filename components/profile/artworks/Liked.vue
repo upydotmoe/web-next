@@ -65,6 +65,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 
+const emit = defineEmits(['onEmpty'])
 const props = defineProps({
   userId: {
     type: Number,

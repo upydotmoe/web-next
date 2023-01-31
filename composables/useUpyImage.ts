@@ -3,6 +3,10 @@ export default function() {
 
   const generateArtworkThumb = (bucketName: string, fileName: string, mode: 'feed' | 'thumbnail', uncropped: boolean) => {
     let format = ''
+
+    if (typeof uncropped === 'undefined') {
+      uncropped = false
+    }
     // if (config.public.activeCdn === 'cloudflare') {
     //   switch (mode) {
     //   case 'feed':
@@ -21,11 +25,10 @@ export default function() {
           format = '?class=feed'
           break
         case 'thumbnail':
-          format = uncropped !== undefined && !uncropped ? '?class=thumbnail' : '?class=thumbnailUncropped'
+          format = uncropped ? '?class=thumbnailUncropped' : '?class=thumbnail'
           break
       }
 
-      // return `https://${config.public.cdnUrl}/${bucketName}/${fileName}${format}`
       return `https://${config.public.cdnUrl}/${fileName}${format}`
     // }
   }
