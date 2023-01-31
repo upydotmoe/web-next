@@ -2,7 +2,7 @@ name: Automated Deployment
 on:
   push:
     branches:
-      - "main"
+      - "build"
 jobs:
   build:
     name: Run automated Deployment
