@@ -94,7 +94,7 @@
       <!-- latest 3 artworks -->
       <div 
         v-if="user.artworks"
-        class="work-grid"
+        class="work-grid-10"
       >
         <div
           v-for="(latestArtwork, workIndex) in user.artworks"

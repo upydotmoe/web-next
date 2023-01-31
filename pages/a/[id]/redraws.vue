@@ -52,7 +52,7 @@
       <div id="lists">
         <WorkList
           v-show="!artworkRedraws.options.isEmpty"
-          :section-class="'work-grid'"
+          :section-class="'work-grid-6'"
           :works="artworkRedraws.data"
           :view="null"
           :hide-redraw-icon="true"
@@ -175,5 +175,5 @@ const fetch = async () => {
 
 <style lang="scss" scoped>
 // @import '~/assets/css/tailwind.scss';
-@import '~/assets/css/artworks/list-6.scss';
+@import '~/assets/css/artworks/list.scss';
 </style>

@@ -12,7 +12,7 @@
     <div v-if="!relatedArtworks.loadings.first">
       <WorkList
         v-if="!relatedArtworks.options.isEmpty"
-        :section-class="'work-grid'"
+        :section-class="'work-grid-6'"
         :view="view"
         :works="relatedArtworks.data"
         :is-href="isModal ? false : true"
@@ -123,6 +123,5 @@ const loadMore = () => {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/css/artworks/list-6.scss';
-
+@import '~/assets/css/artworks/list.scss';
 </style>

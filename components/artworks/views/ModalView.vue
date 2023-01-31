@@ -919,5 +919,5 @@ defineExpose({
 
 <style lang="scss" scoped>
 @import "~/assets/css/artworks/view.scss";
-@import '~/assets/css/artworks/list-6.scss';
+@import '~/assets/css/artworks/list.scss';
 </style>

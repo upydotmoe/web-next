@@ -168,7 +168,7 @@ const search = () => {
 
 <style lang="scss" scoped>
 @import '~/assets/css/tailwind.scss';
-@import '~/assets/css/artworks/list-6.scss';
+@import '~/assets/css/artworks/list.scss';
 
 .search {
   @apply justify-center mx-0 w-full h-10 text-xs rounded cursor-pointer theme-color flex flex-row mb-4;

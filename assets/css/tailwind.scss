@@ -119,6 +119,10 @@
     }
   }
 
+  .work-grid {
+    @apply grid z-0 grid-cols-2 gap-4 mt-2 mb-4;
+  }
+  
   .work-thumbnail {
     @apply object-cover transition-all duration-200 cursor-pointer hover:shadow-xl hover:-translate-y-1;
   

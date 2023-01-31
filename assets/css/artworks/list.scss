@@ -33,10 +33,10 @@
   }
 
   /** Works list */
-  .work-grid {
-    @apply grid z-0 grid-cols-2 gap-4 mt-2 mb-4 md:grid-cols-5 xl:grid-cols-10;
+  .work-grid-10 {
+    @apply work-grid md:grid-cols-5 xl:grid-cols-10;
   }
   .work-grid-6 {
-    @apply grid z-0 grid-cols-2 gap-4 mt-2 md:grid-cols-4 lg:grid-cols-6;
+    @apply work-grid md:grid-cols-4 lg:grid-cols-6;
   }
 }

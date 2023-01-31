@@ -204,7 +204,7 @@
     >
       <WorkList 
         v-show="!isEmpty"
-        :section-class="'work-grid'"
+        :section-class="'work-grid-6'"
         :works="works"
         :view="view"
       />
@@ -433,5 +433,5 @@ const view = (workId, keepArtistPageNumber = false) => {
 
 <style lang="scss" scoped>
 @import '~/assets/css/tailwind.scss';
-@import '~/assets/css/artworks/list-6.scss';
+@import '~/assets/css/artworks/list.scss';
 </style>

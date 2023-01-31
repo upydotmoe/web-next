@@ -176,7 +176,7 @@
       >
         <WorkList
           v-show="!isEmpty"
-          :section-class="'work-grid'"
+          :section-class="'work-grid-10'"
           :works="works"
           :view="view"
         />

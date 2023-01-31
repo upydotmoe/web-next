@@ -10,7 +10,7 @@
     <div v-show="!loading">
       <WorkList
         v-show="!albumData.empty"
-        :section-class="'work-grid'"
+        :section-class="'work-grid-6'"
         :works="albumData.list"
         :view="view"
         :manage-mode="manageMode"
@@ -193,5 +193,5 @@ defineExpose({
 
 <style lang="scss" scoped>
 @import '~/assets/css/tailwind.scss';
-@import '~/assets/css/artworks/list-6.scss';
+@import '~/assets/css/artworks/list.scss';
 </style>
