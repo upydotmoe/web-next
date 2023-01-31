@@ -74,6 +74,7 @@
         <!-- CF turnstile captcha -->
         <div class="flex flex-row justify-center mt-2 w-full">
           <Turnstile
+            v-if="!isDev"
             v-model="token"
             :options="{
               theme: 'dark'
@@ -198,6 +199,7 @@ const authApi = useAuth(oApiConfiguration, fetchOptions())
 const { t } = useI18n()
 
 const runtimeConfig = useRuntimeConfig()
+const isDev = runtimeConfig.public.dev
 
 const showForm = computed(() => authFormStore.showRegistration)
 watch (() => authFormStore.showRegistration, () => {
