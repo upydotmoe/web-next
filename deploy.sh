@@ -10,7 +10,7 @@ yarn pm2:stop
 yarn pm2:start
 
 echo "Checking PM2 status.."
+sleep 5
 pm2 ls
-pm2 logs upy-web --lines 50
 
 echo "Deployed successfully!"
