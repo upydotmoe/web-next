@@ -27,7 +27,7 @@
       <button
         class="rounded-l-md section-button"
         :class="activeSection == 'comments' ? 'button-color text-white' : 'button-color-secondary'"
-        @click="activeSection = 'comments'"
+        @click="changeSection('comments')"
       >
         <Icon
           v-show="activeSection != 'comments'"
@@ -46,7 +46,7 @@
       <button
         class="section-button"
         :class="activeSection == 'likes' ? 'button-color text-white' : 'button-color-secondary'"
-        @click="activeSection = 'likes'"
+        @click="changeSection('likes')"
       >
         <Icon
           v-show="activeSection != 'likes'"
@@ -65,7 +65,7 @@
       <button
         class="rounded-r-md section-button"
         :class="activeSection == 'replies' ? 'button-color text-white' : 'button-color-secondary'"
-        @click="activeSection = 'replies'"
+        @click="changeSection('replies')"
       >
         <Icon
           v-show="activeSection != 'replies'"
@@ -127,19 +127,29 @@ const props = defineProps({
   }
 })
 
-onMounted (() => {
-  setTimeout(() => {
-    activeSection.value = 'comments'
-  }, 500)
-})
-
 const route = useRoute()
 
 const activeSection = ref('all')
+const fire = () => {
+  if (activeSection.value === 'all') {
+    changeSection('comments')
+  }
+}
 
 const commentNotifsRef = ref(null)
 const commentLikeNotifsRef = ref(null)
 const commentRepliesRef = ref(null)
+const changeSection = (section) => {
+  activeSection.value = section
+  if (section === 'comments') {
+    commentNotifsRef.value.fire()
+  } else if (section === 'likes') {
+    commentLikeNotifsRef.value.fire()
+  } else if (section === 'replies') {
+    commentRepliesRef.value.fire()
+  }
+}
+
 const markAllAsRead = async () => {
   const [success, error] = await notificationApi.markAllCommentAndReplyNotificationAsRead()
 
@@ -159,6 +169,10 @@ const clearNotifs = async () => {
     commentRepliesRef.value.clear()
   }
 }
+
+defineExpose({
+  fire
+})
 </script>
 
 <style lang="scss" scoped>

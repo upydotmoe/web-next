@@ -41,7 +41,10 @@
       </div>
     </div>
 
-    <InfiniteLoading :load="fetch">
+    <InfiniteLoading
+      v-model:is-initial="fetchInitial"
+      :load="fetch"
+    >
       <template #loading>
         <div class="mx-auto text-center">
           <Icon
@@ -84,6 +87,13 @@ const props = defineProps({
 const route = useRoute()
 const { $router } = useNuxtApp()
 
+const fetchInitial = ref(false)
+const init = ref(false)
+const fire = () => {
+  fetchInitial.value = true
+  init.value = true
+}
+
 const notifications = ref([])
 const options = ref({
   showLimit: 1,
@@ -93,23 +103,25 @@ const options = ref({
   }
 })
 const fetch = async ({ loaded }) => {
-  const [data, error] = await notificationApi.getArtworkCommentLikeNotifications({
-    showLimit: options.value.showLimit,
-    pagination: {
-      page: options.value.pagination.page,
-      perPage: options.value.pagination.perPage
-    }
-  })
-
-  if (data.notifications.length) {
-    options.value.pagination.page += 1
-
-    data.notifications.forEach((notification) => {
-      notifications.value.push(notification)
+  if (init.value) {
+    const [data, error] = await notificationApi.getArtworkCommentLikeNotifications({
+      showLimit: options.value.showLimit,
+      pagination: {
+        page: options.value.pagination.page,
+        perPage: options.value.pagination.perPage
+      }
     })
-  }
 
-  loaded(data.notifications.length, options.value.pagination.perPage)
+    if (data.notifications.length) {
+      options.value.pagination.page += 1
+
+      data.notifications.forEach((notification) => {
+        notifications.value.push(notification)
+      })
+    }
+
+    loaded(data.notifications.length, options.value.pagination.perPage)
+  }
 }
 
 const markAllAsRead = () => {
@@ -140,6 +152,7 @@ const openUserProfile = (username) => {
 }
 
 defineExpose({
+  fire,
   markAllAsRead,
   clear
 })

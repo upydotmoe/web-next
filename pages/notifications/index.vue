@@ -5,7 +5,9 @@
     class="h-full theme-color"
   >
     <div class="h-full">
-      <Notifications />
+      <Notifications
+        ref="notificationRef"
+      />
     </div>
   </Layout>
 </template>
@@ -27,5 +29,10 @@ onBeforeMount(() => {
   if (!auth.loggedIn) {
     router.push('/explore')
   }
+})
+
+const notificationRef = ref(null)
+onMounted(() => {
+  notificationRef.value.open()
 })
 </script>

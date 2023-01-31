@@ -4,7 +4,6 @@ import { ArtworksArtTradesApi } from '~/api/api'
 export default function (oApiConfiguration: Configuration, fetchOptions: any) {
   const getTradeById = async (tradeId: number) => {
     try {
-      console.log(tradeId)
       const { data } = await new ArtworksArtTradesApi(oApiConfiguration)
         .getArtTradeById(
           tradeId,

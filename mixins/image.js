@@ -21,9 +21,9 @@ export default {
       //   url = `https://${this.$config.cdnUrl}/${bucketName}/${fileName}`
       // }
 
-      let url = 'http://notfound.com/neverexist.jpg'
+      let url = defaultCover
 
-      if (fileName !== null) {
+      if (fileName !== null && fileName !== undefined) {
         url = `https://${this.$config.cdnUrl}/${fileName}`
       }
 

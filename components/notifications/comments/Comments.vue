@@ -37,7 +37,10 @@
     </div>
 
     <client-only>
-      <InfiniteLoading :load="fetchCommentNotifs">
+      <InfiniteLoading
+        v-model:is-initial="fetchInitial"
+        :load="fetch"
+      >
         <template #loading>
           <div class="mx-auto text-center">
             <Icon :name="'i-line-md-loading-twotone-loop'" class="text-3xl" />
@@ -78,6 +81,13 @@ const props = defineProps({
 const route = useRoute()
 const { $router } = useNuxtApp()
 
+const fetchInitial = ref(false)
+const init = ref(false)
+const fire = () => {
+  fetchInitial.value = true
+  init.value = true
+}
+
 const notifications = ref([])
 const options = ref({
   showLimit: 1,
@@ -86,23 +96,25 @@ const options = ref({
     perPage: 10
   }
 })
-const fetchCommentNotifs = async ({ loaded }) => {
-  const [data, error] = await notificationApi.getArtworkCommentNotifications({
-    pagination: {
-      page: options.value.pagination.page,
-      perPage: options.value.pagination.perPage
-    }
-  })
-
-  if (data.notifications.length) {
-    options.value.pagination.page += 1
-
-    data.notifications.forEach((notification) => {
-      notifications.value.push(notification)
+const fetch = async ({ loaded }) => {
+  if (init.value) {
+    const [data, error] = await notificationApi.getArtworkCommentNotifications({
+      pagination: {
+        page: options.value.pagination.page,
+        perPage: options.value.pagination.perPage
+      }
     })
-  }
 
-  loaded(data.notifications.length, options.value.pagination.perPage)
+    if (data.notifications.length) {
+      options.value.pagination.page += 1
+
+      data.notifications.forEach((notification) => {
+        notifications.value.push(notification)
+      })
+    }
+
+    loaded(data.notifications.length, options.value.pagination.perPage)
+  }
 }
 
 const markAllAsRead = () => {
@@ -134,6 +146,7 @@ const openUserProfile = (username) => {
 }
 
 defineExpose({
+  fire,
   markAllAsRead,
   clear
 })

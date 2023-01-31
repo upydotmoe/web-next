@@ -449,7 +449,6 @@ const viewFeed = (feedId) => {
 }
 
 const readMore = (description, workId, selectorElId, descriptionElid) => {
-  console.log('reading description of work ID:', workId)
   useReadMore().readMore(description, workId, selectorElId, descriptionElid)
 }
 

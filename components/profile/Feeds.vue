@@ -12,13 +12,12 @@
           />
 
           <TextPostDetail
-            :feed="feed"
-            :read-more="readMore"
-            :view="viewArtwork"
             :bypass="true"
+            :feed="feed"
             :color-reversed="true"
+            :read-more="readMore"
+            :view-artwork="viewArtwork"
             @read-more="readMore"
-            @view="viewArtwork"
           />
 
           <!-- Intereaction area -->

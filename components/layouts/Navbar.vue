@@ -119,7 +119,7 @@
             <div
               v-if="auth.loggedIn"
               class="ellipsis-nav dropdown nav-icon"
-              @click="clearNotificationCounter()"
+              @click="openNotification()"
             >
               <button
                 type="button"
@@ -143,7 +143,10 @@
                   class="toggler"
                   style="width: 500px;"
                 >
-                  <Notifications :is-navbar="true" />
+                  <Notifications
+                    ref="notificationRef"
+                    :is-navbar="true"
+                  />
                 </div>
               </div>
             </div>
@@ -401,6 +404,12 @@ const clearNotificationCounter = async () => {
   } else {
     // todo: handle error
   }
+}
+
+const notificationRef = ref(null)
+const openNotification = () => {
+  notificationRef.value.open()
+  clearNotificationCounter()
 }
 
 /**

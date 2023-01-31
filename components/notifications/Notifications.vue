@@ -7,7 +7,7 @@
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'likes' }" 
-          @click.prevent="currentSection = 'likes'"
+          @click.prevent="changeCurrentSection('likes')"
         >
           <div class="flex flex-row justify-start">
             <Icon
@@ -39,7 +39,7 @@
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'comments' }" 
-          @click.prevent="currentSection = 'comments'"
+          @click.prevent="changeCurrentSection('comments')"
         >
           <div class="flex flex-row justify-start">
             <Icon
@@ -71,7 +71,7 @@
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'follows' }" 
-          @click.prevent="currentSection = 'follows'"
+          @click.prevent="changeCurrentSection('follows')"
         >
           <div class="flex flex-row justify-start">
             <Icon
@@ -103,7 +103,7 @@
         <button
           class="flex flex-row justify-between text-left rounded-md category-button-secondary"
           :class="{ 'button-color text-white': currentSection === 'feeds' }" 
-          @click.prevent="currentSection = 'feeds'"
+          @click.prevent="changeCurrentSection('feeds')"
         >
           <div class="flex flex-row justify-start">
             <Icon
@@ -137,19 +137,25 @@
         <!-- artworks -->
         <Likes
           v-show="currentSection == 'likes' || currentSection == 'all'" 
+          ref="likesRef"
           :is-navbar="props.isNavbar"
         />
         <CommentsAndReplies
           v-show="currentSection == 'comments' || currentSection == 'all'"
+          ref="commentRef"
           :is-navbar="props.isNavbar"
         />
         <Follows
           v-show="currentSection == 'follows' || currentSection == 'all'"
+          ref="followRef"
           :is-navbar="props.isNavbar"
         />
 
         <!-- feeds -->
-        <Feeds v-show="currentSection == 'feeds' || currentSection == 'all'" />
+        <Feeds
+          v-show="currentSection == 'feeds' || currentSection == 'all'"
+          ref="feedRef"
+        />
       </div>
     </div>
   </div>
@@ -188,15 +194,39 @@ onMounted(async () => {
     $router.push('/')
   }
 
-  setTimeout(() => {
-    currentSection.value = 'likes'
-  }, 500)
+  // setTimeout(() => {
+  //   currentSection.value = 'likes'
+  // }, 500)
 
   await countArtworkLikeNotifications()
   await countArtworkCommentsNotifications()
   await countUserFollowNotifications()
   await countFeedNotifications()
 })
+
+// open notification, fire some function when notification icon clicked
+const open = () => {
+  if (currentSection.value === 'all') {
+    changeCurrentSection('likes')
+  }
+}
+
+const likesRef = ref(null)
+const commentRef = ref(null)
+const followRef = ref(null)
+const feedRef = ref(null)
+const changeCurrentSection = (section) => {
+  currentSection.value = section
+  if (section === 'likes') {
+    likesRef.value.fire()
+  } else if (section === 'comments') {
+    commentRef.value.fire()
+  } else if (section === 'follows') {
+    followRef.value.fire()
+  } else if (section === 'feeds') {
+    feedRef.value.fire()
+  }
+}
 
 const artworkLikeNotiNotificationTotal = ref(0)
 const countArtworkLikeNotifications = async () => {
@@ -241,6 +271,10 @@ const countFeedNotifications = async () => {
     feedNotificationTotal.value = data.count
   }
 }
+
+defineExpose({
+  open
+})
 </script>
 
 <style lang="scss" scoped>

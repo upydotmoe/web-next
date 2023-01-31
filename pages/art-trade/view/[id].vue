@@ -412,8 +412,6 @@ const copyLink = (link) => {
 // upload new artwork listener
 const selectedArtworkId = ref(0)
 const acceptUploadedWorkId = async (workId) => {
-  console.log('accepted!')
-  console.log(workId)
   selectedArtworkId.value = workId
 
   await fetchUploadedArtworkInfo()
