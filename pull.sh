@@ -1,10 +1,12 @@
 #!/bin/bash
-git switch dev
+git switch main
 git checkout .
 
 echo "Removing untracked files.."
 git add .
 git reset --hard HEAD
 
-echo "Pooling new commit from remote, branch dev.."
-git pull -f origin dev
+echo "Pulling new commit from main branch.."
+git pull -f origin main
+
+echo "Pulled!"
