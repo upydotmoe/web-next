@@ -1,0 +1,1 @@
+import{l as o,C as s,p as n,q as u,o as r}from"./entry.e59d1677.js";const _={__name:"index",setup(a){const t=o(),{$router:e}=s();return n(()=>{t.loggedIn?e.push("/feed"):e.push("/explore")}),(p,c)=>(r(),u("div",null,"\xA0"))}};export{_ as default};
