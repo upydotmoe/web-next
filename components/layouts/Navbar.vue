@@ -220,7 +220,7 @@
 
                   <div class="custom-divider" />
 
-                  <nuxt-link :to="'/profile'">
+                  <nuxt-link :to="'/u/' + auth.user.username">
                     <div class="menu parent-icon">
                       <Icon :name="'i-fluent-person-32-regular'" />
                       {{ $t('profile.profile') }}
