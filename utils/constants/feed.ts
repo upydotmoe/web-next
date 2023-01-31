@@ -1,11 +1,11 @@
-import { UnionType } from './'
+import { toUnionType } from '../utils'
 
 export const FETCH_MODES = {
   FEED: 'feed',
   TEXT: 'text',
   ARTWORK: 'artwork'
 } as const
-export type TFetchModes = UnionType<keyof typeof FETCH_MODES, typeof FETCH_MODES>
+export type TFetchModes = toUnionType<typeof FETCH_MODES>
 
 export const newUserWelcomeMenus = [
   {

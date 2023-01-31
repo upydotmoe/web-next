@@ -1,35 +1,36 @@
 <template>
   <div>
-    <div class="flex flex-row justify-between w-full text-xs cursor-default md:p-2">
+    <div class="notification">
       <!-- notification content -->
-      <div class="flex flex-col md:mr-2 md:w-6/12">
+      <section
+        id="notification-navigator-section"
+        class="notification__navigator"
+      >
         <!-- artwork likes -->
         <button
-          class="flex flex-row justify-between text-left rounded-md category-button-secondary"
-          :class="{ 'button-color text-white': currentSection === 'likes' }" 
-          @click.prevent="changeCurrentSection('likes')"
+          :class="{ 'button-active': currentSection === NOTIFICATION_SECTIONS.LIKES }" 
+          @click.prevent="changeCurrentSection(NOTIFICATION_SECTIONS.LIKES)"
         >
-          <div class="flex flex-row justify-start">
+          <div class="icon-label">
             <Icon
-              v-show="currentSection === 'likes'"
+              v-show="currentSection === NOTIFICATION_SECTIONS.LIKES"
               :name="'i-ri-heart-3-line'"
-              class="text-white md:mr-2"
+              class="text-white"
             />
             <Icon
-              v-show="currentSection !== 'likes'"
+              v-show="currentSection !== NOTIFICATION_SECTIONS.LIKES"
               :name="'i-ri-heart-3-line'"
-              class="md:mr-2"
             />
 
-            <div class="hidden-md-flex">
+            <div class="label">
               {{ $t('notifications.likes') }}
             </div>
           </div>
 
           <div 
             v-show="artworkLikeNotiNotificationTotal > 0" 
-            class="font-bold counter hidden-md-flex" 
-            :class="currentSection === 'likes' ? 'text-white' : 'text-red-400'"
+            class="counter" 
+            :class="currentSection === NOTIFICATION_SECTIONS.LIKES ? 'text-white' : 'text-red-400'"
           >
             {{ artworkLikeNotiNotificationTotal > 99 ? '99+' : artworkLikeNotiNotificationTotal }}
           </div>
@@ -37,31 +38,29 @@
 
         <!-- comments and replies -->
         <button
-          class="flex flex-row justify-between text-left rounded-md category-button-secondary"
-          :class="{ 'button-color text-white': currentSection === 'comments' }" 
-          @click.prevent="changeCurrentSection('comments')"
+          :class="{ 'button-active': currentSection === NOTIFICATION_SECTIONS.COMMENTS }" 
+          @click.prevent="changeCurrentSection(NOTIFICATION_SECTIONS.COMMENTS)"
         >
-          <div class="flex flex-row justify-start">
+          <div class="icon-label">
             <Icon
-              v-show="currentSection === 'comments'"
+              v-show="currentSection === NOTIFICATION_SECTIONS.COMMENTS"
               :name="'i-mdi-comment-multiple-outline'"
-              class="text-white md:mr-2"
+              class="text-white"
             />
             <Icon
-              v-show="currentSection !== 'comments'"
+              v-show="currentSection !== NOTIFICATION_SECTIONS.COMMENTS"
               :name="'i-mdi-comment-multiple-outline'"
-              class="md:mr-2"
             />
 
-            <div class="hidden-md-flex">
+            <div class="label">
               {{ $t('notifications.comments') }}
             </div>
           </div>
 
           <div 
             v-show="artworkCommentsNotificationTotal > 0" 
-            class="font-bold counter hidden-md-flex" 
-            :class="currentSection === 'comments' ? 'text-white' : 'text-red-400'"
+            class="counter" 
+            :class="currentSection === NOTIFICATION_SECTIONS.COMMENTS ? 'text-white' : 'text-red-400'"
           >
             {{ artworkCommentsNotificationTotal > 99 ? '99+' : artworkCommentsNotificationTotal }}
           </div>
@@ -69,31 +68,29 @@
 
         <!-- user follows -->
         <button
-          class="flex flex-row justify-between text-left rounded-md category-button-secondary"
-          :class="{ 'button-color text-white': currentSection === 'follows' }" 
-          @click.prevent="changeCurrentSection('follows')"
+          :class="{ 'button-active': currentSection === NOTIFICATION_SECTIONS.FOLLOWS }" 
+          @click.prevent="changeCurrentSection(NOTIFICATION_SECTIONS.FOLLOWS)"
         >
-          <div class="flex flex-row justify-start">
+          <div class="icon-label">
             <Icon
-              v-show="currentSection === 'follows'"
+              v-show="currentSection === NOTIFICATION_SECTIONS.FOLLOWS"
               :name="'i-fluent-people-checkmark-24-regular'"
-              class="text-white md:mr-2"
+              class="text-white"
             />
             <Icon
-              v-show="currentSection !== 'follows'"
+              v-show="currentSection !== NOTIFICATION_SECTIONS.FOLLOWS"
               :name="'i-fluent-people-checkmark-24-regular'"
-              class="md:mr-2"
             />
 
-            <div class="hidden-md-flex">
+            <div class="label">
               {{ $t('notifications.follows') }}
             </div>
           </div>
 
           <div 
             v-show="userFollowNotifNotificationTotal > 0" 
-            class="font-bold counter hidden-md-flex" 
-            :class="currentSection === 'follows' ? 'text-white' : 'text-red-400'"
+            class="counter" 
+            :class="currentSection === NOTIFICATION_SECTIONS.FOLLOWS ? 'text-white' : 'text-red-400'"
           >
             {{ userFollowNotifNotificationTotal > 99 ? '99+' : userFollowNotifNotificationTotal }}
           </div>
@@ -101,67 +98,70 @@
       
         <!-- feeds -->
         <button
-          class="flex flex-row justify-between text-left rounded-md category-button-secondary"
-          :class="{ 'button-color text-white': currentSection === 'feeds' }" 
-          @click.prevent="changeCurrentSection('feeds')"
+          :class="{ 'button-active': currentSection === NOTIFICATION_SECTIONS.FEEDS }" 
+          @click.prevent="changeCurrentSection(NOTIFICATION_SECTIONS.FEEDS)"
         >
-          <div class="flex flex-row justify-start">
+          <div class="icon-label">
             <Icon
-              v-show="currentSection === 'feeds'"
+              v-show="currentSection === NOTIFICATION_SECTIONS.FEEDS"
               :name="'i-ion-newspaper-outline'"
-              class="text-white md:mr-2"
+              class="text-white"
             />
             <Icon
-              v-show="currentSection !== 'feeds'"
+              v-show="currentSection !== NOTIFICATION_SECTIONS.FEEDS"
               :name="'i-ion-newspaper-outline'"
-              class="md:mr-2"
             />
 
-            <div class="hidden-md-flex">
+            <div class="label">
               {{ $t('notifications.feeds') }}
             </div>
           </div>
 
           <div 
             v-show="feedNotificationTotal > 0" 
-            class="font-bold counter hidden-md-flex" 
-            :class="currentSection === 'feeds' ? 'text-white' : 'text-red-400'"
+            class="counter" 
+            :class="currentSection === NOTIFICATION_SECTIONS.FEEDS ? 'text-white' : 'text-red-400'"
           >
             {{ feedNotificationTotal > 99 ? '99+' : feedNotificationTotal }}
           </div>
         </button>
-      </div>
+      </section>
 
       <!-- notification content -->
-      <div class="w-full">
+      <section
+        id="content-section"
+        class="w-full"
+      >
         <!-- artworks -->
         <Likes
-          v-show="currentSection == 'likes' || currentSection == 'all'" 
+          v-show="currentSection == NOTIFICATION_SECTIONS.LIKES"
           ref="likesRef"
           :is-navbar="props.isNavbar"
         />
         <CommentsAndReplies
-          v-show="currentSection == 'comments' || currentSection == 'all'"
+          v-show="currentSection == NOTIFICATION_SECTIONS.COMMENTS"
           ref="commentRef"
           :is-navbar="props.isNavbar"
         />
         <Follows
-          v-show="currentSection == 'follows' || currentSection == 'all'"
+          v-show="currentSection == NOTIFICATION_SECTIONS.FOLLOWS"
           ref="followRef"
           :is-navbar="props.isNavbar"
         />
 
         <!-- feeds -->
         <Feeds
-          v-show="currentSection == 'feeds' || currentSection == 'all'"
+          v-show="currentSection == NOTIFICATION_SECTIONS.FEEDS"
           ref="feedRef"
         />
-      </div>
+      </section>
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { TNotificationSections, NOTIFICATION_SECTIONS } from '~/utils/constants/notification'
+
 // stores
 import useAuthStore from '@/stores/auth.store'
 
@@ -186,17 +186,13 @@ const props = defineProps({
   }
 })
 
-const { $router } = useNuxtApp()
+const router = useRouter()
 
-const currentSection = ref('all')
+const currentSection = ref<TNotificationSections>(NOTIFICATION_SECTIONS.ALL)
 onMounted(async () => {
   if (!auth.loggedIn) {
-    $router.push('/')
+    router.push('/')
   }
-
-  // setTimeout(() => {
-  //   currentSection.value = 'likes'
-  // }, 500)
 
   await countArtworkLikeNotifications()
   await countArtworkCommentsNotifications()
@@ -206,29 +202,29 @@ onMounted(async () => {
 
 // open notification, fire some function when notification icon clicked
 const open = () => {
-  if (currentSection.value === 'all') {
-    changeCurrentSection('likes')
+  if (currentSection.value === NOTIFICATION_SECTIONS.ALL) {
+    changeCurrentSection(NOTIFICATION_SECTIONS.LIKES)
   }
 }
 
-const likesRef = ref(null)
-const commentRef = ref(null)
-const followRef = ref(null)
-const feedRef = ref(null)
-const changeCurrentSection = (section) => {
+const likesRef = ref()
+const commentRef = ref()
+const followRef = ref()
+const feedRef = ref()
+const changeCurrentSection = (section: TNotificationSections) => {
   currentSection.value = section
-  if (section === 'likes') {
+  if (section === NOTIFICATION_SECTIONS.LIKES) {
     likesRef.value.fire()
-  } else if (section === 'comments') {
+  } else if (section === NOTIFICATION_SECTIONS.COMMENTS) {
     commentRef.value.fire()
-  } else if (section === 'follows') {
+  } else if (section === NOTIFICATION_SECTIONS.FOLLOWS) {
     followRef.value.fire()
-  } else if (section === 'feeds') {
+  } else if (section === NOTIFICATION_SECTIONS.FEEDS) {
     feedRef.value.fire()
   }
 }
 
-const artworkLikeNotiNotificationTotal = ref(0)
+const artworkLikeNotiNotificationTotal = ref<number>(0)
 const countArtworkLikeNotifications = async () => {
   const [data, error] = await notificationApi.countArtworkLikeNotifications()
 
@@ -239,7 +235,7 @@ const countArtworkLikeNotifications = async () => {
   }
 }
 
-const artworkCommentsNotificationTotal = ref(0)
+const artworkCommentsNotificationTotal = ref<number>(0)
 const countArtworkCommentsNotifications = async () => {
   const [data, error] = await notificationApi.countArtworkCommentRelatedNotifications()
 
@@ -250,7 +246,7 @@ const countArtworkCommentsNotifications = async () => {
   }
 }
 
-const userFollowNotifNotificationTotal = ref(0)
+const userFollowNotifNotificationTotal = ref<number>(0)
 const countUserFollowNotifications = async () => {
   const [data, error] = await notificationApi.countUserFollowNotifications()
 
@@ -261,7 +257,7 @@ const countUserFollowNotifications = async () => {
   }
 }
 
-const feedNotificationTotal = ref(0)
+const feedNotificationTotal = ref<number>(0)
 const countFeedNotifications = async () => {
   const [data, error] = await notificationApi.countFeedNotifications()
 
@@ -280,7 +276,40 @@ defineExpose({
 <style lang="scss" scoped>
 @import '~/assets/css/navbar.scss';
 
-.category-button-secondary:hover .counter {
-  @apply text-white;
+.notification {
+  @apply flex flex-row justify-between w-full text-xs cursor-default md:p-2;
+
+  &__navigator {
+    @apply flex flex-col md:mr-2 md:w-6/12;
+
+    button {
+      @apply flex flex-row justify-between text-left rounded-md category-button-secondary;
+      margin-bottom: 0px !important;
+    }
+
+    button:hover .counter {
+      @apply text-white;
+    }
+
+    .button-active {
+      @apply button-color text-white;
+    }
+
+    .icon-label {
+      @apply flex flex-row justify-start;
+
+      .icon {
+        @apply md:mr-2;
+      }
+
+      .label {
+        @apply hidden-md-flex;
+      }
+
+      .counter {
+        @apply font-bold hidden-md-flex;
+      }
+    }
+  }
 }
 </style>

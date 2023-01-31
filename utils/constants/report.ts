@@ -1,4 +1,4 @@
-import { UnionType } from './'
+import { toUnionType } from '../utils'
 
 export const REPORT_TYPES = {
   ARTWORK: 'artwork',
@@ -6,4 +6,5 @@ export const REPORT_TYPES = {
   COMMENT: 'comment',
   COMMENT_REPLY: 'comment_reply'
 } as const
-export type TReportType = UnionType<keyof typeof REPORT_TYPES, typeof REPORT_TYPES>
+
+export type TReportType = toUnionType<typeof REPORT_TYPES>
