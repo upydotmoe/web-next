@@ -8,6 +8,9 @@ jobs:
     name: Run automated Deployment
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: ssh-action
         uses: appleboy/ssh-action@v0.1.6
         with:
