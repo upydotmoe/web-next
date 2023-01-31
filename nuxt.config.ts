@@ -55,11 +55,11 @@ export default defineNuxtConfig({
       dev: process.env.NODE_ENV === 'development' ? true : false,
       apiUrl: process.env.API_URL,
       appUrl: process.env.APP_URL,
-      activeCdn: process.env.ACTIVE_CDN,
-      cloudflareUrl: process.env.CLOUDFLARE_CDN_URL,
-      bunnyUrl: process.env.BUNNY_CDN_URL,
+      // activeCdn: process.env.ACTIVE_CDN,
+      // cloudflareUrl: process.env.CLOUDFLARE_CDN_URL,
+      // bunnyUrl: process.env.BUNNY_CDN_URL,
       cdnUrl: process.env.CDN_DOMAIN,
-      staticallyCdn: process.env.STATICALLY_CDN_URL
+      // staticallyCdn: process.env.STATICALLY_CDN_URL
     },
     app: {},
     turnstile: {
