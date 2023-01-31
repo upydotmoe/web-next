@@ -94,7 +94,7 @@
       <!-- latest 3 artworks -->
       <div 
         v-if="user.artworks"
-        class="work-grid-10"
+        class="user-latest-artworks"
       >
         <div
           v-for="(latestArtwork, workIndex) in user.artworks"
@@ -218,7 +218,7 @@ const unfollowUser = async (index, userToUnfollow) => {
   aspect-ratio: 1/1;
 }
 
-.work-grid {
+.user-latest-artworks {
   @apply grid z-0 grid-cols-3 theme-color-secondary w-full rounded-b-md;
 
   .work-thumbnail-user-list {

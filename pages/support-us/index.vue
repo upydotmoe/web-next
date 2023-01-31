@@ -107,7 +107,7 @@
 
           <!-- patreon -->
           <a
-            :href="'https://patreon.com/upyapp'"
+            :href="'https://patreon.com/upydotmoe'"
             target="_blank"
             class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
           >
@@ -120,7 +120,7 @@
 
           <!-- ko-fi -->
           <a
-            :href="'https://ko-fi.com/upyapp'"
+            :href="'https://ko-fi.com/upydotmoe'"
             target="_blank"
             class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
           >
@@ -133,7 +133,7 @@
 
           <!-- saweria -->
           <a
-            :href="'https://saweria.co/upyapp'"
+            :href="'https://saweria.co/upydotmoe'"
             target="_blank"
             class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
           >
@@ -146,7 +146,7 @@
 
           <!-- github sponsor -->
           <a
-            :href="'https://github.com/sponsors/upyapp'"
+            :href="'https://github.com/sponsors/upydotmoe'"
             target="_blank"
             class="flex flex-col justify-center p-6 w-full text-center align-middle rounded-md shadow-sm hover:shadow-xl theme-color"
           >

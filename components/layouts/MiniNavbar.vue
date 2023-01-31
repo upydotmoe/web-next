@@ -46,7 +46,7 @@
         {{ $t('tags.tags') }}
       </nuxt-link>
       <a
-        href="https://github.com/upyapp/issues"
+        href="https://github.com/upydotmoe/issues"
         target="_blank"
         class="uppercase"
       >

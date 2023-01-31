@@ -22,13 +22,13 @@
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
-        href="https://github.com/upyapp"
+        href="https://github.com/upydotmoe"
       >Github</a>
     </span>
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
-        href="https://twitter.com/messages/compose?recipient_id=xxx"
+        href="https://twitter.com/upydotmoe"
       >Contact Us</a>
     </span>
     <!-- <span class="mx-3 hover:underline">
@@ -40,7 +40,7 @@
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
-        href="https://github.com/sponsors/upyapp"
+        href="https://github.com/sponsors/upydotmoe"
       >Sponsor Us</a>
     </span>
     <span class="mx-3 hover:underline">
