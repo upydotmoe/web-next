@@ -33,10 +33,12 @@ export default {
     },
 
     applyExplicitFilter (auth, isExplicit, isGore) {
-      return
+      const apply =
         (!auth.loggedIn && (isExplicit || isGore)) ||
         (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_explicit && isExplicit) ||
         (auth.loggedIn && auth.user.user_settings && !auth.user.user_settings.show_gore && isGore)
+
+      return apply
     },
 
     unfixedNavbarRoutes () {
