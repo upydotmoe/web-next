@@ -248,7 +248,8 @@
           </div>
 
           <!-- collection -->
-          <div 
+          <div
+            v-if="auth.loggedIn"
             class="profile-navigation__mobile theme-color-secondary"
             :class="{ 'button-color text-white': currentState == 'collections' }"
             @click="changeCurrentState('collections')"
