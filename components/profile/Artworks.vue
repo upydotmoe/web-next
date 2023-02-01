@@ -53,7 +53,7 @@ import LoadingEmptyErrorMessage from '~/components/globals/LoadingEmptyErrorMess
 const { oApiConfiguration, fetchOptions } = useApiFetch()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
-const emit = defineEmits(['feedSelectedItems', 'onEmpty'])
+const emit = defineEmits(['feedSelectedItems', 'onEmpty', 'fireCounter'])
 const props = defineProps({
   userId: {
     type: Number,
@@ -73,10 +73,10 @@ const section = 'profile'
 const loading = ref(true)
 
 onMounted (() => {
-  fetchTop()
+  fetchTop(true)
 })
 
-const fetchTop = async () => {
+const fetchTop = async (isInitial = false) => {
   pagination.value.page = 0
 
   const [dataWorks, dataPagination] = await fetch()
@@ -91,6 +91,11 @@ const fetchTop = async () => {
   
   if (dataPagination.record_total === 0) {
     showEmpty()
+  }
+
+  if (isInitial) {
+    console.log('artowrk fetched!');
+    emit('fireCounter')
   }
 }
 

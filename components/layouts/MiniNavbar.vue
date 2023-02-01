@@ -24,7 +24,7 @@
         {{ $t('browse') }}
       </nuxt-link>
       <a
-        v-if="artworkAvailabity > 1 && auth.loggedIn"
+        v-if="auth.loggedIn && artworkAvailabity > 1"
         href="#"
         class="uppercase"
         @click="random()"
@@ -57,6 +57,8 @@
 </template>
 
 <script setup>
+import { getCookieValue } from '~/utils/helpers'
+
 // stores
 import useAuthStore from '@/stores/auth.store'
 
@@ -70,8 +72,16 @@ const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 
 const router = useRouter()
 
-onMounted(async () => {
-  await countAvailableArtwork()
+onBeforeMount(async () => {
+  if (auth.loggedIn) {
+    // read from cookie first
+    const cachedArtworkAvailabity = getCookieValue('available_artwork')
+    if (!cachedArtworkAvailabity) {
+      await countAvailableArtwork()
+    } else {
+      artworkAvailabity.value = cachedArtworkAvailabity
+    }
+  }
 })
 
 /**
@@ -89,6 +99,11 @@ const countAvailableArtwork = async () => {
   } else {
     artworkAvailabity.value = artworkCount
   }
+
+  // store to cookie, to reduce server load
+  document.cookie = `available_artwork=${artworkAvailabity.value};max-age=${3600}`
+
+  const cookies = document.cookie
 }
 
 const random = async () => {

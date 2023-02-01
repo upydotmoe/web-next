@@ -193,17 +193,17 @@ onMounted(async () => {
   if (!auth.loggedIn) {
     router.push('/')
   }
-
-  await countArtworkLikeNotifications()
-  await countArtworkCommentsNotifications()
-  await countUserFollowNotifications()
-  await countFeedNotifications()
 })
 
 // open notification, fire some function when notification icon clicked
-const open = () => {
+const open = async () => {
   if (currentSection.value === NOTIFICATION_SECTIONS.ALL) {
     changeCurrentSection(NOTIFICATION_SECTIONS.LIKES)
+
+    await countArtworkLikeNotifications()
+    await countArtworkCommentsNotifications()
+    await countUserFollowNotifications()
+    await countFeedNotifications()
   }
 }
 

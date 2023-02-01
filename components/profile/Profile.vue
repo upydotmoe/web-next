@@ -335,10 +335,16 @@
                   {{ $t('albums.albums') }}
                 </label>
               </div>
-              <span class="hidden-lg-flex">{{ thousand(counter.album) }}</span>
+              <span
+                v-if="auth.loggedIn"
+                class="hidden-lg-flex"
+              >
+                {{ thousand(counter.album) }}
+              </span>
             </div>
 
-            <div 
+            <div
+              v-if="auth.loggedIn"
               class="profile-navigation left-menu-link theme-color-secondary"
               :class="{ 'button-color text-white': currentState === 'collections' }"
               @click="changeCurrentState('collections')"
@@ -357,7 +363,9 @@
                   {{ $t('collections.collections') }}
                 </label>
               </div>
-              <span class="hidden-lg-flex">{{ thousand(counter.collection) }}</span>
+              <span class="hidden-lg-flex">
+                {{ thousand(counter.collection) }}
+              </span>
             </div>
 
             <div
@@ -395,12 +403,13 @@
             <div v-if="currentState === 'dashboard'">
               <div class="flex flex-row w-full">
                 <div 
+                  v-if="auth.loggedIn"
                   class="flex flex-row justify-between w-full md:justify-center profile-category-button left-menu-link theme-color-secondary md:w-auto"
                   :class="{ 'button-color text-white': activeDashboard === 'feed' }"
                   @click="activeDashboard = 'feed'" 
                 >
                   {{ $t('feed') }}
-                  <span 
+                  <span
                     class="px-1 ml-2 rounded" 
                     :class="activeDashboard === 'feed' ? 'theme-color' : 'button-color text-white'"
                   >
@@ -540,7 +549,7 @@
               <div class="mt-2">
                 <!-- feeds -->
                 <Feeds
-                  v-if="activeDashboard === 'feed'"
+                  v-if="auth.loggedIn && activeDashboard === 'feed'"
                   ref="feedListRef"
                   :user-id="userInfo.id"
                 />
@@ -553,6 +562,7 @@
                   :user-id="userInfo.id"
                   :manage-mode="config.manageMode"
                   :sort-by="sortBy"
+                  @fireCounter="fireCounter"
                   @feedSelectedItems="feedSelectedItems"
                   @onEmpty="onEmpty"
                 />
@@ -568,7 +578,7 @@
             </div>
 
             <!-- view mode: collections -->
-            <div v-if="currentState === 'collections'">
+            <div v-if="auth.loggedIn && currentState === 'collections'">
               <Collection
                 v-if="!loading"
                 :user-id="userInfo.id"
@@ -752,36 +762,55 @@ const isHideFollowingList = computed(() => {
 const fetchUserInfo = async () => {
   loading.value = true
 
-  try {
-    const [userData] = await userApi.getInfo(userId.value)
-    userInfo.value = userData
+  const [userData] = await userApi.getInfo(userId.value)
+  userInfo.value = userData
 
-    // is user followed or not
-    if (auth.loggedIn && (auth.user.id !== userId.value)) {
-      const [followData] = await userApi.isFollowing(userId.value)
+  // check current following status (if user logged in)
+  await checkFollowingStatus()
 
-      followingData.value = {
-        isFollowing: followData.is_following,
-        isPrivate: followData.is_private,
-        followingSince: followData.following_since
-      }
+  emit('setMeta', {
+    title: `(${userInfo.value.username}) ${userInfo.value.name}`
+  })
+
+  // to make sure the user doesn't wait too long, 
+  // we need to stop the loading process now and deliver the as quickly as possible
+  loading.value = false
+
+  countFollows()
+}
+
+const checkFollowingStatus = async () => {
+  if (auth.loggedIn && (auth.user.id !== userId.value)) {
+    const [followData] = await userApi.isFollowing(userId.value)
+
+    followingData.value = {
+      isFollowing: followData.is_following,
+      isPrivate: followData.is_private,
+      followingSince: followData.following_since
     }
+  }
+}
 
+const countFollows = async () => {
+  // count followers
+  const [followersTotal] = await userApi.countFollowers(userId.value)
+  counter.value.followers = followersTotal
+
+  // count followings
+  const [followingsTotal] = await userApi.countFollowings(userId.value)
+  counter.value.followings = followingsTotal
+}
+
+const fireCounter = async () => {
+  // count artwork total
+  const [artworkTotal] = await userApi.countArtworks(userId.value)
+  counter.value.artwork = artworkTotal
+
+  // only fetch if visitor authenticated, this needs to be done to reduce server load
+  if (auth.loggedIn) {
     // count feed total
     const [feedTotal] = await userApi.countFeeds(userId.value)
     counter.value.feed = feedTotal
-
-    // count artwork total
-    const [artworkTotal] = await userApi.countArtworks(userId.value)
-    counter.value.artwork = artworkTotal
-
-    // count followers
-    const [followersTotal] = await userApi.countFollowers(userId.value)
-    counter.value.followers = followersTotal
-
-    // count followings
-    const [followingsTotal] = await userApi.countFollowings(userId.value)
-    counter.value.followings = followingsTotal
 
     // count album total
     const [albumTotal] = await album.countAlbums(userId.value)
@@ -792,21 +821,13 @@ const fetchUserInfo = async () => {
     counter.value.collection = collectionTotal
 
     // count liked artwork total
-    if (auth.loggedIn && auth.user.id === userInfo.value.id) {
+    if (auth.user.id === userInfo.value.id) {
       const [likedArtworkTotal] = await artworkApi.countUserLikedArtworks({
         userId: userId.value
       })
       counter.value.liked = likedArtworkTotal
     }
-
-    emit('setMeta', {
-      title: `(${userInfo.value.username}) ${userInfo.value.name}`
-    })
-  } catch (error) {
-    // 
   }
-
-  loading.value = false
 }
 
 /**

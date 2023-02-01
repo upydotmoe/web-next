@@ -81,6 +81,7 @@ import useUser from '~/composables/users/useUser'
 
 // components
 import SuccessMessageModal from '~/components/globals/SuccessMessageModal.vue'
+import { removeAuthenticatedUserCookies } from '~~/utils/helpers';
 
 // stores
 const auth = useAuthStore()
@@ -153,6 +154,9 @@ const update = async () => {
     
     auth.user.user_settings.show_explicit = inputData.value.showExplicit ? 1 : 0
     auth.user.user_settings.show_gore = inputData.value.showGore ? 1 : 0
+
+    // remove and replace related cookies
+    removeAuthenticatedUserCookies()
   }
 
   saving.value.settings.loading = false

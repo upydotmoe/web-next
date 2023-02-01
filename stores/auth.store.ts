@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { removeAuthenticatedUserCookies } from '~~/utils/helpers'
 
 export default defineStore('auth', () => {
   const router = useRouter()
@@ -53,6 +54,9 @@ export default defineStore('auth', () => {
     r43f0rt3jen.value = null
     i502p00r0.value = false
     user.value = {}
+
+    // remove cookies
+    removeAuthenticatedUserCookies()
   }
   /**
    * @methods
