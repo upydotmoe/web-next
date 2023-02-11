@@ -39,7 +39,7 @@
       }
 
       &__avatar {
-        @apply flex flex-row gap-2 whitespace-nowrap comments__item__user-avatar;
+        @apply flex flex-row gap-2 whitespace-nowrap comments__item__user-avatar avatar;
         
         span {
           @apply leading-6;
