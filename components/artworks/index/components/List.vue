@@ -65,7 +65,7 @@
       <LoadingEmptyErrorMessage
         :loading="loading"
         :empty="isEmpty"
-        :empty-message="$t('artworks.noArtworkYet')"
+        :empty-message="customEmptyMessage !== '' ? customEmptyMessage : $t('artworks.noArtworkYet')"
         :error="isError"
         :fetch="fetchTop"
       />
@@ -151,6 +151,10 @@ const props = defineProps({
   discoverRoute: {
     type: String,
     default: '/'
+  },
+  customEmptyMessage: {
+    type: String,
+    default: ''
   }
 })
 

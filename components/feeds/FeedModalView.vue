@@ -368,17 +368,17 @@ const viewFeed = async (selectedFeedId) => {
       emit('showError')
     }
   } else {
-    if (data.feed.artworks) {
-      data.feed.artworks.images = []
-      for (let assetIdx = 0; assetIdx < data.feed.artworks.artwork_assets.length; assetIdx++) {
+    if (data.feed.artwork_share_info) {
+      data.feed.images = []
+      for (let assetIdx = 0; assetIdx < data.feed.artwork_assets.length; assetIdx++) {
         if (assetIdx <= 3) {
-          const imageUrl = await generateArtworkThumb(data.feed.artworks.artwork_assets[assetIdx].bucket, data.feed.artworks.artwork_assets[assetIdx].filename, 'feed')
-          data.feed.artworks.images.push(imageUrl)
+          const imageUrl = await generateArtworkThumb(data.feed.artwork_assets[assetIdx].bucket, data.feed.artwork_assets[assetIdx].filename, 'feed')
+          data.feed.images.push(imageUrl)
         }
       }
 
-      if (((!auth.loggedIn && data.feed.artworks.is_explicit) || (data.feed.artworks.is_explicit && !auth.user.user_settings.show_explicit))) {
-        data.feed.artworks.apply_explicit_filter = true
+      if (((!auth.loggedIn && data.feed.artwork_share_info.is_explicit) || (data.feed.artwork_share_info.is_explicit && !auth.user.user_settings.show_explicit))) {
+        data.feed.artwork_share_info.apply_explicit_filter = true
       }
     }
 
