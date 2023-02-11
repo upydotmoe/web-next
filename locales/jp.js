@@ -241,11 +241,11 @@ export default {
         changeAvatar: 'Change avatar',
         chooseNewAvatar: 'Choose new avatar',
         fileTooLarge: 'File too large',
-        avatarMaxAllowedFileSize: 'Max allowed size is 500 Kb',
+        avatarMaxAllowedFileSize: 'Max allowed size is 1 MB',
         cover: 'Cover',
         changeCover: 'Change cover',
         chooseNewCover: 'Choose new cover',
-        coverMaxAllowedFileSize: 'Max allowed size is 500 Kb'
+        coverMaxAllowedFileSize: 'Max allowed size is 2 MB'
       }
     }
   },
