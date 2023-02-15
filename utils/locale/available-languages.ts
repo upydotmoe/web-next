@@ -11,10 +11,10 @@ export const availableLanguages: ILocales = {
     name: 'English',
     iso: 'en-US',
     icon: 'i-twemoji-flag-us-outlying-islands'
-  },
-  id: {
-    name: 'Bahasa Indonesia',
-    iso: 'id-ID',
-    icon: 'i-twemoji-flag-indonesia'
   }
+  // id: {
+  //   name: 'Bahasa Indonesia',
+  //   iso: 'id-ID',
+  //   icon: 'i-twemoji-flag-indonesia'
+  // }
 }
