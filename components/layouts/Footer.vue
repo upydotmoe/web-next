@@ -7,13 +7,7 @@
       <img :src="$colorMode.preference == 'dark' ? logoWhite : logo">
     </div>
     <!-- <span class="mx-3 hover:underline">
-      <nuxt-link :to="'/terms'">{{ $t('terms') }}</nuxt-link>
-    </span>
-    <span class="mx-3 hover:underline">
       <nuxt-link :to="'/privacy'">{{ $t('privacy') }}</nuxt-link>
-    </span>
-    <span class="mx-3 hover:underline">
-      <nuxt-link :to="'/docs'">{{ $t('docs') }}</nuxt-link>
     </span> -->
     <br>
     <nuxt-link to="/community-guidelines">
@@ -29,7 +23,9 @@
       <a
         target="_blank"
         href="https://twitter.com/upydotmoe"
-      >Contact Us</a>
+      >
+        {{ $t('contactUs') }}
+      </a>
     </span>
     <!-- <span class="mx-3 hover:underline">
       <a
@@ -41,7 +37,9 @@
       <a
         target="_blank"
         href="https://github.com/sponsors/upydotmoe"
-      >Sponsor Us</a>
+      >
+        {{ $t('sponsorUs') }}
+      </a>
     </span>
     <span class="mx-3 hover:underline">
       <nuxt-link :to="'/support-us'">{{ $t('supportUs') }}</nuxt-link>

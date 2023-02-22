@@ -129,7 +129,7 @@
             :text-size="'text-3xl'"
           />
           <div class="mt-2 text-tiny">
-            Currently making magic..
+            {{ $t('feedLoading') }}
           </div>
         </div>
       </template>

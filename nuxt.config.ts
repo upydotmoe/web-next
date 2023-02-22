@@ -186,6 +186,7 @@ export default defineNuxtConfig({
     ],
     safelist: [
       'i-twemoji-flag-us-outlying-islands',
+      'i-openmoji-flag-japan',
       'i-twemoji-flag-indonesia',
       'i-fluent-arrow-enter-20-filled',
       'i-ci-external-link',

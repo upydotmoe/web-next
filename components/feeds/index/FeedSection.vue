@@ -175,7 +175,7 @@
             :text-size="'text-3xl'"
           />
           <div class="justify-center mt-2 text-tiny hidden-md-flex">
-            Currently making magic..
+            {{ $t('feedLoading') }}
           </div>
         </div>
       </template>

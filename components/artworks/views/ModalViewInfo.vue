@@ -73,8 +73,8 @@
           { 'font-bold text-red-400': previewMode }
         ]"
       >
-        {{ !previewMode ? $t('publishedIn') : $t('willBePublishedIn') }}
-      </span> {{ formatDate(artworkDetail.scheduled_post) }}
+        {{ !previewMode ? $t('publishedIn', { publishDate: formatDate(artworkDetail.scheduled_post) }) : $t('willBePublishedIn', { publishDate: formatDate(artworkDetail.scheduled_post) }) }}
+      </span>
     </div>
 
     <!-- tags -->

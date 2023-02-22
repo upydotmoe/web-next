@@ -171,7 +171,7 @@
               class="flex nav-icon md:hidden"
               @click="openModal('auth-modal')"
             >
-              <Icon :name="'i-fe-login'" />
+              <Icon :name="'i-majesticons-user-circle-line'" />
             </div>
           </div>
 

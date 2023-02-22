@@ -144,7 +144,7 @@
             v-show="alert.showFileTooBig"
             class="p-2 text-xs text-white bg-red-400 rounded-md shadow-md"
           >
-            {{ $t('artworks.add.form.fileTooBig') }} {{ maxFileSize }}MB.
+            {{ $t('artworks.add.form.fileTooBig', { maxFileSize: `${maxFileSize}MB` }) }}
           </div>
 
           <client-only>

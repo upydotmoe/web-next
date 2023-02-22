@@ -1,0 +1,574 @@
+{
+  "meta": {
+    "title": {
+      "app": "Upy (本物の芸術家による本物の芸術, AI による絵画に反対！)",
+      "feed": {
+        "post": "新しいテキスト更新を投稿する",
+        "feed": "タイムライン"
+      },
+      "artwork": {
+        "post": "新作投稿",
+        "artwork": "作品"
+      },
+      "profile": {
+        "profile": "プロフィール設定",
+        "social": "ソーシャル設定",
+        "password": "パスワード変更",
+        "settings": "その他"
+      },
+      "browse": "閲覧する"
+    }
+  },
+  "all": "全て",
+  "comics": {
+    "comic": "コミック",
+    "comics": "コミック"
+  },
+  "tutorials": {
+    "tutorial": "チュートリアル",
+    "tutorials": "チュートリアル"
+  },
+  "artworks": {
+    "artwork": "作品",
+    "artworks": "作品",
+    "noArtworkYet": "まだ作品がありません。あなたが最初の投稿者になりましょう。",
+    "youDontHaveArtworkYet": "まだ作品を投稿していません。",
+    "notFound": "作品が見つかりません、または削除されました。",
+    "latestArtworks": "最新作品",
+    "newest": "最新",
+    "popularArtworks": "ポピュラー",
+    "mostPopular": "最も人気のある",
+    "dailyPopular": "デイリーポピュラー",
+    "deleteArtwork": "この作品をキャンセルして削除する",
+    "successDelete": "作品は削除されました。ホームページにリダイレクトしています...",
+    "moreArtworkBy": "More by",
+    "liked": "お気に入りの作品",
+    "usersLiked": "ユーザーがいいねした",
+    "usersShared": "ユーザーがシェアした",
+    "previewModeMessage": "現在、プレビューモードで表示中です。この作品はまだ公開されていません。",
+    "originalCharacter": "オリジナルキャラクター",
+    "redraws": "リドロー",
+    "redrawed": "リドロー ",
+    "myRedraw": "私のリドロー",
+    "redrawThisArtwork": "リドローする",
+    "originalArtwork": "オリジナル作品",
+    "redrawOriginalLoading": "オリジナル作品の情報を読み込んでいます...",
+    "noDescription": "説明なし",
+    "similarArtworks": "関連作品",
+    "add": {
+      "form": {
+        "title": "新作投稿",
+        "titleRedraw": "リドローを投稿する",
+        "uploadSuccess": "投稿が成功しました！",
+        "uploadFailure": "作品のアップロードに失敗しました。もう一度お試しください。",
+        "successRedirect": "作品ページにリダイレクトします...",
+        "uploading": "作品をアップロードしています、しばらくお待ちください...",
+        "fileTooBig": "選択されたファイルの1つが大きすぎます。{maxFileSize} 以下のファイルを選択してください。",
+        "uploadingButton": "アップロード中...",
+        "post": "アップロード",
+        "publishDate": "公開予定日を選択する",
+        "allowRedraw": "リドローを許可する",
+        "redrawInMyStyle": "自分流で描いた再描画"
+      }
+    },
+    "update": {
+      "form": {
+        "fetchFailure": "作品情報を取得できませんでした。ページを更新して再度お試しください。",
+        "title": "作品情報の更新",
+        "updated": "作品が更新されました！",
+        "successRedirect": "作品ページにリダイレクトしています..."
+      }
+    },
+    "form": {
+      "options": {
+        "explicitMark": "もし投稿物に不適切な表現がある場合は、適切にExplicit/R-18コンテンツとマークしてください。Explicit/R-18コンテンツとしてマークされていない作品に不適切な表現が含まれていた場合、削除される可能性があります。",
+        "goreMark": "もし作品に血、不快な内容、またはそれに類する要素が含まれる場合は、過激表現ありとしてマークすることで、視聴者が作品の潜在的な過激さについて認識でき、自分で閲覧を決めることができます。",
+        "originalCharacterMark": "もし作品に描かれているキャラクターがあなた自身が作成したものである場合は、オリジナルキャラクターを含むとしてマークしてください。もし作品に描かれているキャラクターが他の人のキャラクターまたはアニメーションシリーズのものである場合は、このオプションにチェックしないでください。",
+        "allowRedrawMark": "このオプションにチェックを入れると、他のアーティストがあなたの作品をリドローまたはリミックスし、自分のバージョンを提出することを許可することができます。このオプションをチェックすると、リドローボタンが有効になり、他のアーティストがあなたの作品をインスピレーションとして使用して自分のバージョンを提出できるようになります。",
+        "redrawOwnStyleMark": "あなた自身の描画スタイルを使用して作品をリドローする場合は、このオプションにチェックを入れてください。"
+      }
+    }
+  },
+  "search": {
+    "search": "検索",
+    "loginMessage": "この機能を使用するには、最初にログインしてください。"
+  },
+  "users": {
+    "user": "ユーザー",
+    "users": "ユーザー"
+  },
+  "pagination": {
+    "next": "次へ",
+    "previous": "前へ"
+  },
+  "popularUsers": "人気ユーザー",
+  "discover": "発見",
+  "seeMore": "もっと見る",
+  "browse": "閲覧する",
+  "premium": "プレミアム",
+  "logout": "ログアウト",
+  "home": "ホームページ",
+  "feed": "タイムライン",
+  "feeds": {
+    "newUser": {
+      "welcomingMenus": {
+        "setupYourAccount": "アカウント設定",
+        "uploadYourArtwork": "新しい作品をアップロードする",
+        "exploreArtworks": "探す",
+        "followSomeone": "誰かをフォローする"
+      },
+      "welcome": "Upyへようこそ",
+      "suggestedUsers": "フォローするのにおすすめのユーザー"
+    },
+    "suggestedUsers": "フォローのおすすめ",
+    "all": "全て",
+    "textOnly": "テキストのみ",
+    "artworkOnly": "作品のみ",
+    "notFound": "投稿が見つかりませんか削除されました",
+    "haventPostedAnyUpdate": "このユーザーはまだ投稿していません。",
+    "form": {
+      "title": "新しいテキスト投稿をする",
+      "feed": "タイムライン",
+      "posted": "テキストの更新が投稿されました！",
+      "posting": "投稿中...",
+      "postingYourUpdate": "投稿しています...",
+      "postFailure": "投稿に失敗しました、もう一度お試しください。",
+      "successRedirect": "アップデートが投稿されました。あなたの投稿にリダイレクトしています。"
+    },
+    "share": {
+      "artwork": {
+        "title": "タイムラインにシェアする",
+        "success": "タイムラインにシェアしました"
+      }
+    },
+    "nothingToShow": "表示するものがありません。フォローしてアップデートを取得しましょう",
+    "followMorePeople": "もっと人をフォローして、アップデートを取得しましょう"
+  },
+  "explore": "探す",
+  "explores": {
+    "noFollowing": "表示するものがありません。フォローしてアップデートを取得しましょう"
+  },
+  "random": "ランダム",
+  "communities": "コミュニティ",
+  "shuffle": "シャッフル",
+  "day": "日",
+  "daily": "デイリー",
+  "week": "週",
+  "weekly": "週間",
+  "month": "月",
+  "monthly": "月刊",
+  "allTime": "すべての時間",
+  "email": "メール",
+  "loadMore": "もっと読み込む",
+  "loginHead": "既存のアカウントにログインする",
+  "registerHead": "コミュニティに参加する",
+  "accountCreated": "アカウントが作成されました",
+  "dontHaveAnAccount": "アカウントをお持ちでないですか？",
+  "forgotPassword": "パスワードをお忘れですか？",
+  "resetPassword": "パスワードをリセットする",
+  "next": "次へ",
+  "follow": "フォローする",
+  "followers": {
+    "followers": "フォロワー",
+    "followersHidden": "このユーザーはフォロワーリストを非公開にしています。",
+    "hideMyFollowers": "フォロワーを非表示にする"
+  },
+  "followings": {
+    "following": "フォロー中",
+    "followings": "フォロー中",
+    "followPrivately": "プライベートフォロー",
+    "followingsHidden": "このユーザーは自分がフォローしている人のリストを非表示にすることを決めました。",
+    "hideMyFollowings": "フォロー中の人を非表示にする",
+    "followingOnly": "フォロー中",
+    "global": "グローバル"
+  },
+  "followingOnly": "フォロー中",
+  "privateFollow": "プライベートフォロー",
+  "unfollow": "フォロー解除",
+  "viewMore": "もっと見る",
+  "goToHome": "ホームに移動する",
+  "loading": "ロード中...",
+  "loadingPleaseWait": "読み込み中、お待ちください...",
+  "feedLoading": "魔法を使っています...",
+  "pleaseWait": "お待ちください...",
+  "tryAgain": "再試行",
+  "nothingToShow": "あれ？何も表示されません",
+  "default": "デフォルト",
+  "mostViewed": "最も閲覧数が多い",
+  "mostLiked": "いいね数順",
+  "mostCommented": "最もコメントが多い",
+  "safe": "安全な",
+  "explicit": "露骨な/R-18",
+  "containExplicit": "R-18 コンテンツを含みます",
+  "explicitContent": "露骨な/R-18",
+  "explicitContentAlert": "露骨な/R-18コンテンツが含まれています。プロフィール設定で露骨なコンテンツのオプションを有効にしなかったため、このフィルターを適用しました。",
+  "explicitContentAlertForGuest": "ゲストとしてこのページにアクセスしたため、R-18/エキスプリシットなコンテンツが含まれているため、このフィルターを適用しました。",
+  "explicitShowMeThisContent": "このコンテンツを表示する",
+  "gore": "R-18G",
+  "containGore": "R-18G要素を含んでいます",
+  "goreContent": "R-18G",
+  "goreContentAlert": "R-18Gコンテンツが含まれています。あなたのプロフィール設定にこのタイプのコンテンツを有効にしていないため、このフィルターが適用されました。",
+  "goreContentAlertForGuest": "この作品にはR-18G要素が含まれています。ゲストとしてこのページにアクセスしたため、このフィルターが適用されました。",
+  "goreShowMeThisContent": "このコンテンツを表示する",
+  "apply": "適用",
+  "hide": "非表示",
+  "filters": "フィルター",
+  "readMore": "続きを読む",
+  "delete": "削除",
+  "settings": {
+    "settings": "設定",
+    "backToProfile": "プロフィール",
+    "profile": "プロフィール",
+    "social": "ソーシャル",
+    "password": "パスワード",
+    "security": "セキュリティ",
+    "preference": "その他"
+  },
+  "report": "報告",
+  "reports": {
+    "reports": "報告",
+    "yourReports": "あなたの報告",
+    "title": "この作品を報告する理由は何ですか？",
+    "alreadyReported": "すでに報告されています",
+    "alreadyReportedDescription": "この投稿をすでに報告しました。報告状況はこちらからご覧いただけます：",
+    "reportStatus": "報告状況",
+    "selectReasons": "理由をひとつまたは複数選択してください。",
+    "selectedReasons": "選択された理由",
+    "describeReason": "この作品を報告する理由を説明してください",
+    "describeText": "",
+    "reasons": {
+      "stolen": "盗作/著作権侵害",
+      "spam": "迷惑メール",
+      "hateSpeech": "ヘイトスピーチ",
+      "harassment": "嫌がらせ",
+      "falseInfo": "フェイクニュース/偽情報",
+      "suicide": "自殺や自傷行為",
+      "graphic": "グロテスクな暴力表現（流血、切断、刺殺など）",
+      "terrorism": "テロ行為の扇動",
+      "aiGeneratedArt": "AIによる生成画像",
+      "somethingElse": "その他の理由"
+    },
+    "reportSubmitted": "報告が送信されました",
+    "reportSubmittedMessage": "報告してくれてありがとうございます。コミュニティを安全に保つために協力してくれてありがとうございます。報告内容をできるだけ早く確認し、対応いたします。",
+    "reportId": "レポートID",
+    "reportDate": "報告日",
+    "user": "ユーザー",
+    "userReporting": "報告者",
+    "post": "投稿する",
+    "reportedPost": "報告された作品",
+    "description": "説明",
+    "reportDescription": "レポートの説明",
+    "status": "ステータス",
+    "decision": "判断",
+    "viewPost": "作品を見る",
+    "moreInfo": "詳細情報",
+    "viewReportedPost": "報告された作品を表示",
+    "decisionMadeAt": "決定日時",
+    "reportDetail": "レポートの詳細",
+    "postRemoved": "作品は削除されました",
+    "decisions": {
+      "remove": "削除",
+      "doNotRemove": "削除しない"
+    },
+    "submitReviewAndClose": "レビューを送信して閉じる"
+  },
+  "viewProfile": "プロフィール",
+  "post": "投稿する",
+  "dashboard": "ダッシュボード",
+  "saved": "保存済み",
+  "private": "プライベート",
+  "pro": "Pro",
+  "cancel": "キャンセル",
+  "clear": "クリア",
+  "save": "保存",
+  "saving": "節約...",
+  "create": "作成する",
+  "createdAt": "作成日時",
+  "no": "いいえ",
+  "yes": "はい",
+  "share": "シェア",
+  "count": {
+    "view": "ビュー",
+    "views": "ビュー",
+    "like": "いいね",
+    "likes": "いいね",
+    "comment": "件のコメント",
+    "comments": "件のコメント",
+    "share": "シェア"
+  },
+  "notifications": {
+    "likes": "いいね",
+    "comments": "コメント",
+    "follows": "フォロー",
+    "feeds": "フィード",
+    "markAllAsRead": "すべて既読にする",
+    "clear": "クリア"
+  },
+  "back": "戻る",
+  "edit": "編集",
+  "editMode": "編集モード",
+  "manage": "管理",
+  "show": "表示",
+  "quit": "終了",
+  "open": "開く",
+  "openInNewTab": "新しいタブで開く",
+  "copySharableLink": "共有用リンクをコピー",
+  "linkCopied": "リンクがコピーされました",
+  "followMessage": "誰かをフォローしてフィードの更新を受け取ろう",
+  "reset": "リセット",
+  "title": "タイトル",
+  "description": "説明",
+  "tags": {
+    "tags": "タグ",
+    "artworkCount": "作品数"
+  },
+  "tagsInputPlaceholder": "タグ（Enterキーまたはコンマを押して新しいタグを追加）",
+  "tagsApplied": "個のタグが適用済み",
+  "pickUpToTags": "最大10個のタグを選択してください",
+  "update": "保存",
+  "updated": "保存済み",
+  "updating": "節約...",
+  "success": "成功",
+  "close": "閉じる",
+  "publishedIn": "{publishDate}に公開",
+  "willBePublishedIn": "{publishDate}に公開されます",
+  "remove": "削除",
+  "terms": "利用規約",
+  "privacy": "プライバシー",
+  "youHaveReachedTheEnd": "最後まで到達しました",
+  "albums": {
+    "album": "アルバム",
+    "albums": "アルバム",
+    "selectAlbums": "アルバムを選択してください",
+    "removeSelected": "選択したものを削除",
+    "created": "アルバムが作成されました！",
+    "itemAdded": "選択された作品は選択されたアルバムに追加されました。",
+    "itemRemoved": "選択された作品はアルバムから削除されました。",
+    "manageModeActiveMessage": "現在、管理モードです。このアルバムから複数のアイテムを選択して削除できます。",
+    "addToAlbum": "アルバムに追加する",
+    "empty": "アルバムがまだありません。プロフィールページで新しいアルバムを作成してください。",
+    "create": {
+      "form": {
+        "title": "作成する"
+      }
+    },
+    "edit": {
+      "form": {
+        "title": "アルバムを更新する"
+      }
+    },
+    "maxItemLimitReached": "アイテムの最大数に達しました"
+  },
+  "collections": {
+    "collection": "コレクション",
+    "collections": "コレクション",
+    "selectCollections": "コレクションを選択してください",
+    "removeSelected": "選択したものを削除",
+    "created": "コレクションを作成しました！",
+    "itemAdded": "選択された作品は選択されたコレクションに追加されました。",
+    "itemRemoved": "選択された作品はコレクションから削除されました。",
+    "manageModeActiveMessage": "現在は管理モードです。複数の作品を選択して、このコレクションから削除することができます。",
+    "addToCollection": "コレクションに追加",
+    "collectionCreated": "コレクションが作成されました！",
+    "failedToCreateCollection": "コレクションの作成に失敗しました",
+    "addItem": {
+      "form": {
+        "title": "コレクションを選択してください"
+      }
+    },
+    "createNewCollection": "作成する",
+    "create": {
+      "form": {
+        "title": "作成する"
+      }
+    },
+    "edit": {
+      "form": {
+        "title": "コレクションを更新"
+      }
+    },
+    "maxItemLimitReached": "アイテムの最大数に達しました"
+  },
+  "profile": {
+    "profile": "プロフィール",
+    "manageModeActiveMessage": "現在、管理モードです。複数の作品を選択してアルバムに追加できます。",
+    "setting": "プロフィール設定",
+    "penName": "ペンネーム",
+    "artworks": {
+      "sorter": {
+        "latest": "最新",
+        "popular": "人気順",
+        "oldest": "最古"
+      }
+    },
+    "forms": {
+      "update": {
+        "name": "名前",
+        "bio": "自己紹介",
+        "location": "場所",
+        "profileUpdated": "プロフィールが更新されました！",
+        "username": "ユーザー名",
+        "changeUsername": "ユーザー名を変更",
+        "changingYourUsername": "ユーザー名を変更中...",
+        "usernameChanged": "ユーザー名が変更されました！",
+        "penName": "ペンネーム",
+        "usernameTaken": "ユーザー名は既に使われています",
+        "penNameTaken": "ペンネームは既に使われています",
+        "showExplicitContent": "R-18作品を表示",
+        "showGoreContent": "R-18G作品を表示",
+        "avatar": "アバター",
+        "changeAvatar": "アバターを変更",
+        "chooseNewAvatar": "新しいアバターを選択",
+        "fileTooLarge": "ファイルが大きすぎます",
+        "avatarMaxAllowedFileSize": "最大許容サイズは1MBです",
+        "avatarChanged": "アバターが変更されました！",
+        "cover": "カバー画像",
+        "changeCover": "カバー画像を変更する",
+        "chooseNewCover": "新しいカバー画像を選択してください",
+        "coverMaxAllowedFileSize": "最大許容サイズは2MBです",
+        "coverChanged": "カバー画像が変更されました！",
+        "password": {
+          "currentPasswordLabel": "アカウントの所有者であることを確認するために、現在のパスワードを入力してください。",
+          "currentPassword": "現在のパスワード",
+          "newPassword": "新しいパスワード",
+          "success": "パスワードが変更されました！新しいパスワードでログインできます。"
+        },
+        "socials": {
+          "facebook": "Facebook",
+          "facebookPlaceholder": "あなたのFacebookのユーザー名 (https://facebook.com/<ユーザー名>)",
+          "twitter": "Twitter",
+          "twitterPlaceholder": "あなたのTwitterのユーザー名 (https://twitter.com/<ユーザー名>)",
+          "instagram": "Instagram",
+          "instagramPlaceholder": "あなたのInstagramのユーザー名 (https://instagram.com/<ユーザー名>)",
+          "patreon": "Patreon",
+          "patreonPlaceholder": "あなたのPatreonのユーザー名 (https://patreon.com/<ユーザー名>)",
+          "youtube": "YouTube",
+          "youtubePlaceholder": "あなたのYouTubeのURL",
+          "twitch": "Twitch",
+          "twitchPlaceholder": "あなたのTwitchのユーザー名 (https://twitch.tv/<ユーザー名>)",
+          "discord": "Discord",
+          "discordPlaceholder": "あなたのDiscord ID (例: Upymoe#9732)",
+          "picarto": "Picarto.TV",
+          "picartoPlaceholder": "あなたのPicarto.TVのユーザー名 (https://picarto.tv/<ユーザー名>)",
+          "gumroad": "Gumroad",
+          "gumroadPlaceholder": "あなたのGumroadのユーザー名 (https://<ユーザー名>.gumroad.com)",
+          "personalWebsite": "個人ウェブサイト",
+          "personalWebsitePlaceholder": "あなたの個人ウェブサイトのURL"
+        }
+      }
+    }
+  },
+  "language": {
+    "request": "新しい翻訳のリクエスト",
+    "english": "英語",
+    "indonesia": "インドネシア語",
+    "japan": "日本語"
+  },
+  "logins": {
+    "login": "ログイン",
+    "form": {
+      "username": "ユーザー名",
+      "password": "パスワード"
+    }
+  },
+  "registration": {
+    "register": "登録",
+    "form": {
+      "email": "メール",
+      "username": "ユーザー名",
+      "name": "名前",
+      "password": "パスワード",
+      "registered": {
+        "passphraseCopyAlert": "このデータを安全な場所に保存するか、プロフィールのセキュリティ設定で確認できます。アカウントを回復する際にはこのデータが必要になりますので、忘れずに保管してください。",
+        "didNotReceiveVerificationLink": "Didn't receive the verification link?",
+        "verificationLinkSent": "Verification link sent.",
+        "accountCreatedInfo": "Account created, please verify your email address.",
+        "accountSuccessfullyVerified": "Account successfully verified.",
+        "accountAlreadyVerified": "Account already verified."
+      }
+    }
+  },
+  "accountRecovery": {
+    "form": {
+      "pleaseInputRecoveryPassphrase": "アカウントの復旧パスフレーズを入力してください",
+      "username": "ユーザー名",
+      "email": "メール",
+      "passphrase": "パスフレーズ",
+      "recoveryLinkSent": "復旧リンクを送信しました",
+      "recoveryLinkSentInfo": "パスワードの復旧リンクをメールで送信しました",
+      "didNotReceiveRecoveryLink": "リンクが届いていない場合？",
+      "resend": "再送信",
+      "recoverYourPassword": "パスワードを復元",
+      "newPassword": "新しいパスワード",
+      "retypeNewPassword": "新しいパスワードを再入力",
+      "retypeNewPasswordError": "パスワード確認が一致しません"
+    },
+    "resetPassword": "パスワードをリセットする",
+    "accountRecovered": "アカウントが回復しました。新しい資格情報でログインできます。"
+  },
+  "comments": {
+    "comments": "コメント",
+    "noCommentYet": "まだコメントがありません。最初のコメントを投稿してください。",
+    "reachedTheEnd": "最後まで到達しました",
+    "send": "コメント",
+    "inputPlaceholder": "コメントを追加する",
+    "loginOrRegisterToLeaveComment": "コメントを投稿するにはログインまたは登録が必要です。",
+    "loadOlder": "過去のコメントを読み込む",
+    "replies": {
+      "reply": "返信",
+      "replies": "返信",
+      "loadMore": "過去の返信を読み込む",
+      "write": "返信を書く"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "うわ！何か問題が発生しました。"
+  },
+  "alert": {
+    "areYouSure": "本当によろしいですか？",
+    "youCannotUndoThisAction": "このアクションを元に戻すことはできません。"
+  },
+  "typeSomething": "何か入力してください",
+  "contactUs": "お問い合わせ",
+  "sponsorUs": "スポンサーになる",
+  "supportUs": "サポートする",
+  "validation": {
+    "required": "{fieldName} は必須項目です。",
+    "email": "メールアドレスの形式が正しくありません",
+    "min": "{fieldName}は{min}文字以上である必要があります",
+    "max": "{fieldName}は、{max}文字以下で入力してください。",
+    "containSymbol": "{fieldName}には少なくとも1つの記号が含まれている必要があります。",
+    "containNumber": "{fieldName}には数字を1つ以上含める必要があります",
+    "equalTo": "{fieldName}は{fieldNameSource}と同じでなければなりません"
+  },
+  "guidelines": {
+    "title": "コンテンツガイドライン",
+    "content": "<div class=\"mt-4\" style=\"line-height: 22px;\"><ul style=\"margin: 0 20px;\"><li style=\"list-style: decimal;\">自分が所有していない、または自分が制作していないアートワークを投稿しないでください。たとえオリジナルのアーティストから許可を得ていても、それはコミュニティ内のすべてのアーティストに公正な関与と認知を保証するためです。他人のアートワークを再描画したい場合は、オリジナルのアーティストから許可を得た上で「アートワークの再描画」機能を使用して再描画されたバージョンを投稿できます。</li><li style=\"list-style: decimal;\">トピックに関するコンテンツに留めてください。フォーラムやコミュニティのテーマと関係のない写真、クラフト、タトゥーアートを投稿しないでください。このプラットフォームは2Dのドローイング、イラスト、2Dビジュアルアートを対象としています。</li><li style=\"list-style: decimal;\"><b>人工知能（AI）ツールを使用して作成された画像は投稿しないでください</b>。もしAIによって生成された画像に遭遇した場合、すぐにモデレーターに報告してください。不適切に描かれた手、不自然なポーズ、奇妙な着色、不自然な影、繰り返しのポーズなど、特徴的な特徴によってAIによって生成されたアートを識別することができます。また、アーティストの他の作品と比較したり、アートスタイルに不一致があることによってもAIによって生成されたアートを認識することができます。</li><li style=\"list-style: decimal;\"><b>AIの宣伝やプロモーションは禁止</b>です。フォーラムやコミュニティでの、AIによるツールやサービスの紹介は禁止されています。「アートコミュニティの純粋さを取り戻しましょう！」</li><li style=\"list-style: decimal;\">タグをスパムすることで閲覧数を増やすことは禁止されています。</li><li style=\"list-style: decimal;\">もし作品が露骨・成熟・アダルトコンテンツを含んでいる場合は、投稿にR-18フィルターを含める必要があります。</li><li style=\"list-style: decimal;\">もし血、グロ、もしくはその他の不快な要素がある場合、投稿にはR-18Gフィルターを必ずつけてください。</li><li style=\"list-style: decimal;\">テロを脅かすまたはテロ行為を扇動するような内容の作品は投稿しないでください。</li><li style=\"list-style: decimal;\">政治に関する作品や政治的な主張を宣伝する投稿は禁止です。</li><li style=\"list-style: decimal;\">自分の作品の説明には、詐欺やフィッシングのリンクを含めないでください。</li></ul><br /><div>以下のルールに違反する作品を見つけた場合は、報告ボタンを使用してモデレーターに通知してください。私たちはすぐに問題を調査し、コミュニティの品質、関連性、尊重を維持するために適切な措置を講じます。私たちは、すべてのアーティストが楽しい場所となるよう、あなたの助けを感謝しています。</div><br /><div>Upyに作品を投稿することで、あなたは私たちがあなたのアートワークをInstagramやFacebookなどの他のソーシャルメディアプラットフォームに掲載することを許可することに同意するものとします。</div><br /><div>以下のガイドラインを読んだことにより、1つ以上のルールに違反した場合、あなたの作品が削除され、アカウントが一時的または永久的に削除される可能性があることに同意するものとします。私たちはコミュニティの品質と誠実性を重視しており、これらのガイドラインに違反する行為は容認できません。</div</div>"
+  },
+  "copyAll": "Copy all",
+  "copied": "コピー",
+  "artTrades": {
+    "artTrade": "Art Trade",
+    "host": "Host",
+    "participantHost": "HOST",
+    "viewDetail": "View Detail",
+    "notSubmittedYet": "Not Submitted Yet",
+    "notSubmittedDesc": "Share this URL to your friend so they can submit their submission.",
+    "form": {
+      "title": "Trade Title",
+      "host": "Host",
+      "hosting": "Hosting..",
+      "submitting": "Submitting..",
+      "submitted": "Trade room created!",
+      "selectedWork": "Your Submission",
+      "submitYourSubmission": "Submit Your Submission",
+      "artwork": {
+        "title": "Select or Upload New Artwork",
+        "new": "New Artwork",
+        "existing": "Pick from Gallery",
+        "uploaded": "Artwork submitted!"
+      }
+    }
+  },
+  "reportIssue": "問題を報告する"
+}
