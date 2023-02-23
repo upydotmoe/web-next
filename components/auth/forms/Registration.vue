@@ -71,6 +71,12 @@
           >
         </n-validate>
 
+        <div>
+          <input type="checkbox"> Aggree to <nuxt-link :to="'/tos'">{{ $t('terms') }}</nuxt-link>
+          <input type="checkbox"> Aggree to <nuxt-link :to="'/community-guidelines'">{{ $t('guidelines.title') }}</nuxt-link>
+          <input type="checkbox"> Aggree that you will not submit AI image
+        </div>
+
         <!-- CF turnstile captcha -->
         <div class="flex flex-row justify-center mt-2 w-full">
           <Turnstile

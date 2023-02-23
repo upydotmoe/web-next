@@ -10,15 +10,21 @@
       <nuxt-link :to="'/privacy'">{{ $t('privacy') }}</nuxt-link>
     </span> -->
     <br>
-    <nuxt-link to="/community-guidelines">
+
+    <nuxt-link
+      class="mx-3 hover:underline"
+      to="/tos"
+    >
+      {{ $t('terms') }}
+    </nuxt-link>
+
+    <nuxt-link
+      class="mx-3 hover:underline"
+      to="/community-guidelines"
+    >
       {{ $t('guidelines.title') }}
     </nuxt-link>
-    <span class="mx-3 hover:underline">
-      <a
-        target="_blank"
-        href="https://github.com/upydotmoe"
-      >Github</a>
-    </span>
+
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
@@ -27,12 +33,7 @@
         {{ $t('contactUs') }}
       </a>
     </span>
-    <!-- <span class="mx-3 hover:underline">
-      <a
-        target="_blank"
-        href="https://upy.betteruptime.com/"
-      >Server Status</a>
-    </span> -->
+
     <span class="mx-3 hover:underline">
       <a
         target="_blank"
@@ -41,9 +42,18 @@
         {{ $t('sponsorUs') }}
       </a>
     </span>
+
     <span class="mx-3 hover:underline">
       <nuxt-link :to="'/support-us'">{{ $t('supportUs') }}</nuxt-link>
     </span>
+
+    <span class="mx-3 hover:underline">
+      <a
+        target="_blank"
+        href="https://github.com/upydotmoe"
+      >Github</a>
+    </span>
+
     <br>
     <span class="mx-3 text-gray-400">&copy; 2023 - {{ currentDate() }} Upy</span>
   </footer>

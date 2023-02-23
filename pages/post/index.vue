@@ -120,7 +120,7 @@ onBeforeMount(() => {
 // @import '~/assets/css/tailwind.scss';
 
 .categories {
-  @apply grid grid-cols-2 md:grid-cols-4 gap-2 mb-2;
+  @apply grid grid-cols-2 md:grid-cols-3 gap-2 mb-2;
 
   .category {
     @apply p-4 rounded-md shadow-sm text-center align-middle cursor-pointer hover:shadow-lg mb-6 flex flex-row justify-center;

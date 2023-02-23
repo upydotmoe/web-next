@@ -5,7 +5,7 @@
       class="heading"
     >
       <span class="title">
-        {{ $t('artworks.moreArtworkBy') }}
+        <!-- {{ $t('artworks.moreArtworkBy') }} -->
         <nuxt-link
           v-if="artworkDetail.users"
           :to="'/u/' + artworkDetail.users.username"
