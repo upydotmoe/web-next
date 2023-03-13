@@ -5,10 +5,9 @@
     :no-right-side="true"
   >
     <div class="mx-2">
-      <LoginMessage v-if="!auth.loggedIn" />
+      <!-- <LoginMessage v-if="!auth.loggedIn" /> -->
 
       <div
-        v-else
         id="lists"
       >
         <!-- search box -->

@@ -24,7 +24,7 @@
         {{ $t('browse') }}
       </nuxt-link>
       <a
-        v-if="auth.loggedIn && artworkAvailabity > 1"
+        v-if="artworkAvailabity > 1"
         href="#"
         class="uppercase"
         @click="random()"
@@ -39,7 +39,6 @@
         {{ $t('artTrades.artTrade') }}
       </nuxt-link> -->
       <nuxt-link
-        v-if="auth.loggedIn"
         :to="'/tags'"
         class="uppercase"
       >

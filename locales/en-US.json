@@ -572,5 +572,6 @@
       }
     }
   },
-  "reportIssue": "Report Issue"
+  "reportIssue": "Report Issue",
+  "loginFullFeature": "Login to access full features."
 }

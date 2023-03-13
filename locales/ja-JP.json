@@ -572,5 +572,6 @@
       }
     }
   },
-  "reportIssue": "問題を報告する"
+  "reportIssue": "問題を報告する",
+  "loginFullFeature": "すべての機能を利用するにはログインしてください。"
 }

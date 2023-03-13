@@ -72,9 +72,34 @@
         </n-validate>
 
         <div>
-          <input type="checkbox"> Aggree to <nuxt-link :to="'/tos'">{{ $t('terms') }}</nuxt-link>
-          <input type="checkbox"> Aggree to <nuxt-link :to="'/community-guidelines'">{{ $t('guidelines.title') }}</nuxt-link>
-          <input type="checkbox"> Aggree that you will not submit AI image
+          <div class="flex flex-col gap-2 mt-3">
+            <label class="flex flex-row gap-1">
+              <input
+                v-model="aggreements.tos"
+                type="checkbox"
+              > Aggree to our <a
+                href="/tos"
+                class="href"
+                target="_blank"
+              >{{ $t('terms') }}</a>
+            </label>
+            <label class="flex flex-row gap-1">
+              <input
+                v-model="aggreements.guidelines"
+                type="checkbox"
+              > Aggree to our <a
+                href="/community-guidelines"
+                class="href"
+                target="_blank"
+              >{{ $t('guidelines.title') }}</a>
+            </label>
+            <label class="flex flex-row gap-1">
+              <input
+                v-model="aggreements.ai"
+                type="checkbox"
+              > Aggree that you will not upload AI-generated images
+            </label>
+          </div>
         </div>
 
         <!-- CF turnstile captcha -->
@@ -90,6 +115,9 @@
 
         <input
           type="submit"
+          :class="[
+            { '!disabled-button': !aggreementsChecked }
+          ]"
           :value="$t('registration.register').toUpperCase()"
         >
       </form>
@@ -219,6 +247,13 @@ const registerAlert = ref({
 
 const showRegistrationSuccessDialog = computed(() => authFormStore.showRegistrationSuccessDialog)
 const showResendNotification = ref(false)
+
+const aggreements = ref({
+  tos: false,
+  guidelines: false,
+  ai: false
+})
+const aggreementsChecked = computed(() => aggreements.value.tos && aggreements.value.guidelines && aggreements.value.ai)
 
 // input data
 const initialValue = {

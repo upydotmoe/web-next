@@ -54,11 +54,11 @@ const tagsApi = useTags(oApiConfiguration, fetchOptions())
 
 const router = useRouter()
 
-onBeforeMount(() => {
-  if (!auth.loggedIn) {
-    router.push('/')
-  }
-})
+// onBeforeMount(() => {
+//   if (!auth.loggedIn) {
+//     router.push('/')
+//   }
+// })
 
 onMounted(() => {
   fetch()

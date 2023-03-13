@@ -6,6 +6,17 @@
     :fullscreen="true"
   >
     <div class="flex flex-col gap-12 px-2 mt-2 w-full">
+      <div
+        v-if="!auth.loggedIn"
+        class="flex flex-row gap-2 p-4 text-black bg-yellow-300 rounded-md"
+      >
+        <Icon
+          :name="'i-mdi-information-variant'"
+          :text-size="'text-lg'"
+          :icon-color="'text-black'"
+        /> {{ $t('loginFullFeature') }}
+      </div>
+
       <Recent />
       <Following v-if="auth.loggedIn && isFollowingSomeone" />
       <Popular />
@@ -18,6 +29,7 @@
 import useAuthStore from '@/stores/auth.store'
 
 // components
+import Icon from '~~/components/globals/Icon.vue'
 import Layout from '~/components/layouts/Layout.vue'
 import Recent from '~/components/artworks/index/Recent.vue'
 import Following from '~/components/artworks/index/Following.vue'

@@ -157,7 +157,7 @@
                 'bg-transparent rounded-sm',
                 { 'pointer-events-none cursor-not-allowed': saving || saved },
               ]"
-              accepted-file-types="image/jpeg, image/jpg"
+              accepted-file-types="image/jpeg, image/jpg, image/png"
               allow-multiple="true"
               allow-drop="true"
               allow-reorder="true"
@@ -372,6 +372,26 @@
           </div>
         </section>
 
+        <div class="mt-4 mb-2">
+          <label class="flex flex-row gap-2">
+            <input
+              v-model="aggreementAccepted"
+              type="checkbox"
+            > 
+            <span>
+              I have read the <a
+                href="/tos"
+                class="href"
+                target="_blank"
+              >{{ $t('terms') }}</a>, <a
+                href="/community-guidelines"
+                class="href"
+                target="_blank"
+              >{{ $t('guidelines.title') }}</a> and this is not AI-generated image.
+            </span>
+          </label>
+        </div>
+
         <div class="buttons">
           <button
             type="reset"
@@ -384,7 +404,7 @@
             :class="[
               'submit',
               { 'pointer-events-none cursor-not-allowed': saving || saved }, 
-              { '!disabled-button': !inputData.title }
+              { '!disabled-button': !inputData.title && !aggreementAccepted }
             ]"
           >
             <div class="flex flex-row">
@@ -544,7 +564,7 @@ const fetchSetting = async () => {
     maxFileSize.value = settingMaxFileSize
   }
 
-  labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
+  labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
 }
 
 // if it's update form, fetch current artwork detail
@@ -597,6 +617,8 @@ const inputData = ref({
   publishDate: null,
   publishTime: null
 })
+
+const aggreementAccepted = ref(false)
 
 const tags = ref([])
 
