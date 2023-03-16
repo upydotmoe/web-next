@@ -62,9 +62,27 @@
           @remove-filter="removeFilter"
         />
 
+        <ImgComparisonSlider
+          v-if="!loading && artworkDetail.is_before_after"
+          hover="hover"
+          tabindex="0"
+          class="slider-example-opacity-and-size rendered"
+        >
+          <img
+            slot="first"
+            style="width: 100%"
+            :src="beforeAfter.before"
+          >
+          <img
+            slot="second"
+            style="width: 100%"
+            :src="beforeAfter.after"
+          >
+        </ImgComparisonSlider>
+
         <!-- artwork image data -->
         <Images
-          v-if="!loading"
+          v-if="!loading && !artworkDetail.is_before_after"
           :is-modal="isModal"
           :artwork="artworkDetail"
           :show-explicit-alert="showExplicitAlert"
@@ -73,10 +91,23 @@
 
         <!-- mini artwork info badges -->
         <section
-          v-if="artworkDetail.is_explicit || artworkDetail.is_gore || artworkDetail.is_original_character"
+          v-if="artworkDetail.is_explicit || artworkDetail.is_gore || artworkDetail.is_original_character || artworkDetail.is_before_after"
           id="mini-badge-info-section"
           class="flex flex-row gap-2 mb-4"
         >
+          <!-- before-after badge, show this if the artwork is a before-after work -->
+          <div
+            v-if="artworkDetail.is_before_after"
+            class="flex flex-row gap-2 p-2 bg-blue-500 rounded-md"
+          >
+            <Icon
+              :name="'i-tabler-square-half'"
+              :text-size="'text-lg'"
+              :icon-color="'text-white'"
+            />
+          </div>
+
+
           <!-- explicit badge, show this if the artwork has "explicit" mark -->
           <div
             v-if="artworkDetail.is_explicit"
@@ -101,7 +132,7 @@
           <!-- original character badge, show this if the artwork has "OC" mark -->
           <div
             v-if="artworkDetail.is_original_character"
-            class="flex flex-row gap-2 p-2 px-4 rounded-xl theme-colored"
+            class="flex flex-row gap-2 p-2 px-4 rounded-md theme-colored"
           >
             <Icon
               :name="'i-clarity-cursor-hand-click-line'"
@@ -538,6 +569,7 @@
 <script setup>
 import 'viewerjs/dist/viewer.css'
 import { useClipboard } from '@vueuse/core'
+import { ImgComparisonSlider } from '@img-comparison-slider/vue'
 
 // constants
 import { POST_TYPES } from '~/utils/constants'
@@ -575,6 +607,7 @@ const { oApiConfiguration, fetchOptions } = useApiFetch()
 const { applyExplicitFilter, removeExplicitFilter } = useUpyImage()
 const artworkApi = useArtwork(oApiConfiguration, fetchOptions())
 const reportApi = useReport(oApiConfiguration, fetchOptions())
+const { generateSemiCompressedArtworkUrl } = useUpyImage()
 
 const emit = defineEmits(['setMeta', 'stopLoading', 'showEmpty', 'showError'])
 const props = defineProps({
@@ -661,6 +694,11 @@ const liked = ref(false)
 const saved = ref(false)
 const inAlbum = ref(false)
 
+const beforeAfter = ref({
+  before: '',
+  after: ''
+})
+
 const view = async (selectedWorkId) => {
   previewMode.value = false
   loading.value = true
@@ -676,6 +714,17 @@ const view = async (selectedWorkId) => {
     }
   } else {
     artworkDetail.value = data
+
+    // if before-after, form the before and after image
+    if (artworkDetail.value.is_before_after) {
+      const artworkAssets = artworkDetail.value.artwork_assets
+      for (let beforeAfterIdx = 0; beforeAfterIdx < artworkAssets.length; beforeAfterIdx++) {
+        beforeAfter.value = {
+          before: generateSemiCompressedArtworkUrl(artworkAssets[0].bucket, artworkAssets[0].filename, false),
+          after: generateSemiCompressedArtworkUrl(artworkAssets[1].bucket, artworkAssets[1].filename, false)
+        }
+      }
+    }
     
     // check if artwork marked as explicit or gore content
     // if yes then apply filter to hide the artwork from users that didn't activated the explicit/gore content
@@ -920,4 +969,12 @@ defineExpose({
 <style lang="scss" scoped>
 @import "~/assets/css/artworks/view.scss";
 @import '~/assets/css/artworks/list.scss';
+
+.slider-example-opacity-and-size {
+  --default-handle-width: 100px;
+}
+
+.slider-example-opacity-and-size:focus {
+  --default-handle-opacity: 0;
+}
 </style>

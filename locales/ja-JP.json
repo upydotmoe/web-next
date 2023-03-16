@@ -573,5 +573,14 @@
     }
   },
   "reportIssue": "問題を報告する",
-  "loginFullFeature": "すべての機能を利用するにはログインしてください。"
+  "loginFullFeature": "すべての機能を利用するにはログインしてください。",
+  "beforeAfter": {
+    "title": "Before-After",
+    "before": "前 (Before)",
+    "after": "後 (After)",
+    "form": {
+      "title": "新しいBefore-After作品を投稿する"
+    },
+    "dimensionAlert": "より良い結果を得るために、同じ寸法の画像をアップロードしてください。"
+  }
 }

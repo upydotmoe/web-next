@@ -6,6 +6,7 @@
     <div class="mb-20">
       <!-- post category -->
       <div class="categories">
+        <!-- text post -->
         <div
           class="category"
           :class="[mode === 'feed' ? 'button' : 'theme-color']"
@@ -25,6 +26,8 @@
           />
           <span class="text-sm leading-6">{{ $t('feed') }}</span>
         </div>
+
+        <!-- artwork -->
         <div
           class="category"
           :class="[mode === POST_TYPES.ARTWORK ? 'button' : 'theme-color']"
@@ -43,6 +46,27 @@
             class="mr-3 text-2xl text-white"
           />
           <span class="text-sm leading-6">{{ $t('artworks.artwork') }}</span>
+        </div>
+
+        <!-- before after -->
+        <div
+          class="category"
+          :class="[mode === POST_TYPES.BEFORE_AFTER ? 'button' : 'theme-color']"
+          @click="mode = POST_TYPES.BEFORE_AFTER"
+        >
+          <Icon
+            v-show="mode != POST_TYPES.BEFORE_AFTER"
+            :name="'i-tabler-square-half'"
+            :text-size="'texl-xl'"
+            class="mr-3 text-2xl"
+          />
+          <Icon
+            v-show="mode == POST_TYPES.BEFORE_AFTER"
+            :name="'i-tabler-square-half'"
+            :text-size="'texl-xl'"
+            class="mr-3 text-2xl text-white"
+          />
+          <span class="text-sm leading-6">{{ $t('beforeAfter.title') }}</span>
         </div>
         <!-- <div
           class="category"
@@ -69,6 +93,12 @@
           v-show="mode === POST_TYPES.ARTWORK"
           class="artwork"
         />
+
+        <!-- artwork -->
+        <BeforeAfterForm
+          v-show="mode === POST_TYPES.BEFORE_AFTER"
+          class="artwork"
+        />
       </div>
     </div>
   </Layout>
@@ -84,6 +114,7 @@ import useAuthStore from '@/stores/auth.store'
 import Layout from '~/components/layouts/Layout.vue'
 import Icon from '~/components/globals/Icon.vue'
 import ArtworkForm from '~/components/artworks/forms/ArtworkForm.vue'
+import BeforeAfterForm from '~/components/artworks/forms/BeforeAfterForm.vue'
 import FeedForm from '~/components/feeds/forms/FeedForm.vue'
 import { POST_TYPES } from '~/utils/constants'
 

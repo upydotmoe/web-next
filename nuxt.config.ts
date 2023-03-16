@@ -25,7 +25,8 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'dns-prefetch', href: `//${process.env.BUNNY_CDN_URL}` },
         { rel: 'dns-prefetch', href: `//${process.env.CDN_DOMAIN}` },
-        // { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" }
+        // { rel: "stylesheet", href: "https://unpkg.com/flowbite@1.4.5/dist/flowbite.min.css" },
+        { rel: "stylesheet", href: "https://unpkg.com/img-comparison-slider@7/dist/styles.css" }
       ],
       script: [
         // {
@@ -118,7 +119,8 @@ export default defineNuxtConfig({
     '~/plugins/auth-modal.client.js',
     '~/plugins/work-modal.client.js',
     '~/plugins/image-viewer.client.js',
-    '~/plugins/auto-animate.js'
+    '~/plugins/auto-animate.js',
+    '~/plugins/before-after.client.js'
   ],
 
   build: {

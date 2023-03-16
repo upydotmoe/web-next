@@ -567,5 +567,14 @@
     }
   },
   "reportIssue": "Laporkan Masalah",
-  "loginFullFeature": "Masuk untuk mengakses semua fitur."
+  "loginFullFeature": "Masuk untuk mengakses semua fitur.",
+  "beforeAfter": {
+    "title": "Before-After",
+    "before": "Before",
+    "after": "After",
+    "form": {
+      "title": "Unggah Before-After Baru"
+    },
+    "dimensionAlert": "Untuk hasil yang lebih baik, silakan unggah gambar dengan dimensi yang sama."
+  }
 }
