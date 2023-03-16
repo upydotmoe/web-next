@@ -147,7 +147,7 @@
             {{ $t('artworks.add.form.fileTooBig', { maxFileSize: `${maxFileSize}MB` }) }}
           </div>
 
-          <div class="flex flex-col gap-2 w-full md:flex-row">
+          <div class="flex flex-row gap-2 w-full">
             <!-- before -->
             <div class="flex flex-col gap-2 w-1/2">
               <h1 class="title-tiny">
@@ -591,8 +591,8 @@ const fetchSetting = async () => {
     maxFileSize.value = settingMaxFileSize
   }
 
-  beforeLabel.value = '<div class=\'text-xxs\'><div>Pick or drop before image file here</div><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
-  afterLabel.value = '<div class=\'text-xxs\'><div>Pick or drop after image file here</div><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
+  beforeLabel.value = '<div class=\'text-xxs\'><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
+  afterLabel.value = '<div class=\'text-xxs\'><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
 }
 
 // if it's update form, fetch current artwork detail
