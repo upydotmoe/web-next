@@ -573,5 +573,14 @@
     }
   },
   "reportIssue": "Report Issue",
-  "loginFullFeature": "Login to access full features."
+  "loginFullFeature": "Login to access full features.",
+  "beforeAfter": {
+    "title": "Before-After",
+    "before": "Before",
+    "after": "After",
+    "form": {
+      "title": "Post New Before-After Artwork"
+    },
+    "dimensionAlert": "For better results, please upload images with the same dimensions."
+  }
 }

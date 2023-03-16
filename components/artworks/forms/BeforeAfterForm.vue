@@ -29,7 +29,7 @@
         v-if="!isArtTrade && !isUpdate"
         class="title"
       >
-        {{ !redrawWorkId ? $t('artworks.add.form.title') : $t('artworks.add.form.titleRedraw') }}
+        {{ !redrawWorkId ? $t('beforeAfter.form.title') : $t('artworks.add.form.titleRedraw') }}
       </h2>
 
       <div
@@ -147,27 +147,64 @@
             {{ $t('artworks.add.form.fileTooBig', { maxFileSize: `${maxFileSize}MB` }) }}
           </div>
 
-          <client-only>
-            <file-pond
-              ref="pond"
-              :label-idle="labelIdleText"
-              :max-files="isArtTrade && redrawWorkId ? 1 : maxFileCount"
-              :max-file-size="maxFileSize*1000000"
-              :class="[
-                'bg-transparent rounded-sm',
-                { 'pointer-events-none cursor-not-allowed': saving || saved },
-              ]"
-              accepted-file-types="image/jpeg, image/jpg, image/png"
-              allow-multiple="true"
-              allow-drop="true"
-              allow-reorder="true"
-              allow-process="true"
-              credits="false"
-              name="files[]"
-              instant-upload="false"
-              @updatefiles="handleFilePondUpdateFile"
-            />
-          </client-only>
+          <div class="flex flex-col gap-2 w-full md:flex-row">
+            <!-- before -->
+            <div class="flex flex-col gap-2 w-1/2">
+              <h1 class="title-tiny">
+                {{ $t('beforeAfter.before') }}
+              </h1>
+              <file-pond
+                ref="pond"
+                :label-idle="beforeLabel"
+                :max-files="1"
+                :max-file-size="maxFileSize*1000000"
+                :class="[
+                  'bg-transparent rounded-sm',
+                  { 'pointer-events-none cursor-not-allowed': saving || saved },
+                ]"
+                accepted-file-types="image/jpeg, image/jpg, image/png"
+                allow-multiple="false"
+                allow-drop="true"
+                allow-reorder="false"
+                allow-process="true"
+                credits="false"
+                name="files[]"
+                instant-upload="false"
+                @updatefiles="handleBeforeFile"
+              />
+            </div>
+
+            <!-- after -->
+            <div class="flex flex-col gap-2 w-1/2">
+              <h1 class="title-tiny">
+                {{ $t('beforeAfter.after') }}
+              </h1>
+              <file-pond
+                ref="pond"
+                :label-idle="afterLabel"
+                :max-files="1"
+                :max-file-size="maxFileSize*1000000"
+                :class="[
+                  'bg-transparent rounded-sm',
+                  { 'pointer-events-none cursor-not-allowed': saving || saved },
+                ]"
+                accepted-file-types="image/jpeg, image/jpg, image/png"
+                allow-multiple="false"
+                allow-drop="true"
+                allow-reorder="false"
+                allow-process="true"
+                credits="false"
+                name="files[]"
+                instant-upload="false"
+                @updatefiles="handleAfterFile"
+              />
+            </div>
+          </div>
+          <!-- before after image dimension alert -->
+          <div class="flex flex-row gap-2 p-4 mt-1 text-black bg-yellow-300 rounded-md">
+            <Icon :name="'i-mdi-information-variant'" />
+            {{ $t('beforeAfter.dimensionAlert') }}
+          </div>
         </n-validate>
 
         <n-validate>
@@ -372,10 +409,7 @@
           </div>
         </section>
 
-        <div
-          v-if="!isUpdate"
-          class="mt-4 mb-2"
-        >
+        <div class="mt-4 mb-2">
           <label class="flex flex-row gap-2">
             <input
               v-model="aggreementAccepted"
@@ -409,7 +443,8 @@
               { 'pointer-events-none cursor-not-allowed': saving || saved },
               { '!disabled-button': !inputData.title.length },
               { '!disabled-button': !aggreementAccepted },
-              { '!disabled-button': !artworkFiles.length },
+              { '!disabled-button': !beforeFile.length },
+              { '!disabled-button': !afterFile.length },
             ]"
           >
             <div class="flex flex-row">
@@ -538,7 +573,9 @@ watch (() => router.query, () => {
 })
 
 const resetForm = () => {
-  artworkFiles.value = []
+  beforeFile.value = []
+  afterFile.value = []
+  
   tags.value = []
   inputData.value.isExplicit = false
 }
@@ -546,21 +583,6 @@ const resetForm = () => {
 // Fetch setting relate to artwork upload
 const settingApi = useSetting(oApiConfiguration, fetchOptions())
 const fetchSetting = async () => {
-  // get allowed max file count to upload
-  if (!props.isArtTrade && !redrawWorkId.value) {
-    let settingMaxFileCount = 1
-    
-    if (auth.i502p00r0) {
-      const [maxFileCount, error] = await settingApi.getSetting('artwork_max_uploads_pro')
-      settingMaxFileCount = maxFileCount
-    } else {
-      const [maxFileCount, error] = await settingApi.getSetting('artwork_max_uploads')
-      settingMaxFileCount = maxFileCount
-    }
-    
-    maxFileCount.value = settingMaxFileCount
-  }
-
   if (auth.i502p00r0) {
     const [settingMaxFileSize, getSettingMaxFileSizeError] = await settingApi.getSetting('artwork_max_file_size_pro')
     maxFileSize.value = settingMaxFileSize
@@ -569,7 +591,8 @@ const fetchSetting = async () => {
     maxFileSize.value = settingMaxFileSize
   }
 
-  labelIdleText.value = '<div class=\'text-xxs\'><div>Pick or drop up to ' + maxFileCount.value + ' files here</div><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
+  beforeLabel.value = '<div class=\'text-xxs\'><div>Pick or drop before image file here</div><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
+  afterLabel.value = '<div class=\'text-xxs\'><div>Pick or drop after image file here</div><div>PNG, JPEG/JPG format up to ' + maxFileSize.value + 'MB</div></div>'
 }
 
 // if it's update form, fetch current artwork detail
@@ -602,12 +625,17 @@ const fetchWorkInfo = async () => {
 }
 
 // 
-const labelIdleText = ref('')
-const artworkFiles = ref([])
+const beforeLabel = ref('')
+const afterLabel = ref('')
 
-const handleFilePondUpdateFile = (files) => {
-  artworkFiles.value = files.map(files => files.file)
-  console.log(artworkFiles.value)
+const beforeFile = ref([])
+const handleBeforeFile = (files) => {
+  beforeFile.value = files.map(files => files.file)
+}
+
+const afterFile = ref([])
+const handleAfterFile = (files) => {
+  afterFile.value = files.map(files => files.file)
 }
 
 const formId = 'artwork-form'
@@ -633,7 +661,6 @@ const alert = ref({
 })
 
 const maxFileSize = ref(5)
-const maxFileCount = ref(1)
 const saving = ref(false)
 const saved = ref(false)
 const uploadError = ref(false)
@@ -679,6 +706,7 @@ const storeArtwork = async () => {
   formData.append('is_original_character', inputData.value.isOriginalCharacter ? 1 : 0)
   formData.append('allow_redraw', inputData.value.isAllowRedraw ? 1 : 0)
   formData.append('redraw_in_your_style', inputData.value.isRedrawInMyStyle ? 1 : 0)
+  formData.append('is_before_after', 1)
   if (redrawWorkId.value) {
     formData.append('redraw_of', redrawWorkId.value)
   }
@@ -692,20 +720,23 @@ const storeArtwork = async () => {
   }
 
   // check if size is exceeded max file size restriction
-  for (let i = 0; i < artworkFiles.value.length; i++) {
-    if (artworkFiles.value[i].size > (maxFileSize.value * 1000000)) {
-      alert.value.showFileTooBig = true
-    }
+  const acceptableFileSize = maxFileSize.value * 1000000
 
-    if (!alert.value.showFileTooBig) {
-      const file = artworkFiles.value[i]
-      formData.append('files[]', file)
-
-      // collect file orders, count start from 1
-      formData.append('file_order[]', i)
-    }
+  // check before file
+  if (beforeFile.value[0].size > acceptableFileSize) {
+    alert.value.showFileTooBig = true
   }
+  formData.append('files[]', beforeFile.value[0])
+  formData.append('file_order[]', 0)
 
+  // check after file
+  if (afterFile.value[0].size > acceptableFileSize) {
+    alert.value.showFileTooBig = true
+  }
+  formData.append('files[]', afterFile.value[0])
+  formData.append('file_order[]', 1)
+
+  // if files too big
   if (!alert.value.showFileTooBig) {
     // proceed to send data to API
     saving.value = true

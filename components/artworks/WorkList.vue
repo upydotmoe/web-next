@@ -26,10 +26,21 @@
           <div class="mini-icon">
             <!-- image count -->
             <p
-              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
+              v-if="!work.is_before_after && work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
               class="regular"
             >
               {{ work._count.artwork_assets }}
+            </p>
+
+            <!-- before-after -->
+            <p
+              v-if="work.is_before_after"
+              class="z-10 regular !bg-blue-500"
+            >
+              <Icon
+                :name="'i-tabler-square-half'"
+                class="text-white"
+              />
             </p>
 
             <!-- is an original character -->
@@ -71,13 +82,15 @@
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
           
-          <a 
-            :href="'/a/'+work.id"
+          <!-- :href="'/a/'+work.id" -->
+          <div
             :class="[
-              { 'animate-wigglefast': manageMode }
+              { 'animate-wigglefast': manageMode },
+              { 'before-after': work.is_before_after }
             ]"
           >
             <nuxt-img
+              v-if="!work.is_before_after"
               preload
               loading="lazy"
               :src="
@@ -93,7 +106,31 @@
               ]"
               @error="imageLoadError"
             />
-          </a>
+
+            <!-- if it's before-after -->
+            <!-- before -->
+            <nuxt-img
+              v-if="work.is_before_after"
+              preload
+              loading="lazy"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_1.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :class="[
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
+              ]"
+              @error="imageLoadError"
+            />
+            <!-- after -->
+            <nuxt-img
+              v-if="work.is_before_after"
+              preload
+              loading="lazy"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_2.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :class="[
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
+              ]"
+              @error="imageLoadError"
+            />
+          </div>
         </div>
       </a>
       
@@ -112,10 +149,21 @@
           <div class="mini-icon">
             <!-- image count -->
             <p
-              v-if="work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
+              v-if="!work.is_before_after && work._count.artwork_assets > 1 && !applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
               class="regular"
             >
               {{ work._count.artwork_assets }}
+            </p>
+
+            <!-- before-after -->
+            <p
+              v-if="work.is_before_after"
+              class="z-10 regular !bg-blue-500"
+            >
+              <Icon
+                :name="'i-tabler-square-half'"
+                class="text-white"
+              />
             </p>
 
             <!-- is an original character -->
@@ -157,14 +205,16 @@
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
           
-          <a 
-            :href="'/a/'+work.id"
+          <!-- :href="'/a/'+work.id" -->
+          <div
             :class="[
-              { 'animate-wigglefast': manageMode }
+              { 'animate-wigglefast': manageMode },
+              { 'before-after': work.is_before_after }
             ]"
             @click.prevent="null"
           >
             <nuxt-img
+              v-if="!work.is_before_after"
               preload
               loading="lazy"
               :src="
@@ -176,9 +226,34 @@
                 'object-cover w-full h-full unselectable',
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"
+              alt="before image"
               @error="imageLoadError"
             />
-          </a>
+            
+            <!-- if it's before-after -->
+            <!-- before -->
+            <nuxt-img
+              v-if="work.is_before_after"
+              preload
+              loading="lazy"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_1.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :class="[
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
+              ]"
+              @error="imageLoadError"
+            />
+            <!-- after -->
+            <nuxt-img
+              v-if="work.is_before_after"
+              preload
+              loading="lazy"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_2.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :class="[
+                { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
+              ]"
+              @error="imageLoadError"
+            />
+          </div>
         </div>
       </nuxt-link>
     </span>
