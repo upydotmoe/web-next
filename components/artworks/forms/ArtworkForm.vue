@@ -408,8 +408,8 @@
               'submit',
               { 'pointer-events-none cursor-not-allowed': saving || saved },
               { '!disabled-button': !inputData.title.length },
-              { '!disabled-button': !aggreementAccepted },
-              { '!disabled-button': !artworkFiles.length },
+              { '!disabled-button': !isUpdate && !aggreementAccepted },
+              { '!disabled-button': !isUpdate && !artworkFiles.length },
             ]"
           >
             <div class="flex flex-row">
@@ -679,6 +679,7 @@ const storeArtwork = async () => {
   formData.append('is_original_character', inputData.value.isOriginalCharacter ? 1 : 0)
   formData.append('allow_redraw', inputData.value.isAllowRedraw ? 1 : 0)
   formData.append('redraw_in_your_style', inputData.value.isRedrawInMyStyle ? 1 : 0)
+  formData.append('is_before_after', 0)
   if (redrawWorkId.value) {
     formData.append('redraw_of', redrawWorkId.value)
   }
