@@ -77,7 +77,7 @@
           <!-- explicit content filter -->
           <span
             v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
-            class="absolute top-1/2 left-1/2 z-0 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
+            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
           >
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
@@ -113,7 +113,7 @@
               v-if="work.is_before_after"
               preload
               loading="lazy"
-              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_1.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_1.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', isUncropped)"
               :class="[
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"
@@ -124,7 +124,7 @@
               v-if="work.is_before_after"
               preload
               loading="lazy"
-              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_2.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_2.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', isUncropped)"
               :class="[
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"
@@ -200,7 +200,7 @@
           <!-- explicit content filter -->
           <span
             v-if="applyExplicitFilter(auth, work.is_explicit, work.is_gore)"
-            class="absolute top-1/2 left-1/2 z-0 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
+            class="absolute top-1/2 left-1/2 z-10 text-base font-semibold text-white transform -translate-x-1/2 -translate-y-1/2 md:text-lg"
           >
             {{ work.is_gore ? $t('goreContent') : $t('explicitContent') }}
           </span>
@@ -236,7 +236,7 @@
               v-if="work.is_before_after"
               preload
               loading="lazy"
-              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_1.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_1.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', isUncropped)"
               :class="[
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"
@@ -247,7 +247,7 @@
               v-if="work.is_before_after"
               preload
               loading="lazy"
-              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_2.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', false)"
+              :src="artworkThumb(work.artwork_assets[0].bucket, (work.artwork_assets[0].filename.split('_')[0]+'_2.'+work.artwork_assets[0].filename.split('.')[1]), 'thumbnail', isUncropped)"
               :class="[
                 { 'blur-3xl brightness-50 unclickable': applyExplicitFilter(auth, work.is_explicit, work.is_gore) }
               ]"

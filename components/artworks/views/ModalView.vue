@@ -66,17 +66,23 @@
           v-if="!loading && artworkDetail.is_before_after"
           hover="hover"
           tabindex="0"
-          class="slider-example-opacity-and-size rendered"
+          class="rounded-md slider-example-opacity-and-size rendered"
         >
           <img
             slot="first"
             style="width: 100%"
             :src="beforeAfter.before"
+            :class="[
+              { 'blur-lg unclickable': showExplicitAlert },
+            ]"
           >
           <img
             slot="second"
             style="width: 100%"
             :src="beforeAfter.after"
+            :class="[
+              { 'blur-lg unclickable': showExplicitAlert },
+            ]"
           >
         </ImgComparisonSlider>
 
