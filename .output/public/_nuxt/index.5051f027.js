@@ -1,0 +1,1 @@
+import{L as t}from"./Layout.a8963777.js";import{c as e,w as o,o as a,b as s}from"./entry.72e29a02.js";import"./ProBadge.2656324d.js";import"./_plugin-vue_export-helper.c27b6911.js";const r=s("div",{class:"text-xl italic text-center"}," Coming soon.. ",-1),f={__name:"index",setup(c){return(i,n)=>(a(),e(t,{"with-footer":!1},{default:o(()=>[r]),_:1}))}};export{f as default};

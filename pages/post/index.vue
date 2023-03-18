@@ -49,7 +49,7 @@
         </div>
 
         <!-- before after -->
-        <!-- <div
+        <div
           class="category"
           :class="[mode === POST_TYPES.BEFORE_AFTER ? 'button' : 'theme-color']"
           @click="mode = POST_TYPES.BEFORE_AFTER"
@@ -67,7 +67,9 @@
             class="mr-3 text-2xl text-white"
           />
           <span class="text-sm leading-6">{{ $t('beforeAfter.title') }}</span>
-        </div> -->
+        </div>
+
+        <!-- comic & tutorial (not yet available) -->
         <!-- <div
           class="category"
           :class="{ 'button-active': mode === 'comic' }"
